@@ -1,0 +1,13 @@
+engine,n,n_dir,seconds_total,ns_per_element_per_dir
+fortad-reverse,1000,1,  1.763481E-02,      8.8174
+enzyme-reverse,1000,1,  1.543250E-02,      7.7163
+analytical-reverse,1000,1,  1.362036E-02,      6.8102
+fortad-reverse,10000,1,  1.699296E-01,      8.4965
+enzyme-reverse,10000,1,  1.502868E-01,      7.5143
+analytical-reverse,10000,1,  1.380341E-01,      6.9017
+fortad-reverse,100000,1,  1.671036E-01,      8.3552
+enzyme-reverse,100000,1,  1.529988E-01,      7.6499
+analytical-reverse,100000,1,  1.376582E-01,      6.8829
+fortad-reverse,1000000,1,  1.761854E-01,      8.8093
+enzyme-reverse,1000000,1,  1.595227E-01,      7.9761
+analytical-reverse,1000000,1,  1.419462E-01,      7.0973
