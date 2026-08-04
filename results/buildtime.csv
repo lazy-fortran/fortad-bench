@@ -1,0 +1,5 @@
+engine,scenario,seconds
+fortad,cold,0.0495
+enzyme,cold,0.1336
+fortad,incremental,0.0513
+enzyme,incremental,0.1307
