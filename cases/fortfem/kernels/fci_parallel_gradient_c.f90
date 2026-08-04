@@ -24,6 +24,6 @@ subroutine fci_parallel_gradient(n, z, y) bind(C, name="fci_parallel_gradient")
         lower_field = z(base + 4)
         line_length = z(base + 5)
         gradient = (-backward_value*lower_field + forward_value*upper_field)/line_length
-        y = y + gradient
+        y = y + 1.0_dp*gradient
     end do
 end subroutine fci_parallel_gradient

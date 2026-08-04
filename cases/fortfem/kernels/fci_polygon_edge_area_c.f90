@@ -22,6 +22,6 @@ subroutine fci_polygon_edge_area(n, z, y) bind(C, name="fci_polygon_edge_area")
         x_end = z(base + 3)
         y_end = z(base + 4)
         edge_area = (-x_end*y_start + x_start*y_end)/2.0000000000000000E+000_dp
-        y = y + edge_area
+        y = y + 1.0_dp*edge_area
     end do
 end subroutine fci_polygon_edge_area

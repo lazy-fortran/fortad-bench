@@ -27,6 +27,6 @@ subroutine fci_quadrilateral_cell_area(n, z, y)
         y_4 = z(base + 8)
         area = (x_1*y_2 - x_1*y_4 - x_2*y_1 + x_2*y_3 - x_3*y_2 + x_3*y_4 + x_4*y_1 - x_4*y_3)/ &
             2.0000000000000000E+000_dp
-        y = y + area
+        y = y + 1.0_dp*area
     end do
 end subroutine fci_quadrilateral_cell_area

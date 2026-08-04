@@ -48,11 +48,11 @@ subroutine fci_quintic_lagrange_weights(n, z, y)
             node_4)/(node_5 - node_6)
         weight_6 = t12*t6*t7*t8*t9/(node_6 - node_1)/(node_6 - node_2)/(node_6 - node_3)/(node_6 - &
             node_4)/(node_6 - node_5)
-        y = y + weight_1
-        y = y + weight_2
-        y = y + weight_3
-        y = y + weight_4
-        y = y + weight_5
-        y = y + weight_6
+        y = y + 1.0_dp*weight_1
+        y = y + 2.0_dp*weight_2
+        y = y + 3.0_dp*weight_3
+        y = y + 4.0_dp*weight_4
+        y = y + 5.0_dp*weight_5
+        y = y + 6.0_dp*weight_6
     end do
 end subroutine fci_quintic_lagrange_weights

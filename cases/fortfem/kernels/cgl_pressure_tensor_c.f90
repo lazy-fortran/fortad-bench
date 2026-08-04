@@ -31,11 +31,11 @@ subroutine cgl_pressure_tensor(n, z, y) bind(C, name="cgl_pressure_tensor")
         pressure_12 = direction_1*direction_2*t1
         pressure_13 = direction_1*direction_3*t1
         pressure_23 = direction_2*direction_3*t1
-        y = y + pressure_11
-        y = y + pressure_22
-        y = y + pressure_33
-        y = y + pressure_12
-        y = y + pressure_13
-        y = y + pressure_23
+        y = y + 1.0_dp*pressure_11
+        y = y + 2.0_dp*pressure_22
+        y = y + 3.0_dp*pressure_33
+        y = y + 4.0_dp*pressure_12
+        y = y + 5.0_dp*pressure_13
+        y = y + 6.0_dp*pressure_23
     end do
 end subroutine cgl_pressure_tensor
