@@ -22,7 +22,7 @@ out=build/fortnum_suite
 rm -rf "$out"
 mkdir -p "$out" results
 
-WORKLOADS="det2 det3 lagrange4 erfsum multi_input_p2 multi_input_p4 multi_input_p8 multi_input_p16"
+WORKLOADS="det2 det3 lagrange4 erfsum multi_input_p2 multi_input_p4 multi_input_p8 multi_input_p16 smoke_square scalar_root_residual ode_scalar_rhs fixed_quadrature_integrand vector_root_residual_one"
 
 echo "== Enzyme"
 for k in $WORKLOADS; do
@@ -50,6 +50,11 @@ for k in $WORKLOADS; do
         -o "$out/${k}_jvp.f90" "cases/fortnum/kernels/$k.f90"
     "$flang" -O3 -c "$out/${k}_grad.f90" -o "$out/${k}_grad.o" -module-dir "$out"
     "$flang" -O3 -c "$out/${k}_jvp.f90" -o "$out/${k}_jvp.o" -module-dir "$out"
+    # The undifferentiated kernel, as the reference row and as the primal the
+    # harness calls directly. Enzyme gets its own copy through the C-bound
+    # variant, which carries a different symbol, so there is no clash.
+    "$flang" -O3 -c "cases/fortnum/kernels/$k.f90" \
+        -o "$out/${k}_primal.o" -module-dir "$out"
 done
 
 echo "== fortsym"
@@ -73,7 +78,7 @@ done
 echo "== driver"
 "$flang" -O3 -o "$out/bench" harness/bench_fortnum_suite.f90 \
     $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o" "$out/${k}_grad.o" \
-        "$out/${k}_jvp.o"; done) \
+        "$out/${k}_jvp.o" "$out/${k}_primal.o"; done) \
     $(for k in det2 det3 lagrange4 multi_input_p2 multi_input_p4 multi_input_p8 \
         multi_input_p16; do echo "$out/fortsym_${k}_jvp.o" \
         "$out/fortsym_${k}_vjp.o" "$out/${k}_fortsym.o"; done) \
