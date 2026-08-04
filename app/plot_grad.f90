@@ -6,32 +6,43 @@ program plot_grad
                         set_xscale
     implicit none
 
-    type(row_t), allocatable :: rows(:)
-    real(dp), allocatable :: x(:), y(:)
-    integer :: n_rows
-
-    call read_rows("results/dot_sin_grad.csv", rows, n_rows)
-    if (n_rows == 0) then
-        print *, "no gradient results; run the gradient benchmark first"
-        error stop 1
-    end if
-
-    call figure(figsize=[8.0_dp, 6.0_dp])
-    call series(rows, n_rows, "fortad-reverse", x, y)
-    call plot(x, y, label="fortad reverse (fused)")
-    call series(rows, n_rows, "enzyme-reverse", x, y)
-    call plot(x, y, label="Enzyme reverse")
-    call series(rows, n_rows, "analytical-reverse", x, y)
-    call plot(x, y, label="hand-written adjoint")
-    call set_xscale("log")
-    call xlabel("array length n")
-    call ylabel("nanoseconds per element")
-    call title("dot_sin gradient: one reverse sweep over 2n inputs")
-    call legend()
-    call savefig("results/dot_sin_grad.png")
-    print *, "wrote results/dot_sin_grad.png"
+    call plot_case("results/dot_sin_grad.csv", &
+                   "dot_sin gradient: one reverse sweep over 2n inputs", &
+                   "results/dot_sin_grad.png")
+    call plot_case("results/stencil_grad.csv", &
+                   "stencil gradient: per-element write, then reduction", &
+                   "results/stencil_grad.png")
 
 contains
+
+    subroutine plot_case(path, heading, png)
+        !! One figure per case, from its own committed CSV.
+        character(len=*), intent(in) :: path, heading, png
+        type(row_t), allocatable :: rows(:)
+        real(dp), allocatable :: x(:), y(:)
+        integer :: n_rows
+
+        call read_rows(path, rows, n_rows)
+        if (n_rows == 0) then
+            print *, "no results in ", path
+            error stop 1
+        end if
+
+        call figure(figsize=[8.0_dp, 6.0_dp])
+        call series(rows, n_rows, "fortad-reverse", x, y)
+        call plot(x, y, label="fortad reverse")
+        call series(rows, n_rows, "enzyme-reverse", x, y)
+        call plot(x, y, label="Enzyme reverse")
+        call series(rows, n_rows, "analytical-reverse", x, y)
+        call plot(x, y, label="hand-written adjoint")
+        call set_xscale("log")
+        call xlabel("array length n")
+        call ylabel("nanoseconds per element")
+        call title(heading)
+        call legend()
+        call savefig(png)
+        print *, "wrote ", png
+    end subroutine plot_case
 
     subroutine series(rows, n_rows, engine, x, y)
         !! Size sweep for one engine.
