@@ -139,6 +139,45 @@ program bench_enzyme_suite
             real(dp), intent(in) :: z(*)
             real(dp) :: zb(*), y, yb
         end subroutine bruss_b
+
+        ! fortad's gradient-only contract: no primal value returned, matching
+        ! what Tapenade's reverse routine produces. Enzyme cannot express this -
+        ! its seed rides on a duplicated output - so it appears once only.
+        pure subroutine euler_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine euler_grad
+        pure subroutine rk4_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine rk4_grad
+        pure subroutine lstm_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine lstm_grad
+        pure subroutine ba_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine ba_grad
+        pure subroutine bruss_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine bruss_grad
     end interface
 
     integer, parameter :: NW = 5
@@ -166,13 +205,13 @@ contains
         integer, parameter :: N_ELEM = 20000
         integer, parameter :: N_TRIALS = 7
         integer :: n_in, reps, r, i, trial
-        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), dir(:)
-        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t
+        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), zb4(:), dir(:)
+        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t, best_g
 
         n_in = N_ELEM
         if (name == "ba") n_in = 3*N_ELEM
 
-        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), dir(n_in))
+        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), zb4(n_in), dir(n_in))
         do i = 1, n_in
             z(i) = 0.4_dp + 0.3_dp*sin(0.31_dp*i)
             dir(i) = cos(0.77_dp*i)
@@ -197,7 +236,12 @@ contains
 
         ! Three independent implementations. Any two agreeing to 1e-12 while
         ! the third does not is a decisive finding about the third.
+        zb4 = 0.0_dp
+        yb = 1.0_dp
+        call call_fortad_grad(name, N_ELEM, z, yb, zb4)
+
         call cross_check(name, "enzyme", zb, zb2)
+        call cross_check(name, "fortad-grad", zb, zb4)
         call cross_check(name, "tapenade", zb, zb3)
         call check(name, "fortad", N_ELEM, z, dir, zb)
 
@@ -208,7 +252,16 @@ contains
         best_f = huge(1.0_dp)
         best_e = huge(1.0_dp)
         best_t = huge(1.0_dp)
+        best_g = huge(1.0_dp)
         do trial = 1, N_TRIALS
+            call cpu_time(t0)
+            do r = 1, reps
+                yb = 1.0_dp
+                call call_fortad_grad(name, N_ELEM, z, yb, zb4)
+            end do
+            call cpu_time(t1)
+            best_g = min(best_g, t1 - t0)
+
             call cpu_time(t0)
             do r = 1, reps
                 yb = 1.0_dp
@@ -238,8 +291,9 @@ contains
         call row(unit, name, "fortad", n_in, best_f, reps)
         call row(unit, name, "enzyme", n_in, best_e, reps)
         call row(unit, name, "tapenade", n_in, best_t, reps)
+        call row(unit, name, "fortad-grad", n_in, best_g, reps)
 
-        deallocate (z, zb, zb2, zb3, dir)
+        deallocate (z, zb, zb2, zb3, zb4, dir)
     end subroutine run_workload
 
     subroutine call_fortad(name, n, z, y, yb, zb)
@@ -264,6 +318,28 @@ contains
             call bruss_vjp(n, z, y, yb, zb)
         end select
     end subroutine call_fortad
+
+    subroutine call_fortad_grad(name, n, z, yb, zb)
+        !! Dispatch to the fortad-generated gradient-only adjoint.
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(in) :: z(:)
+        real(dp), intent(in) :: yb
+        real(dp), intent(out) :: zb(:)
+
+        select case (name)
+        case ("euler")
+            call euler_grad(n, z, yb, zb)
+        case ("rk4")
+            call rk4_grad(n, z, yb, zb)
+        case ("lstm")
+            call lstm_grad(n, z, yb, zb)
+        case ("ba")
+            call ba_grad(n, z, yb, zb)
+        case ("bruss")
+            call bruss_grad(n, z, yb, zb)
+        end select
+    end subroutine call_fortad_grad
 
     subroutine call_enzyme(name, n, z, zb, y, yb)
         !! Dispatch to the Enzyme-generated adjoint.
