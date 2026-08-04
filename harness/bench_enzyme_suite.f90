@@ -206,7 +206,7 @@ contains
         integer, parameter :: N_TRIALS = 7
         integer :: n_in, reps, r, i, trial
         real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), zb4(:), dir(:)
-        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t, best_g
+        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t, best_g, best_p
 
         n_in = N_ELEM
         if (name == "ba") n_in = 3*N_ELEM
@@ -253,7 +253,18 @@ contains
         best_e = huge(1.0_dp)
         best_t = huge(1.0_dp)
         best_g = huge(1.0_dp)
+        ! The undifferentiated kernel, as a reference. Reverse mode cannot cost
+        ! less than this, and the ratio to it says how much of an engine's time
+        ! is the derivative rather than the function.
+        best_p = huge(1.0_dp)
         do trial = 1, N_TRIALS
+            call cpu_time(t0)
+            do r = 1, reps
+                call primal(name, N_ELEM, z, y)
+            end do
+            call cpu_time(t1)
+            best_p = min(best_p, t1 - t0)
+
             call cpu_time(t0)
             do r = 1, reps
                 yb = 1.0_dp
@@ -292,6 +303,7 @@ contains
         call row(unit, name, "enzyme", n_in, best_e, reps)
         call row(unit, name, "tapenade", n_in, best_t, reps)
         call row(unit, name, "fortad-grad", n_in, best_g, reps)
+        call row(unit, name, "primal", n_in, best_p, reps)
 
         deallocate (z, zb, zb2, zb3, zb4, dir)
     end subroutine run_workload
