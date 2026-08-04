@@ -43,6 +43,10 @@ for k in $WORKLOADS; do
     "$fortad_bin" --mode reverse --indep z --name "${k}_vjp" \
         -o "$out/${k}_vjp.f90" "cases/enzyme_suite/kernels/$k.f90"
     "$flang" -O3 -c "$out/${k}_vjp.f90" -o "$out/${k}_vjp.o" -module-dir "$out"
+    # Gradient-only: the same contract Tapenade's reverse routine offers.
+    "$fortad_bin" --mode reverse --indep z --no-primal --name "${k}_grad" \
+        -o "$out/${k}_grad.f90" "cases/enzyme_suite/kernels/$k.f90"
+    "$flang" -O3 -c "$out/${k}_grad.f90" -o "$out/${k}_grad.o" -module-dir "$out"
 done
 
 echo "== tapenade"
@@ -55,7 +59,8 @@ done
 
 echo "== driver"
 "$flang" -O3 -o "$out/bench" harness/bench_enzyme_suite.f90 \
-    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o"; done) "$out/enzyme.o" \
+    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o" "$out/${k}_grad.o"; done) \
+    "$out/enzyme.o" \
     $(for k in $WORKLOADS; do echo "$tap/${k}_b.o"; done) \
     "$tap/ADFirstAidKit/adStack.o"
 echo "built $out/bench"
