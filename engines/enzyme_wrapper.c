@@ -20,3 +20,16 @@ void dot_sin_jvp_enzyme(int n, const double *a, const double *ad,
     __enzyme_fwddiff((void *)dot_sin, enzyme_const, n, enzyme_dup, a, ad,
                      enzyme_dup, b, bd, enzyme_dup, s, sd);
 }
+
+/* Reverse mode: the shadow arrays accumulate the gradient. Enzyme requires
+ * them zeroed by the caller, which the benchmark does outside the timed
+ * region for the same reason fortad's generated code zeroes them inside: the
+ * cost belongs to whoever owns the buffers, and charging it to only one engine
+ * would not be an honest comparison. */
+extern void __enzyme_autodiff(void *, ...);
+
+void dot_sin_vjp_enzyme(int n, const double *a, double *ab, const double *b,
+                        double *bb, double *s, double *sb) {
+    __enzyme_autodiff((void *)dot_sin, enzyme_const, n, enzyme_dup, a, ab,
+                      enzyme_dup, b, bb, enzyme_dup, s, sb);
+}
