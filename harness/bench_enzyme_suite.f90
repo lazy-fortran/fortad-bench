@@ -109,6 +109,36 @@ program bench_enzyme_suite
             real(dp), intent(in) :: y_b
             real(dp), intent(out) :: z_b(n)
         end subroutine bruss_vjp
+        subroutine euler_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine euler_b
+        subroutine rk4_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine rk4_b
+        subroutine lstm_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine lstm_b
+        subroutine ba_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine ba_b
+        subroutine bruss_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine bruss_b
     end interface
 
     integer, parameter :: NW = 5
@@ -136,13 +166,13 @@ contains
         integer, parameter :: N_ELEM = 20000
         integer, parameter :: N_TRIALS = 7
         integer :: n_in, reps, r, i, trial
-        real(dp), allocatable :: z(:), zb(:), zb2(:), dir(:)
-        real(dp) :: y, yb, t0, t1, best_f, best_e
+        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), dir(:)
+        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t
 
         n_in = N_ELEM
         if (name == "ba") n_in = 3*N_ELEM
 
-        allocate (z(n_in), zb(n_in), zb2(n_in), dir(n_in))
+        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), dir(n_in))
         do i = 1, n_in
             z(i) = 0.4_dp + 0.3_dp*sin(0.31_dp*i)
             dir(i) = cos(0.77_dp*i)
@@ -161,7 +191,14 @@ contains
         ! engines are cross-checked tightly and differenced loosely: the first
         ! catches a wrong derivative, the second catches both being wrong the
         ! same way.
-        call cross_check(name, zb, zb2)
+        zb3 = 0.0_dp
+        yb = 1.0_dp
+        call call_tapenade(name, N_ELEM, z, zb3, y, yb)
+
+        ! Three independent implementations. Any two agreeing to 1e-12 while
+        ! the third does not is a decisive finding about the third.
+        call cross_check(name, "enzyme", zb, zb2)
+        call cross_check(name, "tapenade", zb, zb3)
         call check(name, "fortad", N_ELEM, z, dir, zb)
 
         ! Best of several timing runs, interleaved. A single run of each
@@ -170,6 +207,7 @@ contains
         ! landing on one engine only.
         best_f = huge(1.0_dp)
         best_e = huge(1.0_dp)
+        best_t = huge(1.0_dp)
         do trial = 1, N_TRIALS
             call cpu_time(t0)
             do r = 1, reps
@@ -187,11 +225,21 @@ contains
             end do
             call cpu_time(t1)
             best_e = min(best_e, t1 - t0)
+
+            call cpu_time(t0)
+            do r = 1, reps
+                zb3 = 0.0_dp
+                yb = 1.0_dp
+                call call_tapenade(name, N_ELEM, z, zb3, y, yb)
+            end do
+            call cpu_time(t1)
+            best_t = min(best_t, t1 - t0)
         end do
         call row(unit, name, "fortad", n_in, best_f, reps)
         call row(unit, name, "enzyme", n_in, best_e, reps)
+        call row(unit, name, "tapenade", n_in, best_t, reps)
 
-        deallocate (z, zb, zb2, dir)
+        deallocate (z, zb, zb2, zb3, dir)
     end subroutine run_workload
 
     subroutine call_fortad(name, n, z, y, yb, zb)
@@ -238,6 +286,32 @@ contains
         end select
     end subroutine call_enzyme
 
+    subroutine call_tapenade(name, n, z, zb, y, yb)
+        !! Dispatch to the Tapenade-generated adjoint.
+        !!
+        !! Tapenade's routine recomputes the primal internally for its tape but
+        !! does not hand back the value. That is one scalar store less than the
+        !! other two engines do, which is below the resolution of this
+        !! measurement and is noted rather than corrected for.
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(inout) :: z(:), zb(:)
+        real(dp), intent(inout) :: y, yb
+
+        select case (name)
+        case ("euler")
+            call euler_b(n, z, zb, y, yb)
+        case ("rk4")
+            call rk4_b(n, z, zb, y, yb)
+        case ("lstm")
+            call lstm_b(n, z, zb, y, yb)
+        case ("ba")
+            call ba_b(n, z, zb, y, yb)
+        case ("bruss")
+            call bruss_b(n, z, zb, y, yb)
+        end select
+    end subroutine call_tapenade
+
     subroutine primal(name, n, z, y)
         !! The undifferentiated kernel, for the finite-difference check.
         character(len=*), intent(in) :: name
@@ -259,17 +333,17 @@ contains
         end select
     end subroutine primal
 
-    subroutine cross_check(name, g1, g2)
-        !! fortad against Enzyme, entry by entry.
-        character(len=*), intent(in) :: name
+    subroutine cross_check(name, other, g1, g2)
+        !! fortad against another engine, entry by entry.
+        character(len=*), intent(in) :: name, other
         real(dp), intent(in) :: g1(:), g2(:)
         real(dp) :: err, scale
 
         scale = max(1.0_dp, maxval(abs(g2)))
         err = maxval(abs(g1 - g2))/scale
         if (err > 1.0e-12_dp) then
-            print *, "workload "//name// &
-                ": fortad and Enzyme gradients differ, relative", err
+            print *, "workload "//name//": fortad and "//other// &
+                " gradients differ, relative", err
             error stop 1
         end if
     end subroutine cross_check
