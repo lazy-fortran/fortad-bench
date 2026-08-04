@@ -1,0 +1,30 @@
+# Competing AD engines and their toolchains are fetched locally, never committed.
+# See LEGAL.md.
+engines/*/upstream/
+engines/*/build/
+toolchains/
+.venv/
+__pycache__/
+Manifest.toml
+
+# Build artefacts
+build/
+build-*/
+*.mod
+*.smod
+*.o
+*.a
+*.so
+
+# Raw run output. Curated records under results/ are committed; scratch is not.
+results/scratch/
+*.log
+
+# Third-party study checkouts and downloaded literature. Never committed.
+upstream/*
+!upstream/README.md
+literature/*
+!literature/README.md
+
+# Generated inventories quote upstream licence text.
+docs/generated/
