@@ -7,9 +7,10 @@
 #
 # Fairness note that shapes how these are used: `tapenade -b` emits a
 # gradient-only routine. fortad's and Enzyme's routines compute the primal and
-# the gradient together. Timing them against each other directly would flatter
-# Tapenade by the cost of the primal, so the harness runs the primal separately
-# for Tapenade and adds it in.
+# the gradient together, so timing those against Tapenade directly would
+# flatter Tapenade by the cost of the primal. The harness therefore records a
+# `fortad-grad` row from `fortad --no-primal`, and that is the row to compare
+# against `tapenade`. The `fortad` and `enzyme` rows are the with-primal pair.
 set -euo pipefail
 
 root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
