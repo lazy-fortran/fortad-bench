@@ -50,12 +50,12 @@ subroutine surface_triangle_geometry_3d(n, z, y)
         normal_1 = t12/t13
         normal_2 = t11/t13
         normal_3 = t10/t13
-        y = y + point_1
-        y = y + point_2
-        y = y + point_3
-        y = y + jacobian
-        y = y + normal_1
-        y = y + normal_2
-        y = y + normal_3
+        y = y + 1.0_dp*point_1
+        y = y + 2.0_dp*point_2
+        y = y + 3.0_dp*point_3
+        y = y + 4.0_dp*jacobian
+        y = y + 5.0_dp*normal_1
+        y = y + 6.0_dp*normal_2
+        y = y + 7.0_dp*normal_3
     end do
 end subroutine surface_triangle_geometry_3d

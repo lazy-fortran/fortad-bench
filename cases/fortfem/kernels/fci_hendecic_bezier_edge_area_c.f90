@@ -282,6 +282,6 @@ subroutine fci_hendecic_bezier_edge_area(n, z, y) bind(C, name="fci_hendecic_bez
             1.0000000000000000E+000_dp + (-t14*t53 + t11*t54)*5.0000000000000000E-001_dp + (-t48*t53 + t46*t54)* &
             5.0000000000000000E-001_dp + (-t28*t53 + t24*t54)*5.0000000000000000E-001_dp + (-t40*t53 + t37*t54)* &
             5.0000000000000000E-001_dp + 0.0000000000000000E+000_dp
-        y = y + edge_area
+        y = y + 1.0_dp*edge_area
     end do
 end subroutine fci_hendecic_bezier_edge_area

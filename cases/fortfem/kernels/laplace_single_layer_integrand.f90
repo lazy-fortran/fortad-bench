@@ -32,6 +32,6 @@ subroutine laplace_single_layer_integrand(n, z, y)
         t2 = first_point_2 - second_point_2
         t3 = first_point_3 - second_point_3
         value = first_jacobian*kernel_scale*second_jacobian/sqrt(t1*t1 + t2*t2 + t3*t3)
-        y = y + value
+        y = y + 1.0_dp*value
     end do
 end subroutine laplace_single_layer_integrand

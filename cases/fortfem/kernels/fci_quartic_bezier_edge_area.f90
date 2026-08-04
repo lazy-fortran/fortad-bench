@@ -70,6 +70,6 @@ subroutine fci_quartic_bezier_edge_area(n, z, y)
             6.0000000000000000E+000_dp)*5.0000000000000000E-001_dp + (x_start*t8*4.0000000000000000E+000_dp - &
             y_start*t9*4.0000000000000000E+000_dp)*5.0000000000000000E-001_dp + (x_start*t10 - y_start*t11)* &
             5.0000000000000000E-001_dp + 0.0000000000000000E+000_dp
-        y = y + edge_area
+        y = y + 1.0_dp*edge_area
     end do
 end subroutine fci_quartic_bezier_edge_area

@@ -109,7 +109,14 @@ def write_kernel(stem, inputs, outputs, stmts, locals_text) -> None:
     n = len(inputs)
     unpack = "\n".join(f"        {name} = z(base + {i + 1})"
                        for i, name in enumerate(inputs))
-    accumulate = "\n".join(f"        y = y + {name}" for name in outputs)
+    # Distinct coefficients per output, so the objective is not a partition of
+    # unity. Summing the quintic Lagrange weights plainly gives y = n for every
+    # input: the weights sum to one, the gradient is mathematically zero, and
+    # the benchmark measures how each engine's rounding cancels rather than any
+    # derivative work. Both engines produce noise there - Enzyme's larger than
+    # fortad's - which says nothing about either.
+    accumulate = "\n".join(
+        f"        y = y + {i + 1}.0_dp*{name}" for i, name in enumerate(outputs))
     plain = f"""subroutine {stem}(n, z, y)
     !! {stem} over a batch, its outputs summed.
     !!
