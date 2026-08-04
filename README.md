@@ -30,6 +30,25 @@ Correctness is checked before timing: the harness compares fortad, Enzyme and
 fortsym on every kernel and stops on the first disagreement. All three agree
 everywhere.
 
+### adaptive_trace_integrand measures the compiler, not the engine
+
+Its tangent is 1.69x Enzyme, the one fortnum measurement outside 30%,
+and the reason is not the derivative. fortad emits the minimal form -
+one `exp`, shared between the primal and the tangent - and compiles to
+68 instructions where Enzyme's compiles to 119. Fewer instructions,
+more time.
+
+What differs is vectorisation across iterations. The kernel is one
+`exp` call per element, and Enzyme's object comes out of clang while
+fortad's comes out of flang. Whatever clang does with a libm call in a
+loop, flang does not, and `-fveclib=libmvec` on the flang side does not
+change it.
+
+So the number is real but it is a statement about two compilers rather
+than two differentiators. Left in the corpus, and labelled, because
+hiding a measurement that does not flatter the tool is worse than
+explaining it.
+
 ### Read rk4 with care
 
 rk4 reverse at 0.11x is the widest margin in the corpus and the least

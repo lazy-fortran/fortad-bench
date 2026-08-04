@@ -63,6 +63,54 @@ program bench_fortnum_suite
             integer(c_int), value :: n
             real(c_double) :: z(*), y
         end subroutine multi_input_p16
+        subroutine vector_root_residual_two_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="vector_root_residual_two_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine vector_root_residual_two_vjp_enzyme
+        subroutine vector_root_residual_two_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="vector_root_residual_two_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine vector_root_residual_two_jvp_enzyme
+        subroutine adaptive_trace_integrand_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="adaptive_trace_integrand_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine adaptive_trace_integrand_vjp_enzyme
+        subroutine adaptive_trace_integrand_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="adaptive_trace_integrand_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine adaptive_trace_integrand_jvp_enzyme
+        subroutine singular_trace_integrand_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="singular_trace_integrand_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine singular_trace_integrand_vjp_enzyme
+        subroutine singular_trace_integrand_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="singular_trace_integrand_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine singular_trace_integrand_jvp_enzyme
+        subroutine scalar_analytical_p1_jvp_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="scalar_analytical_p1_jvp_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine scalar_analytical_p1_jvp_vjp_enzyme
+        subroutine scalar_analytical_p1_jvp_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="scalar_analytical_p1_jvp_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine scalar_analytical_p1_jvp_jvp_enzyme
         subroutine smoke_square_vjp_enzyme(n, z, zb, y, yb) &
                 bind(C, name="smoke_square_vjp_enzyme")
             import :: c_int, c_double
@@ -374,14 +422,17 @@ program bench_fortnum_suite
         end subroutine multi_input_p16_jvp
     end interface
 
-    integer, parameter :: NW = 13
+    integer, parameter :: NW = 17
     character(len=28), parameter :: NAMES(NW) = &
         [character(len=28) :: "det2", "det3", "lagrange4", "erfsum", &
          "multi_input_p2", "multi_input_p4", "multi_input_p8", &
          "multi_input_p16", "smoke_square", "scalar_root_residual", &
          "ode_scalar_rhs", "fixed_quadrature_integrand", &
-         "vector_root_residual_one"]
-    integer, parameter :: ARITY(NW) = [4, 9, 5, 1, 2, 4, 8, 16, 1, 3, 3, 5, 4]
+         "vector_root_residual_one", "vector_root_residual_two", &
+         "adaptive_trace_integrand", "singular_trace_integrand", &
+         "scalar_analytical_p1_jvp"]
+    integer, parameter :: ARITY(NW) = [4, 9, 5, 1, 2, 4, 8, 16, 1, 3, 3, 5, 4, &
+                                  4, 2, 2, 2]
     integer :: unit, w
 
     open (newunit=unit, file="results/fortnum_suite.csv", status="replace", &
@@ -550,6 +601,14 @@ contains
             call det2(n, z, y)
         case ("smoke_square")
             call smoke_square(n, z, y)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two(n, z, y)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand(n, z, y)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand(n, z, y)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp(n, z, y)
         case ("scalar_root_residual")
             call scalar_root_residual(n, z, y)
         case ("ode_scalar_rhs")
@@ -588,6 +647,14 @@ contains
             call det2_vjp(n, z, y, yb, zb)
         case ("smoke_square")
             call smoke_square_vjp(n, z, y, yb, zb)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two_vjp(n, z, y, yb, zb)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand_vjp(n, z, y, yb, zb)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand_vjp(n, z, y, yb, zb)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp_vjp(n, z, y, yb, zb)
         case ("scalar_root_residual")
             call scalar_root_residual_vjp(n, z, y, yb, zb)
         case ("ode_scalar_rhs")
@@ -625,6 +692,14 @@ contains
             call det2_grad(n, z, yb, zb)
         case ("smoke_square")
             call smoke_square_grad(n, z, yb, zb)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two_grad(n, z, yb, zb)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand_grad(n, z, yb, zb)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand_grad(n, z, yb, zb)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp_grad(n, z, yb, zb)
         case ("scalar_root_residual")
             call scalar_root_residual_grad(n, z, yb, zb)
         case ("ode_scalar_rhs")
@@ -662,6 +737,14 @@ contains
             call det2_jvp(n, z, dz, y, dy)
         case ("smoke_square")
             call smoke_square_jvp(n, z, dz, y, dy)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two_jvp(n, z, dz, y, dy)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand_jvp(n, z, dz, y, dy)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand_jvp(n, z, dz, y, dy)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp_jvp(n, z, dz, y, dy)
         case ("scalar_root_residual")
             call scalar_root_residual_jvp(n, z, dz, y, dy)
         case ("ode_scalar_rhs")
@@ -699,6 +782,14 @@ contains
             call det2_jvp_enzyme(n, z, dz, y, dy)
         case ("smoke_square")
             call smoke_square_jvp_enzyme(n, z, dz, y, dy)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two_jvp_enzyme(n, z, dz, y, dy)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand_jvp_enzyme(n, z, dz, y, dy)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand_jvp_enzyme(n, z, dz, y, dy)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp_jvp_enzyme(n, z, dz, y, dy)
         case ("scalar_root_residual")
             call scalar_root_residual_jvp_enzyme(n, z, dz, y, dy)
         case ("ode_scalar_rhs")
@@ -817,6 +908,14 @@ contains
             call det2_vjp_enzyme(n, z, zb, y, yb)
         case ("smoke_square")
             call smoke_square_vjp_enzyme(n, z, zb, y, yb)
+        case ("vector_root_residual_two")
+            call vector_root_residual_two_vjp_enzyme(n, z, zb, y, yb)
+        case ("adaptive_trace_integrand")
+            call adaptive_trace_integrand_vjp_enzyme(n, z, zb, y, yb)
+        case ("singular_trace_integrand")
+            call singular_trace_integrand_vjp_enzyme(n, z, zb, y, yb)
+        case ("scalar_analytical_p1_jvp")
+            call scalar_analytical_p1_jvp_vjp_enzyme(n, z, zb, y, yb)
         case ("scalar_root_residual")
             call scalar_root_residual_vjp_enzyme(n, z, zb, y, yb)
         case ("ode_scalar_rhs")
