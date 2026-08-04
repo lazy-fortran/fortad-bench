@@ -30,6 +30,19 @@ Correctness is checked before timing: the harness compares fortad, Enzyme and
 fortsym on every kernel and stops on the first disagreement. All three agree
 everywhere.
 
+### Read rk4 with care
+
+rk4 reverse at 0.11x is the widest margin in the corpus and the least
+representative. The kernel is a *linear* ODE, so its four stages collapse to
+`state = a*state + b*z(i)` with `a` and `b` loop-invariant. fortad's affine
+analysis proves that and reduces the adjoint to two fused multiply-adds per
+step with no tape, where Enzyme differentiates the stages as written and
+leaves around thirty-five flops per step. Both return the same gradient.
+
+Make the same ODE nonlinear and the margin goes away: fortad then tapes the
+state and recomputes all four stages in reverse, exactly as Enzyme does. The
+number measures an advantage on affine recurrences, not on Runge-Kutta.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
