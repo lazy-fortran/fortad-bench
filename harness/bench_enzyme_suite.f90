@@ -32,6 +32,11 @@ program bench_enzyme_suite
             integer(c_int), value :: n
             real(c_double) :: z(*), y
         end subroutine lstm
+        subroutine ba(n, z, y) bind(C, name="ba")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), y
+        end subroutine ba
         subroutine bruss(n, z, y) bind(C, name="bruss")
             import :: c_int, c_double
             integer(c_int), value :: n
@@ -53,6 +58,11 @@ program bench_enzyme_suite
             integer(c_int), value :: n
             real(c_double) :: z(*), zb(*), y, yb
         end subroutine lstm_vjp_enzyme
+        subroutine ba_vjp_enzyme(n, z, zb, y, yb) bind(C, name="ba_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine ba_vjp_enzyme
         subroutine bruss_vjp_enzyme(n, z, zb, y, yb) bind(C, name="bruss_vjp_enzyme")
             import :: c_int, c_double
             integer(c_int), value :: n
@@ -83,6 +93,14 @@ program bench_enzyme_suite
             real(dp), intent(in) :: y_b
             real(dp), intent(out) :: z_b(n)
         end subroutine lstm_vjp
+        pure subroutine ba_vjp(n, z, y, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(3*n)
+            real(dp), intent(out) :: y
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(3*n)
+        end subroutine ba_vjp
         pure subroutine bruss_vjp(n, z, y, y_b, z_b)
             import :: dp
             integer, intent(in) :: n
@@ -109,6 +127,12 @@ program bench_enzyme_suite
             real(dp), intent(in) :: z(*)
             real(dp) :: zb(*), y, yb
         end subroutine lstm_b
+        subroutine ba_b(n, z, zb, y, yb)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(*)
+            real(dp) :: zb(*), y, yb
+        end subroutine ba_b
         subroutine bruss_b(n, z, zb, y, yb)
             import :: dp
             integer, intent(in) :: n
@@ -140,6 +164,13 @@ program bench_enzyme_suite
             real(dp), intent(in) :: y_b
             real(dp), intent(out) :: z_b(n)
         end subroutine lstm_grad
+        pure subroutine ba_grad(n, z, y_b, z_b)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(n)
+            real(dp), intent(in) :: y_b
+            real(dp), intent(out) :: z_b(n)
+        end subroutine ba_grad
         pure subroutine bruss_grad(n, z, y_b, z_b)
             import :: dp
             integer, intent(in) :: n
@@ -149,9 +180,9 @@ program bench_enzyme_suite
         end subroutine bruss_grad
     end interface
 
-    integer, parameter :: NW = 4
+    integer, parameter :: NW = 5
     character(len=8), parameter :: NAMES(NW) = &
-        [character(len=8) :: "euler", "rk4", "lstm", "bruss"]
+        [character(len=8) :: "euler", "rk4", "lstm", "ba", "bruss"]
     integer :: unit, w
 
     open (newunit=unit, file="results/enzyme_suite.csv", status="replace", &
@@ -293,6 +324,8 @@ contains
             call rk4_vjp(n, z, y, yb, zb)
         case ("lstm")
             call lstm_vjp(n, z, y, yb, zb)
+        case ("ba")
+            call ba_vjp(n, z, y, yb, zb)
         case ("bruss")
             call bruss_vjp(n, z, y, yb, zb)
         end select
@@ -313,6 +346,8 @@ contains
             call rk4_grad(n, z, yb, zb)
         case ("lstm")
             call lstm_grad(n, z, yb, zb)
+        case ("ba")
+            call ba_grad(n, z, yb, zb)
         case ("bruss")
             call bruss_grad(n, z, yb, zb)
         end select
@@ -332,6 +367,8 @@ contains
             call rk4_vjp_enzyme(n, z, zb, y, yb)
         case ("lstm")
             call lstm_vjp_enzyme(n, z, zb, y, yb)
+        case ("ba")
+            call ba_vjp_enzyme(n, z, zb, y, yb)
         case ("bruss")
             call bruss_vjp_enzyme(n, z, zb, y, yb)
         end select
@@ -356,6 +393,8 @@ contains
             call rk4_b(n, z, zb, y, yb)
         case ("lstm")
             call lstm_b(n, z, zb, y, yb)
+        case ("ba")
+            call ba_b(n, z, zb, y, yb)
         case ("bruss")
             call bruss_b(n, z, zb, y, yb)
         end select
@@ -375,6 +414,8 @@ contains
             call rk4(n, z, y)
         case ("lstm")
             call lstm(n, z, y)
+        case ("ba")
+            call ba(n, z, y)
         case ("bruss")
             call bruss(n, z, y)
         end select
