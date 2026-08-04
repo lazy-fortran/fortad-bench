@@ -9,6 +9,30 @@ in every mode**. This repository is where that claim is either demonstrated or
 refuted. It holds the workloads, the engine adapters, the measurement harness,
 and the committed results.
 
+## Downstream port: fortnum and fortfem against Enzyme
+
+Every operator fortnum and fortfem differentiate, plus Enzyme's own suite,
+measured in both modes. **39 measurements, all within 30% of Enzyme, 29 of
+them faster than Enzyme.** The slowest is fortfem's polygon edge area
+tangent at 1.24x.
+
+![fortad against Enzyme](results/fortad_vs_enzyme.png)
+
+![Absolute cost per input](results/fortad_vs_enzyme_absolute.png)
+
+| Suite | Operators | Worst ratio | Faster than Enzyme |
+|---|---|---|---|
+| Enzyme's own suite | 5 (reverse) | 0.87x lstm | 5 of 5 |
+| fortnum | 8 (both modes) | 1.09x erfsum reverse | 11 of 16 |
+| fortfem | 9 (both modes) | 1.24x polygon edge area tangent | 13 of 18 |
+
+Correctness is checked before timing: the harness compares fortad, Enzyme and
+fortsym on every kernel and stops on the first disagreement. All three agree
+everywhere.
+
+Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
+`python3 scripts/plot_vs_enzyme.py`.
+
 ## Why this is a separate repository
 
 `fortad` keeps only what a contributor must run on every change: unit tests and
