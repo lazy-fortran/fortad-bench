@@ -1,0 +1,11 @@
+workload,engine,n,seconds_total,ns_per_input
+euler,fortad,20000,  1.763936E-02,      4.4098
+euler,enzyme,20000,  1.513886E-02,      3.7847
+rk4,fortad,20000,  8.860362E-02,     22.1509
+rk4,enzyme,20000,  7.755505E-02,     19.3888
+lstm,fortad,20000,  4.540077E-01,    113.5019
+lstm,enzyme,20000,  5.933862E-01,    148.3465
+ba,fortad,60000,  3.827970E-02,      9.6666
+ba,enzyme,60000,  3.140954E-02,      7.9317
+bruss,fortad,20000,  4.521351E-02,     11.3034
+bruss,enzyme,20000,  4.706566E-02,     11.7664
