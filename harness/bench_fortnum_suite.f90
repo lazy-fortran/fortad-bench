@@ -13,6 +13,13 @@ program bench_fortnum_suite
     !! alone; the differences catch both being wrong the same way.
     use, intrinsic :: iso_fortran_env, only: dp => real64
     use, intrinsic :: iso_c_binding, only: c_int, c_double
+    use fortnum_fortsym_det2, only: det2_jvp_fortsym, det2_vjp_fortsym
+    use fortnum_fortsym_det3, only: det3_jvp_fortsym, det3_vjp_fortsym
+    use fortnum_fortsym_lagrange4, only: lagrange4_jvp_fortsym, lagrange4_vjp_fortsym
+    use fortnum_fortsym_multi_input_p2, only: multi_input_p2_jvp_fortsym, multi_input_p2_vjp_fortsym
+    use fortnum_fortsym_multi_input_p4, only: multi_input_p4_jvp_fortsym, multi_input_p4_vjp_fortsym
+    use fortnum_fortsym_multi_input_p8, only: multi_input_p8_jvp_fortsym, multi_input_p8_vjp_fortsym
+    use fortnum_fortsym_multi_input_p16, only: multi_input_p16_jvp_fortsym, multi_input_p16_vjp_fortsym
     implicit none
 
     interface
@@ -332,12 +339,14 @@ contains
         integer, parameter :: N_BATCH = 20000
         integer, parameter :: N_TRIALS = 7
         integer :: n_in, reps, r, i, trial
-        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), dz(:)
+        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), zb4(:), dz(:)
         real(dp) :: y, yb, t0, t1, best_f, best_e, best_g, best_p
-        real(dp) :: best_fj, best_ej, dy, dy2
+        real(dp) :: best_fj, best_ej, dy, dy2, dy3
+        real(dp) :: best_s, best_sj
+        logical :: has_fortsym
 
         n_in = arity*N_BATCH
-        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), dz(n_in))
+        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), zb4(n_in), dz(n_in))
         do i = 1, n_in
             z(i) = 0.4_dp + 0.3_dp*sin(0.31_dp*i)
             dz(i) = cos(0.77_dp*i)
@@ -356,6 +365,12 @@ contains
         call cross_check(name, "enzyme", zb, zb2)
         call cross_check(name, "fortad-grad", zb, zb3)
         call check_differences(name, N_BATCH, z, zb)
+
+        ! fortsym generates these kernels symbolically from the same operator,
+        ! so its gradient is a third independent answer rather than a variant.
+        zb4 = 0.0_dp
+        call call_fortsym(name, N_BATCH, z, 1.0_dp, zb4, has_fortsym)
+        if (has_fortsym) call cross_check(name, "fortsym", zb, zb4)
 
         ! Forward mode, both engines, against each other and against the
         ! gradient: the directional derivative is the gradient contracted with
@@ -379,7 +394,26 @@ contains
         best_p = huge(1.0_dp)
         best_fj = huge(1.0_dp)
         best_ej = huge(1.0_dp)
+        best_s = huge(1.0_dp)
+        best_sj = huge(1.0_dp)
         do trial = 1, N_TRIALS
+            if (has_fortsym) then
+                call cpu_time(t0)
+                do r = 1, reps
+                    call call_fortsym(name, N_BATCH, z, 1.0_dp, zb4, has_fortsym)
+                end do
+                call cpu_time(t1)
+                best_s = min(best_s, t1 - t0)
+
+                call cpu_time(t0)
+                do r = 1, reps
+                    call call_fortsym_jvp(name, N_BATCH, z, dz, y, dy3, &
+                                          has_fortsym)
+                end do
+                call cpu_time(t1)
+                best_sj = min(best_sj, t1 - t0)
+            end if
+
             call cpu_time(t0)
             do r = 1, reps
                 call call_fortad_jvp(name, N_BATCH, z, dz, y, dy)
@@ -433,8 +467,12 @@ contains
         call row(unit, name, "primal", n_in, best_p, reps)
         call row(unit, name, "fortad-jvp", n_in, best_fj, reps)
         call row(unit, name, "enzyme-jvp", n_in, best_ej, reps)
+        if (has_fortsym) then
+            call row(unit, name, "fortsym", n_in, best_s, reps)
+            call row(unit, name, "fortsym-jvp", n_in, best_sj, reps)
+        end if
 
-        deallocate (z, zb, zb2, zb3, dz)
+        deallocate (z, zb, zb2, zb3, zb4, dz)
     end subroutine run_operator
 
     subroutine call_primal(name, n, z, y)
@@ -571,6 +609,67 @@ contains
             call multi_input_p16_jvp_enzyme(n, z, dz, y, dy)
         end select
     end subroutine call_enzyme_jvp
+
+    subroutine call_fortsym(name, n, z, yb, zb, ok)
+        !! Dispatch to fortsym's kernel, wrapped in the same batch loop.
+        !!
+        !! Not every operator has one: erf and erfc are scalar kernels behind
+        !! array-shaped signatures, so a batch of them would measure one point.
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(in) :: z(:)
+        real(dp), intent(in) :: yb
+        real(dp), intent(out) :: zb(:)
+        logical, intent(out) :: ok
+
+        ok = .true.
+        select case (name)
+        case ("det2")
+            call det2_vjp_fortsym(n, z, yb, zb)
+        case ("det3")
+            call det3_vjp_fortsym(n, z, yb, zb)
+        case ("lagrange4")
+            call lagrange4_vjp_fortsym(n, z, yb, zb)
+        case ("multi_input_p2")
+            call multi_input_p2_vjp_fortsym(n, z, yb, zb)
+        case ("multi_input_p4")
+            call multi_input_p4_vjp_fortsym(n, z, yb, zb)
+        case ("multi_input_p8")
+            call multi_input_p8_vjp_fortsym(n, z, yb, zb)
+        case ("multi_input_p16")
+            call multi_input_p16_vjp_fortsym(n, z, yb, zb)
+        case default
+            ok = .false.
+        end select
+    end subroutine call_fortsym
+
+    subroutine call_fortsym_jvp(name, n, z, dz, y, dy, ok)
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(in) :: z(:), dz(:)
+        real(dp), intent(out) :: y, dy
+        logical, intent(out) :: ok
+
+        ok = .true.
+        select case (name)
+        case ("det2")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("det3")
+            call det3_jvp_fortsym(n, z, dz, y, dy)
+        case ("lagrange4")
+            call lagrange4_jvp_fortsym(n, z, dz, y, dy)
+        case ("multi_input_p2")
+            call multi_input_p2_jvp_fortsym(n, z, dz, y, dy)
+        case ("multi_input_p4")
+            call multi_input_p4_jvp_fortsym(n, z, dz, y, dy)
+        case ("multi_input_p8")
+            call multi_input_p8_jvp_fortsym(n, z, dz, y, dy)
+        case ("multi_input_p16")
+            call multi_input_p16_jvp_fortsym(n, z, dz, y, dy)
+        case default
+            ok = .false.
+        end select
+    end subroutine call_fortsym_jvp
 
     subroutine call_enzyme(name, n, z, zb, y, yb)
         character(len=*), intent(in) :: name
