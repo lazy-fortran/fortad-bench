@@ -63,6 +63,66 @@ program bench_fortnum_suite
             integer(c_int), value :: n
             real(c_double) :: z(*), y
         end subroutine multi_input_p16
+        subroutine smoke_square_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="smoke_square_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine smoke_square_vjp_enzyme
+        subroutine smoke_square_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="smoke_square_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine smoke_square_jvp_enzyme
+        subroutine scalar_root_residual_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="scalar_root_residual_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine scalar_root_residual_vjp_enzyme
+        subroutine scalar_root_residual_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="scalar_root_residual_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine scalar_root_residual_jvp_enzyme
+        subroutine ode_scalar_rhs_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="ode_scalar_rhs_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine ode_scalar_rhs_vjp_enzyme
+        subroutine ode_scalar_rhs_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="ode_scalar_rhs_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine ode_scalar_rhs_jvp_enzyme
+        subroutine fixed_quadrature_integrand_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fixed_quadrature_integrand_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fixed_quadrature_integrand_vjp_enzyme
+        subroutine fixed_quadrature_integrand_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fixed_quadrature_integrand_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fixed_quadrature_integrand_jvp_enzyme
+        subroutine vector_root_residual_one_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="vector_root_residual_one_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine vector_root_residual_one_vjp_enzyme
+        subroutine vector_root_residual_one_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="vector_root_residual_one_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine vector_root_residual_one_jvp_enzyme
         subroutine det2_vjp_enzyme(n, z, zb, y, yb) bind(C, name="det2_vjp_enzyme")
             import :: c_int, c_double
             integer(c_int), value :: n
@@ -314,10 +374,14 @@ program bench_fortnum_suite
         end subroutine multi_input_p16_jvp
     end interface
 
-    integer, parameter :: NW = 8
-    character(len=16), parameter :: NAMES(NW) = &
-        [character(len=16) :: "det2", "det3", "lagrange4", "erfsum", "multi_input_p2", "multi_input_p4", "multi_input_p8", "multi_input_p16"]
-    integer, parameter :: ARITY(NW) = [4, 9, 5, 1, 2, 4, 8, 16]
+    integer, parameter :: NW = 13
+    character(len=28), parameter :: NAMES(NW) = &
+        [character(len=28) :: "det2", "det3", "lagrange4", "erfsum", &
+         "multi_input_p2", "multi_input_p4", "multi_input_p8", &
+         "multi_input_p16", "smoke_square", "scalar_root_residual", &
+         "ode_scalar_rhs", "fixed_quadrature_integrand", &
+         "vector_root_residual_one"]
+    integer, parameter :: ARITY(NW) = [4, 9, 5, 1, 2, 4, 8, 16, 1, 3, 3, 5, 4]
     integer :: unit, w
 
     open (newunit=unit, file="results/fortnum_suite.csv", status="replace", &
@@ -484,6 +548,16 @@ contains
         select case (name)
         case ("det2")
             call det2(n, z, y)
+        case ("smoke_square")
+            call smoke_square(n, z, y)
+        case ("scalar_root_residual")
+            call scalar_root_residual(n, z, y)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs(n, z, y)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand(n, z, y)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one(n, z, y)
         case ("det3")
             call det3(n, z, y)
         case ("lagrange4")
@@ -512,6 +586,16 @@ contains
         select case (name)
         case ("det2")
             call det2_vjp(n, z, y, yb, zb)
+        case ("smoke_square")
+            call smoke_square_vjp(n, z, y, yb, zb)
+        case ("scalar_root_residual")
+            call scalar_root_residual_vjp(n, z, y, yb, zb)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs_vjp(n, z, y, yb, zb)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand_vjp(n, z, y, yb, zb)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one_vjp(n, z, y, yb, zb)
         case ("det3")
             call det3_vjp(n, z, y, yb, zb)
         case ("lagrange4")
@@ -539,6 +623,16 @@ contains
         select case (name)
         case ("det2")
             call det2_grad(n, z, yb, zb)
+        case ("smoke_square")
+            call smoke_square_grad(n, z, yb, zb)
+        case ("scalar_root_residual")
+            call scalar_root_residual_grad(n, z, yb, zb)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs_grad(n, z, yb, zb)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand_grad(n, z, yb, zb)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one_grad(n, z, yb, zb)
         case ("det3")
             call det3_grad(n, z, yb, zb)
         case ("lagrange4")
@@ -566,6 +660,16 @@ contains
         select case (name)
         case ("det2")
             call det2_jvp(n, z, dz, y, dy)
+        case ("smoke_square")
+            call smoke_square_jvp(n, z, dz, y, dy)
+        case ("scalar_root_residual")
+            call scalar_root_residual_jvp(n, z, dz, y, dy)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs_jvp(n, z, dz, y, dy)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand_jvp(n, z, dz, y, dy)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one_jvp(n, z, dz, y, dy)
         case ("det3")
             call det3_jvp(n, z, dz, y, dy)
         case ("lagrange4")
@@ -593,6 +697,16 @@ contains
         select case (name)
         case ("det2")
             call det2_jvp_enzyme(n, z, dz, y, dy)
+        case ("smoke_square")
+            call smoke_square_jvp_enzyme(n, z, dz, y, dy)
+        case ("scalar_root_residual")
+            call scalar_root_residual_jvp_enzyme(n, z, dz, y, dy)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs_jvp_enzyme(n, z, dz, y, dy)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand_jvp_enzyme(n, z, dz, y, dy)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one_jvp_enzyme(n, z, dz, y, dy)
         case ("det3")
             call det3_jvp_enzyme(n, z, dz, y, dy)
         case ("lagrange4")
@@ -626,6 +740,16 @@ contains
         select case (name)
         case ("det2")
             call det2_vjp_fortsym(n, z, yb, zb)
+        case ("__none_smoke_square")
+            call det2_vjp_fortsym(n, z, yb, zb)
+        case ("__none_scalar_root_residual")
+            call det2_vjp_fortsym(n, z, yb, zb)
+        case ("__none_ode_scalar_rhs")
+            call det2_vjp_fortsym(n, z, yb, zb)
+        case ("__none_fixed_quadrature_integrand")
+            call det2_vjp_fortsym(n, z, yb, zb)
+        case ("__none_vector_root_residual_one")
+            call det2_vjp_fortsym(n, z, yb, zb)
         case ("det3")
             call det3_vjp_fortsym(n, z, yb, zb)
         case ("lagrange4")
@@ -654,6 +778,16 @@ contains
         select case (name)
         case ("det2")
             call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("__none_smoke_square")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("__none_scalar_root_residual")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("__none_ode_scalar_rhs")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("__none_fixed_quadrature_integrand")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
+        case ("__none_vector_root_residual_one")
+            call det2_jvp_fortsym(n, z, dz, y, dy)
         case ("det3")
             call det3_jvp_fortsym(n, z, dz, y, dy)
         case ("lagrange4")
@@ -681,6 +815,16 @@ contains
         select case (name)
         case ("det2")
             call det2_vjp_enzyme(n, z, zb, y, yb)
+        case ("smoke_square")
+            call smoke_square_vjp_enzyme(n, z, zb, y, yb)
+        case ("scalar_root_residual")
+            call scalar_root_residual_vjp_enzyme(n, z, zb, y, yb)
+        case ("ode_scalar_rhs")
+            call ode_scalar_rhs_vjp_enzyme(n, z, zb, y, yb)
+        case ("fixed_quadrature_integrand")
+            call fixed_quadrature_integrand_vjp_enzyme(n, z, zb, y, yb)
+        case ("vector_root_residual_one")
+            call vector_root_residual_one_vjp_enzyme(n, z, zb, y, yb)
         case ("det3")
             call det3_vjp_enzyme(n, z, zb, y, yb)
         case ("lagrange4")
