@@ -16,7 +16,14 @@ opt=${OPT:-opt}
 llvm_link=${LLVM_LINK:-llvm-link}
 plugin=${ENZYME_PLUGIN:-$HOME/code/enzyme/install-llvm22/lib/LLVMEnzyme-22.so}
 fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
-fortad_bin=$(find "$fortad_repo/build" -name fortad -type f -perm -u+x | head -1)
+# fo is the project's build driver. It is also what keeps this honest: fpm
+# leaves an app binary unrelinked often enough that a stale fortad silently
+# regenerates the previous kernels, and a benchmark run against those measures
+# nothing.
+if [ ! -x "$fortad_repo/build/fo/bin/fortad" ]; then
+    ( cd "$fortad_repo" && fo build >/dev/null )
+fi
+fortad_bin="$fortad_repo/build/fo/bin/fortad"
 
 out=build/fortnum_suite
 rm -rf "$out"

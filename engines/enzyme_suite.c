@@ -18,5 +18,4 @@ extern void __enzyme_autodiff(void *, ...);
 WRAP(euler)
 WRAP(rk4)
 WRAP(lstm)
-WRAP(ba)
 WRAP(bruss)
