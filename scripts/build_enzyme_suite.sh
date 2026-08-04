@@ -45,7 +45,17 @@ for k in $WORKLOADS; do
     "$flang" -O3 -c "$out/${k}_vjp.f90" -o "$out/${k}_vjp.o" -module-dir "$out"
 done
 
+echo "== tapenade"
+./scripts/build_tapenade.sh > /dev/null
+tap=build/tapenade
+( cd "$tap/ADFirstAidKit" && clang -O3 -w -c adStack.c -o adStack.o )
+for k in $WORKLOADS; do
+    "$flang" -O3 -c "$tap/${k}_tap_b.f90" -o "$tap/${k}_b.o" -module-dir "$tap"
+done
+
 echo "== driver"
 "$flang" -O3 -o "$out/bench" harness/bench_enzyme_suite.f90 \
-    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o"; done) "$out/enzyme.o"
+    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o"; done) "$out/enzyme.o" \
+    $(for k in $WORKLOADS; do echo "$tap/${k}_b.o"; done) \
+    "$tap/ADFirstAidKit/adStack.o"
 echo "built $out/bench"

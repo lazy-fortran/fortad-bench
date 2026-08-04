@@ -1,11 +1,16 @@
 workload,engine,n,seconds_total,ns_per_input
-euler,fortad,20000,  1.764320E-02,      4.4108
-euler,enzyme,20000,  1.510950E-02,      3.7774
-rk4,fortad,20000,  8.885029E-02,     22.2126
-rk4,enzyme,20000,  7.682450E-02,     19.2061
-lstm,fortad,20000,  4.491272E-01,    112.2818
-lstm,enzyme,20000,  5.880213E-01,    147.0053
-ba,fortad,60000,  3.898760E-02,      9.8454
-ba,enzyme,60000,  3.157121E-02,      7.9725
-bruss,fortad,20000,  4.506157E-02,     11.2654
-bruss,enzyme,20000,  4.697063E-02,     11.7427
+euler,fortad,20000,  1.803853E-02,      4.5096
+euler,enzyme,20000,  1.542682E-02,      3.8567
+euler,tapenade,20000,  3.448967E-03,      0.8622
+rk4,fortad,20000,  8.916154E-02,     22.2904
+rk4,enzyme,20000,  7.669570E-02,     19.1739
+rk4,tapenade,20000,  3.435773E-02,      8.5894
+lstm,fortad,20000,  4.531268E-01,    113.2817
+lstm,enzyme,20000,  5.958029E-01,    148.9507
+lstm,tapenade,20000,  4.669828E-01,    116.7457
+ba,fortad,60000,  3.889652E-02,      9.8224
+ba,enzyme,60000,  3.182436E-02,      8.0365
+ba,tapenade,60000,  7.544940E-02,     19.0529
+bruss,fortad,20000,  4.520509E-02,     11.3013
+bruss,enzyme,20000,  4.690786E-02,     11.7270
+bruss,tapenade,20000,  5.690304E-02,     14.2258
