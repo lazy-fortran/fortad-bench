@@ -1,0 +1,11 @@
+{
+  "fci_polygon_edge_area": 4,
+  "fci_quadrilateral_cell_area": 8,
+  "fci_quartic_bezier_edge_area": 10,
+  "fci_hendecic_bezier_edge_area": 24,
+  "fci_parallel_gradient": 5,
+  "fci_quintic_lagrange_weights": 7,
+  "cgl_pressure_tensor": 5,
+  "laplace_single_layer_integrand": 9,
+  "surface_triangle_geometry_3d": 11
+}
