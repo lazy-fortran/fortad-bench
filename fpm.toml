@@ -1,0 +1,16 @@
+name = "fortad_bench"
+version = "0.1.0"
+description = "Correctness and performance corpus for fortad"
+author = "krystophny"
+license = "MIT"
+
+[dependencies]
+fortplot = { path = "../fortplot" }
+
+[build]
+auto-examples = false
+
+[fortran]
+implicit-external = false
+implicit-typing = false
+source-form = "free"

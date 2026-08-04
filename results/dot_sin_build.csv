@@ -1,0 +1,4 @@
+stage,seconds
+fortad_generate,0.006
+fortad_compile,0.143
+enzyme_build,0.120

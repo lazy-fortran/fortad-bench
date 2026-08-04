@@ -28,3 +28,6 @@ literature/*
 
 # Generated inventories quote upstream licence text.
 docs/generated/
+
+# fpm build output
+build/
