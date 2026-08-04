@@ -7,6 +7,7 @@
 extern int enzyme_dup;
 extern int enzyme_const;
 extern void __enzyme_autodiff(void *, ...);
+extern void __enzyme_fwddiff(void *, ...);
 
 #define WRAP(NAME)                                                            \
     void NAME(int n, const double *z, double *y);                             \
@@ -14,6 +15,15 @@ extern void __enzyme_autodiff(void *, ...);
                            double *yb) {                                      \
         __enzyme_autodiff((void *)NAME, enzyme_const, n, enzyme_dup, z, zb,   \
                           enzyme_dup, y, yb);                                 \
+    }
+
+/* Forward mode over the same kernel, so the two directions of the comparison
+ * run against the same primal rather than against two spellings of it. */
+#define WRAPF(NAME)                                                           \
+    void NAME##_jvp_enzyme(int n, const double *z, const double *dz,          \
+                           double *y, double *dy) {                           \
+        __enzyme_fwddiff((void *)NAME, enzyme_const, n, enzyme_dup, z, dz,    \
+                         enzyme_dup, y, dy);                                  \
     }
 
 WRAP(det2)
@@ -24,3 +34,12 @@ WRAP(multi_input_p2)
 WRAP(multi_input_p4)
 WRAP(multi_input_p8)
 WRAP(multi_input_p16)
+
+WRAPF(det2)
+WRAPF(det3)
+WRAPF(lagrange4)
+WRAPF(erfsum)
+WRAPF(multi_input_p2)
+WRAPF(multi_input_p4)
+WRAPF(multi_input_p8)
+WRAPF(multi_input_p16)
