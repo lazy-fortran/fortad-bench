@@ -12,6 +12,9 @@ program plot_grad
     call plot_case("results/stencil_grad.csv", &
                    "stencil gradient: per-element write, then reduction", &
                    "results/stencil_grad.png")
+    call plot_case("results/recur_grad.csv", &
+                   "recurrence gradient: both engines must tape", &
+                   "results/recur_grad.png")
 
 contains
 
