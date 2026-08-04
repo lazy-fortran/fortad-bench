@@ -22,7 +22,7 @@ out=build/fortnum_suite
 rm -rf "$out"
 mkdir -p "$out" results
 
-WORKLOADS="det2 det3 lagrange4 erfsum multi_input_p2 multi_input_p4 multi_input_p8 multi_input_p16 smoke_square scalar_root_residual ode_scalar_rhs fixed_quadrature_integrand vector_root_residual_one"
+WORKLOADS="det2 det3 lagrange4 erfsum multi_input_p2 multi_input_p4 multi_input_p8 multi_input_p16 smoke_square scalar_root_residual ode_scalar_rhs fixed_quadrature_integrand vector_root_residual_one vector_root_residual_two adaptive_trace_integrand singular_trace_integrand scalar_analytical_p1_jvp"
 
 echo "== Enzyme"
 for k in $WORKLOADS; do
