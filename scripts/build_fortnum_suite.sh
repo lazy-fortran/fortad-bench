@@ -46,12 +46,16 @@ for k in $WORKLOADS; do
     # Gradient-only: the same contract Tapenade's reverse routine offers.
     "$fortad_bin" --mode reverse --indep z --no-primal --name "${k}_grad" \
         -o "$out/${k}_grad.f90" "cases/fortnum/kernels/$k.f90"
+    "$fortad_bin" --indep z --name "${k}_jvp" \
+        -o "$out/${k}_jvp.f90" "cases/fortnum/kernels/$k.f90"
     "$flang" -O3 -c "$out/${k}_grad.f90" -o "$out/${k}_grad.o" -module-dir "$out"
+    "$flang" -O3 -c "$out/${k}_jvp.f90" -o "$out/${k}_jvp.o" -module-dir "$out"
 done
 
 echo "== driver"
 "$flang" -O3 -o "$out/bench" harness/bench_fortnum_suite.f90 \
-    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o" "$out/${k}_grad.o"; done) \
+    $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o" "$out/${k}_grad.o" \
+        "$out/${k}_jvp.o"; done) \
     "$out/enzyme.o" \
 
 echo "built $out/bench"

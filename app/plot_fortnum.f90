@@ -12,10 +12,12 @@ program plot_fortnum
     integer, parameter :: NW = 8
     character(len=16) :: names(NW)
     real(dp) :: fortad(NW), enzyme(NW), tapenade(NW), fortad_g(NW)
+    real(dp) :: fortad_j(NW), enzyme_j(NW)
     real(dp) :: pos(NW), unity(NW)
     integer :: i, n
 
-    call read_results(names, fortad, enzyme, tapenade, fortad_g, n)
+    call read_results(names, fortad, enzyme, tapenade, fortad_g, fortad_j, &
+                      enzyme_j, n)
     if (n == 0) then
         print *, "no suite results; run scripts/build_fortnum_suite.sh first"
         error stop 1
@@ -42,14 +44,26 @@ program plot_fortnum
     call savefig("results/fortnum_bars.png")
     print *, "wrote results/fortnum_bars.png"
 
+    call figure(figsize=[10.0_dp, 6.0_dp])
+    call bar(pos(1:n) - 0.18_dp, fortad_j(1:n), width=0.36_dp, label="fortad")
+    call bar(pos(1:n) + 0.18_dp, enzyme_j(1:n), width=0.36_dp, label="Enzyme")
+    call set_xticks(pos(1:n), [(trim(names(i)), i=1, n)])
+    call ylabel("nanoseconds per input (lower is better)")
+    call title("fortnum operators: forward-mode tangent over a batch")
+    call legend()
+    call savefig("results/fortnum_bars_forward.png")
+    print *, "wrote results/fortnum_bars_forward.png"
+
 
 
 contains
 
-    subroutine read_results(names, fortad, enzyme, tapenade, fortad_g, n)
+    subroutine read_results(names, fortad, enzyme, tapenade, fortad_g, &
+                            fortad_j, enzyme_j, n)
         !! Read the committed CSV.
         character(len=16), intent(out) :: names(:)
         real(dp), intent(out) :: fortad(:), enzyme(:), tapenade(:), fortad_g(:)
+        real(dp), intent(out) :: fortad_j(:), enzyme_j(:)
         integer, intent(out) :: n
         character(len=256) :: line
         character(len=32) :: w, e
@@ -82,6 +96,10 @@ contains
                 enzyme(i) = per
             case ("primal")
                 tapenade(i) = per
+            case ("fortad-jvp")
+                fortad_j(i) = per
+            case ("enzyme-jvp")
+                enzyme_j(i) = per
             case ("fortad-grad")
                 fortad_g(i) = per
             end select

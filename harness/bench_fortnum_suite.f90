@@ -216,6 +216,95 @@ program bench_fortnum_suite
             real(dp), intent(in) :: y_b
             real(dp), intent(out) :: z_b(16*n)
         end subroutine multi_input_p16_grad
+
+        subroutine det2_jvp_enzyme(n, z, dz, y, dy) bind(C, name="det2_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine det2_jvp_enzyme
+        pure subroutine det2_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(4*n), z_d(4*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine det2_jvp
+        subroutine det3_jvp_enzyme(n, z, dz, y, dy) bind(C, name="det3_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine det3_jvp_enzyme
+        pure subroutine det3_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(9*n), z_d(9*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine det3_jvp
+        subroutine lagrange4_jvp_enzyme(n, z, dz, y, dy) bind(C, name="lagrange4_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine lagrange4_jvp_enzyme
+        pure subroutine lagrange4_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(5*n), z_d(5*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine lagrange4_jvp
+        subroutine erfsum_jvp_enzyme(n, z, dz, y, dy) bind(C, name="erfsum_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine erfsum_jvp_enzyme
+        pure subroutine erfsum_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(1*n), z_d(1*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine erfsum_jvp
+        subroutine multi_input_p2_jvp_enzyme(n, z, dz, y, dy) bind(C, name="multi_input_p2_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine multi_input_p2_jvp_enzyme
+        pure subroutine multi_input_p2_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(2*n), z_d(2*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine multi_input_p2_jvp
+        subroutine multi_input_p4_jvp_enzyme(n, z, dz, y, dy) bind(C, name="multi_input_p4_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine multi_input_p4_jvp_enzyme
+        pure subroutine multi_input_p4_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(4*n), z_d(4*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine multi_input_p4_jvp
+        subroutine multi_input_p8_jvp_enzyme(n, z, dz, y, dy) bind(C, name="multi_input_p8_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine multi_input_p8_jvp_enzyme
+        pure subroutine multi_input_p8_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(8*n), z_d(8*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine multi_input_p8_jvp
+        subroutine multi_input_p16_jvp_enzyme(n, z, dz, y, dy) bind(C, name="multi_input_p16_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine multi_input_p16_jvp_enzyme
+        pure subroutine multi_input_p16_jvp(n, z, z_d, y, y_d)
+            import :: dp
+            integer, intent(in) :: n
+            real(dp), intent(in) :: z(16*n), z_d(16*n)
+            real(dp), intent(out) :: y, y_d
+        end subroutine multi_input_p16_jvp
     end interface
 
     integer, parameter :: NW = 8
@@ -243,13 +332,15 @@ contains
         integer, parameter :: N_BATCH = 20000
         integer, parameter :: N_TRIALS = 7
         integer :: n_in, reps, r, i, trial
-        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:)
+        real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), dz(:)
         real(dp) :: y, yb, t0, t1, best_f, best_e, best_g, best_p
+        real(dp) :: best_fj, best_ej, dy, dy2
 
         n_in = arity*N_BATCH
-        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in))
+        allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), dz(n_in))
         do i = 1, n_in
             z(i) = 0.4_dp + 0.3_dp*sin(0.31_dp*i)
+            dz(i) = cos(0.77_dp*i)
         end do
         reps = max(3, 2000000/n_in)
 
@@ -266,11 +357,43 @@ contains
         call cross_check(name, "fortad-grad", zb, zb3)
         call check_differences(name, N_BATCH, z, zb)
 
+        ! Forward mode, both engines, against each other and against the
+        ! gradient: the directional derivative is the gradient contracted with
+        ! the direction, which ties the two modes together without a third
+        ! reference.
+        call call_fortad_jvp(name, N_BATCH, z, dz, y, dy)
+        call call_enzyme_jvp(name, N_BATCH, z, dz, y, dy2)
+        if (abs(dy - dy2) > 1.0e-12_dp*max(1.0_dp, abs(dy))) then
+            print *, "MISMATCH ", name, " jvp fortad vs enzyme: ", dy, dy2
+            error stop 1
+        end if
+        if (abs(dy - dot_product(zb, dz)) > 1.0e-10_dp*max(1.0_dp, abs(dy))) then
+            print *, "MISMATCH ", name, " jvp vs gradient: ", dy, &
+                dot_product(zb, dz)
+            error stop 1
+        end if
+
         best_f = huge(1.0_dp)
         best_e = huge(1.0_dp)
         best_g = huge(1.0_dp)
         best_p = huge(1.0_dp)
+        best_fj = huge(1.0_dp)
+        best_ej = huge(1.0_dp)
         do trial = 1, N_TRIALS
+            call cpu_time(t0)
+            do r = 1, reps
+                call call_fortad_jvp(name, N_BATCH, z, dz, y, dy)
+            end do
+            call cpu_time(t1)
+            best_fj = min(best_fj, t1 - t0)
+
+            call cpu_time(t0)
+            do r = 1, reps
+                call call_enzyme_jvp(name, N_BATCH, z, dz, y, dy2)
+            end do
+            call cpu_time(t1)
+            best_ej = min(best_ej, t1 - t0)
+
             call cpu_time(t0)
             do r = 1, reps
                 yb = 1.0_dp
@@ -308,8 +431,10 @@ contains
         call row(unit, name, "enzyme", n_in, best_e, reps)
         call row(unit, name, "fortad-grad", n_in, best_g, reps)
         call row(unit, name, "primal", n_in, best_p, reps)
+        call row(unit, name, "fortad-jvp", n_in, best_fj, reps)
+        call row(unit, name, "enzyme-jvp", n_in, best_ej, reps)
 
-        deallocate (z, zb, zb2, zb3)
+        deallocate (z, zb, zb2, zb3, dz)
     end subroutine run_operator
 
     subroutine call_primal(name, n, z, y)
@@ -392,6 +517,60 @@ contains
             call multi_input_p16_grad(n, z, yb, zb)
         end select
     end subroutine call_fortad_grad
+
+    subroutine call_fortad_jvp(name, n, z, dz, y, dy)
+        !! Dispatch to the fortad-generated tangent.
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(in) :: z(:), dz(:)
+        real(dp), intent(out) :: y, dy
+
+        select case (name)
+        case ("det2")
+            call det2_jvp(n, z, dz, y, dy)
+        case ("det3")
+            call det3_jvp(n, z, dz, y, dy)
+        case ("lagrange4")
+            call lagrange4_jvp(n, z, dz, y, dy)
+        case ("erfsum")
+            call erfsum_jvp(n, z, dz, y, dy)
+        case ("multi_input_p2")
+            call multi_input_p2_jvp(n, z, dz, y, dy)
+        case ("multi_input_p4")
+            call multi_input_p4_jvp(n, z, dz, y, dy)
+        case ("multi_input_p8")
+            call multi_input_p8_jvp(n, z, dz, y, dy)
+        case ("multi_input_p16")
+            call multi_input_p16_jvp(n, z, dz, y, dy)
+        end select
+    end subroutine call_fortad_jvp
+
+    subroutine call_enzyme_jvp(name, n, z, dz, y, dy)
+        !! Dispatch to the Enzyme-generated tangent.
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: n
+        real(dp), intent(inout) :: z(:), dz(:)
+        real(dp), intent(out) :: y, dy
+
+        select case (name)
+        case ("det2")
+            call det2_jvp_enzyme(n, z, dz, y, dy)
+        case ("det3")
+            call det3_jvp_enzyme(n, z, dz, y, dy)
+        case ("lagrange4")
+            call lagrange4_jvp_enzyme(n, z, dz, y, dy)
+        case ("erfsum")
+            call erfsum_jvp_enzyme(n, z, dz, y, dy)
+        case ("multi_input_p2")
+            call multi_input_p2_jvp_enzyme(n, z, dz, y, dy)
+        case ("multi_input_p4")
+            call multi_input_p4_jvp_enzyme(n, z, dz, y, dy)
+        case ("multi_input_p8")
+            call multi_input_p8_jvp_enzyme(n, z, dz, y, dy)
+        case ("multi_input_p16")
+            call multi_input_p16_jvp_enzyme(n, z, dz, y, dy)
+        end select
+    end subroutine call_enzyme_jvp
 
     subroutine call_enzyme(name, n, z, zb, y, yb)
         character(len=*), intent(in) :: name
