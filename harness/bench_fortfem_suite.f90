@@ -20,6 +20,402 @@ program bench_fortfem_suite
             integer(c_int), value :: n
             real(c_double) :: z(*), y
         end subroutine fci_polygon_edge_area
+        subroutine block_graph_product_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="block_graph_product_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine block_graph_product_vjp_enzyme
+        subroutine block_graph_product_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="block_graph_product_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine block_graph_product_jvp_enzyme
+        subroutine cgl_pressure_divergence_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="cgl_pressure_divergence_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine cgl_pressure_divergence_vjp_enzyme
+        subroutine cgl_pressure_divergence_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="cgl_pressure_divergence_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine cgl_pressure_divergence_jvp_enzyme
+        subroutine fci_cubic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_cubic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_cubic_bezier_edge_area_vjp_enzyme
+        subroutine fci_cubic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_cubic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_cubic_bezier_edge_area_jvp_enzyme
+        subroutine fci_cubic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_cubic_lagrange_weights_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_cubic_lagrange_weights_vjp_enzyme
+        subroutine fci_cubic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_cubic_lagrange_weights_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_cubic_lagrange_weights_jvp_enzyme
+        subroutine fci_curved_quadrilateral_cell_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_curved_quadrilateral_cell_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_curved_quadrilateral_cell_area_vjp_enzyme
+        subroutine fci_curved_quadrilateral_cell_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_curved_quadrilateral_cell_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_curved_quadrilateral_cell_area_jvp_enzyme
+        subroutine fci_decic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_decic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_decic_bezier_edge_area_vjp_enzyme
+        subroutine fci_decic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_decic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_decic_bezier_edge_area_jvp_enzyme
+        subroutine fci_nonic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_nonic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_nonic_bezier_edge_area_vjp_enzyme
+        subroutine fci_nonic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_nonic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_nonic_bezier_edge_area_jvp_enzyme
+        subroutine fci_octic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_octic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_octic_bezier_edge_area_vjp_enzyme
+        subroutine fci_octic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_octic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_octic_bezier_edge_area_jvp_enzyme
+        subroutine fci_parallel_diffusion_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_parallel_diffusion_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_parallel_diffusion_vjp_enzyme
+        subroutine fci_parallel_diffusion_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_parallel_diffusion_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_parallel_diffusion_jvp_enzyme
+        subroutine fci_parallel_flux_power_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_parallel_flux_power_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_parallel_flux_power_vjp_enzyme
+        subroutine fci_parallel_flux_power_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_parallel_flux_power_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_parallel_flux_power_jvp_enzyme
+        subroutine fci_perpendicular_power_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_perpendicular_power_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_perpendicular_power_vjp_enzyme
+        subroutine fci_perpendicular_power_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_perpendicular_power_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_perpendicular_power_jvp_enzyme
+        subroutine fci_quadratic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_quadratic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_quadratic_bezier_edge_area_vjp_enzyme
+        subroutine fci_quadratic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_quadratic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_quadratic_bezier_edge_area_jvp_enzyme
+        subroutine fci_quadratic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_quadratic_lagrange_weights_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_quadratic_lagrange_weights_vjp_enzyme
+        subroutine fci_quadratic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_quadratic_lagrange_weights_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_quadratic_lagrange_weights_jvp_enzyme
+        subroutine fci_quartic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_quartic_lagrange_weights_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_quartic_lagrange_weights_vjp_enzyme
+        subroutine fci_quartic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_quartic_lagrange_weights_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_quartic_lagrange_weights_jvp_enzyme
+        subroutine fci_quintic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_quintic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_quintic_bezier_edge_area_vjp_enzyme
+        subroutine fci_quintic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_quintic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_quintic_bezier_edge_area_jvp_enzyme
+        subroutine fci_septic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_septic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_septic_bezier_edge_area_vjp_enzyme
+        subroutine fci_septic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_septic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_septic_bezier_edge_area_jvp_enzyme
+        subroutine fci_sextic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_sextic_bezier_edge_area_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_sextic_bezier_edge_area_vjp_enzyme
+        subroutine fci_sextic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_sextic_bezier_edge_area_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_sextic_bezier_edge_area_jvp_enzyme
+        subroutine fci_sextic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_sextic_lagrange_weights_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_sextic_lagrange_weights_vjp_enzyme
+        subroutine fci_sextic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_sextic_lagrange_weights_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_sextic_lagrange_weights_jvp_enzyme
+        subroutine fci_staggered_flux_box_volume_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="fci_staggered_flux_box_volume_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine fci_staggered_flux_box_volume_vjp_enzyme
+        subroutine fci_staggered_flux_box_volume_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="fci_staggered_flux_box_volume_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine fci_staggered_flux_box_volume_jvp_enzyme
+        subroutine field_aligned_flux_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="field_aligned_flux_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine field_aligned_flux_vjp_enzyme
+        subroutine field_aligned_flux_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="field_aligned_flux_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine field_aligned_flux_jvp_enzyme
+        subroutine field_aligned_hall_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="field_aligned_hall_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine field_aligned_hall_vjp_enzyme
+        subroutine field_aligned_hall_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="field_aligned_hall_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine field_aligned_hall_jvp_enzyme
+        subroutine force_balance_product_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="force_balance_product_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine force_balance_product_vjp_enzyme
+        subroutine force_balance_product_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="force_balance_product_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine force_balance_product_jvp_enzyme
+        subroutine helmholtz_single_layer_integrand_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="helmholtz_single_layer_integrand_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine helmholtz_single_layer_integrand_vjp_enzyme
+        subroutine helmholtz_single_layer_integrand_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="helmholtz_single_layer_integrand_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine helmholtz_single_layer_integrand_jvp_enzyme
+        subroutine helmholtz_single_layer_smooth_integrand_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="helmholtz_single_layer_smooth_integrand_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine helmholtz_single_layer_smooth_integrand_vjp_enzyme
+        subroutine helmholtz_single_layer_smooth_integrand_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="helmholtz_single_layer_smooth_integrand_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine helmholtz_single_layer_smooth_integrand_jvp_enzyme
+        subroutine laplace_singular_edge_potential_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="laplace_singular_edge_potential_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine laplace_singular_edge_potential_vjp_enzyme
+        subroutine laplace_singular_edge_potential_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="laplace_singular_edge_potential_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine laplace_singular_edge_potential_jvp_enzyme
+        subroutine regularized_surface_current_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="regularized_surface_current_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine regularized_surface_current_vjp_enzyme
+        subroutine regularized_surface_current_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="regularized_surface_current_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine regularized_surface_current_jvp_enzyme
+        subroutine sphere_curved_panel_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="sphere_curved_panel_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine sphere_curved_panel_vjp_enzyme
+        subroutine sphere_curved_panel_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="sphere_curved_panel_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine sphere_curved_panel_jvp_enzyme
+        subroutine surface_integral_contribution_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="surface_integral_contribution_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine surface_integral_contribution_vjp_enzyme
+        subroutine surface_integral_contribution_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="surface_integral_contribution_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine surface_integral_contribution_jvp_enzyme
+        subroutine surface_shape_objective_contribution_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="surface_shape_objective_contribution_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine surface_shape_objective_contribution_vjp_enzyme
+        subroutine surface_shape_objective_contribution_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="surface_shape_objective_contribution_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine surface_shape_objective_contribution_jvp_enzyme
+        subroutine tensor_power_split_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="tensor_power_split_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine tensor_power_split_vjp_enzyme
+        subroutine tensor_power_split_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="tensor_power_split_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine tensor_power_split_jvp_enzyme
+        subroutine toroidal_poisson_products_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="toroidal_poisson_products_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine toroidal_poisson_products_vjp_enzyme
+        subroutine toroidal_poisson_products_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="toroidal_poisson_products_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine toroidal_poisson_products_jvp_enzyme
+        subroutine toroidal_vector_to_cartesian_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="toroidal_vector_to_cartesian_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine toroidal_vector_to_cartesian_vjp_enzyme
+        subroutine toroidal_vector_to_cartesian_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="toroidal_vector_to_cartesian_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine toroidal_vector_to_cartesian_jvp_enzyme
+        subroutine torus_curved_panel_vjp_enzyme(n, z, zb, y, yb) &
+                bind(C, name="torus_curved_panel_vjp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), zb(*), y, yb
+        end subroutine torus_curved_panel_vjp_enzyme
+        subroutine torus_curved_panel_jvp_enzyme(n, z, dz, y, dy) &
+                bind(C, name="torus_curved_panel_jvp_enzyme")
+            import :: c_int, c_double
+            integer(c_int), value :: n
+            real(c_double) :: z(*), dz(*), y, dy
+        end subroutine torus_curved_panel_jvp_enzyme
         subroutine fci_polygon_edge_area_vjp_enzyme(n, z, zb, y, yb) bind(C, name="fci_polygon_edge_area_vjp_enzyme")
             import :: c_int, c_double
             integer(c_int), value :: n
@@ -341,10 +737,35 @@ program bench_fortfem_suite
         end subroutine surface_triangle_geometry_3d_jvp
     end interface
 
-    integer, parameter :: NW = 9
-    character(len=32), parameter :: NAMES(NW) = &
-        [character(len=32) :: "fci_polygon_edge_area", "fci_quadrilateral_cell_area", "fci_quartic_bezier_edge_area", "fci_hendecic_bezier_edge_area", "fci_parallel_gradient", "fci_quintic_lagrange_weights", "cgl_pressure_tensor", "laplace_single_layer_integrand", "surface_triangle_geometry_3d"]
-    integer, parameter :: ARITY(NW) = [4, 8, 10, 24, 5, 7, 5, 9, 11]
+    integer, parameter :: NW = 42
+    character(len=39), parameter :: NAMES(NW) = &
+        [character(len=39) :: "block_graph_product",  &
+         "cgl_pressure_divergence", "cgl_pressure_tensor",  &
+         "fci_cubic_bezier_edge_area", "fci_cubic_lagrange_weights",  &
+         "fci_curved_quadrilateral_cell_area",  &
+         "fci_decic_bezier_edge_area", "fci_hendecic_bezier_edge_area",  &
+         "fci_nonic_bezier_edge_area", "fci_octic_bezier_edge_area",  &
+         "fci_parallel_diffusion", "fci_parallel_flux_power",  &
+         "fci_parallel_gradient", "fci_perpendicular_power",  &
+         "fci_polygon_edge_area", "fci_quadratic_bezier_edge_area",  &
+         "fci_quadratic_lagrange_weights", "fci_quadrilateral_cell_area",  &
+         "fci_quartic_bezier_edge_area", "fci_quartic_lagrange_weights",  &
+         "fci_quintic_bezier_edge_area", "fci_quintic_lagrange_weights",  &
+         "fci_septic_bezier_edge_area", "fci_sextic_bezier_edge_area",  &
+         "fci_sextic_lagrange_weights", "fci_staggered_flux_box_volume",  &
+         "field_aligned_flux", "field_aligned_hall",  &
+         "force_balance_product", "helmholtz_single_layer_integrand",  &
+         "helmholtz_single_layer_smooth_integrand",  &
+         "laplace_single_layer_integrand",  &
+         "laplace_singular_edge_potential", "regularized_surface_current",  &
+         "sphere_curved_panel", "surface_integral_contribution",  &
+         "surface_shape_objective_contribution",  &
+         "surface_triangle_geometry_3d", "tensor_power_split",  &
+         "toroidal_poisson_products", "toroidal_vector_to_cartesian",  &
+         "torus_curved_panel"]
+    integer, parameter :: ARITY(NW) = [2, 20, 5, 8, 5, 16, 22, 24, 20, 18,  &
+        8, 3, 5, 3, 4, 6, 4, 8, 10, 6, 12, 7, 16, 14, 8, 4, 8, 4, 3, 10,  &
+        10, 9, 9, 4, 12, 2, 3, 11, 12, 8, 6, 10]
     integer :: unit, w
 
     open (newunit=unit, file="results/fortfem_suite.csv", status="replace", &
@@ -500,6 +921,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area(n, z, y)
+        case ("block_graph_product")
+            call block_graph_product(n, z, y)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence(n, z, y)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area(n, z, y)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights(n, z, y)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area(n, z, y)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area(n, z, y)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area(n, z, y)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area(n, z, y)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion(n, z, y)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power(n, z, y)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power(n, z, y)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area(n, z, y)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights(n, z, y)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights(n, z, y)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area(n, z, y)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area(n, z, y)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area(n, z, y)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights(n, z, y)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume(n, z, y)
+        case ("field_aligned_flux")
+            call field_aligned_flux(n, z, y)
+        case ("field_aligned_hall")
+            call field_aligned_hall(n, z, y)
+        case ("force_balance_product")
+            call force_balance_product(n, z, y)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand(n, z, y)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand(n, z, y)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential(n, z, y)
+        case ("regularized_surface_current")
+            call regularized_surface_current(n, z, y)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel(n, z, y)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution(n, z, y)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution(n, z, y)
+        case ("tensor_power_split")
+            call tensor_power_split(n, z, y)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products(n, z, y)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian(n, z, y)
+        case ("torus_curved_panel")
+            call torus_curved_panel(n, z, y)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area(n, z, y)
         case ("fci_quartic_bezier_edge_area")
@@ -530,6 +1017,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area_vjp(n, z, y, yb, zb)
+        case ("block_graph_product")
+            call block_graph_product_vjp(n, z, y, yb, zb)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence_vjp(n, z, y, yb, zb)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights_vjp(n, z, y, yb, zb)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area_vjp(n, z, y, yb, zb)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion_vjp(n, z, y, yb, zb)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power_vjp(n, z, y, yb, zb)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power_vjp(n, z, y, yb, zb)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights_vjp(n, z, y, yb, zb)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights_vjp(n, z, y, yb, zb)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area_vjp(n, z, y, yb, zb)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights_vjp(n, z, y, yb, zb)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume_vjp(n, z, y, yb, zb)
+        case ("field_aligned_flux")
+            call field_aligned_flux_vjp(n, z, y, yb, zb)
+        case ("field_aligned_hall")
+            call field_aligned_hall_vjp(n, z, y, yb, zb)
+        case ("force_balance_product")
+            call force_balance_product_vjp(n, z, y, yb, zb)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand_vjp(n, z, y, yb, zb)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand_vjp(n, z, y, yb, zb)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential_vjp(n, z, y, yb, zb)
+        case ("regularized_surface_current")
+            call regularized_surface_current_vjp(n, z, y, yb, zb)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel_vjp(n, z, y, yb, zb)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution_vjp(n, z, y, yb, zb)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution_vjp(n, z, y, yb, zb)
+        case ("tensor_power_split")
+            call tensor_power_split_vjp(n, z, y, yb, zb)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products_vjp(n, z, y, yb, zb)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian_vjp(n, z, y, yb, zb)
+        case ("torus_curved_panel")
+            call torus_curved_panel_vjp(n, z, y, yb, zb)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area_vjp(n, z, y, yb, zb)
         case ("fci_quartic_bezier_edge_area")
@@ -559,6 +1112,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area_grad(n, z, yb, zb)
+        case ("block_graph_product")
+            call block_graph_product_grad(n, z, yb, zb)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence_grad(n, z, yb, zb)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights_grad(n, z, yb, zb)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area_grad(n, z, yb, zb)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion_grad(n, z, yb, zb)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power_grad(n, z, yb, zb)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power_grad(n, z, yb, zb)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights_grad(n, z, yb, zb)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights_grad(n, z, yb, zb)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area_grad(n, z, yb, zb)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights_grad(n, z, yb, zb)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume_grad(n, z, yb, zb)
+        case ("field_aligned_flux")
+            call field_aligned_flux_grad(n, z, yb, zb)
+        case ("field_aligned_hall")
+            call field_aligned_hall_grad(n, z, yb, zb)
+        case ("force_balance_product")
+            call force_balance_product_grad(n, z, yb, zb)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand_grad(n, z, yb, zb)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand_grad(n, z, yb, zb)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential_grad(n, z, yb, zb)
+        case ("regularized_surface_current")
+            call regularized_surface_current_grad(n, z, yb, zb)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel_grad(n, z, yb, zb)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution_grad(n, z, yb, zb)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution_grad(n, z, yb, zb)
+        case ("tensor_power_split")
+            call tensor_power_split_grad(n, z, yb, zb)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products_grad(n, z, yb, zb)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian_grad(n, z, yb, zb)
+        case ("torus_curved_panel")
+            call torus_curved_panel_grad(n, z, yb, zb)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area_grad(n, z, yb, zb)
         case ("fci_quartic_bezier_edge_area")
@@ -587,6 +1206,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area_jvp(n, z, dz, y, dy)
+        case ("block_graph_product")
+            call block_graph_product_jvp(n, z, dz, y, dy)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence_jvp(n, z, dz, y, dy)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights_jvp(n, z, dz, y, dy)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area_jvp(n, z, dz, y, dy)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion_jvp(n, z, dz, y, dy)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power_jvp(n, z, dz, y, dy)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power_jvp(n, z, dz, y, dy)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights_jvp(n, z, dz, y, dy)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights_jvp(n, z, dz, y, dy)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area_jvp(n, z, dz, y, dy)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights_jvp(n, z, dz, y, dy)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume_jvp(n, z, dz, y, dy)
+        case ("field_aligned_flux")
+            call field_aligned_flux_jvp(n, z, dz, y, dy)
+        case ("field_aligned_hall")
+            call field_aligned_hall_jvp(n, z, dz, y, dy)
+        case ("force_balance_product")
+            call force_balance_product_jvp(n, z, dz, y, dy)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand_jvp(n, z, dz, y, dy)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand_jvp(n, z, dz, y, dy)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential_jvp(n, z, dz, y, dy)
+        case ("regularized_surface_current")
+            call regularized_surface_current_jvp(n, z, dz, y, dy)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel_jvp(n, z, dz, y, dy)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution_jvp(n, z, dz, y, dy)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution_jvp(n, z, dz, y, dy)
+        case ("tensor_power_split")
+            call tensor_power_split_jvp(n, z, dz, y, dy)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products_jvp(n, z, dz, y, dy)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian_jvp(n, z, dz, y, dy)
+        case ("torus_curved_panel")
+            call torus_curved_panel_jvp(n, z, dz, y, dy)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area_jvp(n, z, dz, y, dy)
         case ("fci_quartic_bezier_edge_area")
@@ -616,6 +1301,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("block_graph_product")
+            call block_graph_product_vjp_enzyme(n, z, zb, y, yb)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights_vjp_enzyme(n, z, zb, y, yb)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume_vjp_enzyme(n, z, zb, y, yb)
+        case ("field_aligned_flux")
+            call field_aligned_flux_vjp_enzyme(n, z, zb, y, yb)
+        case ("field_aligned_hall")
+            call field_aligned_hall_vjp_enzyme(n, z, zb, y, yb)
+        case ("force_balance_product")
+            call force_balance_product_vjp_enzyme(n, z, zb, y, yb)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand_vjp_enzyme(n, z, zb, y, yb)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand_vjp_enzyme(n, z, zb, y, yb)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential_vjp_enzyme(n, z, zb, y, yb)
+        case ("regularized_surface_current")
+            call regularized_surface_current_vjp_enzyme(n, z, zb, y, yb)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel_vjp_enzyme(n, z, zb, y, yb)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution_vjp_enzyme(n, z, zb, y, yb)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution_vjp_enzyme(n, z, zb, y, yb)
+        case ("tensor_power_split")
+            call tensor_power_split_vjp_enzyme(n, z, zb, y, yb)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products_vjp_enzyme(n, z, zb, y, yb)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian_vjp_enzyme(n, z, zb, y, yb)
+        case ("torus_curved_panel")
+            call torus_curved_panel_vjp_enzyme(n, z, zb, y, yb)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area_vjp_enzyme(n, z, zb, y, yb)
         case ("fci_quartic_bezier_edge_area")
@@ -644,6 +1395,72 @@ contains
         select case (name)
         case ("fci_polygon_edge_area")
             call fci_polygon_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("block_graph_product")
+            call block_graph_product_jvp_enzyme(n, z, dz, y, dy)
+        case ("cgl_pressure_divergence")
+            call cgl_pressure_divergence_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_cubic_bezier_edge_area")
+            call fci_cubic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_cubic_lagrange_weights")
+            call fci_cubic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_curved_quadrilateral_cell_area")
+            call fci_curved_quadrilateral_cell_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_decic_bezier_edge_area")
+            call fci_decic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_nonic_bezier_edge_area")
+            call fci_nonic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_octic_bezier_edge_area")
+            call fci_octic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_parallel_diffusion")
+            call fci_parallel_diffusion_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_parallel_flux_power")
+            call fci_parallel_flux_power_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_perpendicular_power")
+            call fci_perpendicular_power_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_quadratic_bezier_edge_area")
+            call fci_quadratic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_quadratic_lagrange_weights")
+            call fci_quadratic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_quartic_lagrange_weights")
+            call fci_quartic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_quintic_bezier_edge_area")
+            call fci_quintic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_septic_bezier_edge_area")
+            call fci_septic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_sextic_bezier_edge_area")
+            call fci_sextic_bezier_edge_area_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_sextic_lagrange_weights")
+            call fci_sextic_lagrange_weights_jvp_enzyme(n, z, dz, y, dy)
+        case ("fci_staggered_flux_box_volume")
+            call fci_staggered_flux_box_volume_jvp_enzyme(n, z, dz, y, dy)
+        case ("field_aligned_flux")
+            call field_aligned_flux_jvp_enzyme(n, z, dz, y, dy)
+        case ("field_aligned_hall")
+            call field_aligned_hall_jvp_enzyme(n, z, dz, y, dy)
+        case ("force_balance_product")
+            call force_balance_product_jvp_enzyme(n, z, dz, y, dy)
+        case ("helmholtz_single_layer_integrand")
+            call helmholtz_single_layer_integrand_jvp_enzyme(n, z, dz, y, dy)
+        case ("helmholtz_single_layer_smooth_integrand")
+            call helmholtz_single_layer_smooth_integrand_jvp_enzyme(n, z, dz, y, dy)
+        case ("laplace_singular_edge_potential")
+            call laplace_singular_edge_potential_jvp_enzyme(n, z, dz, y, dy)
+        case ("regularized_surface_current")
+            call regularized_surface_current_jvp_enzyme(n, z, dz, y, dy)
+        case ("sphere_curved_panel")
+            call sphere_curved_panel_jvp_enzyme(n, z, dz, y, dy)
+        case ("surface_integral_contribution")
+            call surface_integral_contribution_jvp_enzyme(n, z, dz, y, dy)
+        case ("surface_shape_objective_contribution")
+            call surface_shape_objective_contribution_jvp_enzyme(n, z, dz, y, dy)
+        case ("tensor_power_split")
+            call tensor_power_split_jvp_enzyme(n, z, dz, y, dy)
+        case ("toroidal_poisson_products")
+            call toroidal_poisson_products_jvp_enzyme(n, z, dz, y, dy)
+        case ("toroidal_vector_to_cartesian")
+            call toroidal_vector_to_cartesian_jvp_enzyme(n, z, dz, y, dy)
+        case ("torus_curved_panel")
+            call torus_curved_panel_jvp_enzyme(n, z, dz, y, dy)
         case ("fci_quadrilateral_cell_area")
             call fci_quadrilateral_cell_area_jvp_enzyme(n, z, dz, y, dy)
         case ("fci_quartic_bezier_edge_area")

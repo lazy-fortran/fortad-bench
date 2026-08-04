@@ -23,16 +23,55 @@ OUT = Path("cases/fortfem/kernels")
 # One from each shape rather than all forty-four, so the suite stays readable.
 # The Bezier family is represented by a low and a high degree, which is where a
 # difference in how the two engines handle long expressions would show.
+# Every operator in the catalogue. The suite was one from each shape while
+# it was being built; covering all of them is the point now, since a gap
+# between the two engines is most likely to appear in an operator nobody
+# chose to look at.
 CHOSEN = [
+    "block_graph_product",
+    "cgl_pressure_divergence",
+    "cgl_pressure_tensor",
+    "fci_cubic_bezier_edge_area",
+    "fci_curved_quadrilateral_cell_area",
+    "fci_decic_bezier_edge_area",
+    "fci_hendecic_bezier_edge_area",
+    "fci_nonic_bezier_edge_area",
+    "fci_octic_bezier_edge_area",
+    "fci_cubic_lagrange_weights",
+    "fci_parallel_diffusion",
+    "fci_parallel_gradient",
+    "fci_quadratic_lagrange_weights",
     "fci_polygon_edge_area",
+    "fci_parallel_flux_power",
+    "fci_perpendicular_power",
+    "fci_quadratic_bezier_edge_area",
     "fci_quadrilateral_cell_area",
     "fci_quartic_bezier_edge_area",
-    "fci_hendecic_bezier_edge_area",
-    "fci_parallel_gradient",
+    "fci_quartic_lagrange_weights",
+    "fci_quintic_bezier_edge_area",
     "fci_quintic_lagrange_weights",
-    "cgl_pressure_tensor",
+    "fci_septic_bezier_edge_area",
+    "fci_sextic_bezier_edge_area",
+    "fci_sextic_lagrange_weights",
+    "fci_staggered_flux_box_volume",
+    "field_aligned_flux",
+    "field_aligned_hall",
+    "force_balance_product",
+    "helmholtz_single_layer_integrand",
+    "helmholtz_single_layer_smooth_integrand",
     "laplace_single_layer_integrand",
+    "laplace_singular_edge_potential",
+    "regularized_surface_current",
+    "sphere_curved_panel",
+    "surface_integral_contribution",
+    "surface_shape_objective_contribution",
     "surface_triangle_geometry_3d",
+    "tensor_power_split",
+    "cartesian_to_toroidal",
+    "toroidal_point_to_cartesian",
+    "toroidal_vector_to_cartesian",
+    "toroidal_poisson_products",
+    "torus_curved_panel",
 ]
 
 
