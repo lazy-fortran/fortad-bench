@@ -52,10 +52,31 @@ for k in $WORKLOADS; do
     "$flang" -O3 -c "$out/${k}_jvp.f90" -o "$out/${k}_jvp.o" -module-dir "$out"
 done
 
+echo "== fortsym"
+# fortsym's own kernels, compiled from fortnum, with a batch loop around each.
+# The loop is the same one the other two engines have, so what is timed is the
+# kernel rather than three different callers.
+fortnum_repo=${FORTNUM_REPO:-"$root/../fortnum"}
+python3 scripts/make_fortsym_wrappers.py > /dev/null
+FORTSYM_OPS="det2 det3 lagrange4 multi_input_p2 multi_input_p4 multi_input_p8 multi_input_p16"
+for k in $FORTSYM_OPS; do
+    for product in jvp vjp; do
+        "$flang" -O3 -c "$fortnum_repo/src/generated/fortnum_${k}_${product}_kernel.f90" \
+            -o "$out/fortsym_${k}_${product}.o" -module-dir "$out"
+    done
+done
+for k in $FORTSYM_OPS; do
+    "$flang" -O3 -c "cases/fortnum/fortsym/${k}_fortsym.f90" \
+        -o "$out/${k}_fortsym.o" -module-dir "$out"
+done
+
 echo "== driver"
 "$flang" -O3 -o "$out/bench" harness/bench_fortnum_suite.f90 \
     $(for k in $WORKLOADS; do echo "$out/${k}_vjp.o" "$out/${k}_grad.o" \
         "$out/${k}_jvp.o"; done) \
-    "$out/enzyme.o" \
+    $(for k in det2 det3 lagrange4 multi_input_p2 multi_input_p4 multi_input_p8 \
+        multi_input_p16; do echo "$out/fortsym_${k}_jvp.o" \
+        "$out/fortsym_${k}_vjp.o" "$out/${k}_fortsym.o"; done) \
+    "$out/enzyme.o" -module-dir "$out"
 
 echo "built $out/bench"
