@@ -20,7 +20,8 @@ class LicenseInventoryTests(unittest.TestCase):
             generated = root / "docs" / "generated"
 
             entry = {"name": "fixture", "ref": "deadbeef", "license": "MIT"}
-            with patch.object(fetch_upstreams, "DEST", root / "upstream"), \
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", root / "upstream"), \
                     patch.object(fetch_upstreams, "GENERATED", generated):
                 fetch_upstreams.scan_licenses([entry])
 
