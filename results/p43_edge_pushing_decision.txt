@@ -1,0 +1,22 @@
+case: P4.3 edge-pushing sparse-Hessian candidate
+fortad revision: 7f4df36 (main)
+hosts: acluster.tugraz.at and scluster, TU Graz
+
+candidate audit:
+  No independent edge-pushing implementation was available on the queried TU
+  Graz hosts: neither an adolc nor a colpack executable was present. Fortad
+  does not contain a second-order edge/tape IR, and the ADOL-C source is not an
+  implementation dependency under PROVENANCE.md.
+
+existing route evidence:
+  The independent sparse oracle passes for the symmetric arrowhead workload.
+  At n = 10, ordinary column colouring requires 10 HVP directions while the
+  existing star-coloured recovery needs 2, with exact recovered entries. This
+  is the retained sparse-Hessian route.
+
+decision:
+  Reject/park edge_pushing. The roadmap criterion is a complete-workload
+  measurement showing a win; without an independent implementation there is
+  no honest comparison to record. Reopen only when a compatible implementation
+  and an apples-to-apples workload measurement are both available. This is a
+  decision record, not a fabricated timing comparison.
