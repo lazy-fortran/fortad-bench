@@ -1,0 +1,5 @@
+date,kernel,mode,n,threads,relative_error,generated_source_bytes,openmp_form,compiler_flags
+2026-08-05,erfsum,gradient,100000,1,6.1285869985895815E-09,1487,"parallel do, default(firstprivate), shared dummies","gfortran -O3 -fopenmp -std=f2018"
+2026-08-05,erfsum,gradient,100000,8,6.1285869985895815E-09,1487,"parallel do, default(firstprivate), shared dummies","gfortran -O3 -fopenmp -std=f2018"
+2026-08-05,erfsum,vjp_with_primal,100000,1,6.1285869985895815E-09,1421,"parallel do, reduction(+:y_v2), default(firstprivate), shared dummies","gfortran -O3 -fopenmp -std=f2018"
+2026-08-05,erfsum,vjp_with_primal,100000,8,6.1285869985895815E-09,1421,"parallel do, reduction(+:y_v2), default(firstprivate), shared dummies","gfortran -O3 -fopenmp -std=f2018"
