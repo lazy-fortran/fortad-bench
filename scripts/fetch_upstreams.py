@@ -33,6 +33,7 @@ LICENSE_NAMES = (
     "COPYING", "COPYING.txt", "COPYING.LESSER", "LICENSE.TXT",
     "LICENSE-MIT", "LICENSE-APACHE", "NOTICE",
 )
+LICENSE_NAMES_CASEFOLD = {name.casefold() for name in LICENSE_NAMES}
 
 
 def load() -> list[dict]:
@@ -117,8 +118,8 @@ def scan_licenses(entries: list[dict]) -> None:
             lines.append(f"| {e['name']} | {e['ref']} | NOT FETCHED | {e['license']} | - |")
             continue
         found = sorted(
-            p.name for n in LICENSE_NAMES
-            for p in target.glob(n)
+            p.name for p in target.iterdir()
+            if p.is_file() and p.name.casefold() in LICENSE_NAMES_CASEFOLD
         )
         if not found:
             found_s = "**NONE FOUND**"
