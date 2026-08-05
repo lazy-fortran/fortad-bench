@@ -24,9 +24,8 @@ measurement:
 
 CI:
   .github/workflows/compiler-matrix.yml is committed and actionlint-clean. It
-  runs this exact script on a self-hosted Linux x64 TU Graz runner. The job
-  itself is still pending runner registration and one successful main-branch
-  execution.
+  runs this exact script on a self-hosted Linux x64 TU Graz runner. GitHub
+  Actions run 31029227263 succeeded on 2026-08-05:
+  https://github.com/lazy-fortran/fortad-bench/actions/runs/31029227263
 
-status: compiler and vectorisation gates pass remotely; P6.1 remains open only
-        until the committed CI workflow has a successful run.
+status: compiler, vectorisation and CI gates pass; P6.1 is complete.
