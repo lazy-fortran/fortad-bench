@@ -1,0 +1,29 @@
+name: fortad compiler matrix
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  compiler-matrix:
+    # The matrix uses the TU Graz toolchain installed on the self-hosted
+    # runner; the generated source is still compiled by each compiler rather
+    # than by a single host compiler.
+    runs-on: [self-hosted, linux, x64]
+    steps:
+      - name: Check out benchmark harness
+        uses: actions/checkout@v4
+        with:
+          path: fortad-bench
+      - name: Check out fortad
+        uses: actions/checkout@v4
+        with:
+          repository: lazy-fortran/fortad
+          path: fortad
+          ref: main
+      - name: Run required compiler matrix
+        working-directory: fortad-bench
+        env:
+          FORTAD_REPO: ${{ github.workspace }}/fortad
+        run: ./scripts/check_compilers.sh

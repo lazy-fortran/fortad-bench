@@ -2,9 +2,12 @@ compiler,file,result
 gfortran,adjoint,ok
 gfortran,tangent,ok
 gfortran,tangent_v,ok
-flang,adjoint,ok
-flang,tangent,ok
-flang,tangent_v,ok
+flang-new,adjoint,ok
+flang-new,tangent,ok
+flang-new,tangent_v,ok
+ifx,adjoint,ok
+ifx,tangent,ok
+ifx,tangent_v,ok
 nvfortran,adjoint,ok
 nvfortran,tangent,ok
 nvfortran,tangent_v,ok
@@ -12,3 +15,7 @@ lfortran,adjoint,ok
 lfortran,tangent,ok
 lfortran,tangent_v,ok
 gfortran,adjoint,vectorized
+flang-new,adjoint,vectorized
+ifx,adjoint,vectorized
+nvfortran,adjoint,vectorized
+lfortran,adjoint,vectorized
