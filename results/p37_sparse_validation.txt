@@ -1,0 +1,35 @@
+case: P3.7 static sparsity patterns, compressed Jacobians, and star-coloured Hessians
+fortad revision: 978b1d6 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2
+
+scope:
+  fortad now exposes fad_static_pattern, which lowers a supported procedure
+  and propagates conservative structural dependencies through expressions,
+  assignments, branches, loops, and opaque call actuals. The resulting
+  sparsity_t feeds the existing distance-2 column colouring and compressed
+  Jacobian recovery. The existing star_colour_columns and recover_symmetric
+  path covers symmetric Hessians.
+
+independent correctness oracle:
+  test_pattern_oracle specifies a scalar kernel independently and expects
+  y1 <- {x1,x2,x3}, y2 <- {x2}, and y3 <- {}. It passed remotely:
+
+    fo test test_pattern_oracle
+    test_pattern_oracle PASS 0.04s
+
+  The existing sparse compression and star-recovery oracle also passed:
+
+    fo test test_sparse_oracle
+    test_sparse_oracle PASS 0.01s
+
+  The full remote fo gate built successfully and ran all 22 tests. The same
+  nine pre-existing oracle failures remain: element-target, forward,
+  gradient-only, Hessian, registry, reverse-loop, reverse-nest, reverse, and
+  tangent-only. Neither new sparsity oracle is among the failures.
+
+boundary:
+  The propagation is conservative: assignments are unioned across control
+  flow, and an opaque call connects its actual arguments. External state or an
+  unmodelled interface can still use an explicitly supplied pattern when a
+  caller has more precise information.
