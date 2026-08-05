@@ -1,0 +1,36 @@
+case: P2.7 explicit OpenMP emission for fused reduction adjoints
+fortad revision: 8fce76b (main)
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 1-8
+compiler: GNU Fortran 12.2.0 -O3 -fopenmp -std=f2018
+
+scope:
+  One-level fused reduction loops with positive accumulations now emit an
+  OpenMP parallel-do directive. Procedure dummies are shared; local scalar
+  temporaries use default(firstprivate); a surviving primal accumulator gets
+  an explicit reduction clause. The directive is emitted after final IR
+  cleanup, so removed temporary names cannot leak into the generated source.
+  Generated routines containing parallel-do are non-PURE because Fortran
+  forbids OpenMP parallel regions in PURE procedures. Serial builds still see
+  standard comment directives.
+
+correctness and compilation:
+  The gradient-only erfsum source compiled with gfortran -fopenmp and passed
+  an independent central directional finite-difference check at n=100000.
+  Both one-thread and eight-thread runs reported relative error
+  6.1285869985895815E-09 (threshold 1.0E-07).
+
+  The with-primal erfsum source compiled with gfortran -fopenmp and emitted
+  reduction(+:y_v2). Both one-thread and eight-thread runs returned the same
+  independent primal/directional-FD error, 6.1285869985895815E-09.
+
+  The fixed-quadrature gradient-only source also compiled with gfortran
+  -fopenmp and emitted the same race-free default-firstprivate/shared-dummy
+  form. Its existing independent central-FD result remains in
+  results/p19_kernels_validation.txt.
+
+decision and boundary:
+  Keep explicit OpenMP parallel-do emission for this fused reduction shape.
+  Negative accumulations, carried recurrences, nested loops, and general
+  index-set transposition remain outside this directive path and are not
+  claimed as parallelized. No generic tape or serialized scatter is emitted:
+  each reverse array write is to the current iteration's disjoint element.

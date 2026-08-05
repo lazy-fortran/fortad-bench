@@ -81,6 +81,15 @@ independent directional finite-difference check in
 For the affine RK4 recurrence, linearity removes a counterfactual 8000-byte
 state tape at `n=1000`.
 
+### Explicit OpenMP reduction emission
+
+One-level fused positive reduction adjoints now emit `parallel do` with
+race-free reduction and data-sharing clauses. The generated `erfsum` forms
+compile with gfortran OpenMP and pass independent one-thread/eight-thread
+directional finite-difference checks. The scoped result and its boundaries are
+recorded in [`results/p27_openmp_fortad.csv`](results/p27_openmp_fortad.csv) and
+[`results/p27_openmp_validation.txt`](results/p27_openmp_validation.txt).
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
