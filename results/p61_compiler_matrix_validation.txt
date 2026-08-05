@@ -21,7 +21,8 @@ not proven:
   nagfor: no compiler binary or NAG licence was available on the checked TU
     Graz hosts; no installation or licence acquisition was attempted.
   CI: fortad and fortad-bench contain no GitHub Actions workflow, so the
-    matrix is not running in CI.
+    matrix is not running in CI. The GitHub API also reports no workflow and no
+    registered self-hosted runner for either repository.
   all-compilers-vectorise: only the gfortran and ifx reports above were
     collected; LFortran, Flang, ifort, NVHPC and NAG are not proven to
     vectorise this kernel.
