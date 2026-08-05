@@ -1,0 +1,37 @@
+case: P3.3 caller-supplied nonlinear-root implicit rule
+fortad revision: 353cc33 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2
+
+scope:
+  The structured call-rule registry is used for a converged scalar root
+  F(x,p)=x^3+p1*x-p2. The tangent rule evaluates dx=-F_p*dp/F_x and the
+  adjoint rule evaluates p_b=-F_p^T*lambda with F_x^T*lambda=x_b. The primal
+  root remains an opaque twelve-step Newton routine; no iteration tape is
+  emitted by the generated derivative.
+
+independent correctness oracle:
+  test_implicit_root_rule_oracle generated both fad_jvp and fad_vjp routines,
+  compiled them with the opaque Newton support, checked the JVP against fresh
+  complete root solves by central finite differences, checked the VJP
+  adjoint identity, and checked both VJP components. The focused remote
+  command passed:
+
+    fo test test_implicit_root_rule_oracle
+    test_implicit_root_rule_oracle PASS 0.50s
+
+Enzyme comparison:
+  The committed TU Graz Ryzen 9 scalar-root fixture differentiates the fixed
+  twelve-step Newton trace with Flang/LLVM 22.1.8 and Enzyme 22. At one root
+  product, implicit analytical versus Enzyme measured 2.297330 versus
+  115.820600 ns for JVP (50.4153x), and 14.117010 versus 158.803910 ns for
+  VJP (11.2491x). The raw record is
+  fortnum/benchmark/reference/ryzen9_5950x_scalar_root_fixture_migration.json.
+  This is a cross-record comparison; the fortad oracle runs with gfortran on
+  acluster and the benchmark record uses a different compiler and fixture
+  implementation.
+
+decision and boundary:
+  Keep IFT root rules explicit and caller-supplied. Do not infer residuals,
+  convergence, or singular-Jacobian handling from an opaque solver. Fixed-
+  shaped roots and nested root calls remain future extensions.
