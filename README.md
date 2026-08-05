@@ -90,6 +90,17 @@ directional finite-difference checks. The scoped result and its boundaries are
 recorded in [`results/p27_openmp_fortad.csv`](results/p27_openmp_fortad.csv) and
 [`results/p27_openmp_validation.txt`](results/p27_openmp_validation.txt).
 
+### BLAS/LAPACK structured solve rule
+
+The scoped P3.2 result is recorded in
+[`results/p32_blas_lapack_fortad.csv`](results/p32_blas_lapack_fortad.csv), with
+the generated-code oracle and the Enzyme comparison protocol in
+[`results/p32_blas_lapack_validation.txt`](results/p32_blas_lapack_validation.txt).
+The `dgesv` rule is generated and linked against real LAPACK/BLAS on the TU Graz
+acluster. The Enzyme numbers are the existing Ryzen 9 direct-solve fixture, so
+they establish the performance context without being presented as a same
+machine or same implementation timing.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
