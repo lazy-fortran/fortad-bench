@@ -1,0 +1,7 @@
+date,case,mode,scale,engine,median_ns,mad_ns,comparison_engine,comparison_median_ns,source_record,comparison_scope
+2026-07-28,fft_r2c,JVP,n=8,analytical,177.7106,5.1920,,,ryzen9_5950x_fft_scalar_products.json,"existing analytical FFT product; generic fortad oracle is separate"
+2026-07-28,fft_r2c,VJP,n=8,analytical,169.9557,5.1064,,,ryzen9_5950x_fft_scalar_products.json,"existing analytical FFT product; generic fortad oracle is separate"
+2026-07-27,fixed_quadrature,JVP,4 directions,analytical,1247.7167,5.8860,Enzyme_integrand,1263.4433,ryzen9_5950x_fixed_quadrature_hybrid_jvp.json,"existing validated explicit versus Enzyme-integrand comparison"
+2026-07-27,fixed_quadrature,VJP,1 cotangent,analytical,299.4435,1.1752,Enzyme_integrand,317.5576,ryzen9_5950x_fixed_quadrature_hybrid_vjp.json,"existing validated explicit versus Enzyme-integrand comparison"
+2026-07-28,erf,JVP,one product,generated_analytical,13.52566,0.34561,diagnostic,13.94578,ryzen9_5950x_erf_codegen_migration.json,"existing generated analytical versus prior transcription"
+2026-07-28,erf,VJP,one product,generated_analytical,13.58756,0.47264,diagnostic,13.83181,ryzen9_5950x_erf_codegen_migration.json,"existing generated analytical versus prior transcription"

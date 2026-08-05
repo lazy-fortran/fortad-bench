@@ -120,6 +120,15 @@ The available reference is implicit products versus fresh complete re-solves;
 the separate Enzyme Richardson-trace workload is not presented as the same
 fixed-point benchmark.
 
+### FFT, quadrature, interpolation, and special-function rules
+
+The P3.5 representative rule table and oracle are recorded in
+[`results/p35_library_rules_fortad.csv`](results/p35_library_rules_fortad.csv)
+and [`results/p35_library_rules_validation.txt`](results/p35_library_rules_validation.txt).
+The existing FFT, fixed-quadrature, and `erf` records provide performance
+context; the new multi-call fortad oracle is labelled separately from those
+historical cross-engine measurements.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
