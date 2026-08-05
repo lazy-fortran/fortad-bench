@@ -7,7 +7,7 @@ implementation. See [LEGAL.md](LEGAL.md) for the rules this table enforces.
 
 | Case | Mathematical statement | Upstream | Licence | Ported | Independent oracle |
 |---|---|---|---|---|---|
-| `vmec-jacobian` | half-grid metric quantities and Jacobian `tau` from full-grid geometry; `tau` nonlinear in the geometry | VMEC++ `vmec/ideal_mhd_model/jacobian_kernel.h` | MIT, Proxima Fusion | planned, with upstream notice | hand-derived JVP/VJP, central differences, adjoint identity |
+| `vmec-jacobian` | half-grid metric quantities and Jacobian `tau` from full-grid geometry; `tau` nonlinear in the geometry | VMEC++ `vmec/ideal_mhd_model/jacobian_kernel.h`, commit `ccdeec53` | MIT, Proxima Fusion | ported in `cases/vmec-jacobian/kernel.f90`; Fortran arrays replace flat buffers and fixed zero-based offsets; upstream notice retained | hand-derived JVP/VJP, central-difference step sweep, adjoint identity |
 | `heat1d` | one explicit step of the 1D heat equation | `lazy-fortran/differentiable-fortran` `docs/contract.md` | MIT, this project | reused | analytical JVP and VJP already in that repository |
 | `fortnum-kernels` | per-kernel, stated in fortnum | `lazy-fortran/fortnum` | MIT, this project | reused | existing `analytical` candidates and committed baselines |
 | `adbench` GMM, BA, hand, LSTM | as published with the suite | `microsoft/ADBench` | MIT | planned, with upstream notice | suite's own reference derivatives, plus finite differences |
