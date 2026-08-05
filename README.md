@@ -110,6 +110,16 @@ The registry rule differentiates the converged equation and emits no Newton
 iteration tape. The Enzyme values come from the existing Ryzen 9 fixture and
 are labelled as a cross-record comparison.
 
+### Fixed-point adjoint rule
+
+The P3.4 Christianson two-phase result is recorded in
+[`results/p34_fixed_point_fortad.csv`](results/p34_fixed_point_fortad.csv), with
+the remote oracle and comparison boundary in
+[`results/p34_fixed_point_validation.txt`](results/p34_fixed_point_validation.txt).
+The available reference is implicit products versus fresh complete re-solves;
+the separate Enzyme Richardson-trace workload is not presented as the same
+fixed-point benchmark.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 

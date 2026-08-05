@@ -1,0 +1,37 @@
+case: P3.4 Christianson two-phase fixed-point rule
+fortad revision: b489372 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2
+
+scope:
+  The structured call-rule registry is used for the two-state tanh map
+  x=G(x,p). The tangent callback iterates the linearized map to solve
+  (I-G_x)dx=G_p dp. The adjoint callback is the second Christianson phase: it
+  iterates lambda=G_x^T lambda+u and returns G_p^T lambda. The opaque primal
+  fixed-point iteration is not taped by the generated derivative.
+
+independent correctness oracle:
+  test_fixed_point_rule_oracle generated both fad_jvp and fad_vjp routines,
+  compiled them with the opaque converged primal, checked the JVP against
+  fresh complete fixed-point solves by central finite differences, checked the
+  VJP adjoint identity, and checked both VJP components. The focused remote
+  command passed:
+
+    fo test test_fixed_point_rule_oracle
+    test_fixed_point_rule_oracle PASS 0.38s
+
+performance context:
+  The committed TU Graz Ryzen 9 fixed-point records compare reusable implicit
+  products with fresh complete re-solves. Tangent is 97.8032 versus 1224.4016
+  ns (12.5190x); adjoint is 132.3983 versus 2495.1440 ns (18.8457x). The raw
+  records are fortnum/benchmark/reference/ryzen9_5950x_fixed_point_tangent.json
+  and fortnum/benchmark/reference/ryzen9_5950x_fixed_point_adjoint.json.
+  No compatible Enzyme fixed-point fixture is available on the TU Graz hosts;
+  the separate Enzyme Richardson-trace record is a different workload and is
+  not used as a direct comparison.
+
+decision and boundary:
+  Keep the two-phase rule explicit and caller-supplied. Require a convergent
+  fixed-point map and leave map derivatives, stopping criteria, and any
+  acceleration to the registrant. Automatic map extraction and general
+  shaped-array support remain future work.
