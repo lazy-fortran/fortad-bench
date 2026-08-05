@@ -1,0 +1,34 @@
+case: P6.2 GPU offload decision gate
+fortad revision: 1601bf1 (main)
+hosts: acluster.tugraz.at and scluster, TU Graz
+
+hardware/toolchain audit:
+  acluster exposes one Tesla T4 with 15,360 MiB and NVIDIA driver 535.261.03.
+  It has GNU Fortran 12.2.0, Clang 14.0.6, GCC's libgomp NVPTX plugin, and no
+  nvfortran, pgfortran, or flang-new. scluster has no nvidia-smi/GPU and no
+  GPU-capable Fortran compiler.
+
+emitter audit:
+  fortad currently lowers the existing parallel-loop marker to host
+  `!$omp parallel do` with data-sharing and reduction clauses. There is no
+  OpenMP `target teams` or OpenACC emission/configuration in fortad, so there
+  is no generated GPU derivative path to benchmark honestly.
+
+independent device probes on acluster:
+  A minimal Fortran OpenMP target program compiled with
+  `gfortran -O2 -fopenmp -foffload=nvptx-none` (status 0), but the mandatory
+  device-execution oracle reported `omp_is_initial_device()` true and failed
+  (runtime status 1). The same happened with
+  `gfortran -O2 -fopenacc -foffload=nvptx-none`: compilation status 0, while
+  `acc_on_device(acc_device_nvidia)` reported host execution and failed.
+  Fortnum's policy probe accepts OpenACC configuration with gfortran but
+  rejects OpenMP target unless the compiler is NVHPC or LLVM Flang 23+; a
+  configuration success without mandatory device execution is not evidence.
+
+decision:
+  Park P6.2. Do not add unvalidated target directives or report host fallback
+  as GPU execution. Reopen only when both OpenMP target and OpenACC compilers
+  are available on a TU Graz GPU host, generated derivative tests prove
+  device execution under a mandatory policy, and transfer-inclusive wall
+  clock, host/device peak memory, and device correctness are recorded.
+  No GPU plot is generated because there is no valid device result to plot.
