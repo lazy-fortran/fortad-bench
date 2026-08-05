@@ -1,0 +1,55 @@
+case: P6.2 validated GPU derivative emission
+status: complete
+fortad revision: 8cea5e9 (main)
+fortfront revision: 17b6bdb5 (main)
+host: acluster.tugraz.at
+device: Tesla T4, compute capability 7.5, 15,360 MiB
+driver: 535.261.03
+compiler: NVIDIA HPC SDK 26.5 nvfortran
+CUDA runtime: 12.9
+
+scope:
+  The fused one-level positive reduction loop emits adjacent OpenMP target and
+  OpenACC directives.  The generated derivative is compiled twice for the
+  native T4 target, with mandatory device execution checked independently by
+  each API.
+
+command:
+  FORTAD_CLI=build/fo/app/fortad P62_TOOLCHAIN=nvhpc
+  P62_NVHPC_PREFIX=/home/ert/opt/nvhpc/26.5
+  harness/p62_gpu_oracle.sh
+
+compiler flags:
+  OpenMP: -O2 -mp=gpu -gpu=cc75 -Minfo=accel
+  OpenACC: -O2 -acc=gpu -gpu=cc75 -Minfo=accel
+
+transfer-inclusive run evidence:
+  generated source: 1109 bytes
+  transform: 0.06 s
+  OpenMP compile: 3.60 s
+  OpenACC compile: 4.52 s
+  OpenMP execution: 0.64 s, host max RSS 117340 KiB, device memory 5--110 MiB
+  OpenACC execution: 0.49 s, host max RSS 114204 KiB, device memory 5--111 MiB
+  The device-memory ranges are sampled with nvidia-smi while each process is
+  alive; the host figures are GNU time's maximum resident set size.
+
+independent correctness and device oracles:
+  OpenMP: error 7.2759576141834259e-12, omp_is_initial_device() = false
+  OpenACC: error 7.2759576141834259e-12, acc_on_device(nvidia) = true
+  The analytic oracle is s = sum(a*sin(b)), with VJP checks for both a and b.
+  OMP_TARGET_OFFLOAD=MANDATORY was set for the OpenMP run.
+
+compiler evidence:
+  OpenMP generated map(to:a(:),b(:)) and map(tofrom:b_b(:),a_b(:)); the
+  on-device flag used map(from:on_device).
+  OpenACC generated copyin(a(:),b(:)), copy(b_b(:)), copy(a_b(:)), and a
+  reduction(+:s_v2), and reported NVIDIA GPU code generation.
+
+regression gate:
+  The repaired fortad suite passed all 22/22 behavioural oracles on acluster;
+  the run completed in 28.81 s after a clean remote build.
+
+decision:
+  Replace the parked P6.2 decision gate with the validated NVHPC/Tesla-T4
+  production path.  The GCC NVPTX result remains a separately validated
+  fallback on faepop31.
