@@ -1,0 +1,2 @@
+date,kernel,mode,n,bytes_without_linearity,bytes_with_linearity,bytes_saved,values_without_linearity,values_with_linearity,element_bytes,generated_source_bytes,decision
+2026-08-05,rk4,vjp,1000,8000,0,8000,1,0,8,3012,"affine carried state is propagated through one constant coefficient instead of taped"
