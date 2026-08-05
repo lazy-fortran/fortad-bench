@@ -74,6 +74,13 @@ is the boundary case: it retains one carried state per iteration, 8000 bytes
 at `n=1000`. The comparison's zero-TBR baseline is deliberately conservative:
 it saves every active real loop assignment, including reduction accumulators.
 
+The separate carried-variable linearity saving is recorded in
+[`results/p22_linearity_fortad.csv`](results/p22_linearity_fortad.csv), with an
+independent directional finite-difference check in
+[`results/p22_linearity_validation.txt`](results/p22_linearity_validation.txt).
+For the affine RK4 recurrence, linearity removes a counterfactual 8000-byte
+state tape at `n=1000`.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 

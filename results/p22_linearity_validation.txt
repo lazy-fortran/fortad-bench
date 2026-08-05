@@ -1,0 +1,34 @@
+case: P2.2 carried-variable linearity analysis
+fortad revision: fa8224c (main)
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 1
+compiler: GNU Fortran 12.2.0 -O3 -std=f2018
+
+scope:
+  The comparison isolates the linearity decision after affine loop
+  normalisation. Without the decision, the normalized RK4 recurrence would
+  retain one real state value per iteration in state_tape. With the decision,
+  the state adjoint is propagated through the constant coefficient and no
+  per-iteration state is stored. Stage locals are not counted: affine
+  normalisation has already removed their history, so this record measures the
+  additional saving due to carried-variable linearity rather than claiming it
+  for the affine pass as well.
+
+record:
+  At n=1000, the counterfactual state tape is 1000 real values, or 8000 bytes.
+  The emitted rk4_vjp source is 3012 bytes and contains no tape declaration;
+  bytes saved by linearity are therefore 8000. The committed numeric record is
+  results/p22_linearity_fortad.csv.
+
+independent correctness oracle:
+  The remote emitted VJP was compiled with gfortran and checked against a
+  separately implemented RK4 primal by a central directional finite
+  difference. At n=1000 the relative error was
+  5.1290690228009139E-11 (threshold 1.0E-8).
+
+decision:
+  Keep the strict linearity test: a carried variable is tape-free only when
+  every derivative coefficient is built from inactive values. A recurrence
+  such as u = u*exp(a(i)) remains taped because its derivative with respect to
+  active a(i) reads the old u, even though the primal expression is formally
+  linear in u. The RK4 result is the positive case and the nonlinear
+  recurrence in p21_tbr_fortad.csv is the negative case.
