@@ -1,0 +1,23 @@
+case: VMEC++ ComputeHalfGridJacobian
+upstream: https://github.com/proximafusion/vmecpp.git @ ccdeec53e048f086d71b2ffa35070238e3c70373
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 0
+compiler: GNU Fortran 12.2.0 -O3 -std=f2008
+shape: nZnT=32, nsH=12, nfull=13
+
+hand JVP/VJP scalar-loss agreement: 2.4334e-15 relative
+adjoint identity relative error: 4.0573e-16
+finite-difference step sweep:
+  h=1e-2  JVP=7.1275e-02  VJP=1.0008e-14
+  h=1e-3  JVP=7.6686e-04  VJP=5.4233e-14
+  h=1e-4  JVP=7.6743e-06  VJP=2.3534e-12
+  h=1e-5  JVP=7.8614e-08  VJP=2.2498e-11
+  h=1e-6  JVP=7.7846e-09  VJP=1.9558e-10
+  h=1e-7  JVP=2.9296e-08  VJP=2.1015e-10
+status: PASS
+
+Vectorisation report summary:
+  compute_half_grid_jacobian inner kl loop: vectorised with 16-byte vectors
+  compute_half_grid_jacobian_jvp inner kl loop: vectorised with 16-byte vectors
+  compute_half_grid_jacobian_vjp inner kl loop: vectorised with 16-byte vectors,
+    with loop versioning for possible aliasing
+  outer radial loops: not vectorised

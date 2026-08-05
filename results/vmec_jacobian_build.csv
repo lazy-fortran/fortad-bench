@@ -1,0 +1,3 @@
+engine,phase,seconds,generated_code_bytes,generated_code_text_bytes,compiler,machine,provenance
+hand-fortran,compile-and-link,2.901624,43264,34786,GFortran 12.2.0,AMD EPYC 7282,aCluster run 2026-08-05
+enzyme,transform-compile-and-link,1.331000,33936,23763,Clang 22.1.8 + ClangEnzyme-22,VMEC++ build host,pre-existing Ninja log; plugin unavailable on aCluster

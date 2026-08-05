@@ -1,0 +1,5 @@
+workload,engine,mode,nZnT,nsH,seconds_per_pass,us_per_pass,peak_rss_kb,compiler,flags,machine,method
+vmec_half_grid_jacobian,enzyme,forward,32,12,8.66000000E-06,8.66,3280,Clang 22.1.8 + ClangEnzyme-22,-O2 -fplugin=ClangEnzyme-22.so,AMD EPYC 7282 single core,pre-existing VMEC++ scalar-loss test
+vmec_half_grid_jacobian,hand-fortran,jvp,32,12,1.65000000E-05,16.50,3348,GFortran 12.2.0,-O3 -std=f2008,AMD EPYC 7282 single core,hand JVP with primal in one pass
+vmec_half_grid_jacobian,enzyme,reverse,32,12,1.36800000E-05,13.68,3280,Clang 22.1.8 + ClangEnzyme-22,-O2 -fplugin=ClangEnzyme-22.so,AMD EPYC 7282 single core,pre-existing VMEC++ scalar-loss test
+vmec_half_grid_jacobian,hand-fortran,vjp,32,12,2.05000000E-05,20.50,3348,GFortran 12.2.0,-O3 -std=f2008,AMD EPYC 7282 single core,hand VJP with primal in one pass
