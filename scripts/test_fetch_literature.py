@@ -21,6 +21,14 @@ class LiteratureTests(unittest.TestCase):
         self.assertIn("hascoet2013tapenade", keys)
         self.assertIn("blondel2022implicit", keys)
 
+    def test_curated_arxiv_id_does_not_need_network(self):
+        match = fetch_literature.arxiv({
+            "eprint": "2105.15183",
+            "archiveprefix": "arXiv",
+        })
+        self.assertEqual(match["arxiv_id"], "2105.15183")
+        self.assertEqual(match["pdf"], "https://arxiv.org/pdf/2105.15183")
+
     def test_download_accepts_pdf_and_rejects_html(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

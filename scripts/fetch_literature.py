@@ -112,6 +112,9 @@ def unpaywall(doi: str) -> dict | None:
 
 
 def arxiv(entry: dict[str, str]) -> dict | None:
+    if entry.get("eprint") and entry.get("archiveprefix", "").lower() == "arxiv":
+        arxiv_id = entry["eprint"]
+        return {"arxiv_id": arxiv_id, "pdf": f"https://arxiv.org/pdf/{arxiv_id}"}
     query = urllib.parse.urlencode({
         "search_query": f'ti:"{entry.get("title", "")[:120]}"',
         "max_results": 1,
@@ -196,7 +199,7 @@ def main() -> int:
                 print("    crossref: no confident match (DOI left unset on purpose)")
             time.sleep(0.4)
         if "arxiv_id" not in record:
-            match = arxiv(entry)
+            match = arxiv(entry) if not record.get("doi") else None
             if match:
                 record.update(match)
                 print(f"    arxiv {match['arxiv_id']}")
