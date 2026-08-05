@@ -1,0 +1,48 @@
+case: P5.4 public API freeze
+fortad source revision: 406fd95 (P5.4 changes are documentation-only)
+host: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0, fo 0.2.0
+
+scope:
+  The frozen surface is the source-transforming fortad module and CLI at
+  version 0.1.0. The documented mapping keeps ADOL-C's jacobian, hessian,
+  jac_vec, vec_jac, hess_vec, and sparse names as product terminology while
+  retaining fortad's source-returning fad_* calls. Literal runtime-tape aliases
+  and a generic driver are intentionally not exposed.
+
+independent behavioural evidence:
+  The existing independent product oracles were run remotely:
+
+    test_forward_vector_oracle  PASS 1.14s
+    test_sparse_oracle          PASS 0.01s
+    test_products_oracle        PASS 0.54s
+    test_pattern_oracle         PASS 0.04s
+
+  These cover vector JVPs, sparse Jacobian/Hessian recovery, linear UQ and
+  product composition, and conservative static pattern inference. The scalar
+  forward and Hessian oracle cases retain the known baseline failure caused by
+  fixtures that request undeclared independent `y`:
+
+    test_forward_oracle: 8 cases failed
+    test_hessian_oracle: 3 cases failed
+
+  Those failures are unrelated to the public API documentation and reproduce
+  the existing baseline; they are not counted as API-freeze passes.
+
+  The built CLI binary was also checked directly:
+
+    --help     status 0, prints the frozen option list
+    --version  status 0, prints fortad 0.1.0
+
+remote build/runtime evidence:
+  The first focused fo build/test completed in 32.32 s with peak RSS 85,156 KB.
+  The vector-oracle executable runtime was 1.14 s. The CLI help and version
+  calls each took 0.00 s, with peak RSS 3,032 KB and 3,056 KB respectively.
+  The fortad CLI executable was 17,388,024 bytes. No generated derivative
+  code changes in this documentation-only item, so there is no generated-code
+  size delta to report.
+
+decision:
+  Freeze the public API at version 0.1.0. Future additions require a deliberate
+  versioned roadmap change; do not add ADOL-C runtime compatibility aliases,
+  hidden tape state, or an optimizer loop to the source-transforming surface.
