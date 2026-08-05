@@ -1,0 +1,5 @@
+date,case,mode,products,engine,median_ns,mad_ns,speedup_over_enzyme,machine,toolchain,source_record,comparison_scope
+2026-07-28,scalar_root,JVP,1,implicit_analytical,2.297330,0.000600,50.4153,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_scalar_root_fixture_migration.json,"cubic root; converged residual IFT versus Enzyme Newton trace"
+2026-07-28,scalar_root,JVP,1,Enzyme_iteration,115.820600,0.156700,1.0000,"AMD Ryzen 9 5950X CPU 4 pinned","Flang/LLVM 22.1.8 -O2 with Enzyme 22",ryzen9_5950x_scalar_root_fixture_migration.json,"cubic root; fixed twelve-step Newton trace"
+2026-07-28,scalar_root,VJP,1,implicit_analytical,14.117010,0.045290,11.2491,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_scalar_root_fixture_migration.json,"cubic root; converged residual IFT versus Enzyme Newton trace"
+2026-07-28,scalar_root,VJP,1,Enzyme_iteration,158.803910,0.962710,1.0000,"AMD Ryzen 9 5950X CPU 4 pinned","Flang/LLVM 22.1.8 -O2 with Enzyme 22",ryzen9_5950x_scalar_root_fixture_migration.json,"cubic root; fixed twelve-step Newton trace"

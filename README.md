@@ -101,6 +101,15 @@ acluster. The Enzyme numbers are the existing Ryzen 9 direct-solve fixture, so
 they establish the performance context without being presented as a same
 machine or same implementation timing.
 
+### Nonlinear-root implicit rule
+
+P3.3 records the scalar-root IFT oracle and the Enzyme-through-Newton
+comparison in [`results/p33_implicit_root_fortad.csv`](results/p33_implicit_root_fortad.csv)
+and [`results/p33_implicit_root_validation.txt`](results/p33_implicit_root_validation.txt).
+The registry rule differentiates the converged equation and emits no Newton
+iteration tape. The Enzyme values come from the existing Ryzen 9 fixture and
+are labelled as a cross-record comparison.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
