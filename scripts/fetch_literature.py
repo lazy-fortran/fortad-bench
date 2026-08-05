@@ -199,7 +199,7 @@ def main() -> int:
                 print("    crossref: no confident match (DOI left unset on purpose)")
             time.sleep(0.4)
         if "arxiv_id" not in record:
-            match = arxiv(entry) if not record.get("doi") else None
+            match = arxiv(entry) if (not record.get("doi") or entry.get("eprint")) else None
             if match:
                 record.update(match)
                 print(f"    arxiv {match['arxiv_id']}")
