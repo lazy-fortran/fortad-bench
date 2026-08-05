@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Compile fortad's generated derivative code with every Fortran compiler on
-# this machine, and check that gfortran vectorises the kernels.
+# Compile fortad's generated derivative code with every compiler required by
+# P6.1, and make unavailable compilers visible instead of silently skipping
+# them. The script is a portability check, not evidence that every compiler
+# vectorises every kernel.
 #
 # "Emits standard Fortran that any conforming compiler builds" is fortad's
 # central product claim. A claim nobody checks is a wish, so this checks it.
@@ -33,8 +35,13 @@ mkdir -p "$out" results
 echo "compiler,file,result" > results/compiler_matrix.csv
 failures=0
 
-for fc in gfortran flang ifx ifort nvfortran lfortran; do
-    command -v "$fc" >/dev/null 2>&1 || continue
+for fc in gfortran flang-new ifx ifort nvfortran lfortran nagfor; do
+    if ! command -v "$fc" >/dev/null 2>&1; then
+        echo "$fc,all,missing" >> results/compiler_matrix.csv
+        printf '  %-10s unavailable\n' "$fc"
+        failures=$((failures + 1))
+        continue
+    fi
     for f in adjoint tangent tangent_v; do
         if ( cd "$out" && "$fc" -c "$f.f90" -o "$f.$fc.o" ) >"$out/$f.$fc.log" 2>&1; then
             echo "$fc,$f,ok" >> results/compiler_matrix.csv
