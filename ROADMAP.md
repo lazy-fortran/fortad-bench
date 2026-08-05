@@ -18,13 +18,16 @@ benchmarked, in which case say so, or a measurement is missing.
 
 ## Outstanding
 
-### Re-measure the vector-Newton routines
+### Re-measure the vector-Newton routines — done 2026-08-05
 
 Three of fortnum's vector-Newton routines were absent from the corpus
 because fortad could not differentiate them: `hoist_subexpressions` did not
 terminate on a body with several inlined callees. That defect is fixed. The
-routines have not been added or measured since, and they are the last of
-Enzyme's fortnum corpus that fortad did not cover.
+routines are now measured in a focused fortad record at
+`results/vector_newton_fortad.csv`, and they are the last of Enzyme's fortnum
+corpus that fortad could not cover for a fortad-owned reason. The record is
+not added to the 59-operator cross-engine table because acluster has no
+compatible Enzyme toolchain; it therefore makes no same-machine 30% claim.
 
 ### Two caveats in the committed results
 

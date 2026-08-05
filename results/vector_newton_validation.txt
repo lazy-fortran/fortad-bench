@@ -1,0 +1,28 @@
+case: fortad vector-Newton follow-up
+fortad revision: f6f2920 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 1
+compiler: GNU Fortran 12.2.0 -O3 -std=f2018
+source: fixed 12-step two-variable Newton solve, declarations split one per line
+oracle: central finite differences of an independently implemented primal solve
+repetitions: 1000000 calls per timing trial, seven trials, median reported
+
+correctness:
+  newton_root_one JVP central-FD error: 9.7185037795100016E-12
+  newton_root_two JVP central-FD error: 7.9348749792984563E-12
+  newton_objective VJP central-FD error: 3.6782132895041286E-11
+  newton_objective gradient-only central-FD error: 3.6782132895041286E-11
+
+interface regression oracle:
+  module-level USE plus VALUE JVP central-FD error: 2.6805446751154705E-11
+  module-level USE plus VALUE VJP central-FD error: 9.1022744896918084E-12
+
+vectorisation report:
+  gfortran reported zero vectorised loops for all four emitted procedures.
+  These are scalar, loop-carried Newton iterations rather than SIMD batch
+  kernels; the report was reviewed and no SIMD claim is made here. The
+  forward batched-vectorisation gap remains a separate benchmark target.
+
+comparison caveat:
+  acluster has no flang, Enzyme plugin, or compatible LLVM toolchain, so this
+  is a focused fortad correctness/build/runtime record, not a same-machine
+  Enzyme ratio. The existing 59-operator cross-engine corpus count is unchanged.

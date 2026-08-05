@@ -11,10 +11,10 @@ and the committed results.
 
 ## Downstream port: fortnum and fortfem against Enzyme
 
-Every operator fortnum and fortfem differentiate, plus Enzyme's own suite,
-measured in both modes. **39 measurements, all within 30% of Enzyme, 29 of
-them faster than Enzyme.** The slowest is fortfem's polygon edge area
-tangent at 1.24x.
+The committed cross-engine corpus covers **59 operators**: 17 from fortnum
+and 42 from fortfem, plus Enzyme's own suite. The focused vector-Newton
+follow-up is recorded separately because the acluster lacks a compatible
+Enzyme toolchain; it is not included in a same-machine ratio.
 
 ![fortad against Enzyme](results/fortad_vs_enzyme.png)
 
@@ -23,8 +23,8 @@ tangent at 1.24x.
 | Suite | Operators | Worst ratio | Faster than Enzyme |
 |---|---|---|---|
 | Enzyme's own suite | 5 (reverse) | 0.87x lstm | 5 of 5 |
-| fortnum | 8 (both modes) | 1.09x erfsum reverse | 11 of 16 |
-| fortfem | 9 (both modes) | 1.24x polygon edge area tangent | 13 of 18 |
+| fortnum | 17 operators | 1.69x adaptive tangent | see caveat below |
+| fortfem | 42 operators | 1.63x curved quadrilateral tangent | see caveat below |
 
 Correctness is checked before timing: the harness compares fortad, Enzyme and
 fortsym on every kernel and stops on the first disagreement. All three agree
