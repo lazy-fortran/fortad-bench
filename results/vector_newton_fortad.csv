@@ -1,0 +1,5 @@
+date,routine,product,repetitions,median_seconds,median_ns_per_call,peak_rss_kb,transform_seconds,compile_seconds,generated_source_bytes,object_bytes,object_text_bytes
+2026-08-05,newton_root_one,jvp,1000000,0.231932,231.932,2804,0.06,0.05,3488,2216,597
+2026-08-05,newton_root_two,jvp,1000000,0.153022,153.022,2808,0.06,0.05,3488,2216,597
+2026-08-05,newton_objective,vjp,1000000,0.281861,281.861,2808,0.12,0.10,11500,4168,2273
+2026-08-05,newton_objective,gradient,1000000,0.279823,279.823,2820,0.12,0.09,11422,4064,2153
