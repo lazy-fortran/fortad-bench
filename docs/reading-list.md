@@ -5,8 +5,9 @@ actual record — arXiv IDs were confirmed by reading the PDF's first page,
 DOIs by matching the publisher's title and venue.
 
 **Fetch column:** `arXiv` means an author-posted preprint is freely available at
-the link. `manual` means it is paywalled and needs institutional access or a
-library copy — those are the ones to put into Zotero.
+the link. `manual` means no validated open-access PDF was fetched; use the
+linked report, repository, institutional access, or a library copy as
+appropriate.
 
 No full text is committed to this repository. See [../LEGAL.md](../LEGAL.md).
 
@@ -94,3 +95,14 @@ No full text is committed to this repository. See [../LEGAL.md](../LEGAL.md).
 `literature/` currently holds the nine open-access preprints (items 4, 12, 13,
 15, 16, 18, 22, 24, 28), fetched from arXiv. Everything marked **manual** above
 is paywalled; those are the ones to pull through TU Graz access into Zotero.
+
+## Resolution audit (2026-08-05)
+
+The remote resolver parsed all 33 bibliography entries and recorded Crossref,
+arXiv, and Unpaywall results in its ignored `literature/resolved.json`. A clean
+`--fetch` run validated nine PDFs: the preprints listed above. It also found
+open-access landing pages for Tapenade (item 1), Clad (item 14), and ADOL-C
+(item 29), but those responses were HTML rather than PDFs and were not copied.
+The other 21 entries have no accepted open-access PDF in the audit and remain
+institutional/library retrieval items. No title was changed because of an
+uncertain Crossref match.
