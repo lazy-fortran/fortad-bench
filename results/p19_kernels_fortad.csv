@@ -1,0 +1,7 @@
+date,kernel,mode,batch_n,repetitions,median_seconds,median_ns_per_batch,median_ns_per_input,peak_rss_kb,transform_seconds,compile_seconds,generated_source_bytes,object_bytes,object_text_bytes
+2026-08-05,erfsum,jvp,128,10000,0.020283,2028.3,15.8461,3112,0.05,0.06,722,2216,573
+2026-08-05,erfsum,vjp,128,10000,0.020859,2085.9,16.2961,3108,0.05,0.06,1330,2256,561
+2026-08-05,erfsum,gradient,128,10000,0.009636,963.6,7.5281,3016,0.06,0.05,1432,2064,443
+2026-08-05,fixed_quadrature_integrand,jvp,128,10000,0.056828,5682.8,44.3969,3272,0.06,0.06,1544,1904,652
+2026-08-05,fixed_quadrature_integrand,vjp,128,10000,0.068370,6837.0,53.4141,3312,0.06,0.07,3733,1984,675
+2026-08-05,fixed_quadrature_integrand,gradient,128,10000,0.070808,7080.8,55.3188,3312,0.07,0.07,4413,2088,780

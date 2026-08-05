@@ -29,6 +29,13 @@ corpus that fortad could not cover for a fortad-owned reason. The record is
 not added to the 59-operator cross-engine table because acluster has no
 compatible Enzyme toolchain; it therefore makes no same-machine 30% claim.
 
+P1.9's second and third kernel closeout is recorded in
+`results/p19_kernels_fortad.csv` and `results/p19_kernels_validation.txt`:
+`erfsum` from `special/` and `fixed_quadrature_integrand` from `quadrature/`.
+The existing 59-operator cross-engine table already contains both. The
+quadrature kernel's zero-loop vectorisation report is retained as the known
+slice-packing limitation rather than being presented as a win.
+
 ### Two caveats in the committed results
 
 Both are recorded in `README.md` and neither is resolved:
