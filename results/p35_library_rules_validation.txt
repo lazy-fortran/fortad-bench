@@ -1,0 +1,35 @@
+case: P3.5 representative FFT, quadrature, interpolation, and special-function rules
+fortad revision: b583dbd (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2
+
+scope:
+  The structured call-rule registry is exercised by one composite kernel with
+  four opaque operations: a real cosine/sine FFT pair, a weighted four-point
+  quadrature, four-node Lagrange interpolation with active nodes/values/point,
+  and erf. Every operation has an explicit tangent and adjoint callback. The
+  reverse emitter handles all four calls in one procedure and emits no tape of
+  their implementations.
+
+independent correctness oracle:
+  test_library_rules_oracle generated fad_jvp and fad_vjp routines, linked
+  them to separate support implementations, checked the composite JVP against
+  fresh central finite differences, checked the VJP adjoint identity, and
+  checked all active signal, node, value, and point components. The focused
+  remote command passed:
+
+    fo test test_library_rules_oracle
+    test_library_rules_oracle PASS 0.68s
+
+performance context:
+  The committed fortnum records report length-8 FFT JVP/VJP products at
+  177.7106/169.9557 ns; fixed-quadrature analytical versus Enzyme-integrand at
+  1247.7167 versus 1263.4433 ns for four JVP directions and 299.4435 versus
+  317.5576 ns for one VJP cotangent; generated erf products at 13.52566 ns
+  (JVP) and 13.58756 ns (VJP). These are existing reference records, not
+  same-binary timings of the generic fortad oracle.
+
+decision and boundary:
+  Keep library rules explicit and interface-owned. Complex FFT ABI details,
+  adaptive quadrature, general spline state, and the remaining special-
+  function catalog are not inferred and remain future caller-supplied rules.
