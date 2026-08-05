@@ -62,6 +62,18 @@ Make the same ODE nonlinear and the margin goes away: fortad then tapes the
 state and recomputes all four stages in reverse, exactly as Enzyme does. The
 number measures an advantage on affine recurrences, not on Runge-Kutta.
 
+### TBR storage boundary
+
+The Phase 1 to-be-recorded comparison is in
+[`results/p21_tbr_fortad.csv`](results/p21_tbr_fortad.csv), with its method and
+independent recurrence check in
+[`results/p21_tbr_validation.txt`](results/p21_tbr_validation.txt). The
+reduction kernels store no per-iteration values after TBR; the 12-step Newton
+adjoint stores its two nonlinear states (192 bytes). The nonlinear recurrence
+is the boundary case: it retains one carried state per iteration, 8000 bytes
+at `n=1000`. The comparison's zero-TBR baseline is deliberately conservative:
+it saves every active real loop assignment, including reduction accumulators.
+
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 

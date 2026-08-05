@@ -1,0 +1,51 @@
+case: P2.1 to-be-recorded analysis and storage decision
+fortad revision: fa8224c (main)
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 1
+compiler: GNU Fortran 12.2.0 -O3 -std=f2018
+
+definition:
+  bytes_without_tbr is the conservative save-all baseline for active real
+  left-hand sides assigned inside the loop, including a reduction accumulator.
+  Integer loop/index variables are excluded. bytes_with_tbr is the typed,
+  per-loop storage actually emitted after the current TBR-equivalent loop
+  analysis; recomputed temporaries and linear accumulators are not stored.
+  This is a static storage comparison, not a claim that a second executable
+  was built with the deliberately conservative baseline.
+
+records:
+  p21_tbr_fortad.csv covers every Phase 1 focused routine: the two vector
+  Newton JVPs, the Newton objective VJP and gradient, and the erfsum and fixed
+  quadrature VJP/gradient pairs. The nonlinear recurrence is included as the
+  storage-boundary case that forced this analysis.
+
+  The two Newton JVPs need no reverse storage. The Newton objective has seven
+  active real loop assignments per step without TBR (x1, x2, f1, f2,
+  determinant, step1, step2), versus two recorded states (x1, x2) with TBR:
+  672 bytes versus 192 bytes for twelve steps.
+
+  The two reduction kernels have two active real loop assignments without TBR
+  (the accumulator and value), versus zero recorded values with TBR: 2048
+  bytes versus zero for the n=128 focused batch. The emitted reverse sources
+  recompute the per-iteration value and contain no tape declaration.
+
+  The nonlinear recurrence records one real carried value u per iteration;
+  the accumulator s is linear and is not recorded. At n=1000 this is 8000
+  bytes with TBR versus 16000 bytes for the save-all baseline. The remote
+  emitted source contains u_tape with n entries and writes it before the
+  forward overwrite.
+
+independent correctness oracle:
+  The remote generated recurrence VJP was compiled with gfortran and checked
+  against the independently written analytical adjoint in a separate driver.
+  At n=1000 the maximum relative gradient error was
+  3.0342172345004396E-15 (threshold 1.0E-11).
+  The existing recurrence harness also checks fortad against that analytical
+  adjoint before recording timings in results/recur_grad.csv.
+
+decision:
+  Keep typed per-loop recording only for values whose old iteration value is
+  read by a nonlinear reverse dependency. Recompute reduction temporaries,
+  discard linear accumulators, and do not introduce a generic dynamic tape.
+  P2.1 is complete for the current Phase 1 scope; the remaining cost-model
+  question for store versus recompute is tracked separately as an open
+  recurrence performance issue.
