@@ -94,7 +94,8 @@ No full text is committed to this repository. See [../LEGAL.md](../LEGAL.md).
 
 `literature/` currently holds the nine open-access preprints (items 4, 12, 13,
 15, 16, 18, 22, 24, 28), fetched from arXiv. Everything marked **manual** above
-is paywalled; those are the ones to pull through TU Graz access into Zotero.
+is not locally validated as a PDF; retrieve it through the linked source or TU
+Graz access as appropriate.
 
 ## Resolution audit (2026-08-05)
 
