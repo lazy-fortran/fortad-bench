@@ -34,6 +34,7 @@ LICENSE_NAMES = (
     "LICENSE-MIT", "LICENSE-APACHE", "NOTICE",
 )
 LICENSE_NAMES_CASEFOLD = {name.casefold() for name in LICENSE_NAMES}
+GIT_TIMEOUT_SECONDS = 120
 
 
 def load() -> list[dict]:
@@ -57,31 +58,57 @@ def clone(entry: dict, depth: int, jobs_note: str = "") -> bool:
 
     if target.exists():
         print(f"  update {name}")
-        rc = subprocess.run(
-            ["git", "-C", str(target), "fetch", "--depth", str(depth), "origin", ref],
-            capture_output=True, text=True,
-        )
+        try:
+            rc = subprocess.run(
+                ["git", "-C", str(target), "fetch", "--depth", str(depth), "origin", ref],
+                capture_output=True, text=True, timeout=GIT_TIMEOUT_SECONDS,
+            )
+        except subprocess.TimeoutExpired:
+            print(f"  WARN   {name}: fetch timed out after {GIT_TIMEOUT_SECONDS}s")
+            return False
         if rc.returncode != 0:
             print(f"  WARN   {name}: fetch failed: {rc.stderr.strip().splitlines()[-1:]}")
             return False
-        subprocess.run(["git", "-C", str(target), "checkout", "-q", "FETCH_HEAD"], check=False)
+        checked_out = subprocess.run(
+            ["git", "-C", str(target), "checkout", "-q", "FETCH_HEAD"],
+            check=False, timeout=GIT_TIMEOUT_SECONDS,
+        )
+        if checked_out.returncode != 0:
+            print(f"  WARN   {name}: checkout of fetched revision failed")
+            return False
         return True
 
     print(f"  clone  {name}  <- {url} @ {ref}")
-    rc = subprocess.run(
-        ["git", "clone", "--depth", str(depth), "--branch", ref,
-         "--single-branch", url, str(target)],
-        capture_output=True, text=True,
-    )
+    try:
+        rc = subprocess.run(
+            ["git", "clone", "--depth", str(depth), "--branch", ref,
+             "--single-branch", url, str(target)],
+            capture_output=True, text=True, timeout=GIT_TIMEOUT_SECONDS,
+        )
+    except subprocess.TimeoutExpired:
+        print(f"  FAIL   {name}: clone timed out after {GIT_TIMEOUT_SECONDS}s")
+        return False
     if rc.returncode != 0:
         # Some refs are commit hashes, which --branch rejects.
-        rc2 = subprocess.run(["git", "clone", "--filter=blob:none", url, str(target)],
-                             capture_output=True, text=True)
+        try:
+            rc2 = subprocess.run(
+                ["git", "clone", "--filter=blob:none", url, str(target)],
+                capture_output=True, text=True, timeout=GIT_TIMEOUT_SECONDS,
+            )
+        except subprocess.TimeoutExpired:
+            print(f"  FAIL   {name}: fallback clone timed out after {GIT_TIMEOUT_SECONDS}s")
+            return False
         if rc2.returncode != 0:
             tail = (rc.stderr or rc2.stderr).strip().splitlines()[-1:]
             print(f"  FAIL   {name}: {tail}")
             return False
-        subprocess.run(["git", "-C", str(target), "checkout", "-q", ref], check=False)
+        checked_out = subprocess.run(
+            ["git", "-C", str(target), "checkout", "-q", ref],
+            check=False, timeout=GIT_TIMEOUT_SECONDS,
+        )
+        if checked_out.returncode != 0:
+            print(f"  FAIL   {name}: requested ref {ref!r} is unavailable")
+            return False
     return True
 
 
