@@ -1,0 +1,25 @@
+case: P1.3 reverse activity on the VMEC++ plain-array arithmetic kernel
+machine: acluster
+compiler: GNU Fortran (Debian 12.2.0-14+deb12u1) 12.2.0
+shape: nhalf=12, nznT=32
+candidate derivative statements: 9
+emitted active derivative statements: 8
+eliminated statements: 1
+eliminated fraction: 0.111111
+transform_seconds: 0.170609
+compile_and_link_seconds: 1.013897
+generated_source_bytes: 12951
+generated_object_bytes: 5336
+generated_object_text_bytes: 3330
+peak_rss_kb: 3232
+vectorized_loop_messages: 6
+oracle: independent central finite difference of the plain primal
+directional_vjp  -3.12044085E+01
+directional_fd  -3.12044085E+01
+directional_relative_error   4.9076E-10
+vjp_seconds_per_pass   1.00000000E-05
+sink   0.00000000E+00
+PASS
+vectorization_report: build/p13-activity/vectorization-vjp.txt
+note: the derived-type allocation wrapper remains outside fortad's
+      supported source subset; this records the exact kernel arithmetic.
