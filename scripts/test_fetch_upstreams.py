@@ -46,6 +46,20 @@ class LicenseInventoryTests(unittest.TestCase):
             with patch.object(fetch_upstreams, "DEST", root / "upstream"):
                 self.assertFalse(fetch_upstreams.clone(entry, depth=1))
 
+    def test_metadata_entries_are_not_reported_as_missing_licenses(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            generated = root / "docs" / "generated"
+            entry = {"name": "fixture", "ref": "web", "license": "METADATA-ONLY"}
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", root / "upstream"), \
+                    patch.object(fetch_upstreams, "GENERATED", generated):
+                fetch_upstreams.scan_licenses([entry])
+
+            inventory = (generated / "license-inventory.md").read_text()
+            self.assertIn("METADATA ONLY", inventory)
+            self.assertIn("Entries with no licence file: 0.", inventory)
+
 
 if __name__ == "__main__":
     unittest.main()

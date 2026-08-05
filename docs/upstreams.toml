@@ -40,27 +40,29 @@ adapt = "none"
 
 [[upstream]]
 name = "openad"
-url = "https://github.com/Argonne-National-Laboratory/OpenAD.git"
-ref = "master"
-license = "VERIFY"
+url = "https://www.mcs.anl.gov/OpenAD/access.shtml"
+ref = "web"
+license = "METADATA-ONLY (historical Mercurial source)"
 category = "fortran-st"
 level = "XAIF (XML language-independent AD IR), Fortran via Open64/mfef90"
-inspect = ["xaifBooster/", "OpenADFortTk/"]
+inspect = ["documentation only"]
 why = """The only fully open Fortran adjoint compiler with a documented
 language-independent AD IR. xaifBooster carries the canonical implementations of
 activity analysis, to-be-recorded (TBR) analysis, linearity analysis, basic-block
-preaccumulation and cross-country elimination heuristics."""
+preaccumulation and cross-country elimination heuristics. The historical source
+is hosted by Argonne in Mercurial/SVN rather than the dead GitHub URL; keep this
+entry metadata-only rather than copying or redistributing an archive."""
 adapt = "none"
 
 [[upstream]]
 name = "xaifbooster"
-url = "https://github.com/Argonne-National-Laboratory/xaifBooster.git"
-ref = "master"
-license = "VERIFY"
+url = "https://www.mcs.anl.gov/OpenAD/contribs.html"
+ref = "web"
+license = "METADATA-ONLY (historical Mercurial source)"
 category = "fortran-st"
 level = "XAIF"
-inspect = ["algorithms/BasicBlockPreaccumulation/", "algorithms/CrossCountryInterface/"]
-why = "Vertex/edge/face elimination on the linearized computational graph."
+inspect = ["documentation only"]
+why = "Vertex/edge/face elimination on the linearized computational graph; historical source is metadata-only because the official Mercurial service is not a supported fetch source here."
 adapt = "none"
 
 [[upstream]]
@@ -79,15 +81,17 @@ adapt = "none"
 
 [[upstream]]
 name = "rapsodia"
-url = "https://github.com/Argonne-National-Laboratory/Rapsodia.git"
-ref = "master"
-license = "VERIFY"
+url = "https://www.mcs.anl.gov/Rapsodia/apiDocs.shtml"
+ref = "web"
+license = "METADATA-ONLY (historical Mercurial source)"
 category = "fortran-st"
 level = "generated Fortran/C++ Taylor-arithmetic libraries"
-inspect = ["src/"]
+inspect = ["documentation only"]
 why = """Code generation for higher-order univariate Taylor propagation with
 fixed unrolled inner loops. The template for how fortad should emit higher-order
-and Hessian kernels rather than nesting AD."""
+and Hessian kernels rather than nesting AD. The official documentation says the
+source and history are on a historical Mercurial service, so this entry remains
+metadata-only."""
 adapt = "none"
 
 [[upstream]]
@@ -111,7 +115,7 @@ adapt = "none"
 [[upstream]]
 name = "dnad"
 url = "https://github.com/joddlehod/dnad.git"
-ref = "master"
+ref = "web"
 license = "NONE-FOUND (verified 2026-08-04 at ca93275a8451)"
 category = "fortran-oo"
 level = "Fortran derived type (dual numbers)"
@@ -137,12 +141,12 @@ adapt = "none"
 [[upstream]]
 name = "auto_deriv"
 url = "https://github.com/gasagna/AutoDiff.git"
-ref = "master"
-license = "VERIFY"
+ref = "web"
+license = "METADATA-ONLY (source URL unavailable)"
 category = "fortran-oo"
 level = "Fortran derived type"
-inspect = ["src/"]
-why = "Second reference implementation of forward-mode overloading in Fortran."
+inspect = ["metadata only"]
+why = "Second reference implementation of forward-mode overloading in Fortran; the declared source URL is unavailable, so no source or license is inspected."
 adapt = "none"
 
 # ---------------------------------------------------------------------------

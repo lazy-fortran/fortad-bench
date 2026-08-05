@@ -141,6 +141,11 @@ def scan_licenses(entries: list[dict]) -> None:
     mismatches = 0
     for e in entries:
         target = DEST / e["name"]
+        if e["ref"] in NON_GIT:
+            lines.append(
+                f"| {e['name']} | {e['ref']} | METADATA ONLY | {e['license']} | - |"
+            )
+            continue
         if not target.exists():
             lines.append(f"| {e['name']} | {e['ref']} | NOT FETCHED | {e['license']} | - |")
             continue
