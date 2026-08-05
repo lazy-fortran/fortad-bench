@@ -1,0 +1,10 @@
+date,kernel,mode,n,without_tbr_values_per_iteration,bytes_without_tbr,tbr_values_per_iteration,bytes_with_tbr,element_bytes,decision
+2026-08-05,newton_root_one,jvp,12,0,0,0,0,8,forward mode has no reverse storage
+2026-08-05,newton_root_two,jvp,12,0,0,0,0,8,forward mode has no reverse storage
+2026-08-05,newton_objective,vjp,12,7,672,2,192,8,"TBR stores x1 and x2 and recomputes residuals, determinant and steps"
+2026-08-05,newton_objective,gradient,12,7,672,2,192,8,"TBR stores x1 and x2 and recomputes residuals, determinant and steps"
+2026-08-05,erfsum,vjp,128,2,2048,0,0,8,"TBR drops the reduction accumulator and recomputes value"
+2026-08-05,erfsum,gradient,128,2,2048,0,0,8,"TBR drops the reduction accumulator and recomputes value"
+2026-08-05,fixed_quadrature_integrand,vjp,128,2,2048,0,0,8,"TBR drops the reduction accumulator and recomputes value"
+2026-08-05,fixed_quadrature_integrand,gradient,128,2,2048,0,0,8,"TBR drops the reduction accumulator and recomputes value"
+2026-08-05,recur,vjp,1000,2,16000,1,8000,8,"TBR retains the nonlinear carried state u and drops the linear accumulator s"
