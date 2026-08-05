@@ -1,0 +1,31 @@
+case: P1.9 second and third kernels
+fortad revision: f6f2920 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282, taskset -c 1
+compiler: GNU Fortran 12.2.0 -O3 -std=f2018
+kernels: erfsum (special), fixed_quadrature_integrand (quadrature)
+driver: independent batch driver, 10000 calls of batch_n=128, seven timing trials
+oracle: central finite differences of the independently compiled primal and
+  agreement of reverse gradient-only output with the VJP output
+
+correctness:
+  erfsum maximum JVP/VJP/gradient error: 3.8259839740817370E-11
+  fixed_quadrature_integrand maximum JVP/VJP/gradient error: 9.5340180195080393E-11
+
+cross-engine corpus corroboration already committed:
+  erfsum: fortad 2.71403410E-02 s versus Enzyme 2.49559480E-02 s for 20000
+    batches in the existing fortnum suite
+  fixed_quadrature_integrand: fortad 5.49427300E-03 s versus Enzyme
+    7.79293100E-03 s for 100000 batches in the existing fortnum suite
+  These are existing corpus rows, not a new same-machine comparison.
+
+vectorisation report:
+  erfsum JVP, VJP and gradient each vectorised one loop with 16-byte vectors.
+  fixed_quadrature_integrand JVP, VJP and gradient each vectorised zero loops;
+  gfortran reported a complicated access pattern for the interleaved five-
+  value batch. This is the already named slice-packing limitation, not a
+  correctness failure and not claimed as a vectorisation win.
+
+remote parser note:
+  The acluster fortfront checkout corrupts some multi-variable declaration
+  nodes. The focused run split declarations one per line; the committed
+  benchmark source and existing corpus records are unchanged.
