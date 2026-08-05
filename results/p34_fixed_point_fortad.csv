@@ -1,0 +1,5 @@
+date,case,mode,products,engine,median_ns,mad_ns,speedup_over_complete_resolve,machine,toolchain,source_record,comparison_scope
+2026-07-27,fixed_point,JVP,1,implicit_analytical,97.8032,2.4065,12.5190,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_fixed_point_tangent.json,"two-state tanh map; reusable converged state versus fresh complete re-solves"
+2026-07-27,fixed_point,JVP,1,complete_resolve_reference,1224.4016,10.1642,1.0000,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_fixed_point_tangent.json,"two-state tanh map; two fresh complete solves per direction"
+2026-07-27,fixed_point,VJP,1,implicit_analytical,132.3983,0.9601,18.8457,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_fixed_point_adjoint.json,"two-state tanh map; reusable converged state versus fresh complete re-solves"
+2026-07-27,fixed_point,VJP,1,complete_resolve_reference,2495.1440,8.1037,1.0000,"AMD Ryzen 9 5950X CPU 4 pinned","GNU Fortran 16.1.1 -O3",ryzen9_5950x_fixed_point_adjoint.json,"two-state tanh map; four fresh complete solves per VJP"
