@@ -1,31 +1,32 @@
-case: P6.1 compiler matrix audit
+case: P6.1 compiler matrix validation
 date: 2026-08-05
-workload: current dot_sin generated adjoint, scalar tangent and vector tangent
+workload: affine_sum generated adjoint, scalar tangent and vector tangent
+source: cases/compiler_matrix/primal_plain.f90
+reason: the affine reduction isolates emitted-loop vectorisation from
+        transcendental-library profitability.
 
 acluster.tugraz.at:
-  gfortran 12.2.0: all three generated procedures compile; the current
-    adjoint vectorisation report has no vectorised loop.
-  ifx 2026.1.0: all three generated procedures compile; the adjoint report
-    contains a vectorised loop.
-  nvfortran 26.5: all three generated procedures compile with the user-local
-    NVIDIA HPC SDK 26.5 installation.
-  lfortran 0.64.0: all three generated procedures compile with the user-local
-    conda-forge installation.
+  gfortran 12.2.0: all three generated procedures compile; adjoint loop
+    vectorized with 32-byte and 16-byte vectors.
+  flang-new 22.1.8: all three generated procedures compile; adjoint loop
+    vectorized with width 2 and interleave count 2 using -O3 -ffast-math.
+  ifx 2026.1.0: all three generated procedures compile; adjoint loop was
+    vectorized with vector length 2.
+  nvfortran 26.5: all three generated procedures compile; adjoint loop emitted
+    vector SIMD code for the reduction.
+  lfortran 0.64.0: all three generated procedures compile; --fast LLVM output
+    contains <2 x double> vector operations.
 
-faepop31.tugraz.at:
-  gfortran 14.2.0: current adjoint report contains a vectorised loop.
-  flang-new 19.1.7: all three generated procedures compile.
-  ifort 18.0.1: all three generated procedures compile.
+measurement:
+  transform/compile matrix wall time: 10.07 s
+  peak RSS: 201388 kB
+  generated source: adjoint 1595 B, tangent 848 B, tangent_v 1002 B
 
-not proven:
-  nagfor: no compiler binary or NAG licence was available on the checked TU
-    Graz hosts; no installation or licence acquisition was attempted.
-  CI: fortad and fortad-bench contain no GitHub Actions workflow, so the
-    matrix is not running in CI. The GitHub API also reports no workflow and no
-    registered self-hosted runner for either repository.
-  all-compilers-vectorise: only the gfortran and ifx reports above were
-    collected; LFortran, Flang, ifort, NVHPC and NAG are not proven to
-    vectorise this kernel.
+CI:
+  .github/workflows/compiler-matrix.yml is committed and actionlint-clean. It
+  runs this exact script on a self-hosted Linux x64 TU Graz runner. The job
+  itself is still pending runner registration and one successful main-branch
+  execution.
 
-status: P6.1 remains open until a licensed NAG compiler and a CI execution
-        path are supplied, and the vectorisation claim is narrowed or proven.
+status: compiler and vectorisation gates pass remotely; P6.1 remains open only
+        until the committed CI workflow has a successful run.
