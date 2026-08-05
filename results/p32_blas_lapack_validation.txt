@@ -1,0 +1,38 @@
+case: P3.2 explicit dgesv BLAS/LAPACK structured rule
+fortad revision: 1e38174 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2 with system LAPACK/BLAS
+
+scope:
+  fortad now registers dgesv as an explicit opt-in structured rule. The
+  generated tangent uses dgemm followed by dgetrs with the LU factorisation
+  left by the primal dgesv. The generated reverse uses transposed dgetrs and
+  dgemm for the A-bar update. Reverse structured calls are currently limited
+  to simple variable actuals outside loops.
+
+independent correctness oracle:
+  test_lapack_rule_oracle generated both fad_jvp and fad_vjp procedures,
+  compiled them against real LAPACK/BLAS on acluster, checked the complete
+  perturbed dgesv solve by central finite differences, and checked the VJP
+  adjoint identity. The focused remote command passed:
+
+    fo test test_lapack_rule_oracle
+    test_lapack_rule_oracle PASS 0.74s
+
+Enzyme comparison:
+  A fresh compatible Enzyme toolchain was not installed on acluster or
+  scluster. The committed TU Graz Ryzen 9 direct-solver fixture is the
+  comparison record: Flang/LLVM 22.1.8 with Enzyme 22, 15-sample median and
+  MAD, complete value-plus-product workloads, and independent finite-difference
+  and adjoint oracles. At 16 products, analytical versus Enzyme measured
+  642.542350 versus 2449.369550 ns for JVP (3.8120x), and 637.162500 versus
+  974.323500 ns for VJP (1.5292x). This is a cross-record comparison of the
+  same direct-solve mathematics, not an apples-to-apples timing of the new
+  gfortran-generated dgesv routine; the raw record is
+  fortnum/benchmark/reference/ryzen9_5950x_direct_solver_fixture_migration.json.
+
+decision and boundary:
+  Keep dgesv as explicit opt-in infrastructure and do not add automatic hybrid
+  selection. Extend the table only when the mutating interface and an
+  independent oracle are specified. Reconsider the performance policy for a
+  representative larger matrix or downstream external-solver workload.
