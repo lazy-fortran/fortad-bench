@@ -1,0 +1,47 @@
+case: P5.3 optimiser integration boundary
+fortad revision: fdc9925 (main)
+fortnum revision: a466951 (main)
+host: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2, CMake/Ninja Release build
+
+scope:
+  Fortad supplies the derivative products. Fortnum supplies the downstream
+  backend-opaque optimiser boundary: a named flat active-vector layout,
+  value/JVP/VJP/gradient/HVP callbacks, provenance and quality status, and a
+  validated derivative-candidate registry. There is deliberately no generic
+  optimiser loop: storage, constraints, line search, convergence, and caller
+  conventions belong to the application using the boundary.
+
+independent correctness oracle:
+  test_optimizer_api checks named-layout round trips, a Rosenbrock gradient
+  against central finite differences, and a residual JVP/VJP pair against the
+  central-difference directional derivative and the adjoint identity.
+  test_derivative_registry independently checks validated-candidate selection,
+  timing ties, deterministic ties, status merging, and static selection.
+  Both focused CTest cases passed remotely:
+
+    ad_optimizer_api ................. Passed
+    ad_derivative_registry ........... Passed
+    100% tests passed, 0 tests failed out of 2
+
+remote build evidence:
+  CMake configure: 3.28 s, peak 29,488 KB
+  Focused build: 20.75 s, peak 86,804 KB
+  test_optimizer_api: 0.00 s, peak 2,904 KB, executable 41,240 bytes
+  test_derivative_registry: 0.00 s, peak 2,500 KB, executable 32,256 bytes
+  fortnum static archive: 1,270,154 bytes
+
+product evidence:
+  Gauss-Newton JᵀJv is the matrix-free composition of one JVP and one VJP.
+  Newton-Krylov consumes HVPs directly. The existing fortnum HVP tournament
+  independently validates the complete eight-input/24-residual consumer by
+  complex step (maximum absolute error 6.94e-18) and selects the analytical
+  contracted HVP at 226.865 ns versus 381.001 ns for central gradient
+  differences, with peak RSS 3,125,248 versus 2,834,432 bytes. Full Hessians
+  remain repeated HVPs or the existing star-coloured sparse recovery; no
+  O(n²) matrix callback is introduced.
+
+decision:
+  Close P5.3 at the optimiser integration boundary. Do not add a generic
+  optimiser driver to fortad or fortnum: the application owns the iteration
+  policy and data layout, while the callback contract is stable and tested.
