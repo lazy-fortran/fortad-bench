@@ -1,0 +1,26 @@
+case: P4.4 generated higher-order Taylor transformation
+fortad revision: fdc9925 (main)
+machine: acluster.tugraz.at, AMD EPYC 7282
+compiler: GNU Fortran 12.2.0 -O2
+
+scope:
+  The source transformation rewrites straight-line scalar IR into calls to
+  fortad_taylor. The generated routine carries coefficient arrays (0:order),
+  and the runtime provides exp, log, sqrt, sin/cos, arithmetic, division, and
+  integer powers in O(d^2) work per operation.
+
+independent correctness oracle:
+  test_taylor_gen_oracle generates the Taylor routine for
+  f(x) = exp(x)*sin(x), compiles it against the runtime, and checks orders 0
+  through 6 against the closed form
+  2^(k/2) exp(x) sin(x + k*pi/4). It also cross-checks orders 0 and 1 against
+  the generated first-order tangent and verifies named refusals for arrays and
+  loops. The focused remote command passed:
+
+    fo test test_taylor_gen_oracle
+    test_taylor_gen_oracle PASS 0.62s
+
+boundary:
+  The generated Taylor mode is intentionally limited to straight-line scalar
+  kernels. Arrays, loops, and branches are refused by name; forward or reverse
+  mode remains the supported route for those constructs.
