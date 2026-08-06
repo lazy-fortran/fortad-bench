@@ -9,8 +9,8 @@ the grandchild. Its sibling `fallback_response_t` reaches `class default`.
 | `CLASS IS` | `scale*x` | `scale*x_d` |
 | `CLASS DEFAULT` | `x*x - 0.25` | `2*x*x_d` |
 
-The leaf-only component is deliberately passive and unused. Run both advanced
-cases with:
+The leaf-only component is deliberately passive and unused. Run this positive
+dispatch case together with the factory allocation refusal with:
 
 ```bash
 FORTAD_REPO=../fortad scripts/bench_itpplasma_polymorphism_advanced.sh
