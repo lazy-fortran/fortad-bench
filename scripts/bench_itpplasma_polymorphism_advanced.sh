@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-# Generate, check, and measure two advanced runtime-polymorphism JVPs.
+# Generate, check, and measure a runtime-polymorphism JVP plus an allocation
+# lifetime refusal boundary.
 set -euo pipefail
 
 root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
@@ -109,10 +110,47 @@ run_case() {
     } >"$case_out/metrics.txt"
 }
 
+run_refusal() {
+    local case_id=$1
+    local case_rel=$2
+    local primal_proc=$3
+    local generated_proc=$4
+    local generated_module=$5
+    local expected=$6
+    local case_dir="$root/$case_rel"
+    local case_out="$suite_out/$case_id"
+    local output="$case_out/generated_jvp.f90"
+    local status
+
+    mkdir -p "$case_out"
+    rm -f "$output"
+    set +e
+    (
+        cd "$fortad_repo"
+        fo exec --no-build fortad --mode forward --indep x \
+            --proc "$primal_proc" --name "$generated_proc" \
+            --module "$generated_module" --output "$output" \
+            "$case_dir/primal.f90"
+    ) >"$case_out/transform.stdout" 2>"$case_out/transform.stderr"
+    status=$?
+    set -e
+    test "$status" -ne 0
+    grep -Fq "$expected" "$case_out/transform.stderr"
+    test ! -e "$output"
+    printf '%s\n' "$status" >"$case_out/refusal_status"
+    printf '%s\n' "$expected" >"$case_out/expected_diagnostic"
+}
+
 run_case class-is-default cases/itpplasma/class_is_default \
     evaluate_hierarchy evaluate_hierarchy_jvp class_is_default_ad
-run_case factory-allocatable cases/itpplasma/factory_allocatable \
-    evaluate_profile evaluate_profile_jvp factory_allocatable_ad
+run_refusal factory-allocatable cases/itpplasma/factory_allocatable \
+    evaluate_profile evaluate_profile_jvp factory_allocatable_ad \
+    "fortad: unsupported allocation lifetime construct 'allocatable declaration/component'"
+
+factory_case_out="$suite_out/factory-allocatable"
+"$fc" "${compile_flags[@]}" -J"$mod_dir" -I"$mod_dir" \
+    -c "$root/cases/itpplasma/factory_allocatable/primal.f90" \
+    -o "$factory_case_out/primal.o"
 
 link_start=$(date +%s.%N)
 "$fc" "${compile_flags[@]}" -J"$mod_dir" -I"$mod_dir" \
@@ -122,9 +160,7 @@ link_start=$(date +%s.%N)
     "$suite_out/class-is-default/primal.o" \
     "$suite_out/class-is-default/generated_jvp.o" \
     "$suite_out/class-is-default/hand_jvp.o" \
-    "$suite_out/factory-allocatable/primal.o" \
-    "$suite_out/factory-allocatable/generated_jvp.o" \
-    "$suite_out/factory-allocatable/hand_jvp.o" "$suite_out/harness.o"
+    "$suite_out/factory-allocatable/primal.o" "$suite_out/harness.o"
 link_stop=$(date +%s.%N)
 link_seconds=$(awk -v a="$link_start" -v b="$link_stop" \
     'BEGIN {printf "%.6f", b-a}')
@@ -139,7 +175,7 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
     /etc/os-release)
 
 {
-    printf 'suite: itpplasma advanced runtime polymorphism JVPs\n'
+    printf 'suite: itpplasma runtime polymorphism and allocation boundaries\n'
     printf 'recorded_utc: %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
     printf 'machine: %s\n' "$(hostname)"
     printf 'os: %s\n' "$os_name"
@@ -159,15 +195,18 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
     printf 'runtime_method: Fortran system_clock over 10000000 dispatches per '
     printf 'case and implementation; /usr/bin/time %%e and %%M wrap the suite\n'
     printf 'oracle: hand-derived child JVPs plus fixed numerical expectations; '
-    printf 'generated source text is not inspected\n'
-    printf 'factory_scope: two allocate(source=...) calls occur outside the hot '
-    printf 'loops for each timed implementation\n'
-    printf 'optimization_note: both kernels are scalar; zero vectorized loops is '
-    printf 'expected and complete compiler reports follow\n'
+    printf 'the factory primal is checked independently and its JVP is refused\n'
+    printf 'optimization_note: the positive dispatch kernel is scalar; zero '
+    printf 'vectorized loops is expected and its complete report is retained\n'
     printf '\n'
     cat "$suite_out/class-is-default/metrics.txt"
     printf '\n'
-    cat "$suite_out/factory-allocatable/metrics.txt"
+    printf 'case_id: factory-allocatable\n'
+    printf 'status: expected-refusal\n'
+    printf 'refusal_exit_status: %s\n' \
+        "$(cat "$suite_out/factory-allocatable/refusal_status")"
+    printf 'diagnostic: %s\n' \
+        "$(cat "$suite_out/factory-allocatable/expected_diagnostic")"
     printf '\nsource_sha256:\n'
     (
         cd "$root"
