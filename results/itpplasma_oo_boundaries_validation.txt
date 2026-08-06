@@ -1,5 +1,5 @@
 suite: itpplasma advanced OO/interface refusal boundaries
-recorded_utc: 2026-08-06T23:26:06Z
+recorded_utc: 2026-08-06T23:27:07Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -7,10 +7,10 @@ cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
-fortad_commit: fad316416467566936117340460dfce594f55e64
+fortad_commit: 5191d45533f5dfcb040bfa4531ade55851111dd3
 required_fortad_commit: 16d1cae67e4bc230ba32541d65c87ec0164ff123
-fortad_setup_seconds_cached_or_incremental: 5.873646
-primal_compile_and_link_seconds: 1.229439
+fortad_setup_seconds_cached_or_incremental: 2.218926
+primal_compile_and_link_seconds: 0.173324
 oracle: fixed values and central finite differences for each child/callback target; null callback value checked
 discrete_contract: dynamic type, ownership transition, callback target, and callback context are passive choices
 
