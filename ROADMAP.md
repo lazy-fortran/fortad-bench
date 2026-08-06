@@ -91,6 +91,8 @@ corpus still lacks a measured reverse dispatch case and the broader n-way and
 finite-difference closeout remains open. Deferred type-bound calls, active
 model components, arrays of polymorphic objects, procedure-pointer
 differentiation, and alias-aware object lifetimes remain open.
+The separate bounded concrete type-bound-call oracle is implemented in FortAD,
+but it is not yet a timed case in this corpus.
 
 ### Procedure interfaces and complex values
 
