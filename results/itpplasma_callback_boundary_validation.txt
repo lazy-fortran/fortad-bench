@@ -1,0 +1,60 @@
+suite: itpplasma dynamic callback boundary
+recorded_utc: 2026-08-06T20:17:26Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+time_tool: time (GNU Time) 1.10
+fortad_commit: 31837f77748bf9138fc8a0668bd66a2488446e3f
+required_fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
+fortad_setup_seconds_cached_or_incremental: 1.047714
+oracle: generated SELECT TYPE JVPs are compared with hand JVPs and fixed values
+discrete_contract: the callback choice and model coefficients stay passive
+
+case_id: dynamic-callback-refusal
+primal_compile_and_run: pass
+refusal_exit_status: 1
+generated_derivative_present: no
+diagnostic: fortad: no derivative rule for 'selected_callback'; register one with fad_add_rule, or keep it out of the active path
+primal_run_output:
+PASS: procedure-pointer primal dispatches to both callbacks
+
+case_id: callback-select-type-jvp
+ad_transform_seconds: 0.005588
+case_compile_and_link_seconds: 0.111966
+generated_object_compile_seconds: 0.017327
+generated_source_bytes: 1185
+generated_object_bytes: 1760
+generated_object_text_bytes: 163
+generated_vectorized_loop_messages: 0
+generated_optimized_messages: 1
+generated_missed_optimization_messages: 0
+runtime_wall_seconds=0.06
+runtime_peak_rss_kb=3212
+optimization_report: build/itpplasma-callback-boundary/positive/generated_optimization.txt
+optimization_diagnostic:
+Unit growth for small function inlining: 36->36 (0%)
+
+Inlined 0 calls, eliminated 0 functions
+
+build/itpplasma-callback-boundary/positive/generated_jvp.f90:26:51: optimized: sinking common stores to *y_33(D)
+build/itpplasma-callback-boundary/positive/generated_jvp.f90:34:40: note: ***** Analysis failed with vector mode V2DI
+build/itpplasma-callback-boundary/positive/generated_jvp.f90:34:40: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
+
+source_sha256:
+f3832832bfe9ea234f5b4c1e65715363f6298d5b2b52d4b2f26a2a387808cda4  cases/itpplasma/dynamic_callback_refusal/primal.f90
+5ffca7788b871c17eb344cf2ac3371e58b781b7f5df96304f6a3ac16f8424de4  cases/itpplasma/callback_select_type/primal.f90
+5f02b182925c5ef0c77674c3ee4610e43a39cf5fffa138894236e249cb911f0b  cases/itpplasma/callback_select_type/hand_jvp.f90
+f9cc994543acec8cab5f72059627f0c38c47ae451ac387be8016042268295ad9  harness/check_dynamic_callback_primal.f90
+3940d43fa6d2842eea2b68e4381e2d27e01361c9f7b12a719377ee5546f26c39  harness/bench_callback_select_type.f90
+5efd38d60172f916870d630c8187c09ad0c7304f519946a7b56e7b91bc6be33b  scripts/bench_itpplasma_callback_boundary.sh
+run_output:
+dispatches_per_implementation 10000000
+generated_seconds_per_dispatch   3.03564970E-09
+hand_seconds_per_dispatch   3.62487850E-09
+generated_over_hand_runtime   8.37448676E-01
+generated_sink   6.18778798E+06
+PASS: explicit SELECT TYPE callback JVPs match hand derivatives
