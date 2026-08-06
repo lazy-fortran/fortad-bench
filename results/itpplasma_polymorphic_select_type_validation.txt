@@ -1,5 +1,5 @@
 case: itpplasma polymorphic SELECT TYPE JVP
-recorded_utc: 2026-08-06T21:55:30Z
+recorded_utc: 2026-08-06T22:18:51Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,17 +8,17 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
-fortad_commit: cbdb054593686ce333c44ef9deab5e6e20f48c1a
+fortad_commit: eb104823106e35990b172d18b345bcb19055107a
 required_fortad_commit: 7766fa14107f1f53c323c6ededfe12c7098248bf
-fortad_setup_seconds_cached_or_incremental: 1.075696
-ad_transform_seconds: 0.005852
-generated_object_compile_seconds: 0.019354
-case_compile_and_link_seconds: 0.130068
+fortad_setup_seconds_cached_or_incremental: 1.124493
+ad_transform_seconds: 0.005479
+generated_object_compile_seconds: 0.017376
+case_compile_and_link_seconds: 0.125667
 generated_source_bytes: 1132
 generated_object_bytes: 1744
 generated_object_text_bytes: 163
 runtime_wall_seconds=0.07
-runtime_peak_rss_kb=2844
+runtime_peak_rss_kb=3200
 generated_vectorized_loop_messages: 0
 generated_optimized_messages: 1
 generated_missed_optimization_messages: 0
@@ -42,8 +42,8 @@ d21040cb9e15768b9102737dab64554344b22fe9eb5619c9385a1adedbc4468d  cases/itpplasm
 58e66185b94d52c232469c4c8943f7fabf64793186f1810a367ef2185e7b4f2f  scripts/bench_itpplasma_polymorphic_select_type.sh
 run_output:
 dispatches_per_implementation 10000000
-generated_seconds_per_dispatch   3.59058710E-09
-hand_seconds_per_dispatch   3.56921980E-09
-generated_over_hand_runtime   1.00598655E+00
+generated_seconds_per_dispatch   3.57024450E-09
+hand_seconds_per_dispatch   3.58322710E-09
+generated_over_hand_runtime   9.96376841E-01
 generated_sink   6.18778798E+06
 PASS: both runtime child JVPs match hand derivatives

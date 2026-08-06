@@ -16,7 +16,14 @@ deferred binding is not yet a supported derivative path. A refusal is useful
 evidence here because silently differentiating only the base declaration would
 be wrong. This is the P8.4/B2 boundary, not a claim of derivative support.
 
-Run it with:
+The validation record
+([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
+records FortAD commit `eb104823106e35990b172d18b345bcb19055107a` and the
+refusal diagnostic `fortad: unsupported type-bound call 'value': the concrete
+type is not defined in this source`.
+
+Run it from the fortad-bench repository root with `../fortad` pointing to the
+FortAD checkout:
 
 ```sh
 FORTAD_REPO=../fortad scripts/bench_itpplasma_oo_boundaries.sh

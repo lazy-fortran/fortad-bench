@@ -14,7 +14,7 @@ and the committed results.
 The committed cross-engine corpus covers **59 operators**: 17 from fortnum
 and 42 from fortfem, plus Enzyme's own suite. The focused vector-Newton
 follow-up is recorded separately because the acluster lacks a compatible
-Enzyme toolchain; it is not included in a same-machine ratio.
+Enzyme toolchain. It is not included in a same-machine ratio.
 
 ![fortad against Enzyme](results/fortad_vs_enzyme.png)
 
@@ -68,7 +68,7 @@ The Phase 1 to-be-recorded comparison is in
 [`results/p21_tbr_fortad.csv`](results/p21_tbr_fortad.csv), with its method and
 independent recurrence check in
 [`results/p21_tbr_validation.txt`](results/p21_tbr_validation.txt). The
-reduction kernels store no per-iteration values after TBR; the 12-step Newton
+reduction kernels store no per-iteration values after TBR. The 12-step Newton
 adjoint stores its two nonlinear states (192 bytes). The nonlinear recurrence
 is the boundary case: it retains one carried state per iteration, 8000 bytes
 at `n=1000`. The comparison's zero-TBR baseline is deliberately conservative:
@@ -116,7 +116,7 @@ The P3.4 Christianson two-phase result is recorded in
 [`results/p34_fixed_point_fortad.csv`](results/p34_fixed_point_fortad.csv), with
 the remote oracle and comparison boundary in
 [`results/p34_fixed_point_validation.txt`](results/p34_fixed_point_validation.txt).
-The available reference is implicit products versus fresh complete re-solves;
+The available reference is implicit products versus fresh complete re-solves.
 the separate Enzyme Richardson-trace workload is not presented as the same
 fixed-point benchmark.
 
@@ -126,16 +126,16 @@ The P3.5 representative rule table and oracle are recorded in
 [`results/p35_library_rules_fortad.csv`](results/p35_library_rules_fortad.csv)
 and [`results/p35_library_rules_validation.txt`](results/p35_library_rules_validation.txt).
 The existing FFT, fixed-quadrature, and `erf` records provide performance
-context; the new multi-call fortad oracle is labelled separately from those
+context. The new multi-call fortad oracle is labelled separately from those
 historical cross-engine measurements.
 
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
 `python3 scripts/plot_vs_enzyme.py`.
 
-## Why this is a separate repository
+## Repository boundary
 
 `fortad` keeps only what a contributor must run on every change: unit tests and
-microbenchmarks that finish in seconds. Everything expensive lives here —
+microbenchmarks that finish in seconds. Everything expensive lives here:
 multi-engine builds, LLVM and Enzyme plugin toolchains, Julia and Python
 environments, large workloads, and scaling sweeps that take hours.
 
@@ -154,10 +154,10 @@ A change here never gates a fortad commit.
 
 ## What gets measured
 
-Both metrics, for every engine, in every mode. Neither is a footnote.
+Both metrics are recorded for every engine and mode.
 
 **Runtime.** Complete-workload wall clock is primary. Also peak resident memory,
-tape or checkpoint bytes, and — for the emitted Fortran — whether the compiler
+tape or checkpoint bytes, and, for the emitted Fortran, whether the compiler
 vectorised the kernel, read from its own vectorisation report.
 
 **Build time.** Wall clock from unmodified sources to a runnable derivative,
@@ -172,7 +172,7 @@ sparse-compressed Hessian · higher-order Taylor. A mode an engine does not
 support is recorded as unsupported, never as a win by default.
 
 **Scaling.** In active-input count, output count, direction count, and problem
-size — because those dimensions are what flip the forward-versus-reverse verdict
+size, because those dimensions are what flip the forward-versus-reverse verdict
 and what separate vector mode from repeated scalar mode.
 
 ## Engines
@@ -185,7 +185,7 @@ not as a failure of the case.
 |---|---|---|---|
 | **fortad** | Fortran AST/IR → Fortran | Fortran | the subject |
 | analytical | hand-derived | Fortran | the ceiling, not a competitor |
-| finite differences | — | Fortran | accuracy floor and independent oracle |
+| finite differences | n/a | Fortran | accuracy floor and independent oracle |
 | Enzyme + flang-new | LLVM IR | Fortran | primary runtime target |
 | Enzyme + LFortran | LLVM IR | Fortran | |
 | Enzyme + Clang | LLVM IR | C++ | for ported C++ cases such as VMEC++ |
@@ -202,35 +202,35 @@ not as a failure of the case.
 | ForwardDiff.jl | overloading | Julia | chunked vector forward |
 
 Copyleft engines (CoDiPack, Clad, ColPack-dependent drivers) are built and run as
-**separate processes or separate builds**. Their numbers enter this repository;
+**separate processes or separate builds**. Their numbers enter this repository.
 their code does not. See [LEGAL.md](LEGAL.md).
 
 ## Cases
 
 Each case under `cases/` fixes the mathematics, the inputs, the outputs, and the
 validation criteria, then provides one implementation per engine language. The
-problem never changes between engines — only the derivative mechanism does.
+problem never changes between engines: only the derivative mechanism does.
 
 Planned, in the order fortad's roadmap needs them:
 
-1. **`vmec-jacobian`** — the VMEC++ half-grid Jacobian kernel. We already have
+1. **`vmec-jacobian`**: the VMEC++ half-grid Jacobian kernel. We already have
    measured Enzyme forward and reverse numbers for the C++ version. The Fortran
    port written *idiomatically*, rather than in the allocation-free flat-buffer
    form Enzyme requires, is fortad's go/no-go head-to-head.
-2. **`heat1d`** — the fixed 1D heat-equation step from
+2. **`heat1d`**: the fixed 1D heat-equation step from
    [differentiable-fortran](https://github.com/lazy-fortran/differentiable-fortran),
    whose contract and protocol this repository inherits rather than reinvents.
-3. **`fortnum-kernels`** — kernels from
+3. **`fortnum-kernels`**: kernels from
    [fortnum](https://github.com/lazy-fortran/fortnum) that already carry an
    `analytical` derivative candidate and committed baselines, so the first
    results are three-way comparisons needing no new infrastructure.
-4. **`adbench`** — GMM, bundle adjustment, hand tracking, LSTM. The standard
+4. **`adbench`**: GMM, bundle adjustment, hand tracking, LSTM. The standard
    cross-tool suite Enzyme's own papers report, ported with attribution (MIT).
-5. **`solve-heavy`** — a Newton solve and a fixed-point iteration. Where implicit
+5. **`solve-heavy`**: a Newton solve and a fixed-point iteration. Where implicit
    differentiation and Christianson's two-phase adjoint should beat every engine
    that differentiates the iterations. The largest predicted margin.
-6. **`sparse`** — Jacobians and Hessians with exploitable structure.
-7. **`scaling`** — synthetic sweeps in input, output, and direction count.
+6. **`sparse`**: Jacobians and Hessians with exploitable structure.
+7. **`scaling`**: synthetic sweeps in input, output, and direction count.
 
 ### itpplasma language cases
 
@@ -245,7 +245,7 @@ Runtime-polymorphism cases:
 - [polymorphic ownership refusal](cases/itpplasma/polymorphic_ownership_refusal/README.md)
 - [`class(*)` callback-context refusal](cases/itpplasma/callback_context_refusal/README.md)
 
-Positive cases run every runtime arm against fixed values and hand derivatives;
+Positive cases run every runtime arm against fixed values and hand derivatives.
 refusal cases first validate the primal arms and central finite differences.
 The case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
@@ -265,13 +265,13 @@ claims that those unsupported paths differentiate.
 
 Procedure-interface and complex-value boundaries:
 
-- [optional and keyword arguments](cases/itpplasma/optional_keyword/README.md)
-  — generated optional JVP plus hand/finite-difference oracle on present and
-  absent call paths;
-- [generic rank selection](cases/itpplasma/generic_dispatch/README.md) — the
+- [optional and keyword arguments](cases/itpplasma/optional_keyword/README.md):
+  generated optional JVP plus hand/finite-difference oracle on present and
+  absent call paths.
+- [generic rank selection](cases/itpplasma/generic_dispatch/README.md): the
   scalar and rank-one overloads run and validate independently, while the
-  transform records the B9 refusal;
-- [complex arithmetic JVP](cases/itpplasma/complex_real_jacobian/README.md) —
+  transform records the B9 refusal.
+- [complex arithmetic JVP](cases/itpplasma/complex_real_jacobian/README.md):
   positive real-coordinate path covering `conjg`, `cmplx`, `aimag`, and complex
   multiplication.
 
@@ -281,9 +281,9 @@ Expected refusals are progress evidence, not performance wins.
 
 FortAD also has an in-tree bounded concrete type-bound-call oracle for a
 same-file `type(t)` receiver with default implicit `PASS`.
-[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/159a686/test/test_type_bound_oracle.f90)
+[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/eb10482/test/test_type_bound_oracle.f90)
 covers JVP, VJP, finite differences, and explicit refusal cases. A timed bench
-case for that slice is still open; active receiver cotangents and runtime
+case for that slice is still open. Active receiver cotangents and runtime
 overrides are outside its contract.
 
 ## The study corpus
@@ -291,14 +291,14 @@ overrides are outside its contract.
 This repository also holds the field survey that fortad's design rests on,
 because it belongs next to the engines rather than next to the compiler.
 
-- **[`docs/upstreams.toml`](docs/upstreams.toml)** — 39 third-party AD projects,
+- **[`docs/upstreams.toml`](docs/upstreams.toml)**: 39 third-party AD projects,
   pinned with licence, the paths worth reading, and what we want to learn from
   each. `scripts/fetch_upstreams.py` clones them into a gitignored `upstream/`
   tree and verifies every declared licence against the actual checkout.
-- **[`docs/reading-list.md`](docs/reading-list.md)** — the literature, curated by
+- **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.
-- **[`docs/bibliography.bib`](docs/bibliography.bib)** — the same works as BibTeX
+- **[`docs/bibliography.bib`](docs/bibliography.bib)**: the same works as BibTeX
   for citation and Zotero import.
 
 Metadata is committed. Checkouts and full text are not.
@@ -318,7 +318,7 @@ literature/ gitignored: locally held papers
 
 ## Rules for a number to count
 
-1. The derivative passed an **independent oracle** first — hand-derived
+1. The derivative passed an **independent oracle** first: hand-derived
    analytical, finite differences with a convergence test, the adjoint identity
    `⟨u, Jv⟩ = ⟨Jᵀu, v⟩`, or [fortsym](https://github.com/lazy-fortran/fortsym).
    Agreement between two AD engines is corroboration, never the oracle.
@@ -337,7 +337,7 @@ literature/ gitignored: locally held papers
 The VMEC++ half-grid Jacobian is now implemented as an idiomatic Fortran port
 with hand-written JVP and VJP routines. The validation harness uses a central
 finite-difference step sweep and an arbitrary-cotangent adjoint identity. The
-committed remote result is the first candidate-vs-candidate ceiling for fortad;
+committed remote result is the first candidate-vs-candidate ceiling for fortad.
 the remaining suites are unchanged.
 
 For `nZnT=32`, `nsH=12`, and the upstream scalar-loss contract, the pinned
@@ -352,10 +352,10 @@ single-core run on an AMD EPYC 7282 was:
 
 The hand implementation is therefore 1.90x slower in forward mode and 1.50x
 slower in reverse mode on this run. That is a measured ceiling, not a claim
-that fortad has met the P0.6 target. The Fortran build took 2.901624 s;
+that fortad has met the P0.6 target. The Fortran build took 2.901624 s.
 `results/vmec_jacobian_build.csv` records the pre-existing Enzyme reference
 build record and its provenance. The inner poloidal loop vectorised with
-16-byte vectors in all three hand kernels; the outer radial loop did not.
+16-byte vectors in all three hand kernels. The outer radial loop did not.
 The complete validation output and compiler report are generated by
 [`scripts/bench_vmec_jacobian.sh`](scripts/bench_vmec_jacobian.sh).
 

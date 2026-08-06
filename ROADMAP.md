@@ -2,7 +2,7 @@
 
 This repository is where fortad's performance claim is demonstrated or
 refuted. It holds the workloads, the engine adapters, the harness, and the
-committed results. `README.md` reports the current numbers; this file tracks
+committed results. `README.md` reports the current numbers. This file tracks
 what is missing from them.
 
 ## Status, 2026-08-06
@@ -10,7 +10,7 @@ what is missing from them.
 Coverage stands at 59 operators: 17 in the fortnum suite and 42 in the
 fortfem suite, plus Enzyme's own suite. Every operator that both Enzyme and
 fortad can differentiate has numbers recorded. Nearly all measurements sit
-within the 30% band agreed for the port; the exceptions are named below.
+within the 30% band agreed for the port. The exceptions are named below.
 
 `cases/fortfem/kernels/` holds 43 kernel sources against the harness's
 `NW = 42`. Reconcile the two: either the extra case is intentionally not
@@ -18,7 +18,7 @@ benchmarked, in which case say so, or a measurement is missing.
 
 ## Outstanding
 
-### Re-measure the vector-Newton routines — done 2026-08-05
+### Re-measure the vector-Newton routines (done 2026-08-05)
 
 Three of fortnum's vector-Newton routines were absent from the corpus
 because fortad could not differentiate them: `hoist_subexpressions` did not
@@ -27,7 +27,7 @@ routines are now measured in a focused fortad record at
 `results/vector_newton_fortad.csv`, and they are the last of Enzyme's fortnum
 corpus that fortad could not cover for a fortad-owned reason. The record is
 not added to the 59-operator cross-engine table because acluster has no
-compatible Enzyme toolchain; it therefore makes no same-machine 30% claim.
+compatible Enzyme toolchain. It therefore makes no same-machine 30% claim.
 
 P1.9's second and third kernel closeout is recorded in
 `results/p19_kernels_fortad.csv` and `results/p19_kernels_validation.txt`:
@@ -54,7 +54,7 @@ All three are recorded in `README.md` and none is resolved:
   unresolved.
 - fortfem's curved quadrilateral cell area tangent at 1.63x is the widest
   gap in that suite, caused by slice packing paying twice on a wide
-  operator. Diagnosed in the fortad roadmap; unfixed.
+  operator. Diagnosed in the fortad roadmap. Unfixed.
 
 ### Tapenade
 
@@ -97,9 +97,10 @@ but it is not yet a timed case in this corpus.
 The OO boundary matrix now has an executable refusal record at
 `results/itpplasma_oo_boundaries_validation.txt`. Its three primals are valid
 and independently checked before transformation: an abstract deferred binding
-with a two-level override; an allocatable polymorphic owner using `move_alloc`,
-replacement, and finalization; and procedure-pointer callbacks carrying a
-`class(*)` context with reassignment and a null path. FortAD exits nonzero and
+with a two-level override. It also has an allocatable polymorphic owner using
+`move_alloc`, replacement, and finalization, plus procedure-pointer callbacks
+carrying a `class(*)` context with reassignment and a null path. FortAD exits
+nonzero and
 writes no derivative for each. These records make P8.4-P8.6 boundaries
 reproducible, but they do not close the positive derivative work: generated
 bindings, active ownership, callback JVP/VJP rules, and switch-boundary
@@ -107,12 +108,14 @@ diagnostics remain open.
 
 ### Procedure interfaces and complex values
 
-Three independent slices now pin the next Phase 7/11 boundaries in the
-manifest. Optional/keyword calls and the two `present` paths have a generated
-JVP, a hand derivative, and a central finite-difference check. Generic rank
+The manifest contains three independent slices for the next Phase 7/11
+boundaries: optional/keyword calls, generic rank resolution, and the B10
+intrinsic complex slice. Optional/keyword calls and the two `present` paths
+have a generated JVP, a hand derivative, and a central finite-difference check.
+Generic rank
 resolution compiles and runs as valid Fortran, then records FortAD's named
 refusal without producing a derivative file. The B10 intrinsic complex slice
-is positive; complex BLAS and a real-valued non-holomorphic output remain
+is positive. Complex BLAS and a real-valued non-holomorphic output remain
 separate work.
 
 See [`cases/itpplasma/manifest.toml`](cases/itpplasma/manifest.toml), the
@@ -130,7 +133,7 @@ See [`cases/itpplasma/manifest.toml`](cases/itpplasma/manifest.toml), the
 - fortsym kernels are wrapped with the same batch loop as the other engines
   so what is timed is the kernel rather than three different callers.
 - `scripts/make_fortfem_cases.py` generates the fortfem cases from fortfem's
-  extracted primals; its `CHOSEN` list currently covers all 44 candidates.
+  extracted primals. Its `CHOSEN` list currently covers all 44 candidates.
 - A single evaluation of most of these kernels is far below timer
   resolution. Everything is batched, which is also how fortfem and fortnum
   actually call them: once per cell or per quadrature point.
