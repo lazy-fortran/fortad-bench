@@ -232,6 +232,12 @@ Planned, in the order fortad's roadmap needs them:
 6. **`sparse`** — Jacobians and Hessians with exploitable structure.
 7. **`scaling`** — synthetic sweeps in input, output, and direction count.
 
+### itpplasma language cases
+
+The [`SELECT TYPE` case](cases/itpplasma/polymorphic_select_type/README.md)
+checks a generated JVP through two runtime-selected children and compares both
+with hand derivatives. The case page has the command and measured costs.
+
 ## The study corpus
 
 This repository also holds the field survey that fortad's design rests on,
