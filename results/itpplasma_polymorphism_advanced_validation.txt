@@ -1,5 +1,5 @@
 suite: itpplasma advanced runtime polymorphism JVPs
-recorded_utc: 2026-08-06T19:51:24Z
+recorded_utc: 2026-08-06T21:55:26Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,12 +8,12 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
-fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
+fortad_commit: cbdb054593686ce333c44ef9deab5e6e20f48c1a
 required_fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
-fortad_setup_seconds_cached_or_incremental: 1.655788
-shared_harness_compile_and_link_seconds: 0.103667
-runtime_wall_seconds=0.15
-runtime_peak_rss_kb=2924
+fortad_setup_seconds_cached_or_incremental: 1.079788
+shared_harness_compile_and_link_seconds: 0.109701
+runtime_wall_seconds=0.16
+runtime_peak_rss_kb=2948
 transform_method: date +%s.%N around fo exec --no-build; engine setup is timed separately
 runtime_method: Fortran system_clock over 10000000 dispatches per case and implementation; /usr/bin/time %e and %M wrap the suite
 oracle: hand-derived child JVPs plus fixed numerical expectations; generated source text is not inspected
@@ -21,9 +21,9 @@ factory_scope: two allocate(source=...) calls occur outside the hot loops for ea
 optimization_note: both kernels are scalar; zero vectorized loops is expected and complete compiler reports follow
 
 case_id: class-is-default
-ad_transform_seconds: 0.005640
-case_objects_compile_seconds: 0.052791
-generated_object_compile_seconds: 0.017954
+ad_transform_seconds: 0.005703
+case_objects_compile_seconds: 0.051048
+generated_object_compile_seconds: 0.015924
 generated_source_bytes: 941
 generated_object_bytes: 1816
 generated_object_text_bytes: 118
@@ -42,9 +42,9 @@ build/itpplasma-polymorphism-advanced/class-is-default/generated_jvp.f90:31:41: 
 build/itpplasma-polymorphism-advanced/class-is-default/generated_jvp.f90:31:41: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
 
 case_id: factory-allocatable
-ad_transform_seconds: 0.006517
-case_objects_compile_seconds: 0.060008
-generated_object_compile_seconds: 0.019065
+ad_transform_seconds: 0.006082
+case_objects_compile_seconds: 0.059346
+generated_object_compile_seconds: 0.017304
 generated_source_bytes: 1267
 generated_object_bytes: 1736
 generated_object_text_bytes: 163
@@ -70,13 +70,13 @@ bd988b443a4cedb6bed4907fea8fbb1b6f0c8c63907fb8655b9152c937bb33b0  cases/itpplasm
 06b0ef5caf211864813b9dafe8ccf9b200d71584bbafa1dc66b0af3fc0ff9255  scripts/bench_itpplasma_polymorphism_advanced.sh
 run_output:
 class_is_dispatches_per_implementation 10000000
-class_is_generated_seconds_per_dispatch   4.56936060E-09
-class_is_hand_seconds_per_dispatch   4.43073840E-09
-class_is_generated_over_hand_runtime   1.03128648E+00
+class_is_generated_seconds_per_dispatch   4.51466220E-09
+class_is_hand_seconds_per_dispatch   4.45486660E-09
+class_is_generated_over_hand_runtime   1.01342253E+00
 class_is_generated_sink   1.23322820E+07
 factory_dispatches_per_implementation 10000000
-factory_generated_seconds_per_dispatch   3.48761140E-09
-factory_hand_seconds_per_dispatch   3.27401300E-09
-factory_generated_over_hand_runtime   1.06524055E+00
+factory_generated_seconds_per_dispatch   3.61409950E-09
+factory_hand_seconds_per_dispatch   3.44981090E-09
+factory_generated_over_hand_runtime   1.04762249E+00
 factory_generated_sink   5.21643959E+06
 PASS: CLASS IS/default and factory JVPs match hand derivatives
