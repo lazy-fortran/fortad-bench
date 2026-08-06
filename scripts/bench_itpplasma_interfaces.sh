@@ -7,7 +7,7 @@ suite_out="$root/build/itpplasma-interfaces"
 mod_dir="$suite_out/mod"
 result="$root/results/itpplasma_interfaces_validation.txt"
 fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
-required_fortad_commit=1e5694c817803445edc1333edef8235a764fe098
+required_fortad_commit=0209b3ad56e143bdaa29224212e053941c7e3337
 fc=${FC:-gfortran}
 compile_flags=(-std=f2018 -O3 -ffree-line-length-none -fno-lto)
 

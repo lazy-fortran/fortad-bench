@@ -5,7 +5,7 @@ refuted. It holds the workloads, the engine adapters, the harness, and the
 committed results. `README.md` reports the current numbers; this file tracks
 what is missing from them.
 
-## Status, 2026-08-05
+## Status, 2026-08-06
 
 Coverage stands at 59 operators: 17 in the fortnum suite and 42 in the
 fortfem suite, plus Enzyme's own suite. Every operator that both Enzyme and
@@ -36,9 +36,9 @@ The existing 59-operator cross-engine table already contains both. The
 quadrature kernel's zero-loop vectorisation report is retained as the known
 slice-packing limitation rather than being presented as a win.
 
-### Two caveats in the committed results
+### Three caveats in the committed results
 
-Both are recorded in `README.md` and neither is resolved:
+All three are recorded in `README.md` and none is resolved:
 
 - `rk4` reverse at 0.11x is the widest margin in the corpus and the least
   representative. The kernel is a linear ODE, so its stages collapse to an
@@ -85,10 +85,12 @@ writes no derivative file. The equivalent explicit `SELECT TYPE` wrapper runs
 and matches hand JVPs. See the paired
 [`record`](results/itpplasma_callback_boundary_validation.txt).
 
-This records a safe refusal, not procedure-pointer support. Reverse dispatch,
-deferred type-bound calls, active model components, arrays of polymorphic
-objects, procedure-pointer differentiation, and alias-aware object lifetimes
-remain open.
+This records a safe refusal, not procedure-pointer support. FortAD has an
+in-tree reverse `SELECT TYPE` implementation and oracle, but this benchmark
+corpus still lacks a measured reverse dispatch case and the broader n-way and
+finite-difference closeout remains open. Deferred type-bound calls, active
+model components, arrays of polymorphic objects, procedure-pointer
+differentiation, and alias-aware object lifetimes remain open.
 
 ### Procedure interfaces and complex values
 
