@@ -72,12 +72,12 @@ record both, plus complete case build time.
 ### itpplasma runtime polymorphism
 
 Forward mode now covers exact `TYPE IS` guards, an intermediate `CLASS IS` guard
-matching a grandchild, `CLASS DEFAULT`, and factory-created polymorphic
-allocatables with nested component reads. All runtime arms pass hand-derived
-checks. See the [`manifest`](cases/itpplasma/manifest.toml), the first measured
+matching a grandchild, and `CLASS DEFAULT`. The factory-created polymorphic
+allocatable case has an independently checked primal and an explicit
+allocation-lifetime derivative refusal. See the
+[`manifest`](cases/itpplasma/manifest.toml), the first measured
 [`record`](results/itpplasma_polymorphic_select_type_validation.txt), and the
-advanced measured
-[`record`](results/itpplasma_polymorphism_advanced_validation.txt).
+advanced measured [`record`](results/itpplasma_polymorphism_advanced_validation.txt).
 
 A procedure-pointer callback is now an explicit boundary case. Its primal runs
 both targets, while the transform exits nonzero, names `selected_callback`, and

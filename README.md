@@ -245,8 +245,9 @@ Runtime-polymorphism cases:
 - [polymorphic ownership refusal](cases/itpplasma/polymorphic_ownership_refusal/README.md)
 - [`class(*)` callback-context refusal](cases/itpplasma/callback_context_refusal/README.md)
 
-Positive cases run every runtime arm against fixed values and hand derivatives.
-refusal cases first validate the primal arms and central finite differences.
+Positive cases run every supported runtime arm against fixed values and hand
+derivatives. Refusal cases first validate the primal arms and central finite
+differences.
 The case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
 the [`advanced record`](results/itpplasma_polymorphism_advanced_validation.txt).
