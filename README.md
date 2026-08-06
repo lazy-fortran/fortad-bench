@@ -268,7 +268,7 @@ Expected refusals are progress evidence, not performance wins.
 
 FortAD also has an in-tree bounded concrete type-bound-call oracle for a
 same-file `type(t)` receiver with default implicit `PASS`.
-[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/71f9465/test/test_type_bound_oracle.f90)
+[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/8f375f3/test/test_type_bound_oracle.f90)
 covers JVP, VJP, finite differences, and explicit refusal cases. A timed bench
 case for that slice is still open; active receiver cotangents and runtime
 overrides are outside its contract.
