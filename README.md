@@ -241,14 +241,27 @@ Runtime-polymorphism cases:
 - [factory-created polymorphic allocatable](cases/itpplasma/factory_allocatable/README.md)
 - [dynamic callback refusal](cases/itpplasma/dynamic_callback_refusal/README.md)
 - [`SELECT TYPE` callback replacement](cases/itpplasma/callback_select_type/README.md)
+- [abstract deferred binding refusal](cases/itpplasma/abstract_deferred_refusal/README.md)
+- [polymorphic ownership refusal](cases/itpplasma/polymorphic_ownership_refusal/README.md)
+- [`class(*)` callback-context refusal](cases/itpplasma/callback_context_refusal/README.md)
 
-Each case runs every runtime arm against fixed values and hand derivatives. The
-case pages give formulas and commands. Measurements are in the
+Positive cases run every runtime arm against fixed values and hand derivatives;
+refusal cases first validate the primal arms and central finite differences.
+The case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
 the [`advanced record`](results/itpplasma_polymorphism_advanced_validation.txt).
 The [`callback record`](results/itpplasma_callback_boundary_validation.txt)
 also proves that an unsupported procedure-pointer call fails by name and leaves
 no derivative file.
+
+The advanced OO boundary record
+([`itpplasma_oo_boundaries_validation.txt`](results/itpplasma_oo_boundaries_validation.txt))
+adds three valid primal oracles: abstract deferred bindings, an allocatable
+polymorphic owner with `move_alloc` and finalization, and procedure pointers
+with a `class(*)` context. Each checks fixed values and central finite
+differences, then records FortAD's nonzero refusal and confirms that no
+derivative file is left behind. These are P8.4-P8.6 boundary records, not
+claims that those unsupported paths differentiate.
 
 Procedure-interface and complex-value boundaries:
 

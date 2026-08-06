@@ -175,3 +175,68 @@ application_evidence = [
     "NEO-RT/src/orbit.f90:152,284",
 ]
 result = "../../results/itpplasma_interfaces_validation.txt"
+
+[[cases]]
+id = "abstract-deferred-binding-refusal"
+status = "expected-refusal"
+category = "language/runtime-polymorphism"
+source = "abstract_deferred_refusal/primal.f90"
+harness = "../../harness/check_oo_boundaries.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["abstract dynamic type", "deferred binding", "factory coefficients"]
+features = [
+    "abstract base",
+    "deferred type-bound function",
+    "multi-level override",
+    "polymorphic allocatable factory",
+]
+required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+oracle = "fixed primal values and central finite differences for affine and square children"
+expected_diagnostic = "fortad: unsupported type-bound call 'value': the concrete type is not defined in this source"
+discrete_contract = "The selected override is fixed during each derivative call."
+result = "../../results/itpplasma_oo_boundaries_validation.txt"
+
+[[cases]]
+id = "polymorphic-ownership-refusal"
+status = "expected-refusal"
+category = "language/runtime-polymorphism"
+source = "polymorphic_ownership_refusal/primal.f90"
+harness = "../../harness/check_oo_boundaries.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["allocated child", "generation", "ownership lifetime"]
+features = [
+    "allocatable class component",
+    "move_alloc",
+    "replacement",
+    "finalizer",
+    "nested type-bound dispatch",
+]
+required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+oracle = "fixed primal values and central finite differences before and after replacement"
+expected_diagnostic = "fortad: empty expression"
+discrete_contract = "Dynamic type, ownership transitions, and destruction are passive choices."
+result = "../../results/itpplasma_oo_boundaries_validation.txt"
+
+[[cases]]
+id = "callback-class-star-context-refusal"
+status = "expected-refusal"
+category = "language/procedure-interfaces"
+source = "callback_context_refusal/primal.f90"
+harness = "../../harness/check_oo_boundaries.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["callback identity", "class(*) context", "associated state"]
+features = [
+    "procedure pointer",
+    "pointer reassignment",
+    "associated and null callback",
+    "class(*) context",
+    "select type inside callback",
+]
+required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+oracle = "fixed linear and quadratic callback values, central finite differences, and null-path sentinel"
+expected_diagnostic = "fortad: empty expression"
+discrete_contract = "Callback target and opaque context type are fixed during each derivative call."
+result = "../../results/itpplasma_oo_boundaries_validation.txt"

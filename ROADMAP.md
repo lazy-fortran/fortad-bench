@@ -94,6 +94,17 @@ differentiation, and alias-aware object lifetimes remain open.
 The separate bounded concrete type-bound-call oracle is implemented in FortAD,
 but it is not yet a timed case in this corpus.
 
+The OO boundary matrix now has an executable refusal record at
+`results/itpplasma_oo_boundaries_validation.txt`. Its three primals are valid
+and independently checked before transformation: an abstract deferred binding
+with a two-level override; an allocatable polymorphic owner using `move_alloc`,
+replacement, and finalization; and procedure-pointer callbacks carrying a
+`class(*)` context with reassignment and a null path. FortAD exits nonzero and
+writes no derivative for each. These records make P8.4-P8.6 boundaries
+reproducible, but they do not close the positive derivative work: generated
+bindings, active ownership, callback JVP/VJP rules, and switch-boundary
+diagnostics remain open.
+
 ### Procedure interfaces and complex values
 
 Three independent slices now pin the next Phase 7/11 boundaries in the
