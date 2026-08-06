@@ -1,5 +1,5 @@
 suite: itpplasma dynamic callback boundary
-recorded_utc: 2026-08-06T22:56:38Z
+recorded_utc: 2026-08-06T23:26:11Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,9 +8,9 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
-fortad_commit: dd47126c6dd7d3a682e491adbfe1601b6576b54d
+fortad_commit: fad316416467566936117340460dfce594f55e64
 required_fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
-fortad_setup_seconds_cached_or_incremental: 1.072899
+fortad_setup_seconds_cached_or_incremental: 11.783890
 oracle: generated SELECT TYPE JVPs are compared with hand JVPs and fixed values
 discrete_contract: the callback choice and model coefficients stay passive
 
@@ -23,9 +23,9 @@ primal_run_output:
 PASS: procedure-pointer primal dispatches to both callbacks
 
 case_id: callback-select-type-jvp
-ad_transform_seconds: 0.006193
-case_compile_and_link_seconds: 0.116521
-generated_object_compile_seconds: 0.016300
+ad_transform_seconds: 0.011417
+case_compile_and_link_seconds: 0.136925
+generated_object_compile_seconds: 0.018648
 generated_source_bytes: 1185
 generated_object_bytes: 1760
 generated_object_text_bytes: 163
@@ -33,7 +33,7 @@ generated_vectorized_loop_messages: 0
 generated_optimized_messages: 1
 generated_missed_optimization_messages: 0
 runtime_wall_seconds=0.06
-runtime_peak_rss_kb=3196
+runtime_peak_rss_kb=2804
 optimization_report: build/itpplasma-callback-boundary/positive/generated_optimization.txt
 optimization_diagnostic:
 Unit growth for small function inlining: 36->36 (0%)
@@ -53,8 +53,8 @@ f9cc994543acec8cab5f72059627f0c38c47ae451ac387be8016042268295ad9  harness/check_
 5efd38d60172f916870d630c8187c09ad0c7304f519946a7b56e7b91bc6be33b  scripts/bench_itpplasma_callback_boundary.sh
 run_output:
 dispatches_per_implementation 10000000
-generated_seconds_per_dispatch   3.06222800E-09
-hand_seconds_per_dispatch   3.59315900E-09
-generated_over_hand_runtime   8.52238379E-01
+generated_seconds_per_dispatch   3.17237900E-09
+hand_seconds_per_dispatch   3.53460230E-09
+generated_over_hand_runtime   8.97520776E-01
 generated_sink   6.18778798E+06
 PASS: explicit SELECT TYPE callback JVPs match hand derivatives
