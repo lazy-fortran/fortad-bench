@@ -250,6 +250,22 @@ The [`callback record`](results/itpplasma_callback_boundary_validation.txt)
 also proves that an unsupported procedure-pointer call fails by name and leaves
 no derivative file.
 
+Procedure-interface and complex-value boundaries:
+
+- [optional and keyword arguments](cases/itpplasma/optional_keyword/README.md)
+  — generated optional JVP plus hand/finite-difference oracle on present and
+  absent call paths;
+- [generic rank selection](cases/itpplasma/generic_dispatch/README.md) — the
+  scalar and rank-one overloads run and validate independently, while the
+  transform records the B9 refusal;
+- [complex arithmetic JVP](cases/itpplasma/complex_real_jacobian/README.md) —
+  positive real-coordinate path covering `conjg`, `cmplx`, `aimag`, and complex
+  multiplication.
+
+The paired measurements and refusal diagnostics are in the
+[`procedure-interface record`](results/itpplasma_interfaces_validation.txt).
+Expected refusals are progress evidence, not performance wins.
+
 ## The study corpus
 
 This repository also holds the field survey that fortad's design rests on,

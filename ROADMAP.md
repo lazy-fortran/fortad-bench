@@ -90,6 +90,20 @@ deferred type-bound calls, active model components, arrays of polymorphic
 objects, procedure-pointer differentiation, and alias-aware object lifetimes
 remain open.
 
+### Procedure interfaces and complex values
+
+Three independent slices now pin the next Phase 7/11 boundaries in the
+manifest. Optional/keyword calls and the two `present` paths have a generated
+JVP, a hand derivative, and a central finite-difference check. Generic rank
+resolution compiles and runs as valid Fortran, then records FortAD's named
+refusal without producing a derivative file. The B10 intrinsic complex slice
+is positive; complex BLAS and a real-valued non-holomorphic output remain
+separate work.
+
+See [`cases/itpplasma/manifest.toml`](cases/itpplasma/manifest.toml), the
+[`case pages`](README.md#itpplasma-language-cases), and
+[`results/itpplasma_interfaces_validation.txt`](results/itpplasma_interfaces_validation.txt).
+
 ## Harness notes for anyone extending this
 
 - `scripts/build_fortnum_suite.sh` and `scripts/build_fortfem_suite.sh`

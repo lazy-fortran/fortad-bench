@@ -1,0 +1,76 @@
+suite: itpplasma procedure-interface and complex boundaries
+recorded_utc: 2026-08-06T21:11:19Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 8f041d51d31889430acb64e2be4d752dd9bf400e
+required_fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
+fortad_setup_seconds_cached_or_incremental: 1.092067
+oracle: hand JVPs, central finite differences, and fixed values
+discrete_contract: generic resolution and optional presence are fixed at the call site; real-coordinate complex path is fixed
+
+case_id: optional-keyword
+status: implemented
+ad_transform_seconds: 0.004648
+generated_object_compile_seconds: 0.015755
+generated_source_bytes: 804
+generated_object_bytes: 1312
+optimization_report: build/itpplasma-interfaces/optional/generated_optimization.txt
+
+case_id: generic-rank
+status: expected-refusal
+refusal_exit_status: 1
+diagnostic: fortad: unsupported expression (generic rank resolution)
+ERROR STOP 1
+
+Error termination. Backtrace:
+#0  0x7fe3a2c27602 in ???
+#1  0x7fe3a2c2848a in ???
+#2  0x563f8691441d in MAIN__
+#3  0x563f86919691 in main
+fortad: unsupported expression at line 35
+ERROR STOP 1
+
+Error termination. Backtrace:
+#0  0x7ff7b6e27602 in ???
+#1  0x7ff7b6e2848a in ???
+#2  0x5615e1c9d818 in cmd_exec.27
+#3  0x5615e1ca4d4a in MAIN__
+#4  0x5615e1c9699e in main
+
+case_id: complex-arithmetic-jvp
+status: implemented
+ad_transform_seconds: 0.004550
+case_compile_and_link_seconds: 0.196357
+generated_object_compile_seconds: 0.017552
+generated_source_bytes: 922
+generated_object_bytes: 1424
+generated_object_text_bytes: 172
+generated_vectorized_loop_messages: 0
+generated_optimized_messages: 14
+generated_missed_optimization_messages: 0
+runtime_wall_seconds=0.03
+runtime_peak_rss_kb=3484
+optimization_report: build/itpplasma-interfaces/complex/generated_optimization.txt
+
+source_sha256:
+47bf2fee017f97f4964567826e9b4957a95afd8071712f7ed1484403c764dbf7  cases/itpplasma/optional_keyword/primal.f90
+474659e990b1bb77f82155aaa2766a62ec4d6d60b33e48b96bbaa6b904f8ee4b  cases/itpplasma/optional_keyword/hand_jvp.f90
+526803d22cb9f5f760293f9ed63bbea86859d148d470c7bb920343cab8447af8  cases/itpplasma/generic_dispatch/primal.f90
+e1cf844ed110e3ebf91c56df683676a907e34dfa446cb81a233def82e7122d9d  cases/itpplasma/generic_dispatch/hand_jvp.f90
+e3cc4e5d7870bfc274900d5c97a83969c6b47c1ca621512684e4327219816018  cases/itpplasma/complex_real_jacobian/primal.f90
+6b7e31687188575432741da879817b2085e69a4282012487cf8bfb13695efa8f  cases/itpplasma/complex_real_jacobian/hand_jvp.f90
+9423e5a19178fa1f1587671aaa5fddc363ea5044008d11f4c706be8ae1841ab1  harness/bench_interfaces.f90
+eaca4a66cbac1b0c36db9fe40b7af6709c6cced01d265df7d187937501e4ab9b  scripts/bench_itpplasma_interfaces.sh
+run_output:
+PASS: optional, generic, and complex hand oracles
+optional_value_present=  6.2500000000000000E+00
+optional_value_absent=  1.2500000000000000E+00
+generic_value=  8.6875000000000000E+00
+complex_directional_jvp=  4.1000000000000014E-01  1.7300000000000000E+00
+complex_checksum= -1.5279666664615672E+07
+complex_ten_million_call_seconds=    0.037000

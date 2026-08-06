@@ -114,3 +114,64 @@ application_evidence = [
     "NEO-RT/src/orbit.f90:152,284",
 ]
 result = "../../results/itpplasma_callback_boundary_validation.txt"
+
+[[cases]]
+id = "optional-keyword-boundary"
+status = "implemented"
+category = "language/procedure-interfaces"
+source = "optional_keyword/primal.f90"
+hand_derivative = "optional_keyword/hand_jvp.f90"
+harness = "../../harness/bench_interfaces.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["optional presence", "keyword order"]
+features = ["optional dummies", "present", "keyword arguments"]
+required_fortad_commit = "0209b3ad56e143bdaa29224212e053941c7e3337"
+oracle = "generated and hand JVPs plus central finite difference in both presence paths"
+discrete_contract = "Optional presence and keyword resolution are fixed at each call site."
+application_evidence = [
+    "KAMEL/KIM/src/dispersion/fun_input.f90:21,25",
+    "NEO-RT/src/orbit.f90:152,284",
+]
+result = "../../results/itpplasma_interfaces_validation.txt"
+
+[[cases]]
+id = "generic-rank-boundary"
+status = "expected-refusal"
+category = "language/procedure-interfaces"
+source = "generic_dispatch/primal.f90"
+hand_derivative = "generic_dispatch/hand_jvp.f90"
+harness = "../../harness/bench_interfaces.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["generic resolution"]
+features = ["generic interface", "scalar overload", "rank-one overload", "sum"]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "hand JVP plus central finite difference; valid primal is compiled and run"
+expected_diagnostic = "fortad: unsupported expression at line 35"
+discrete_contract = "Generic resolution by rank is fixed by the static actual argument."
+application_evidence = [
+    "NEO-2/COMMON/MyMPILib/Generic/scheduler_generic.f90:156",
+    "libneo/src/field/field.f90:31-43",
+]
+result = "../../results/itpplasma_interfaces_validation.txt"
+
+[[cases]]
+id = "complex-arithmetic-jvp"
+status = "implemented"
+category = "numerical/complex-real-jacobian"
+source = "complex_real_jacobian/primal.f90"
+hand_derivative = "complex_real_jacobian/hand_jvp.f90"
+harness = "../../harness/bench_interfaces.f90"
+mode = "forward"
+active_inputs = ["zr", "zi"]
+passive_inputs = ["real-coordinate path"]
+features = ["complex multiplication", "conjg", "cmplx", "aimag", "non-holomorphic output"]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "hand complex JVP, central finite difference in both real coordinates, and fixed values"
+discrete_contract = "The real-coordinate path is fixed; no holomorphic derivative is assumed."
+application_evidence = [
+    "libneo/src/field/magnetic_field_base.f90",
+    "NEO-RT/src/orbit.f90:152,284",
+]
+result = "../../results/itpplasma_interfaces_validation.txt"
