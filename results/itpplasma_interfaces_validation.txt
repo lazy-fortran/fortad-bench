@@ -1,5 +1,5 @@
 suite: itpplasma procedure-interface and complex boundaries
-recorded_utc: 2026-08-06T21:38:26Z
+recorded_utc: 2026-08-06T21:51:21Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -7,16 +7,16 @@ cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
-fortad_commit: 8f375f393b0766e4c9a7598bb36d39e931c93eb8
+fortad_commit: 159a68600f567c559df1e96e95aa07c16f2724a5
 required_fortad_commit: 0209b3ad56e143bdaa29224212e053941c7e3337
-fortad_setup_seconds_cached_or_incremental: 1.062697
+fortad_setup_seconds_cached_or_incremental: 2.048549
 oracle: hand JVPs, central finite differences, and fixed values
 discrete_contract: generic resolution and optional presence are fixed at the call site; real-coordinate complex path is fixed
 
 case_id: optional-keyword
 status: implemented
-ad_transform_seconds: 0.004447
-generated_object_compile_seconds: 0.013948
+ad_transform_seconds: 0.004128
+generated_object_compile_seconds: 0.013840
 generated_source_bytes: 804
 generated_object_bytes: 1312
 optimization_report: build/itpplasma-interfaces/optional/generated_optimization.txt
@@ -28,33 +28,33 @@ diagnostic: fortad: unsupported expression (generic rank resolution)
 ERROR STOP 1
 
 Error termination. Backtrace:
-#0  0x7f1f15227602 in ???
-#1  0x7f1f1522848a in ???
-#2  0x55b49e7fc53d in MAIN__
-#3  0x55b49e8017b1 in main
+#0  0x7f3e4e027602 in ???
+#1  0x7f3e4e02848a in ???
+#2  0x55c99508178d in MAIN__
+#3  0x55c995086a01 in main
 fortad: unsupported expression at line 35
 ERROR STOP 1
 
 Error termination. Backtrace:
-#0  0x7efec0a27602 in ???
-#1  0x7efec0a2848a in ???
-#2  0x55ab0131b818 in cmd_exec.27
-#3  0x55ab01322d4a in MAIN__
-#4  0x55ab0131499e in main
+#0  0x7f7adc227602 in ???
+#1  0x7f7adc22848a in ???
+#2  0x5618e905d818 in cmd_exec.27
+#3  0x5618e9064d4a in MAIN__
+#4  0x5618e905699e in main
 
 case_id: complex-arithmetic-jvp
 status: implemented
-ad_transform_seconds: 0.004394
-case_compile_and_link_seconds: 0.188521
-generated_object_compile_seconds: 0.014762
+ad_transform_seconds: 0.004561
+case_compile_and_link_seconds: 0.193668
+generated_object_compile_seconds: 0.015090
 generated_source_bytes: 922
 generated_object_bytes: 1424
 generated_object_text_bytes: 172
 generated_vectorized_loop_messages: 0
-generated_optimized_messages: 6
+generated_optimized_messages: 8
 generated_missed_optimization_messages: 0
 runtime_wall_seconds=0.03
-runtime_peak_rss_kb=3460
+runtime_peak_rss_kb=3200
 optimization_report: build/itpplasma-interfaces/complex/generated_optimization.txt
 
 source_sha256:
