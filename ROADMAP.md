@@ -79,9 +79,16 @@ checks. See the [`manifest`](cases/itpplasma/manifest.toml), the first measured
 advanced measured
 [`record`](results/itpplasma_polymorphism_advanced_validation.txt).
 
-Reverse dispatch, deferred type-bound calls, active model components, arrays of
-polymorphic objects, procedure pointers, and alias-aware object lifetimes remain
-open.
+A procedure-pointer callback is now an explicit boundary case. Its primal runs
+both targets, while the transform exits nonzero, names `selected_callback`, and
+writes no derivative file. The equivalent explicit `SELECT TYPE` wrapper runs
+and matches hand JVPs. See the paired
+[`record`](results/itpplasma_callback_boundary_validation.txt).
+
+This records a safe refusal, not procedure-pointer support. Reverse dispatch,
+deferred type-bound calls, active model components, arrays of polymorphic
+objects, procedure-pointer differentiation, and alias-aware object lifetimes
+remain open.
 
 ## Harness notes for anyone extending this
 

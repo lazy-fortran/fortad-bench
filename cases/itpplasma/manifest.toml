@@ -72,3 +72,45 @@ application_evidence = [
     "rabe/src/shaing_callen/shaing_callen.f90:78",
 ]
 result = "../../results/itpplasma_polymorphism_advanced_validation.txt"
+
+[[cases]]
+id = "dynamic-callback-refusal"
+status = "expected-refusal"
+category = "language/runtime-polymorphism"
+source = "dynamic_callback_refusal/primal.f90"
+harness = "../../harness/check_dynamic_callback_primal.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["procedure-pointer target"]
+features = ["abstract interface", "procedure pointer", "runtime callback"]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "the valid primal dispatches to two targets; the transform exits nonzero and writes no derivative"
+expected_diagnostic = "fortad: no derivative rule for 'selected_callback'; register one with fad_add_rule, or keep it out of the active path"
+application_evidence = [
+    "KAMEL/KIM/src/dispersion/fun_input.f90:21,25",
+    "SIMPLE/src/magfie.f90:42",
+    "NEO-RT/src/orbit.f90:152,284",
+]
+replacement = "callback-select-type-jvp"
+result = "../../results/itpplasma_callback_boundary_validation.txt"
+
+[[cases]]
+id = "callback-select-type-jvp"
+status = "implemented"
+category = "language/runtime-polymorphism"
+source = "callback_select_type/primal.f90"
+hand_derivative = "callback_select_type/hand_jvp.f90"
+harness = "../../harness/bench_callback_select_type.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["dynamic type tag", "callback coefficients"]
+features = ["abstract base", "two children", "class dummy", "select type"]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "hand-derived child JVPs plus fixed numerical expectations"
+discrete_contract = "The runtime child and callback coefficients are fixed during each derivative call."
+application_evidence = [
+    "KAMEL/KIM/src/dispersion/fun_input.f90:21,25",
+    "SIMPLE/src/magfie.f90:42",
+    "NEO-RT/src/orbit.f90:152,284",
+]
+result = "../../results/itpplasma_callback_boundary_validation.txt"
