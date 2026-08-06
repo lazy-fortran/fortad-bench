@@ -3,7 +3,7 @@ module abstract_deferred_refusal_kernel
     implicit none
     private
 
-    public :: model_t, evaluate_deferred, make_model, destroy_model
+    public :: model_t, affine_model_t, square_model_t, evaluate_deferred
 
     type, abstract :: model_t
         real(dp) :: bias = 0.0_dp
@@ -49,38 +49,6 @@ contains
 
         y = self%curvature*x*x + self%slope*x + self%bias
     end function square_value
-
-    subroutine make_model(kind, slope, curvature, bias, model)
-        integer, intent(in) :: kind
-        real(dp), intent(in) :: slope, curvature, bias
-        class(model_t), allocatable, intent(out) :: model
-
-        select case (kind)
-        case (1)
-            allocate(affine_model_t :: model)
-            select type (model)
-            type is (affine_model_t)
-                model%slope = slope
-                model%bias = bias
-            end select
-        case (2)
-            allocate(square_model_t :: model)
-            select type (model)
-            type is (square_model_t)
-                model%slope = slope
-                model%curvature = curvature
-                model%bias = bias
-            end select
-        case default
-            error stop "unknown model kind"
-        end select
-    end subroutine make_model
-
-    subroutine destroy_model(model)
-        class(model_t), allocatable, intent(inout) :: model
-
-        if (allocated(model)) deallocate(model)
-    end subroutine destroy_model
 
     function evaluate_deferred(model, x) result(y)
         class(model_t), intent(in) :: model

@@ -92,9 +92,9 @@ run_refusal() {
 run_refusal abstract evaluate_deferred deferred_ad \
     "fortad: unsupported type-bound call 'value': the concrete type is not defined in this source"
 run_refusal ownership evaluate_owned ownership_ad \
-    'fortad: empty expression'
+    "fortad: unsupported allocation lifetime construct 'allocatable declaration/component'"
 run_refusal callback evaluate_callback callback_ad \
-    'fortad: empty expression'
+    "fortad: unsupported allocation lifetime construct 'allocatable declaration/component'"
 
 fortad_commit=$(git -C "$fortad_repo" rev-parse HEAD)
 cpu_model=$(lscpu | awk -F: \
