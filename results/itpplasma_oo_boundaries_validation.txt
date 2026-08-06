@@ -1,5 +1,5 @@
 suite: itpplasma advanced OO/interface refusal boundaries
-recorded_utc: 2026-08-06T21:51:20Z
+recorded_utc: 2026-08-06T21:52:57Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -9,8 +9,8 @@ compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 fortad_commit: 159a68600f567c559df1e96e95aa07c16f2724a5
 required_fortad_commit: 16d1cae67e4bc230ba32541d65c87ec0164ff123
-fortad_setup_seconds_cached_or_incremental: 1.083066
-primal_compile_and_link_seconds: 0.173951
+fortad_setup_seconds_cached_or_incremental: 1.073102
+primal_compile_and_link_seconds: 0.183146
 oracle: fixed values and central finite differences for each child/callback target; null callback value checked
 discrete_contract: dynamic type, ownership transition, callback target, and callback context are passive choices
 
@@ -36,7 +36,7 @@ source_sha256:
 2efdd62e96f3242b2a5ea09c665be2ae6e2282ae16a68c60628b00d530e00807  cases/itpplasma/abstract_deferred_refusal/primal.f90
 a283d8842271ab42d6804d32b56ef5c0c7b6b730c30186a2ba9bd3741f95beef  cases/itpplasma/polymorphic_ownership_refusal/primal.f90
 0c6ceb6150cde2be24d1aa69d6f77aa3c2e8deeab265705accb0fb6c16cf2b2c  cases/itpplasma/callback_context_refusal/primal.f90
-7d46977c914120fdff9045572e6cf947bfe996d1c4ce1afa5fcbb7ed4390e513  harness/check_oo_boundaries.f90
+8d6329deb76a553a4a0a9ddd9cb386b02b6324c1a3efb2f87ffe1166da17a17e  harness/check_oo_boundaries.f90
 d84e03d8c6e13f56f17fe04dd843390066429e4adbeb103820a649be99376098  scripts/bench_itpplasma_oo_boundaries.sh
 primal_run_output:
 PASS: abstract deferred, ownership, and callback primal oracles
