@@ -1,0 +1,21 @@
+schema_version = 1
+
+[[cases]]
+id = "polymorphic-select-type-jvp"
+status = "implemented"
+category = "language/runtime-polymorphism"
+source = "polymorphic_select_type/primal.f90"
+hand_derivative = "polymorphic_select_type/hand_jvp.f90"
+harness = "../../harness/bench_polymorphic_select_type.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["dynamic type tag", "model coefficients"]
+features = ["abstract base", "two children", "class dummy", "select type"]
+required_fortad_commit = "7766fa14107f1f53c323c6ededfe12c7098248bf"
+oracle = "hand-derived child JVPs plus fixed numerical expectations"
+discrete_contract = "The runtime child is fixed during each derivative call."
+application_evidence = [
+    "KAMEL/KIM/src/general/KIM_base.f90 and KIM_mod.f90",
+    "rabe/src/field/field_base.f90 and src/field/fourier_field.f90",
+]
+result = "../../results/itpplasma_polymorphic_select_type_validation.txt"

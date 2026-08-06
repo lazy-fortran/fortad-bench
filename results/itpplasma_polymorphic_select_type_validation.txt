@@ -1,0 +1,49 @@
+case: itpplasma polymorphic SELECT TYPE JVP
+recorded_utc: 2026-08-06T19:30:49Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+time_tool: time (GNU Time) 1.10
+fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
+required_fortad_commit: 7766fa14107f1f53c323c6ededfe12c7098248bf
+fortad_setup_seconds_cached_or_incremental: 1.966023
+ad_transform_seconds: 0.005802
+generated_object_compile_seconds: 0.016343
+case_compile_and_link_seconds: 0.125515
+generated_source_bytes: 1132
+generated_object_bytes: 1744
+generated_object_text_bytes: 163
+runtime_wall_seconds=0.06
+runtime_peak_rss_kb=3232
+generated_vectorized_loop_messages: 0
+generated_optimized_messages: 1
+generated_missed_optimization_messages: 0
+optimization_report: build/itpplasma-polymorphic-select-type/generated_optimization.txt
+optimization_note: scalar dispatch kernel; zero vectorized loops is expected and the complete compiler report is retained
+optimization_diagnostic:
+Unit growth for small function inlining: 36->36 (0%)
+
+Inlined 0 calls, eliminated 0 functions
+
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:26:46: optimized: sinking common stores to *y_33(D)
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:34:37: note: ***** Analysis failed with vector mode V2DI
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:34:37: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
+transform_method: date +%s.%N around fo exec --no-build; engine setup is timed separately
+runtime_method: Fortran system_clock over 10000000 dispatches per implementation; /usr/bin/time %e and %M wrap the executable
+oracle: hand-derived child JVPs and fixed expected values; generated source text is not inspected
+source_sha256:
+d21040cb9e15768b9102737dab64554344b22fe9eb5619c9385a1adedbc4468d  cases/itpplasma/polymorphic_select_type/primal.f90
+911adb7c8f2454e0aa98334e9f89da150ec0b07032d2936e056accd6dec9a17f  cases/itpplasma/polymorphic_select_type/hand_jvp.f90
+149f4dc2938c8f96cf8a723bbcf45f5d9777a9431a1f90cb55df0b5e2bc037e2  harness/bench_polymorphic_select_type.f90
+58e66185b94d52c232469c4c8943f7fabf64793186f1810a367ef2185e7b4f2f  scripts/bench_itpplasma_polymorphic_select_type.sh
+run_output:
+dispatches_per_implementation 10000000
+generated_seconds_per_dispatch   3.34217340E-09
+hand_seconds_per_dispatch   3.41208100E-09
+generated_over_hand_runtime   9.79511741E-01
+generated_sink   6.18778798E+06
+PASS: both runtime child JVPs match hand derivatives
