@@ -1,0 +1,42 @@
+suite: itpplasma advanced OO/interface refusal boundaries
+recorded_utc: 2026-08-06T21:51:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 3e7177f105b0014141ed3c08e834439a98a9f0c9
+required_fortad_commit: 29d7caabd1d45ebf864446b49cb89b098532e19a
+fortad_setup_seconds_cached_or_incremental: 1.083066
+primal_compile_and_link_seconds: 0.173951
+oracle: fixed values and central finite differences for each child/callback target; null callback value checked
+discrete_contract: dynamic type, ownership transition, callback target, and callback context are passive choices
+
+case_id: abstract-deferred-binding
+status: expected-refusal
+primal_oracle: pass
+refusal_exit_status: 1
+diagnostic: fortad: unsupported type-bound call 'value': the concrete type is not defined in this source
+
+case_id: polymorphic-ownership
+status: expected-refusal
+primal_oracle: pass
+refusal_exit_status: 1
+diagnostic: fortad: empty expression
+
+case_id: callback-class-star-context
+status: expected-refusal
+primal_oracle: pass
+refusal_exit_status: 1
+diagnostic: fortad: empty expression
+
+source_sha256:
+2efdd62e96f3242b2a5ea09c665be2ae6e2282ae16a68c60628b00d530e00807  cases/itpplasma/abstract_deferred_refusal/primal.f90
+a283d8842271ab42d6804d32b56ef5c0c7b6b730c30186a2ba9bd3741f95beef  cases/itpplasma/polymorphic_ownership_refusal/primal.f90
+0c6ceb6150cde2be24d1aa69d6f77aa3c2e8deeab265705accb0fb6c16cf2b2c  cases/itpplasma/callback_context_refusal/primal.f90
+7d46977c914120fdff9045572e6cf947bfe996d1c4ce1afa5fcbb7ed4390e513  harness/check_oo_boundaries.f90
+9f73d86d5c2149502e410006f1101f821909ee8364e3cb7fb0855df7a4b63970  scripts/bench_itpplasma_oo_boundaries.sh
+primal_run_output:
+PASS: abstract deferred, ownership, and callback primal oracles
