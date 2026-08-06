@@ -12,6 +12,7 @@ the JVP must include both the generic call and the reduction.
 | rank-one (`[x, 0.25*x]`) | `3*sum(pair) + 1` | `3.75*x_d` |
 | total | `5.75*x + 1.5` | `5.75*x_d` |
 
-The harness compares generated and hand JVPs with a central finite difference.
-This is the rank-selection slice of B9. Type- and kind-selection remain
-separate variants in the roadmap.
+The harness checks the hand JVP against a central finite difference, then runs
+the transform and records the expected refusal without a derivative file. This
+is the rank-selection slice of B9. Type- and kind-selection remain separate
+variants in the roadmap.
