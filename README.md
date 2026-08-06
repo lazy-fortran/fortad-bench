@@ -239,11 +239,16 @@ Runtime-polymorphism cases:
 - [`TYPE IS`](cases/itpplasma/polymorphic_select_type/README.md)
 - [`CLASS IS` and `CLASS DEFAULT`](cases/itpplasma/class_is_default/README.md)
 - [factory-created polymorphic allocatable](cases/itpplasma/factory_allocatable/README.md)
+- [dynamic callback refusal](cases/itpplasma/dynamic_callback_refusal/README.md)
+- [`SELECT TYPE` callback replacement](cases/itpplasma/callback_select_type/README.md)
 
 Each case runs every runtime arm against fixed values and hand derivatives. The
 case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
 the [`advanced record`](results/itpplasma_polymorphism_advanced_validation.txt).
+The [`callback record`](results/itpplasma_callback_boundary_validation.txt)
+also proves that an unsupported procedure-pointer call fails by name and leaves
+no derivative file.
 
 ## The study corpus
 
