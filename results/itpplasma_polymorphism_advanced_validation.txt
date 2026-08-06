@@ -1,5 +1,5 @@
-suite: itpplasma advanced runtime polymorphism JVPs
-recorded_utc: 2026-08-06T22:18:49Z
+suite: itpplasma runtime polymorphism and allocation boundaries
+recorded_utc: 2026-08-06T23:03:54Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,22 +8,21 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
-fortad_commit: eb104823106e35990b172d18b345bcb19055107a
+fortad_commit: dd47126c6dd7d3a682e491adbfe1601b6576b54d
 required_fortad_commit: 1e5694c817803445edc1333edef8235a764fe098
-fortad_setup_seconds_cached_or_incremental: 1.102266
-shared_harness_compile_and_link_seconds: 0.110558
-runtime_wall_seconds=0.16
-runtime_peak_rss_kb=2840
+fortad_setup_seconds_cached_or_incremental: 1.069514
+shared_harness_compile_and_link_seconds: 0.078321
+runtime_wall_seconds=0.08
+runtime_peak_rss_kb=2804
 transform_method: date +%s.%N around fo exec --no-build; engine setup is timed separately
 runtime_method: Fortran system_clock over 10000000 dispatches per case and implementation; /usr/bin/time %e and %M wrap the suite
-oracle: hand-derived child JVPs plus fixed numerical expectations; generated source text is not inspected
-factory_scope: two allocate(source=...) calls occur outside the hot loops for each timed implementation
-optimization_note: both kernels are scalar; zero vectorized loops is expected and complete compiler reports follow
+oracle: hand-derived child JVPs plus fixed numerical expectations; the factory primal is checked independently and its JVP is refused
+optimization_note: the positive dispatch kernel is scalar; zero vectorized loops is expected and its complete report is retained
 
 case_id: class-is-default
-ad_transform_seconds: 0.005033
-case_objects_compile_seconds: 0.049130
-generated_object_compile_seconds: 0.015051
+ad_transform_seconds: 0.005749
+case_objects_compile_seconds: 0.048445
+generated_object_compile_seconds: 0.015315
 generated_source_bytes: 941
 generated_object_bytes: 1816
 generated_object_text_bytes: 118
@@ -42,41 +41,21 @@ build/itpplasma-polymorphism-advanced/class-is-default/generated_jvp.f90:31:41: 
 build/itpplasma-polymorphism-advanced/class-is-default/generated_jvp.f90:31:41: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
 
 case_id: factory-allocatable
-ad_transform_seconds: 0.006457
-case_objects_compile_seconds: 0.060424
-generated_object_compile_seconds: 0.017974
-generated_source_bytes: 1267
-generated_object_bytes: 1736
-generated_object_text_bytes: 163
-generated_vectorized_loop_messages: 0
-generated_optimized_messages: 1
-generated_missed_optimization_messages: 0
-optimization_report: build/itpplasma-polymorphism-advanced/factory-allocatable/generated_optimization.txt
-optimization_diagnostic:
-Unit growth for small function inlining: 36->36 (0%)
-
-Inlined 0 calls, eliminated 0 functions
-
-build/itpplasma-polymorphism-advanced/factory-allocatable/generated_jvp.f90:26:80: optimized: sinking common stores to *y_33(D)
-build/itpplasma-polymorphism-advanced/factory-allocatable/generated_jvp.f90:35:39: note: ***** Analysis failed with vector mode V2DI
-build/itpplasma-polymorphism-advanced/factory-allocatable/generated_jvp.f90:35:39: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
+status: expected-refusal
+refusal_exit_status: 1
+diagnostic: fortad: unsupported allocation lifetime construct 'allocatable declaration/component'
 
 source_sha256:
 8e73e2e83849e3d1b4b775644dc063a6df921c68cc6b5123e66c058eca9b8a2d  cases/itpplasma/class_is_default/primal.f90
 bd988b443a4cedb6bed4907fea8fbb1b6f0c8c63907fb8655b9152c937bb33b0  cases/itpplasma/class_is_default/hand_jvp.f90
 5bf8e2d39f31ec69436b7f55fedd399ad6e8abbb90d311d7c208896eb03c0b59  cases/itpplasma/factory_allocatable/primal.f90
 30f9bfb642c48b53b6a29961caf358b66d8e6189537eadc0d459ebce1063e537  cases/itpplasma/factory_allocatable/hand_jvp.f90
-0fb610ba643935026e5857f2fa2b1c18054343e8f02ddc1e5ddba119ca1c1a99  harness/bench_polymorphism_advanced.f90
-06b0ef5caf211864813b9dafe8ccf9b200d71584bbafa1dc66b0af3fc0ff9255  scripts/bench_itpplasma_polymorphism_advanced.sh
+9a65b394ea958a7789f5b17fdbb4a5e5b3d966cccee98fbeea76a987bd372c25  harness/bench_polymorphism_advanced.f90
+78b08f58c18dd54775274c6c1de1b85aba9dd191b425fe6784a8f8cd5039b63b  scripts/bench_itpplasma_polymorphism_advanced.sh
 run_output:
 class_is_dispatches_per_implementation 10000000
-class_is_generated_seconds_per_dispatch   4.57748350E-09
-class_is_hand_seconds_per_dispatch   4.40133630E-09
-class_is_generated_over_hand_runtime   1.04002130E+00
+class_is_generated_seconds_per_dispatch   4.48958210E-09
+class_is_hand_seconds_per_dispatch   4.31296130E-09
+class_is_generated_over_hand_runtime   1.04095117E+00
 class_is_generated_sink   1.23322820E+07
-factory_dispatches_per_implementation 10000000
-factory_generated_seconds_per_dispatch   3.60904070E-09
-factory_hand_seconds_per_dispatch   3.51086160E-09
-factory_generated_over_hand_runtime   1.02796439E+00
-factory_generated_sink   5.21643959E+06
-PASS: CLASS IS/default and factory JVPs match hand derivatives
+PASS: CLASS IS/default JVP and factory primal oracles
