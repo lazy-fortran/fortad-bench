@@ -65,8 +65,21 @@ wired into the harness.
 
 ### Build-time measurement
 
-The stated goal is to be faster than every engine at build time as well as
-runtime. Runtime is measured throughout; build time is not measured at all.
+The 59-operator cross-engine table records runtime but lacks per-case AD
+transformation and generated-object compilation time. The new itpplasma case
+records both, plus complete case build time.
+
+### itpplasma runtime polymorphism
+
+The `polymorphic-select-type-jvp` case passes in forward mode. It sends an active
+scalar through `class(field_model_t)` and `select type`, then checks two concrete
+child arms against hand derivatives. See the
+[`manifest`](cases/itpplasma/manifest.toml) and measured
+[`record`](results/itpplasma_polymorphic_select_type_validation.txt).
+
+This covers forward `select type` dispatch only. Reverse dispatch, deferred
+type-bound calls, active model components, factories, polymorphic allocatable
+components, procedure pointers, and alias-aware object lifetimes remain open.
 
 ## Harness notes for anyone extending this
 
