@@ -26,6 +26,11 @@ program check_oo_boundaries
     call make_model(2, -0.8_dp, 1.6_dp, 0.3_dp, deferred_model)
     call require_close("deferred square", evaluate_deferred(deferred_model, x), &
         1.6_dp*x*x - 0.8_dp*x + 0.3_dp, 1.0e-13_dp)
+    x_plus = evaluate_deferred(deferred_model, x + eps)
+    x_minus = evaluate_deferred(deferred_model, x - eps)
+    fd = (x_plus - x_minus)/(2.0_dp*eps)
+    call require_close("deferred square finite difference", fd, &
+        3.2_dp*x - 0.8_dp, 1.0e-8_dp)
     call destroy_model(deferred_model)
 
     call replace_holder(holder, 1, 1.75_dp, 0.0_dp, -0.25_dp)
@@ -38,6 +43,11 @@ program check_oo_boundaries
     call replace_holder(holder, 2, -0.4_dp, 1.2_dp, 0.1_dp)
     call require_close("owned quadratic", evaluate_owned(holder, x), &
         1.2_dp*x*x - 0.4_dp*x + 0.1_dp + 2.0_dp, 1.0e-13_dp)
+    x_plus = evaluate_owned(holder, x + eps)
+    x_minus = evaluate_owned(holder, x - eps)
+    fd = (x_plus - x_minus)/(2.0_dp*eps)
+    call require_close("owned quadratic finite difference", fd, &
+        2.4_dp*x - 0.4_dp, 1.0e-8_dp)
     call clear_holder(holder)
 
     call set_linear(2.5_dp)
@@ -49,6 +59,11 @@ program check_oo_boundaries
     call set_quadratic(-1.2_dp, 0.8_dp)
     call require_close("callback quadratic", evaluate_callback(x), &
         -1.2_dp*x*x + 0.8_dp*x, 1.0e-13_dp)
+    x_plus = evaluate_callback(x + eps)
+    x_minus = evaluate_callback(x - eps)
+    fd = (x_plus - x_minus)/(2.0_dp*eps)
+    call require_close("callback quadratic finite difference", fd, &
+        -2.4_dp*x + 0.8_dp, 1.0e-8_dp)
     call clear_callback()
     call require_close("callback null path", evaluate_callback(x), -99.0_dp, 1.0e-13_dp)
 
