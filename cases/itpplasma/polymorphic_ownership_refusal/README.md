@@ -12,10 +12,9 @@ for the active scalar. FortAD is expected to refuse the dynamic
 `holder%node%value(x)` call rather than emit a derivative that loses ownership
 or dynamic-type information. This is the P8.5/B3/B4/B6 boundary. The existing
 factory-positive case remains the smaller supported `SELECT TYPE` slice.
-At FortAD commit `eb104823106e35990b172d18b345bcb19055107a`, the validation
-record
+The validation record
 ([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
-records the refusal diagnostic `fortad: empty expression`. The harness captures
+records the allocation-lifetime refusal diagnostic. The harness captures
 stderr during the check and verifies that no derivative file is produced.
 
 Run the primal and refusal check from the fortad-bench repository root with

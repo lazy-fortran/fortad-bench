@@ -11,10 +11,9 @@ procedure-pointer identity and an opaque context are not currently derivative
 rules. Accepting the call would risk differentiating the wrong target. This is
 the P8.6/B5/B13 boundary. The existing `SELECT TYPE` callback case documents
 the supported explicit-dispatch replacement.
-At FortAD commit `eb104823106e35990b172d18b345bcb19055107a`, the validation
-record
+The validation record
 ([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
-records the refusal diagnostic `fortad: empty expression`. The harness captures
+records the allocation-lifetime refusal diagnostic. The harness captures
 stderr during the check and verifies that no derivative file is produced.
 
 Run the primal and refusal check from the fortad-bench repository root with
