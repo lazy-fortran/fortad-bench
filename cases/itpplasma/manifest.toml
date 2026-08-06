@@ -19,3 +19,56 @@ application_evidence = [
     "rabe/src/field/field_base.f90 and src/field/fourier_field.f90",
 ]
 result = "../../results/itpplasma_polymorphic_select_type_validation.txt"
+
+[[cases]]
+id = "class-is-default-jvp"
+status = "implemented"
+category = "language/runtime-polymorphism"
+source = "class_is_default/primal.f90"
+hand_derivative = "class_is_default/hand_jvp.f90"
+harness = "../../harness/bench_polymorphism_advanced.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["dynamic type tag", "model components"]
+features = [
+    "abstract base",
+    "abstract child",
+    "concrete grandchild",
+    "class is",
+    "class default",
+]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "hand-derived guard JVPs plus fixed numerical expectations"
+discrete_contract = "The runtime child is fixed during each derivative call."
+application_evidence = [
+    "SIMPLE/src/simple_main.f90:478",
+    "NEO-2/COMMON/MyMPILib/Generic/scheduler_generic.f90:156",
+]
+result = "../../results/itpplasma_polymorphism_advanced_validation.txt"
+
+[[cases]]
+id = "factory-allocatable-jvp"
+status = "implemented"
+category = "language/runtime-polymorphism"
+source = "factory_allocatable/primal.f90"
+hand_derivative = "factory_allocatable/hand_jvp.f90"
+harness = "../../harness/bench_polymorphism_advanced.f90"
+mode = "forward"
+active_inputs = ["x"]
+passive_inputs = ["dynamic type tag", "nested coefficients"]
+features = [
+    "factory",
+    "polymorphic allocatable",
+    "allocate source",
+    "nested component access",
+    "select type",
+]
+required_fortad_commit = "1e5694c817803445edc1333edef8235a764fe098"
+oracle = "hand-derived child JVPs plus fixed numerical expectations"
+discrete_contract = "Factory selection and coefficients are fixed for each call."
+application_evidence = [
+    "KAMEL/KIM/src/general/KIM_mod.f90:24-34",
+    "libneo/src/field/field.f90:31-43",
+    "rabe/src/shaing_callen/shaing_callen.f90:78",
+]
+result = "../../results/itpplasma_polymorphism_advanced_validation.txt"
