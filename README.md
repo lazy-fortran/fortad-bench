@@ -234,9 +234,16 @@ Planned, in the order fortad's roadmap needs them:
 
 ### itpplasma language cases
 
-The [`SELECT TYPE` case](cases/itpplasma/polymorphic_select_type/README.md)
-checks a generated JVP through two runtime-selected children and compares both
-with hand derivatives. The case page has the command and measured costs.
+Runtime-polymorphism cases:
+
+- [`TYPE IS`](cases/itpplasma/polymorphic_select_type/README.md)
+- [`CLASS IS` and `CLASS DEFAULT`](cases/itpplasma/class_is_default/README.md)
+- [factory-created polymorphic allocatable](cases/itpplasma/factory_allocatable/README.md)
+
+Each case runs every runtime arm against fixed values and hand derivatives. The
+case pages give formulas and commands. Measurements are in the
+[`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
+the [`advanced record`](results/itpplasma_polymorphism_advanced_validation.txt).
 
 ## The study corpus
 
