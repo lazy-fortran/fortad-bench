@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-e"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_e.sh"
+result = "results/tapenade_set01_tranche_e_validation.txt"
+
+[[case]]
+id = "lh001"
+upstream_source = "nonRegressions/set01/lh001/program.f"
+entry_point = "top(i1,i2,i3,o1,o2,o3)"
+ported_entry_point = "set01_lh001(i1,i2,i3,o1,o2,o3)"
+independent = ["i1", "i2", "i3"]
+dependent = ["o1", "o2", "o3"]
+function = "o1 = 35*i1*i2**2/(i1-3*i2); o2=35; o3=2 after in-place writes"
+upstream_options = "none"
+modes = ["forward", "reverse:o1"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for all source files"
