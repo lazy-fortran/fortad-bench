@@ -1,0 +1,58 @@
+schema_version = 1
+name = "tapenade-set01-lh067-bounded-forward"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh067/run.sh"
+result = "cases/tapenade-set01/lh067/result.txt"
+source_harness = "cases/tapenade-set01/lh067/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh067/program.f",
+    "nonRegressions/set01/lh067/program_p.f",
+    "nonRegressions/set01/lh067/program_d.f",
+    "nonRegressions/set01/lh067/program_b.f",
+    "nonRegressions/set01/lh067/program_dv.f",
+    "nonRegressions/set01/lh067/program_p.msg",
+    "nonRegressions/set01/lh067/program_d.msg",
+    "nonRegressions/set01/lh067/program_b.msg",
+    "nonRegressions/set01/lh067/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "read7(z)"
+ported_entry_point = "set01_lh067(z,read7)"
+independent = ["z"]
+dependent = ["read7"]
+options = ["-p", "-d -root read7", "-b -root read7"]
+modes = ["parser", "forward", "reverse", "exact-forward:refused", "exact-reverse:refused", "bounded-forward"]
+oracle = [
+    "strict compiler",
+    "fresh pinned Tapenade parser/tangent/reverse generation and compile",
+    "FortAD exact diagnostic",
+    "independent hand JVP",
+    "central-difference sweep",
+    "adjoint identity",
+    "compiler-backed generated-JVP harness",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact fixed-form function relies on undeclared implicit I/O units and variables in labeled READ/WRITE error branches; stored derivatives add IMPLICIT NONE and fail on nfic12. program_dv.f additionally requires absent DIFFSIZES.inc. The bounded witness preserves the normal successful-read arithmetic, including the integer conversion of ncmax, while excluding undefined I/O-error return behavior."
+expected_diagnostics = [
+    "exact program.f compiles only through legacy implicit typing; stored parser, tangent, and reverse references refuse undeclared nfic12 under IMPLICIT NONE",
+    "stored and fresh multidirectional output refuses the absent DIFFSIZES.inc include",
+    "fresh Tapenade parser, tangent, and reverse generation succeeds but each generated single-direction output refuses undeclared nfic12 under strict compilation",
+    "FortAD exact forward emits malformed empty arguments after the READ parse diagnostic, while exact reverse refuses because read7 is not declared as a dummy",
+    "bounded forward preserves the successful-read path only; I/O-error branches have no defined upstream result and are not invented",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal"
+fortad_result = "exact-refusal-bounded-forward-transform-compile-runtime-reverse-not-claimed"
+closure = "The exact legacy row remains a named refusal. The bounded port is a normal-read-path numerical witness only; it is not promoted as exact source support and does not define the upstream error/end-of-file branches."

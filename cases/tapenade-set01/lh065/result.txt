@@ -1,0 +1,66 @@
+case: Tapenade nonRegressions set01 lh065
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T11:09:10Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh065 -J/var/tmp/tapenade-set01-lh065.w8AExZ/mod
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+fortad_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: top(in,out,N)
+tapenade_options: parser=-p forward=-d/-root top reverse=-b/-root top
+upstream_program.f_strict_compile: expected-refusal status=1
+upstream_program_p.f_strict_compile: expected-refusal status=1
+upstream_program_d.f_strict_compile: expected-refusal status=1
+stored_references: program_p.f/.msg program_d.f/.msg
+missing_stored_references: program_b.f/.msg program_dv.f
+tapenade_generation: parser=pass forward=pass reverse=pass
+tapenade_fresh_strict_compile: parser=expected-refusal forward=expected-refusal reverse=expected-refusal
+tapenade_parser_strict_compile: expected-refusal status=1
+tapenade_forward_strict_compile: expected-refusal status=1
+tapenade_reverse_strict_compile: expected-refusal status=1
+fortad_forward: expected-refusal COMMON line 9 status=1
+fortad_reverse: expected-refusal COMMON line 9 status=1
+fortad_generated_compile: not-applicable-no-output-on-parse-refusal
+independent_oracle: strict compiler diagnostic identity; no numerical oracle because the upstream source has invalid REAL/INTEGER aliasing and inconsistent COMMON storage
+oracle_program.f: expected-refusal status=1 diagnostics=GNU Extension: Nonstandard type declaration REAL*8,Type mismatch in argument
+oracle_program.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program.f_diagnostic: Error: The function result on the lhs of the assignment at (1) must have the pointer attribute.
+oracle_program.f_diagnostic: Error: The function result on the lhs of the assignment at (1) must have the pointer attribute.
+oracle_program.f_diagnostic: Error: The function result on the lhs of the assignment at (1) must have the pointer attribute.
+oracle_program_p.f: expected-refusal status=1 diagnostics=GNU Extension: Nonstandard type declaration REAL*8,has no IMPLICIT type
+oracle_program_p.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_p.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_p.f_diagnostic: Error: Symbol ‘in’ at (1) has no IMPLICIT type; did you mean ‘n’?
+oracle_program_p.f_diagnostic: Error: Symbol ‘out’ at (1) has no IMPLICIT type
+oracle_program_p.f_diagnostic: Error: Symbol ‘varcom’ at (1) has no IMPLICIT type
+oracle_program_d.f: expected-refusal status=1 diagnostics=GNU Extension: Nonstandard type declaration REAL*8,has no IMPLICIT type
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: Symbol ‘in’ at (1) has no IMPLICIT type; did you mean ‘i’?
+oracle_status: pass
+closure: no standard-conforming port or support claim; repairing casts, callback types, or COMMON layout would change the upstream semantics
+upstream_sha256:
+254763830afe2e0e0bfc50f7bbb1b89fbd1ac7b34b3f5bd65c554a423235641d  program.f
+44f4775aa9fefca9d9a8e67666a7ee65d9ba5f31188f9d67cdc6bae7e2b72069  program_p.f
+b98267148e88c1b1ad45ac6f15a2372221d1c7e2ba4cba93971dc469564af7da  program_p.msg
+07b3552184f54bbd5ed2d86e05b15e07500152ab4b9920a8276f895a9b8aa4ef  program_d.f
+6ab74cf68dd189b11973155c94d5ba6286604c7b116deab1ee1301caa5763bd1  program_d.msg
+tapenade_generated_sha256:
+c67ab6ae7693e418f920f0d2d9d1595eacc613c916fa58fddea5f464cbdc4c41  lh065_p.f
+b98267148e88c1b1ad45ac6f15a2372221d1c7e2ba4cba93971dc469564af7da  lh065_p.msg
+71455d7d874ab8ebec982d753ef32c6917e81308c23efd2f1ea449b336ce9b58  lh065_d.f
+11bb4b546266a0c858177bd4696157a2e78b51302ee9e996a43c20234ec91b2a  lh065_d.msg
+c8f1ea98bfe024f5df97d0f32db049ad797eeda5a61c7e35acc6423586b1365c  lh065_b.f
+11bb4b546266a0c858177bd4696157a2e78b51302ee9e996a43c20234ec91b2a  lh065_b.msg
+case_artifact_sha256:
+500fe573e34fd14d4c47b9ce2416a8833be1a84ea4da3c7ea67b46398f62dc32  cases/tapenade-set01/lh065/manifest.toml
+2126b98f1fcdebf38030a3af99840df1757caf16ac13fe61929edb594bc7e823  cases/tapenade-set01/lh065/notes.md
+5610f43a4b7cd992543b67bea8f809ec509ca55a1ceac92d973e4ea82b099ea0  cases/tapenade-set01/lh065/oracle.py
+e1cb0e0c6d9995f4fa44ff4e04c26dd2ed60fba794bf7b9567bf4a80a69a015b  cases/tapenade-set01/lh065/run.sh
+54f5027380d3e81c73aa69b75254e49a20302db3b863daa32f0728cb8af4365e  cases/tapenade-set01/lh065/test_contract.py

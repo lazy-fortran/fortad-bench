@@ -1,0 +1,58 @@
+case: Tapenade nonRegressions set01 lh064
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T11:08:12Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: program=1 parser=0 tangent=0 reverse=1
+upstream_diagnostic_contract: program=legacy-FORMAT-literal reverse=INTEGER*4
+tapenade_options: parser=-p/-root cg02v1 tangent=-d/-root cg02v1 reverse=-b/-root cg02v1
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=1
+fortad_exact_forward: expected-refusal status=1 diagnostic=unterminated-character-constant
+fortad_exact_reverse: expected-refusal status=1 diagnostic=unterminated-character-constant
+fortad_bounded_forward: pass-transform-compile-runtime status=0
+fortad_bounded_reverse: expected-refusal status=1 diagnostic=per-iteration-storage
+fortad_bounded_forward_strict_compile: 0
+bounded_port_strict_compile: 0
+independent_oracle: hand JVP/VJP, central-difference sweep, adjoint identity
+oracle_status: pass
+primal: 6.90000000000000000e+01
+hand_jvp: -7.67999999999999972e+01
+hand_vjp: 1.79199999999999989e+02
+finite_difference: -7.67999999951030077e+01
+finite_difference_error: 4.89698948058503447e-09
+central_difference_sweep_error: 2.94458004646003246e-08
+adjoint_identity_residual: 0.00000000000000000e+00
+harness_status: pass
+primal_norm:   0.0000000000000000E+00
+jvp_norm:   0.0000000000000000E+00
+upstream_sha256:
+7d85c2edbc896cfd148ee806686102ea2195152399db0ee5be0a7218e421eb56  program.f
+f19e8168360f2160b1d8696a751523d769f3f47792068dd8bd231c21af7fdfb9  program_p.f
+cdcc238e63cd7a37cb64f6bac2f739519edf3b0f7b7a2cba06dd970d0dc7701d  program_d.f
+a7d7567b8b31936c3387cc3158be1d6fef274824d01d785ce4caf40a75e35c47  program_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+aef875695e3951c89b6910e0e4c82290be1f5a96019c59220a2dd924ed1386bf  program_d.msg
+aef875695e3951c89b6910e0e4c82290be1f5a96019c59220a2dd924ed1386bf  program_b.msg
+fresh_tapenade_sha256:
+f575b7e68ca1b24618591d6d14319f99fe3289758234f5a719ecb6d853c1cc7a  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/parser/lh064_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/parser/lh064_p.msg
+2126a4143dae70b831a385076cca3acc28fc7776edd59893279387c0cad6cafd  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/forward/lh064_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/forward/lh064_d.msg
+2272563a49fce3e29029ec36620d71691f1ff8f207269500abb82f8f2ba6f0e9  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/reverse/lh064_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh064.jMtk20/tapenade/reverse/lh064_b.msg
+case_artifact_sha256:
+f103d26f1b1474a14d9c9cef967c04098ab8caa12ee81c42ff873e25c73598fe  cases/tapenade-set01/lh064/manifest.toml
+7a080290456f0cf9b6f45e2831609cb7528e1b98bdb038d5f99fa9f3db44fa88  cases/tapenade-set01/lh064/notes.md
+9ad643e71fb9962331358a45b2b07a5317cf047002a86dbc8642ac51b1bd3873  cases/tapenade-set01/lh064/port.f90
+80aa1a17739ab439e87b9ce30da98feed17d7f60e63b0630a0eb3357f400e5bf  cases/tapenade-set01/lh064/hand.f90
+ffe4c17375ada0cf787be4d21e83a62bbadc5fb40f7c41afd67c626fb0699476  cases/tapenade-set01/lh064/harness.f90
+f0d3f5588ae9311bc065df6fea18646bf9340d14d7cc54df6a4e43b944d55301  cases/tapenade-set01/lh064/oracle.py
+0c738d2a121036855d81ae6a3e7231124ab01972d7591bcf84883991c25e94a5  cases/tapenade-set01/lh064/run.sh
+2e878ac723f24461345fc9414f758acc25a5f4bc8e45249823b43c051c07918a  cases/tapenade-set01/lh064/test_contract.py

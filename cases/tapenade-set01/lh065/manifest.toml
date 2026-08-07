@@ -1,0 +1,40 @@
+schema_version = 1
+name = "tapenade-set01-lh065-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh065/run.sh"
+result = "cases/tapenade-set01/lh065/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh065/program.f",
+    "nonRegressions/set01/lh065/program_p.f",
+    "nonRegressions/set01/lh065/program_d.f",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_p.msg",
+    "program_d.msg",
+]
+missing_stored_references = ["program_b.f", "program_b.msg", "program_dv.f"]
+upstream_entry_point = "top(in,out,N)"
+ported_entry_point = "not-applicable (invalid upstream source)"
+independent = ["in"]
+dependent = ["out"]
+options = ["-p", "-d -root top", "-b -root top"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-compiler-diagnostic-identity",
+    "fresh-pinned-Tapenade-generation",
+    "FortAD-diagnostic",
+]
+classification = "expected-refusal-invalid-upstream"
+dependencies = "The exact case deliberately passes REAL*8 arrays and REAL*8 COMMON state to INTEGER dummy arguments, and the COMMON block changes size between TOP and the dirty callbacks. These invalid aliasing and storage semantics cannot be repaired without changing the upstream behavior."
+expected_diagnostics = [
+    "strict compilation refuses program.f, program_p.f, and program_d.f at REAL*8 and cascading invalid declarations/calls",
+    "fresh parser, tangent, and reverse outputs are generated but each refuses the same strict compiler gate",
+    "FortAD exact forward and reverse refuse the COMMON declaration on line 9",
+]
+closure = "No bounded port or numerical derivative oracle is claimed. Replacing REAL*8, changing INTEGER callbacks to REAL callbacks, or making the COMMON layouts consistent would define a different program rather than preserve this warning/regression case."

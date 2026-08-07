@@ -1,0 +1,45 @@
+schema_version = 1
+name = "tapenade-set01-lh064-bounded-forward"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh064/run.sh"
+result = "cases/tapenade-set01/lh064/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh064/program.f",
+    "nonRegressions/set01/lh064/program_p.f",
+    "nonRegressions/set01/lh064/program_d.f",
+    "nonRegressions/set01/lh064/program_b.f",
+]
+stored_references = [
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+]
+upstream_entry_point = "cg02v1(T,n); truc(a)"
+ported_entry_point = "set01_lh064(t,n)"
+independent = ["t"]
+dependent = ["t"]
+options = ["-p", "-d -root cg02v1", "-b -root cg02v1"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-parser-tangent-reverse-compile",
+    "independent-hand-JVP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "FortAD-diagnostic",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact fixed-form source has two unreachable FORMAT statements with backslash-escaped apostrophes, which strict F2018 compilation and FortAD reject. Tapenade normalizes those literals, but its reverse output uses nonstandard INTEGER*4. The bounded port removes only the unreachable FORMAT statements, structures the labeled DO, and inlines the complete local TRUC body. FortAD reverse still needs per-iteration storage for the in-place loop update."
+expected_diagnostics = [
+    "strict compilation refuses program.f on the two legacy FORMAT literals",
+    "strict compilation refuses program_b.f and fresh reverse output on INTEGER*4",
+    "FortAD exact forward and reverse refuse the unterminated character constant",
+    "FortAD bounded forward generates and compiles",
+    "FortAD bounded reverse refuses t read and written in the same loop",
+]
+fortad_result = "pass-bounded-forward-transform-compile-runtime-reverse-refusal"
+closure = "Exact-source support is not claimed. The bounded port is semantics-preserving for the supplied cg02v1/truc computation because it removes unreachable formatting statements and inlines the supplied local routine; it is not an exact support result. Independent hand, finite-difference, adjoint, and compiled FortAD-forward checks pass."

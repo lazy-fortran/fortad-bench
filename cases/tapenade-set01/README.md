@@ -468,3 +468,29 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh061
 
 See the manifests, results, independent oracles, and contract tests under
 the six corresponding `cases/tapenade-set01/lh0*/` directories.
+
+## Tranche X: `lh063`, `lh064`, `lh065`, `lh067`, `lh069`, and `lh070`
+
+This tranche closes six further fixed-form rows with strict exact-source and
+fresh pinned Tapenade evidence. `lh063` and `lh065` are invalid-upstream
+closures: duplicate global definitions, invalid callback kinds, and changing
+COMMON layouts do not admit a semantics-preserving repair. `lh064`, `lh067`,
+`lh069`, and `lh070` retain exact FortAD refusal boundaries while bounded
+specializations pass independent hand, finite-difference, adjoint, and/or
+compiled-harness checks. The bounded paths expose hidden state or control
+flow and are not exact-source support claims. Every case has a three-test
+local contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh063/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh064/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh065/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh067/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh069/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh070/run.sh
+```
+
+See the manifests, results, independent oracles, and contract tests under
+the six corresponding `cases/tapenade-set01/lh0*/` directories.

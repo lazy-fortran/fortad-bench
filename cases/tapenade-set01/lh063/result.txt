@@ -1,0 +1,55 @@
+case: Tapenade nonRegressions set01 lh063
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T11:05:53Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh063 -J/var/tmp/fortad-set01-lh063.cjOpsO/mod
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: f(t)
+tapenade_options: parser=-p forward=-d/-root f reverse=-b/-root f
+upstream_program.f_strict_compile: expected-refusal status=1 diagnostic=duplicate-global-function-f
+upstream_program_p.f_strict_compile: pass status=0 stored-parser-reference
+upstream_program_d.f_strict_compile: pass status=0 stored-tangent-reference
+upstream_program_b.f_strict_compile: pass status=0 stored-reverse-reference
+upstream_program_dv.f_strict_compile: expected-refusal status=1 diagnostic=missing-DIFFSIZES.inc
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=pass status=0 tangent=pass status=0 reverse=pass status=0
+fortad_exact_forward: expected-refusal status=1 diagnostic=unsupported-RETURN-line-5
+fortad_exact_reverse: expected-refusal status=1 diagnostic=unsupported-RETURN-line-5
+fortad_bounded_port: not-applicable-invalid-upstream-no-semantics-preserving-repair
+independent_oracle: strict compiler diagnostic identity; no numerical derivative oracle because exact program.f has duplicate global definitions
+oracle_program.f: status=1 diagnostics=already being used as a FUNCTION
+oracle_program.f_diagnostic: Error: Global name ‘f’ at (1) is already being used as a FUNCTION at (2)
+oracle_program_p.f: status=0 diagnostics=none-required
+oracle_program_d.f: status=0 diagnostics=none-required
+oracle_program_b.f: status=0 diagnostics=none-required
+oracle_program_dv.f: status=1 diagnostics=Cannot open included file
+oracle_program_dv.f_diagnostic: Fatal Error: Cannot open included file ‘DIFFSIZES.inc’
+oracle_status: pass
+closure: no bounded port or exact-support claim; removing a duplicate definition would repair the upstream translation unit
+upstream_sha256:
+a757d9e7b0e9b19473807ff3e83b56a27333d6c2927fe3f8b6864cfeee070a1d  program.f
+e2cfee4a42409977d6d556ba329f936e502d884aa88a8d22be0107a8c648165e  program_p.f
+0fbfa1ae17a2f8f1be6cf881599f65497f54f6c8ac94532fbe26f8319f0f0514  program_d.f
+0a4fb36043540e2ee98857f2f42e7e75d5ee5a6871e4ec64a239e4d9271e5f12  program_b.f
+f0a6abed1a41202cd401bc3e286923a2c600fe527cb30e55dbfa364a3c954ac0  program_dv.f
+4dd5efff50da446e461cf294d090eff8fd11c7e1160d84c034f2f2beb9e0c967  program_p.msg
+21c9d7eb2e0f05b2a64710e0f80a1ddc02c32f94609d0e3760a96f70c34e1dd1  program_d.msg
+21c9d7eb2e0f05b2a64710e0f80a1ddc02c32f94609d0e3760a96f70c34e1dd1  program_b.msg
+5770fbfcdd0cceff208eb617ba740047680eba4546381e87add486dd19e142ec  program_dv.msg
+tapenade_generated_sha256:
+ee13ce5a134b1a65049033fb4220fb14df1d3cf2045dded44b8eb1a1ac808dde  lh063_p_p.f
+4dd5efff50da446e461cf294d090eff8fd11c7e1160d84c034f2f2beb9e0c967  lh063_p_p.msg
+9cd25c9c29ed44777dd151786fa21636964a433dc34c40452dc496abd3503c44  lh063_d_d.f
+4dd5efff50da446e461cf294d090eff8fd11c7e1160d84c034f2f2beb9e0c967  lh063_d_d.msg
+0eebb0226b8530186c253f156725deed3974a22ab6c66ff73f4990d9c1e7a129  lh063_b_b.f
+4dd5efff50da446e461cf294d090eff8fd11c7e1160d84c034f2f2beb9e0c967  lh063_b_b.msg
+case_artifact_sha256:
+73389f0637f255b0e1aa551532ee6c5296183a2c2c2bc8fe171859bd4bf842f9  cases/tapenade-set01/lh063/manifest.toml
+738353262179e834eb02af60c6f05e464a6673607934f26a7cc534909ec1b282  cases/tapenade-set01/lh063/notes.md
+743ee4b0141a6834d4785b749518f5f75864c1ef509d48e342641a276447a929  cases/tapenade-set01/lh063/oracle.py
+e27607738a6b4d217431d3d34c56e7aba9d26c98bcf4cd49dc73fd0cfcefea5c  cases/tapenade-set01/lh063/run.sh
+15dfe1bedeffb3a09dce95139003e9089fc06737f3eb819e168abe6cba098237  cases/tapenade-set01/lh063/test_contract.py

@@ -1,0 +1,59 @@
+case: Tapenade nonRegressions set01 lh070
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T11:07:59Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+fortad_worktree: temporary clean clone pinned to required commit
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: primal=0 parser=0 tangent=0 reverse=0 multidirectional=1
+upstream_multidirectional_diagnostic: missing-DIFFSIZES.inc
+tapenade_options: parser=-p/-root top forward=-d/-root top reverse=-b/-root top
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic="unsupported statement at line 4 COMMON /cc/"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="unsupported statement at line 4 COMMON /cc/"
+fortad_bounded_forward: transform=pass status=0 compile=0 runtime=pass
+fortad_bounded_reverse_y: transform=pass status=0 compile=0 runtime=pass
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 4.134448e-11
+adjoint_identity_residual: 0.000000e+00
+hand_y_vjp_x: 5.59999999999999942e-01
+hand_y_vjp_z: 9.59999999999999964e-01
+harness_status: pass
+forward_y:   8.4000003337860107E-01
+reverse_x_b:   5.6000000238418579E-01
+reverse_z_b:   9.6000003814697266E-01
+upstream_sha256:
+91bd721192ae9ff1151ed9bee20462733a763a229697023e247298abd3278fee  program.f
+b9d89aa07e1b93ab579638bef66f2616eef3b9f4acb11532c66435961409ef78  program_p.f
+574d94f309bd4add53b2aabe67e86a8cb1404c43e130fcff35b47519fc00a292  program_d.f
+227fcd045d1cde79679870d94db3a459be123a97c18ba44df2e4f8bfbe52f258  program_b.f
+3efd9a74bc4f13955e23012be5526f2d391cd83d9c78507273c2821d3cb0035f  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_d.msg
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_b.msg
+60f6acad4551277bd6bcaa4cc1ddae2404c4d8b6ea7513b19bfe99fbfb326bd6  program_dv.msg
+fresh_tapenade_sha256:
+c080f9031572e90d90e1a6a8757d4f49363756fc0a0f913b38f947964ddefd7c  lh070_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh070_p.msg
+b1480483dcb35d0e29f530fff8a559a0b7dd941236ffa4693667f96f2c4931ad  lh070_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh070_d.msg
+b69ff3565696e99a42b04d63d5603292fa3e1f0652301c6ca2f008d3ace651c0  lh070_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh070_b.msg
+case_artifact_sha256:
+9664fed516346da0cff2e2dc69d75aeaf21f967d3b7844048cd8725695cd5cce  cases/tapenade-set01/lh070/manifest.toml
+c715a01f4a34a30ec447d541de026b6caedad0a6b7e2fa7be5352e4c75440520  cases/tapenade-set01/lh070/notes.md
+68846e988e7aea3786c6058a4137d29dec0fdd7d820503288756bf4468de8762  cases/tapenade-set01/lh070/port.f90
+6a6337664c976ff4d8bba898894a2987362104eb3918ba6de78eeaed471bbfc3  cases/tapenade-set01/lh070/hand.f90
+08218fddcd9815e1269c91f553d7eaaab6e6801b86fe42561d5eb0faa1da88e5  cases/tapenade-set01/lh070/oracle.py
+426c4dceed9c9432c08fe62ba9dbc1be57a3a00e8312a54410ef136df61c97b7  cases/tapenade-set01/lh070/harness.f90
+93bff5971ca2b3a9abf4402c2f344f2151e1f833e156f98c249549391fe6bca0  cases/tapenade-set01/lh070/run.sh
+2ad9bb1e2648ddec938480b115f952e41b244c3a73983578f0194512f031a432  cases/tapenade-set01/lh070/test_contract.py

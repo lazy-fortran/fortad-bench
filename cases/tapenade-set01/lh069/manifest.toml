@@ -1,0 +1,50 @@
+schema_version = 1
+name = "tapenade-set01-lh069-bounded-loop-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh069/run.sh"
+result = "cases/tapenade-set01/lh069/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh069/program.f",
+    "nonRegressions/set01/lh069/program_p.f",
+    "nonRegressions/set01/lh069/program_d.f",
+    "nonRegressions/set01/lh069/program_b.f",
+    "nonRegressions/set01/lh069/program_dv.f",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "loop2(a,b)"
+ported_entry_point = "set01_lh069(a,b,n,ao,bo)"
+independent = ["a", "b"]
+dependent = ["a", "b"]
+options = ["-p", "-d -root loop2", "-b -root loop2"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-parser-tangent-reverse-compile",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "FortAD-diagnostic",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact fixed-form routine uses an uninitialized local n as a DO bound and jumps back to label 100 through CONTINUE; its multidirectional reference additionally requires absent DIFFSIZES.inc. The bounded specialization exposes n as an integer control and requires n=10 with 4*a(4)>a(8) and 4*a(4)<=b(8), which is the one-iteration terminating path used by the independent oracle."
+expected_diagnostics = [
+    "strict compilation accepts program.f, program_p.f, program_d.f, and program_b.f",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh Tapenade parser, tangent, and reverse outputs compile strictly",
+    "FortAD exact forward and reverse refuse unsupported CONTINUE at line 6",
+    "bounded reverse is evaluated only on the explicit one-iteration terminating specialization",
+]
+closure = "Exact-source support is not claimed: n is uninitialized in the corpus source and the original control flow can be nonterminating. The bounded port preserves the observed arithmetic and copy operations after making that hidden control explicit; its JVP/VJP are checked against independent hand derivatives, central differences, an adjoint identity, and a compiled harness."

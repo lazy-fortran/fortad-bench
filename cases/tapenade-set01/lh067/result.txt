@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions set01 lh067
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T11:07:00Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+fortad_worktree: dirty-preserved-user-changes
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: primal=0 parser_reference=1 tangent=1 reverse=1 multidirectional=1
+stored_diagnostics: parser=tangent=reverse=undeclared-nfic12 multidirectional=missing-DIFFSIZES.inc
+tapenade_generation: parser=pass tangent=pass reverse=pass root=read7
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+tapenade_fresh_diagnostics: parser=tangent=reverse=undeclared-nfic12
+fortad_exact_forward: expected-refusal exit=0 diagnostic="Expected ) after read unit and format" generated-compile=1
+fortad_exact_reverse: expected-refusal status=1 diagnostic="dependent read7 is not declared in read7"
+fortad_bounded_forward: pass-transform-compile-runtime status=0
+fortad_bounded_reverse: pass-transform-compile-runtime status=0
+bounded_scope: successful-read path with 1 < z < 2; error/end branches intentionally not defined
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+primal: 1.86999999999999993e+01
+hand_jvp: -3.84999999999999964e+00
+hand_vjp: 8.80000000000000071e+00
+finite_difference: -3.85000000235891093e+00
+fd_error: 2.35891128852472320e-09
+adjoint_identity_residual: 0.00000000000000000e+00
+z=1.69999999999999996e+00 zd=-3.49999999999999978e-01 seed=8.00000000000000044e-01
+harness_status: pass max_error=  0.0000E+00
+upstream_sha256:
+664de1ed6e976422178aa2b653155b640ceebe5d1aa62ff9e64848d25c855270  program.f
+47b9a39963856158982f26fdbeeab0c0814d21608fe965993cc2f164555b8236  program_p.f
+a5fea8de600765c2dc7767a58b2f6f31b1afbd470dc19833ab8ed20eb757ae59  program_d.f
+c88e171eb76195716bf09d0461fbaf2c64926d6b30a959b317cafeefafae9e4d  program_b.f
+90691daa0807a7afb938378c0562c5d68d28623c9c3e83f245d042f339b3b358  program_dv.f
+ef1e2e8cf7edf06b60e91563ad5712d7a27619aa22b0281df7bd22c79099dba1  program_p.msg
+989060332d3086c7d27abbaf2f8f99b59507e853d1a209d59bc6c651fced54c8  program_d.msg
+989060332d3086c7d27abbaf2f8f99b59507e853d1a209d59bc6c651fced54c8  program_b.msg
+50f762275a73fbb3b22c1aaca25817c084724cdf8131ef3ec718dbd8a99c1323  program_dv.msg
+case_artifact_sha256:
+b21a17f3cbaae4f1f120244d0792f34ef8e0e1327cb0bda189f2b3f617f1c236  cases/tapenade-set01/lh067/manifest.toml
+8b735cea6b3889ba1597d2c85d89d3890a60c48e2758b8196dc998d7411b2655  cases/tapenade-set01/lh067/notes.md
+f8b0e3f7ff173491f096e0771432e17b97a20a7f3f3ee71ef668aa765cf2fa3c  cases/tapenade-set01/lh067/port.f90
+ba63462ea0abf114bd8f089d08cc93fbac0efffbdbf32740c48dcaf1c8a381bc  cases/tapenade-set01/lh067/hand.f90
+7560b7e6e51115d35c364389f6f4c4c6290927f95f26cef615c962f76510cc9c  cases/tapenade-set01/lh067/harness.f90
+41b2c956b3bc787c53faa8cde3821897a5e56f05f919036434f679e2cf2a06d0  cases/tapenade-set01/lh067/oracle.py
+0a91e884ba137e76483383040582fc9f29563cc2c8704a020eb95f8480b55239  cases/tapenade-set01/lh067/run.sh
+55529c68124195c6e192a95f53aab45d1ffb1727039d69325c0cf2e5613aea62  cases/tapenade-set01/lh067/test_contract.py

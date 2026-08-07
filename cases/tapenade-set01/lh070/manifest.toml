@@ -1,0 +1,39 @@
+schema_version = 1
+name = "tapenade-set01-lh070"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh070/run.sh"
+result = "cases/tapenade-set01/lh070/result.txt"
+source_harness = "cases/tapenade-set01/lh070/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh070/program.f",
+    "nonRegressions/set01/lh070/program_p.f",
+    "nonRegressions/set01/lh070/program_d.f",
+    "nonRegressions/set01/lh070/program_b.f",
+    "nonRegressions/set01/lh070/program_dv.f",
+    "nonRegressions/set01/lh070/program_p.msg",
+    "nonRegressions/set01/lh070/program_d.msg",
+    "nonRegressions/set01/lh070/program_b.msg",
+    "nonRegressions/set01/lh070/program_dv.msg",
+]
+stored_references = ["program_p.f", "program_d.f", "program_b.f", "program_dv.f", "program_p.msg", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "top(A,B); F()"
+ported_entry_point = "set01_lh070(a,b,x,y,z)"
+independent = ["a", "b", "x", "z"]
+dependent = ["a", "b", "y"]
+options = ["-p", "-d -root top", "-b -root top"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse-y"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "independent-hand-JVP-VJP", "central-difference-sweep", "adjoint-identity", "compiled-FortAD-harness"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact routine carries x, y, and z in hidden COMMON /cc/ state; stored multidirectional output requires the absent DIFFSIZES.inc. The bounded port exposes that state and preserves A(1), F, and B(1) update order; its reverse probe is for the final y output."
+expected_diagnostics = [
+    "FortAD refuses exact forward and reverse at COMMON /cc/ line 4",
+    "program_dv.f refuses strict compilation because DIFFSIZES.inc is absent",
+    "bounded reverse for y is the supported scalar-output probe; array-output reverse is not claimed",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "exact-refusal-bounded-forward-and-y-reverse-transform-compile-runtime"
+closure = "The exact legacy COMMON-block source remains a named FortAD refusal. Fresh Tapenade parser, tangent, and reverse output compile strictly, while the stored multidirectional file is blocked by its missing include. The bounded explicit-state port has independent hand, finite-difference, adjoint, and compiled FortAD evidence; it is not promoted as exact-source support."
