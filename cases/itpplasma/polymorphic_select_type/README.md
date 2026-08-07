@@ -1,8 +1,9 @@
 # Runtime-selected field JVP and VJP
 
 This case follows the structure used by KAMEL's KIM factory and rabe's field
-hierarchy: an abstract base reaches one of two concrete field models at runtime.
-The active kernel selects the dynamic type.
+hierarchy: an abstract base with a deferred `response` binding reaches one of
+two concrete field models at runtime. The active kernel selects the dynamic
+type, then invokes the matching child binding.
 
 For direction `x_d` and output cotangent `y_b`, the hand derivatives are:
 
@@ -24,3 +25,4 @@ paths separately.
 
 The dynamic type is discrete and remains fixed within a derivative call.
 Changing from one child type to another is outside the derivative contract.
+The derived object is passive; the active input is the scalar field `x`.
