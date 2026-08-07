@@ -1,0 +1,44 @@
+case: Tapenade nonRegressions set01 lh019 AA-type component slice
+recorded_utc: 2026-08-07T04:11:17Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 93c7b8b61db47c588b5ed1c348a2a954d0a77596
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.093657
+upstream_strict_compile_seconds: 0.082310
+forward_transform_seconds: 0.005021
+reverse_transform_seconds: 0.005149
+generated_compile_and_link_seconds: 0.131903
+generated_forward_source_bytes: 858
+generated_reverse_source_bytes: 1554
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3104
+upstream_compiler_oracle: unmodified primal, association-by-address forward/reverse references compile; legacy references use -std=legacy
+oracle: independent hand JVP/VJP, four-step central differences on n=6 product and n=3 pass-through branches, plus the adjoint identity
+tapenade_result: stored AATypes/program_aad/program_aab references compile; current Tapenade executable not rerun
+transform_method: date +%s.%N around one fo exec --no-build call per mode
+runtime_method: system_clock over 500000 JVP/VJP pairs; /usr/bin/time wraps executable
+source_sha256:
+8c15bf28c10445b8133731661018d8e27c97c7a3fe941d5791048080ed18c5d4  cases/tapenade-set01/lh019.f90
+01bc7d8504a75daf209196e087d7332d9753044b2efba2904051bad81cdc56f3  cases/tapenade-set01/hand_derivatives_lh019.f90
+3df1877753c9e069d165df0421e614d2a0cd8f67bee95796f584e43e9ced05d0  cases/tapenade-set01/tranche-i-manifest.toml
+59ea940861d1d4701093b79310f82d35ab070f6372b1b05a4f319fe3f63e3058  cases/tapenade-set01/tranche-i.md
+afe912e2e672dfa9806ec0dcb6fe268d826a6fd535ac1b72c2c983967ac67ca8  harness/bench_tapenade_set01_tranche_i.f90
+6d4d1186abfc3a1087899592f9b47a6c798d949140c53fb3cd4e58263de9d384  scripts/bench_tapenade_set01_tranche_i.sh
+generated_source_sha256:
+5276223766869ef4d908c6d481f0df8b660274f99f2070f85a5a9fdccc397170  lh019_forward.raw.f90
+592737350461c2633cc664a81c80194bf244b16e52a15ec7d967bce3859802c6  lh019_reverse.raw.f90
+run_output:
+fd_errors_n=6:   4.8850E-15   7.8204E-13   1.1431E-11   1.1069E-10
+fd_errors_n=3:   7.2498E-14   7.2498E-14   4.5133E-12   9.3331E-11
+derivative_calls: 1000000
+derivative_runtime_seconds:   3.08747600E-03
+ns_per_derivative_call:   3.08747600E+00
+runtime_sink:  -1.06884600E-09
+oracle_status: pass
