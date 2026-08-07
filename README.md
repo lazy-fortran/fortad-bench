@@ -299,11 +299,11 @@ because it belongs next to the engines rather than next to the compiler.
   each. `scripts/fetch_upstreams.py` clones them into a gitignored `upstream/`
   tree and records the licence files found in each checkout.
 - **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c` (tree
-  `17288bdf`) has 10,977 tracked files and 2,014 candidate cases. Run
+  `17288bdf`) contains 10,977 tracked files and 2,014 candidate cases. Run
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Three rows now have executable FortAD evidence; the remaining rows are
+  audit. Three rows now have executable FortAD evidence. The remaining rows are
   untriaged. The first [set01 support cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
   paths. The companion
