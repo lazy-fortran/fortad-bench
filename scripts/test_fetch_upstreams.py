@@ -830,6 +830,26 @@ class UpstreamPinAuditTests(unittest.TestCase):
             self.assertNotEqual(row["revision"], "n/a")
             self.assertNotIn("invented", fetch_upstreams.render_upstream_pin_audit([row]))
 
+    def test_pin_audit_rejects_a_clean_checkout_at_the_wrong_commit(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, _tree = CorpusFetchTests().make_source(root)
+            destination = root / "upstream"
+            entry = {
+                "name": "pinned",
+                "url": source.as_uri(),
+                "ref": "0" * 40,
+                "license": "MIT",
+            }
+            with patch.object(fetch_upstreams, "DEST", destination):
+                checkout = destination / "pinned"
+                checkout.parent.mkdir(parents=True)
+                subprocess.run(["git", "clone", "-q", source.as_uri(), str(checkout)], check=True)
+                row = fetch_upstreams.audit_upstream_pins([entry])[0]
+            self.assertEqual(row["revision"], revision)
+            self.assertEqual(row["checkout"], "revision-mismatch")
+            self.assertIn("Result: FAIL", fetch_upstreams.render_upstream_pin_audit([row]))
+
 
 class CommittedTapenadeStaticTriageTests(unittest.TestCase):
     def test_committed_static_triage_covers_the_pinned_candidate_keys(self):

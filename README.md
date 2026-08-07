@@ -302,6 +302,9 @@ because it belongs next to the engines rather than next to the compiler.
   worth reading, and what we want to learn from each. `scripts/fetch_upstreams.py`
   clones Git entries into a gitignored `upstream/` tree and records each local
   commit, tree, and licence file in the ignored licence inventory.
+  Run `scripts/fetch_upstreams.py --audit-pins` for the offline pin and checkout
+  audit; it fails on floating refs, wrong commits, dirty trees, or origin
+  mismatches without inventing hashes.
 - **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c` (tree
   `17288bdf`) contains 10,977 tracked files and 2,014 candidate cases. Run
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the

@@ -26,4 +26,5 @@ metadata-only entries, floating branch/tag refs, and (when a checkout exists)
 the verified `HEAD`, tree, origin, and clean/dirty state. A non-zero result
 means a git ref is not commit-pinned or a checkout cannot be trusted as a
 reproducible study input. Network failures are reported by the fetch command,
-not guessed by this offline audit.
+not guessed by this offline audit. A passing audit does not imply that every
+optional checkout has been fetched.
