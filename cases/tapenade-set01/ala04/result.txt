@@ -15,7 +15,7 @@ upstream_entry_point: FP2(x,y)
 tapenade_options: parser=-p -context forward=-d -context reverse=-b -context
 exact_strict_compile: program=1 program_p=1 program_d=1 program_b=1 diagnostic=REAL8
 exact_legacy_compile: program=0 program_p=0 program_d=0 program_b=0
-exact_primal_runtime: build=0 run=0 output= x=   1.0000000000000000      --> y=  0.99999999994905853      
+exact_primal_runtime: build=0 run=0 output= x=   1.0000000000000000      --> y=  0.99999999994905853
 tapenade_generation: parser=0 forward=0 reverse=0
 tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1 diagnostic=REAL8
 tapenade_fresh_legacy_compile: parser=0 forward=0 reverse=0
