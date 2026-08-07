@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,342 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving eighty-one set01 evidence rows and nine additional
+  either engine. It leaves 1,336 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving eighty-seven set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,10 +108,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,416 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,410 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
-rows with no entry-point hint, 315 program candidates, and 971 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 137 rows
+rows with no entry-point hint, 315 program candidates, and 965 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -183,11 +183,12 @@ abstract OO refusal boundary is in
 The first-aid `COMMON` refusal is in
 [`validityTest.f`](../results/tapenade_first_aid_validity_refusal_validation.txt).
 The set01 `lh054`--`lh061` tranche records six additional exact-source
-boundaries, and tranche X (`lh063`, `lh064`, `lh065`, `lh067`, `lh069`, and
+boundaries. Tranche X (`lh063`, `lh064`, `lh065`, `lh067`, `lh069`, and
 `lh070`) adds four bounded fixed-form witnesses plus two invalid-upstream
-closures. Each has fresh pinned Tapenade generation, exact FortAD diagnostics,
-and a three-test case contract; bounded ports are not exact-source support
-claims.
+closures. Tranche Y (`lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`)
+adds two invalid-upstream closures and four bounded refusal witnesses. Each has
+fresh pinned Tapenade generation, exact FortAD diagnostics, and a three-test
+case contract; bounded ports are not exact-source support claims.
 
 ## Closeout rule
 
