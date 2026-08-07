@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Run bounded Tapenade/FortAD source probes from manifests or the queue.
 
-This command is an evidence-producing workflow, not a correctness oracle.  It
-selects a procedure only when a manifest names it or static triage finds one
-unambiguous source procedure.  Ambiguous cases are recorded without running a
-transform, so the workflow never silently invents active or dependent
-arguments.
+This command is an evidence-producing workflow, not a correctness oracle.  A
+manifest can name one procedure, while queue mode automatically expands every
+canonical source procedure found by static triage.  Ambiguous cases are still
+recorded without running a transform when no source procedure is discoverable,
+so the workflow never silently invents active or dependent arguments.
 
 Examples::
 
@@ -201,6 +201,11 @@ def spec_from_manifest(path: Path) -> ProbeSpec:
 
 
 def spec_from_case(case_path: str) -> ProbeSpec:
+    specs = specs_from_case(case_path)
+    return specs[0]
+
+
+def specs_from_case(case_path: str, all_entries: bool = False) -> list[ProbeSpec]:
     case_path = case_path.replace("\\", "/").strip("/")
     case = UPSTREAM / case_path
     if not case.is_dir():
@@ -208,15 +213,18 @@ def spec_from_case(case_path: str) -> ProbeSpec:
     source = _select_source(case)
     source_name = str(source.relative_to(UPSTREAM)).replace("\\", "/")
     hints = _canonical_hints(case_path, source_name)
-    entry = hints[0] if len(hints) == 1 else None
-    return ProbeSpec(
-        case_path=case_path,
-        source=source_name,
-        entry_point=entry,
-        independent=(),
-        dependent=None,
-        modes=("parser", "forward", "reverse"),
-    )
+    entries = hints if all_entries else (hints[:1] if len(hints) == 1 else [None])
+    return [
+        ProbeSpec(
+            case_path=case_path,
+            source=source_name,
+            entry_point=entry,
+            independent=(),
+            dependent=None,
+            modes=("parser", "forward", "reverse"),
+        )
+        for entry in entries
+    ]
 
 
 def _executable(env_name: str, default: Path) -> Path | None:
@@ -396,13 +404,21 @@ def _path_slug(path: str) -> str:
     return re.sub(r"[^A-Za-z0-9_.-]+", "__", path).strip("_")
 
 
+def _spec_slug(spec: ProbeSpec) -> str:
+    suffix = f"__{_path_slug(spec.entry_point)}" if spec.entry_point else ""
+    return _path_slug(spec.case_path) + suffix
+
+
 def _queue_specs(args: argparse.Namespace) -> list[ProbeSpec]:
     rows = _load_jsonl(Path(args.queue_file))
     rows = [row for row in rows if args.include_classified or row.get("path")]
     rows = [row for row in rows if row["queue_rank"] % args.shard_count == args.shard_index]
     if args.limit is not None:
         rows = rows[: args.limit]
-    return [spec_from_case(row["path"]) for row in rows]
+    specs: list[ProbeSpec] = []
+    for row in rows:
+        specs.extend(specs_from_case(row["path"], all_entries=True))
+    return specs
 
 
 def _write_record(path: Path, record: dict[str, Any]) -> None:
@@ -431,6 +447,11 @@ def _parser() -> argparse.ArgumentParser:
     source.add_argument("--case", help="relative case directory under upstream/tapenade")
     source.add_argument("--queue", action="store_true", help="probe the queued corpus candidates")
     parser.add_argument("--entry-point", help="explicit procedure name or NAME(args)")
+    parser.add_argument(
+        "--all-entry-points",
+        action="store_true",
+        help="probe every canonical source procedure for a single --case",
+    )
     parser.add_argument("--queue-file", dest="queue_file", default=str(QUEUE), help=argparse.SUPPRESS)
     parser.add_argument("--result", help="single-case JSON output (default: stdout)")
     parser.add_argument("--result-dir", default="/var/tmp/fortad-tapenade-probes")
@@ -473,7 +494,7 @@ def main(argv: Iterable[str] | None = None) -> int:
         def run(spec: ProbeSpec) -> dict[str, Any]:
             return probe_spec(
                 spec,
-                result_dir / _path_slug(spec.case_path),
+                result_dir / _spec_slug(spec),
                 tapenade,
                 fortad,
                 args.timeout,
@@ -484,18 +505,38 @@ def main(argv: Iterable[str] | None = None) -> int:
                 records = list(pool.map(run, specs))
         else:
             records = [run(spec) for spec in specs]
-        records.sort(key=lambda item: item["case_path"])
+        records.sort(key=lambda item: (item["case_path"], item.get("entry_point") or ""))
         result_path = result_dir / "results.jsonl"
         result_path.parent.mkdir(parents=True, exist_ok=True)
         result_path.write_text(
             "".join(json.dumps(record, sort_keys=True) + "\n" for record in records),
             encoding="utf-8",
         )
-        print(json.dumps({"result": str(result_path), "cases": len(records)}))
+        print(json.dumps({
+            "result": str(result_path),
+            "cases": len({record["case_path"] for record in records}),
+            "entry_point_probes": len(records),
+        }))
         return 0
 
     spec = _single_spec(args)
-    single_dir = Path(args.result_dir).resolve() / _path_slug(spec.case_path)
+    if args.case and args.all_entry_points:
+        specs = specs_from_case(args.case, all_entries=True)
+        result_dir = Path(args.result_dir).resolve()
+        records = [
+            probe_spec(spec, result_dir / _spec_slug(spec), tapenade, fortad, args.timeout)
+            for spec in specs
+        ]
+        records.sort(key=lambda item: item.get("entry_point") or "")
+        result_path = Path(args.result) if args.result else result_dir / "results.jsonl"
+        result_path.parent.mkdir(parents=True, exist_ok=True)
+        result_path.write_text(
+            "".join(json.dumps(record, sort_keys=True) + "\n" for record in records),
+            encoding="utf-8",
+        )
+        print(json.dumps({"result": str(result_path), "entry_point_probes": len(records)}))
+        return 0
+    single_dir = Path(args.result_dir).resolve() / _spec_slug(spec)
     record = probe_spec(spec, single_dir, tapenade, fortad, args.timeout)
     if args.result:
         _write_record(Path(args.result), record)

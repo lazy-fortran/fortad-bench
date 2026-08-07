@@ -79,6 +79,22 @@ class ProbeWorkflowTest(unittest.TestCase):
             self.assertEqual(record["status"], "ambiguous-entry-point")
             self.assertEqual(record["probes"], {})
 
+    def test_all_entry_discovery_expands_canonical_source_procedures(self):
+        with tempfile.TemporaryDirectory() as raw:
+            root = Path(raw)
+            upstream, static, _tool = self._fixture(
+                root,
+                [
+                    {"kind": "subroutine", "name": "one", "source": "nonRegressions/set01/fixture/program.f"},
+                    {"kind": "subroutine", "name": "one_b", "source": "nonRegressions/set01/fixture/program.f"},
+                    {"kind": "subroutine", "name": "two", "source": "nonRegressions/set01/fixture/program.f"},
+                    {"kind": "program", "name": "driver", "source": "nonRegressions/set01/fixture/program.f"},
+                ],
+            )
+            with patch.object(PROBE, "UPSTREAM", upstream), patch.object(PROBE, "STATIC", static):
+                specs = PROBE.specs_from_case("nonRegressions/set01/fixture", all_entries=True)
+            self.assertEqual([spec.entry_point for spec in specs], ["one", "two"])
+
     def test_explicit_selection_runs_all_three_tools_and_records_products(self):
         with tempfile.TemporaryDirectory() as raw:
             root = Path(raw)

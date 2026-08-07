@@ -366,12 +366,16 @@ because it belongs next to the engines rather than next to the compiler.
   scripts/probe_tapenade_fortad.py --manifest cases/tapenade-set01/lh093/manifest.toml
   scripts/probe_tapenade_fortad.py --queue --shard-count 8 --shard-index 0 \
     --jobs 4 --result-dir /var/tmp/fortad-tapenade-probes
+  scripts/probe_tapenade_fortad.py --case nonRegressions/set01/B01 \
+    --all-entry-points --result /var/tmp/b01-probes.jsonl
   ```
 
-  Static discovery runs only for a single unambiguous source procedure.
-  Ambiguous or program-only rows are recorded without transforming them; an
-  explicit manifest or `--entry-point` is required. Probe output is evidence
-  for triage, not an independent derivative oracle.
+  Queue mode automatically expands every canonical source procedure, suffixes
+  each result directory with its root name, and never selects one procedure
+  silently. A single case can request the same behavior with
+  `--all-entry-points`; rows with no discoverable procedure are recorded
+  without transforming them. Probe output is evidence for triage, not an
+  independent derivative oracle.
   The bounded [known-failure and large-example shard](docs/corpora/tapenade-known-failures.md)
   records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
   `runnable` label is source viability only. Those rows remain untriaged until
