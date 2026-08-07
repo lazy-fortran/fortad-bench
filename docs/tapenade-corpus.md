@@ -112,7 +112,7 @@ rows with no entry-point hint, 320 program candidates, and 1,047 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 175 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
-dependency risk signal, not as proof that a dependency is missing; no queue
+dependency risk signal, not as proof that a dependency is missing. No queue
 label claims parsing, compilation, transformation, runtime, or correctness.
 
 The first curated rows are the set01 checks in
