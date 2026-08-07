@@ -61,3 +61,15 @@ well, the result says so. See README rule 4.
 2. No engine source tree is inside a committed path.
 3. Any ported workload has its `PROVENANCE.md` row and upstream notice.
 4. Any published comparison names the engine version and the flags used.
+
+## 6. Metadata-only sources
+
+“Not legally scannable” is project shorthand, not a legal classification. It
+means that automated fetching or source inspection is outside our permission or
+cannot be verified safely. Examples are registration-gated distributions,
+confidential or access-controlled code, a source URL whose terms forbid
+automated copying, historical archives with no clear licence, and repositories
+with no discoverable licence. For these entries we keep only public metadata:
+name, URL, version or date, licence status, and the reason source inspection is
+excluded. We do not clone, read, quote, adapt, or place a checkout in the
+benchmark. A later licence grant must be recorded before inspection begins.
