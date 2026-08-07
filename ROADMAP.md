@@ -17,7 +17,7 @@ named below.
 This is not yet a claim to beat every AD engine. The committed same-machine
 timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 122
 classified set01 rows (32 runnable cases, 74 reproducible refusals, and 16
-invalid-upstream closures), plus 87 classified rows elsewhere. There are 1,297
+invalid-upstream closures), plus 87 classified rows elsewhere. There are 1,296
 queued candidates still
 untriaged. A broader feature
 or performance lead needs
@@ -82,7 +82,7 @@ engine run and the rest of the corpus remain open.
 
 The product target is the 1,432-row strict pure-Fortran population. Fifty-five
 rows currently pass as runnable support cases, 126 are measured expected
-refusals, 28 are invalid-upstream closures, and 1,297 remain untriaged: 1,223
+refusals, 28 are invalid-upstream closures, and 1,296 remain untriaged: 1,222
 pure-Fortran rows and 74 mixed C/C++-Fortran rows. The mixed rows stay in
 a separate dependency lane.
 
@@ -112,8 +112,8 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,297 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 303 program, and 920 procedure
+  partition the 1,296 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 302 program, and 920 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 122 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
@@ -377,9 +377,15 @@ explicitly refused, independently checked, and measured when runnable.
   FortAD JVP/VJP transforms from checked ports, and independent hand,
   finite-difference, and adjoint-identity checks. See the [case record](cases/tapenade-set05-shard3-v125-v137/README.md)
   and [validation result](results/tapenade_set05_shard3_v125_v137_validation.txt).
+- [x] Promote `set05/v054` `f_vector` with fresh pinned Tapenade
+  parser/tangent/reverse generation, strict compilation, a FortAD JVP/VJP
+  module-extraction port, and independent hand, finite-difference, and
+  adjoint-identity checks. The elemental companion's strict Tapenade purity
+  failure remains recorded as a boundary. See the [case record](cases/tapenade-set05/tranche-v054.md)
+  and [validation result](results/tapenade_set05_v054_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,223 untriaged pure-Fortran rows and 74
+  reproducible evidence. There are 1,222 untriaged pure-Fortran rows and 74
   mixed-language rows, alongside 122 classified set01 rows and 87 additional
   classified rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid

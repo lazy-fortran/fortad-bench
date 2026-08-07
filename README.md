@@ -314,7 +314,7 @@ because it belongs next to the engines rather than next to the compiler.
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,297 rows are queued: 1,223 pure-Fortran rows and 74 mixed-language rows.
+  1,296 rows are queued: 1,222 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -347,6 +347,10 @@ because it belongs next to the engines rather than next to the compiler.
   exact-source hashes, fresh three-mode Tapenade generation, strict FortAD
   forward/reverse compilation, and an independent product oracle; see its
   [case record](cases/tapenade-set04/lh148/notes.md).
+  The next `set05/v054` `f_vector` entry adds a pure assumed-shape array
+  function with generic and elemental companions, fresh three-mode Tapenade
+  generation, strict FortAD JVP/VJP compilation, and an independent vector
+  reciprocal oracle; see its [case record](cases/tapenade-set05/tranche-v054.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

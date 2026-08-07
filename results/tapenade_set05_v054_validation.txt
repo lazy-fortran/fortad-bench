@@ -1,0 +1,25 @@
+suite: Tapenade nonRegressions set05 v054 f_vector
+recorded_utc: 2026-08-07T20:24:05Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: 15e18491d0aa7391100bfd688cdb2a505394b84a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: f_vector(x)
+upstream_exact_strict_compile: pass
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_generated_strict_compile: parser=0 tangent=0 reverse=0
+fortad_transformation: jvp=0 vjp=0
+fortad_generated_strict_compile: jvp=0 vjp=0
+independent_oracle: hand JVP/VJP, central-difference sweep, adjoint identity
+oracle_status: pass
+upstream_sha256:
+bfe662552f2394876d198845b634e28ddb30ad581aaaa2a8e954f33fa434eb59  /mnt/storage/code/lazy-fortran/fortad-bench-work/upstream/tapenade/nonRegressions/set05/v054/program.f90
+d609bd31b5a6f9631bef535362b0e959f137c0e57902733fcdc467fe3f54734d  /mnt/storage/code/lazy-fortran/fortad-bench-work/upstream/tapenade/nonRegressions/set05/v054/program_p.f90
+e199af4b9ba84ec1219d3148e21392f219a1d8e311033850a5889e02f8bae1f3  /mnt/storage/code/lazy-fortran/fortad-bench-work/upstream/tapenade/nonRegressions/set05/v054/program_p.msg
+stored_case_sha256:
+4d5048a23c5f6c5ae83eef769f130185c6516a81707dec40aad3c2509d9770f5  cases/tapenade-set05/v054.f90
+cc4a64647caebc5e3ccc712912a7ac89bb1325908ee077bf4d64d2265cccc251  cases/tapenade-set05/hand_derivative_v054.f90
+f6ea82b6305386930bafc6ebf85665b12c1807b8e8fb9c328f391542b9ed32bf  cases/tapenade-set05/tranche-v054-manifest.toml
+2064f3cd56765f8e97ed30a7f21bb945f5181f9265da304a530599e553f93a62  cases/tapenade-set05/tranche-v054.md
+6dcc966e0efff9ad0fcc5046e932a30d65bad76aa73c6a521af9f2fe0adbac43  harness/bench_tapenade_set05_v054.f90
+5e0d9fd20c14c0d088559c5023f7d345e624246768791cf8b3da30d2570fdafb  scripts/bench_tapenade_set05_v054.sh
