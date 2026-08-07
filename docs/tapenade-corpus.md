@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,294 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving 129 set01 evidence rows and nine additional
+  either engine. It leaves 1,280 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving 143 set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,368 rows
-into 74 mixed-language-risk candidates, 0 historical-failure candidates, 14
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,354 rows
+into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -237,6 +237,15 @@ candidate rows. The cases cover empty sources, `BLOCKDATA`, and module-only
 declarations with stored parser references. Each has fresh pinned Tapenade
 no-root evidence, an exact FortAD boundary where applicable, and an independent
 three-test semantic contract; no synthetic procedure is introduced.
+
+Tranche AG (`set05/v147`, `set05/v171`, `set05/v177`, `set05/v201`,
+`set05/v216`, `set06/v316`, `set06/v317`, `set06/v320`, `set06/v360`,
+`set06/v362`, `set07/v485`, `set07/v523`, `set07/v544`, and `set11/vpf16`)
+closes the remaining fourteen no-entry-point queue rows. The cases cover
+declaration-only modules, invalid legacy declarations, pointers, private and
+derived-type layouts, an empty source, and the `vpf16` `Options` metadata.
+Each has fresh pinned Tapenade no-root evidence, strict source/reference
+checks, quiet FortAD no-entry behavior, and an independent three-test contract.
 
 ## Closeout rule
 

@@ -645,6 +645,39 @@ See the manifests, result records, independent oracles, and contract tests
 under `cases/tapenade-set01/lh000/`, `v065/`, `v017/`, `v025/`, `v075/`, and
 `v146/`.
 
+## Tranche AG: `set05/v147`, `set05/v171`, `set05/v177`, `set05/v201`, `set05/v216`, `set06/v316`, `set06/v317`, `set06/v320`, `set06/v360`, `set06/v362`, `set07/v485`, `set07/v523`, `set07/v544`, and `set11/vpf16`
+
+This tranche closes the remaining fourteen no-entry-point queue rows.
+`v147`, `v171`, `v320`, and `vpf16` are module-only or declaration-only
+sources; the other cases cover invalid legacy declarations, pointers, private
+and derived-type layouts, and an empty source. Fresh pinned Tapenade no-root
+probes and strict source/reference checks establish the boundary. FortAD
+returns its quiet exact no-entry refusal, and every case has an independent
+three-test contract. No synthetic procedure or bounded derivative port is
+claimed.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v147/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v171/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v177/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v201/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v216/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v316/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v317/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v320/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v360/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v362/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v485/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v523/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v544/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/vpf16/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under the fourteen corresponding `cases/tapenade-set01/` directories.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are
