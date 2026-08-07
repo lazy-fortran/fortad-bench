@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,330 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving ninety-three set01 evidence rows and nine additional
+  either engine. It leaves 1,324 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving ninety-nine set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,404 rows
-into 74 mixed-language-risk candidates, 30 historical-failure candidates, 20
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,398 rows
+into 74 mixed-language-risk candidates, 24 historical-failure candidates, 20
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -195,6 +195,12 @@ The historical-reference tranche Z (`todoF90/REFERENCES/bd01`, `bd11`, `v01`,
 module, array-section, or explicit-state ports, plus two invalid-upstream
 closures. Each case records fresh Tapenade generation, exact FortAD diagnostics,
 and a three-test contract; bounded ports remain explicitly scoped.
+
+Tranche AA (`todoF90/REFERENCES/v100`, `v101`, `v144`, `v270`, `v322`, and
+`v377`) adds two bounded refusal witnesses and four invalid-upstream closures.
+The cases cover MOD, allocatable lifetime, implicit-interface/rank, legacy-kind,
+derived-type-state, and MPI communication boundaries with fresh Tapenade and
+FortAD evidence.
 
 ## Closeout rule
 

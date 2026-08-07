@@ -125,6 +125,12 @@ class CommittedLedgerTests(unittest.TestCase):
             "todoF90/REFERENCES/v02",
             "todoF90/REFERENCES/v05",
             "todoF90/REFERENCES/v07",
+            "todoF90/REFERENCES/v100",
+            "todoF90/REFERENCES/v101",
+            "todoF90/REFERENCES/v144",
+            "todoF90/REFERENCES/v270",
+            "todoF90/REFERENCES/v322",
+            "todoF90/REFERENCES/v377",
             "nonRegressions/set01/bd01",
             "nonRegressions/set01/bd02",
             "nonRegressions/set01/bd03",
@@ -227,7 +233,7 @@ class CommittedLedgerTests(unittest.TestCase):
         })
         self.assertEqual(
             sum(row["status"] == "untriaged" for row in ledger),
-            1404,
+            1398,
         )
 
 
