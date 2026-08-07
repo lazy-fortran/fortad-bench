@@ -351,6 +351,11 @@ because it belongs next to the engines rather than next to the compiler.
   function with generic and elemental companions, fresh three-mode Tapenade
   generation, strict FortAD JVP/VJP compilation, and an independent vector
   reciprocal oracle; see its [case record](cases/tapenade-set05/tranche-v054.md).
+  The `set05/v060` `M::func(t,u)` entry adds a small standards-clean function
+  with exact upstream hashes, fresh three-mode Tapenade generation, strict
+  FortAD forward/reverse compilation, and an independent average-function
+  hand/finite-difference/adjoint oracle; see its [case record](cases/tapenade-set05/v060_manifest.toml)
+  and [validation result](cases/tapenade-set05/v060_result.txt).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

@@ -1,0 +1,42 @@
+case: Tapenade nonRegressions set05 v060 M::func
+classification: runnable-ported
+recorded_utc: 2026-08-07T20:43:47Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: b931cdc0d49a2ccada43754cafff6937d1cf9b7a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: M::func(t,u)
+tapenade_modes: parser tangent reverse
+fortad_modes: forward reverse
+upstream_exact_strict_compile: pass
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_transformation: forward=0 reverse=0
+fortad_generated_strict_compile: forward=0 reverse=0
+fortad_harness: harness_status: pass
+independent_oracle: hand JVP/VJP, central-difference sweep, adjoint identity
+oracle_behavioral_cases: 4
+oracle_status: pass
+upstream_sha256:
+1c195096bc08fc3ce6e25caf694bd4c3a49fc3f7784a828c0936a46f59084c34  Options
+3a669b4bf6e86281b0ea45a19a3487cfa0e797956623e18210d368a0cbbf786d  program.f90
+b3c17f9b529c46cb18242073f3c36c2dfb15b4c74831914089514ff3f05100ae  program_p.f90
+092147ccea098bf2d1a5eb1a2e7dc23d609c8c4f80aaf048acbcaae6ee7fab4c  program_p.msg
+0f7063155d741bfb1439d7b6e7584c803f61a3ef1f84f2e8c8997cae5b5a4aea  program_d.f90
+092147ccea098bf2d1a5eb1a2e7dc23d609c8c4f80aaf048acbcaae6ee7fab4c  program_d.msg
+ef55ea67a65649b77b72ec58e31f632eca776a00dbfa16bf4782a6009331a1f7  program_b.f90
+092147ccea098bf2d1a5eb1a2e7dc23d609c8c4f80aaf048acbcaae6ee7fab4c  program_b.msg
+fresh_tapenade_sha256:
+d4c2d6c9185e3cb283ef0f0fc2805294f8f0ac08447a1d6555c1e9dd8fe6f5a5  /var/tmp/fortad-bench-tapenade-set05-v060.ljUpKE/tapenade/parser/v060_p.f90
+aebf81189d2e4557fb9bfb0664dfb0a8fa5e63b0ce249401565f672f7f6d2c4f  /var/tmp/fortad-bench-tapenade-set05-v060.ljUpKE/tapenade/forward/v060_d.f90
+d88bfb32ce14fd65617be92a8f9b3edb142ec4c2bceaffdd08582900a5290c55  /var/tmp/fortad-bench-tapenade-set05-v060.ljUpKE/tapenade/reverse/v060_b.f90
+fortad_generated_sha256:
+4b40fb26381911610c6786a35a9c365f8aefb293524ed47be2d32009185b38d6  /var/tmp/fortad-bench-tapenade-set05-v060.ljUpKE/fortad/forward/v060_forward.f90
+2ca2148b5c9a6c5b59fd98159b92e72833a66eb7b8bcf3a4a58a3deae41ad478  /var/tmp/fortad-bench-tapenade-set05-v060.ljUpKE/fortad/reverse/v060_reverse.f90
+case_artifact_sha256:
+6467fceb8a672a65a0f7113277fa8e7ba6176aa32f361dcb47f0911810cae5e1  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v060.f90
+d3e119cfea59b6ddaa91b255dea403402c29c2e06e2a1a3414c00515d0a5eebe  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/hand_derivative_v060.f90
+b1714676b4dec5620b99615602bbe33bad161706fa69b235b3e016d84a1c6202  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v060_manifest.toml
+4236121c1605896c2eff02beb156e34e91811302f478bdf41681b449cebb2971  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v060_harness.f90
+6b359d389a4cdda40d56db4f4f6911a8a774720a5276804f22a48b9129ee0ee3  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v060_oracle.py
+7c9d51199ecc2ca17c0a301e6271592917f8e802f2fc63655a525b5b42d63ee9  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v060_run.sh

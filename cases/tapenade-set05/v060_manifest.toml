@@ -1,0 +1,25 @@
+schema_version = 1
+name = 'tapenade-set05-v060-func'
+upstream = 'tapenade'
+upstream_origin = 'https://gitlab.inria.fr/tapenade/tapenade.git'
+upstream_revision = 'e59864cab441d4175df75383b3ff58c3dcd26df9'
+fortad_revision = 'b931cdc0d49a2ccada43754cafff6937d1cf9b7a'
+source_form = 'free'
+runner = 'cases/tapenade-set05/v060_run.sh'
+result = 'cases/tapenade-set05/v060_result.txt'
+
+upstream_sources = ['nonRegressions/set05/v060/Options', 'nonRegressions/set05/v060/program.f90', 'nonRegressions/set05/v060/program_p.f90', 'nonRegressions/set05/v060/program_p.msg', 'nonRegressions/set05/v060/program_d.f90', 'nonRegressions/set05/v060/program_d.msg', 'nonRegressions/set05/v060/program_b.f90', 'nonRegressions/set05/v060/program_b.msg']
+stored_references = ['program_p.f90', 'program_p.msg', 'program_d.f90', 'program_d.msg', 'program_b.f90', 'program_b.msg']
+upstream_entry_point = 'M::func(t,u)'
+selected_entry_points = ['M::func(t,u)']
+ported_entry_point = 'func(t,u) (standards-clean module extraction)'
+independent = ['t', 'u']
+dependent = 'value'
+options = ['-p -root func', '-d -root func', '-b -root func']
+modes = ['parser', 'forward', 'reverse']
+oracle = ['exact pinned-source SHA-256 contract', 'strict exact-source compilation', 'fresh pinned Tapenade parser/tangent/reverse generation and strict compilation', 'FortAD forward/reverse transformation and strict compilation', 'compiled FortAD harness', 'independent hand JVP/VJP', 'central-difference sweep', 'adjoint identity']
+classification = 'runnable-ported'
+dependencies = 'The exact source is self-contained; the stored port makes the selected implicit-result function explicit for FortAD.'
+tapenade_result = 'pass-fresh-parser-tangent-reverse-generation-generated-strict-compile'
+fortad_result = 'pass-forward-reverse-transform-strict-compile-runtime'
+closure = 'Only M::func(t,u) is promoted; the generic caller modules and program driver remain outside the selected derivative row.'
