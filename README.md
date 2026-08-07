@@ -11,10 +11,11 @@ and the committed results.
 
 ## Downstream port: fortnum and fortfem against Enzyme
 
-The committed cross-engine corpus covers **59 operators**: 17 from fortnum
-and 42 from fortfem, plus Enzyme's own suite. The focused vector-Newton
-follow-up is recorded separately because the acluster lacks a compatible
-Enzyme toolchain. It is not included in a same-machine ratio.
+The committed cross-engine corpus covers **59 downstream operators**: 17 from
+fortnum and 42 from fortfem. A separate Enzyme-native suite contributes five
+more operators. The focused vector-Newton follow-up is recorded separately
+because the acluster lacks a compatible Enzyme toolchain. It is not included
+in a same-machine ratio.
 
 ![fortad against Enzyme](results/fortad_vs_enzyme.png)
 
@@ -35,8 +36,7 @@ everywhere.
 Its tangent is 1.69x Enzyme, the one fortnum measurement outside 30%,
 and the reason is not the derivative. fortad emits the minimal form -
 one `exp`, shared between the primal and the tangent - and compiles to
-68 instructions where Enzyme's compiles to 119. Fewer instructions,
-more time.
+68 instructions, compared with 119 for Enzyme. fortad is nevertheless slower.
 
 What differs is vectorisation across iterations. The kernel is one
 `exp` call per element, and Enzyme's object comes out of clang while
@@ -226,9 +226,9 @@ Planned, in the order fortad's roadmap needs them:
    results are three-way comparisons needing no new infrastructure.
 4. **`adbench`**: GMM, bundle adjustment, hand tracking, LSTM. The standard
    cross-tool suite Enzyme's own papers report, ported with attribution (MIT).
-5. **`solve-heavy`**: a Newton solve and a fixed-point iteration. Where implicit
-   differentiation and Christianson's two-phase adjoint should beat every engine
-   that differentiates the iterations. The largest predicted margin.
+5. **`solve-heavy`**: a Newton solve and a fixed-point iteration, testing whether
+   implicit differentiation and Christianson's two-phase adjoint beat engines
+   that differentiate the iterations. No margin has been measured.
 6. **`sparse`**: Jacobians and Hessians with exploitable structure.
 7. **`scaling`**: synthetic sweeps in input, output, and direction count.
 

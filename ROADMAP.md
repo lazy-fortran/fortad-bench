@@ -7,10 +7,11 @@ what is missing from them.
 
 ## Status, 2026-08-06
 
-Coverage stands at 59 operators: 17 in the fortnum suite and 42 in the
-fortfem suite, plus Enzyme's own suite. Every operator that both Enzyme and
-fortad can differentiate has numbers recorded. Nearly all measurements sit
-within the 30% band agreed for the port. The exceptions are named below.
+Coverage stands at 59 downstream operators: 17 in the fortnum suite and 42 in
+the fortfem suite. A separate Enzyme-native suite contributes five more.
+Every operator that both Enzyme and fortad can differentiate has numbers
+recorded. Nearly all measurements sit within the 30% band agreed for the port.
+The exceptions are named below.
 
 `cases/fortfem/kernels/` holds 43 kernel sources against the harness's
 `NW = 42`. Reconcile the two: either the extra case is intentionally not
@@ -49,8 +50,8 @@ All three are recorded in `README.md` and none is resolved:
 - `adaptive_trace_integrand` tangent at 1.69x is the one fortnum
   measurement outside 30%, and the derivative is not the reason: fortad
   emits the minimal form and compiles to 68 instructions against Enzyme's
-  119, and is still slower. Fewer instructions, more time. This is a
-  code-generation question for the compiler, not a fortad rule, and it is
+  119, and is still slower. This is a code-generation question for the
+  compiler, not a fortad rule, and it is
   unresolved.
 - fortfem's curved quadrilateral cell area tangent at 1.63x is the widest
   gap in that suite, caused by slice packing paying twice on a wide
