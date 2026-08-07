@@ -15,13 +15,17 @@ scripts/batch_tapenade_fortran.py --check
 
 | status | candidates |
 |---|---:|
-| `compiler-evidence-incomplete` | 1405 |
+| `compiler-clean` | 595 |
+| `compiler-errors` | 516 |
+| `compiler-missing-dependency` | 294 |
 
 ## Compiler file status
 
 | status | files |
 |---|---:|
-| `checkout-missing` | 3879 |
+| `compiled` | 2172 |
+| `include-fragment-not-compiled` | 125 |
+| `syntax-error` | 1582 |
 
 Candidates without a static entry-point hint: **21**.
 Each row carries the exact source paths, sorted entry-point hints, compiler diagnostic hashes, missing/extra source paths, and a bounded `next_action`. No row changes the status ledger.
