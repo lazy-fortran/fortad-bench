@@ -1,0 +1,96 @@
+schema_version = 1
+name = "tapenade-set01-B01-psiroe-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "d651c1bd5e61cb5636d3312afaada2b59536c814"
+source_form = "fixed"
+runner = "cases/tapenade-set01/B01-psiroe/run.sh"
+result = "cases/tapenade-set01/B01-psiroe/result.txt"
+
+source_files = [
+    "nonRegressions/set01/B01/program.f",
+    "nonRegressions/set01/B01/Param3D.h",
+    "nonRegressions/set01/B01/Paramopt3D.h",
+]
+upstream_sources = [
+    "nonRegressions/set01/B01/program.f",
+    "nonRegressions/set01/B01/program_d.f",
+    "nonRegressions/set01/B01/program_d.msg",
+    "nonRegressions/set01/B01/program_b.f",
+    "nonRegressions/set01/B01/program_b.msg",
+    "nonRegressions/set01/B01/Param3D.h",
+    "nonRegressions/set01/B01/Paramopt3D.h",
+    "nonRegressions/set01/B01/Paramopt3D_d.h",
+    "nonRegressions/set01/B01/Paramopt3D_b.h",
+]
+stored_references = [
+    "nonRegressions/set01/B01/program_d.f",
+    "nonRegressions/set01/B01/program_d.msg",
+    "nonRegressions/set01/B01/program_b.f",
+    "nonRegressions/set01/B01/program_b.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set01/B01/program_p.f",
+    "nonRegressions/set01/B01/program_p.msg",
+]
+
+upstream_entry_point = "psiroe(ctrl,ctrlno)"
+selected_entry_points = ["psiroe(ctrl,ctrlno)"]
+ported_entry_point = "not-applicable-exact-source-only"
+independent = ["ctrl", "ctrlno"]
+dependent = ["COMMON state: un,ce,dx,dy,dz,vnp and called-state arrays"]
+function = "Fixed-form CFD routine with COMMON state and legacy labeled DO loops"
+options = [
+    "Tapenade parser: -p -root psiroe -O DIR -o B01",
+    "Tapenade forward: -d -root psiroe -O DIR -o B01",
+    "Tapenade reverse: -b -root psiroe -O DIR -o B01",
+    "FortAD compatibility parser: -p -root psiroe -O DIR -o B01",
+    "FortAD compatibility forward: -d -root psiroe -O DIR -o B01",
+    "FortAD compatibility reverse: -b -root psiroe -O DIR -o B01",
+]
+modes = [
+    "exact-source:legacy-compile-pass-strict-compile-refusal-REAL-star-8",
+    "stored-forward-and-reverse:legacy-compile-pass-strict-compile-refusal-REAL-star-8",
+    "fresh-parser-forward-reverse:generate-and-legacy-compile-pass-strict-compile-refusal-REAL-star-8",
+    "fortad-parser-forward-reverse:expected-refusal-labeled-DO-line-116-no-output",
+]
+contract_tests = [
+    "strict-and-legacy-exact-source-and-stored-reference-compiler-gates",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-and-compiler-gates",
+    "exact-FortAD-three-mode-compatibility-refusal-plus-independent-GRADFB-oracle",
+]
+oracle = [
+    "independent exact-source root/call and GRADFB operation inventory",
+    "tetrahedral six-volume determinant identity",
+    "central-difference JVP for the GRADFB volume",
+    "scalar-output VJP adjoint identity",
+]
+classification = "expected-refusal-fortad-unsupported-labeled-do-line-116"
+dependencies = [
+    "The exact source and both stored derivative references use legacy REAL*8 declarations; strict -std=f2018 -pedantic-errors rejects them while the legacy gate passes.",
+    "The exact source enters a labeled DO loop at line 116 (DO 5); FortAD's parser reports that it cannot locate the end of this construct and emits no parser, forward, or reverse output.",
+    "Fresh pinned Tapenade generation succeeds for all three explicit roots, but every fresh source has the same strict REAL*8 refusal and passes the legacy fixed-form gate.",
+    "The upstream directory has no stored parser reference; no source rewrite, synthetic root, include repair, or bounded Fortran port is added.",
+]
+expected_diagnostics = [
+    "program.f, program_d.f, and program_b.f pass the legacy fixed-form syntax gate and fail strict F2018 on nonstandard REAL*8 declarations",
+    "fresh B01_p.f, B01_d.f, and B01_b.f are generated with -root psiroe; each passes legacy compilation and fails strict compilation on REAL*8",
+    "FortAD -p refuses with 'could not locate the end of this do construct' at line 116; -d and -b refuse during command inference with the same parser diagnostic",
+    "the independent GRADFB geometry oracle passes determinant, finite-difference JVP, and VJP dot-product checks",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; legacy-compile-pass; strict-compile-refusal-REAL-star-8"
+fortad_result = "expected-refusal-parser-labeled-DO-line-116-no-output-for-parser-forward-reverse"
+bounded_sources = []
+bounded_domain = "not-applicable; GRADFB geometry is an oracle-only semantic check, not a repaired or supported source port"
+closure = "The exact upstream source, headers, stored forward/reverse references, and diagnostics remain authoritative and untouched. The case records the strict/legacy language boundary and FortAD's exact parser refusal; no synthetic dependency, source repair, or derivative implementation is claimed."
+
+[upstream_sha256]
+"nonRegressions/set01/B01/program.f" = "3d104a861f08659b69f25aa33abba009faf608779e03ca47755fc8694c33b9f2"
+"nonRegressions/set01/B01/program_d.f" = "b22dd929b305535a9f9bb1e46621dfe1660ca0c073b7012537a301da3643b652"
+"nonRegressions/set01/B01/program_d.msg" = "dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784"
+"nonRegressions/set01/B01/program_b.f" = "5ed6e4209c0789d8db1c74f3e54644b25308aa4503fe854041d9f9833e94812e"
+"nonRegressions/set01/B01/program_b.msg" = "dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784"
+"nonRegressions/set01/B01/Param3D.h" = "3d739990ef29a533f076d44a53093cf7b86677eee4ff099647d8d3d01e4d8739"
+"nonRegressions/set01/B01/Paramopt3D.h" = "e0ab4a9f0b00b26a1c26e07a32263052aa900f90e42fce856ebd307c9b6bac47"
+"nonRegressions/set01/B01/Paramopt3D_d.h" = "dee10287859640f0b41d71f24530ab30fb692b084f0d7420e4b1e21806e98c61"
+"nonRegressions/set01/B01/Paramopt3D_b.h" = "80393987360f2756e59470cf49068b559ef69d9ebbc9d5afbafaaa99064026dc"

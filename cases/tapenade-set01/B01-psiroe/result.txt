@@ -1,0 +1,36 @@
+classification: expected-refusal-fortad-unsupported-labeled-do-line-116
+entry_point: psiroe(ctrl,ctrlno)
+upstream_revision: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_revision: d651c1bd5e61cb5636d3312afaada2b59536c814
+source: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/B01/program.f
+source_form: fixed
+tapenade_commands:
+  - tapenade -p -root psiroe -O OUT -o B01 program.f: status 0; B01_p.f/B01_p.msg generated
+  - tapenade -d -root psiroe -O OUT -o B01 program.f: status 0; B01_d.f/B01_d.msg generated
+  - tapenade -b -root psiroe -O OUT -o B01 program.f: status 0; B01_b.f/B01_b.msg generated
+fortad_commands:
+  - fortad -p -root psiroe -O OUT -o B01 program.f: status 1; refusal at line 116
+  - fortad -d -root psiroe -O OUT -o B01 program.f: status 2; refusal at line 116
+  - fortad -b -root psiroe -O OUT -o B01 program.f: status 2; refusal at line 116
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only -fno-lto
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only -fno-lto
+exact_compile_status: program.f strict=1 legacy=0; program_d.f strict=1 legacy=0; program_b.f strict=1 legacy=0
+fresh_compile_status: B01_p.f strict=1 legacy=0; B01_d.f strict=1 legacy=0; B01_b.f strict=1 legacy=0
+fortad_status: -p=1 -d=2 -b=2
+fortad_diagnostic: could not locate the end of this do construct at source line 116
+oracle:
+oracle_behavioral_cases: 3
+oracle_case: unit six_volume=1 jvp=-1.6 vjp_dot=-2.7199999998
+oracle_case: skew six_volume=45 jvp=-20.45 vjp_dot=-34.7649999775
+oracle_case: translated six_volume=17.375 jvp=-8.35 vjp_dot=-14.1949999847
+oracle_status: pass
+upstream_sha256:
+3d739990ef29a533f076d44a53093cf7b86677eee4ff099647d8d3d01e4d8739  Param3D.h
+e0ab4a9f0b00b26a1c26e07a32263052aa900f90e42fce856ebd307c9b6bac47  Paramopt3D.h
+80393987360f2756e59470cf49068b559ef69d9ebbc9d5afbafaaa99064026dc  Paramopt3D_b.h
+dee10287859640f0b41d71f24530ab30fb692b084f0d7420e4b1e21806e98c61  Paramopt3D_d.h
+3d104a861f08659b69f25aa33abba009faf608779e03ca47755fc8694c33b9f2  program.f
+5ed6e4209c0789d8db1c74f3e54644b25308aa4503fe854041d9f9833e94812e  program_b.f
+dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784  program_b.msg
+b22dd929b305535a9f9bb1e46621dfe1660ca0c073b7012537a301da3643b652  program_d.f
+dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784  program_d.msg
