@@ -469,6 +469,32 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh061
 See the manifests, results, independent oracles, and contract tests under
 the six corresponding `cases/tapenade-set01/lh0*/` directories.
 
+## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
+
+This historical-reference tranche closes six pure-Fortran queue rows. `bd01`
+and `bd11` retain exact FortAD refusals at a module-call or array-section
+boundary while bounded ports pass independent hand, finite-difference, adjoint,
+and compiled-harness checks. `v01` records an exact refusal for persistent
+allocatable module state and external NetCDF-style callbacks without claiming a
+repair. `v02` retains exact parser/forward/reverse compile refusals while an
+explicit-state bounded port passes the same independent gates. `v05` and `v07`
+are invalid-upstream closures with no semantics-preserving port. Every case has
+fresh pinned Tapenade evidence and a three-test local contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/bd01/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/bd11/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v01/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v02/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v05/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v07/run.sh
+```
+
+See the manifests, result records, and independent contract tests under
+`cases/tapenade-set01/bd01/`, `bd11/`, `v01/`, `v02/`, `v05/`, and `v07/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are
