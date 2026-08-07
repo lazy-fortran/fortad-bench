@@ -10,6 +10,8 @@ closed-form derivative:
 - `lh134`: `f = log(-x)` on `x < 0`
 - `lh002`: branch and nested-call state update from `top(x,y,z,a,b,c)`
 - `lh049`: `z = 3*(x*y)**2 + x`, followed by the in-place `y = 2*x`
+- `lh004`: bounded reverse refusal for a branch inside a loop; the fixed-trace
+  primal and forward path remain independently checked
 
 The ports make types, intents, and `real64` explicit. The arithmetic is
 unchanged. The [manifest](manifest.toml) records the exact upstream paths and
@@ -133,3 +135,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-g.md), [manifest](tranche-g-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_g_validation.txt).
+
+## Tranche H: bounded branch-in-loop refusal
+
+The eighth focused runner records `lh004`, whose `tata(y,z,x)` routine has a
+data-dependent stopping branch inside a loop. The port keeps the bounded loop
+and checks its fixed four-iteration primal trace at positive and negative `z`
+with an independent hand JVP/VJP, central differences, and an adjoint
+identity. FortAD forward mode generates and compiles, while reverse mode
+returns the exact `a branch inside a loop needs control-flow reversal`
+diagnostic. This is a reproducible expected refusal, not a support claim:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_h.sh
+```
+
+See the [case notes](tranche-h.md), [manifest](tranche-h-manifest.toml), and
+[measurement record](../../results/tapenade_set01_tranche_h_refusal_validation.txt).

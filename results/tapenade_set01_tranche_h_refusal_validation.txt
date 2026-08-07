@@ -1,0 +1,46 @@
+case: Tapenade nonRegressions set01 lh004 bounded refusal
+recorded_utc: 2026-08-07T04:12:49Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 93c7b8b61db47c588b5ed1c348a2a954d0a77596
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.054705
+upstream_strict_compile_seconds: 0.041583
+forward_transform_seconds: 0.005280
+reverse_transform_seconds: 0.007885
+reverse_transform_status: 1
+generated_compile_and_link_seconds: 0.131454
+generated_forward_source_bytes: 1550
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3200
+upstream_compiler_oracle: unmodified primal and tangent references compile with -std=f2018 -pedantic-errors; the stored reverse reference compiles under -std=legacy
+forward_oracle: independent fixed-trace primal, hand JVP/VJP, four-step central differences, and adjoint identity
+reverse_refusal_oracle: exact FortAD diagnostic and nonzero transform status; no generated reverse source is counted as support
+transform_method: date +%s.%N around one fo exec --no-build call per mode; engine setup timed separately
+runtime_method: Fortran system_clock over 1000000 primal calls; /usr/bin/time %e and %M wrap executable
+reverse_diagnostic: fortad: reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone
+source_sha256:
+3d32b1ec2304ba95060558d3275806cb5fafeab16b2c99c77ba98097b33b6278  cases/tapenade-set01/lh004.f90
+dc332eb5f6beb9d8b7513da91732aeb5d86d5f278c5804731d4d985d9fbfdf30  cases/tapenade-set01/hand_derivatives_lh004.f90
+e3c9d01dd3af9a74d02cd495b3c01c667368bd2198d2d0197b4dac3617c4ca89  cases/tapenade-set01/tranche-h-manifest.toml
+ea4af2990e786eaf1e1092aff6ed4be68b45e64bfa4758d29cdc18046e935613  cases/tapenade-set01/tranche-h.md
+4455d9df7999b5064f04e68ff9b100ee99036c9c752e819a1a012bc171641af8  harness/bench_tapenade_set01_tranche_h.f90
+59bef6d691d958f29eee8e0a8195c5e2d0cafefc07db18451b464343222572e6  scripts/bench_tapenade_set01_tranche_h.sh
+generated_source_sha256:
+b6122bc4b9f25c7474bfacbaf7f17f7633c4fcec5b27ea962dcf3701e77c40cc  lh004_forward.f90
+run_output:
+fd_errors_x1:   2.1799E-13   6.7019E-13   9.5520E-12   9.5520E-12
+fd_errors_x2:   1.4611E-13   1.6303E-12   3.7157E-11   3.9243E-10
+fd_errors_x1:   2.1799E-13   6.7019E-13   9.5520E-12   9.5520E-12
+fd_errors_x2:   1.4611E-13   1.6303E-12   3.7157E-11   3.9243E-10
+primal_calls: 1000000
+primal_runtime_seconds:   4.49193300E-03
+ns_per_primal_call:   4.49193300E+00
+primal_runtime_sink:   1.20002800E-08
+refusal_oracle_status: pass
