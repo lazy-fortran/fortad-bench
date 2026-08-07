@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,392 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving thirty-six set01 evidence rows and four additional
+  either engine. It leaves 1,390 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving thirty-eight set01 evidence rows and four additional
 non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,10 +108,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,466 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,464 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
-rows with no entry-point hint, 318 program candidates, and 1,018 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 163 rows
+rows with no entry-point hint, 318 program candidates, and 1,016 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 162 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -162,6 +162,8 @@ The adjacent `lh017` support and `lh022`/`lh028` reverse-boundary results are
 in [`tranche-l`](../results/tapenade_set01_lh017_032_validation.txt).
 The adjacent `lh039` support and exact `lh033`/`lh040` fixed-form boundaries
 are in [`tranche-m`](../results/tapenade_set01_lh033_047_validation.txt).
+The adjacent `lh085` and `lh092` large-expression and nested-call support
+results are in [`tranche-n`](../results/tapenade_set01_lh083_096_validation.txt).
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in

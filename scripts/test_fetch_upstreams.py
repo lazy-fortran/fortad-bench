@@ -648,6 +648,8 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh074",
             "nonRegressions/set01/lh080",
             "nonRegressions/set01/lh082",
+            "nonRegressions/set01/lh085",
+            "nonRegressions/set01/lh092",
         }
         evidence = [
             row for row in rows
@@ -1022,6 +1024,22 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "forward|reverse",
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep",
                 "dependencies": "undefined-upstream-array-elements",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh085": {
+                "entry_point": "bigexpr(flur1,fltr1,aux1,dpex,e2,dpm,aux2,dpor,r1,r2,v,v3,v6); port set01_lh085(flur1,fltr1,aux1,dpex,e2,dpm,aux2,dpor,r1,r2,v,v3,v6)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:r1",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "active input is v; scalar dependent is r1",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh092": {
+                "entry_point": "f1(a,b,c); port set01_lh092(a,b,c)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "inline of nested f2 body",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
             },
         }
