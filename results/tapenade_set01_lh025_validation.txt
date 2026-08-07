@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions set01 lh025
+classification: runnable-ported-with-exact-source-fortad-refusal
+recorded_utc: 2026-08-07T09:12:46Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+strict_free_flags: -std=f2018 -pedantic-errors -ffree-line-length-none -O2 -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: clean temporary clone pinned to required commit
+fortad_original_commit: 096613772705dcd44a8e0c6bb573fc12bc563bd3
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.060022
+upstream_exact_source_compile_statuses: program.f=0 program_d.f=0 program_b.f=0 program_dv.f=0
+stored_multidirectional_include: pinned nonRegressions/DIFFSIZES.f as DIFFSIZES.inc
+tapenade_fresh_generation_seconds: 0.678997
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=0 tangent=0 reverse=0
+tapenade_oracle: fresh parser, tangent, and reverse files generated and strictly compiled
+fortad_exact_probe_seconds: 0.018952
+fortad_exact_result: expected-refusal forward_status=1 reverse_status=1 diagnostic="fortad: unsupported statement at line 73"
+fortad_port_transform_seconds: 0.021275
+fortad_port_generated_compile: forward=0 reverse=0
+fortad_port_result: pass-transform-compile-runtime
+fortad_oracle_scope: bounded standard-conforming N=7 K=3 port; exact source remains generic
+independent_oracle: closed-form JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3220
+oracle_status: pass
+source_sha256:
+5cbe02c852ae6a1dbc4a3b74d7c844e36b4904457b09a5e69b601e2fd4b663d1  cases/tapenade-set01/lh025.f90
+1fa71c037c83a08791995efe3dc390024ae985fb733d26205a93b4fe6a8add52  cases/tapenade-set01/hand_derivatives_lh025.f90
+73db3bcccd8b61b68d9590cb0b984e7d073658365eae0864a4abd4d8a9e4b077  cases/tapenade-set01/tranche-lh025-manifest.toml
+4ad63cd533e6631a7bb7743b6841a47ec942dedfa21362e5174337c0fa8489e1  cases/tapenade-set01/tranche-lh025.md
+bfb6702c138d323baf37fe106121fd57a0e6e41663441e35d4e1811cae39237b  harness/bench_tapenade_set01_lh025.f90
+a842d5c7511a6355adfcd773a81c43d52db017e799753f313dce81c6b7c09fb3  scripts/bench_tapenade_set01_lh025.sh
+c5dd3d6f798dbc80cdc71c5dd3c4407bab1a69fbd517678621e89e3b5ceb97c0  scripts/test_tapenade_set01_lh025.py
+upstream_source_sha256:
+441784b29ea64d8ef609c78e7f67f1596d75399d1f8ddb0b48aff519aacbf190  nonRegressions/set01/lh025/program.f
+070623bbe4754b4d440e2f0f780c8b0765e4101ee12f1c6f9f06bbb7faababf0  nonRegressions/set01/lh025/program_d.f
+7787240b346eb33bca03d8e5cac37df3f088cdbd9182acfa5737813480604c08  nonRegressions/set01/lh025/program_b.f
+858bd4ebc24ed360cfb1e10f253465911d529fee8a2ff9cedb7523b5c6dc735c  nonRegressions/set01/lh025/program_dv.f
+run_output:
+oracle_status: pass
+fd_errors:   3.6624E-09   3.6627E-11   2.0693E-13   6.5904E-13
+adjoint_residual:   3.4694469519536142E-18

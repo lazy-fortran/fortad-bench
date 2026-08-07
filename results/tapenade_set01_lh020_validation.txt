@@ -1,0 +1,59 @@
+case: Tapenade nonRegressions set01 lh020
+recorded_utc: 2026-08-07T09:11:58Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+compile_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_worktree_status:
+
+tapenade_generation_seconds: 0.620005
+fortad_transform_seconds: 0.010320
+generated_compile_seconds: 0.175063
+upstream_exact_source_compile_statuses:
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade-lh020_b.f.status 0
+tapenade-lh020_d.f.status 0
+tapenade-lh020_p.f.status 0
+fortad_oracle: bounded standard-conforming x1_out port; forward and reverse outputs compile
+fortad_transform_compile_statuses:
+lh020.status 0
+lh020_forward.status 0
+lh020_reverse.status 0
+hand_derivatives_lh020.status 0
+harness.status 0
+independent_oracle: hand JVP/VJP, two positive n cases, four-step central differences, branch status, and adjoint identity
+runtime_status: 0
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2952
+oracle_status: pass
+exact_source_sha256:
+b9d278286e32a430efb7b767bc49681c56e520687623e8490a1988669659875d  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh020/program.f
+dd376e2a1eb06c7b670ba91219de727c06ac5546681bb76632a7654d5b0f5ba0  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh020/program_d.f
+4a8d3cf94e22331341a0de61723e17a92b24be653bc16faae9ab776ba6b9fc45  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh020/program_b.f
+source_sha256:
+39a4a7447a7a2a373428b3d2925313ba72abd7c6bf25a33e5f48a95303bf20a3  cases/tapenade-set01/lh020.f90
+66f041e6916dbdc0c3078c66f62a7a1d7b3f1fdd6d90d00cc541b3d8cc6d5be8  cases/tapenade-set01/hand_derivatives_lh020.f90
+d1c3fc1ffd374964807d5d7f74f231f4d5d7c4a9f1c9e6735708276240ac2473  cases/tapenade-set01/lh020-manifest.toml
+2c96a6b8878046466b68f349e35f1dc188a910435086ad99713abe42c14a0634  cases/tapenade-set01/lh020.md
+64cb1f13c95d4ffd6c72d3f47bbaa793acb3801e26abfba6d948b1ff50c546e7  harness/bench_tapenade_set01_lh020.f90
+06f02543712c8b6998a8ba280d0ccee4193490ff25f0c17dbad35ada17e1e520  scripts/bench_tapenade_set01_lh020.sh
+118416a7ebbe3fc61d1be74d9c227aac3887d28d8fcd9b9627d9f0ad72bcb277  scripts/test_tapenade_set01_lh020.py
+fresh_tapenade_source_sha256:
+1fe8d7c0e71b4f90dbaeafbf85eb029e885a3d540221967e3e5be9b859767c3c  /mnt/storage/code/lazy-fortran/fortad-bench/build/tapenade-set01-lh020.gslDFN/tapenade/parser/lh020_p.f
+a06ae3ec2f016f060ee22f090e3713cce00d1db7d8d001e8ca9e5672f6a9044e  /mnt/storage/code/lazy-fortran/fortad-bench/build/tapenade-set01-lh020.gslDFN/tapenade/forward/lh020_d.f
+789681df2d4023894fc9f92a7dc3ec48afaeba81aef0c743ec8c88974bf3c3f1  /mnt/storage/code/lazy-fortran/fortad-bench/build/tapenade-set01-lh020.gslDFN/tapenade/reverse/lh020_b.f
+fresh_fortad_source_sha256:
+e18723bc749a115e60cd230078ca343592233a925d1b6d956e827fdf887e1304  /mnt/storage/code/lazy-fortran/fortad-bench/build/tapenade-set01-lh020.gslDFN/lh020_forward.f90
+20c2b665483116254e5b90fa4678332b0a6ca95cbcc9970034d873cd9ce7b539  /mnt/storage/code/lazy-fortran/fortad-bench/build/tapenade-set01-lh020.gslDFN/lh020_reverse.f90
+run_output:
+oracle_status: pass
+max_fd_error:   1.0527134719495734E-12
+max_adjoint_residual:   4.3368086899420177E-18

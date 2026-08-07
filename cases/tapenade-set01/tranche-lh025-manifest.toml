@@ -1,0 +1,23 @@
+schema_version = 1
+name = "tapenade-set01-lh025"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+required_fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh025.sh"
+result = "results/tapenade_set01_lh025_validation.txt"
+
+[[case]]
+id = "lh025"
+upstream_path = "nonRegressions/set01/lh025/program.f"
+stored_references = ["program_d.f", "program_b.f", "program_dv.f"]
+upstream_entry_point = "funeval(a,x,n,k,lambda,y,z)"
+ported_entry_point = "set01_lh025(a,x,lambda,y)"
+independent = ["a", "x", "lambda"]
+dependent = ["y"]
+function = "Y = A^T A X + lambda^2 X, with the regularization block in Z"
+modes = ["forward", "reverse"]
+oracle = ["independent-closed-form-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported-with-exact-source-fortad-refusal"
+exact_source_diagnostic = "fortad: unsupported statement at line 73"
+stored_multidirectional_note = "program_dv.f needs the pinned nonRegressions/DIFFSIZES.f include"
+port_scope = "fixed bounded oracle instance N=7, K=3; the exact source remains generic"

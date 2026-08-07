@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-lh027"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+baseline_fortad_commit = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh027.sh"
+result = "results/tapenade_set01_lh027_validation.txt"
+
+upstream_path = "nonRegressions/set01/lh027/program.f"
+stored_references = ["program_d.f", "program_b.f", "program_dv.f", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "s1(a,b)"
+ported_entry_point = "set01_lh027(a,b,a_out,b_out,objective)"
+independent = ["a", "b"]
+dependent = ["a_out", "b_out", "objective"]
+domain = "all initial a(i) and b(i) are positive; the fixed branch trace has no restart"
+oracle = ["independent-closed-form-array-and-scalar-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+exact_source_boundary = "stored and fresh reverse references are not strict-conforming; exact FortAD reverse refuses the legacy control flow"
+license = "MIT"

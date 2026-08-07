@@ -1,0 +1,25 @@
+schema_version = 1
+name = "tapenade-set01-lh021-exact-source-refusal"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "cases/tapenade-set01/lh021/run.sh"
+result = "cases/tapenade-set01/lh021/result.txt"
+
+[[case]]
+id = "lh021"
+upstream_source = "nonRegressions/set01/lh021/program.f"
+stored_references = ["program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+upstream_entry_point = "s1(x,i1,y,i2,z)"
+ported_entry_point = "not-applicable (exact-source boundary)"
+independent = ["x", "y"]
+dependent = ["z"]
+function = "in-place branch with COMMON state and undeclared external s2/s3"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler", "fresh-pinned-Tapenade-generation", "FortAD-diagnostic"]
+classification = "expected-refusal"
+expected_diagnostics = [
+    "strict reverse compilation rejects nonstandard INTEGER*4",
+    "FortAD: unsupported statement at line 5 (COMMON /c1/)",
+]
+closure = "No standard-conforming numerical port: the corpus contains no definitions for S2 or S3, so their in-place and returned-value semantics are unavailable."

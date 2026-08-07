@@ -1,0 +1,64 @@
+case: Tapenade nonRegressions set01 lh024 exact-source refusal
+recorded_utc: 2026-08-07T09:20:49Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+normal_compiler_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_binary: /var/tmp/ert/fortad-lh024-worktree.VS1X5h/build/fo/bin/fortad
+fortad_binary_sha256: a7159d188fab3adfc809999f04571f7af3045f4a7cae977ff0431f45b1745da2
+tapenade_generation_seconds_total: 0.653460
+fortad_exact_refusal_seconds_total: 0.012332
+fortad_bounded_port_seconds_total: 0.011660
+bounded_port_compile_link_seconds: 0.100917
+upstream_exact_source_compile_statuses:
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+upstream-program_dv.status 0
+tapenade_result: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade-forward.status 0
+tapenade-parser.status 0
+tapenade-reverse.status 0
+fortad_exact_forward_status: 1
+fortad_exact_reverse_status: 1
+fortad_exact_diagnostic: fortad: inlining sub1 needs plain variables as arguments, because it may write to them
+fortad_exact_result: expected-refusal; no exact-source support claimed
+fortad_port_forward_status: 0
+fortad_port_reverse_status: 1
+fortad_port_reverse_diagnostic: fortad: reverse mode: 'x' is both read and written in the same loop; that needs per-iteration storage
+fortad_port_result: forward transform and strict compile pass; reverse remains an expected per-iteration-storage refusal
+independent_oracle: hand JVP/VJP, four-step central-difference sweep, and JVP/VJP adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3488
+oracle_status: pass
+source_sha256:
+9237808a8ecea1e12a0506e1d70d910db42a06bcb8ec9ea3e61e7bf05898ea65  nonRegressions/set01/lh024/program.f
+8db90d75df4cdf16f9493c318a9922fb567905e1d0ea9be84ee39c1d39035b72  nonRegressions/set01/lh024/program_d.f
+79e2c21330f9478614f61814ece10cce7d330e977d5a6a72e65d2589384f1042  nonRegressions/set01/lh024/program_dv.f
+703c38e7b8a5496dc62738a64f2d32d166a1449514efc849d0a1d28fe9e358ab  nonRegressions/set01/lh024/program_b.f
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  nonRegressions/set01/lh024/program_d.msg
+78e097714fb75b39c54348e4cdc253ee67ce36dabc7bb61d003fa5c46eb7dd9e  nonRegressions/set01/lh024/program_dv.msg
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  nonRegressions/set01/lh024/program_b.msg
+artifact_sha256:
+4b82894237ef747f3e500ff77ae3997cf593637946d8c48b1fbe312b8c7ac10c  cases/tapenade-set01/lh024.f90
+87108b44c72f3570a1f4012176ef9adcf6a01ddba2af3625b4894a553b379ea4  cases/tapenade-set01/hand_derivative_lh024.f90
+90b914ec3243b4db0fd901abe386a2da2d384ee51b4feca4bb797e73e0de7762  cases/tapenade-set01/lh024-manifest.toml
+a55550765d4934f436443e784ad2d3f37fbfd67af6ede45c43fa77ca1ade67d4  cases/tapenade-set01/lh024.md
+5ee2a9354c824f71bd372bdec442ebc46f340a43dfea2bc86bfd1532650cbd94  harness/bench_tapenade_set01_lh024.f90
+89670c50558fcb4851cb7f55f9310742c019146b828990c3ec8557347a332245  scripts/bench_tapenade_set01_lh024.sh
+2e007fba8a722a08137c1f9de5c124cf3dff4a899f25e20db84ac55b26ff89fd  scripts/test_tapenade_set01_lh024.py
+classification: expected-refusal-exact-source-call-boundary
+status: expected-refusal
+refusal_reason: exact source is strict Fortran and Tapenade-clean, but FortAD cannot inline the mutating sub1 actuals; the bounded port is numerical evidence only
+run_output:
+oracle_status: pass
+fd_errors:   3.9942E-15   2.1159E-14   2.0331E-13   4.6351E-13
+adjoint_residual:   4.3368086899420177E-19
+objective_base:  -9.8737242636247023E-03

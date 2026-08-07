@@ -1,0 +1,21 @@
+schema_version = 1
+name = "tapenade-set01-lh020"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_lh020.sh"
+result = "results/tapenade_set01_lh020_validation.txt"
+
+[[case]]
+id = "lh020"
+upstream_source = "nonRegressions/set01/lh020/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "top(x,y,n,*)"
+ported_entry_point = "set01_lh020(x,y,n,x1_out,branch)"
+independent = ["x", "y"]
+dependent = ["x1_out"]
+domain = "n >= 1; actual arrays have size >= n; x1_out observes the first updated element"
+function = "first loop iteration multiplies x(1) by y(1) before an unconditional alternate return"
+modes = ["forward", "reverse:x1_out"]
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity", "branch-status"]
+classification = "runnable-ported"

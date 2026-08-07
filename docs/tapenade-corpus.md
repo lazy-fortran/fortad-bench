@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,378 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving forty-five set01 evidence rows and nine additional
+  either engine. It leaves 1,372 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving fifty-one set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,7 +108,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,452 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,446 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
 rows with no entry-point hint, 315 program candidates, and 1,007 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 160 rows

@@ -1,0 +1,53 @@
+case: Tapenade nonRegressions set01 lh026
+recorded_utc: 2026-08-07T09:14:05Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+compile_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compiler_oracle: exact primal, d, b, and dv references were attempted with the pinned DIFFSIZES.f include contract
+tapenade_oracle: fresh parser, tangent, and reverse files generated; strict statuses are recorded below
+fortad_oracle: forward source compiles; reverse refusal matches the pinned control-flow boundary
+independent_oracle: structured reference primal, hand JVP/VJP, central-difference sweep, component differences, and adjoint identity
+classification: expected-refusal
+fortad_forward_status: 0
+fortad_reverse_status: 1
+fortad_reverse_diagnostic: fortad: reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone
+upstream_strict_compile_statuses:
+upstream-program.f.status 0
+upstream-program_b.f.status 1
+upstream-program_d.f.status 0
+upstream-program_dv.f.status 0
+tapenade_generated_compile_statuses:
+tapenade/forward/lh026_d.f.status 0
+tapenade/parser/lh026_p.f.status 0
+tapenade/reverse/lh026_b.f.status 1
+fortad_transform_compile_statuses:
+hand_derivatives_lh026.status 0
+lh026.status 0
+lh026_forward.status 0
+upstream-program.f.status 0
+upstream-program_b.f.status 1
+upstream-program_d.f.status 0
+upstream-program_dv.f.status 0
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3196
+oracle_status: pass
+upstream_sha256:
+43437fd2ef17a282551f7e45cff22933dada56d0dd39e7cc0ff2e2810a1837ac  nonRegressions/set01/lh026/program.f
+1819d32a569bd9d4e896472dc29fe120025a93fd3d3d50e296764291f0e27c30  nonRegressions/set01/lh026/program_d.f
+21f0822febb1dd02e04cc1fe794b58786af967d3579ff16d7f6188727130b5fe  nonRegressions/set01/lh026/program_b.f
+28d14cef422597049c244ebad421c4505b50ed3bf848a84e0da0f0909c30d44f  nonRegressions/set01/lh026/program_dv.f
+source_sha256:
+e9a4f4ed0618c30fb7daed4a6b1f999571e92433f506cdcfa2249bcc784934ab  cases/tapenade-set01/lh026.f90
+b71350ab8638462c3d4df90ad4d1f93dcc789e29bdb2da34f7659408a33d824f  cases/tapenade-set01/hand_derivatives_lh026.f90
+8a65d9f580d6e5e82e54a615a06e9f11038c48d9f299a7b794ad43fd7afe706e  cases/tapenade-set01/tranche-lh026-manifest.toml
+17dbfa6261aecf4b47c191161246bb0b79cf088382c1c85da4751f9889ef4ace  cases/tapenade-set01/tranche-lh026.md
+5bcb737604a92d73c374e18162434ce76c4fb6d537c4748e8c3b14be41284d55  harness/bench_tapenade_set01_lh026.f90
+8fb048acea728f93b79403269396237b5e7475545781d14b8e04b3132f5bfa00  scripts/bench_tapenade_set01_lh026.sh
+f378adf6613dabd69e687a4881d4f1f6223dd04cf2ad199029e7c052291b4d89  scripts/test_tapenade_set01_lh026.py
+run_output:
+oracle_status: pass
