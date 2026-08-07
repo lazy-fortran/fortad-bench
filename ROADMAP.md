@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade corpus has twenty
-set01 evidence rows (thirteen positive cases and seven reproducible refusals), plus
+timing table is FortAD versus Enzyme. The pinned Tapenade corpus has twenty-three
+set01 evidence rows (thirteen positive cases and ten reproducible refusals), plus
 the v420 positive case, the f03typf01 OO refusal, and the two first-aid
-refusals. There are 1,482 queued candidates still untriaged. A broader feature
+refusals. There are 1,479 queued candidates still untriaged. A broader feature
 or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
 
@@ -79,8 +79,8 @@ refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The product target is the 1,432-row strict pure-Fortran population. Fourteen
-rows currently pass as runnable support cases, ten are measured expected
-refusals, and 1,408 remain untriaged. The 74 mixed C/C++-Fortran rows stay in
+rows currently pass as runnable support cases, thirteen are measured expected
+refusals, and 1,405 remain untriaged. The 74 mixed C/C++-Fortran rows stay in
 a separate dependency lane.
 
 The complete tracked checkout is now reproducible. The
@@ -170,6 +170,12 @@ explicitly refused, independently checked, and measured when runnable.
   independent hand/finite-difference oracle, while reverse mode returns the
   exact control-flow reversal diagnostic. See the
   [tranche-H result](results/tapenade_set01_tranche_h_refusal_validation.txt).
+- [x] Record the exact `lh012`-`lh014` generated-compile boundaries through
+  the focused `lh007`-`lh015` runner. Fresh Tapenade parser, tangent, and
+  reverse files compile strictly. FortAD's forward/reverse generated-code
+  statuses and exact compiler diagnostics are retained, with independent
+  hand, central-difference, and adjoint checks on safe observations. See the
+  [tranche result](results/tapenade_set01_lh007_015_refusal_validation.txt).
 - [x] Record the `f03typf01` abstract OO boundary. Tapenade emits malformed
   deferred-binding output. FortAD refuses the mapped direct deferred call.
   The independent child-value/finite-difference oracle keeps this a
@@ -189,8 +195,8 @@ explicitly refused, independently checked, and measured when runnable.
   statement before differentiation. See the [case](cases/tapenade-first-aid/README.md).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,408 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside twenty set01 evidence rows and four
+  reproducible evidence. There are 1,405 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside twenty-three set01 evidence rows and four
   additional evidence cases.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or

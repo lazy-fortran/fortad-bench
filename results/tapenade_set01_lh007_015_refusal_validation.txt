@@ -1,0 +1,86 @@
+suite: Tapenade nonRegressions set01 lh007-015 tranche (lh012, lh013, lh014)
+recorded_utc: 2026-08-07T06:13:33Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+fo: fo 0.3.2
+fortad_commit: 477bd5a80aabe2d0556c3f4c29015e6593b92082
+required_fortad_commit: 477bd5a80aabe2d0556c3f4c29015e6593b92082
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.059169
+independent_oracle_compile_runtime_seconds: 0.047799
+oracle: safe indexed-product, initialization-safe scalar, and output-sum observations; hand JVP/VJP, central differences, adjoint identity
+tapenade_result: fresh parser, tangent, and reverse outputs generated from exact source; all generated files compile under strict flags
+fortad_result: exact-source transform commands succeed; generated compile statuses and refusal diagnostics are checked below
+lh012_upstream_compile_statuses:
+program 0
+program_b 0
+program_d 0
+lh012_tapenade_generated_compile_statuses:
+lh012_b 0
+lh012_d 0
+lh012_p 0
+lh012_fortad_generated_compile_statuses:
+forward 0
+reverse 1
+lh012_fortad_diagnostics:
+fortad_forward_compile.stderr:
+fortad_reverse_compile.stderr:
+Error: Function ‘indx’ at (1) has no IMPLICIT type
+Error: Function ‘indx’ at (1) has no IMPLICIT type
+Error: Dummy argument ‘a_b’ with INTENT(IN) in variable definition context (assignment) at (1)
+lh012_source_sha256:
+6a2bf82cef31fc83f19a64e8273af2a83d365c23473f31063f3820fdd006dace  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh012/program.f
+72be5d40ce71b5526662a5f51bc92945bd4427de5b2dd53534e0fdc1aa0f7619  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh012/program_b.f
+49976eaaddab6334e3b2a35b759288c57fabf8746705a141127357fd7384e6d9  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh012/program_d.f
+lh013_upstream_compile_statuses:
+program 0
+program_b 0
+program_d 0
+lh013_tapenade_generated_compile_statuses:
+lh013_b 0
+lh013_d 0
+lh013_p 0
+lh013_fortad_generated_compile_statuses:
+forward 0
+reverse 1
+lh013_fortad_diagnostics:
+fortad_forward_compile.stderr:
+fortad_reverse_compile.stderr:
+Error: Duplicate symbol ‘x_b’ in formal argument list at (1)
+Error: Unexpected IMPLICIT NONE statement in CONTAINS section at (1)
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+lh013_source_sha256:
+90b1699fcb307ef09ce41b8af0b00de8a2953e6e6853f4760aaa7be9952a5777  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh013/program.f
+c9b44406acfd46ed9a05a1d0ead898e1f61a2a07d5944e78c3864165ce76cd15  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh013/program_b.f
+38a22b256be30ad100c9aaaca78996b9504a6302a0b87ed636098dced6d012d5  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh013/program_d.f
+lh014_upstream_compile_statuses:
+program 0
+program_b 0
+program_d 0
+lh014_tapenade_generated_compile_statuses:
+lh014_b 0
+lh014_d 0
+lh014_p 0
+lh014_fortad_generated_compile_statuses:
+forward 1
+reverse 1
+lh014_fortad_diagnostics:
+fortad_forward_compile.stderr:
+Error: Symbol ‘i’ at (1) has no IMPLICIT type
+fortad_reverse_compile.stderr:
+Error: Symbol ‘i’ at (1) has no IMPLICIT type
+lh014_source_sha256:
+4df1482c7f261c701f523bf6e4873ef62f5c2c470bb958b3d9371fd650738ab6  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh014/program.f
+f6dd3dac578ac7056116b618da79fcd85362dea3bb94cf397559dfc1066c85a3  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh014/program_b.f
+6a7ef342f81927869a6b476beca496ad2f878e0cb7b5537a4e0c6e109ae1f23e  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh014/program_d.f
+harness_sha256:
+34ea4118dd511ef1bea3fbbd366f1d47f4f8b481b250efd941695f4b947f5aa2  harness/bench_tapenade_set01_lh007_015.f90
+7c7ee12f5205d09b51c37cfc1540c253c595c95af14cdb35ccdc8449a1f56837  cases/tapenade-set01/tranche-l-lh007-015-manifest.toml
+6313dc569579992a9b2ee94c443c5ee5bded1930b3740aff8debddbee35da34e  cases/tapenade-set01/tranche-l-lh007-015.md
+afb8aa144bba8a672d5f2752467e7535f18efc329ae7a7cb98a49910683c55d5  scripts/bench_tapenade_set01_lh007_015.sh
+oracle_output:
+oracle_status: pass

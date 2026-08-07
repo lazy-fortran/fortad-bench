@@ -1,0 +1,51 @@
+schema_version = 1
+name = "tapenade-set01-lh007-015"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_lh007_015.sh"
+result = "results/tapenade_set01_lh007_015_refusal_validation.txt"
+
+[[case]]
+id = "lh012"
+upstream_source = "nonRegressions/set01/lh012/program.f"
+entry_point = "test(A,B,C)"
+ported_entry_point = "none"
+independent = ["B", "C"]
+dependent = "A"
+function = "indexed products A(INDX(j))=B(INDX(j))*C(INDX(j)); exact source leaves INDX local and uninitialized"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "safe-index hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "INDX is an uninitialized local in the exact source"
+classification = "unsupported-exact-source-generated-reverse-compile"
+expected_diagnostic = "gfortran: Function indx has no IMPLICIT type; dummy A_b is INTENT(IN) and is assigned"
+
+[[case]]
+id = "lh013"
+upstream_source = "nonRegressions/set01/lh013/program.f"
+entry_point = "test(x,y)"
+ported_entry_point = "none"
+independent = ["x", "y"]
+dependent = "x"
+function = "x=x+y*A(2) before the local A(2) initialization"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "initialization-safe hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "A(2) is read before assignment in the exact source"
+classification = "unsupported-exact-source-generated-reverse-compile"
+expected_diagnostic = "gfortran: duplicate symbol x_b in generated reverse signature"
+
+[[case]]
+id = "lh014"
+upstream_source = "nonRegressions/set01/lh014/program.f"
+entry_point = "test(X,Y,p,q)"
+ported_entry_point = "none"
+independent = ["p", "q", "Y"]
+dependent = "X"
+function = "100-trip X(i)=Y(i)*2*(p+q) loop; exact source relies on implicit INTEGER i"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "implicit typing of loop index i in the exact source"
+classification = "unsupported-exact-source-generated-compile"
+expected_diagnostic = "gfortran: generated FortAD derivative uses i with IMPLICIT NONE"

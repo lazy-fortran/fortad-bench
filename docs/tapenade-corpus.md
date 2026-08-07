@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,408 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving twenty set01 evidence rows and four additional
+  either engine. It leaves 1,405 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving twenty-three set01 evidence rows and four additional
 non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -140,7 +140,7 @@ and independent numerical-oracle gates exist.
 
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh001`, `lh002`,
-`lh004`, `lh023`, `lh032`, `lh049`, `lh057`, `lh058`, `lh068`, `lh088`, and `lh134`. The exact in-place
+`lh004`, `lh012`, `lh013`, `lh014`, `lh023`, `lh032`, `lh049`, `lh057`, `lh058`, `lh068`, `lh088`, and `lh134`. The exact in-place
 `lh066` reverse shape and the one-trip-loop `bd06` reverse shape are
 independently compiler-checked expected refusals. Both are recorded in the
 tranche results:
@@ -156,6 +156,8 @@ The `lh002` branch and nested-call result is in
 [`tranche-g`](../results/tapenade_set01_tranche_g_validation.txt).
 The `lh004` branch-in-loop refusal result is in
 [`tranche-h`](../results/tapenade_set01_tranche_h_refusal_validation.txt).
+The `lh012`-`lh014` generated-compile refusal result is in
+[`lh007-015`](../results/tapenade_set01_lh007_015_refusal_validation.txt).
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in
