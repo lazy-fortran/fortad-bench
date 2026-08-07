@@ -1,0 +1,44 @@
+case: Tapenade todoF90 REFERENCES v420
+recorded_utc: 2026-08-07T03:43:47Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 54726bb4cf685cfc949cf297ae2208ee1407b17c
+required_fortad_commit: 61f5a71
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_version: Tapenade 3.16 (HEAD) -  7 Aug 2026 05:39 - Java 21.0.12 Linux
+fortad_setup_seconds: 1.067403
+upstream_strict_compile_seconds: 0.012046
+tapenade_probe_seconds: 0.175413
+tapenade_forward_generation_seconds: 0.209843
+tapenade_reverse_generation_seconds: 0.217269
+fortad_forward_transform_seconds: 0.005005
+fortad_reverse_transform_seconds: 0.005194
+generated_compile_and_link_seconds: 0.130970
+generated_forward_source_bytes: 701
+generated_reverse_source_bytes: 857
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3124
+upstream_compiler_oracle: unmodified program.f90 compiles with -std=f2018 -pedantic-errors
+tapenade_oracle: parser output program_p.f90 and tangent/adjoint outputs generated and compile with strict Fortran flags
+oracle: independent hand JVP/VJP, four-step central differences, and the JVP/VJP adjoint identity at u=1.25
+transform_method: date +%s.%N around one engine invocation per mode; setup timed separately
+runtime_method: Fortran system_clock over 1000000 repetitions of one JVP and one VJP; /usr/bin/time %e and %M wrap executable
+source_sha256:
+141e70b78181ef166387b7aa533a64324db4ce6e4f686f21487f3c623c02df14  cases/tapenade-known-failures/v420/v420.f90
+5b59781b89a6dc4d92c32f07bb8e166ccaf9b8adf997178272fe29d8cf29ead4  cases/tapenade-known-failures/v420/hand_derivatives_v420.f90
+5e57dc27826c5cc171ae570da34c945b29dad3dffc3b91e237ea71c1457889a9  cases/tapenade-known-failures/v420/manifest.toml
+02a45401ab96927033ff9cac12aafe1410f5256facf0875323705f0edcb6bd7a  cases/tapenade-known-failures/v420/README.md
+871587ab2d26bb7db7f36ab5f3e745c2e1f3df9784a69e832384aeded7734e51  harness/bench_tapenade_known_failure_v420.f90
+1377fdab4320f0a138cdfb0265141dc7c581552f6b16afc6cb6348e8153faec7  scripts/bench_tapenade_known_failure_v420.sh
+run_output:
+fd_errors_v:   5.6843E-13   7.0486E-11   9.2314E-10   2.3442E-09
+derivative_calls: 2000000
+derivative_runtime_seconds:   3.50486500E-03
+ns_per_derivative_call:   1.75243250E+00
+runtime_sink:   1.46547999E-07
+oracle_status: pass

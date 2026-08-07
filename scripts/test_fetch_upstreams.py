@@ -617,6 +617,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh057",
             "nonRegressions/set01/lh058",
             "nonRegressions/set01/lh068",
+            "todoF90/REFERENCES/v420",
         }
         evidence = [
             row for row in rows
@@ -744,6 +745,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "todoF90/REFERENCES/v420": {
+                "entry_point": "g(u,v); port v420(u,v)",
+                "tapenade_options": "-association byaddress",
+                "modes": "forward|reverse",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "pass-parser-and-generated-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))

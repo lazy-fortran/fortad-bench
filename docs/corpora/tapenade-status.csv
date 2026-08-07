@@ -1988,7 +1988,7 @@ fortran-known-failures,todoF90/REFERENCES/v416,fortran,free,historical Fortran i
 fortran-known-failures,todoF90/REFERENCES/v417,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 fortran-known-failures,todoF90/REFERENCES/v418,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 fortran-known-failures,todoF90/REFERENCES/v419,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
-fortran-known-failures,todoF90/REFERENCES/v420,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
+fortran-known-failures,todoF90/REFERENCES/v420,fortran,free,historical Fortran issue and expected-failure references,runnable-ported,"g(u,v); port v420(u,v)",-association byaddress,forward|reverse,hand|central-difference-sweep|adjoint-identity,none,pass-parser-and-generated-compile,pass-transform-compile-runtime
 fortran-known-failures,todoF90/REFERENCES/v421,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 fortran-known-failures,todoF90/REFERENCES/v422,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 fortran-known-failures,todoF90/REFERENCES/v425,fortran,free,historical Fortran issue and expected-failure references,untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
