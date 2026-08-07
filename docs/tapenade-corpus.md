@@ -281,10 +281,12 @@ The manifest-aware source workflow in
 that triage into repeatable parser/forward/reverse probes. It accepts an
 existing case manifest or a queue case, writes generated products and complete
 stdout/stderr diagnostics, and emits JSON records. Queue shards can run in
-parallel. Static discovery refuses zero- or multi-procedure cases rather than
-guessing a root or derivative arguments; these records still need explicit
-case manifests and independent numerical contracts before their ledger status
-changes.
+parallel. Queue mode expands every canonical source procedure discovered by
+static triage, records each root separately, and refuses only cases with no
+discoverable procedure; `--all-entry-points` provides the same behavior for a
+single case. The workflow never guesses active or dependent arguments, and
+each record still needs an independent numerical contract before its ledger
+status changes.
 
 Fortran cases close only after all valid differentiable paths work in FortAD
 and pass an independent oracle. Invalid programs and cases that require an
