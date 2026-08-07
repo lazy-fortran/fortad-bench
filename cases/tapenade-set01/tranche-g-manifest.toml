@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-g"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_g.sh"
+result = "results/tapenade_set01_tranche_g_validation.txt"
+
+[[case]]
+id = "lh002"
+upstream_source = "nonRegressions/set01/lh002/program.f"
+entry_point = "top(x,y,z,a,b,c)"
+ported_entry_point = "set01_lh002(x_initial,z_initial,b_initial,x_final,y_final,z_final,a_final)"
+independent = ["x_initial", "z_initial", "b_initial"]
+dependent = ["x_final", "y_final", "z_final", "a_final"]
+function = "positive branch: x_final=1.7+5.1*z_initial, y_final=1.7, z_final=5.1*z_initial; negative branch: x_final=x_initial, y_final=3.3*x_initial**2, z_final=z_initial; a_final=3.7*b_initial"
+upstream_options = "none"
+modes = ["forward", "reverse:x_final"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for all source files"

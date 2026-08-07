@@ -311,11 +311,11 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Nine rows now have executable FortAD evidence and two exact-source
+  audit. Eleven rows now have executable FortAD evidence and three explicit
   refusals are independently recorded. Another 508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,495 rows are untriaged. The first [set01 support
+  1,492 rows are untriaged. The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
   paths. The companion
@@ -340,6 +340,9 @@ because it belongs next to the engines rather than next to the compiler.
   The small `todoF90/REFERENCES/v420` row has now cleared those gates as a
   bounded support case: its [manifest, port, and independent oracle](cases/tapenade-known-failures/v420/README.md)
   link to the [end-to-end record](results/tapenade_known_failure_v420_validation.txt).
+  The abstract OO boundary is an explicit expected refusal in
+  [`f03typf01`](cases/tapenade-set12/f03typf01.md), with an independent
+  child-value/finite-difference oracle and generated-source rejection record.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.

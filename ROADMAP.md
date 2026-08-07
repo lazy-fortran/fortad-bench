@@ -15,9 +15,10 @@ recorded. Nearly all measurements sit within the 30% band agreed for the port.
 The exceptions are named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade corpus has eleven
-set01 evidence rows (nine positive cases and two reproducible refusals), with
-1,495 candidates still untriaged. A broader feature or performance lead needs
+timing table is FortAD versus Enzyme. The pinned Tapenade corpus has twelve
+set01 evidence rows (ten positive cases and two reproducible refusals), plus
+the v420 positive case and the f03typf01 OO refusal. There are 1,492 candidates
+still untriaged. A broader feature or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
 
 The fortfem catalogue has 44 names. The checkout currently contains 43 primal
@@ -72,7 +73,7 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. Corpus support is
-now wired into the harness for nine small set01 cases, with two exact-source
+now wired into the harness for ten small set01 cases, with two exact-source
 refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
@@ -102,9 +103,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,495 remaining candidates into 74 mixed-language-risk, 37
-  historical-failure, 20 no-entry-point, 320 program, and 1,044 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 173 rows
+  partition the 1,492 remaining candidates into 74 mixed-language-risk, 36
+  historical-failure, 20 no-entry-point, 319 program, and 1,043 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 172 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
@@ -147,10 +148,21 @@ explicitly refused, independently checked, and measured when runnable.
   derivatives, four-step finite differences, and the adjoint identity. See the
   [v420 case](cases/tapenade-known-failures/v420/README.md) and its
   [measurement record](results/tapenade_known_failure_v420_validation.txt).
+- [x] Promote `lh002` through the focused tranche-G runner. Its dependency-free
+  fixed-form branch and nested-call regression pass strict upstream compilation,
+  FortAD forward/reverse generation, hand derivatives on both branch sides, a
+  four-step finite-difference sweep, and the adjoint identity. See the
+  [tranche-G result](results/tapenade_set01_tranche_g_validation.txt).
+- [x] Record the `f03typf01` abstract OO boundary. Tapenade emits malformed
+  deferred-binding output and FortAD refuses the mapped direct deferred call;
+  the independent child-value/finite-difference oracle keeps this a
+  reproducible expected refusal, not a support claim. See the
+  [case](cases/tapenade-set12/f03typf01.md) and
+  [validation record](results/tapenade_f03typf01_oo_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,495 untriaged rows after the language
-  boundary and eleven set01 evidence rows.
+  reproducible evidence. There are 1,492 untriaged rows after the language
+  boundary, twelve set01 evidence rows, and two additional evidence cases.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

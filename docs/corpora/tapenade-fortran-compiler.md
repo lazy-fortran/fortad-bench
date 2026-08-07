@@ -1,6 +1,6 @@
 # Tapenade compiler-backed Fortran triage
 
-This report covers `1,495` of `1,495` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
+This report covers `1,492` of `1,492` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
 
 The checkout is the pinned Tapenade revision named in `docs/corpora/tapenade.toml`. Source form is selected by suffix (`.f`/`.for` fixed, `.f90`/`.f03`/similar free). Candidate-local source/include directories and the checkout root are passed as `-I` roots. Paths, command flags, and diagnostic hashes are deterministic. Compiler identity is recorded explicitly because diagnostics can vary by compiler release.
 
@@ -16,25 +16,25 @@ scripts/triage_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 2391 |
+| `compiled` | 2389 |
 | `include-fragment-not-compiled` | 149 |
-| `syntax-error` | 1644 |
+| `syntax-error` | 1637 |
 
 ## Failure kind
 
 | kind | files |
 |---|---:|
-| `compiler-diagnostic` | 994 |
+| `compiler-diagnostic` | 1000 |
 | `include-fragment-not-compiled` | 149 |
-| `missing-dependency` | 650 |
-| `none` | 2391 |
+| `missing-dependency` | 637 |
+| `none` | 2389 |
 
 ## Source kinds
 
 | kind | files |
 |---|---:|
-| `fixed` | 1216 |
-| `free` | 2819 |
+| `fixed` | 1212 |
+| `free` | 2814 |
 | `include-fragment` | 149 |
 
 `syntax-error`, `missing-source`, `checkout-missing`, `timeout`, and `compiler-unavailable` are evidence statuses, not support/refusal classifications. A `missing-dependency` failure is inferred only from compiler diagnostic text (`include`/`module` open failures). It is not a claim that the dependency is absent. Include fragments are listed but intentionally not compiled as standalone translation units. Each source is checked independently, so a sibling `use` without a pre-existing local `.mod` is reported as dependency evidence rather than silently treated as a candidate-level failure or success.
