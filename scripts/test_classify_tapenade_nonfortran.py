@@ -136,10 +136,11 @@ class CommittedLedgerTests(unittest.TestCase):
             "todoF90/REFERENCES/v420",
             "nonRegressions/set12/f03typf01",
             "ADFirstAidKit/testMemSizef.f",
+            "ADFirstAidKit/validityTest.f",
         })
         self.assertEqual(
             sum(row["status"] == "untriaged" for row in ledger),
-            1489,
+            1488,
         )
 
 

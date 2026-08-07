@@ -623,6 +623,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "todoF90/REFERENCES/v420",
             "nonRegressions/set12/f03typf01",
             "ADFirstAidKit/testMemSizef.f",
+            "ADFirstAidKit/validityTest.f",
         }
         evidence = [
             row for row in rows
@@ -663,6 +664,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "unsupported-type-bound-call",
                 "reverse-refused-branch-in-loop",
                 "unsupported-program-not-procedure",
+                "unsupported-common-block",
             },
         )
         expected_evidence = {
@@ -801,6 +803,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "upstream-runtime|Tapenade-parser-roundtrip|Fortran-storage_size|exact-engine-diagnostics",
                 "dependencies": "ADFirstAidKit/testMemSizec.c",
                 "tapenade_result": "refused-no-active-input-or-output",
+            },
+            "ADFirstAidKit/validityTest.f": {
+                "entry_point": "validity_domain_real8(t,td)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|interval-state-transitions|FortAD-diagnostic",
+                "dependencies": "none",
+                "tapenade_result": "pass-transform-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))

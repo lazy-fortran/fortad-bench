@@ -1,0 +1,16 @@
+schema_version = 1
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_path = "ADFirstAidKit/validityTest.f"
+license = "MIT"
+entry_point = "validity_domain_real8(t,td)"
+runner = "scripts/bench_tapenade_first_aid_validity.sh"
+classification = "expected-refusal"
+reason = "FortAD rejects the exact COMMON statement before differentiation"
+
+[evidence]
+source_compile = "gfortran -std=legacy"
+strict_diagnostic = "REAL*8 and REAL*4 are nonstandard declarations"
+tapenade_modes = ["parser", "forward", "reverse"]
+fortad_mode = "forward"
+oracle = "independent interval-state transitions for real8 and real4"
