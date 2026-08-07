@@ -1,0 +1,60 @@
+case: Tapenade ADFirstAidKit testMemSizef
+recorded_utc: 2026-08-07T05:00:16Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+fortran_compiler: GNU Fortran (GCC) 16.1.1 20260728
+c_compiler: gcc (GCC) 16.1.1 20260728
+fortran_flags: -O3 -std=legacy -ffixed-line-length-none -fno-align-commons
+c_flags: -O3 -std=c11 -Wall -Wextra -pedantic
+fo: fo 0.3.2
+fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+required_fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_version: Tapenade 3.16 (HEAD) -  7 Aug 2026 05:39 - Java 21.0.12 Linux
+fortad_setup_seconds: 1.046734
+upstream_strict_compile_status: 1
+upstream_legacy_build_seconds: 0.140498
+oracle_build_seconds: 0.044524
+tapenade_parser_seconds: 0.255468
+tapenade_forward_seconds: 0.294879
+tapenade_reverse_seconds: 0.337274
+fortad_forward_seconds: 0.029273
+fortad_reverse_seconds: 0.028901
+fortad_forward_status: 1
+fortad_reverse_status: 1
+upstream_runtime_wall_seconds=0.00
+upstream_peak_rss_kb=3116
+tapenade_generated_derivative_files: 0
+fortad_generated_derivative_files: 0
+oracle: unmodified runtime and Tapenade parser round-trip match an independent Fortran storage_size program for all 15 types
+derivative_contract: none; the program has no procedure arguments and no active input or output, so finite differences and adjoint identities are not applicable
+tapenade_diagnostic: (AD06) Differentiation root procedures (testmemsize) have no active input nor output
+fortad_diagnostic: fortad: no procedure named 'testmemsize' in this source
+source_sha256:
+dc1cd3a5ff1e68317a753b4614af072cfbd5b5075c09b239c67167a4dce9c089  cases/tapenade-first-aid-kit/testMemSizef/manifest.toml
+100988d9f07d16897b512fbbda7e01bdf8ca23881117e064d8a9b69b87364b14  cases/tapenade-first-aid-kit/testMemSizef/README.md
+75896fc181199f5617efbde546766b142e4f885af554422ff1f64b4059d86aa7  harness/tapenade_firstaid_memsize_oracle.f90
+2a020ca614d2f09c8adea9332c78a58b3ceba8116d7f7978b7939c3ef19caada  scripts/bench_tapenade_firstaid_memsize.sh
+upstream_source_sha256:
+360bfa395ee4f5c810df85bcff4ee2fb51ab2be9ccdb85b5f39f6de685522f93  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/ADFirstAidKit/testMemSizef.f
+e7d6a15e49bdcfa0c9b6996a543e3b6e91bfe843c02bd0bd3015c1a6be3befe6  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/ADFirstAidKit/testMemSizec.c
+runtime_output:
+
+          INTEGER:  4 bytes
+        INTEGER*8:  8 bytes
+             REAL:  4 bytes
+           REAL*4:  4 bytes
+          REAL(4):  4 bytes
+           REAL*8:  8 bytes
+          REAL(8):  8 bytes
+ DOUBLE PRECISION:  8 bytes
+          COMPLEX:  8 bytes
+        COMPLEX*8:  8 bytes
+       COMPLEX(8): 16 bytes
+       COMPLEX*16: 16 bytes
+   DOUBLE COMPLEX: 16 bytes
+          LOGICAL:  4 bytes
+        CHARACTER:  1 bytes
+refusal_oracle_status: pass
