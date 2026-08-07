@@ -642,6 +642,12 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh017",
             "nonRegressions/set01/lh022",
             "nonRegressions/set01/lh028",
+            "nonRegressions/set01/lh033",
+            "nonRegressions/set01/lh039",
+            "nonRegressions/set01/lh040",
+            "nonRegressions/set01/lh074",
+            "nonRegressions/set01/lh080",
+            "nonRegressions/set01/lh082",
         }
         evidence = [
             row for row in rows
@@ -658,6 +664,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         self.assertEqual(
             {row["status"] for row in evidence},
             {"runnable-ported", "expected-refusal"},
+        )
+        invalid = [
+            row for row in rows
+            if row["status"] == "unsupported-invalid-upstream-fortran"
+        ]
+        self.assertEqual(
+            [(row["path"], row["fortad_result"]) for row in invalid],
+            [("nonRegressions/set01/lh052", "not-run-invalid-upstream-source")],
         )
         self.assertEqual(len(language_exclusions), 508)
         for column in (
@@ -692,6 +706,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-generated-compile-refusal-implicit-index",
                 "pass-forward-transform-compile-reverse-refusal-per-iteration-storage",
                 "pass-forward-transform-compile-reverse-refusal-loop-control-flow",
+                "unsupported-statement-line-5-common",
+                "unsupported-statement-line-4-character",
+                "pass-exact-source-refusal-unsupported-statement-line-9",
             },
         )
         expected_evidence = {
@@ -958,6 +975,54 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|Tapenade-generated-compile|hand-real-coordinate-JVP-VJP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
                 "dependencies": "none",
                 "tapenade_result": "pass-fresh-forward-reverse-generated-compile",
+            },
+            "nonRegressions/set01/lh033": {
+                "entry_point": "absorbN(data,resu,iz)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-generation-generated-compile|strict-source-refusal|central-difference-sweep",
+                "dependencies": "COMMON block /ccc/",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh039": {
+                "entry_point": "top(i1,i2,i3,o1,o2,o3); port set01_lh039(i1,i2,i3,o1,o2,o3)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:o1",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-generation-generated-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh040": {
+                "entry_point": "f(t)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-generation-generated-compile|strict-source-refusal|central-difference-sweep",
+                "dependencies": "fixed-form CHARACTER*10 declaration",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh074": {
+                "entry_point": "fexchem(a,b,chem); port set01_lh074(a,b,chem)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "obsolete-RETURN-statement",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh080": {
+                "entry_point": "sub1(a,b); port set01_lh080(a,b)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:b",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh082": {
+                "entry_point": "alias(A,n,x); bounded port set01_lh082(a,n,x)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep",
+                "dependencies": "undefined-upstream-array-elements",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))

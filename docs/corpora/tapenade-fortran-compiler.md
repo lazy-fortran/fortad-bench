@@ -1,7 +1,7 @@
 # Tapenade compiler-backed Fortran triage
 
 This snapshot covers the previous `1,479`-row queue. The current queue has
-`1,473` candidates after three additional exact-source cases were closed. It runs
+`1,466` candidates after thirteen additional exact-source cases were closed. It runs
 each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018
 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not
 evidence that Tapenade, FortAD, a runtime, or derivatives work.
