@@ -1,0 +1,40 @@
+suite: Tapenade nonRegressions set03 tranche Q (ht05, ht06, ht12, ht13)
+recorded_utc: 2026-08-07T18:07:54Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffree-line-length-none
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+required_fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_transform_seconds_total: 0.0347397
+upstream_exact_source_compile_statuses: all four sources and stored references 0
+upstream_source_byte_exact: ht05 ht06 ht12 ht13 yes
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict free-form flags
+tapenade_compile_support: pure-Fortran DIFFSIZES module supplies ISIZE1OFn for fresh ht06 reverse output
+fortad_transform_statuses: ht05 jvp=1 vjp=1; ht06 jvp=1 vjp=1; ht12 jvp=0 vjp=0; ht13 jvp=0 vjp=0
+ht05_refusal_oracle: exact nonzero JVP/VJP status, exact allocation-lifetime diagnostic at line 6, and no generated source
+ht05_fortad_diagnostic: fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet
+ht06_refusal_oracle: exact nonzero JVP/VJP status, exact array-section diagnostic at line 5, and no generated source
+ht06_fortad_diagnostic: fortad: unsupported array section at line 5: noncontiguous and overlapping storage identity is not tracked
+ht12_refusal_oracle: generated JVP/VJP compile failures with exact hidden-extent and duplicate-adjoint diagnostics
+ht12_jvp_diagnostic: Symbol 'n' is used before it is typed
+ht12_vjp_diagnostic: Duplicate symbol 'a_b' in formal argument list
+independent_oracle: hand analytic JVP/VJP, central-difference sweep, and adjoint identity for ht13
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2812
+oracle_status: pass
+source_sha256:
+de1b23dbfd4c79cb2c34e9ee1bad00f36065f8e5b79e3a3e74353e6ecd981e01  cases/tapenade-set03/ht05.f90
+9a30aeb2356e36aaf80fd026bae56955633252f712711fc1472bc61e55f4fcbd  cases/tapenade-set03/ht06.f90
+56dd695d902dbe47117eb21b78cb6d836eb00631ae247054445062137936fa4b  cases/tapenade-set03/ht12.f90
+0b821990667a0b3f26f5c9d2824eadd378849628c01eab60257e1fc60e39ee1f  cases/tapenade-set03/ht13.f90
+580e0436e4ff684ba260ae81a86509117129ef04fc838b82efa8c6b0877e451d  cases/tapenade-set03/hand_derivative_ht13.f90
+988c23073ccc4559e0225c8961ddd609cdab49d719e2b211cf4a30cfdae38b19  cases/tapenade-set03/diffsizes_ht06.f90
+b263f060eba87caefffc9f2954c8646b01535a0ed6736a20449d52db14450d6e  cases/tapenade-set03/tranche-q-manifest.toml
+dd2d756f3803aaa47d5f649e7592b71a1b8f415152ca72ca2540a3b6555379cd  cases/tapenade-set03/tranche-q.md
+f0882b66fbed65134ad1980756e8ea8ef2be8a8e31f32768f5c8218401d4995b  harness/bench_tapenade_set03_tranche_q.f90
+7aa0739f0118e09a5388e1b63b336f068b2c5da2ebb8b1a65e1b1d5fc952b00d  scripts/bench_tapenade_set03_tranche_q.sh
+run_output:
+oracle_status: pass

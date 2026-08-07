@@ -1,0 +1,55 @@
+schema_version = 1
+name = "tapenade-set03-tranche-q"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a1c9f25f87eaadf700ba47ee3e841a0fb41585a3"
+runner = "scripts/bench_tapenade_set03_tranche_q.sh"
+result = "results/tapenade_set03_tranche_q_validation.txt"
+
+[[case]]
+id = "ht05"
+upstream_source = "nonRegressions/set03/ht05/program.f90"
+stored_references = ["program_d.f90"]
+upstream_entry_point = "toto(m,x,y)"
+ported_entry_point = "toto(m,x,y)"
+independent = ["m", "x"]
+dependent = "y"
+function = "allocated work array followed by an ANY reduction"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-generation", "FortAD-exact-refusal"]
+classification = "expected-refusal"
+
+[[case]]
+id = "ht06"
+upstream_source = "nonRegressions/set03/ht06/program.f90"
+stored_references = ["program_d.f90"]
+upstream_entry_point = "titi(n,x,y)"
+ported_entry_point = "titi(n,x,y)"
+independent = ["n", "x"]
+dependent = "y"
+function = "array-section conversion passed to an implicit external function"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-generation", "FortAD-exact-refusal"]
+classification = "expected-refusal"
+
+[[case]]
+id = "ht12"
+upstream_source = "nonRegressions/set03/ht12/program.f90"
+stored_references = ["program_b.f90"]
+upstream_entry_point = "top(a); toto(n,a)"
+ported_entry_point = "top(a)"
+independent = ["a"]
+dependent = "a"
+function = "in-place liveness update through a nested subroutine"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-generation", "FortAD-generated-compile-refusal"]
+classification = "expected-refusal"
+
+[[case]]
+id = "ht13"
+upstream_source = "nonRegressions/set03/ht13/program.f90"
+stored_references = ["program_b.f90", "program_d.f90"]
+upstream_entry_point = "flx_blk(x,y)"
+ported_entry_point = "flx_blk(x,y)"
+independent = ["x"]
+dependent = "y"
+function = "square followed by a SIGN-preserving copy"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-generation", "independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
