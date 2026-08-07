@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-set01-lh104-snapshot-reduction"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh104/run.sh"
+result = "cases/tapenade-set01/lh104/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh104/program.f",
+    "nonRegressions/set01/lh104/program_b.f",
+]
+stored_references = ["program_b.f"]
+
+upstream_entry_point = "top(a,b,c,d)"
+ported_entry_point = "not-claimed; exact FortAD reverse output fails both compiler gates"
+independent = ["a", "b", "c"]
+dependent = ["d"]
+options = [
+    "Tapenade parser: -p -root top -O . -o lh104",
+    "Tapenade forward: -d -root top -O . -o lh104",
+    "Tapenade reverse: -b -root top -O . -o lh104",
+    "FortAD check --proc top",
+    "FortAD forward --proc top --indep a,b,c,d",
+    "FortAD reverse --proc top --indep a,b,c --dep d",
+]
+modes = [
+    "exact-primal:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-refusal-legacy-pass",
+    "fresh-parser:generate-strict-and-legacy-compile-pass",
+    "fresh-forward:generate-strict-and-legacy-compile-pass",
+    "fresh-reverse:generate-strict-refusal-legacy-pass",
+    "exact-check:generate-strict-and-legacy-compile-pass",
+    "exact-forward:generate-strict-and-legacy-compile-pass",
+    "exact-reverse:generator-pass-output-strict-and-legacy-refusal",
+]
+contract_tests = [
+    "independent-primal-branch-jvp-finite-difference-and-vjp-dot-product-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-with-both-gates",
+    "exact-FortAD-check-forward-pass-and-reverse-inout-adjoint-refusal",
+]
+oracle = [
+    "independent piecewise semantic model for both branch paths",
+    "central-difference directional JVP check",
+    "independent VJP dot-product identity check",
+    "strict-versus-legacy fixed-form and free-form compiler gates",
+]
+classification = "expected-refusal-fortad-reverse-inout-adjoint-output"
+dependencies = [
+    "The exact source has implicit interfaces for S1 and modifies all four dummy arguments through conditional calls.",
+    "The stored Tapenade reverse source uses INTEGER*4 and implicit PUSHCONTROL1B/POPCONTROL1B runtime procedures.",
+    "The exact FortAD reverse request treats d as the dependent and emits d_b as intent(in) while assigning to it in the reverse sweep.",
+]
+expected_diagnostics = [
+    "exact primal and FortAD check/forward outputs pass strict F2018 and legacy syntax-only compilation",
+    "stored and fresh Tapenade reverse outputs pass the legacy gate but refuse strict F2018 because INTEGER*4 is nonstandard and branch is implicit",
+    "fresh pinned Tapenade parser, forward, and reverse generation succeeds",
+    "FortAD reverse generation returns output, but both strict and legacy free-form gates reject assignment to d_b with INTENT(IN)",
+    "no source rewrite, runtime stack implementation, or synthetic repaired port is introduced",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; primal-forward-strict-legacy-pass; reverse-strict-refusal-legacy-pass"
+fortad_result = "pass-check-forward-strict-legacy-compile; expected-reverse-refusal-output-does-not-compile-both-gates"
+bounded_sources = []
+bounded_domain = "oracle-only piecewise real model; not an exact-source port"
+closure = "The pinned upstream source and stored reverse reference remain authoritative and untouched. The exact FortAD reverse output is recorded as an expected refusal at the compiler gate; no invalid generated derivative, source repair, or synthetic Tapenade runtime support is claimed."
+
+[upstream_sha256]
+"program.f" = "08acf613cee41755533d41af356f113c6dd6e01c444023c0c885817fd5a1e541"
+"program_b.f" = "a09067e16ade5e44004d0d9f7ba541e303b689a2d37abdccb93cc74e974b7439"

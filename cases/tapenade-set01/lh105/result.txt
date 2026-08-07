@@ -1,0 +1,46 @@
+case: Tapenade nonRegressions/set01/lh105
+classification: expected-refusal-fortad-reverse-inout-adjoint-collision
+runner_result: pass
+recorded_utc: 2026-08-07T16:09:05Z
+machine: mailuefterl
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+legacy_free_flags: -std=legacy -ffree-form -ffree-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+required_fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(a,b,i)
+tapenade_options: parser=-p forward=-d/-root top reverse=-b/-root top
+strict_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+legacy_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+fortad_exact_behavior: check=pass forward=pass reverse=generated-but-expected-refusal-at-strict-and-legacy-compile-duplicate-a_b
+fortad_check_compile: strict=0 legacy=0
+fortad_forward_compile: strict=0 legacy=0
+fortad_reverse_compile: strict=expected-refusal-status-1 legacy=expected-refusal-status-1 diagnostic=duplicate-symbol-a_b
+independent_oracle: exact-operation-inventory jvp-central-difference vjp-adjoint-identity
+oracle_source_inventory: pass
+oracle_jvp_finite_difference: pass residual=1.684339e-10
+oracle_vjp_adjoint_identity: pass residual=2.081668e-17
+oracle_status: pass
+no_repaired_port: exact-source-preserved
+upstream_sha256:
+51edf972eb860f361372f066439c22948f0d2e3e861ddcbc07b1137c051cf9d1  program.f
+cc8f597cdc2a9fa242a2ef5c8ea4df6991dcc7a108e1f9db5c239db2a6c33243  program_b.f
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_b.msg
+fresh_tapenade_sha256:
+f0c2487fc7cf7ef1ecd244f415ae0a8d6f06fb0803ae72bac087b43473a01136  parser/lh105_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/lh105_p.msg
+cbc8039ac32f42470f030979957ad5b20be22577b44e9e2f5ec882c01bc96e6f  forward/lh105_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  forward/lh105_d.msg
+83f01bdbb900f957a55a69ee90bf94752d089d1f2b799302a32967fce89c72e9  reverse/lh105_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  reverse/lh105_b.msg
+case_artifact_sha256:
+1672c1717fb2b2f84d117cbdcd323f1296b0be554e1bb19bb78d19859d2dafa7  manifest.toml
+5dd35a07974b478920ede868647510c71e8a1eda1bf6fd2e0c58afafd066593a  notes.md
+e6b8b2b4f569abbb3c7fa99821fab7a370c741c34f66cb3f96984743d9ad341f  oracle.py
+150e6a90c20b4c71a2044182d339050628933bb941428f66ae529bbe4180b8a8  run.sh
+ff8c1d5467a8fa0bec37115274ee95ddc065efc077a5cb2f9dbed992aa3ebed9  test_contract.py

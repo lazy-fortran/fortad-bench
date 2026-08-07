@@ -515,6 +515,31 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh103
 Each directory contains its manifest, runner result, notes, oracle, and
 contract test.
 
+## Tranche AJ: `ht02`, `ht03`, `lh104`, `lh105`, `lh107`, and `lh109`
+
+This tranche closes six more set01 cases with fresh pinned Tapenade
+parser/forward/reverse generation, strict and legacy gates, exact FortAD
+probes, and independent three-test contracts. `ht02` and `lh109` retain
+external-I/O and `COMMON` refusal boundaries. `ht03` retains both an external
+I/O boundary and an unsupported active call. `lh104` and `lh105` retain reverse
+adjoint-output boundaries. `lh107` is a runnable two-argument `MAX` sequence
+with strict direct-product forward and reverse generation. No repaired or
+synthetic port is counted as exact-source support.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ht02/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ht03/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh104/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh105/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh107/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh109/run.sh
+```
+
+Each directory contains its manifest, runner result, notes, oracle, and
+contract test.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`

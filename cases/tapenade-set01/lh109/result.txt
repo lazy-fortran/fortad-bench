@@ -1,0 +1,36 @@
+case: Tapenade nonRegressions/set01/lh109
+classification: expected-refusal-fortad-unsupported-common-line-6
+runner_result: pass
+recorded_utc: 2026-08-07T16:09:04Z
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+upstream_entry_point: adj3(z,t); calls sub1(u,y2,z,v)
+strict_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+legacy_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_reverse_reference: fresh-body-equals-stored-after-banner-normalization diagnostic-content-equal-after-root-and-sequence-normalization
+fortad_exact_behavior: check=expected-refusal forward=expected-refusal reverse=expected-refusal diagnostic=unsupported-common-line-6 no-output
+independent_oracle: bounded-sub1-primal jvp-finite-difference vjp-dot-product
+oracle_source_inventory: pass
+oracle_bounded_primal: pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_dot_product: pass
+oracle_status: pass
+upstream_sha256:
+28c11ea3e832dde84c4fa96e7f7e3acb107856ee1d74ce46b8f64e0182709e25  nonRegressions/set01/lh109/program.f
+4627b11d30f83b90cd3ead42fb6b28b1e1a9f1360f4776c972cc01c3e027c56f  nonRegressions/set01/lh109/program_b.f
+3068ee02c8a0ad49ca42e0e92a43fe1eebe78c833544b65c1d19e2a8e69c6d9f  nonRegressions/set01/lh109/program_b.msg
+fresh_tapenade_sha256:
+a1ae4d9cba5b5ffccf006ac123467d65326f24f8f05d2cd13fa39fe5a1cf48fd  parser/lh109_p.f
+4d4a957d0441dd6266fb6dea78cce29954ea94a9720c9095fbfb218c600cc7c8  parser/lh109_p.msg
+5cc43f0c2cbdb4bba42aa5dae9345baa28f4e8b907a7a003b54e712166cb5a35  forward/lh109_d.f
+4d4a957d0441dd6266fb6dea78cce29954ea94a9720c9095fbfb218c600cc7c8  forward/lh109_d.msg
+8c8aba84bebab8b4881120fd57b6f3fcbb2c01bbdd0076695c836d9177b81054  reverse/lh109_b.f
+90bb032e1a64c75e941fa0a4d046a18a1aa85e3ecd81735310c2f166e0b651f7  reverse/lh109_b.msg
+case_artifact_sha256:
+b12740a264f75e56f5fb482f174e36f59f2a4073f5c642e3344382411c48de88  manifest.toml
+6a2a7e82fd8df4d88601c561a71c3cd8cc3a92fc57329610a3f5fa0739aede8f  notes.md
+f91d0295ae4012951d235e5e17e5a237cbb7185036e9f1f6d30b74f090982c18  oracle.py
+806fb50b8a87a3ef089d5cb418f883e6812a2ce8581586f236ebb7a48ba500a3  run.sh
+c4f6c410e6b00c385ebd59929fc7770b8e6408db035e6da7d7d944193c8818d9  test_contract.py

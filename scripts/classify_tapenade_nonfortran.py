@@ -165,7 +165,9 @@ def main() -> int:
     expected, counts = materialize(current, read_triage(arguments.triage))
     rendered = render(expected)
     if arguments.check:
-        if arguments.ledger.read_text(encoding="utf-8") != rendered:
+        # CSV quoting is presentation; the audit is about the materialized
+        # records and must not reject equivalent serialized rows.
+        if current != expected:
             print("Tapenade non-Fortran ledger classifications are stale")
             return 1
     else:

@@ -1,0 +1,36 @@
+case: Tapenade nonRegressions/set01/lh104
+classification: expected-refusal-fortad-reverse-inout-adjoint-output
+recorded_utc: 2026-08-07T16:09:04Z
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+upstream_entry_point: top(a,b,c,d)
+strict_compile: exact=0 stored_reverse=1 fresh_parser=0 fresh_forward=0 fresh_reverse=1 fortad_check=0 fortad_forward=0 fortad_reverse=1
+legacy_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0 fortad_check=0 fortad_forward=0 fortad_reverse=1
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_reverse_reference: fresh-body-equals-stored-after-banner-normalization
+fortad_exact_behavior: check=pass forward_jvp=pass reverse_vjp=expected-refusal-output-fails-both-free-form-gates
+oracle_branch_paths: pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_dot_product: pass
+oracle_status: pass
+upstream_sha256:
+08acf613cee41755533d41af356f113c6dd6e01c444023c0c885817fd5a1e541  nonRegressions/set01/lh104/program.f
+a09067e16ade5e44004d0d9f7ba541e303b689a2d37abdccb93cc74e974b7439  nonRegressions/set01/lh104/program_b.f
+fresh_tapenade_sha256:
+1857345f20227b6a969777f92e685c176bacb4d09342d28ba476329303f7c754  parser/lh104_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/lh104_p.msg
+ef13a374e398709c3a723874e46cbcc09df6f70b560703d62849e7b426c83203  forward/lh104_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  forward/lh104_d.msg
+df5769db3e75688688b20b3238a7de5e3092b6283d7c7bfcdcd726b9b3aeb5d8  reverse/lh104_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  reverse/lh104_b.msg
+fortad_output_sha256:
+0fc5a5c03ed419b36ea4daf552895ae31a70a8b044b2910afe0fce706b43caa0  /var/tmp/fortad-bench-lh104.Yzyd6f/fortad/check.f
+6782ba655a3d453604a3c549b640500d71ccf8b38d0dd7d7777577373c2e91e8  /var/tmp/fortad-bench-lh104.Yzyd6f/fortad/forward.f
+7c24064ab43bd18f64d9a9e0f0c86f8cba9998829781aed0b8ccd6dc13cef8aa  /var/tmp/fortad-bench-lh104.Yzyd6f/fortad/reverse.f
+case_artifact_sha256:
+6b6e7adedfe20cb92583a1ef7283aca7ee928de4f637a47f15914ec3e5c1bd28  manifest.toml
+7ebdab175891b5bc5e780b32b27d0d3e9636c1c484bebe6b299799b9cac58b48  notes.md
+29f6477600d2db55ddc8abcfb5c354124a821114be5168a85a1ade7f697c0a27  oracle.py
+3477d453b7b209359f19139498bfa1e151fb1376d6d58ebca2a61b660ef828c3  run.sh
+681d8b176e4dbdf620492257fb8b7a00751bf1b4c31a7b5a2601aa1c5e84ecc0  test_contract.py

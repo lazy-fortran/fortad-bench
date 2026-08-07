@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions set01 ht03
+classification: expected-refusal-fortad-external-io-and-call-boundary
+runner_result: pass
+recorded_utc: 2026-08-07T16:09:04Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_free_flags: -std=legacy -ffree-form -ffree-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+required_fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(i1,i2,i3,o1,o2,o3); sub1(i1,i2,o1,o2)
+tapenade_options: parser=-p forward=-d/-root top reverse=-b/-root top
+exact_compilation: strict=pass legacy=pass
+stored_reverse_compilation: strict=pass legacy=pass
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 forward=0 reverse=0
+tapenade_fresh_legacy_compile: parser=0 forward=0 reverse=0
+fortad_check: pass strict-free-compile=pass legacy-free-compile=pass
+fortad_top_forward: expected-refusal diagnostic=no-derivative-rule-sub1 no-output
+fortad_top_reverse: expected-refusal diagnostic=no-reverse-rule-sub1 no-output
+fortad_sub1_forward: expected-refusal diagnostic=unsupported-statement-line-17 no-output
+fortad_sub1_reverse: expected-refusal diagnostic=unsupported-statement-line-17 no-output
+independent_oracle: source-shape conditional-read-value-model jvp-central-difference vjp-dot-product
+oracle_source_shape: top/sub1 call and external read inventory pass
+oracle_jvp: conditional arithmetic model agrees with central differences
+oracle_vjp: conditional Jacobian-transpose dot-product identity passes
+oracle_domain: external READ result held fixed; no repaired port
+oracle_status: pass
+no_repaired_port: external-read-value-held-fixed-only-in-independent-oracle
+upstream_sha256:
+7b332f52649b5638603fb9ff73f4a94f4111c66df362b9b262c7fa0aa51e7441  program.f
+f3fd8068b4a07f7c898d9610f075ab3fd9d2ef765281460474baeb9ada913655  program_b.f
+0795ef28551f2efcdfd4642ea3c2b913688d4e2a6222ed8857093aefca5655fc  program_b.msg
+fresh_tapenade_sha256:
+a2b5df2eaa3a2520dcfadf290ec3a0399cb28330e54ca83c6103fd3a6ab22b70  ht03_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ht03_p.msg
+2d2b7b9ca938166e20c1bb41c2707456de761f7ad9cccef2f2e44247ef7293ed  ht03_d.f
+a70b56fb18463b767df996719d90dbd01c9b0b87d556e0f56aa545c10a6f8c24  ht03_d.msg
+b94bfaa515f763c0b0c96f39875f7f2a68234cf314fa779836a5825379682446  ht03_b.f
+55ab78116716b9cf09e33237465a484aed7bba8a81feb6a5d4a7b2201077e56d  ht03_b.msg
+case_artifact_sha256:
+26cf04215e58921a1ba832e38b916f32dc0290355375fb6d17da756566097370  cases/tapenade-set01/ht03/manifest.toml
+d2c2720afc55f6d45fa5e69169dbfd339d93e97f1381fa3da8483aa3dc6eec93  cases/tapenade-set01/ht03/notes.md
+723e752dbf22b63994e90a95d78130e57bc0925dde617ba9ff792305bcab38a3  cases/tapenade-set01/ht03/oracle.py
+53d2ad7f06591fc5f615afd36332c30d934221cf6bdb1d500dbc79495c76ab17  cases/tapenade-set01/ht03/run.sh
+e47dc242604cb65553250cc602b777658d6d70f95adbea03bb6178d25fbd3002  cases/tapenade-set01/ht03/test_contract.py

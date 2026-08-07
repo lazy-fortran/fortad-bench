@@ -1,0 +1,60 @@
+schema_version = 1
+name = "tapenade-set01-lh109-common-aliasing-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh109/run.sh"
+result = "cases/tapenade-set01/lh109/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh109/program.f",
+    "nonRegressions/set01/lh109/program_b.f",
+    "nonRegressions/set01/lh109/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+
+upstream_entry_point = "adj3(z,t); calls sub1(u,y2,z,v)"
+ported_entry_point = "not-claimed (exact source has unsupported COMMON and undefined/aliased state)"
+independent = ["x", "y", "t", "z"]
+dependent = ["x", "y", "t", "z"]
+options = ["-p -root adj3", "-d -root adj3", "-b -root adj3"]
+modes = [
+    "exact-source-strict-compile-pass",
+    "stored-reverse-strict-compile-pass",
+    "exact-source-legacy-compile-pass",
+    "stored-reverse-legacy-compile-pass",
+    "fresh-parser-generation-strict-legacy-compile-pass",
+    "fresh-forward-generation-strict-legacy-compile-pass",
+    "fresh-reverse-generation-strict-legacy-compile-pass",
+    "exact-check:expected-refusal-unsupported-common-line-6",
+    "exact-forward:expected-refusal-unsupported-common-line-6",
+    "exact-reverse:expected-refusal-unsupported-common-line-6",
+]
+oracle = [
+    "independent source-shape inventory",
+    "bounded sub1 primal/JVP central-difference check",
+    "bounded sub1 VJP dot-product identity check",
+]
+classification = "expected-refusal-fortad-unsupported-common-line-6"
+dependencies = [
+    "COMMON /cc/x,y is an unsupported FortAD statement at source line 6",
+    "adj3 calls sub1 through an implicit interface with scalar x(i) passed to REAL(0:6) y2; Tapenade reports TC30",
+    "the exact source reads uninitialized u, v, and j and has COMMON/argument aliasing; no exact runtime claim is made",
+    "the stored reverse reference calls Tapenade PUSHREAL4/POPREAL4 stack runtime procedures",
+]
+expected_diagnostics = [
+    "exact and stored fixed-form sources pass strict F2018 and legacy syntax-only gates",
+    "fresh pinned Tapenade parser, forward, and reverse generation succeeds and all fresh outputs pass both syntax-only gates",
+    "fresh reverse source body matches program_b.f after generated-banner normalization and its diagnostic content matches after root-selection/sequence-number normalization",
+    "FortAD check, forward, and reverse refuse unsupported COMMON at line 6 and emit no output",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-legacy-compile; fresh-reverse-matches-stored; diagnostics-match-after-normalization"
+fortad_result = "expected-refusal-unsupported-common-line-6-no-output"
+bounded_domain = "oracle-only sub1 arithmetic projection with all previously undefined values explicitly initialized; not an exact-source port"
+closure = "The pinned exact source and stored reverse reference remain untouched and are retained by hash. No COMMON support, alias repair, initialization, stack runtime, or synthetic derivative is added."
+
+[upstream_sha256]
+"program.f" = "28c11ea3e832dde84c4fa96e7f7e3acb107856ee1d74ce46b8f64e0182709e25"
+"program_b.f" = "4627b11d30f83b90cd3ead42fb6b28b1e1a9f1360f4776c972cc01c3e027c56f"
+"program_b.msg" = "3068ee02c8a0ad49ca42e0e92a43fe1eebe78c833544b65c1d19e2a8e69c6d9f"

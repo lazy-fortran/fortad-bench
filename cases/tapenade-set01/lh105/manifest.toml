@@ -1,0 +1,57 @@
+schema_version = 1
+name = "tapenade-set01-lh105-tbr-index-special-case"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh105/run.sh"
+result = "cases/tapenade-set01/lh105/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh105/program.f",
+    "nonRegressions/set01/lh105/program_b.f",
+    "nonRegressions/set01/lh105/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+
+upstream_entry_point = "top(a,b,i)"
+ported_entry_point = "not-created (exact reverse output has duplicate a_b formals)"
+independent = ["a", "b"]
+dependent = ["a"]
+options = ["-p", "-d -root top", "-b -root top"]
+modes = [
+    "exact-source:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-and-legacy-compile-pass",
+    "fresh-parser:generate-and-strict-and-legacy-compile-pass",
+    "fresh-forward:generate-and-strict-and-legacy-compile-pass",
+    "fresh-reverse:generate-and-strict-and-legacy-compile-pass",
+    "fortad-check:strict-and-legacy-compile-pass",
+    "fortad-forward:strict-and-legacy-compile-pass",
+    "fortad-reverse:generated-but-strict-and-legacy-compile-refusal-duplicate-a_b",
+]
+oracle = [
+    "independent exact operation inventory",
+    "independent JVP central-difference check with discrete index held fixed",
+    "independent VJP dot-product identity check",
+]
+classification = "expected-refusal-fortad-reverse-inout-adjoint-collision"
+dependencies = [
+    "top updates inout array a, uses i as an array index, then overwrites i before the second indexed update",
+    "i is a discrete control index and is intentionally excluded from the real derivative oracle",
+    "the exact dependent a is also an active inout input; FortAD emits duplicate a_b reverse formals",
+    "no repaired source, renamed port, or synthetic derivative support is included",
+]
+expected_diagnostics = [
+    "exact and stored fixed-form sources pass strict F2018 and legacy syntax-only gates",
+    "fresh pinned Tapenade parser, forward, and reverse outputs generate and pass both compiler gates",
+    "FortAD check and forward output pass strict and legacy free-form gates",
+    "FortAD exact reverse generation returns a file, but both independent compiler gates refuse duplicate symbol a_b",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-and-legacy-compile"
+fortad_result = "pass-check-forward-strict-and-legacy-compile; expected-reverse-compile-refusal-duplicate-a_b"
+closure = "The pinned exact source and stored reverse reference remain authoritative and untouched. The independent oracle models the real JVP/VJP with i held as a discrete index; it is not a repaired Fortran port."
+
+[upstream_sha256]
+"program.f" = "51edf972eb860f361372f066439c22948f0d2e3e861ddcbc07b1137c051cf9d1"
+"program_b.f" = "cc8f597cdc2a9fa242a2ef5c8ea4df6991dcc7a108e1f9db5c239db2a6c33243"
+"program_b.msg" = "08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e"

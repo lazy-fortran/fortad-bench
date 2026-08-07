@@ -1,0 +1,75 @@
+schema_version = 1
+name = "tapenade-set01-ht03-external-io-call-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ht03/run.sh"
+result = "cases/tapenade-set01/ht03/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ht03/program.f",
+    "nonRegressions/set01/ht03/program_b.f",
+    "nonRegressions/set01/ht03/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+missing_stored_references = ["program_p.f", "program_d.f", "program_p.msg", "program_d.msg"]
+
+upstream_entry_point = "top(i1,i2,i3,o1,o2,o3); sub1(i1,i2,o1,o2)"
+ported_entry_point = "not-applicable-exact-source-only (external READ and nested call)"
+independent = ["i1", "i2", "i3"]
+dependent = ["i2", "o1", "o2", "o3"]
+function = "A fixed-form top routine with an in-place call and an external unformatted READ"
+options = [
+    "Tapenade parser: -p -O DIR -o ht03",
+    "Tapenade forward: -d -root top -O DIR -o ht03",
+    "Tapenade reverse: -b -root top -O DIR -o ht03",
+    "FortAD check FILE",
+    "FortAD forward --indep i1,i2,i3 --proc top",
+    "FortAD reverse --indep i1,i2,i3 --dep o1 --proc top",
+]
+modes = [
+    "exact-source:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-and-legacy-compile-pass",
+    "fresh-parser:generate-and-strict-and-legacy-compile-pass",
+    "fresh-forward:generate-and-strict-and-legacy-compile-pass",
+    "fresh-reverse:generate-and-strict-and-legacy-compile-pass",
+    "fortad-check:exact-parse-reemit-and-strict-and-legacy-free-compile-pass",
+    "fortad-forward-top:expected-refusal-no-call-rule",
+    "fortad-reverse-top:expected-refusal-no-reverse-call-rule",
+    "fortad-forward-sub1:expected-refusal-open-line-17",
+    "fortad-reverse-sub1:expected-refusal-open-line-17",
+]
+contract_tests = [
+    "independent-conditional-on-read-value-JVP-finite-difference-and-VJP-dot-product-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-with-strict-and-legacy-compilation",
+    "exact-FortAD-check-call-boundary-and-direct-I-O-refusal-with-no-output",
+]
+oracle = [
+    "independent fixed-form source-shape and external-read inventory",
+    "independent conditional-on-read-value semantic model",
+    "central-difference directional derivative check",
+    "independent Jacobian-transpose dot-product identity",
+    "strict-versus-legacy fixed-form compiler gates",
+]
+classification = "expected-refusal-fortad-external-io-and-call-boundary"
+dependencies = [
+    "sub1 mutates i2 and obtains o2 from OPEN/READ of external file toto; the read value is not a declared numeric input",
+    "top reaches sub1 through an active call, but FortAD has no registered derivative or reverse rule for that call",
+    "the upstream row stores only Tapenade's reverse reference and its AD04 I/O diagnostic; no parser or tangent reference is available",
+]
+expected_diagnostics = [
+    "exact program.f and stored program_b.f pass strict F2018 and legacy fixed-form syntax gates",
+    "fresh pinned Tapenade parser, tangent, and adjoint outputs generate and pass strict and legacy fixed-form syntax gates",
+    "FortAD check re-emits the exact source and the re-emitted free-form source passes strict and legacy syntax gates",
+    "FortAD top forward refuses because there is no derivative rule for sub1, and top reverse refuses because there is no reverse rule for sub1",
+    "FortAD direct sub1 forward and reverse refuse unsupported statement at line 17 (OPEN) and emit no derivative file",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-and-legacy-compile"
+fortad_result = "pass-check-reemit-strict-and-legacy-free-compile; expected-top-call-refusal-and-direct-I-O-refusal-no-output"
+closure = "The exact upstream source and stored reverse reference remain untouched. The independent oracle holds the external read value fixed only to validate the defined arithmetic map; it is not a repaired Fortran port and does not claim external-I/O or nested-call support."
+
+[upstream_sha256]
+"program.f" = "7b332f52649b5638603fb9ff73f4a94f4111c66df362b9b262c7fa0aa51e7441"
+"program_b.f" = "f3fd8068b4a07f7c898d9610f075ab3fd9d2ef765281460474baeb9ada913655"
+"program_b.msg" = "0795ef28551f2efcdfd4642ea3c2b913688d4e2a6222ed8857093aefca5655fc"
