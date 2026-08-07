@@ -1,0 +1,41 @@
+case: Tapenade nonRegressions set01 lh048
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T10:25:03Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: program=0 tangent=0 reverse=0
+stored_references: program_d.msg program_b.msg
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic="unsupported statement at line 5"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="unsupported statement at line 5"
+fortad_bounded_forward_generation: pass
+fortad_bounded_forward_strict_compile: 0
+fortad_bounded_reverse_generation: pass
+fortad_bounded_reverse_strict_compile: refusal status=1 diagnostic="Duplicate symbol t_b"
+independent_oracle: hand evaluation, central-difference sweep, and adjoint identity
+fd_errors: 4.507505e-14 8.875123e-13 3.553380e-12 2.309197e-11
+adjoint_residual: 9.480750e-13
+oracle_status: pass
+oracle_status: pass
+upstream_sha256:
+6d13012f8540e76933d2b063f9c109d4a8ea5dcd1a932ac90141979cbdf45e4b  program.f
+2a5351e14f900f4868fe379e9479a48965309bbb45d6cb39cf8dfc6765c55470  program_d.f
+e3b961a7eacd1da8850b556232d81e34b02f066648ac56730a8164050f665276  program_b.f
+3e028b1eb24321a9e5d12bb1ba0d13003c232d32d306ad7511523eb2346b8ae9  program_d.msg
+3e028b1eb24321a9e5d12bb1ba0d13003c232d32d306ad7511523eb2346b8ae9  program_b.msg
+bounded_artifact_sha256:
+79b6acf1f24b656ab305d23048069b52bf40400ec56acf8084275ed9825d039a  cases/tapenade-set01/lh048/manifest.toml
+4494282f7ee085b4e2f0f52faa38ed5f8a2c8ebaac9d43e97feac9ae3154177c  cases/tapenade-set01/lh048/notes.md
+37f40e7aeefcc2fb54670157b299cc3c891359b0a0d3b01b5efb65c2627f22be  cases/tapenade-set01/lh048/port.f90
+c8430e07995825362a2a686bd0b83d928b3320de3f8ae58db5edaf5cb98e7038  cases/tapenade-set01/lh048/hand.f90
+2d7e9ad7693846dba932bd234e38ac0e482ced88f06798852b6181bd59b87dcb  cases/tapenade-set01/lh048/harness.f90
+96545739a4847f61cac789d4edb237e6fb6c223d525cf4d8598ba7eec369bbfc  cases/tapenade-set01/lh048/oracle.py
+ad0171075e66daa8e15edaf59436ca932553d41ad7c74e1828d78cb6099cb2a2  cases/tapenade-set01/lh048/run.sh
+2d273059f1b7c43f669ca53fd32e20a5481916422f1d19c4df1fd1e3714dad53  cases/tapenade-set01/lh048/test_contract.py

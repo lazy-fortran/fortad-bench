@@ -1,0 +1,25 @@
+schema_version = 1
+name = "tapenade-set01-lh051"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh051/run.sh"
+result = "cases/tapenade-set01/lh051/result.txt"
+
+upstream_sources = ["nonRegressions/set01/lh051/program.f"]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "adj1(x,y,z,n,o)"
+ported_entry_point = "set01_lh051(x,y,z,n,o)"
+independent = ["x", "y", "z"]
+dependent = ["x", "y", "z"]
+options = ["-p", "-d -root adj1", "-b -root adj1"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP", "central-difference-sweep"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact fixed-form source uses a labeled DO at line 11 and a natural loop with loop-carried z reads and writes; the bounded port preserves n=60, o=0 and the 34-iteration terminating path with structured loops."
+expected_diagnostics = [
+    "FortAD refuses exact forward and reverse at line 11 because it cannot locate the end of the labeled DO",
+    "FortAD reverse refuses the bounded port because z is read and written in the same loop and needs per-iteration storage",
+]
+closure = "Exact-source support is not claimed. Fresh Tapenade parser, tangent, and reverse output all compile strictly. FortAD generates and compiles the bounded forward JVP, while bounded reverse generation records the explicit loop-storage refusal; the hand JVP and central-difference oracle pass."

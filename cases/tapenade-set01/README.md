@@ -413,3 +413,29 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh045
 See the case manifests, result records, and independent contract tests under
 `cases/tapenade-set01/lh037/`, `lh038/`, `lh041/`, `lh042/`, `lh044/`, and
 `lh045/`.
+
+## Tranche V: `lh046`, `lh047`, `lh048`, `lh050`, `lh051`, and `lh053`
+
+This tranche closes six further fixed-form rows. `lh047`, `lh048`, `lh051`,
+and `lh053` preserve exact FortAD refusal boundaries while bounded forward
+ports pass independent hand, finite-difference, and adjoint checks. `lh046`
+is invalid upstream because of `REAL*16` and malformed indexed `READ` syntax.
+`lh050` is deliberately recorded as a semantic-mismatch refusal: exact FortAD
+forward and reverse code compiles but fails the independent oracle on the
+conditional branch, while an explicit-`INTENT` bounded forward port passes.
+It is not a support claim. All six retain fresh Tapenade evidence and 3-test
+case contracts.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh046/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh047/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh048/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh050/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh051/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh053/run.sh
+```
+
+See the manifests, results, independent oracles, and contract tests under the
+six corresponding `cases/tapenade-set01/lh0*/` directories.

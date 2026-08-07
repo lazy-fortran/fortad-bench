@@ -1,0 +1,28 @@
+schema_version = 1
+name = "tapenade-set01-lh048"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh048/run.sh"
+result = "cases/tapenade-set01/lh048/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh048/program.f",
+    "nonRegressions/set01/lh048/program_d.f",
+    "nonRegressions/set01/lh048/program_b.f",
+]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "adj13bis(u,z,t)"
+ported_entry_point = "set01_lh048(u,z,t,v,x,y)"
+independent = ["u", "z", "t", "v"]
+dependent = ["t"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact entry point uses COMMON /cc/, passes x(i) to the scalar-to-array y2 dummy, and reads incoming v before defining it; the bounded port makes state and the incoming v explicit while preserving the observed x(i+3)/x(i+5) storage mapping."
+expected_diagnostics = [
+    "FortAD refuses exact forward and reverse at COMMON /cc/ line 5",
+    "FortAD bounded reverse output has duplicate t_b in its formal argument list",
+]
+closure = "Exact source support is not claimed. The bounded explicit-state port has a passing independent hand/finite-difference/adjoint oracle and FortAD forward transform; bounded reverse generation is recorded as a strict compiler refusal."

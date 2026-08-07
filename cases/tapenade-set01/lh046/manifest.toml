@@ -1,0 +1,30 @@
+schema_version = 1
+name = "tapenade-set01-lh046-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh046/run.sh"
+result = "cases/tapenade-set01/lh046/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh046/program.f",
+    "nonRegressions/set01/lh046/program_d.f",
+    "nonRegressions/set01/lh046/program_b.f",
+]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "test(T1,T2,n,x)"
+ported_entry_point = "not-applicable (invalid upstream source)"
+independent = ["T1", "T2", "x"]
+dependent = ["T1", "T2"]
+function = "fixed-form assumed-size REAL*16 arrays with indexed READ and nested F1 calls"
+options = ["-p", "-d -root test", "-b -root test"]
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler-diagnostic-identity", "fresh-pinned-Tapenade-generation", "FortAD-diagnostic"]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects REAL*16 declarations and the indexed READ syntax",
+    "fresh parser, tangent, and reverse outputs all fail strict compilation",
+    "FortAD refuses the exact primal at the READ statement on line 8",
+]
+closure = "The exact corpus source is not a strict Fortran program. Repairing REAL*16 or the READ list would change the upstream case, so no numerical port or exact-support claim is made."

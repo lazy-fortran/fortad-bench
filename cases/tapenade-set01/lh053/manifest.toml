@@ -1,0 +1,50 @@
+schema_version = 1
+name = "tapenade-set01-lh053-bounded-forward"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "cases/tapenade-set01/lh053/run.sh"
+result = "cases/tapenade-set01/lh053/result.txt"
+source_form = "fixed"
+
+[[case]]
+id = "lh053"
+upstream_sources = [
+    "nonRegressions/set01/lh053/program.f",
+    "nonRegressions/set01/lh053/program_p.f",
+    "nonRegressions/set01/lh053/program_d.f",
+    "nonRegressions/set01/lh053/program_b.f",
+    "nonRegressions/set01/lh053/program_dv.f",
+    "nonRegressions/set01/lh053/program_p.msg",
+    "nonRegressions/set01/lh053/program_d.msg",
+    "nonRegressions/set01/lh053/program_b.msg",
+    "nonRegressions/set01/lh053/program_dv.msg",
+]
+upstream_entry_point = "cg12v4(z,tk,gamai,v,w,g,tau,ncmax)"
+ported_entry_point = "set01_lh053(nc,z,tk,rcal,gamai,v,w,g,tau)"
+options = ["-p", "-d -root cg12v4", "-b -root cg12v4"]
+modes = ["parser", "forward", "reverse"]
+independent = ["z,tk,rcal"]
+dependent = ["gamai"]
+dependencies = [
+    "exact source uses COMMON /THJCOD/ and /THCONS/ with EQUIVALENCE",
+    "BINAIR is an undeclared external procedure with no implementation in the row; the bounded port supplies a fixed algebra",
+    "program_dv.f requires the absent DIFFSIZES.inc include",
+]
+oracle = [
+    "strict compiler",
+    "fresh pinned Tapenade parser/tangent/reverse generation and compile",
+    "FortAD exact diagnostic",
+    "independent hand dual-number JVP",
+    "central-difference sweep",
+    "adjoint identity",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+expected_diagnostics = [
+    "strict F2018 compilation rejects REAL*8 and labeled/shared DO termination",
+    "FortAD exact forward and reverse refuse the labeled DO at line 13",
+    "FortAD bounded reverse refuses g read/write in one loop because it needs per-iteration storage",
+]
+tapenade_result = "pass-generation-expected-refusal-strict-compile"
+fortad_result = "pass-forward-transform-compile-runtime-reverse-refusal"
+closure = "The exact legacy source remains a named refusal; the bounded port exposes COMMON state and supplies a fixed BINAIR algebra solely to make the missing dependency reproducible."

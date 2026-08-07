@@ -1,0 +1,31 @@
+schema_version = 1
+name = "tapenade-set01-lh050"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh050/run.sh"
+result = "cases/tapenade-set01/lh050/result.txt"
+source_harness = "cases/tapenade-set01/lh050/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh050/program.f",
+    "nonRegressions/set01/lh050/program_d.f",
+    "nonRegressions/set01/lh050/program_b.f",
+]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "sub0(x,y,z)"
+ported_entry_point = "set01_lh050(x,y,z)"
+independent = ["x", "y"]
+dependent = ["y", "z"]
+options = ["-p", "-d -root sub0", "-b -root sub0"]
+modes = ["exact-forward:generated-oracle-mismatch", "exact-reverse:generated-oracle-mismatch", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "fortad-semantic-mismatch-with-bounded-forward-port"
+dependencies = "The branch x>0 assigns z and then overwrites u before assigning y; z is retained as an inout value on x<=0. Explicit INTENT declarations are required for the bounded FortAD probe to retain the active conditional state."
+expected_diagnostics = [
+    "Tapenade reverse uses nonstandard INTEGER*4 branch",
+    "exact FortAD forward and reverse compile but fail the independent oracle on x>0",
+    "bounded FortAD reverse assigns to z_b despite INTENT(IN)",
+]
+closure = "The exact source and fresh Tapenade parser/tangent outputs compile, while Tapenade reverse is rejected strictly. FortAD exact transforms are reproducibly unsound for this implicit-interface conditional: they omit the branch body and fail the hand/finite-difference/adjoint oracle. An explicit-INTENT bounded port makes forward mode correct; bounded reverse remains a compiler refusal."

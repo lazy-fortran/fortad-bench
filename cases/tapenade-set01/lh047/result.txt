@@ -1,0 +1,27 @@
+case: Tapenade nonRegressions set01 lh047
+classification: expected-refusal-with-bounded-forward-port
+entry_point: adj13bis(u,z,t); sub1(u,y2,z,v)
+options: -p|-d-root-adj13bis|-b-root-adj13bis
+modes: exact-forward=refused exact-reverse=refused bounded-forward=pass bounded-reverse=generated-compile-refusal
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: program=0 tangent=0 reverse=0
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic="unsupported statement at line 5 COMMON /cc/"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="unsupported statement at line 5 COMMON /cc/"
+fortad_bounded_forward: generation=pass strict_compile=0
+fortad_bounded_reverse: generation=pass strict_compile=expected-refusal diagnostic="dependent seed t_b has INTENT(IN)"
+dependencies: COMMON /cc/, scalar-to-array actual mismatch, and v used before initialization
+independent_oracle: hand JVP, central-difference sweep, and adjoint identity
+fd_errors: 1.073591e-07 2.897682e-14 4.064540e-07 3.252953e-13 1.082467e-14 2.409184e-14 1.014189e-13 1.061373e-13 3.885504e-07 1.013222e-07 1.071779e-09 4.151124e-13 4.061205e-09 5.628831e-13 7.244205e-14 1.351141e-13 3.426703e-13 5.599965e-13 3.883418e-09 1.014760e-09 1.179890e-11 7.076451e-12 3.775669e-11 9.444778e-12 1.737721e-12 9.750534e-13 2.563172e-12 6.101342e-12 1.984141e-11 4.331491e-11 9.569718e-08 2.897682e-14 3.714688e-07 1.228739e-13 3.858025e-14 8.693046e-14 9.603429e-15 4.884981e-15 1.933354e-07 2.304070e-07 9.582380e-10 4.151124e-13 3.711892e-09 1.677186e-12 7.244205e-14 9.751089e-13 2.124412e-13 5.502265e-13 1.933361e-09 2.305925e-09 1.454853e-11 4.025780e-12 4.149503e-11 1.164549e-11 4.513279e-12 9.750534e-13 2.563172e-12 5.000889e-12 1.933614e-11 2.164124e-11
+adjoint_residual: 5.551115e-16
+oracle_status: pass
+oracle_status: pass
+upstream_sha256:
+e3c33e849d0b1d2cd635d76b363c52544f792c09827e8483b1b73c2f5b20557f  program.f
+f7736b5ad4add2cf22616116483a9f5eb6da2446d1d6f323699bd70b76073a75  program_d.f
+bd61a0c2ba333544522050726f298f30f83ddebade6498a1b99fec1a8f98b580  program_b.f
+3e028b1eb24321a9e5d12bb1ba0d13003c232d32d306ad7511523eb2346b8ae9  program_d.msg
+3e028b1eb24321a9e5d12bb1ba0d13003c232d32d306ad7511523eb2346b8ae9  program_b.msg

@@ -1,0 +1,39 @@
+case: Tapenade nonRegressions set01 lh051
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T10:23:56Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: program=0 tangent=0 reverse=0
+stored_references: program_d.msg program_b.msg
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic="could not locate the end of this do construct at line 11"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="could not locate the end of this do construct at line 11"
+fortad_bounded_forward_generation: pass
+fortad_bounded_forward_strict_compile: 0
+fortad_bounded_reverse_generation: x=refusal y=refusal z=refusal
+fortad_bounded_reverse_strict_compile: x=not-generated y=not-generated z=not-generated diagnostic="z is both read and written in the same loop; that needs per-iteration storage"
+independent_oracle: hand JVP, central-difference sweep, and Fortran harness
+oracle_status: pass max_fd_error=2.736e-10
+oracle_status: pass max_harness_error=  7.4506E-09
+upstream_sha256:
+29a5a09f0ec09bd209494f47797aac0f484888794ebf371360adc5f48c0a89ec  program.f
+21a1c0fb59953da3450980c10c2685de550c0f131fa0d964deaf921de3e944c1  program_d.f
+b08cb8e0797028cf800f20fd9ca9187c32277c5868b5e9690e7d020e232364ec  program_b.f
+62957e987f096aef382504ed540c50e348cd773420ae3ca7e438e16fce1dff66  program_d.msg
+62957e987f096aef382504ed540c50e348cd773420ae3ca7e438e16fce1dff66  program_b.msg
+bounded_artifact_sha256:
+dc922076dae77e9c8d654db3e870b54591d4841717d801db8a19135577b942e8  cases/tapenade-set01/lh051/manifest.toml
+3e0e68535f61b69463e861595909e8ec941171e3fa0d2a9e875cb3c286bf8088  cases/tapenade-set01/lh051/notes.md
+5cb56301eaf13eabe5c9f7584f22a9db03e09d7fa67d16ba4264519bfb1c78f5  cases/tapenade-set01/lh051/port.f90
+640cfa33768edd3c900f6dc655ed2802a0030d25a29c3f0bc6ca0f85ea4ce811  cases/tapenade-set01/lh051/hand.f90
+3bad43ed13fab4bf086541bd26a20a4edf5299694a623698791f0153a241b3b0  cases/tapenade-set01/lh051/harness.f90
+4058e4b28a587dfe23f70b60e8a495328165f4e95a900e258717beca197e4377  cases/tapenade-set01/lh051/oracle.py
+7e9d3ce966640d1a7a6d579277d45b9d7d3358410f2362466a7a6cffb9bdcdc1  cases/tapenade-set01/lh051/run.sh
+f48d51778ccf434712e27eca70ea7f81f5285809de18488c338731201947a460  cases/tapenade-set01/lh051/test_contract.py

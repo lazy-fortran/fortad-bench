@@ -1,0 +1,28 @@
+schema_version = 1
+name = "tapenade-set01-lh047"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh047/run.sh"
+result = "cases/tapenade-set01/lh047/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh047/program.f",
+    "nonRegressions/set01/lh047/program_d.f",
+    "nonRegressions/set01/lh047/program_b.f",
+]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "adj13bis(u,z,t); sub1(u,y2,z,v)"
+ported_entry_point = "set01_lh047(u,z,t,x1,x8,x9,x10,x11,y,v)"
+independent = ["u", "z", "t", "x1", "x8", "x9", "x10", "x11", "y", "v"]
+dependent = ["u", "z", "t", "x1", "x8", "x9", "x10", "x11", "y", "v"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "Exact source uses hidden COMMON /cc/ state, passes scalar x(i) to the array dummy y2, and reads v before its first definition; the bounded port exposes the five relevant state slots and initializes v explicitly."
+expected_diagnostics = [
+    "FortAD refuses exact fixed-form COMMON /cc/ at line 5",
+    "bounded reverse output assigns to dependent seed t_b declared INTENT(IN)",
+]
+closure = "Exact source and fresh Tapenade outputs compile, but exact FortAD stops at COMMON /cc/. The bounded explicit-state forward transform passes the independent numerical oracle; bounded reverse generation is recorded as a strict-compile refusal."

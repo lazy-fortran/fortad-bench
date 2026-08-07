@@ -1,0 +1,43 @@
+case: Tapenade nonRegressions set01 lh053
+classification: expected-refusal-with-bounded-forward-port
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile: expected-refusal for all exact and stored derivatives
+tapenade_generation: parser=pass tangent=pass reverse=pass root=cg12v4
+tapenade_parser_strict_compile: expected-refusal status=1
+tapenade_forward_strict_compile: expected-refusal status=1
+tapenade_reverse_strict_compile: expected-refusal status=1
+fortad_exact_forward: expected-refusal status=1 diagnostic=could-not-locate-end-of-do
+fortad_exact_reverse: expected-refusal status=1 diagnostic=could-not-locate-end-of-do
+fortad_port_forward: pass-transform-compile-runtime status=0
+fortad_port_reverse: expected-refusal status=1 diagnostic=g-read-write-loop-storage
+independent_oracle: hand chain-rule JVP, central-difference sweep, adjoint identity
+oracle_status: pass
+primal_objective: 1.66692049842187573e+00
+hand_jvp: -2.32396304839129382e-02
+finite_difference: -2.32396303312398800e-02
+fd_error: 1.52673058223529168e-10
+adjoint_identity_residual: 3.90317292375819136e-12
+direction: 1.49999999999999994e-01 -2.00000000000000011e-01 3.49999999999999978e-01 -1.10000000000000001e-01 8.00000000000000017e-02
+seed: 6.99999999999999956e-01 -4.00000000000000022e-01 1.10000000000000009e+00
+harness_status: pass
+gamai_1:   1.2664393900926278E+00
+gamai_d_1:   2.2260233990125163E-02
+source_sha256:
+beb71a30340de4405eda8a4c0dfac88ad177526f27d93d3bce111b0a924c6f9b  nonRegressions/set01/lh053/program.f
+03871badba3e2f45f196adf4aa372e9e0d941bdc21e95fa1cad14314d35178ac  nonRegressions/set01/lh053/program_b.f
+9fab36907e4e4f82b3884a55e53dd1b3f742f9b61ae29546ec146d58eeae93e4  nonRegressions/set01/lh053/program_d.f
+27df9da1b1308b4f77836bd15c6569023338f84fe2d54ea845be7916cb692c89  nonRegressions/set01/lh053/program_dv.f
+d73754d9d4a8f5a74ae5a561c88db7ba6208318050f4e01bde5d337364ba5077  nonRegressions/set01/lh053/program_p.f
+441ab7de342dc8b08702398e98e7dcddc73dbe58b9e4d093c29efa9f9dde6e1d  nonRegressions/set01/lh053/program_b.msg
+441ab7de342dc8b08702398e98e7dcddc73dbe58b9e4d093c29efa9f9dde6e1d  nonRegressions/set01/lh053/program_d.msg
+d63795e186c2a2d0f97f3bf6b1b2862a0b109f2ee3377fb877232bb261d859f7  nonRegressions/set01/lh053/program_dv.msg
+03703f44934eb7d3fc2bd8973afba472bf6d38cde7db0968fab889ca5d11960b  nonRegressions/set01/lh053/program_p.msg
+case_artifact_sha256:
+d47e1d82d4be9eff7ab6fc88c70df844df2e01a7f8c6cfcf34539cdf1185b900  cases/tapenade-set01/lh053/manifest.toml
+808f255bbbd63d32833b5bad855d8b4b96d7769d14dd94cc6d2eac25bce3fc02  cases/tapenade-set01/lh053/notes.md
+1e6e92e18616e8edda5f998fb73de5df48b3296dcd1e999fa1837f13ccf88332  cases/tapenade-set01/lh053/port.f90
+894ea7db9d0026c26ea08afc98ac93ee8379ab9a90d7667d51c84e63a64598c2  cases/tapenade-set01/lh053/oracle.py
+9bf324538b5c33ec422c30530cd0512b86a2472d7c081a1a2e52ced27cadc7aa  cases/tapenade-set01/lh053/harness.f90
+6849ff6855012102803ccef0913087c45a39ea2fc72d4d8ce36ef8ce6c579e24  cases/tapenade-set01/lh053/run.sh
+c359dd2fa4af02121cb23c80f699de9284a9c77467b6c743739cf96aa40d3663  cases/tapenade-set01/lh053/test_contract.py

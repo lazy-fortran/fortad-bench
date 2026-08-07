@@ -1,0 +1,45 @@
+case: Tapenade nonRegressions set01 lh050
+classification: fortad-semantic-mismatch-with-bounded-forward-port
+recorded_utc: 2026-08-07T10:23:53Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: sub0(x,y,z); options: -p | -d -root sub0 | -b -root sub0
+bounded_entry_point: set01_lh050(x,y,z); independent: x,y; dependent: y,z
+commands: exact strict compile; fresh tapenade -p/-d/-b -root sub0; FortAD exact --mode forward/reverse; bounded --mode forward/reverse
+upstream_exact_strict_compile: program=0 tangent=0 reverse=1 diagnostic="INTEGER*4"
+stored_references: program_d.f program_b.f program_d.msg program_b.msg
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=1 diagnostic="INTEGER*4"
+fortad_exact_generation: forward=pass reverse=pass
+fortad_exact_strict_compile: forward=0 reverse=0
+fortad_exact_independent_oracle: forward=mismatch reverse=mismatch; conditional body omitted on x>0
+fortad_bounded_forward: generation=pass strict_compile=0 runtime=pass
+fortad_bounded_reverse: generation=pass strict_compile=1 diagnostic="z_b = z_b + z_v2_b"
+independent_oracle: closed-form hand JVP/VJP, central-difference sweep, and adjoint identity
+exact_forward_oracle: mismatch
+exact_reverse_oracle: mismatch
+bounded_forward_oracle: pass
+oracle_status: pass
+fd_errors: 2.187139e-14 6.720000e-05 4.407585e-14 6.719986e-07 4.000134e-13 6.610904e-09 1.070227e-11 1.449578e-10 1.600000e-06 0.000000e+00 1.600062e-08 0.000000e+00 1.546314e-10 0.000000e+00 1.546315e-10 0.000000e+00
+adjoint_residual: 7.105427e-15
+oracle_status: pass
+upstream_sha256:
+4c3d65ae18057af4f86b3f2e2da2ceac7bb1108a3f85746330b1c564151e9a4b  program.f
+07354b8f12053c25d7fc6568afc8a3c5df1aed50d1886b35463d75bc13cea274  program_d.f
+8755de4950ce439cd2798a5a90bb22d7d8334a2dd5e8a04311fdad982a558d7f  program_b.f
+d765cdb1ecbd75a10623af2e28bbe17ef95d2855b55dfe1505b4ed8a607862b1  program_d.msg
+d765cdb1ecbd75a10623af2e28bbe17ef95d2855b55dfe1505b4ed8a607862b1  program_b.msg
+case_artifact_sha256:
+5fac9a5c47510223809735863c1d47e758321cb397cae51f8d2d8a7da0b1596d  cases/tapenade-set01/lh050/manifest.toml
+de46e8853640e10d4a719343ba6889d0b93c000eb2a437935d74a0af6e8abc70  cases/tapenade-set01/lh050/notes.md
+09c96b243d0db6835c1e11f058e27b1e55c82ee7878854e880ff553c99c1e6d8  cases/tapenade-set01/lh050/port.f90
+1d82436f7e8ded8e658b54bcaf151a1a8fd68d35d854a20500ab193f6d0c10a2  cases/tapenade-set01/lh050/hand.f90
+545ba13005daa1162360685e0cd3d962009da1b5b73b94e05f30567a0bbd4c11  cases/tapenade-set01/lh050/harness.f90
+20a26e08bbc8232992611bc601004b605007a020435ee56927d0a86ddcc15c33  cases/tapenade-set01/lh050/oracle.py
+b0bcaa2d469bd5b03998cced05461b5ea4b6b30414602d07606ee13ee4033e76  cases/tapenade-set01/lh050/run.sh
+475b935ccffa5b8a226543f592734429313fe4a3601ea08acea7936c13a0cde6  cases/tapenade-set01/lh050/test_contract.py
