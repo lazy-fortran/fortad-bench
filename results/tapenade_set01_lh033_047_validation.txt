@@ -1,0 +1,34 @@
+case: Tapenade nonRegressions set01 lh033 lh039 lh040
+recorded_utc: 2026-08-07T06:41:37Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fortad_commit: 90e9b9b15941f4e4f2f8d75a0a74a20650f69e9b
+required_fortad_commit: 90e9b9b15941f4e4f2f8d75a0a74a20650f69e9b
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.034777
+tapenade_fresh_generation_seconds: 1.846707
+tapenade_generated_compile: pass-strict
+fortad_refusal_probe_seconds: 0.031542
+fortad_positive_transform_seconds: 0.009740
+fortad_generated_compile_and_link_seconds: 0.116992
+tapenade_oracle: fresh parser, tangent, and reverse outputs for all three exact sources compile under strict fixed-form mode
+fortad_oracle: lh039 forward and reverse transform compile and run; lh033/lh040 exact-source refusals retain line diagnostics
+oracle: independent hand JVP, central-difference sweeps, and VJP adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3256
+source_sha256:
+aa2ad7e5a31cf8f315c354a72b82eb1188f16c3d0670dca1b29860693bdafc52  cases/tapenade-set01/lh039.f90
+9b05a5820d6e5d2c26ece3d9f579b4267a51b38ed79c7675b8e2cc85f94faf7c  cases/tapenade-set01/hand_derivatives_lh033_040.f90
+4204ade7f5c8533aedb9ecc9ad9197f42fb68cf4674aaaa303bf360b6d68fd19  cases/tapenade-set01/tranche-m-lh033-047-manifest.toml
+ce66f594040b7830ca27df9b7d1c82485e5c55c3bdd203f12e2ac7d3fcbdb51d  cases/tapenade-set01/tranche-m-lh033-047.md
+c2dbe5f178eb3aaae621c8f1c6d14d6edc24313f3ae5b1586e5146b62905e7b5  harness/bench_tapenade_set01_lh033_047.f90
+066aa000d19a81b4c56c3af25b20d712ab7c4affe18c169cb8da97b272537766  scripts/bench_tapenade_set01_lh033_047.sh
+run_output:
+oracle_status: pass
+lh033_hand_error:   4.0436E-03
+lh039_adjoint_residual:   0.0000E+00
+lh040_hand_error:   3.0317E-08

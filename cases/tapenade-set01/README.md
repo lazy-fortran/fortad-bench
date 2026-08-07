@@ -208,3 +208,22 @@ hand JVP/VJP, central differences, and adjoint identities.
 See the [case notes](tranche-l-lh007-015.md),
 [manifest](tranche-l-lh007-015-manifest.toml), [runner](../../scripts/bench_tapenade_set01_lh007_015.sh),
 and [measurement record](../../results/tapenade_set01_lh007_015_refusal_validation.txt).
+
+## Tranche M: `lh033`, `lh039`, and `lh040`
+
+The adjacent `lh033`/`lh039`/`lh040` runner keeps three exact fixed-form
+sources in the pinned checkout. `lh039` is a supported nested-call port with
+forward and reverse output. `lh033` (a `COMMON` block) and `lh040` (a fixed-form
+`CHARACTER*10` declaration) are reproducible exact-source refusals with fresh
+Tapenade parser, tangent, and reverse outputs compiled strictly and the exact
+FortAD diagnostic recorded. The independent harness checks both refusal
+primals and the supported case with hand derivatives, central differences, and
+the JVP/VJP adjoint identity:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh033_047.sh
+```
+
+See the [case notes](tranche-m-lh033-047.md), [manifest](tranche-m-lh033-047-manifest.toml),
+and [measurement record](../../results/tapenade_set01_lh033_047_validation.txt).
