@@ -175,3 +175,19 @@ See the [case notes](tranche-h.md), [manifest](tranche-h-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_h_refusal_validation.txt).
 The `lh019` derived-component result is in
 [the tranche-I record](../../results/tapenade_set01_tranche_i_validation.txt).
+
+## `lh007`-`lh015` tranche: exact-source generated-compile boundaries
+
+The focused `lh007`-`lh015` probe closes `lh012`, `lh013`, and `lh014` as
+reproducible expected refusals. It compiles each exact upstream source and
+stored reference, regenerates and strictly compiles fresh Tapenade parser,
+tangent, and reverse files, then records FortAD's generated-code compiler
+boundary. `lh012` and `lh013` retain a compilable forward path while reverse
+generation fails. `lh014` relies on implicit loop-index typing, which FortAD's
+`implicit none` derivative does not declare. The independent harness checks
+safe indexed-product, initialized-scalar, and output-sum observations with
+hand JVP/VJP, central differences, and adjoint identities.
+
+See the [case notes](tranche-l-lh007-015.md),
+[manifest](tranche-l-lh007-015-manifest.toml), [runner](../../scripts/bench_tapenade_set01_lh007_015.sh),
+and [measurement record](../../results/tapenade_set01_lh007_015_refusal_validation.txt).
