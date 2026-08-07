@@ -1,0 +1,24 @@
+schema_version = 1
+name = "tapenade-set01-lh136-simple-lighthouse"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e6ba3ecfd4484682143ade1a0fdfedd694b18798"
+source_form = "fixed"
+runner = "scripts/bench_tapenade_set01_lh136_simple.sh"
+result = "results/tapenade_set01_lh136_simple.txt"
+upstream_source = "nonRegressions/set01/lh136/program.f"
+upstream_entry_point = "eval_f(x,y)"
+ported_entry_point = "not-claimed: exact source contains main-program WRITE and an INTRINSIC declaration"
+independent = ["x(1:4)"]
+dependent = ["y(1:2)"]
+modes = ["parser", "forward", "reverse"]
+oracle = ["independent-hand-primal", "central-difference-sweep"]
+classification = "expected-refusal-fortad-unsupported-intrinsic-declaration"
+dependencies = ["Exact source includes a legacy fixed-form main program and console I/O"]
+expected_diagnostics = [
+    "exact and fresh Tapenade sources pass strict fixed-form syntax compilation",
+    "FortAD check, forward, and reverse refuse the INTRINSIC declaration at source line 30",
+]
+
+[upstream_sha256]
+"program.f" = "fa82612973ee24512fe35b2e8482eeda4fa9077f6fadbba8e9b2c08e1a86c4cd"

@@ -1,0 +1,12 @@
+case: Tapenade nonRegressions/set02/lh192
+classification: expected-refusal-fortad-checkpoint-loop-storage
+runner_result: pass
+fortad_revision: e6ba3ecfd4484682143ade1a0fdfedd694b18798
+tapenade_revision: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_modes: parser forward reverse strict-compile-pass
+fortad_check: pass
+fortad_forward: syntax-compile-pass-uninitialized-loop-index-evidence
+fortad_reverse: expected-refusal-per-iteration-storage
+independent_oracle: hand-primal central-difference-sweep
+oracle_status: pass
+source_sha256: 0280b9c4a2ed9be644268561cd07e8aca3b49d620d3d135ac43fd024d34988fc  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set02/lh192/program.f

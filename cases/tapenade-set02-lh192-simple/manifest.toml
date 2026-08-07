@@ -1,0 +1,25 @@
+schema_version = 1
+name = "tapenade-set02-lh192-simple-checkpoint-loop"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e6ba3ecfd4484682143ade1a0fdfedd694b18798"
+source_form = "fixed"
+runner = "scripts/bench_tapenade_set02_lh192_simple.sh"
+result = "results/tapenade_set02_lh192_simple.txt"
+upstream_source = "nonRegressions/set02/lh192/program.f"
+upstream_entry_point = "test(x,y,pkz)"
+ported_entry_point = "not-claimed: exact reverse requires per-iteration storage"
+independent = ["x", "pkz"]
+dependent = ["y"]
+modes = ["parser", "forward", "reverse"]
+oracle = ["independent-hand-primal", "central-difference-sweep"]
+classification = "expected-refusal-fortad-checkpoint-loop-storage"
+dependencies = ["The exact source uses a 100x200x300 checkpoint loop over a 400^3 array"]
+expected_diagnostics = [
+    "exact and fresh Tapenade parser/forward/reverse sources pass strict fixed-form syntax compilation",
+    "FortAD forward output compiles but contains uninitialized loop indices in the transformed checkpoint loop",
+    "FortAD reverse refuses the active read/write array loop because per-iteration storage is not implemented",
+]
+
+[upstream_sha256]
+"program.f" = "0280b9c4a2ed9be644268561cd07e8aca3b49d620d3d135ac43fd024d34988fc"

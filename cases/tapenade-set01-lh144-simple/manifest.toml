@@ -1,0 +1,25 @@
+schema_version = 1
+name = "tapenade-set01-lh144-simple-call-chain"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e6ba3ecfd4484682143ade1a0fdfedd694b18798"
+source_form = "fixed"
+runner = "scripts/bench_tapenade_set01_lh144_simple.sh"
+result = "results/tapenade_set01_lh144_simple.txt"
+upstream_source = "nonRegressions/set01/lh144/program.f"
+upstream_entry_point = "top(x,y)"
+ported_entry_point = "not-claimed: exact reverse output has a duplicate x_b dummy"
+independent = ["x", "y"]
+dependent = ["x"]
+modes = ["parser", "forward", "reverse"]
+oracle = ["independent-hand-primal", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-fortad-generated-duplicate-adjoint"
+dependencies = ["The exact source contains two calls to the local FOO subroutine and no external dependency"]
+expected_diagnostics = [
+    "exact and fresh Tapenade parser/forward/reverse sources pass strict fixed-form syntax compilation",
+    "FortAD forward output compiles strictly",
+    "FortAD reverse output is refused by the compiler because its generated signature repeats x_b",
+]
+
+[upstream_sha256]
+"program.f" = "da3eac4ba8b0918fcb1721cc31985d4fb46f21bc3d66440459a90296aa750d2d"
