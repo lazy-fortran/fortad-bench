@@ -563,6 +563,24 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala02
 Each directory contains its manifest, runner result, notes, oracle, and
 contract test.
 
+## Tranche AL: `B01`
+
+This exact B01 fixed-form case selects `GRADFB(x,y,z,b,c,d,vol6)` from a
+translation unit with include context and legacy labeled-DO control flow.
+Pinned Tapenade parser/forward/reverse generation and the independent
+determinant-volume JVP/VJP oracle pass; exact FortAD check/JVP/VJP refuse at
+the labeled DO boundary without emitting output. No extracted or repaired
+source is counted as support.
+
+Run it with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/B01/run.sh
+```
+
+The directory contains the pinned manifest, runner result, notes, oracle, and
+three-test contract.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`

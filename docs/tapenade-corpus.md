@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,256 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger now has 112 classified set01 rows (32 runnable, 64
+  either engine. It leaves 1,255 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger now has 113 classified set01 rows (32 runnable, 65
   expected refusals, and 16 invalid-upstream closures), plus 64 classified
   rows elsewhere (52 runnable/refusal evidence rows and 12 invalid-upstream
   closures).
@@ -110,9 +110,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,330 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,329 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
-rows with no entry-point hint, 312 program candidates, and 944 procedure
+rows with no entry-point hint, 312 program candidates, and 943 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 128 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -191,7 +191,8 @@ The next six-case closeout covers `ht02`, `ht03`, `lh104`, `lh105`, `lh107`, and
 boundaries, and reverse adjoint-output collisions, plus the runnable `lh107`
 `MAX` sequence. All six have fresh pinned Tapenade generation, exact FortAD
 probes, and independent three-test contracts.
-The four-case `B03`/`ala00`--`ala02` closeout adds one exact `COMMON` refusal
+The exact B01 closeout adds a legacy labeled-DO refusal for `GRADFB`, and the
+four-case `B03`/`ala00`--`ala02` closeout adds one exact `COMMON` refusal
 and three fixed-point `PRINT` refusal witnesses. Their pinned manifests,
 fresh generation records, exact FortAD diagnostics, and independent contracts
 are under `cases/tapenade-set01/`.
