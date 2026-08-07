@@ -1,0 +1,55 @@
+case: Tapenade nonRegressions set06 v360 module-only boundary
+classification: expected-refusal-no-callable-procedure-module-only
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:26Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+fortad_tracked_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_inventory: modules=M0,M1 uses=M1->M0 declarations=m0_i=2,gm_levels=6,gm_show=.false.,gm_unit=6 callable_units=0
+upstream_entry_point: none (MODULE M0 and MODULE M1 only)
+selected_entry_points: none
+tapenade_options: parser=-p forward=-d reverse=-b; no root
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+upstream_strict_diagnostics: unused-private-module-variables-gm_show-and-gm_unit
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v360_p.f90 tangent=none reverse=none
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_no_root_diagnostic: tangent-and-reverse-message-only-no-root-no-top-procedure
+fortad_exact_parser: expected-refusal status=1 stdout=empty stderr="no procedure named 'm0' in this source" output=none
+fortad_exact_forward: expected-refusal status=1 stdout=empty stderr="no procedure named 'm0' in this source" output=none
+fortad_exact_reverse: expected-refusal status=1 stdout=empty stderr="no procedure named 'm0' in this source" output=none
+independent_oracle: module/use/declaration inventory and empty derivative domain
+oracle_status: pass
+oracle_kind: independent-module-declaration-semantic
+module_count: 2
+module_names: M0,M1
+module_use: M1 USE M0
+declarations: M0.m0_i=2 M1.gm_levels=6 M1.gm_show=.false. M1.gm_unit=6
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+port_result: not-applicable-no-entry-point
+closure: no synthetic root, wrapper, or derivative port; module-only declaration domain
+upstream_sha256:
+a7e0653bfb846f6bcad40b7f8492cbd432412d3d1793d614620346d334a35d32  nonRegressions/set06/v360/program.f90
+663281dd7e10b0c8451c5a336f7e4bd8bbd82c00fe70aa50cc736e1e27366f7f  nonRegressions/set06/v360/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set06/v360/program_p.msg
+fresh_tapenade_sha256:
+b376cd4011e2fcc6e8b2cd202d21286d23f24af3376d8db169b6896329871cf7  v360_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v360_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v360_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v360_b.msg
+case_artifact_sha256:
+05fde0e81e90e98b81c8ed3a5afd59b167fdf2d1a644eb624db609081b4d0a51  cases/tapenade-set01/v360/manifest.toml
+6952df075f70094565b5e1caa46cc05b5420b7fdb376ac156a8e5288f3d201a8  cases/tapenade-set01/v360/notes.md
+bcb433186a84393cc198c74a2f25ca93d500f177a7763e1ac3be8eae0de4121c  cases/tapenade-set01/v360/oracle.py
+c88e719687e35aa5db89f7b39dc09591fa5eccecd30be12fc1e3501485f4bc52  cases/tapenade-set01/v360/run.sh
+bbf3ca750fdcd7abcba8c7782226cbde0b6eda2804febcab51043c3788117350  cases/tapenade-set01/v360/test_contract.py

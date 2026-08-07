@@ -1,0 +1,72 @@
+schema_version = 1
+name = "tapenade-set07-v523-empty-no-entry-point"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v523/run.sh"
+result = "cases/tapenade-set01/v523/result.txt"
+
+queue_source = "nonRegressions/set07/v523"
+queue_category = "parser-or-invalid-risk"
+static_classification = "empty-source; no-callable-entry-point"
+source_files = [
+    "nonRegressions/set07/v523/program.f90",
+]
+upstream_sources = [
+    "nonRegressions/set07/v523/program.f90",
+    "nonRegressions/set07/v523/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set07/v523/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set07/v523/program_p.f90",
+    "nonRegressions/set07/v523/program_d.f90",
+    "nonRegressions/set07/v523/program_d.msg",
+    "nonRegressions/set07/v523/program_b.f90",
+    "nonRegressions/set07/v523/program_b.msg",
+]
+
+upstream_entry_point = "none (empty source)"
+selected_entry_points = []
+ported_entry_point = "not-applicable-empty-no-entry-point"
+independent = []
+dependent = []
+options = [
+    "-p -O <disposable>/tapenade/parser -o v523 program.f90",
+    "-d -O <disposable>/tapenade/forward -o v523 program.f90 (no root)",
+    "-b -O <disposable>/tapenade/reverse -o v523 program.f90 (no root)",
+]
+modes = ["parser", "forward:no-root", "reverse:no-root"]
+contract_tests = [
+    "exact-empty-source-and-stored-reference-boundary",
+    "fresh-pinned-Tapenade-parser-forward-reverse-no-root-probes",
+    "independent-empty-unit-oracle-and-FortAD-three-mode-no-entry-refusal",
+]
+oracle = [
+    "strict compiler behavior for the exact empty source",
+    "stored-reference inventory and empty-message boundary",
+    "fresh pinned Tapenade parser/tangent/reverse probes",
+    "independent zero-unit semantic oracle",
+    "FortAD exact parser/forward/reverse no-entry refusal",
+    "upstream source/reference SHA-256 contract",
+]
+classification = "expected-refusal-empty-source-no-entry-point"
+expected_diagnostics = [
+    "strict gfortran accepts empty program.f90; program_p.msg is empty metadata, not a Fortran source reference",
+    "fresh Tapenade parser emits only empty v523_p.msg; tangent and reverse emit no-root messages and no source",
+    "FortAD parser, forward, and reverse refuse with no function or subroutine found in source and write no output",
+]
+fresh_generated_sources = []
+fresh_generated_messages = ["v523_p.msg", "v523_d.msg", "v523_b.msg"]
+fresh_missing_sources = ["v523_p.f90", "v523_d.f90", "v523_b.f90"]
+bounded_sources = []
+bounded_domain = "empty: no module, program, subroutine, or function exists"
+tapenade_result = "pass-empty-parser-message-tangent-reverse-no-root-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The exact checkout contains no Fortran units or executable semantics. No procedure name, synthetic root, derivative port, or numerical claim is introduced; the case records only the empty-source compiler and tool boundaries."
+
+[upstream_sha256]
+"nonRegressions/set07/v523/program.f90" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set07/v523/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

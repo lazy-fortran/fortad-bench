@@ -1,0 +1,48 @@
+case: Tapenade nonRegressions set07 v523
+classification: expected-refusal-empty-source-no-entry-point
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:27Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+fortad_worktree: tracked-clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+upstream_entry_point: none (empty source)
+selected_entry_points: none
+tapenade_options: parser=-p forward=-d reverse=-b; no root
+upstream_exact_strict_compile: program.f90=0
+stored_reference_compiler_behavior: program_p.msg=not-applicable-empty-message-only
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=none tangent=none reverse=none
+tapenade_fresh_messages: parser=empty tangent=no-root reverse=no-root
+tapenade_no_root_diagnostic: tangent-and-reverse-message-only-no-root-no-top-procedure
+fortad_exact_parser: expected-refusal status=1 diagnostic="no function or subroutine found in source" output=none
+fortad_exact_forward: expected-refusal status=2 diagnostic="no function or subroutine found in source" output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic="no function or subroutine found in source" output=none
+independent_oracle: empty source semantic inventory
+source_byte_count: 0
+module_units: 0
+program_units: 0
+callable_units: 0
+executable_statements: 0
+derivative_domain: empty-no-entry-point
+oracle_status: pass
+port_result: not-applicable-empty-no-entry-point
+upstream_sha256:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set07/v523/program.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set07/v523/program_p.msg
+fresh_tapenade_sha256:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v523_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v523_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v523_b.msg
+case_artifact_sha256:
+170dfac1774f4a3fc31b4aa056c4d377a2dcc607a98b3723933a762ebd6d7f74  cases/tapenade-set01/v523/manifest.toml
+eae552869a9aff123a4fe1224a8f01dca9844690d2744b7c60707a5b38b35726  cases/tapenade-set01/v523/notes.md
+2505c61254e3c41cbe8c737be5e93d28ebb7bc81eabfe5f567e0402b1ec95a9e  cases/tapenade-set01/v523/oracle.py
+e76621d15eb52fb01a21c0542bb4e866a8b549390be5a63a8a5007efcd201abc  cases/tapenade-set01/v523/run.sh
+a43da7dc83c5afad92a71ca101a48863d7dac27e0e822b5a60b87cd0e9b3e28b  cases/tapenade-set01/v523/test_contract.py

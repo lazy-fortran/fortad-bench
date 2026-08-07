@@ -1,0 +1,57 @@
+case: Tapenade nonRegressions/set11/vpf16 module-only/no-entry boundary
+classification: expected-refusal-module-only-no-entry
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:29Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+upstream_entry_point: none (ESMF_CalendarMod and mo are declaration-only modules)
+selected_entry_points: none
+options_metadata: -msginfile -noinclude -noisize
+stored_references: program_p.f90 program_p.msg
+missing_stored_references: program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p forward=-d reverse=-b; source Options metadata above; no -root/-head
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=vpf16_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=vpf16_p.msg tangent=vpf16_d.msg reverse=vpf16_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_tangent_reverse_diagnostic: no root unit to differentiate; code provided does not contain a top procedure
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no procedure named 'esmf_calendarmod' in this source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no procedure named 'esmf_calendarmod' in this source"
+independent_semantic_oracle:
+  oracle_status: pass
+  oracle_kind: independent-module-declaration-semantic
+  oracle_modules: ESMF_CalendarMod,mo
+  oracle_use: mo USE ESMF_CalendarMod ONLY ESMF_Calendar,ESMF_Calendar_dummy
+  oracle_declarations: ESMF_Calendar_dummy; ESMF_Calendar%Set=.false.; PRIVATE imports
+  oracle_entry_points: none
+  derivative_domain: empty-no-entry-point
+port_result: not-claimed reason=module-only-source-has-no-procedure-entry
+synthetic_root: none
+derivative_port: none
+upstream_sha256:
+5495f65b16e09d28a8f2120c4eb943e45f5bac8e89e08a66ade4fce3cfbf6fb4  nonRegressions/set11/vpf16/Options
+74f93e0032b5f18ed62be81eb01e98b9290e1f7ecd07f64235823452027b0b80  nonRegressions/set11/vpf16/program.f90
+1d34b405a1a61d63bba66404e188dcca6a14d9215d487e8d992c9ac44cc5da89  nonRegressions/set11/vpf16/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set11/vpf16/program_p.msg
+fresh_tapenade_sha256:
+8c34132dd84097b6fd5fa43c3f9a083ad766b8f3aca27156e2ce6c918eeecc47  vpf16_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  vpf16_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  vpf16_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  vpf16_b.msg
+case_artifact_sha256:
+13bfbd50692b3ea82215d0aa2396cb132e8297fe5e323541e5f0e34380b26c41  manifest.toml
+cd39c9eb1d01600a2a0765e78ddab31ff324fe6992ca132d26883044a764c937  notes.md
+f2fc48f2e12abe6541bde5234ccdea940ca00ed439b19030f9528ffb2560c832  oracle.py
+a0fe09f7a2195234d01afefe40a47a8c7a03a4347f8322db907f66f6d0b0a23a  run.sh
+4dee7172e6aff5c333390b235bcadf92439fc6f6ccbac3d0bd88cdbf312a468e  test_contract.py

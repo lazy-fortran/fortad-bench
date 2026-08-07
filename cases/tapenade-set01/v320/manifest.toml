@@ -1,0 +1,77 @@
+schema_version = 1
+name = "tapenade-nonregressions-set06-v320-module-only"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v320/run.sh"
+result = "cases/tapenade-set01/v320/result.txt"
+
+queue_source = "nonRegressions/set06/v320"
+queue_category = "no-entry-point-evidence"
+queue_rank = 31
+static_classification = "fortran-module-only; no-callable-procedure"
+source_files = [
+    "nonRegressions/set06/v320/program.f90",
+    "nonRegressions/set06/v320/program_p.f90",
+    "nonRegressions/set06/v320/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set06/v320/program.f90",
+    "nonRegressions/set06/v320/program_p.f90",
+    "nonRegressions/set06/v320/program_p.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg"]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none (MODULE TEST_TYPEDEF only; no procedure or program)"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-callable-procedure"
+independent = [
+    "private foobar rank-1 data with values [0.0, 1.0]",
+    "Input and Output derived-type field shapes",
+    "empty callable and executable domain",
+]
+dependent = []
+function = "declaration-only module state and derived types; no callable numerical map"
+options = [
+    "fresh Tapenade parser=-p, tangent=-d, reverse=-b with no root",
+    "FortAD check/forward/reverse without --proc",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-source-and-stored-parser-reference-strict-compilation-with-independent-module-oracle",
+    "fresh-pinned-Tapenade-no-root-parser-compilation-and-tangent-reverse-probes",
+    "repaired-FortAD-three-mode-no-entry-refusal-with-no-output",
+]
+oracle = [
+    "strict gfortran compilation of exact source and stored parser reference",
+    "fresh pinned Tapenade parser/tangent/reverse no-root behavior",
+    "repaired FortAD parser/forward/reverse no-entry refusal",
+    "independent module/data/type-shape semantic model",
+    "pinned upstream source and stored-reference SHA-256 contract",
+]
+classification = "expected-refusal-no-entry-point-module-only"
+expected_diagnostics = [
+    "the exact source and stored parser reference compile under strict free-form Fortran 2018 flags",
+    "fresh Tapenade parser emits v320_p.f90 and tangent/reverse emit only no-root messages",
+    "FortAD parser, forward, and reverse refuse with no function or subroutine found in source",
+    "the module has private foobar data, Input and Output declarations, and no callable or executable unit",
+]
+fresh_generated_sources = ["v320_p.f90"]
+fresh_generated_messages = ["v320_p.msg", "v320_d.msg", "v320_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source has no callable procedure interface"
+tapenade_result = "pass-fresh-no-root-parser-strict-compile-tangent-reverse-no-source"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The pinned checkout is a declaration-only module. A synthetic root, wrapper, derivative port, or numerical runtime claim would invent a callable interface and change the corpus candidate."
+
+[upstream_sha256]
+"nonRegressions/set06/v320/program.f90" = "66aa2275ab038686c4c3070ae0a91b7861e11366c68c522a803e1589ebfa7e44"
+"nonRegressions/set06/v320/program_p.f90" = "edb679ab4d2105357208aec3a6a051523730412e6a8813d5aa86a1107e00dd6d"
+"nonRegressions/set06/v320/program_p.msg" = "e74b1bd4b73e44a56588e938e4780bcac114e50e145e6a275c262cf0dc18ef70"

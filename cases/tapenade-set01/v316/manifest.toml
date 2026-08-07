@@ -1,0 +1,77 @@
+schema_version = 1
+name = "tapenade-set06-v316-invalid-module-no-entry-point"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v316/run.sh"
+result = "cases/tapenade-set01/v316/result.txt"
+
+queue_source = "nonRegressions/set06/v316"
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-module; invalid-pointer-initializers; no-callable-entry-point"
+source_files = [
+    "nonRegressions/set06/v316/program.f90",
+    "nonRegressions/set06/v316/program_p.f90",
+    "nonRegressions/set06/v316/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set06/v316/program.f90",
+    "nonRegressions/set06/v316/program_p.f90",
+    "nonRegressions/set06/v316/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set06/v316/program_p.f90",
+    "nonRegressions/set06/v316/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set06/v316/program_d.f90",
+    "nonRegressions/set06/v316/program_d.msg",
+    "nonRegressions/set06/v316/program_b.f90",
+    "nonRegressions/set06/v316/program_b.msg",
+]
+
+upstream_entry_point = "none (MODULE M only; no program, subroutine, or function)"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = ["module M declares pointer objects p1, p2, p3, and p4"]
+dependent = []
+options = [
+    "-p -O <disposable>/tapenade/parser -o v316 program.f90",
+    "-d -O <disposable>/tapenade/forward -o v316 program.f90 (no root)",
+    "-b -O <disposable>/tapenade/reverse -o v316 program.f90 (no root)",
+]
+modes = ["parser", "forward:no-root", "reverse:no-root"]
+contract_tests = [
+    "exact-source-and-stored-reference-strict-refusal",
+    "fresh-pinned-Tapenade-parser-and-no-root-probes",
+    "independent-pointer-inventory-and-FortAD-no-entry-refusal",
+]
+oracle = [
+    "strict compiler diagnostic identity",
+    "fresh pinned Tapenade parser/tangent/reverse probes",
+    "independent module and pointer declaration semantic oracle",
+    "FortAD exact parser/forward/reverse no-procedure refusal",
+    "upstream source/reference SHA-256 contract",
+]
+classification = "expected-refusal-invalid-module-no-entry-point"
+expected_diagnostics = [
+    "strict gfortran rejects p2 and p4 pointer initializers using = and rejects p3 => p1 because p1 lacks TARGET",
+    "stored parser reference records Tapenade TC16 type mismatch in assignment: REAL receives void",
+    "fresh Tapenade parser emits v316_p.f90 and v316_p.msg; fresh tangent and reverse emit only no-root messages",
+    "fresh parser output has the same three strict pointer-initialization refusals",
+    "FortAD parser, forward, and reverse refuse with no procedure named m and emit no output",
+]
+fresh_generated_sources = ["v316_p.f90"]
+fresh_generated_messages = ["v316_p.msg", "v316_d.msg", "v316_b.msg"]
+fresh_missing_sources = ["v316_d.f90", "v316_b.f90"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source has no callable procedure interface"
+tapenade_result = "pass-generation-parser-strict-refusal-tangent-reverse-no-root-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-procedure"
+closure = "The exact checkout is an invalid module containing declarations only; it has no callable procedure or executable observable. No synthetic root, repaired pointer declaration, bounded port, or numerical derivative claim is made."
+
+[upstream_sha256]
+"nonRegressions/set06/v316/program.f90" = "95b8c1a7685217dc3164351725f76db1c28ef206fd34870864181099917698ee"
+"nonRegressions/set06/v316/program_p.f90" = "029293274e2cac1a74476c5b8f5bfcce0822ef8f9d021f191143fe9277ddd2bb"
+"nonRegressions/set06/v316/program_p.msg" = "aad626fb418e7b2a642a4bab70b0fd7f92c73ba179c11b6736837c2d575d1d4b"

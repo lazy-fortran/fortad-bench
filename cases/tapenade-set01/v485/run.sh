@@ -1,0 +1,156 @@
+#!/usr/bin/env bash
+# Validate the pinned Tapenade nonRegressions/set07/v485 module-only boundary.
+set -euo pipefail
+
+case_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+root=$(cd "$case_dir/../../.." && pwd)
+result="$case_dir/result.txt"
+fortad_repo=${FORTAD_REPO:-/mnt/storage/code/lazy-fortran/fortad}
+tapenade_repo=${TAPENADE_REPO:-$root/upstream/tapenade}
+fortad_repo=$(cd "$fortad_repo" && pwd)
+tapenade_repo=$(cd "$tapenade_repo" && pwd)
+
+required_fortad_commit=3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
+fc=${FC:-gfortran}
+source_rel=nonRegressions/set07/v485
+source_dir="$tapenade_repo/$source_rel"
+fortad="$fortad_repo/build/fo/bin/fortad"
+tapenade="$tapenade_repo/bin/tapenade"
+
+command -v "$fc" >/dev/null
+command -v java >/dev/null
+command -v python3 >/dev/null
+test -e "$fortad_repo/.git"
+test -e "$tapenade_repo/.git"
+test "$(git -C "$fortad_repo" rev-parse HEAD)" = "$required_fortad_commit"
+test -z "$(git -C "$fortad_repo" status --porcelain --untracked-files=no)"
+test "$(git -C "$tapenade_repo" rev-parse HEAD)" = "$required_tapenade_commit"
+test -z "$(git -C "$tapenade_repo" status --porcelain --untracked-files=no)"
+test -x "$fortad"
+test -x "$tapenade"
+for source in program.f90 program_p.f90 program_p.msg; do
+    test -e "$source_dir/$source"
+done
+test ! -e "$source_dir/Options"
+test ! -e "$source_dir/program_d.f90"
+test ! -e "$source_dir/program_b.f90"
+
+out=$(mktemp -d /var/tmp/fortad-bench-v485.XXXXXX)
+trap 'find "$out" -depth -type f -delete; find "$out" -depth -type d -empty -delete' EXIT
+mkdir -p "$out/exact" "$out/stored" "$out/fresh/parser" \
+    "$out/fresh/forward" "$out/fresh/reverse" "$out/fortad"
+
+strict_flags=(-std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors
+    -Wall -Wextra -Wimplicit-interface -cpp)
+
+run_status() {
+    local label=$1
+    shift
+    local status=0
+    "$@" >"$out/$label.stdout" 2>"$out/$label.stderr" || status=$?
+    printf '%s\n' "$status" >"$out/$label.status"
+}
+
+compile_source() {
+    local label=$1
+    local source=$2
+    local module_dir=$3
+    mkdir -p "$module_dir"
+    run_status "$label" "$fc" "${strict_flags[@]}" -I"$source_dir" \
+        -J"$module_dir" -c "$source" -o "$out/$label.o"
+}
+
+# Contract test 1: exact module and stored parser reference compile strictly.
+compile_source exact_program "$source_dir/program.f90" "$out/exact/mod"
+compile_source stored_parser "$source_dir/program_p.f90" "$out/stored/mod"
+test "$(cat "$out/exact_program.status")" -eq 0
+test "$(cat "$out/stored_parser.status")" -eq 0
+
+# Contract test 2: no synthetic root; parser emits a module, AD modes do not.
+for mode in parser forward reverse; do
+    case "$mode" in
+        parser) tapenade_mode=-p; suffix=p ;;
+        forward) tapenade_mode=-d; suffix=d ;;
+        reverse) tapenade_mode=-b; suffix=b ;;
+    esac
+    run_status "tapenade-$mode-generation" bash -c \
+        "cd '$out/fresh/$mode' && '$tapenade' '$tapenade_mode' -O . -o v485 '$source_dir/program.f90'"
+    test "$(cat "$out/tapenade-$mode-generation.status")" -eq 0
+    test -e "$out/fresh/$mode/v485_${suffix}.msg"
+done
+test -s "$out/fresh/parser/v485_p.f90"
+test ! -e "$out/fresh/forward/v485_d.f90"
+test ! -e "$out/fresh/reverse/v485_b.f90"
+grep -Fq "No root unit to differentiate" "$out/tapenade-forward-generation.stdout"
+grep -Fq "The code provided does not contain a top procedure" "$out/tapenade-forward-generation.stdout"
+grep -Fq "No root unit to differentiate" "$out/tapenade-reverse-generation.stdout"
+compile_source fresh_parser "$out/fresh/parser/v485_p.f90" "$out/fresh/parser/mod"
+test "$(cat "$out/fresh_parser.status")" -eq 0
+
+# Contract test 3: exact FortAD no-entry refusal in all three modes.
+run_status fortad-parser "$fortad" check \
+    --output "$out/fortad/parser.f90" "$source_dir/program.f90"
+run_status fortad-forward "$fortad" --mode forward --indep X \
+    --name v485_forward --output "$out/fortad/forward.f90" "$source_dir/program.f90"
+run_status fortad-reverse "$fortad" --mode reverse --indep X --dep Y \
+    --name v485_reverse --output "$out/fortad/reverse.f90" "$source_dir/program.f90"
+for mode in parser forward reverse; do
+    test "$(cat "$out/fortad-$mode.status")" -eq 1
+    test ! -e "$out/fortad/$mode.f90"
+    grep -Fq "no function or subroutine found in source" "$out/fortad-$mode.stderr"
+done
+
+python3 "$case_dir/oracle.py" >"$out/oracle.txt"
+grep -Fq "oracle_status: pass" "$out/oracle.txt"
+
+cpu_model=$(lscpu 2>/dev/null | awk -F: '/Model name/ {sub(/^[[:space:]]+/, "", $2); print $2; exit}')
+os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' /etc/os-release)
+{
+    printf 'case: Tapenade nonRegressions/set07/v485 module-only/no-entry boundary\n'
+    printf 'classification: expected-refusal-module-only-no-entry\n'
+    printf 'recorded_utc: %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    printf 'machine: %s\n' "$(hostname)"
+    printf 'os: %s\n' "$os_name"
+    printf 'kernel: %s\n' "$(uname -srvmo)"
+    printf 'cpu: %s\n' "$cpu_model"
+    printf 'compiler: %s\n' "$($fc --version | head -1)"
+    printf 'strict_compiler_flags: %s\n' "${strict_flags[*]}"
+    printf 'fortad_commit: %s\n' "$(git -C "$fortad_repo" rev-parse HEAD)"
+    printf 'tapenade_commit: %s\n' "$(git -C "$tapenade_repo" rev-parse HEAD)"
+    printf 'upstream_entry_point: none (module-only source)\n'
+    printf 'stored_references: program_p.f90 program_p.msg\n'
+    printf 'missing_stored_references: Options program_d.f90 program_d.msg program_b.f90 program_b.msg\n'
+    printf 'tapenade_options: parser=-p forward=-d reverse=-b; all without -root/-head\n'
+    printf 'upstream_exact_strict_compile: program.f90=%s program_p.f90=%s\n' \
+        "$(cat "$out/exact_program.status")" "$(cat "$out/stored_parser.status")"
+    printf 'tapenade_generation: parser=%s tangent=%s reverse=%s\n' \
+        "$(cat "$out/tapenade-parser-generation.status")" \
+        "$(cat "$out/tapenade-forward-generation.status")" \
+        "$(cat "$out/tapenade-reverse-generation.status")"
+    printf 'tapenade_fresh_sources: parser=v485_p.f90 tangent=none reverse=none\n'
+    printf 'tapenade_fresh_messages: parser=v485_p.msg tangent=v485_d.msg reverse=v485_b.msg\n'
+    printf 'tapenade_fresh_strict_compile: parser=%s tangent=not-applicable reverse=not-applicable\n' \
+        "$(cat "$out/fresh_parser.status")"
+    printf 'tapenade_tangent_reverse_diagnostic: no root unit to differentiate; code provided does not contain a top procedure\n'
+    printf 'fortad_exact_parser: expected-refusal status=%s output=none diagnostic="no function or subroutine found in source"\n' \
+        "$(cat "$out/fortad-parser.status")"
+    printf 'fortad_exact_forward: expected-refusal status=%s output=none diagnostic="no function or subroutine found in source"\n' \
+        "$(cat "$out/fortad-forward.status")"
+    printf 'fortad_exact_reverse: expected-refusal status=%s output=none diagnostic="no function or subroutine found in source"\n' \
+        "$(cat "$out/fortad-reverse.status")"
+    printf 'independent_semantic_oracle:\n'
+    sed 's/^/  /' "$out/oracle.txt"
+    printf 'port_result: not-claimed reason=module-only-source-has-no-procedure-entry\n'
+    printf 'synthetic_root: none\n'
+    printf 'upstream_sha256:\n'
+    (cd "$tapenade_repo" && sha256sum "$source_rel"/program.f90 \
+        "$source_rel"/program_p.f90 "$source_rel"/program_p.msg)
+    printf 'fresh_tapenade_sha256:\n'
+    (cd "$out/fresh/parser" && sha256sum v485_p.f90 v485_p.msg)
+    (cd "$out/fresh/forward" && sha256sum v485_d.msg)
+    (cd "$out/fresh/reverse" && sha256sum v485_b.msg)
+    printf 'case_artifact_sha256:\n'
+    (cd "$case_dir" && sha256sum manifest.toml notes.md oracle.py run.sh test_contract.py)
+} >"$result"
+cat "$result"

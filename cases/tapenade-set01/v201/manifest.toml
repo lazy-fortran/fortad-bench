@@ -1,0 +1,69 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set05-v201"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v201/run.sh"
+result = "cases/tapenade-set01/v201/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-module; no-procedure; stored-parser-reference-only"
+source_files = [
+    "nonRegressions/set05/v201/program.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v201/program.f90",
+    "nonRegressions/set05/v201/program_p.f90",
+    "nonRegressions/set05/v201/program_p.msg",
+]
+stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none (MODULE TEST contains only module data declarations)"
+selected_entry_points = []
+ported_entry_point = "not-claimed-no-entry-point"
+independent = []
+dependent = []
+options = [
+    "fresh invocation: -p/-d/-b -O . -o v201 program.f90 (no root)",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-source-and-stored-parser-strict-compile-boundary",
+    "fresh-pinned-Tapenade-no-root-generation-and-parser-compile-boundary",
+    "exact-FortAD-three-mode-no-procedure-refusal-and-independent-layout-oracle",
+]
+oracle = [
+    "strict compiler exact-source and stored-reference boundary",
+    "fresh pinned Tapenade generation and strict compilation where a source is emitted",
+    "FortAD exact parser/forward/reverse no-procedure refusal boundary",
+    "independent semantic model of MODULE TEST array shapes and storage layout",
+    "upstream-source and stored-reference SHA-256 contract",
+]
+classification = "expected-refusal-module-only-no-entry"
+expected_diagnostics = [
+    "exact program.f90 is rejected by strict flags for tabs and INTEGER*4/REAL*8 extensions; stored program_p.f90 is rejected for INTEGER*4/REAL*8",
+    "fresh parser emits v201_p.f90 with the same legacy declarations; fresh tangent and reverse emit only the no-root message",
+    "FortAD check, forward, and reverse all refuse because no function or subroutine exists in the source",
+]
+fresh_generated_sources = ["v201_p.f90"]
+fresh_generated_messages = ["v201_p.msg", "v201_d.msg", "v201_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source has no callable procedure interface"
+tapenade_result = "pass-no-root-parser-reference-only-tangent-reverse-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-procedure"
+closure = "The exact candidate is a module containing only parameters and global arrays. Its stored parser reference is legacy Fortran and no procedure is available for differentiation. No bounded port or synthetic root is claimed; adding one would invent missing semantics."
+
+[upstream_sha256]
+"nonRegressions/set05/v201/program.f90" = "c678aede7a4d768ef946776df1ceaba15b52dc2599b720c7c145e58a80f6b20e"
+"nonRegressions/set05/v201/program_p.f90" = "380c51410d7f9df96880b43b20175ccd7e1021ca30d6e378958e39f2fd8f308f"
+"nonRegressions/set05/v201/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

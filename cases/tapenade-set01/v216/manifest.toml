@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set05-v216-module-only"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v216/run.sh"
+result = "cases/tapenade-set01/v216/result.txt"
+
+queue_category = "no-entry-point-evidence"
+static_classification = "fortran-source-candidate; module-only-reference"
+source_files = [
+    "nonRegressions/set05/v216/program.f90",
+    "nonRegressions/set05/v216/program_p.f90",
+    "nonRegressions/set05/v216/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set05/v216/program.f90",
+    "nonRegressions/set05/v216/program_p.f90",
+    "nonRegressions/set05/v216/program_p.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg"]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none: modules definition and rk only"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point-reference-only"
+independent = []
+dependent = []
+function = "declaration-only module state: kind parameter wp and private real t"
+options = [
+    "-p -O . -o v216 program.f90 (no root)",
+    "-d -O . -o v216 program.f90 (no root)",
+    "-b -O . -o v216 program.f90 (no root)",
+    "FortAD check/forward/reverse without --proc",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "tracked-inventory-and-strict-exact-reference-compilation",
+    "fresh-pinned-Tapenade-no-root-probes-and-parser-compilation",
+    "exact-FortAD-no-entry-refusals-and-independent-module-oracle",
+]
+oracle = [
+    "strict gfortran compilation of exact source and stored parser reference",
+    "fresh pinned Tapenade parser/tangent/reverse no-root behavior",
+    "FortAD exact parser/forward/reverse no-procedure refusal",
+    "independent module inventory and empty callable-domain oracle",
+    "pinned upstream source SHA-256 contract",
+]
+classification = "expected-refusal-no-entry-point-reference-only"
+expected_diagnostics = [
+    "program.f90 and program_p.f90 contain only modules definition and rk, with no program, subroutine, function, or contains unit",
+    "fresh Tapenade parser emits v216_p.f90 and v216_p.msg; fresh tangent and reverse emit only v216_d.msg and v216_b.msg with no-root diagnostics",
+    "FortAD parser, forward, and reverse refuse with no function or subroutine found in source and write no output",
+]
+fresh_generated_sources = ["v216_p.f90"]
+fresh_generated_messages = ["v216_p.msg", "v216_d.msg", "v216_b.msg"]
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-root"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The pinned source contains declarations in two modules only: there is no callable procedure or standalone program to select, differentiate, or run. The stored parser file is a reference-only module rendering; no stored tangent or reverse exists. A synthetic root, a module-state interface, or a bounded port would invent semantics, so no FortAD transform or numerical derivative claim is made."
+
+[upstream_sha256]
+"nonRegressions/set05/v216/program.f90" = "4e7b92a8e3f51c59c1b0066477a73a3bb4610f522b1ef52338ba0b0841da8c84"
+"nonRegressions/set05/v216/program_p.f90" = "0c46db94179d79f2014a8fb27af8494b2d7b596e8fedc5060d07042d17ccb8e4"
+"nonRegressions/set05/v216/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

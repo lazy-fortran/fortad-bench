@@ -1,0 +1,75 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set05-v171-module-only"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v171/run.sh"
+result = "cases/tapenade-set01/v171/result.txt"
+
+queue_category = "no-entry-point-evidence"
+queue_rank = 31
+static_classification = "fortran-module-only; no-callable-procedure"
+source_files = [
+    "nonRegressions/set05/v171/program.f90",
+    "nonRegressions/set05/v171/program_p.f90",
+    "nonRegressions/set05/v171/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set05/v171/program.f90",
+    "nonRegressions/set05/v171/program_p.f90",
+    "nonRegressions/set05/v171/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set05/v171/program_p.f90",
+    "nonRegressions/set05/v171/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set05/v171/program_d.f90",
+    "nonRegressions/set05/v171/program_d.msg",
+    "nonRegressions/set05/v171/program_b.f90",
+    "nonRegressions/set05/v171/program_b.msg",
+]
+
+upstream_entry_point = "none: MODULE TEST contains no procedure or program"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-callable-procedure"
+independent = []
+dependent = []
+options = [
+    "-p -O . -o v171 program.f90 (no root)",
+    "-d -O . -o v171 program.f90 (no root)",
+    "-b -O . -o v171 program.f90 (no root)",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-primal-and-stored-parser-reference-strict-compilation",
+    "fresh-pinned-Tapenade-no-root-generation-and-strict-parser-compilation",
+    "exact-FortAD-three-mode-no-procedure-refusal-and-independent-module-oracle",
+]
+oracle = [
+    "strict gfortran compilation of exact source and stored parser reference",
+    "fresh pinned Tapenade no-root parser/tangent/reverse probes",
+    "FortAD parser/forward/reverse no-procedure refusal with no output",
+    "independent module/type/initialization and empty-callable-domain oracle",
+    "upstream source and stored-reference SHA-256 contract",
+]
+classification = "expected-refusal-no-callable-procedure-module-only"
+expected_diagnostics = [
+    "the exact source and stored parser reference compile under the strict free-form gate",
+    "fresh Tapenade parser emits v171_p.f90; tangent and reverse emit only no-root messages",
+    "FortAD parser, forward, and reverse refuse with no procedure named 'test' in this source",
+    "the source has one module, one derived type, two initialized module names, and no callable or executable unit",
+]
+fresh_generated_sources = ["v171_p.f90"]
+fresh_generated_messages = ["v171_p.msg", "v171_d.msg", "v171_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source has no callable procedure or standalone program interface"
+tapenade_result = "pass-fresh-no-root-parser-strict-compile-tangent-reverse-no-source"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-procedure"
+closure = "The exact checkout is a declaration-only module. Its derived type and module state are not a callable numerical map; a synthetic root, wrapper, or derivative port would invent an interface and semantics. The case therefore records strict compilation, fresh Tapenade no-root behavior, FortAD's reproducible no-procedure refusal, and an independent empty-callable-domain oracle only."
+
+[upstream_sha256]
+"nonRegressions/set05/v171/program.f90" = "496026e83448926ef7553f6f59ef1b21ed5969c44553dfc45e8828171daa0f5d"
+"nonRegressions/set05/v171/program_p.f90" = "02a0b300612cce1cd96f3955f9993c9918ce998cefb84c5f1ea3083862410589"
+"nonRegressions/set05/v171/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

@@ -1,0 +1,55 @@
+case: Tapenade nonRegressions set07 v544 module-only boundary
+classification: expected-refusal-no-callable-procedure-module-only
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:28Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+fortad_tracked_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_inventory: module=TEST C_INTPTR_T=4 C_PTR%ptr=private-integer C_NULL_PTR=C_PTR(0) callable_units=0
+upstream_entry_point: none (MODULE TEST only)
+selected_entry_points: none
+tapenade_options: parser=-p forward=-d reverse=-b; no root
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+stored_parser_message: empty
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v544_p.f90 tangent=none reverse=none
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_no_root_diagnostic: tangent-and-reverse-message-only-no-root-no-top-procedure
+fortad_exact_parser: expected-refusal status=1 diagnostic="no function or subroutine found in source" output=none
+fortad_exact_forward: expected-refusal status=1 diagnostic="no function or subroutine found in source" output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic="no function or subroutine found in source" output=none
+independent_oracle: module/type/declaration inventory and empty derivative domain
+oracle_status: pass
+oracle_kind: independent-module-type-declaration-semantic
+module_count: 1
+module_names: TEST
+test_state: C_INTPTR_T=4; C_PTR%ptr=private INTEGER(C_INTPTR_T)
+test_parameter: C_NULL_PTR=C_PTR(0)
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+port_result: not-applicable-no-callable-procedure
+closure: no synthetic root, wrapper, or derivative port; module-only declaration domain
+upstream_sha256:
+48dae6f2d13608d13d8ef8ba8b12d855f71d48c8b8d2fb3358271c4f8fbed816  nonRegressions/set07/v544/program.f90
+5a983fc427e2c84dd2672d65b1b2538133d34a6a2aea64008f3e6dffe3c40dde  nonRegressions/set07/v544/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set07/v544/program_p.msg
+fresh_tapenade_sha256:
+6dfae5131de58db7eb6608815fbc7da286821f737aa7703e973c1f3b57d76671  v544_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v544_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v544_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v544_b.msg
+case_artifact_sha256:
+b4e8c1ce6dc8fe5bb0502515200a386f900608f4eaa70255a51217d1bc7b0e07  manifest.toml
+172345589c5961a9fe36125b90c4409225061e7dba4fbc2c7920034b08fa72dc  notes.md
+09ad992e763db402cd69c70a8ff5d6f5a0f8ab1384b0e74abb205ad6a837d7a0  oracle.py
+4fb63b3f6e62daa0a9cf15096c454044bf4f52e7f5a8727a4febdce699292dac  run.sh
+22957950bd0ede855cc51ec18b2960b9b1c63c5912abeea9ba65293af4156741  test_contract.py

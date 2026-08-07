@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions/set06/v320 module-only boundary
+classification: expected-refusal-no-entry-point-module-only
+recorded_utc: 2026-08-07T14:39:25Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_inventory: module=TEST_TYPEDEF foobar=private[2]=[0.0,1.0] types=Input,Output callable_units=0
+upstream_entry_point: none
+selected_entry_points: none
+tapenade_options: parser=-p/-O ./-o v320; forward=-d/-O ./-o v320; reverse=-b/-O ./-o v320; no root
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v320_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v320_p.msg tangent=v320_d.msg reverse=v320_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_no_root_diagnostic: forward="No root unit to differentiate; The code provided does not contain a top procedure" reverse="No root unit to differentiate; The code provided does not contain a top procedure"
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+oracle_status: pass
+oracle_kind: independent-module-data-type-semantic
+module_count: 1
+module_name: test_typedef
+private_data: foobar rank=1 extent=2 values=[0.0, 1.0]
+derived_types: Input(x,y,vector[5]); Output(x,y,xdy,xpy,dot,vector[5])
+callable_or_executable_units: 0
+derivative_domain: empty-no-callable-procedure
+port_result: not-applicable-no-callable-procedure
+closure: no synthetic root, wrapper, derivative port, or numerical runtime claim; module-only declaration domain
+upstream_sha256:
+66aa2275ab038686c4c3070ae0a91b7861e11366c68c522a803e1589ebfa7e44  nonRegressions/set06/v320/program.f90
+edb679ab4d2105357208aec3a6a051523730412e6a8813d5aa86a1107e00dd6d  nonRegressions/set06/v320/program_p.f90
+e74b1bd4b73e44a56588e938e4780bcac114e50e145e6a275c262cf0dc18ef70  nonRegressions/set06/v320/program_p.msg
+fresh_tapenade_sha256:
+29da85d26ef59d79c56adb1196fed9dcd6f23df6f5990c9b20d430ed53548825  parser/v320_p.f90
+e74b1bd4b73e44a56588e938e4780bcac114e50e145e6a275c262cf0dc18ef70  parser/v320_p.msg
+8325c4aa04054dac1264ecef3ad4e016afedf17f90368684caf292ff25f5ded2  forward/v320_d.msg
+8325c4aa04054dac1264ecef3ad4e016afedf17f90368684caf292ff25f5ded2  reverse/v320_b.msg
+case_artifact_sha256:
+7c527722f9e4060fd80d53b1cd0b461a1a440b8275c55d7d1d20be10777589c7  manifest.toml
+c68a6925b5ec7b4aef1d81d29da334046e652690f38f00a9fbd1a0e9fdee981b  notes.md
+0c5257a3c318095bb6f128f03db4620a61cd634dc5f4c4fdded67332c22130df  oracle.py
+55fe76696358a25d4f3e190682523da6afdf2a954f4ed2d82385fc7017312919  run.sh
+4684790b00d7d70453891ae096d13801db4bcdcfe7242c5dc3587107622739f9  test_contract.py

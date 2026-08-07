@@ -1,0 +1,79 @@
+schema_version = 1
+name = "tapenade-set06-v362-module-only-no-entry"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v362/run.sh"
+result = "cases/tapenade-set01/v362/result.txt"
+
+queue_source = "nonRegressions/set06/v362"
+queue_category = "no-entry-point-evidence"
+static_classification = "fortran-module-only; declaration-only; no-callable-procedure"
+source_files = [
+    "nonRegressions/set06/v362/program.f90",
+    "nonRegressions/set06/v362/program_p.f90",
+    "nonRegressions/set06/v362/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set06/v362/program.f90",
+    "nonRegressions/set06/v362/program_p.f90",
+    "nonRegressions/set06/v362/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set06/v362/program_p.f90",
+    "nonRegressions/set06/v362/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set06/v362/program_d.f90",
+    "nonRegressions/set06/v362/program_d.msg",
+    "nonRegressions/set06/v362/program_b.f90",
+    "nonRegressions/set06/v362/program_b.msg",
+]
+
+upstream_entry_point = "none: modules M0 and M1 only; no program, subroutine, function, or contains unit"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-callable-procedure"
+independent = [
+    "module M0 contains integer m0_i initialized to 2",
+    "module M1 uses M0, defines GM_levels=6, and privately initializes gm_show and gm_unit",
+]
+dependent = []
+options = [
+    "-p -O <disposable>/tapenade/parser -o v362 program.f90 (no root)",
+    "-d -O <disposable>/tapenade/forward -o v362 program.f90 (no root)",
+    "-b -O <disposable>/tapenade/reverse -o v362 program.f90 (no root)",
+    "FortAD check/forward/reverse without --proc",
+]
+modes = ["parser", "forward:no-root", "reverse:no-root"]
+contract_tests = [
+    "exact-source-and-stored-reference-strict-compilation",
+    "fresh-pinned-Tapenade-parser-forward-reverse-no-root-probes",
+    "FortAD-no-entry-refusal-and-independent-module-oracle",
+]
+oracle = [
+    "strict gfortran compilation of exact source and stored parser reference",
+    "fresh pinned Tapenade parser/tangent/reverse no-root behavior",
+    "FortAD exact parser/forward/reverse no-entry refusal",
+    "independent module declaration inventory and empty callable-domain oracle",
+    "pinned upstream source SHA-256 contract",
+]
+classification = "expected-refusal-no-callable-procedure-module-only"
+expected_diagnostics = [
+    "program.f90 and program_p.f90 compile strictly with only unused PRIVATE module variable warnings",
+    "fresh Tapenade parser emits v362_p.f90 and v362_p.msg; fresh tangent and reverse emit only v362_d.msg and v362_b.msg with no-root diagnostics",
+    "FortAD parser, forward, and reverse refuse with no function or subroutine found in source and write no output",
+]
+fresh_generated_sources = ["v362_p.f90"]
+fresh_generated_messages = ["v362_p.msg", "v362_d.msg", "v362_b.msg"]
+fresh_missing_sources = ["v362_d.f90", "v362_b.f90"]
+bounded_sources = []
+bounded_domain = "not-applicable: declaration-only modules have no callable procedure interface"
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-root"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The pinned source is a declaration-only pair of modules with no callable procedure or standalone program. A synthetic root, module-state wrapper, or derivative port would invent an interface and semantics, so this row records only the exact compiler, fresh Tapenade, FortAD no-entry behavior, and independent empty-callable-domain oracle."
+
+[upstream_sha256]
+"nonRegressions/set06/v362/program.f90" = "9986aef00c932fd9d5943a8a9b0e706333cb44ea29bace143e5672983a023343"
+"nonRegressions/set06/v362/program_p.f90" = "e2f2fe4c35f720123c8d48996b612ac739637de699d4a9358cff92c3d5df1fe9"
+"nonRegressions/set06/v362/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

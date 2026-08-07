@@ -1,0 +1,56 @@
+case: Tapenade nonRegressions/set06/v362 module-only boundary
+classification: expected-refusal-no-callable-procedure-module-only
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:26Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_inventory: modules=m0,m1 declarations-only callable-units=0
+upstream_entry_point: none
+selected_entry_points: none
+tapenade_options: parser=-p/-O ./-o v362; forward=-d/-O ./-o v362; reverse=-b/-O ./-o v362; no root
+upstream_exact_strict_compile: primal=0 parser_reference=0
+upstream_strict_diagnostic: pass with expected unused PRIVATE module variable warnings
+stored_parser_message: empty
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v362_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v362_p.msg tangent=v362_d.msg reverse=v362_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_no_root_diagnostic: forward="No root unit to differentiate; The code provided does not contain a top procedure" reverse="No root unit to differentiate; The code provided does not contain a top procedure"
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+independent_oracle: module declaration inventory and empty derivative domain
+oracle_status: pass
+oracle_kind: independent-module-declaration-semantic
+module_count: 2
+module_names: m0,m1
+m0_state: m0_i=2
+m1_state: use=m0; gm_levels=6; private=gm_show,gm_unit
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+port_result: not-applicable-no-callable-procedure
+upstream_sha256:
+9986aef00c932fd9d5943a8a9b0e706333cb44ea29bace143e5672983a023343  nonRegressions/set06/v362/program.f90
+e2f2fe4c35f720123c8d48996b612ac739637de699d4a9358cff92c3d5df1fe9  nonRegressions/set06/v362/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set06/v362/program_p.msg
+fresh_tapenade_sha256:
+c4ca475ff23fc6b6cfa78e81b371737cb82c7be716a48d0fd4b59258aaf438ac  parser/v362_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/v362_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  forward/v362_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  reverse/v362_b.msg
+case_artifact_sha256:
+e520f18d4064405ad928c60be98ba2c56fdf1fe29db01a7ca1eca0f08e1d99c5  cases/tapenade-set01/v362/manifest.toml
+a2d2f73c706e672f7d41010f0ca9f0f7c10bcf0453ae2bdcb9c45a5946b6ea26  cases/tapenade-set01/v362/notes.md
+17515358afe461ac1f400bd3e6dbd6d98fe1db39b129ef581d1247e8415dd4f6  cases/tapenade-set01/v362/oracle.py
+d19389c5c4f3f2e87bc674bda9f8c28c26de19947d17bd2106b921bd2753ac52  cases/tapenade-set01/v362/run.sh
+d2e628e1f15e325ffa84d297ceea9f77bd52db841362958b0b4276776ac1e638  cases/tapenade-set01/v362/test_contract.py

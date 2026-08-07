@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-nonregressions-set05-v177-module-only"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v177/run.sh"
+result = "cases/tapenade-set01/v177/result.txt"
+
+queue_category = "no-entry-point-evidence"
+queue_rank = 20
+static_classification = "Fortran module-only unit; parser/reference-only; no transformable procedure"
+source_files = [
+    "nonRegressions/set05/v177/program.f90",
+    "nonRegressions/set05/v177/program_p.f90",
+    "nonRegressions/set05/v177/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set05/v177/program.f90",
+    "nonRegressions/set05/v177/program_p.f90",
+    "nonRegressions/set05/v177/program_p.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg"]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none (module mcrm2par; no function, subroutine, or program)"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = []
+dependent = []
+function = "module parameter and storage declarations only; no callable behavior"
+options = [
+    "fresh Tapenade parser=-p, tangent=-d, reverse=-b with no root",
+    "FortAD exact parser and forward/reverse requests without a procedure",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "tracked-inventory-and-strict-exact-reference-compilation",
+    "fresh-pinned-Tapenade-no-root-probes-parser-strict-boundary",
+    "exact-FortAD-no-entry-refusals-and-independent-module-oracle",
+]
+oracle = [
+    "strict gfortran compilation using the exact free-form source and parser reference",
+    "fresh pinned Tapenade parser/tangent/reverse no-root boundary",
+    "FortAD exact parser/forward/reverse no-entry refusal boundary",
+    "independent semantic model of module parameters, ranks, and storage shapes",
+    "pinned upstream source SHA-256 contract",
+]
+classification = "expected-refusal-no-entry-point-module-only"
+expected_diagnostics = [
+    "the exact source is a module-only unit and strict gfortran rejects its tab characters and nonstandard INTEGER*4/REAL*8 declarations",
+    "the stored parser reference is also module-only and strict gfortran rejects its nonstandard INTEGER*4/REAL*8 declarations",
+    "fresh Tapenade parser output is emitted but has the same strict nonstandard-type boundary; tangent and reverse report No root unit to differentiate",
+    "FortAD parser, forward, and reverse all refuse with no function or subroutine found in source",
+]
+fresh_generated_sources = ["v177_p_p.f90"]
+fresh_generated_messages = ["v177_p_p.msg", "v177_d_d.msg", "v177_b_b.msg"]
+tapenade_result = "pass-fresh-parser-strict-compile-refusal-tangent-reverse-no-root"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The exact corpus contains only module declarations and a parser reference; no callable entry point or derivative interface exists. No synthetic root or bounded derivative port is claimed because adding one would invent semantics."
+
+[upstream_sha256]
+"nonRegressions/set05/v177/program.f90" = "53473da7e952f4413e72b2c44181a5cd61fd8f60cc30859c7a53cbbf0aeeb567"
+"nonRegressions/set05/v177/program_p.f90" = "71269e9be0842448c74a59b83cffb9c4d72bc06703cffd56c45f68ffe6abd754"
+"nonRegressions/set05/v177/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions/set05/v216
+classification: expected-refusal-no-entry-point-reference-only
+recorded_utc: 2026-08-07T14:39:23Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_inventory: modules=definition,rk entries=none source=program.f90 stored_reference=program_p.f90
+upstream_entry_point: none
+selected_entry_points: none
+tapenade_options: parser=-p/-O ./-o v216; forward=-d/-O ./-o v216; reverse=-b/-O ./-o v216; no root
+upstream_exact_strict_compile: primal=0 parser_reference=0
+upstream_strict_diagnostic: pass with expected unused PRIVATE module variable warning
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v216_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v216_p.msg tangent=v216_d.msg reverse=v216_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_no_root_diagnostic: forward="No root unit to differentiate; The code provided does not contain a top procedure" reverse="No root unit to differentiate; The code provided does not contain a top procedure"
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+oracle_status: pass
+oracle_kind: independent-module-declaration-semantic
+module_count: 2
+module_names: definition,rk
+kind_parameter: wp=selected_real_kind(10,50)
+private_module_real_state: rk%t
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+port_result: not-applicable-no-entry-point-reference-only
+upstream_sha256:
+4e7b92a8e3f51c59c1b0066477a73a3bb4610f522b1ef52338ba0b0841da8c84  nonRegressions/set05/v216/program.f90
+0c46db94179d79f2014a8fb27af8494b2d7b596e8fedc5060d07042d17ccb8e4  nonRegressions/set05/v216/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set05/v216/program_p.msg
+fresh_tapenade_sha256:
+56651e03fa8ad27aa6681e7984bca8ab61bcbd46ee6f2d8efb18ba5cca4b3f95  parser/v216_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/v216_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  forward/v216_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  reverse/v216_b.msg
+case_artifact_sha256:
+24228cea9fe2d510863a9974e1cabd8a1600cb40f2875b88c6950eb07951b4ce  manifest.toml
+adf91348291cadca62dd2f77cafdbd5fbf0f79eab803dc3dd5ad65b3d690b819  notes.md
+4a0530868f96f10fa091ea1a2b47e02455e23b8d914aabe375d583f1394e6423  oracle.py
+9202a35af197b1cdf12e8b479a2e875c7e7c7746dc1c3a167dbf6f840bf25a6d  run.sh
+9cdc281b59ae151e2603732773046132850fb8ee9a82e35847ed7e3e26e2587a  test_contract.py

@@ -1,0 +1,48 @@
+case: Tapenade nonRegressions/set05/v177 module-only no-entry boundary
+classification: expected-refusal-no-entry-point-module-only
+recorded_utc: 2026-08-07T14:39:22Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (module mcrm2par; no function, subroutine, or program)
+stored_references: program_p.f90 program_p.msg
+missing_stored_references: program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p tangent=-d reverse=-b (no root; source has no top procedure)
+upstream_exact_strict_compile: program.f90=1 program_p.f90=1
+upstream_strict_diagnostic: primal=nonconforming-tabs-and-nonstandard-types stored-parser=nonstandard-types
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v177_p_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v177_p_p.msg tangent=v177_d_d.msg reverse=v177_b_b.msg
+tapenade_fresh_strict_compile: parser=1 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_tangent_reverse_diagnostic: No root unit to differentiate; The code provided does not contain a top procedure
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+independent_semantic_oracle:
+  oracle_entry_point: none (module-only unit)
+  oracle_parameters: {'nknots': 9, 'nsunmax': 9, 'nangls': 18, 'ncub': 48, 'nspchnl': 2001, 'ncomp0': 10}
+  oracle_storage_elements: {'acoef1': 20010, 'acoef2': 20010, 'phis': 8004, 'refr': 2001, 'alpl': 2001, 'gamml': 2001, 'pi': 1, 'dr': 1}
+  oracle_derivative_observable: undefined-no-callable-interface
+  oracle_status: pass
+port_result: not-claimed reason=no-callable-procedure-interface
+closure: module-only source; no synthetic root or derivative port
+upstream_sha256:
+53473da7e952f4413e72b2c44181a5cd61fd8f60cc30859c7a53cbbf0aeeb567  nonRegressions/set05/v177/program.f90
+71269e9be0842448c74a59b83cffb9c4d72bc06703cffd56c45f68ffe6abd754  nonRegressions/set05/v177/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set05/v177/program_p.msg
+fresh_tapenade_sha256:
+4311419f5d60e2855d2e5f42de50f1b27fdaecb1a6ec92bbc229b4c8a2bcbdda  v177_p_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v177_p_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v177_d_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v177_b_b.msg
+case_artifact_sha256:
+f2b3365496cc93143603e51081307ea0c0d7a451e4604b2eeee1944b34a44722  manifest.toml
+a215ea81a9bc84737c5b9a0b8f3f3d81e387deb7936e8a8d16e96e918dfca6e2  notes.md
+0ce130e6a48191f3e37f1aef1f76bae020b4e0aeadff3d4881e674a8acbe48e7  oracle.py
+557c2ba087baa7663e7a8e9c30a01ead709a46ccf6ac2bbcc37854f206eb67a7  run.sh
+7042b3bb019825e749eac4d5d1d5209363ea549ffafb71dd3dd3bbda0d34baad  test_contract.py

@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions set06 v317
+classification: expected-refusal-module-only-no-entry-point
+runner_result: pass
+recorded_utc: 2026-08-07T14:39:24Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+required_fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+upstream_entry_point: none (MODULE M only)
+selected_entry_points: none
+tapenade_options: parser=-p forward=-d reverse=-b; no root
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+stored_parser_message: empty
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v317_p.f90 tangent=none reverse=none
+tapenade_fresh_parser_strict_compile: 0
+tapenade_no_root_diagnostic: tangent-and-reverse-message-only-no-root-no-top-procedure
+fortad_exact_parser: expected-refusal status=1 diagnostic="no procedure named 'm' in this source" output=none
+fortad_exact_forward: expected-refusal status=1 diagnostic="no procedure named 'm' in this source" output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic="no procedure named 'm' in this source" output=none
+independent_oracle: module/pointer inventory and empty derivative domain
+module_count: 1
+pointer_names: p1
+null_initializer_count: 1
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+oracle_status: pass
+port_result: not-applicable-no-entry-point
+upstream_sha256:
+3a4b525afdf943fdd9f48c945c0caee3ef0e9ee93f7c138f6589e49543ee1e73  program.f90
+ce1d825a029fa4efd2f886d2cf4a483f36a3bd0948fea17c4c58453230a7fcc4  program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+fresh_tapenade_sha256:
+0cee241b4353e2165d5de02e7d311dc7f9eb293a30d07dd04ac8370c5b4acab6  v317_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v317_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v317_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v317_b.msg
+case_artifact_sha256:
+aef180577865e81c8682875c30f72faea2762cfb8449d11dd4a64e96c35b5ea7  cases/tapenade-set01/v317/manifest.toml
+605b5e2cd9079368664017b27c3a72e6a00c18f76fb07d05c30152575171a697  cases/tapenade-set01/v317/notes.md
+d036c8ad59081dac04c2e8864cca82e22a91d72604ff3882e16c7a6f0146d2bf  cases/tapenade-set01/v317/oracle.py
+23573b83f5b35cc16d62101684d6eb230cb293988cb62d5ad10ae94886da8749  cases/tapenade-set01/v317/run.sh
+d8e03b459c6256795f1e64504788ac21a64ed1429d796e356f0c9180f522b9cb  cases/tapenade-set01/v317/test_contract.py

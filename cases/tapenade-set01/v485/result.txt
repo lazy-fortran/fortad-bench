@@ -1,0 +1,47 @@
+case: Tapenade nonRegressions/set07/v485 module-only/no-entry boundary
+classification: expected-refusal-module-only-no-entry
+recorded_utc: 2026-08-07T14:39:27Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 3a946d34d3caa7a75fb6f891139023650b4ce51a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (module-only source)
+stored_references: program_p.f90 program_p.msg
+missing_stored_references: Options program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p forward=-d reverse=-b; all without -root/-head
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v485_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v485_p.msg tangent=v485_d.msg reverse=v485_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable reverse=not-applicable
+tapenade_tangent_reverse_diagnostic: no root unit to differentiate; code provided does not contain a top procedure
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+independent_semantic_oracle:
+  oracle_module: FoX_dom_types
+  oracle_type: private NodeList
+  oracle_component: character,pointer nodeName(:)=>null()
+  oracle_entry_points: none
+  oracle_status: pass
+port_result: not-claimed reason=module-only-source-has-no-procedure-entry
+synthetic_root: none
+upstream_sha256:
+b0330d1b26fb66cff877095497ac9312c480e03a2f7b8d8229ece13bddfa1651  nonRegressions/set07/v485/program.f90
+c948e6de30339f04cfe62a69a6f4cd430da392961fd8e3e59a91339fa45ac0b8  nonRegressions/set07/v485/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set07/v485/program_p.msg
+fresh_tapenade_sha256:
+3a4ea0a0653cbbb3221ee3d0d65a6c3f0cb2b7bd74b408112eace89a41982236  v485_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v485_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v485_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v485_b.msg
+case_artifact_sha256:
+fcb7d8bf21923fd9f79598ebd0f17fe488616d7241c90dd7f5d7c2796e0e17d7  manifest.toml
+0a4913c3540e0a0916183c41097514db9cd0cdf10a89bc9d4e7da96110519858  notes.md
+537c670bbcd8f4b61ff2c7ceea98d7253c0c78c9d10fbbd62ee80327357df6a0  oracle.py
+2463b31a2aacd49f94ae8cd6eb4ae51af91db7f0bcbb3731b98ad210fe4afaa5  run.sh
+7b82d3c05dea0845e1ca6d04f5ef26a64c27062866b48fec642e7fd73d3e609c  test_contract.py

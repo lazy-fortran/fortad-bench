@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set11-vpf16"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/vpf16/run.sh"
+result = "cases/tapenade-set01/vpf16/result.txt"
+
+queue_source = "nonRegressions/set11/vpf16"
+static_classification = "module-only-source; no-procedure-entry"
+source_files = ["nonRegressions/set11/vpf16/program.f90"]
+upstream_sources = [
+    "nonRegressions/set11/vpf16/Options",
+    "nonRegressions/set11/vpf16/program.f90",
+    "nonRegressions/set11/vpf16/program_p.f90",
+    "nonRegressions/set11/vpf16/program_p.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg"]
+missing_stored_references = [
+    "Options (stored separately as upstream metadata)",
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none: ESMF_CalendarMod and mo contain declarations only"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = [
+    "module ESMF_CalendarMod declarations and default value",
+    "module mo USE ESMF_CalendarMod and PRIVATE declarations",
+]
+dependent = []
+options = ["-msginfile -noinclude -noisize"]
+modes = ["parser", "forward:no-root", "reverse:no-root"]
+contract_tests = [
+    "exact-source-and-stored-parser-reference-strict-compilation-with-Options-metadata",
+    "fresh-pinned-Tapenade-parser-and-no-root-differentiation-boundary",
+    "independent-module-oracle-and-FortAD-three-mode-no-entry-refusal",
+]
+oracle = [
+    "strict compiler behavior for exact source and stored parser reference",
+    "checked-in Options metadata contract",
+    "fresh pinned Tapenade parser/tangent/reverse probes",
+    "independent module/use/declaration inventory with empty callable domain",
+    "FortAD exact parser/forward/reverse no-entry refusal",
+    "upstream source and reference SHA-256 contract",
+]
+classification = "expected-refusal-module-only-no-entry"
+expected_diagnostics = [
+    "exact program.f90 and stored program_p.f90 compile strictly as modules",
+    "the checked-in Options file contains -msginfile -noinclude -noisize",
+    "fresh pinned Tapenade parser emits vpf16_p.f90; tangent and reverse emit only no-root messages",
+    "FortAD parser, forward, and reverse refuse because the source has no procedure entry point",
+    "no synthetic root, derivative port, or derivative runtime claim is made",
+]
+fresh_generated_sources = ["vpf16_p.f90"]
+fresh_generated_messages = ["vpf16_p.msg", "vpf16_d.msg", "vpf16_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: module-only source has no callable entry point"
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-root-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The exact source contains only two declaration-only modules. This case records the Options metadata, strict module compilation, fresh Tapenade no-root behavior, FortAD no-entry refusals, and an independent empty derivative domain without inventing a root or derivative port."
+
+[upstream_sha256]
+"nonRegressions/set11/vpf16/Options" = "5495f65b16e09d28a8f2120c4eb943e45f5bac8e89e08a66ade4fce3cfbf6fb4"
+"nonRegressions/set11/vpf16/program.f90" = "74f93e0032b5f18ed62be81eb01e98b9290e1f7ecd07f64235823452027b0b80"
+"nonRegressions/set11/vpf16/program_p.f90" = "1d34b405a1a61d63bba66404e188dcca6a14d9215d487e8d992c9ac44cc5da89"
+"nonRegressions/set11/vpf16/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

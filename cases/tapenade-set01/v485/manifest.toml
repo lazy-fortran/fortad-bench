@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set07-v485"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "free"
+runner = "cases/tapenade-set01/v485/run.sh"
+result = "cases/tapenade-set01/v485/result.txt"
+
+queue_source = "nonRegressions/set07/v485"
+static_classification = "module-only-source; no-procedure-entry; pointer-component-boundary"
+upstream_sources = [
+    "nonRegressions/set07/v485/program.f90",
+    "nonRegressions/set07/v485/program_p.f90",
+    "nonRegressions/set07/v485/program_p.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg"]
+missing_stored_references = [
+    "Options",
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none: module FoX_dom_types contains no procedure"
+selected_entry_points = []
+ported_entry_point = "not-claimed-no-procedure-entry"
+independent = []
+dependent = []
+function = "FoX_dom_types defines private type NodeList with a null-initialized character pointer component"
+options = [
+    "parser: -p -O . -o v485 program.f90 (no -root/-head)",
+    "forward: -d -O . -o v485 program.f90 (no -root/-head)",
+    "reverse: -b -O . -o v485 program.f90 (no -root/-head)",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-parser-module-strict-compilation",
+    "fresh-pinned-Tapenade-module-parser-and-no-root-differentiation-boundary",
+    "exact-FortAD-no-entry-refusal-and-independent-module-shape-oracle",
+]
+oracle = [
+    "strict gfortran exact and stored parser module compilation",
+    "fresh pinned Tapenade parser generation and strict compilation",
+    "fresh pinned Tapenade tangent/reverse no-root diagnostic and no-source boundary",
+    "FortAD exact parser/forward/reverse no-entry refusal",
+    "independent module/type/pointer source-shape oracle",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-module-only-no-entry"
+expected_diagnostics = [
+    "exact program.f90 and stored program_p.f90 compile strictly as modules",
+    "fresh pinned Tapenade parser emits v485_p.f90 and v485_p.msg; tangent and reverse emit only messages",
+    "fresh pinned Tapenade tangent and reverse report no root unit to differentiate and no top procedure",
+    "FortAD parser, forward, and reverse refuse with no function or subroutine found in source",
+    "no synthetic root, derivative port, or derivative runtime claim is made",
+]
+fresh_generated_sources = ["v485_p.f90"]
+fresh_generated_messages = ["v485_p.msg", "v485_d.msg", "v485_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: module-only source has no callable entry point"
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-root-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The exact source is retained unchanged. It defines only a module and a private pointer-bearing type, so differentiation would require inventing a procedure root and derivative ports. Only module parsing, strict compilation, and the exact no-entry refusals are claimed."
+
+[upstream_sha256]
+"nonRegressions/set07/v485/program.f90" = "b0330d1b26fb66cff877095497ac9312c480e03a2f7b8d8229ece13bddfa1651"
+"nonRegressions/set07/v485/program_p.f90" = "c948e6de30339f04cfe62a69a6f4cd430da392961fd8e3e59a91339fa45ac0b8"
+"nonRegressions/set07/v485/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
