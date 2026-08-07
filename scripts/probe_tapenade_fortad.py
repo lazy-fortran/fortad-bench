@@ -14,8 +14,8 @@ Examples::
     scripts/probe_tapenade_fortad.py --queue --shard-count 8 --shard-index 0 \
         --jobs 4 --result-dir /var/tmp/fortad-tapenade-probes
 
-The queue mode writes one JSON object per candidate to ``results.jsonl`` and
-keeps generated products under the selected result directory.  The pinned
+The queue mode writes one JSON object per probe to a shard-specific JSONL file
+and keeps generated products under the selected result directory. The pinned
 upstream checkout is never modified.
 """
 
@@ -29,7 +29,7 @@ import re
 import subprocess
 import time
 import tomllib
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -39,10 +39,10 @@ UPSTREAM = ROOT / "upstream" / "tapenade"
 QUEUE = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.jsonl"
 STATIC = ROOT / "docs" / "corpora" / "tapenade-static.jsonl"
 TAPENADE_REVISION = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-FIXED_SUFFIXES = {".f", ".for", ".ftn"}
-FORTRAN_SUFFIXES = FIXED_SUFFIXES | {".f90", ".f95", ".f03", ".f08"}
+FIXED_SUFFIXES = {".f", ".for", ".ftn", ".f77"}
+FORTRAN_SUFFIXES = FIXED_SUFFIXES | {".f90", ".f95", ".f03", ".f08", ".f18", ".f2k"}
 GENERATED_NAME = re.compile(
-    r"(?:_b|_d|_p|_dv|_fwd|_bwd|_adj|_tangent)$", re.IGNORECASE
+    r"(?:_aab|_aad|_b|_d|_p|_dv|_fwd|_bwd|_adj|_tangent)$", re.IGNORECASE
 )
 ENTRY_RE = re.compile(r"^\s*([A-Za-z_]\w*)\s*(?:\((.*)\))?\s*$")
 
@@ -56,6 +56,12 @@ class ProbeSpec:
     dependent: str | None
     modes: tuple[str, ...]
     manifest: str | None = None
+    candidate_key: str | None = None
+    queue_category: str | None = None
+    dependency_hints: tuple[str, ...] = ()
+    source_candidates: tuple[str, ...] = ()
+    entry_point_candidates: tuple[str, ...] = ()
+    source_error: str | None = None
 
 
 def _load_jsonl(path: Path) -> list[dict[str, Any]]:
@@ -85,24 +91,34 @@ def _git_root_for_executable(path: Path) -> Path:
 
 def _fortran_sources(case: Path) -> list[Path]:
     return sorted(
-        path for path in case.iterdir() if path.is_file() and path.suffix.lower() in FORTRAN_SUFFIXES
+        (path for path in case.iterdir() if path.is_file() and path.suffix.lower() in FORTRAN_SUFFIXES),
+        key=lambda path: path.name.casefold(),
     )
 
 
-def _source_priority(path: Path) -> tuple[int, str]:
+def _source_priority(path: Path) -> tuple[int, int, str]:
     name = path.name.lower()
+    stem = path.stem.lower()
+    generated = 1 if GENERATED_NAME.search(stem) else 0
     if name in {"program.f", "program.f90"}:
-        return (0, name)
+        return (generated, 0, name)
     if name.startswith("program."):
-        return (1, name)
-    return (2, name)
+        return (generated, 1, name)
+    return (generated, 2, name)
 
 
 def _select_source(case: Path, requested: str | None = None) -> Path:
     if requested:
-        candidate = UPSTREAM / requested
+        requested_path = Path(requested)
+        if requested_path.is_absolute() or ".." in requested_path.parts:
+            raise ValueError(f"manifest source is not a safe upstream-relative path: {requested}")
+        candidate = UPSTREAM / requested_path
         if not candidate.is_file():
             raise ValueError(f"manifest source is not present: {requested}")
+        try:
+            candidate.relative_to(case)
+        except ValueError as error:
+            raise ValueError(f"manifest source is outside its case: {requested}") from error
         return candidate
     sources = _fortran_sources(case)
     if not sources:
@@ -147,7 +163,7 @@ def _canonical_hints(case_path: str, source: str) -> list[str]:
                 continue
             if name not in names:
                 names.append(name)
-    return names
+    return sorted(names)
 
 
 def _manifest_case(data: dict[str, Any]) -> dict[str, Any]:
@@ -197,6 +213,8 @@ def spec_from_manifest(path: Path) -> ProbeSpec:
         dependent=str(dependent) if dependent else None,
         modes=modes,
         manifest=str(path),
+        source_candidates=(str(source.relative_to(UPSTREAM)).replace("\\", "/"),),
+        entry_point_candidates=(_entry_name(entry),) if _entry_name(entry) else (),
     )
 
 
@@ -207,27 +225,35 @@ def spec_from_case(case_path: str) -> ProbeSpec:
 
 def specs_from_case(case_path: str, all_entries: bool = False) -> list[ProbeSpec]:
     case_path = case_path.replace("\\", "/").strip("/")
-    case = UPSTREAM / case_path
-    if not case.is_dir():
-        raise ValueError(f"upstream case directory is not present: {case_path}")
-    source = _select_source(case)
-    source_name = str(source.relative_to(UPSTREAM)).replace("\\", "/")
-    hints = _canonical_hints(case_path, source_name)
-    if all_entries:
-        # Preserve one explicit refusal record when static discovery finds no
-        # canonical procedure.  Dropping the row makes a shard look complete
-        # while silently losing a corpus candidate.
-        entries = hints or [None]
+    requested_case = UPSTREAM / case_path
+    if requested_case.is_file():
+        case = requested_case.parent
+        source = _select_source(case, case_path)
+        hint_path = case_path
+    elif requested_case.is_dir():
+        case = requested_case
+        source = _select_source(case)
+        hint_path = case_path
     else:
-        entries = hints[:1] if len(hints) == 1 else [None]
+        raise ValueError(f"upstream case directory is not present: {case_path}")
+    source_name = str(source.relative_to(UPSTREAM)).replace("\\", "/")
+    source_candidates = tuple(
+        str(path.relative_to(UPSTREAM)).replace("\\", "/")
+        for path in _fortran_sources(case)
+    )
+    hints = _canonical_hints(hint_path, source_name)
+    entries = (hints or [None]) if all_entries else (hints[:1] if len(hints) == 1 else [None])
+    output_case_path = str(case.relative_to(UPSTREAM)).replace("\\", "/")
     return [
         ProbeSpec(
-            case_path=case_path,
+            case_path=output_case_path,
             source=source_name,
             entry_point=entry,
             independent=(),
             dependent=None,
             modes=("parser", "forward", "reverse"),
+            source_candidates=source_candidates,
+            entry_point_candidates=tuple(hints),
         )
         for entry in entries
     ]
@@ -368,13 +394,19 @@ def probe_spec(
     env = {**os.environ, "PATH": f"{UPSTREAM / 'bin'}:{os.environ.get('PATH', '')}"}
     record: dict[str, Any] = {
         "schema_version": 1,
+        "candidate_key": spec.candidate_key,
         "case_path": spec.case_path,
         "source": spec.source,
+        "source_candidates": list(spec.source_candidates),
         "entry_point": spec.entry_point,
+        "entry_point_candidates": list(spec.entry_point_candidates),
         "independent": list(spec.independent),
         "dependent": spec.dependent,
         "modes": list(spec.modes),
         "manifest": spec.manifest,
+        "queue_category": spec.queue_category,
+        "dependency_risk": bool(spec.dependency_hints),
+        "dependency_hints": list(spec.dependency_hints),
         "upstream_revision": _git_revision(UPSTREAM),
         "expected_upstream_revision": TAPENADE_REVISION,
         "fortad_revision": _git_revision(_git_root_for_executable(fortad)) if fortad else None,
@@ -382,6 +414,10 @@ def probe_spec(
         "result_dir": str(result_dir),
         "probes": {},
     }
+    if spec.source_error:
+        record["status"] = "source-selection-error"
+        record["reason"] = spec.source_error
+        return record
     if not case.is_dir():
         record["status"] = "missing-case"
         return record
@@ -411,35 +447,107 @@ def _path_slug(path: str) -> str:
 
 
 def _spec_slug(spec: ProbeSpec) -> str:
+    prefix = _path_slug(spec.candidate_key) if spec.candidate_key else _path_slug(spec.case_path)
     suffix = f"__{_path_slug(spec.entry_point)}" if spec.entry_point else ""
-    return _path_slug(spec.case_path) + suffix
+    return prefix + suffix
 
 
-def _queue_specs(args: argparse.Namespace) -> list[ProbeSpec]:
+def _queue_specs(args: argparse.Namespace, *, partition: bool = True) -> list[ProbeSpec]:
     rows = _load_jsonl(Path(args.queue_file))
     rows = [row for row in rows if args.include_classified or row.get("path")]
-    rows = _select_queue_rows(rows, args.shard_index, args.shard_count)
+    if args.pure_fortran:
+        rows = [row for row in rows if row.get("language") == "fortran"]
+    rows.sort(key=lambda row: (str(row.get("component", "")), str(row["path"])))
+    if partition:
+        rows = [
+            row for index, row in enumerate(rows)
+            if index % args.shard_count == args.shard_index
+        ]
     if args.limit is not None:
         rows = rows[: args.limit]
     specs: list[ProbeSpec] = []
     for row in rows:
-        specs.extend(specs_from_case(row["path"], all_entries=True))
+        candidate_key = f"{row.get('component', '')}:{row['path']}"
+        dependency_hints = tuple(sorted({str(item) for item in row.get("unresolved_include_hints", [])}))
+        try:
+            discovered = specs_from_case(row["path"], all_entries=True)
+        except ValueError as error:
+            discovered = [
+                ProbeSpec(
+                    case_path=row["path"],
+                    source="",
+                    entry_point=None,
+                    independent=(),
+                    dependent=None,
+                    modes=(),
+                    source_candidates=tuple(sorted(str(item) for item in row.get("source_files", []))),
+                    source_error=str(error),
+                )
+            ]
+        specs.extend(
+            replace(
+                spec,
+                candidate_key=candidate_key,
+                queue_category=str(row.get("queue_category", "")) or None,
+                dependency_hints=dependency_hints,
+            )
+            for spec in discovered
+        )
     return specs
 
 
-def _select_queue_rows(rows: list[dict[str, Any]], index: int, count: int) -> list[dict[str, Any]]:
-    """Select a deterministic, disjoint shard of queue rows.
+def _spec_key(spec: ProbeSpec) -> tuple[str, str, str]:
+    return (spec.candidate_key or spec.case_path, spec.source, spec.entry_point or "")
 
-    ``queue_rank`` is a priority bucket, not a row identifier: using it for
-    sharding sends every row in a bucket to the same worker and leaves most
-    shard indices empty.  The generated queue is already sorted, so its row
-    ordinal is the stable partition key.  Keep the validation here as well as
-    in ``main`` so callers and tests cannot accidentally create overlapping
-    shards.
-    """
-    if count < 1 or not 0 <= index < count:
-        raise ValueError("shard index must satisfy 0 <= index < shard count")
-    return [row for ordinal, row in enumerate(rows) if ordinal % count == index]
+
+def _record_key(record: dict[str, Any]) -> tuple[str, str, str]:
+    return (
+        str(record.get("candidate_key") or record.get("case_path", "")),
+        str(record.get("source", "")),
+        str(record.get("entry_point") or ""),
+    )
+
+
+def _record_sort_key(record: dict[str, Any]) -> tuple[str, str, str]:
+    return _record_key(record)
+
+
+def _load_records(path: Path) -> dict[tuple[str, str, str], dict[str, Any]]:
+    if not path.is_file():
+        return {}
+    records: dict[tuple[str, str, str], dict[str, Any]] = {}
+    try:
+        lines = path.read_text(encoding="utf-8").splitlines()
+        for line in lines:
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            key = _record_key(record)
+            if key in records:
+                raise ValueError(f"duplicate probe record key {key}")
+            records[key] = record
+    except (OSError, json.JSONDecodeError) as error:
+        raise ValueError(f"cannot read probe records {path}: {error}") from error
+    return records
+
+
+def _write_records(path: Path, records: Iterable[dict[str, Any]]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    rendered = "".join(
+        json.dumps(record, sort_keys=True) + "\n"
+        for record in sorted(records, key=_record_sort_key)
+    )
+    temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
+    temporary.write_text(rendered, encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def _queue_result_path(args: argparse.Namespace, result_dir: Path) -> Path:
+    if args.result:
+        return Path(args.result).resolve()
+    if args.shard_count == 1:
+        return result_dir / "results.jsonl"
+    return result_dir / f"results.shard-{args.shard_index:04d}-of-{args.shard_count:04d}.jsonl"
 
 
 def _write_record(path: Path, record: dict[str, Any]) -> None:
@@ -465,7 +573,7 @@ def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     source = parser.add_mutually_exclusive_group(required=True)
     source.add_argument("--manifest", help="single-case TOML manifest")
-    source.add_argument("--case", help="relative case directory under upstream/tapenade")
+    source.add_argument("--case", help="relative case directory or source file under upstream/tapenade")
     source.add_argument("--queue", action="store_true", help="probe the queued corpus candidates")
     parser.add_argument("--entry-point", help="explicit procedure name or NAME(args)")
     parser.add_argument(
@@ -474,7 +582,7 @@ def _parser() -> argparse.ArgumentParser:
         help="probe every canonical source procedure for a single --case",
     )
     parser.add_argument("--queue-file", dest="queue_file", default=str(QUEUE), help=argparse.SUPPRESS)
-    parser.add_argument("--result", help="single-case JSON output (default: stdout)")
+    parser.add_argument("--result", help="JSON output path (single case or queue shard)")
     parser.add_argument("--result-dir", default="/var/tmp/fortad-tapenade-probes")
     parser.add_argument("--fortad", help="FortAD executable; defaults to FORTAD_CLI or the local build")
     parser.add_argument("--tapenade", help="Tapenade executable; defaults to TAPENADE_CLI or upstream/bin/tapenade")
@@ -483,6 +591,23 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--pure-fortran",
+        action="store_true",
+        help="in queue mode, exclude mixed-language candidates",
+    )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="in queue mode, retain completed records in this shard output",
+    )
+    parser.add_argument(
+        "--merge-input",
+        action="append",
+        type=Path,
+        default=[],
+        help="in queue mode, merge completed shard JSONL files deterministically",
+    )
     parser.add_argument("--verbose", action="store_true", help="print the complete single-case JSON record")
     parser.add_argument("--include-classified", action="store_true", help=argparse.SUPPRESS)
     return parser
@@ -508,9 +633,45 @@ def main(argv: Iterable[str] | None = None) -> int:
         else _executable("FORTAD_CLI", fortad_default)
     )
     if args.queue:
-        specs = _queue_specs(args)
         result_dir = Path(args.result_dir).resolve()
-        records: list[dict[str, Any]] = []
+        if args.merge_input:
+            if args.resume:
+                raise SystemExit("--resume cannot be combined with --merge-input")
+            specs = _queue_specs(args, partition=False)
+            expected = {_spec_key(spec) for spec in specs}
+            merged: dict[tuple[str, str, str], dict[str, Any]] = {}
+            for input_path in args.merge_input:
+                for key, record in _load_records(input_path).items():
+                    if key in merged:
+                        raise SystemExit(f"duplicate probe record across shards: {key}")
+                    merged[key] = record
+            observed = set(merged)
+            if observed != expected:
+                missing = len(expected - observed)
+                extra = len(observed - expected)
+                raise SystemExit(
+                    f"probe shards do not cover queue: missing={missing}, extra={extra}"
+                )
+            result_path = _queue_result_path(args, result_dir)
+            _write_records(result_path, merged.values())
+            print(json.dumps({
+                "result": str(result_path),
+                "cases": len({record["case_path"] for record in merged.values()}),
+                "entry_point_probes": len(merged),
+                "merged_shards": len(args.merge_input),
+            }))
+            return 0
+
+        specs = _queue_specs(args)
+        result_path = _queue_result_path(args, result_dir)
+        records = _load_records(result_path) if args.resume else {}
+        expected = {_spec_key(spec) for spec in specs}
+        unexpected = set(records) - expected
+        if unexpected:
+            raise SystemExit(
+                f"resume output contains records outside this shard: {len(unexpected)}"
+            )
+        pending = [spec for spec in specs if _spec_key(spec) not in records]
 
         def run(spec: ProbeSpec) -> dict[str, Any]:
             return probe_spec(
@@ -521,22 +682,28 @@ def main(argv: Iterable[str] | None = None) -> int:
                 args.timeout,
             )
 
+        if not args.resume or records:
+            _write_records(result_path, records.values())
         if args.jobs > 1:
             with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
-                records = list(pool.map(run, specs))
+                futures = {pool.submit(run, spec): spec for spec in pending}
+                for future in concurrent.futures.as_completed(futures):
+                    record = future.result()
+                    records[_record_key(record)] = record
+                    _write_records(result_path, records.values())
         else:
-            records = [run(spec) for spec in specs]
-        records.sort(key=lambda item: (item["case_path"], item.get("entry_point") or ""))
-        result_path = result_dir / "results.jsonl"
-        result_path.parent.mkdir(parents=True, exist_ok=True)
-        result_path.write_text(
-            "".join(json.dumps(record, sort_keys=True) + "\n" for record in records),
-            encoding="utf-8",
-        )
+            for spec in pending:
+                record = run(spec)
+                records[_record_key(record)] = record
+                _write_records(result_path, records.values())
         print(json.dumps({
             "result": str(result_path),
-            "cases": len({record["case_path"] for record in records}),
+            "cases": len({record["case_path"] for record in records.values()}),
             "entry_point_probes": len(records),
+            "processed": len(pending),
+            "resumed": len(records) - len(pending),
+            "shard_index": args.shard_index,
+            "shard_count": args.shard_count,
         }))
         return 0
 

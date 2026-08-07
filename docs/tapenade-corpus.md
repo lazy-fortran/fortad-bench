@@ -116,8 +116,8 @@ scripts/queue_tapenade_fortran.py --check
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
 and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,322 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
-rows with no entry-point hint, 309 program candidates, and 939 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 123 rows
+rows with no entry-point hint, 309 program candidates, and 942 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 126 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -291,15 +291,39 @@ The manifest-aware source workflow in
 [`scripts/probe_tapenade_fortad.py`](../scripts/probe_tapenade_fortad.py) turns
 that triage into repeatable parser/forward/reverse probes. It accepts an
 existing case manifest or a queue case, writes generated products and complete
-stdout/stderr diagnostics, and emits JSON records. Queue shards can run in
-parallel. Queue mode expands every canonical source procedure discovered by
-static triage, records each root separately, and refuses only cases with no
-discoverable procedure; `--all-entry-points` provides the same behavior for a
-single case. The workflow never guesses active or dependent arguments, and
-each record still needs an independent numerical contract before its ledger
-status changes. Sharding partitions the generated queue by stable row ordinal,
-not by `queue_rank` (which is only a priority bucket), so every shard is
-disjoint and the shard union covers the selected queue.
+stdout/stderr diagnostics, and emits JSON records. For the pure-Fortran corpus,
+use `--pure-fortran`; queue rows are sorted by `(component, path)` before
+round-robin sharding, so `queue_rank` changes cannot strand a whole category on
+one worker. Each shard writes its own
+`results.shard-NNNN-of-NNNN.jsonl` file and updates it atomically after every
+completed probe. Rerun with `--resume` after an interruption, then combine all
+shards with `--merge-input`; the merge checks that every discovered entry-point
+probe is present exactly once and writes a deterministic, sorted `results.jsonl`.
+Queue mode expands every canonical source procedure discovered by static
+triage, records each root separately, and emits explicit
+`ambiguous-entry-point`, `source-selection-error`, and dependency-risk fields
+without running a transform when source or entry selection is unsafe.
+`--all-entry-points` provides the same behavior for a single case. The
+workflow never guesses active or dependent arguments, and each record still
+needs an independent numerical contract before its ledger status changes.
+
+For example, run and resume eight pure-Fortran shards with separate output
+directories, then merge them:
+
+```bash
+scripts/probe_tapenade_fortad.py --queue --pure-fortran \
+  --shard-count 8 --shard-index 0 --jobs 4 --resume \
+  --result-dir results/tapenade-probes/shard-0
+scripts/probe_tapenade_fortad.py --queue --pure-fortran \
+  --merge-input results/tapenade-probes/shard-0/results.shard-0000-of-0008.jsonl \
+  --merge-input results/tapenade-probes/shard-1/results.shard-0001-of-0008.jsonl \
+  --result-dir results/tapenade-probes/merged
+```
+
+The merge command should list all eight shard files. The queue and compiler
+batch reports remain evidence-neutral: compiler-clean or dependency-risk rows
+are handoff signals, not Tapenade, FortAD, runtime, or derivative-correctness
+claims.
 
 Fortran cases close only after all valid differentiable paths work in FortAD
 and pass an independent oracle. Invalid programs and cases that require an
