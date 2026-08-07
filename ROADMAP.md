@@ -100,7 +100,7 @@ explicitly refused, independently checked, and measured when runnable.
   historical-failure, 20 no-entry-point, 320 program, and 1,047 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 175 rows
   with non-local include hints. Include targets are dependency-risk signals
-  only; this queue does not claim that any source parses or builds.
+  only. This queue does not claim that any source parses or builds.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
   `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)
