@@ -98,6 +98,23 @@ unsupported source language or no recognized source. The command does not run
 either engine. It leaves 1,424 pure Fortran and 74 mixed-language rows
 untriaged, while preserving the eight set01 evidence rows.
 
+Build the next-tranche queue without changing those ledger statuses:
+
+```bash
+scripts/queue_tapenade_fortran.py
+scripts/queue_tapenade_fortran.py --check
+```
+
+[`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,498 rows
+into 74 mixed-language-risk candidates, 37 historical-failure candidates, 20
+rows with no entry-point hint, 320 program candidates, and 1,047 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 175 rows
+with non-local include hints. The queue uses only static filename and line-based
+declaration/include/use hints. An unresolved include is reported as a
+dependency risk signal, not as proof that a dependency is missing; no queue
+label claims parsing, compilation, transformation, runtime, or correctness.
+
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh023`,
 `lh032`, `lh057`, `lh058`, `lh088`, and `lh134`. The exact in-place `lh066` reverse
