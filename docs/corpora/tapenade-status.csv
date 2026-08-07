@@ -26,7 +26,7 @@ non-regressions,nonRegressions/set01/lh004,fortran,fixed,"mixed regression cases
 non-regressions,nonRegressions/set01/lh005,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh006,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh007,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
-non-regressions,nonRegressions/set01/lh008,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
+non-regressions,nonRegressions/set01/lh008,fortran,fixed,"mixed regression cases, references, harness, and data",runnable-ported,"adjBlock1(x,y,z); port set01_lh008(y,x,z,objective)",none,forward|reverse:objective,strict-compiler|hand|central-difference-sweep|adjoint-identity,none,pass-parser-and-generated-compile,pass-transform-compile-runtime
 non-regressions,nonRegressions/set01/lh009,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh010,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh011,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
