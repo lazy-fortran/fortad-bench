@@ -100,9 +100,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,217 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,216 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger currently has 61 executable evidence rows, 126 explicit
-  refusals, and 28 invalid-upstream closures. The profile, shard-3, and shard-0
+  refusals, and 29 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -115,7 +115,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,291 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,290 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
  rows with no entry-point hint, 300 program candidates, and 917 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
@@ -250,6 +250,17 @@ central-difference, and adjoint checks with `ptab` active and `cst` passive.
 The vector map is not a repaired upstream source. See the
 [`case manifest`](../cases/tapenade-set05/v065_manifest.toml) and
 [`validation result`](../cases/tapenade-set05/v065_result.txt).
+
+The next queue-selected row, `set05/v066` `RUN::s(mb1,mb2,mb3,mb4)`, is an
+invalid-upstream closure.  Its exact generic interface is ambiguous because
+specific procedures differ only by array extent, and the selected procedure
+calls the generic with unmatched 10x50 and 10x70 actuals.  Exact and stored
+sources fail strict compilation; fresh pinned Tapenade outputs fail the same
+strict boundary; and FortAD refuses the generic call in forward and reverse
+without emitting derivative source.  The independent oracle checks those
+source invariants and compiler refusals, so no numerical derivative claim is
+made.  See the [`case notes`](../cases/tapenade-set05/v066_notes.md) and
+[`validation result`](../cases/tapenade-set05/v066_result.txt).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

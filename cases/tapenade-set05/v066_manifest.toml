@@ -1,0 +1,52 @@
+schema_version = 1
+name = "tapenade-set05-v066-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "253f59d516edd8b62fc44c8774cdd852cfa1f7cf"
+source_form = "free"
+runner = "cases/tapenade-set05/v066_run.sh"
+result = "cases/tapenade-set05/v066_result.txt"
+
+source_files = [
+    "nonRegressions/set05/v066/program.f90",
+    "nonRegressions/set05/v066/program_d.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v066/program.f90",
+    "nonRegressions/set05/v066/program_d.f90",
+    "nonRegressions/set05/v066/program_d.msg",
+]
+stored_references = [
+    "nonRegressions/set05/v066/program_d.f90",
+    "nonRegressions/set05/v066/program_d.msg",
+]
+
+upstream_entry_point = "RUN::s(mb1,mb2,mb3,mb4)"
+selected_entry_points = ["RUN::s(mb1,mb2,mb3,mb4)"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["mb1", "mb2", "mb3", "mb4"]
+dependent = "in-place updates to the four mb arrays"
+function = "generic FUNC overloads distinguished only by array extent, followed by unmatched actual shapes"
+options = ["-p -root s", "-d -root s", "-b -root s"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict exact-source and stored-reference compiler refusal",
+    "independent generic-interface and actual-shape source oracle",
+    "fresh pinned Tapenade generation plus strict compilation",
+    "FortAD exact forward/reverse refusal and no-output boundary",
+    "pinned-source checksums",
+]
+classification = "unsupported-invalid-upstream-fortran"
+dependencies = [
+    "FUNC2 and FUNC3 have the same real scalar type and rank and differ only by array extent, which cannot disambiguate a Fortran generic interface",
+    "RUN::s calls FUNC with 10x50 and 10x70 arrays although no specific procedure accepts either shape",
+    "stored program_d.f90 repeats the ambiguous FUNC and FUNC_D interfaces",
+]
+expected_diagnostics = [
+    "strict gfortran rejects both exact sources at the ambiguous FUNC interface",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate but fail strict compilation at the same generic boundary",
+    "FortAD forward and reverse refuse the unresolved generic FUNC call and emit no derivative source",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal"
+fortad_result = "not-run-invalid-upstream-source"
+closure = "The exact candidate is invalid before derivative behavior: its generic interface is not standard-conforming and its calls include unmatched array shapes. Repairing the overload set or changing the actual shapes would define a different program, so no numerical derivative claim is made."

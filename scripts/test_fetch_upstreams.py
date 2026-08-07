@@ -867,6 +867,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 ("nonRegressions/set01/lh075", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh078", "forward-generated-strict-compile-refusal-reverse-expected-refusal-no-output"),
                 ("nonRegressions/set01/lh079", "check-pass-forward-refusal-undeclared-independent-reverse-refusal-undeclared-dependent"),
+                ("nonRegressions/set05/v066", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v05", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v07", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v144", "not-run-invalid-upstream-source"),

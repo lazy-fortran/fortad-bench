@@ -286,7 +286,7 @@ The full positive/refusal acceptance matrix is in the
 
 FortAD also has an in-tree bounded concrete type-bound-call oracle for a
 same-file `type(t)` receiver with default implicit `PASS`.
-[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/fdc2378/test/test_type_bound_oracle.f90)
+[`test_type_bound_oracle.f90`](https://github.com/lazy-fortran/fortad/blob/253f59d/test/test_type_bound_oracle.f90)
 covers JVP, VJP, finite differences, and explicit refusal cases. A timed bench
 case for that slice is still open. Active receiver cotangents and runtime
 overrides are outside its contract.
@@ -310,11 +310,11 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-one rows now have executable FortAD evidence, 126 explicit
-  refusals, and twenty-eight invalid-upstream closures are independently recorded. Another
+  refusals, and twenty-nine invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,291 rows are queued: 1,217 pure-Fortran rows and 74 mixed-language rows.
+  1,290 rows are queued: 1,216 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -366,6 +366,14 @@ because it belongs next to the engines rather than next to the compiler.
   a standards-clean vector value map, not a repaired upstream source. See its
   [manifest](cases/tapenade-set05/v065_manifest.toml) and
   [validation result](cases/tapenade-set05/v065_result.txt).
+  The following queue-selected `set05/v066` `RUN::s(mb1,mb2,mb3,mb4)` row is
+  recorded as an invalid-upstream closure: its generic `FUNC` interface is
+  ambiguous because specific procedures differ only by array extent, and the
+  selected procedure also calls it with unmatched 10x50 and 10x70 actuals.
+  Exact and stored sources, fresh pinned Tapenade outputs, and FortAD refusal
+  diagnostics are measured; no repaired source or derivative oracle is claimed.
+  See its [case notes](cases/tapenade-set05/v066_notes.md) and
+  [validation result](cases/tapenade-set05/v066_result.txt).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
