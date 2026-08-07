@@ -563,7 +563,7 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala02
 Each directory contains its manifest, runner result, notes, oracle, and
 contract test.
 
-## Tranche AL: `B01`
+## Tranche AL: `B01` and supplemental root `psiroe`
 
 This exact B01 fixed-form case selects `GRADFB(x,y,z,b,c,d,vol6)` from a
 translation unit with include context and legacy labeled-DO control flow.
@@ -576,10 +576,16 @@ Run it with:
 
 ```sh
 FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/B01/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/B01-psiroe/run.sh
 ```
 
-The directory contains the pinned manifest, runner result, notes, oracle, and
-three-test contract.
+`B01` is the ledger row for the `GRADFB` root. `B01-psiroe` is a supplemental
+contract for the same pinned translation unit and records the first real
+procedure root (`PSIROE`) without duplicating the corpus row. It exercises
+all three explicit Tapenade modes, the corresponding FortAD compatibility
+commands, and the independent `GRADFB` geometry oracle. Each directory
+contains its pinned manifest, runner result, notes, oracle, and three-test
+contract.
 
 ## Tranche AM: `ala03`, `ala04`, `ala05`, and `bd04`
 
