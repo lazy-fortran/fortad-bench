@@ -1,0 +1,76 @@
+suite: Tapenade nonRegressions set01 tranche K (lh003, lh005, lh006)
+recorded_utc: 2026-08-07T05:55:24Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+fo: fo 0.3.2
+fortad_commit: 408e55d2d8d428337873c40e617fcb39039b913e
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.068835
+independent_oracle_compile_runtime_seconds: 0.051349
+oracle: finite differences against independent hand tangent for lh003 safe fixed-trip model; branch hand/FD checks for lh005; fixed-trace hand/FD checks for lh006
+tapenade_result: fresh parser, tangent, and reverse outputs generated from exact source; generated files compile statuses are recorded below
+fortad_result: exact source refusal diagnostics are checked in both forward and reverse modes; no transformation/runtime claim
+lh003_upstream_compile_statuses:
+program 1
+program_b 1
+program_d 1
+lh003_tapenade_generated_compile_statuses:
+lh003_b 1
+lh003_d 1
+lh003_p 1
+lh003_fortad_refusal_statuses:
+forward 1
+reverse 1
+lh003_fortad_diagnostic:
+fortad: unsupported statement at line 11
+lh003_source_sha256:
+5cfa90e2e27b2b486521380c38a827a5602a41c2e30b0f1bfd632a6fe36bccdb  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh003/program.f
+9929bb34f6e0f046bd0268ce5eaf2cac11ed5005694365ece5a13734b35c8b9b  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh003/program_b.f
+179ba311b45988130949969d5c8d13a52aa0dca1a8fc7eae9d36ee3aed59fd39  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh003/program_d.f
+lh005_upstream_compile_statuses:
+program 0
+program_b 1
+program_d 0
+lh005_tapenade_generated_compile_statuses:
+lh005_b 1
+lh005_d 0
+lh005_p 0
+lh005_fortad_refusal_statuses:
+forward 1
+reverse 1
+lh005_fortad_diagnostic:
+fortad: parse failed: ERROR at line 37, column 7: internal: could not locate the end of this do construct; refusing to drop the statements that follow
+lh005_source_sha256:
+41068b214b8154b62820507d3515984f9b2ede35b8a1e45af33d51e362dc7b48  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh005/program.f
+1316d03426ce15f238554784b6996c56aa0d6e2c4534ab0b5d13fa166a701767  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh005/program_b.f
+2b788a9bb7f5f7a06571cbe48e534f1c0eaa59cd56b808193403eb83e3ea74e9  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh005/program_d.f
+ae98dfd97f00d9cc4891a1d18f2ed077c3ae32b57fbbbdde6534a8979e72a195  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh005/program_p.f
+lh006_upstream_compile_statuses:
+program 1
+program_b 1
+program_d 0
+lh006_tapenade_generated_compile_statuses:
+lh006_b 1
+lh006_d 0
+lh006_p 0
+lh006_fortad_refusal_statuses:
+forward 1
+reverse 1
+lh006_fortad_diagnostic:
+fortad: parse failed: Unterminated character constant at line 49, column 28
+lh006_source_sha256:
+95389ce0002bbb1174cfb5a12988c10e99a4da88a66a560fe1844f8c8224c675  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh006/program.f
+cd40c6d90b694a94c5911a48c72f8f93b1940247424c36d9aeffc5a8715a4d63  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh006/program_b.f
+9cf334f58b674a6b0a50aa09c01f519c00ab2415faf9336389884a68eb245339  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh006/program_d.f
+harness_sha256:
+20a14d1de241f5862f1caf0305ff492b01808756e5c138773f15b0263175b15a  harness/bench_tapenade_set01_tranche_k.f90
+9c645c2a04d9ac4a36bbac53c800dfc5a273e54fb41c210dd03c59405d8a3415  cases/tapenade-set01/tranche-k-manifest.toml
+ba4ada25a54c037f25193d763e3e71d979f1b0ee80243a6fea23ec3297bd950b  cases/tapenade-set01/tranche-k.md
+81739bef7f7eba604ad109d0fa89fcdb7a2191db56046f73447d8ccc7483cd47  scripts/bench_tapenade_set01_tranche_k.sh
+oracle_output:
+oracle_status: pass

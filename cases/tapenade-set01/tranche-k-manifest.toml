@@ -1,0 +1,51 @@
+schema_version = 1
+name = "tapenade-set01-tranche-k"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_k.sh"
+result = "results/tapenade_set01_tranche_k_refusal_validation.txt"
+
+[[case]]
+id = "lh003"
+upstream_source = "nonRegressions/set01/lh003/program.f"
+upstream_entry_point = "adj2(x,y,z,N,o)"
+ported_entry_point = "none"
+independent = ["x", "y", "z"]
+dependent = ["x", "y", "z"]
+function = "while-loop updates followed by a nonstandard DO (N+10) TIMES loop"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-source-inspection", "safe-trace-hand-tangent", "central-difference-sweep"]
+dependencies = "none"
+classification = "unsupported-exact-source"
+expected_diagnostic = "fortad: unsupported statement at line 11"
+
+[[case]]
+id = "lh005"
+upstream_source = "nonRegressions/set01/lh005/program.f"
+upstream_entry_point = "adj4(y)"
+ported_entry_point = "none"
+independent = ["y", "z"]
+dependent = "x(1)"
+function = "COMMON-backed IF/ELSEIF/ELSE branches with labeled DO loops and I/O"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-source-inspection", "branch-hand-derivative", "central-difference-sweep"]
+dependencies = "COMMON blocks and unit I/O in exact source"
+classification = "unsupported-exact-source"
+expected_diagnostic = "fortad: parse failed: ERROR at line 37, column 7: internal: could not locate the end of this do construct; refusing to drop the statements that follow"
+
+[[case]]
+id = "lh006"
+upstream_source = "nonRegressions/set01/lh006/program.f"
+upstream_entry_point = "adj6(x,y,z)"
+ported_entry_point = "none"
+independent = ["a", "b", "x", "y", "z"]
+dependent = "x(1)"
+function = "implicit-double COMMON state, I/O, MIN loop, GOTO, and external functions"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-source-inspection", "fixed-trace-hand-derivative", "central-difference-sweep"]
+dependencies = "external file donnees and COMMON block donnees"
+classification = "unsupported-exact-source"
+expected_diagnostic = "fortad: parse failed: Unterminated character constant at line 49, column 28"
