@@ -295,7 +295,12 @@ because it belongs next to the engines rather than next to the compiler.
 - **[`docs/upstreams.toml`](docs/upstreams.toml)**: 39 third-party AD projects,
   pinned with licence, the paths worth reading, and what we want to learn from
   each. `scripts/fetch_upstreams.py` clones them into a gitignored `upstream/`
-  tree and verifies every declared licence against the actual checkout.
+  tree and records the licence files found in each checkout.
+- **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c` (tree
+  `17288bdf`) has 10,977 tracked files and 2,014 candidate cases. Run
+  `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
+  gitignored local inventory. These counts describe upstream material, not
+  current FortAD support.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.

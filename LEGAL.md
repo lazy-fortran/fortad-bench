@@ -4,7 +4,7 @@ This repository builds and runs a large number of third-party automatic
 differentiation engines. It follows the same rule as
 [fortad](https://github.com/lazy-fortran/fortad), whose
 [LEGAL.md](https://github.com/lazy-fortran/fortad/blob/main/LEGAL.md) is the
-governing document. What follows is the part specific to benchmarking.
+governing document. This file records the benchmark-specific rules.
 
 **This is not legal advice.** It records the project's engineering policy.
 
@@ -15,7 +15,7 @@ their sources, and their build trees are fetched locally into gitignored
 directories by `scripts/`, and never committed, released, or shipped in a
 container image.
 
-Benchmark *results* — timings, memory, generated-code size, engine version — are
+Benchmark *results* (timings, memory, generated-code size, engine version) are
 measurements we made. They are facts about our machine and they are committed.
 Engine *code* is not.
 
@@ -35,13 +35,18 @@ derived by reading the engine's source rather than its documentation.
 A case ported from an upstream corpus:
 
 - comes only from a permissively licensed corpus (ADBench is MIT, MITgcm is MIT,
-  VMEC++ is MIT),
-- carries the upstream copyright notice in the ported file's header,
+  VMEC++ is MIT, and Tapenade is MIT at the pinned corpus revision),
+- retains the upstream copyright notice in the ported file's header,
 - gets a `PROVENANCE.md` row naming the upstream revision, files, licence, and
   every deviation.
 
 LGPL and GPL corpora (SU2) are **run as black boxes**, never ported. Corpora with
 no discoverable licence are not used at all.
+
+`scripts/fetch_upstreams.py --corpus tapenade` places the unmodified Tapenade
+checkout and its generated filename inventory under gitignored paths. Fetching
+does not make those files part of fortad-bench. A Tapenade case enters `cases/`
+only with its copyright notice and a `PROVENANCE.md` row.
 
 ## 4. Fair configuration is a legal-adjacent obligation too
 
