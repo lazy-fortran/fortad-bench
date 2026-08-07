@@ -214,9 +214,9 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
     printf 'source_sha256:\n'
     (
         cd "$root"
-        sha256sum "$case_dir/lh057_tranche_b.f90" \
-            "$case_dir/lh057_tranche_b_hand.f90" \
-            "$case_dir/tranche-b-manifest.toml" \
+        sha256sum cases/tapenade-set01/lh057_tranche_b.f90 \
+            cases/tapenade-set01/lh057_tranche_b_hand.f90 \
+            cases/tapenade-set01/tranche-b-manifest.toml \
             harness/bench_tapenade_set01_tranche_b.f90 \
             scripts/bench_tapenade_set01_tranche_b.sh
     )
