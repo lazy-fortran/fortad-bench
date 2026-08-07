@@ -15,9 +15,9 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 113
-classified set01 rows (32 runnable cases, 65 reproducible refusals, and 16
-invalid-upstream closures), plus 64 classified rows elsewhere. There are 1,329
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 117
+classified set01 rows (32 runnable cases, 69 reproducible refusals, and 16
+invalid-upstream closures), plus 64 classified rows elsewhere. There are 1,325
 queued candidates still
 untriaged. A broader feature
 or performance lead needs
@@ -75,14 +75,14 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support is
-now wired into the harness for 113 classified set01 cases
-(32 runnable, 65 exact-source refusals, and 16 invalid-upstream closures), plus
+now wired into the harness for 117 classified set01 cases
+(32 runnable, 69 exact-source refusals, and 16 invalid-upstream closures), plus
 64 classified rows elsewhere. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The product target is the 1,432-row strict pure-Fortran population. Forty-two
-rows currently pass as runnable support cases, 107 are measured expected
-refusals, 28 are invalid-upstream closures, and 1,329 remain untriaged: 1,255
+rows currently pass as runnable support cases, 111 are measured expected
+refusals, 28 are invalid-upstream closures, and 1,325 remain untriaged: 1,251
 pure-Fortran rows and 74 mixed C/C++-Fortran rows. The mixed rows stay in
 a separate dependency lane.
 
@@ -112,9 +112,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,329 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 312 program, and 943 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 128 rows
+  partition the 1,325 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 309 program, and 942 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 126 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Generate the pure-Fortran candidate handoff with
@@ -340,10 +340,15 @@ explicitly refused, independently checked, and measured when runnable.
   generation, strict/legacy gates, exact FortAD probes, and an independent
   determinant-volume JVP/VJP contract. The exact source remains an explicit
   refusal at its legacy labeled-DO boundary; no repaired source is counted.
+- [x] Close set01 `ala03`, `ala04`, `ala05`, and `bd04` with fresh pinned
+  Tapenade generation, strict/legacy gates, exact FortAD probes, and
+  independent JVP/VJP contracts. These remain explicit boundaries for MPI
+  update rules, nested fixed-point names/legacy declarations, DO WHILE, and
+  exact-source PRINT, respectively.
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,255 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside 113 classified set01 rows and 64 additional
+  reproducible evidence. There are 1,251 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside 117 classified set01 rows and 64 additional
   classified rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or

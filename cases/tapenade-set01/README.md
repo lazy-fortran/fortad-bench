@@ -581,6 +581,28 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/B01/r
 The directory contains the pinned manifest, runner result, notes, oracle, and
 three-test contract.
 
+## Tranche AM: `ala03`, `ala04`, `ala05`, and `bd04`
+
+This four-case fixed-form closeout records fresh pinned Tapenade generation,
+strict/legacy compiler gates, exact FortAD behavior, and independent JVP/VJP
+contracts. `ala03` preserves the MPI/update-rule boundary; `ala04` preserves
+the nested fixed-point and legacy-kind boundary; `ala05` preserves the
+unsupported `DO WHILE`; and `bd04` preserves the exact-source `PRINT`
+boundary. No MPI runtime, source repair, or synthetic derivative port is
+counted.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala03/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala04/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala05/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/bd04/run.sh
+```
+
+Each directory contains its pinned manifest, runner result, notes, oracle,
+and three-test contract.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`
