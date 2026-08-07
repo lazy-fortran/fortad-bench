@@ -100,7 +100,7 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,216 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,215 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger currently has 61 executable evidence rows, 126 explicit
   refusals, and 29 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -115,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,290 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,289 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 300 program candidates, and 917 procedure
+ rows with no entry-point hint, 299 program candidates, and 916 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -261,6 +261,17 @@ without emitting derivative source.  The independent oracle checks those
 source invariants and compiler refusals, so no numerical derivative claim is
 made.  See the [`case notes`](../cases/tapenade-set05/v066_notes.md) and
 [`validation result`](../cases/tapenade-set05/v066_result.txt).
+
+The next queue-selected row, `set05/v067` `RUN::s(mb1,mb2,mb3)`, is an
+expected modern-Fortran refusal. The exact and stored sources use nonstandard
+`REAL*8`, so strict F2018 rejects them; legacy compilation is retained only as
+a control. Fresh pinned Tapenade parser, tangent, and reverse products compile
+in legacy mode but reproduce the strict boundary. FortAD exact parser
+extraction passes, while forward and reverse refuse the unresolved generic call
+without derivative output. The independent oracle checks the compiler controls
+and source invariants; no repaired source or numerical derivative claim is
+made. See the [`case notes`](../cases/tapenade-set05/v067_notes.md) and
+[`validation result`](../cases/tapenade-set05/v067_result.txt).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
