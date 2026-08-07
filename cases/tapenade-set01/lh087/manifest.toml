@@ -1,0 +1,82 @@
+schema_version = 1
+name = "tapenade-set01-lh087-mie-array-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+fortad_baseline_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh087/run.sh"
+result = "cases/tapenade-set01/lh087/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh087/program.f",
+    "nonRegressions/set01/lh087/program_p.f",
+    "nonRegressions/set01/lh087/program_d.f",
+    "nonRegressions/set01/lh087/program_b.f",
+    "nonRegressions/set01/lh087/program_dv.f",
+    "nonRegressions/set01/lh087/program_p.msg",
+    "nonRegressions/set01/lh087/program_d.msg",
+    "nonRegressions/set01/lh087/program_b.msg",
+    "nonRegressions/set01/lh087/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "nl_model_mie(pp,phase,number,sigma)"
+ported_entry_point = "not-applicable (exact source has out-of-bounds array references)"
+independent = ["phase", "number", "sigma"]
+dependent = ["pp"]
+options = ["-p", "-d -root nl_model_mie", "-b -root nl_model_mie"]
+modes = [
+    "stored-primal:strict-compile-pass",
+    "stored-parser:strict-compile-pass",
+    "stored-forward:strict-compile-pass",
+    "stored-reverse:strict-compile-pass",
+    "stored-multidirectional:expected-refusal-missing-DIFFSIZES.inc",
+    "fresh-parser:generate-and-strict-compile-pass",
+    "fresh-forward:generate-and-strict-compile-pass",
+    "fresh-reverse:generate-and-strict-compile-pass",
+    "exact-forward:emits-but-independent-warning-gate-refuses",
+    "exact-reverse:expected-refusal-no-declared-dependent",
+]
+oracle = [
+    "strict-fixed-form-compiler",
+    "independent-source-index-domain-oracle",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-compile",
+    "independent-FortAD-generated-forward-warning-gate",
+]
+classification = "expected-refusal-fortad-forward-unsafe-reverse-unavailable"
+dependencies = [
+    "program.f, program_p.f, program_d.f, and program_b.f use phase(10) and pp1(10,20), but the inner j loop runs from 1 through 20 and indexes phase(j) and pp1(j,i)",
+    "program_dv.f includes the absent DIFFSIZES.inc",
+    "the exact dummies have no INTENT declarations, so FortAD cannot identify pp as a reverse dependent",
+]
+expected_diagnostics = [
+    "strict compilation accepts program.f, program_p.f, program_d.f, and program_b.f",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD forward emits code whose phase(j)/number(k) expression is evaluated before j and k are initialized; -Werror=uninitialized rejects it",
+    "FortAD reverse refuses with dependent 'pp' is not declared in NL_MODEL_MIE",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "forward-unsafe-generated-code-reverse-dependent-refusal"
+closure = "The exact source is retained without a bounded port or invented shape repair. Its loop/index domain is independently shown to exceed phase and pp1 bounds. Fresh Tapenade artifacts are compiler-valid, but FortAD's current forward artifact fails an independent uninitialized-index gate and its reverse mode refuses the undeclared dependent; no exact-source support claim is made."
+
+[upstream_sha256]
+"program.f" = "2fa044c996a2a2bd00754f5a3b25f90a30fa7eb050d5312847b4ccd0e0c42a54"
+"program_p.f" = "a45f268db585d95822ab2d48eb86465691b43762df6669c3a2902b4beb5a0392"
+"program_d.f" = "f04ae7af8e6a08c6708ba04491926bf582df5e493845e3155c41b1a3fbef6102"
+"program_b.f" = "656c0570b2c0eb1ca2f94ab741e8d78f3e3af1aa18fcee241787dde1b9f71e1d"
+"program_dv.f" = "cfde43a8c19470e55e03b8a77e61159c3d25c2a8c0301150045ced77825cecd8"
+"program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"program_d.msg" = "cf56c2a41240dbbaf3cc50f2983cc21dbacf234fed92316cb3ad5071170135d9"
+"program_b.msg" = "cf56c2a41240dbbaf3cc50f2983cc21dbacf234fed92316cb3ad5071170135d9"
+"program_dv.msg" = "f01a4cfba5fa8bb4428b71fdded86ba6bdd59081ddd551676d67285214a3abbb"

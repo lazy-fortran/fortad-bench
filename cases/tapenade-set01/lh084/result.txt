@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set01/lh084
+classification: runnable-upstream-exact-source-fortad-refusal
+recorded_utc: 2026-08-07T15:14:55Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only
+legacy_compiler_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+upstream_entry_point: flw2d1col
+selected_entry_points: flw2d1col,check
+tapenade_options: parser=-p/-O ./-o lh084; forward=-d/-O ./-o lh084; reverse=-b/-O ./-o lh084; default root
+strict_source_reference: primal=1 reverse=1 diagnostic=expected-legacy-REAL*8
+legacy_source_reference: primal=0 reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_generated_sources: parser=lh084_p.f forward=lh084_d.f reverse=lh084_b.f
+tapenade_generated_legacy_compile: parser=0 forward=0 reverse=0
+tapenade_reverse_reference: fresh-body-equals-stored-after-banner-normalization message-byte-equal
+fortad_exact_parser: expected-refusal status=1 output=none
+fortad_exact_forward: expected-refusal status=1 output=none
+fortad_exact_reverse: expected-refusal status=1 output=none
+oracle_status: pass
+primal_rh3: 6.6400000000000015e-01,-4.0400000000000003e-01,-2.6000000000000001e-01
+primal_rh4: -2.1200000000000008e-01,-6.7999999999999866e-02,2.8000000000000003e-01
+primal_sq: 4.7000000000000008e-01
+finite_difference_max_error: 8.3793092256478907e-11
+adjoint_identity_residual: 1.3877787807814457e-17
+port_result: not-applicable-exact-fixed-form-fortad-boundary
+upstream_sha256:
+169a4c6c37461042724d165aa6a27a9af919b19b9c46b646889b22b80f9aeb5c  nonRegressions/set01/lh084/program.f
+935cd0e5f9f0a263d7c56460983fa9593947f1c64bb0137ce88dff235397af23  nonRegressions/set01/lh084/program_b.f
+85e27c2022ef3cd526e777d6c65f0919da7739a183f41cc77806216ee0999e45  nonRegressions/set01/lh084/program_b.msg
+fresh_tapenade_sha256:
+fc048e1c730549e89b3c607597503ff0e78bd25cd2f154dfe164d34cb9689113  parser/lh084_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/lh084_p.msg
+fc01bedde2679a270ab6154ab9ebfe9c9dc15cfc602ec98d5b833c5a618a4d30  forward/lh084_d.f
+85e27c2022ef3cd526e777d6c65f0919da7739a183f41cc77806216ee0999e45  forward/lh084_d.msg
+8aad98e878c0e4a57fa00eb8485db983b8333cb9c7db44f682f73ce221f67d1f  reverse/lh084_b.f
+85e27c2022ef3cd526e777d6c65f0919da7739a183f41cc77806216ee0999e45  reverse/lh084_b.msg
+case_artifact_sha256:
+15e792309bc9fbc8d1130291302b4f720a820687c43a386a8b1ff8566877b46c  manifest.toml
+50b1882db528dc48d9c8831079788a826c5373c696e9374c7fda31df46a29267  notes.md
+f7fb9c1a5ad4adb29a3570812f4ca70c12348815a41c09aae7d3ae336a08e0ea  oracle.py
+d99b653dcc00bd6861edc4c8069df9ce5f772fc5d4805490087d17a7d0700953  run.sh
+3e15c5c51f709747f149f926f5b379ce03fe77cbe3e17b42295e8fb35c06b475  test_contract.py

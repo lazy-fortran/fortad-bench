@@ -1,0 +1,56 @@
+case: Tapenade nonRegressions set01 lh087
+classification: expected-refusal-fortad-forward-unsafe-reverse-unavailable
+recorded_utc: 2026-08-07T15:14:55Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+required_fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+fortad_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_source_strict_compile: pass
+upstream_stored_parser_strict_compile: pass
+upstream_stored_forward_strict_compile: pass
+upstream_stored_reverse_strict_compile: pass
+upstream_stored_multidirectional_strict_compile: expected-refusal missing-DIFFSIZES.inc
+tapenade_fresh_generation_seconds_total: 0.892598
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=pass tangent=pass reverse=pass
+fortad_transform_seconds_total: 0.015828
+fortad_exact_forward: emitted status=0 standard-compile=pass independent-warning-gate=expected-refusal-uninitialized-indices
+fortad_exact_reverse: expected-refusal status=1 diagnostic=dependent-pp-not-declared
+fortad_generated_compile: standard=pass warning-gate=expected-refusal
+no_bounded_numerical_port: exact-array-index-domain-is-undefined
+independent_oracle: strict compiler plus source index-domain and generated-forward uninitialized-index checks
+oracle_program.f: pass
+oracle_program_p.f: pass
+oracle_program_d.f: pass
+oracle_program_b.f: pass
+oracle_program_dv.f: expected-refusal status=1 missing-DIFFSIZES.inc
+oracle_source_index_domain: expected-refusal j=11..20 exceeds phase(10) and pp1 first extent
+oracle_fortad_forward: expected-refusal status=1 uninitialized-loop-indices
+oracle_status: pass
+upstream_sha256:
+2fa044c996a2a2bd00754f5a3b25f90a30fa7eb050d5312847b4ccd0e0c42a54  program.f
+a45f268db585d95822ab2d48eb86465691b43762df6669c3a2902b4beb5a0392  program_p.f
+f04ae7af8e6a08c6708ba04491926bf582df5e493845e3155c41b1a3fbef6102  program_d.f
+656c0570b2c0eb1ca2f94ab741e8d78f3e3af1aa18fcee241787dde1b9f71e1d  program_b.f
+cfde43a8c19470e55e03b8a77e61159c3d25c2a8c0301150045ced77825cecd8  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+cf56c2a41240dbbaf3cc50f2983cc21dbacf234fed92316cb3ad5071170135d9  program_d.msg
+cf56c2a41240dbbaf3cc50f2983cc21dbacf234fed92316cb3ad5071170135d9  program_b.msg
+f01a4cfba5fa8bb4428b71fdded86ba6bdd59081ddd551676d67285214a3abbb  program_dv.msg
+tapenade_generated_sha256:
+552b6349889b2bf9010cd14ad96d239f281deebfdf3da16d4de2c26688b6db9d  lh087_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh087_p.msg
+3a89b64cf87309dafb02493068bd845470581897fc7e9807767c5d023ca1d121  lh087_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh087_d.msg
+286fb5f234356a777c2ce6cb0a047378ce5a13e912e731f58eaed6a112d9d389  lh087_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh087_b.msg
+case_artifact_sha256:
+593c6fea5f9112da07a7120f96f5143469b1ebae54077feed52b55d3d96a3ed9  cases/tapenade-set01/lh087/manifest.toml
+054a723338e30374b92b240a940289ea261ea424fa3a894e554686a3741d43a8  cases/tapenade-set01/lh087/notes.md
+613a9b94331b0ce5fa72894d3a02e366a0c3b4045cabda390f1f9e37f4dde38b  cases/tapenade-set01/lh087/oracle.py
+314609ab7fd22c4cdcf8611736f25b55a48ca8b997ba1586c64810715613d2b2  cases/tapenade-set01/lh087/run.sh
+e59d8c8596d1e3058b6b5ad01f4109e2c8724e2dc7dce58af316e54f500f10fd  cases/tapenade-set01/lh087/test_contract.py

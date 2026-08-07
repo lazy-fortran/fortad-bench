@@ -1,0 +1,80 @@
+schema_version = 1
+name = "tapenade-set01-lh081-external-call-graph"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh081/run.sh"
+result = "cases/tapenade-set01/lh081/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh081/program.f",
+    "nonRegressions/set01/lh081/program_p.f",
+    "nonRegressions/set01/lh081/program_d.f",
+    "nonRegressions/set01/lh081/program_b.f",
+    "nonRegressions/set01/lh081/program_dv.f",
+    "nonRegressions/set01/lh081/program_p.msg",
+    "nonRegressions/set01/lh081/program_d.msg",
+    "nonRegressions/set01/lh081/program_b.msg",
+    "nonRegressions/set01/lh081/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "test2(a,f,jac,pjac)"
+ported_entry_point = "not-applicable (no numerical port; exact call graph only)"
+independent = ["a"]
+dependent = ["a"]
+options = ["-p", "-d -root test2", "-b -root test2"]
+modes = [
+    "stored-primal:strict-pass",
+    "stored-parser:strict-pass",
+    "stored-forward:strict-pass",
+    "stored-reverse:strict-pass",
+    "stored-multidirectional:expected-refusal-missing-DIFFSIZES.inc",
+    "fresh-parser:generated-strict-pass",
+    "fresh-forward:generated-strict-pass",
+    "fresh-reverse:generated-strict-pass",
+    "exact-forward:expected-refusal-external-call-inlining",
+    "exact-reverse:expected-refusal-external-call-inlining",
+]
+oracle = [
+    "strict fixed-form source/reference compilation",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "independent source call-graph and generated tangent/adjoint propagation checks",
+    "exact FortAD forward/reverse refusal and no-output checks",
+]
+classification = "unsupported-external-procedure-inlining"
+dependencies = [
+    "The exact source contains only the test/test2 call graph; f, jac, and pjac are external and no implementations are supplied in this corpus case",
+    "The source leaves a and y implicitly typed under legacy Fortran rules, while the derivative call graph preserves their in-out flow",
+    "program_dv.f requires the absent DIFFSIZES.inc; this is the only strict source/reference refusal",
+]
+expected_diagnostics = [
+    "strict compilation passes program.f, program_p.f, program_d.f, and program_b.f",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs are generated and pass strict compilation",
+    "FortAD exact forward and reverse both refuse because inlining test would need a statement form it does not have",
+]
+tapenade_result = "fresh-parser-tangent-reverse-generation-strict-pass-multidirectional-missing-include"
+fortad_result = "exact-forward-reverse-expected-refusal-external-call-inlining-no-output"
+closure = "No numerical port, synthetic external routine, or invented root is supplied. The case records the exact external-call graph and the reproducible FortAD boundary; changing the external procedures or adding a statement-form implementation would change the corpus semantics."
+
+[hashes]
+"nonRegressions/set01/lh081/program.f" = "pending-runner"
+"nonRegressions/set01/lh081/program_p.f" = "pending-runner"
+"nonRegressions/set01/lh081/program_d.f" = "pending-runner"
+"nonRegressions/set01/lh081/program_b.f" = "pending-runner"
+"nonRegressions/set01/lh081/program_dv.f" = "pending-runner"
+"nonRegressions/set01/lh081/program_p.msg" = "pending-runner"
+"nonRegressions/set01/lh081/program_d.msg" = "pending-runner"
+"nonRegressions/set01/lh081/program_b.msg" = "pending-runner"
+"nonRegressions/set01/lh081/program_dv.msg" = "pending-runner"

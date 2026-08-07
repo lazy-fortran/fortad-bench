@@ -1,0 +1,80 @@
+schema_version = 1
+name = "tapenade-set01-lh090-legacy-goto-loop-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh090/run.sh"
+result = "cases/tapenade-set01/lh090/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh090/program.f",
+    "nonRegressions/set01/lh090/program_p.f",
+    "nonRegressions/set01/lh090/program_d.f",
+    "nonRegressions/set01/lh090/program_b.f",
+    "nonRegressions/set01/lh090/program_dv.f",
+    "nonRegressions/set01/lh090/program_p.msg",
+    "nonRegressions/set01/lh090/program_d.msg",
+    "nonRegressions/set01/lh090/program_b.msg",
+    "nonRegressions/set01/lh090/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "testInitAdj(x,y)"
+ported_entry_point = "not-applicable (exact source has a positive-input nonterminating GOTO loop)"
+independent = ["x"]
+dependent = ["x", "y"]
+options = ["-p", "-d -root testInitAdj", "-b -root testInitAdj", "-d -root testInitAdj -multi"]
+modes = [
+    "stored-primal:strict-compile-pass",
+    "stored-parser:strict-compile-pass",
+    "stored-forward:strict-compile-pass",
+    "stored-reverse:strict-compile-pass",
+    "stored-multidirectional:expected-refusal-missing-DIFFSIZES.inc",
+    "fresh-parser:generate-and-strict-compile-pass",
+    "fresh-forward:generate-and-strict-compile-pass",
+    "fresh-reverse:generate-and-strict-compile-pass",
+    "exact-check:expected-refusal-unsupported-goto",
+    "exact-forward:expected-refusal-unsupported-goto",
+    "exact-reverse:expected-refusal-unsupported-goto",
+]
+oracle = [
+    "independent fixed-form control-flow and nontermination proof for positive inputs",
+    "independent finite-prefix tangent recurrence and finite-difference check",
+    "independent finite-prefix reverse dot-product identity check",
+]
+classification = "expected-refusal-fortad-unsupported-legacy-goto"
+dependencies = [
+    "the exact routine branches from line 11 with IF (y.GT.0.0) GOTO 100, a legacy control-flow statement currently unsupported by FortAD",
+    "for every positive x, y=x*x is positive and the branch repeats, so the exact routine has no terminating positive-input execution",
+    "program_dv.f includes the absent DIFFSIZES.inc",
+]
+expected_diagnostics = [
+    "strict compilation accepts the exact source and stored parser, forward, and reverse references",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD check, forward, and reverse all refuse unsupported statement at line 11 and emit no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "expected-refusal-unsupported-statement-line-11-no-output"
+closure = "The exact source is retained without a synthetic root, loop bound, termination condition, or numerical port. The independent oracle checks only finite semantic prefixes; it never executes the exact positive-input nonterminating routine."
+
+[upstream_sha256]
+"program.f" = "755493721490bb71662ae12cf39ca26a088b26317adb983bfb002bb4ae738470"
+"program_p.f" = "942858cadaaec36e902ff1d31bccc686cb9a043efd57d34867ff503ea79b2627"
+"program_d.f" = "e9fbeaee5d8aa033b830e2704e0ffe625ace77d800da6170701529743032c512"
+"program_b.f" = "38becc1acf303cd41fc39e01c0d99fdc6410322cd8b87765c30b1b3e1282bbb0"
+"program_dv.f" = "50cdfda977479b2715c773a2e0a8a64e59cf8cc5d7d0324b3b1b3112fe054f0f"
+"program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"program_d.msg" = "9201720fa7041f5d24d6aa6c950fde6e535d7b3fda05d1d5cf420c908789d1af"
+"program_b.msg" = "9201720fa7041f5d24d6aa6c950fde6e535d7b3fda05d1d5cf420c908789d1af"
+"program_dv.msg" = "42a2dc06438d8c108e8fd22b8a29f5ef63ac9349e962dbe6411a890c9ff9c21e"

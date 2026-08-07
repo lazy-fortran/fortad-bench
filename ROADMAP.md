@@ -15,11 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade corpus has 143
-set01 evidence rows (thirty-five positive cases, eighty-two reproducible refusals, and
-twenty-six invalid-upstream closures), plus five new positive rows across sets 02--06,
-the v420 positive case, the f03typf01 OO refusal, and the two first-aid refusals.
-There are 1,354 queued candidates still
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 96
+classified set01 rows (31 runnable cases, 49 reproducible refusals, and 16
+invalid-upstream closures), plus 64 classified rows elsewhere. There are 1,346
+queued candidates still
 untriaged. A broader feature
 or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
@@ -76,14 +75,14 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support is
-now wired into the harness for 143 small set01 evidence cases
-(thirty-five positive, eighty-two exact-source refusals, and twenty-six invalid-upstream
-closures), plus five positive bounded ports from sets 02--06. A fresh Tapenade
+now wired into the harness for 96 classified set01 cases
+(31 runnable, 49 exact-source refusals, and 16 invalid-upstream closures), plus
+64 classified rows elsewhere. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The product target is the 1,432-row strict pure-Fortran population. Forty-one
-rows currently pass as runnable support cases, eighty-five are measured expected
-refusals, twenty-six are invalid-upstream closures, and 1,280 remain untriaged. The
+rows currently pass as runnable support cases, 91 are measured expected
+refusals, 28 are invalid-upstream closures, and 1,346 remain untriaged. The
 74 mixed C/C++-Fortran rows stay in
 a separate dependency lane.
 
@@ -113,9 +112,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,354 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 315 program, and 965 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 133 rows
+  partition the 1,346 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 315 program, and 957 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 128 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Generate the pure-Fortran candidate handoff with
@@ -320,9 +319,9 @@ explicitly refused, independently checked, and measured when runnable.
   synthetic root or derivative port is claimed. See the [tranche-AG notes](cases/tapenade-set01/README.md#tranche-ag-the-remaining-no-entry-point-queue).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,280 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside 143 set01 evidence rows and nine additional
-  evidence cases.
+  reproducible evidence. There are 1,272 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside 96 classified set01 rows and 64 additional
+  classified rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

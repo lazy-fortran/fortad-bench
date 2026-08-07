@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions set01 lh081
+classification: unsupported-external-procedure-inlining
+recorded_utc: 2026-08-07T15:12:37Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+required_fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: test2(a,f,jac,pjac)
+selected_entry_points: test2
+tapenade_options: parser=-p forward=-d/-root test2 reverse=-b/-root test2
+upstream_exact_strict_compile: primal=0 parser=0 tangent=0 reverse=0 multidirectional=expected-refusal-missing-DIFFSIZES.inc
+tapenade_generation: parser=0 forward=0 reverse=0 elapsed_seconds=0.986807
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic=external-call-inlining
+fortad_exact_reverse: expected-refusal status=1 diagnostic=external-call-inlining
+fortad_transform_elapsed_seconds: 0.010056
+independent_oracle: source-call-graph tangent-propagation adjoint-propagation
+oracle_source_call_graph: pass test2->test->pjac(jac), external f/jac/pjac
+oracle_forward_propagation: pass test2_d->test_d->pjac_d
+oracle_reverse_propagation: pass test2_b->test_b->pjac_b
+oracle_status: pass
+port_result: not-applicable-no-invented-external-routines-or-root
+runner_result: pass
+upstream_sha256:
+4643ea6599d7b198adc7ff2d0e351b617d1035d3e24a6c4cd82e7b661cd61bc9  nonRegressions/set01/lh081/program.f
+b327781e1b818e93e3f965a82200151e4b8161efac5ea87d7dd713bacced06ad  nonRegressions/set01/lh081/program_p.f
+7776e319c7faad0a5f73d6ab133f98fcaeae844dab2ff6a9ac20b39701ad35a5  nonRegressions/set01/lh081/program_d.f
+7edcb6068a7834e0c5e6921e9282fbbe700a96f813ad1307b0341bac1992d895  nonRegressions/set01/lh081/program_b.f
+5df8a107a4daec2dcf3745b82b2e00ed59968d213907dcd747f0d9c0e3c193d9  nonRegressions/set01/lh081/program_dv.f
+051f014125265e6bdec7c0c4e6bba15b25f9a375862d69374652408098cb182c  nonRegressions/set01/lh081/program_p.msg
+bd0cc2ac247325c9018ad146229bcb4722457cbf3eebfbbe30d8cbb42167c2b9  nonRegressions/set01/lh081/program_d.msg
+bd0cc2ac247325c9018ad146229bcb4722457cbf3eebfbbe30d8cbb42167c2b9  nonRegressions/set01/lh081/program_b.msg
+de097480d37e2ec5c72f74c88eebad2179dc669157815ecf75fa50b4737500bf  nonRegressions/set01/lh081/program_dv.msg
+fresh_tapenade_sha256:
+31cc857dd16f684978cf231af69d68f1fe96ad5953dd38cd3b9b24ffb1585a66  lh081_p.f
+051f014125265e6bdec7c0c4e6bba15b25f9a375862d69374652408098cb182c  lh081_p.msg
+f8946c4fd1dc17dc53cf365e4ea55af512bf0961b25d049edce2c0d52595c61d  lh081_d.f
+a1127725b1579bdb91a0ddb7b356841d9dbb1642c042002c4f2b6f85fe7fe3b6  lh081_d.msg
+1905502e04514a43e28e4675587af6523590244644ef80c78d98af9087600959  lh081_b.f
+a1127725b1579bdb91a0ddb7b356841d9dbb1642c042002c4f2b6f85fe7fe3b6  lh081_b.msg
+case_artifact_sha256:
+44105ad7c6a14f3a1aeff1db9d757556ae309c9f2761c2345c78fa42e34c92cf  manifest.toml
+100101b86365f45b8885df2aa7dc7edbc7c617826a614368989323921bb4dad0  notes.md
+d0f2194ff40a25759c3c136fa7c0d93c37a682ff637a03b89552f5d3b51be3a8  oracle.py
+ab8b00b55f3facd383dafe079397c8032de06e1aa20f631da09110b98cc9d14e  run.sh
+2753f811f73203feabcd149b1e796f2f990971d8c5fc834564537d742a0ced8a  test_contract.py

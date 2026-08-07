@@ -1,0 +1,26 @@
+case: tapenade nonRegressions/set01/lh083
+recorded_utc: 2026-08-07T15:12:39Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+classification: expected-refusal-exact-source-runtime-bounds-reverse-unavailable
+upstream_exact_strict_compile: program.f=0 program_b.f=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=lh083_p.f forward=lh083_d.f reverse=lh083_b.f
+tapenade_generated_strict_compile: parser=0 forward=0 reverse=0
+fortad_exact_parser: generated-check-source-strict-compile
+fortad_exact_forward: generated-jvp-source-strict-compile
+fortad_exact_reverse: refusal-per-iteration-storage
+independent_oracle: execution-prefix, first-out-of-bounds index, and LIFO restoration
+oracle_write_indices: 7,17,37,77,157,317,637,1277,2557,5117
+oracle_first_out_of_bounds_iteration: 5 (X(157) > X(100))
+oracle_reverse_restore_order: 77,37,17,7
+oracle_status: pass
+port_result: forward-only-exact-source; no-complete-runtime reason=exact-fifth-write-is-X-157-and-vjp-needs-storage
+oracle_status: pass
+source_sha256:
+fdde8e7dcc0350a2323509420b7413882c206b7ed833c1c45f1ef93d8adc370a  upstream/tapenade/nonRegressions/set01/lh083/program.f
+599fd455f208f6d745a112b73eab20f56295cf2a71bf3503d48ba2795e1525cc  upstream/tapenade/nonRegressions/set01/lh083/program_b.f

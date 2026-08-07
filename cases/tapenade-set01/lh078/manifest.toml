@@ -1,0 +1,72 @@
+schema_version = 1
+name = "tapenade-set01-lh078-invalid-fixed-form-power-case"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+fortad_baseline_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh078/run.sh"
+result = "cases/tapenade-set01/lh078/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh078/program.f",
+    "nonRegressions/set01/lh078/program_p.f",
+    "nonRegressions/set01/lh078/program_d.f",
+    "nonRegressions/set01/lh078/program_b.f",
+    "nonRegressions/set01/lh078/program_dv.f",
+    "nonRegressions/set01/lh078/program_p.msg",
+    "nonRegressions/set01/lh078/program_d.msg",
+    "nonRegressions/set01/lh078/program_b.msg",
+    "nonRegressions/set01/lh078/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "testPower(x,y,r,x8,y8,r8)"
+ported_entry_point = "not-applicable (invalid upstream source)"
+independent = ["x", "y", "x8", "y8"]
+dependent = ["r", "r8"]
+options = ["-p", "-d -root testPower", "-b -root testPower", "-d -root testPower -multi"]
+modes = ["parser", "forward", "reverse", "multidirectional"]
+oracle = [
+    "strict compiler diagnostics",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact-source generation/refusal behavior",
+    "independent arithmetic JVP/VJP and finite-difference oracle for defined expressions",
+]
+classification = "unsupported-invalid-upstream-fortran"
+dependencies = [
+    "program.f has a C-style opening brace in the SUBROUTINE statement, so the exact fixed-form source is not standard Fortran",
+    "program.f and all stored single-direction references use nonstandard REAL*8 declarations rejected by strict F2018 pedantic compilation",
+    "program_dv.f includes absent DIFFSIZES.inc",
+    "the source reads r(3), c(1), and c(3) without assigning them; those values are explicit read-state inputs to the independent oracle, not a repaired source port",
+]
+expected_diagnostics = [
+    "strict compiler rejects program.f at the opening brace",
+    "strict compiler rejects program_p.f, program_d.f, and program_b.f at REAL*8",
+    "strict compiler rejects program_dv.f because DIFFSIZES.inc is absent",
+    "fresh Tapenade parser, tangent, and reverse outputs are generated but fail the same strict REAL*8 gate",
+    "FortAD exact forward emits a non-compiling derivative containing undeclared REAL*8 state, while exact reverse refuses the r8 assignment and writes no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-multidirectional-generation-strict-compile-refusal"
+fortad_result = "forward-generated-strict-compile-refusal-reverse-expected-refusal-no-output"
+closure = "No bounded port or synthetic root is supplied. The exact input is invalid and also contains uninitialized read-state; changing the brace, replacing REAL*8, adding DIFFSIZES.inc, or initializing c/r would change the corpus program."
+
+[upstream_sha256]
+"nonRegressions/set01/lh078/program.f" = "fd7eccd47da15ec903e8789adb8b6ea54796269085017d6ea8ae17d4095378cd"
+"nonRegressions/set01/lh078/program_p.f" = "0b6f91f37592cfca72ba6f933a8c9e71704385120a0882c22b6c0229a46a0f43"
+"nonRegressions/set01/lh078/program_d.f" = "f867ae99fa824ce25f2813f90f8e7cffa00d1113c324392e00c4627cf522399a"
+"nonRegressions/set01/lh078/program_b.f" = "55490e520e915f52eb0f47586b536f88b7b64f2eeee285758bd3128b5a0f6eea"
+"nonRegressions/set01/lh078/program_dv.f" = "da7e3d3abe95a9397b760e3ffa696101d34768f9442c5f90c831bbf73a81eca4"
+"nonRegressions/set01/lh078/program_p.msg" = "38f3a2048c196a0a40afc0b9609e2f5ee29839e4794bce52f419694ca83ea555"
+"nonRegressions/set01/lh078/program_d.msg" = "f63ed1e9a7378628cafb76dd300b6f42426fc702bec1f86ef77d7ed2a6c64365"
+"nonRegressions/set01/lh078/program_b.msg" = "f63ed1e9a7378628cafb76dd300b6f42426fc702bec1f86ef77d7ed2a6c64365"
+"nonRegressions/set01/lh078/program_dv.msg" = "4438bad1f8e05dbe07ac8039196713d4cb792579ec812a6636a8621ea3c26baa"

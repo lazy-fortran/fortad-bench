@@ -1,0 +1,83 @@
+schema_version = 1
+name = "tapenade-set01-lh089-pushpop-legacy-declaration-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh089/run.sh"
+result = "cases/tapenade-set01/lh089/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh089/program.f",
+    "nonRegressions/set01/lh089/program_d.f",
+    "nonRegressions/set01/lh089/program_d.msg",
+    "nonRegressions/set01/lh089/Options",
+    "nonRegressions/set01/lh089/PUSHPOPGeneralLib",
+]
+stored_references = ["program_d.f", "program_d.msg"]
+missing_stored_references = ["program_p.f", "program_b.f", "program_dv.f"]
+
+upstream_entry_point = "pushpop(a,b)"
+selected_entry_points = ["pushpop"]
+ported_entry_point = "not-applicable-exact-fixed-form-source"
+independent = ["a", "b"]
+dependent = ["a", "b"]
+options = [
+    "Tapenade parser: -p -root pushpop",
+    "Tapenade forward: -d -root pushpop -ext PUSHPOPGeneralLib",
+    "Tapenade reverse: -b -root pushpop -ext PUSHPOPGeneralLib",
+    "FortAD check --proc pushpop",
+    "FortAD exact forward/reverse --indep a,b --proc pushpop",
+]
+modes = [
+    "exact-source:strict-compile-refusal-legacy-REAL*8",
+    "stored-forward:strict-compile-refusal-legacy-REAL*8",
+    "stored-forward:legacy-compile-pass",
+    "fresh-parser:generate-and-legacy-compile-pass-strict-REAL*8-refusal",
+    "fresh-forward:generate-and-legacy-compile-pass-strict-REAL*8-refusal",
+    "fresh-reverse:generate-and-legacy-compile-pass-strict-REAL*8-refusal",
+    "fortad-check:parse-and-reemit-pass",
+    "fortad-forward:expected-refusal-undeclared-legacy-dummy",
+    "fortad-reverse:expected-refusal-undeclared-legacy-dependent",
+]
+contract_tests = [
+    "independent-pushpop-semantic-model-finite-difference-and-adjoint-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-and-compiler-boundary",
+    "exact-FortAD-check-forward-reverse-boundary-with-no-repair",
+]
+oracle = [
+    "independent exact-source operation inventory",
+    "independent push/pop state-machine model",
+    "analytic JVP checked against central finite differences",
+    "analytic VJP checked by an adjoint identity",
+    "strict-versus-legacy compiler and dependency checks",
+]
+classification = "unsupported-legacy-real-star-8-fortad-declaration-resolution"
+dependencies = [
+    "PUSHREAL8 and POPREAL8 are external procedures whose /adstack/ metadata is supplied by PUSHPOPGeneralLib",
+    "Options selects the set01/lh089/PUSHPOPGeneralLib external summary",
+    "program.f and program_d.f use legacy REAL*8 declarations; strict pedantic F2018 rejects them while legacy fixed-form compilation accepts them",
+    "the exact source has no INTENT declarations, and FortAD's current fixed-form normalization does not retain the REAL*8 dummy declarations for active-name resolution",
+]
+expected_diagnostics = [
+    "exact program.f and stored program_d.f refuse strict compilation at REAL*8 but compile with -std=legacy",
+    "the required Options and PUSHPOPGeneralLib dependency files are present and contain pushreal8/popreal8 /adstack/ metadata",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile in legacy fixed form",
+    "the three fresh Tapenade outputs refuse the strict pedantic REAL*8 gate",
+    "FortAD check succeeds and re-emits pushpop without a declaration; exact forward refuses independent a and exact reverse refuses dependent a",
+    "no source rewrite, synthetic root, external differential rule, or bounded numerical port is introduced",
+]
+fresh_generated_sources = ["lh089_p.f", "lh089_d.f", "lh089_b.f"]
+fresh_generated_messages = ["lh089_p.msg", "lh089_d.msg", "lh089_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable-exact-source-only; semantic model is an independent oracle, not a repaired Fortran port"
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-legacy-compile; expected-strict-REAL*8-refusal"
+fortad_result = "pass-check-reemit; expected-refusal-forward-undeclared-a-and-reverse-undeclared-a"
+closure = "The exact fixed-form source and stored tangent reference remain preserved by upstream path and hash. Tapenade handles all three requested transformations when its PUSHPOPGeneralLib summary is supplied. FortAD can parse and re-emit the procedure but currently cannot resolve the legacy REAL*8 dummies as active or dependent names, so this case records the exact boundary without changing declarations or inventing a port."
+
+[upstream_sha256]
+"nonRegressions/set01/lh089/program.f" = "b11581b9a28f14a23d973b1978309ee975753a215d07fde71e7516943b2a2972"
+"nonRegressions/set01/lh089/program_d.f" = "6ef3a57b0c83591d38a0a07097608d25058020ca45790a178edc805e4d0594c0"
+"nonRegressions/set01/lh089/program_d.msg" = "8bd58f44f19827ace52dce539ddd850321ed1d247a4c21c61887635b14a7ebd6"
+"nonRegressions/set01/lh089/Options" = "46b034df76ad9888d28ede6ccec3276b59f2496bf59c805f5438350db34d513f"
+"nonRegressions/set01/lh089/PUSHPOPGeneralLib" = "1111f8cfc8d7b450a60982e479cf430190d756d64966cd7c39aed318e4adba8f"

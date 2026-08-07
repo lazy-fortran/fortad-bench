@@ -1,0 +1,94 @@
+schema_version = 1
+name = "tapenade-set01-lh079-invalid-exact-source"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+fortad_baseline_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh079/run.sh"
+result = "cases/tapenade-set01/lh079/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; invalid-fixed-form-source"
+source_files = ["nonRegressions/set01/lh079/program.f"]
+upstream_sources = [
+    "nonRegressions/set01/lh079/program.f",
+    "nonRegressions/set01/lh079/program_p.f",
+    "nonRegressions/set01/lh079/program_d.f",
+    "nonRegressions/set01/lh079/program_b.f",
+    "nonRegressions/set01/lh079/program_dv.f",
+    "nonRegressions/set01/lh079/program_p.msg",
+    "nonRegressions/set01/lh079/program_d.msg",
+    "nonRegressions/set01/lh079/program_b.msg",
+    "nonRegressions/set01/lh079/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+missing_dependencies = ["DIFFSIZES.inc for program_dv.f"]
+
+upstream_entry_point = "f(t,a,ad,b,bd,x)"
+selected_entry_points = ["f"]
+ported_entry_point = "not-applicable-invalid-exact-source"
+independent = ["t", "a", "ad", "b", "bd", "x"]
+dependent = ["f", "b(2)", "bd(2)"]
+options = ["-p -root f", "-d -root f", "-b -root f"]
+modes = [
+    "exact-strict-compile:refused",
+    "stored-parser:strict-compile-pass",
+    "stored-forward:strict-compile-pass",
+    "stored-reverse:strict-compile-pass",
+    "stored-multidirectional:missing-DIFFSIZES.inc",
+    "fresh-parser:generated-strict-compile-pass",
+    "fresh-forward:generated-strict-compile-pass",
+    "fresh-reverse:generated-strict-compile-pass",
+    "exact-fortad-parser:check-pass",
+    "exact-fortad-forward:refused-undeclared-independent-ad",
+    "exact-fortad-reverse:refused-undeclared-dependent-f",
+]
+contract_tests = [
+    "independent-fixed-source-semantic-inventory-and-behavioral-model",
+    "fresh-pinned-Tapenade-generation-and-strict-reference-boundary",
+    "current-FortAD-three-mode-exact-source-refusal-with-no-output",
+]
+oracle = [
+    "independent fixed-form source inventory",
+    "independent arithmetic behavior model with explicit xd parameter",
+    "strict gfortran exact-source and stored-reference behavior",
+    "fresh pinned Tapenade parser/tangent/reverse generation",
+    "FortAD exact parser/forward/reverse refusal and no-output behavior",
+    "upstream-source SHA-256 contract",
+]
+classification = "unsupported-invalid-upstream-fortran"
+expected_diagnostics = [
+    "strict gfortran rejects program.f at the negative exponent syntax in line 6",
+    "program_dv.f cannot be compiled because the upstream DIFFSIZES.inc dependency is absent",
+    "fresh pinned Tapenade parser, forward, and reverse outputs compile strictly",
+    "FortAD check accepts the exact source after terminal RETURN support; forward refuses undeclared independent ad and reverse refuses undeclared dependent f",
+]
+fresh_generated_sources = ["lh079_p.f", "lh079_d.f", "lh079_b.f"]
+fresh_generated_messages = ["lh079_p.msg", "lh079_d.msg", "lh079_b.msg"]
+fresh_missing_sources = ["lh079_dv.f"]
+bounded_sources = []
+bounded_domain = "not-applicable: standardizing the exponent and declaring/initializing xd changes the exact regression"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "check-pass-forward-refusal-undeclared-independent-reverse-refusal-undeclared-dependent"
+closure = "The exact fixed-form source is not accepted by strict Fortran because of its exponent syntax and it reads undeclared xd. The stored multidirectional reference also depends on absent DIFFSIZES.inc. Repairing those defects would invent a different source contract, so this case records the exact boundary without a synthetic root or bounded port."
+
+[upstream_sha256]
+"nonRegressions/set01/lh079/program.f" = "0560d2908340097a13f4c9579bbd3f0ca995769007dde40c4816c90d89983194"
+"nonRegressions/set01/lh079/program_p.f" = "371a83fb506e9fd6b7c869492066d4719067be95197de9a018a95352142e8d0a"
+"nonRegressions/set01/lh079/program_d.f" = "c64350b93975f55fef99523c91a2900d04d973f3c910e448ca3e1f5264cc1c55"
+"nonRegressions/set01/lh079/program_b.f" = "24a44dd6dbcc63dddce94530e206580acc624362af387568f14532e4ca03b55a"
+"nonRegressions/set01/lh079/program_dv.f" = "9bc59a79de5c3bb76e3d60c51f4f4683324642aa39f4082e217f7bdb8af7476d"
+"nonRegressions/set01/lh079/program_p.msg" = "beb3f11d5c3d483d000e9240a315ac796e61d4e810751c0d82bf4695e8c1799c"
+"nonRegressions/set01/lh079/program_d.msg" = "db3c7d192454d822bf71b3fffa6f94367f45b62d86be7e60f983f1601fb29aa5"
+"nonRegressions/set01/lh079/program_b.msg" = "db3c7d192454d822bf71b3fffa6f94367f45b62d86be7e60f983f1601fb29aa5"
+"nonRegressions/set01/lh079/program_dv.msg" = "f7765ea747614d823adc936ec37a645f324628ef5b9bc73bdf8c9a68d3c05ad0"

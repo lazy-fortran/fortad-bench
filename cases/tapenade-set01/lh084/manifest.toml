@@ -1,0 +1,40 @@
+schema_version = 1
+name = "tapenade-set01-lh084"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+fortad_baseline_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh084/run.sh"
+result = "cases/tapenade-set01/lh084/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh084/program.f",
+    "nonRegressions/set01/lh084/program_b.f",
+    "nonRegressions/set01/lh084/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+
+upstream_entry_point = "flw2d1col(nsg1,nsg2,nubo,t3,pres,vnocl,g3,g4,rh3,rh4,ns,nseg,sq)"
+ported_entry_point = "not-applicable-exact-fixed-form-fortad-boundary"
+independent = ["rh3", "rh4", "vnocl", "g3", "g4", "t3", "sq", "pres"]
+dependent = ["rh3", "rh4", "vnocl", "g3", "g4", "t3", "sq", "pres"]
+function = "fixed-form loop with in-place array updates, a helper subroutine, and a stored reverse derivative"
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-and-legacy-fixed-form-source-reference-compilation",
+    "fresh-pinned-Tapenade-generation-and-stored-adjoint-equivalence",
+    "independent-primal-finite-difference-and-adjoint-identity",
+]
+classification = "runnable-upstream-exact-source-fortad-refusal"
+expected_diagnostics = [
+    "strict Fortran 2018 rejects legacy REAL*8 in both exact source and stored adjoint",
+    "legacy fixed-form compilation accepts both exact source and stored adjoint",
+    "FortAD exact parser, forward, and reverse requests refuse at the labeled-DO boundary without output",
+]
+closure = "The exact fixed-form source and its pinned reverse reference are preserved unchanged. Tapenade supports all three probes, but no bounded port or synthetic root is claimed while FortAD's exact parser rejects this source form."
+
+[upstream_sha256]
+"program.f" = "169a4c6c37461042724d165aa6a27a9af919b19b9c46b646889b22b80f9aeb5c"
+"program_b.f" = "935cd0e5f9f0a263d7c56460983fa9593947f1c64bb0137ce88dff235397af23"
+"program_b.msg" = "85e27c2022ef3cd526e777d6c65f0919da7739a183f41cc77806216ee0999e45"

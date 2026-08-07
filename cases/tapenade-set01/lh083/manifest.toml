@@ -1,0 +1,59 @@
+schema_version = 1
+name = "tapenade-set01-lh083-push-pop-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7adc75030db3fa4422339d82d2725ae29ee13dac"
+fortad_baseline_revision = "3a946d34d3caa7a75fb6f891139023650b4ce51a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh083/run.sh"
+result = "cases/tapenade-set01/lh083/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh083/program.f",
+    "nonRegressions/set01/lh083/program_b.f",
+]
+stored_references = ["program_b.f"]
+missing_stored_references = ["program_d.f", "program_dv.f", "program_p.f"]
+
+upstream_entry_point = "aa(X,Y), calling modify(n)"
+selected_entry_points = ["aa"]
+ported_entry_point = "aa_jvp(X,X_d,Y,Y_d); exact forward product compiles"
+independent = ["X(100) inout array", "Y(100) inout array"]
+dependent = ["X", "Y"]
+options = [
+    "Tapenade parser: -p",
+    "Tapenade forward: -d -root aa",
+    "Tapenade reverse: -b -root aa",
+    "FortAD exact-source probes: check/jvp/vjp --proc aa",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "strict-compiler-and-exact-source-behavior",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-and-strict-compilation",
+    "independent-push-pop-trace-plus-exact-FortAD-refusal",
+]
+oracle = [
+    "strict gfortran compilation of the exact primal and stored reverse source",
+    "fresh pinned Tapenade generation and strict compilation",
+    "independent execution-prefix and reverse-stack semantic oracle",
+    "exact FortAD check and forward product, plus per-iteration-storage reverse refusal",
+    "upstream source SHA-256 contract",
+]
+classification = "expected-refusal-exact-source-runtime-bounds-reverse-unavailable"
+expected_diagnostics = [
+    "exact program.f and stored program_b.f compile strictly",
+    "fresh pinned Tapenade parser, tangent, and reverse sources generate and compile strictly",
+    "FortAD check and JVP accept the terminal RETURN; reverse refuses because X is read and written in a loop without per-iteration storage",
+    "the exact ten-iteration trace reaches X(157) on iteration five, outside X(100)",
+]
+fresh_generated_sources = ["lh083_p.f", "lh083_d.f", "lh083_b.f"]
+fresh_generated_messages = ["lh083_p.msg", "lh083_d.msg", "lh083_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: exact aa reaches an out-of-bounds X index on iteration five"
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-compile"
+fortad_result = "pass-exact-check-jvp-compile; expected-refusal-vjp-per-iteration-storage"
+closure = "The exact fixed-form source and stored reverse reference are preserved by path and hash. The current FortAD checkout is a descendant of the requested baseline and now accepts terminal RETURN, producing a compiling exact check source and JVP; reverse refuses because the loop needs per-iteration storage. The exact ten-iteration execution reaches X(157), so no numerical runtime claim or silent bounds repair is introduced."
+
+[upstream_sha256]
+"nonRegressions/set01/lh083/program.f" = "fdde8e7dcc0350a2323509420b7413882c206b7ed833c1c45f1ef93d8adc370a"
+"nonRegressions/set01/lh083/program_b.f" = "599fd455f208f6d745a112b73eab20f56295cf2a71bf3503d48ba2795e1525cc"

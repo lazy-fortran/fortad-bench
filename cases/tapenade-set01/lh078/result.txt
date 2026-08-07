@@ -1,0 +1,57 @@
+case: Tapenade nonRegressions set01 lh078
+classification: unsupported-invalid-upstream-fortran
+runner_result: pass
+recorded_utc: 2026-08-07T15:14:55Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_checkout: 7adc75030db3fa4422339d82d2725ae29ee13dac
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+required_fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: testPower(x,y,r,x8,y8,r8)
+selected_entry_points: testPower
+tapenade_options: parser=-p forward=-d/-root testPower reverse=-b/-root testPower multidirectional=-d/-root testPower/-multi
+upstream_exact_strict_compile: expected-refusal status=1
+stored_reference_strict_compile: parser=1 tangent=1 reverse=1 multidirectional=1
+tapenade_generation: parser=0 forward=0 reverse=0 multidirectional=0
+tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1 multidirectional=1
+tapenade_diagnostics: DF03 c[1] c[3] uninitialized in all modes
+fortad_check: pass-generation strict-compile-refusal status=0
+fortad_forward: pass-generation strict-compile-refusal status=0
+fortad_reverse: expected-refusal-undeclared-r8 status=1
+independent_oracle: exact invalid-brace REAL*8 uninitialized-c missing-DIFFSIZES inventory
+finite_difference: pass
+finite_difference_max_error: 4.806e-09
+adjoint_identity: pass
+adjoint_identity_residual: 0.000e+00
+oracle_status: pass
+port_result: not-applicable-invalid-upstream
+upstream_sha256:
+fd7eccd47da15ec903e8789adb8b6ea54796269085017d6ea8ae17d4095378cd  nonRegressions/set01/lh078/program.f
+0b6f91f37592cfca72ba6f933a8c9e71704385120a0882c22b6c0229a46a0f43  nonRegressions/set01/lh078/program_p.f
+38f3a2048c196a0a40afc0b9609e2f5ee29839e4794bce52f419694ca83ea555  nonRegressions/set01/lh078/program_p.msg
+f867ae99fa824ce25f2813f90f8e7cffa00d1113c324392e00c4627cf522399a  nonRegressions/set01/lh078/program_d.f
+f63ed1e9a7378628cafb76dd300b6f42426fc702bec1f86ef77d7ed2a6c64365  nonRegressions/set01/lh078/program_d.msg
+55490e520e915f52eb0f47586b536f88b7b64f2eeee285758bd3128b5a0f6eea  nonRegressions/set01/lh078/program_b.f
+f63ed1e9a7378628cafb76dd300b6f42426fc702bec1f86ef77d7ed2a6c64365  nonRegressions/set01/lh078/program_b.msg
+da7e3d3abe95a9397b760e3ffa696101d34768f9442c5f90c831bbf73a81eca4  nonRegressions/set01/lh078/program_dv.f
+4438bad1f8e05dbe07ac8039196713d4cb792579ec812a6636a8621ea3c26baa  nonRegressions/set01/lh078/program_dv.msg
+fresh_tapenade_sha256:
+15d953f55f563a41b0e70ff7e3930d04a2dc17336b275768ee5540abb3fc6ce3  lh078_p.f
+38f3a2048c196a0a40afc0b9609e2f5ee29839e4794bce52f419694ca83ea555  lh078_p.msg
+6b89b13a60d57bf4db790675be21be07e1487fec42b3671aaf63dc53b9b48dd0  lh078_d.f
+38f3a2048c196a0a40afc0b9609e2f5ee29839e4794bce52f419694ca83ea555  lh078_d.msg
+12d147cbc5822fd88bdc8a8b27d18e9b257a8fc6f314defd7e62b53e3790d7e3  lh078_b.f
+38f3a2048c196a0a40afc0b9609e2f5ee29839e4794bce52f419694ca83ea555  lh078_b.msg
+c1a9d8d1e342124f6d6a0da2b08b0838dabb24b2e5c4c04a932c92284961ee65  lh078_dv.f
+6b09a58ff79ef8c573c67e02ff68f9f47bad0432a533b9886ee8f982efb6ee36  lh078_dv.msg
+case_artifact_sha256:
+17e850b5695eb74ea3b439854631121a125e80e6409621198695882d2d1855bc  cases/tapenade-set01/lh078/manifest.toml
+3b11b774a44699d2e70e7da9b77328637c7deac2816d39f20abaa90b038479a4  cases/tapenade-set01/lh078/notes.md
+d3525ed10934a2f03f530b8946cd8c30aaab6ad20282698a8cc8584f91eff949  cases/tapenade-set01/lh078/oracle.py
+a97770aa26cf3c82f61bbba3c34458c5508a5c4104245f8104e58a63b1fe9a73  cases/tapenade-set01/lh078/run.sh
+47851c703ad582325ec34f851b4bc75b0b205789f808dd44a4cf5582ab1d9add  cases/tapenade-set01/lh078/test_contract.py

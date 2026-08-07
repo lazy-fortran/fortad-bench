@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set01/lh079
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T15:12:37Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: 7adc75030db3fa4422339d82d2725ae29ee13dac
+fortad_worktree: supplied checkout clean and pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: f(t,a,ad,b,bd,x)
+independent_inputs: t,a,ad,b,bd,x
+dependent_outputs: f,b(2),bd(2)
+upstream_exact_strict_compile: primal=1 parser=0 forward=0 reverse=0 multidirectional=1
+upstream_exact_diagnostic: primal=negative-exponent-syntax; multidirectional=missing-DIFFSIZES.inc
+tapenade_options: parser=-p/-root f forward=-d/-root f reverse=-b/-root f
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=lh079_p.f forward=lh079_d.f reverse=lh079_b.f
+fortad_exact_parser: pass status=0 output=generated
+fortad_exact_forward: expected-refusal status=1 diagnostic="fortad: independent ad is not declared in f" output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic="fortad: dependent f is not declared in f" output=none
+independent_oracle: oracle_status: pass interface=f(t,a,ad,b,bd,x) unresolved_read=xd arithmetic_model=pass
+bounded_port: not-claimed reason=repairing-exponent-and-undeclared-xd-changes-exact-source
+upstream_sha256:
+0560d2908340097a13f4c9579bbd3f0ca995769007dde40c4816c90d89983194  program.f
+371a83fb506e9fd6b7c869492066d4719067be95197de9a018a95352142e8d0a  program_p.f
+c64350b93975f55fef99523c91a2900d04d973f3c910e448ca3e1f5264cc1c55  program_d.f
+24a44dd6dbcc63dddce94530e206580acc624362af387568f14532e4ca03b55a  program_b.f
+9bc59a79de5c3bb76e3d60c51f4f4683324642aa39f4082e217f7bdb8af7476d  program_dv.f
+beb3f11d5c3d483d000e9240a315ac796e61d4e810751c0d82bf4695e8c1799c  program_p.msg
+db3c7d192454d822bf71b3fffa6f94367f45b62d86be7e60f983f1601fb29aa5  program_d.msg
+db3c7d192454d822bf71b3fffa6f94367f45b62d86be7e60f983f1601fb29aa5  program_b.msg
+f7765ea747614d823adc936ec37a645f324628ef5b9bc73bdf8c9a68d3c05ad0  program_dv.msg
+fresh_tapenade_sha256:
+ca45abd865c4af205f4146b72095df104f8e711c7245379d4e07e9f29f675382  lh079_p.f
+beb3f11d5c3d483d000e9240a315ac796e61d4e810751c0d82bf4695e8c1799c  lh079_p.msg
+d92a5cb6dc0bc6e3e879a747b31e306c13566cf25bc391fc2d7d2daa18570c8a  lh079_d.f
+beb3f11d5c3d483d000e9240a315ac796e61d4e810751c0d82bf4695e8c1799c  lh079_d.msg
+0a851e007e91475be51cf4af9c561ea578357fd2b911cad81932789ffe5d5133  lh079_b.f
+beb3f11d5c3d483d000e9240a315ac796e61d4e810751c0d82bf4695e8c1799c  lh079_b.msg
+case_artifact_sha256:
+cf90f8ddecd38d6134dfcd80a8cf285ce000dc7adb643e96fedad953cecec9b6  manifest.toml
+a13f93cdf461cdac8e41a2457bcb7ac28da734b4a706219031954e99e61333a0  notes.md
+d9dfceb279c44a1c87c2d7bc789b8b17076e3dfa0a34a198827279fe3449e6a5  oracle.py
+fe310157bb4c20aa360ef19b27b59c06ad53d52575c548fc55a8015c78f29bcb  run.sh
+e518cb399959b7466ade6e6f4059a0fdb409009f80aa36c0520cf8e4932f0eae  test_contract.py
