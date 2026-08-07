@@ -247,7 +247,7 @@ Runtime-polymorphism cases:
 
 Positive cases run every supported runtime arm against fixed values and hand
 derivatives. The `TYPE IS` case measures both JVP and VJP paths for two child
-types; its reverse oracle also uses central differences and the adjoint
+types. Its reverse oracle also uses central differences and the adjoint
 identity. Refusal cases first validate the primal arms and central finite
 differences.
 The case pages give formulas and commands. Measurements are in the
