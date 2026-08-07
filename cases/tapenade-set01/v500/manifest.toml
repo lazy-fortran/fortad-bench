@@ -1,0 +1,69 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v500"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v500/run.sh"
+result = "cases/tapenade-set01/v500/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; unsupported-data-statement-and-singular-normalization"
+source_files = [
+    "todoF90/REFERENCES/v500/program.f90",
+    "todoF90/REFERENCES/v500/program_b.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v500/Options",
+    "todoF90/REFERENCES/v500/program.f90",
+    "todoF90/REFERENCES/v500/program_b.f90",
+    "todoF90/REFERENCES/v500/program_b.msg",
+]
+stored_references = ["program_b.f90", "program_b.msg"]
+missing_stored_references = ["program_p.f90", "program_p.msg", "program_d.f90", "program_d.msg"]
+
+upstream_entry_point = "nl_model_mie_orig(alpha_ext,PP)"
+selected_entry_points = ["nl_model_mie_orig(alpha_ext,PP)"]
+ported_entry_point = "not-applicable-exact-data-and-singular-normalization-boundary"
+independent = ["alpha_ext", "PP"]
+dependent = ["alpha_ext", "PP"]
+function = "alpha_ext is accumulated from fixed r=2 bins; PP is normalized by sigma_sca, which remains zero"
+options = [
+    "Options file: -nooptim nostatictape",
+    "fresh invocation: -association byaddress -p/-d/-b -root nl_model_mie_orig -O . -o v500 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict compiler boundary",
+    "fresh pinned Tapenade generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal",
+    "independent alpha_ext hand model",
+    "central-difference JVP sweep",
+    "hand VJP adjoint identity",
+    "singular PP normalization semantic check",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-unsupported-data-and-singular-output"
+expected_diagnostics = [
+    "strict gfortran compiles the exact primal and stored reverse reference; the stored reference retains implicit Tapenade tape-runtime interfaces",
+    "fresh pinned Tapenade parser and tangent outputs compile strictly, while fresh reverse output fails strict compilation at nonstandard INTEGER*4",
+    "FortAD parser, forward, and reverse all refuse the exact source at unsupported DATA statement line 21 and write no output",
+    "the independent oracle validates the finite alpha_ext formula and rejects the PP normalization because sigma_sca remains zero",
+]
+fresh_generated_sources = ["v500_p.f90", "v500_d.f90", "v500_b.f90"]
+fresh_generated_messages = ["v500_p.msg", "v500_d.msg", "v500_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-strict-compile-reverse-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-unsupported-data-statement"
+closure = "The exact source is retained unchanged. FortAD does not parse its DATA statement, and the exact procedure's PP result is singular because sigma_sca is initialized to zero and never incremented. No bounded port or derivative runtime claim is made; repairing DATA handling or sigma_sca would change the corpus case."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v500/Options" = "0f89831e4f8432d72ee39efa52060544cb039feed49e6ee0c6e86a4ecc200dd8"
+"todoF90/REFERENCES/v500/program.f90" = "05bce7de6aff64adecb339d0df7d561ce9edd3fb11cfe6064e954c833dc68957"
+"todoF90/REFERENCES/v500/program_b.f90" = "8acda9176c378f186249376ca54b1f7656d19761a41c90f00dd96f93e2e04dce"
+"todoF90/REFERENCES/v500/program_b.msg" = "ec5cdbb952418014f412d1afb6ccf262e26a87274b0e27a0204d5e6026351d05"

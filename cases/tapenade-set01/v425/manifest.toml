@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v425"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v425/run.sh"
+result = "cases/tapenade-set01/v425/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+source_files = [
+    "todoF90/REFERENCES/v425/Options",
+    "todoF90/REFERENCES/v425/program.f90",
+    "todoF90/REFERENCES/v425/program_Rd.f90",
+    "todoF90/REFERENCES/v425/program_Rd.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v425/Options",
+    "todoF90/REFERENCES/v425/program.f90",
+    "todoF90/REFERENCES/v425/program_Rd.f90",
+    "todoF90/REFERENCES/v425/program_Rd.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v425/program_Rd.f90",
+    "todoF90/REFERENCES/v425/program_Rd.msg",
+]
+
+upstream_entry_point = "m.addvector(a,b,c)"
+selected_entry_points = ["addvector(a,b,c)"]
+ported_entry_point = "not-applicable-exact-module-refusal"
+independent = ["a%w%x(1)", "b%w%x(2)"]
+dependent = "c%w%x(1)"
+function = "c%w%x(1) = a%w%x(1) + b%w%x(2), with unrelated LEN(TRIM(fichier)) state"
+options = [
+    "Options: -association byaddress",
+    "-association byaddress -p/-d/-b -root addvector",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-three-mode-refusal-and-independent-semantic-oracle",
+]
+oracle = [
+    "strict compiler",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal diagnostic",
+    "independent projection hand JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-without-port"
+expected_diagnostics = [
+    "exact FortAD parser, forward, and reverse refuse the module statement at line 1",
+    "the independent oracle covers only the defined c%w%x(1) projection",
+    "fichier is local and uninitialized before LEN(TRIM(fichier)); no runtime support claim is made for that path",
+]
+fresh_generated_sources = ["v425_p.f90", "v425_d.f90", "v425_b.f90"]
+fresh_generated_messages = ["v425_p.msg", "v425_d.msg", "v425_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-unsupported-module-line-1"
+closure = "The exact source and stored tangent are strict-compilable, and fresh pinned Tapenade outputs compile. FortAD stops at the module statement before reaching the nested derived types. A bounded port would need to remove the module boundary and define the uninitialized fichier path, so no port or whole-procedure runtime claim is made."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v425/Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"todoF90/REFERENCES/v425/program.f90" = "b501a20645bab775a21f7edd55a22e3ae241f916040763c07d6949e99e0bea44"
+"todoF90/REFERENCES/v425/program_Rd.f90" = "47613ce6e73b1d39b6425fec5410960c9280c9b02adb4c26f696e14ea469e01d"
+"todoF90/REFERENCES/v425/program_Rd.msg" = "9cc144729bbd2dc25a264420b3e63de2f01eb25fe7d207059be37049a9c9efc7"

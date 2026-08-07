@@ -1,0 +1,73 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v427"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v427/run.sh"
+result = "cases/tapenade-set01/v427/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; allocatable-module-state"
+source_files = ["todoF90/REFERENCES/v427/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v427/Options",
+    "todoF90/REFERENCES/v427/m.mod",
+    "todoF90/REFERENCES/v427/program.f90",
+    "todoF90/REFERENCES/v427/program_Rd.f90",
+    "todoF90/REFERENCES/v427/program_Rd.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v427/m.mod",
+    "todoF90/REFERENCES/v427/program_Rd.f90",
+    "todoF90/REFERENCES/v427/program_Rd.msg",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_Rb.f90",
+    "program_Rb.msg",
+]
+
+upstream_entry_point = "m.setupData(dim)"
+selected_entry_points = ["setupData(dim)"]
+ported_entry_point = "not-applicable-allocatable-module-state"
+independent = ["dim"]
+dependent = ["m.someTData", "m.i"]
+function = "reallocate someTData(dim) and allocate i(dim)"
+options = [
+    "Options: -association byaddress",
+    "-association byaddress -p/-d/-b -root setupData -O . -o v427 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-generation-and-no-active-derivative-boundary",
+    "exact-fortad-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict gfortran compiler",
+    "fresh pinned Tapenade generation and strict compilation where a source is emitted",
+    "FortAD exact parser/forward/reverse diagnostic and no-output boundary",
+    "independent allocation-state semantic oracle",
+    "pinned source SHA-256 contract",
+]
+classification = "expected-refusal-allocatable-module-state-and-no-active-derivative"
+expected_diagnostics = [
+    "strict gfortran accepts program.f90 and stored program_Rd.f90",
+    "fresh pinned Tapenade emits and compiles parser output; tangent and reverse emit AD06 messages without source because setupData has no active input or output",
+    "FortAD check, forward, and reverse all refuse at allocatable declaration/component line 2",
+]
+fresh_generated_sources = ["v427_p.f90"]
+fresh_generated_messages = ["v427_p.msg", "v427_d.msg", "v427_b.msg"]
+tapenade_result = "pass-fresh-parser-generation-strict-compile-tangent-reverse-no-active-output"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-unsupported-allocatable-state"
+closure = "The exact procedure has only allocation-state effects and no active numeric input or output. A second valid call also attempts to allocate i while it remains allocated. FortAD refuses the active allocatable state, while Tapenade records no active derivative root. Replacing the allocatables with fixed arrays or adding a numeric result would define a different candidate, so no bounded port is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v427/Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"todoF90/REFERENCES/v427/m.mod" = "dd7b472f3b33c2b106d8adbc19bd1e64782666cb4f9857a5ea3991cfbdcffae7"
+"todoF90/REFERENCES/v427/program.f90" = "2b69e01c28870bd4e775404417f25dd140403e0fe0788f400fe77f8e568f1e54"
+"todoF90/REFERENCES/v427/program_Rd.f90" = "f56f81886a1e62140d4eaa0fe8013c97c2b173553987c81d2610c8eefc4e645a"
+"todoF90/REFERENCES/v427/program_Rd.msg" = "44cbcd71f418c995f3fa330c4c1685ab78b47afa56e67cd247b8c71994144cbf"

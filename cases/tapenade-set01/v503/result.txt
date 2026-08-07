@@ -1,0 +1,50 @@
+case: Tapenade todoF90 REFERENCES/v503 incomplete SYSTEME boundary
+classification: expected-refusal-invalid-incomplete-upstream
+recorded_utc: 2026-08-07T13:12:03Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: SYSTEME
+stored_references: none-present
+missing_stored_references: Options program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p/-root SYSTEME forward=-d/-root SYSTEME reverse=-b/-root SYSTEME
+upstream_exact_strict_compile: expected-refusal status=1 diagnostic="Allocate-object is neither a data pointer nor an allocatable variable"
+stored_reference_strict_compile: not-applicable no-stored-reference
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v503_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v503_p.msg tangent=v503_d.msg reverse=v503_b.msg
+tapenade_fresh_strict_compile: parser=expected-refusal status=1 tangent=not-applicable reverse=not-applicable
+tapenade_parser_strict_diagnostic: undeclared allocation targets and invalid SELECT CASE constants
+tapenade_tangent_reverse_diagnostic: AD06 differentiation root procedures have no active input nor output
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocate at line 80"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocate at line 80"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocate at line 80"
+independent_semantic_oracle:
+oracle_source_lines: 427
+oracle_initial_guard_order: erreur_numero=6 retour=17 allocation=80
+oracle_allocation_sites: 14
+oracle_first_reachable_event: allocate SVRAI(size(X))
+oracle_external_call_sites: 14
+oracle_control_flow: PhaseSimulation only explicitly advances to PHASE_CALCUL; no termination assignment is present
+oracle_numerical_observable: undefined-incomplete-upstream
+oracle_status: pass
+port_result: not-claimed
+closure: invalid incomplete source; no declarations, project interfaces, or initial state available for a bounded port
+upstream_sha256:
+6793bcc9a94e91e394e82a25683c5fb6ac4f44b3bac8a368bc723da40ab25d7d  todoF90/REFERENCES/v503/program.f90
+fresh_tapenade_sha256:
+252e404b1c736ccf7af9607872f4ba20c9079958b134d648f96273aac04df658  v503_p.f90
+f9ed7a5ee3cb3172717d040beb7c6561380a031c549b292eb95a28da527582df  v503_p.msg
+b6dc08b90dc56c22b7844f3cc92fdc33e812acbd2008e9495a3635e78b8f37a6  v503_d.msg
+b6dc08b90dc56c22b7844f3cc92fdc33e812acbd2008e9495a3635e78b8f37a6  v503_b.msg
+case_artifact_sha256:
+bdc8b4788e7b26198ea2e59389405ddf280a625fac46e2a1d4616eb8d7bb4347  manifest.toml
+60cacec25966e227c84c244ba5ad290a8a449292c1627c0803c5660f145d225f  notes.md
+6d5d7f51a45bd8b54d5706525c9d621f7c5192bdb838287352353f9d441acdcd  oracle.py
+eca6a3aa5b7ea93d8d2bb9c15f24b89e15ca2834db5ff8d80b70a8c2e2e88cef  run.sh
+1fffcad743087d2892b96d92c31d319c10121bfa0ec95d73c063bfbea8216a6c  test_contract.py

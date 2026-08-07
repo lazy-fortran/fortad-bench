@@ -1,0 +1,43 @@
+case: Tapenade todoF90 REFERENCES/v500 DATA and singular-output boundary
+classification: expected-refusal-unsupported-data-and-singular-output
+recorded_utc: 2026-08-07T13:12:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: nl_model_mie_orig(alpha_ext,PP)
+tapenade_options: Options="-nooptim nostatictape"; fresh=-association byaddress -p/-d/-b -root nl_model_mie_orig
+upstream_exact_strict_compile: primal=0 stored_program_b=0
+exact_diagnostic: primal-and-stored-compile-success; stored-tape-runtime-implicit-interface-warning
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v500_p.f90 tangent=v500_d.f90 reverse=v500_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=1
+fresh_reverse_diagnostic: nonstandard-INTEGER*4
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported statement at line 21"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported statement at line 21"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported statement at line 21"
+oracle_status: pass singular-pp-normalization
+alpha_ext_at_exact_point: 6.7476657613861797e-04
+finite_difference_max_error: 9.462e-14
+adjoint_identity_residual: 0.000e+00
+bins: 10001
+sigma_sca: 0.0
+pp_normalization: singular-zero-over-zero
+port_result: not-applicable-exact-data-and-singular-normalization-boundary
+closure: no bounded port; repairing DATA handling or zero sigma_sca would change the exact candidate
+upstream_sha256:
+0f89831e4f8432d72ee39efa52060544cb039feed49e6ee0c6e86a4ecc200dd8  todoF90/REFERENCES/v500/Options
+05bce7de6aff64adecb339d0df7d561ce9edd3fb11cfe6064e954c833dc68957  todoF90/REFERENCES/v500/program.f90
+8acda9176c378f186249376ca54b1f7656d19761a41c90f00dd96f93e2e04dce  todoF90/REFERENCES/v500/program_b.f90
+ec5cdbb952418014f412d1afb6ccf262e26a87274b0e27a0204d5e6026351d05  todoF90/REFERENCES/v500/program_b.msg
+fresh_tapenade_sha256:
+44180a77d6326b7080b458eaf0428b18eb79dc896a761b3aa89bec9858b4af96  ./b/v500_b.f90
+dca3b24f562e348c94d7dcd4d5adfad76876df2ca7249d185ea556cb1b9b1a19  ./b/v500_b.msg
+3bc6a9e993ce8a699d58a6e3cda088346b9b5f2eb4171f5874ae5ae962b7c26e  ./d/v500_d.f90
+dca3b24f562e348c94d7dcd4d5adfad76876df2ca7249d185ea556cb1b9b1a19  ./d/v500_d.msg
+f28a26f3a520d3ce2965734c4dc682448d3457ea41873e10ef2976b984af5c42  ./p/v500_p.f90
+dca3b24f562e348c94d7dcd4d5adfad76876df2ca7249d185ea556cb1b9b1a19  ./p/v500_p.msg

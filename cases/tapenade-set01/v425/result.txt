@@ -1,0 +1,47 @@
+case: Tapenade todoF90 REFERENCES/v425 module parser boundary
+classification: expected-refusal-without-port
+recorded_utc: 2026-08-07T13:12:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: m.addvector(a,b,c)
+selected_entry_point: addvector(a,b,c); independent: a%w%x(1),b%w%x(2); dependent: c%w%x(1)
+tapenade_options: Options=-association byaddress; parser=-p/-root addvector forward=-d/-root addvector reverse=-b/-root addvector
+upstream_exact_strict_compile: program.f90=0 program_Rd.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v425_p.f90 tangent=v425_d.f90 reverse=v425_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none line=1 diagnostic="unsupported statement"
+fortad_exact_forward: expected-refusal status=1 output=none line=1 diagnostic="unsupported statement"
+fortad_exact_reverse: expected-refusal status=1 output=none line=1 diagnostic="unsupported statement"
+independent_oracle:
+projection: c%w%x(1) = a%w%x(1) + b%w%x(2)
+excluded_path: LEN(TRIM(fichier)) reads an uninitialized local
+finite_difference_max_error: 1.028e-09
+adjoint_identity_residual: 0.000e+00
+oracle_status: pass
+port_result: not-applicable-exact-module-refusal
+excluded_runtime_path: uninitialized local fichier is read by LEN(TRIM(fichier))
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v425/Options
+b501a20645bab775a21f7edd55a22e3ae241f916040763c07d6949e99e0bea44  todoF90/REFERENCES/v425/program.f90
+47613ce6e73b1d39b6425fec5410960c9280c9b02adb4c26f696e14ea469e01d  todoF90/REFERENCES/v425/program_Rd.f90
+9cc144729bbd2dc25a264420b3e63de2f01eb25fe7d207059be37049a9c9efc7  todoF90/REFERENCES/v425/program_Rd.msg
+fresh_tapenade_sha256:
+66a56bf72e1e525e1dc31f3f07a0edf6f63ab39065f9d340490ac333d294f77d  parser/v425_p.f90
+42c2f44a9bf4cc5179b045a68528da9150d3e4cf111bcab0f4d7a3bf43c56eda  parser/v425_p.msg
+a55bb23d85256a250691a7dd896f7571bbdcaa4a9d720d8792920a58455483d5  forward/v425_d.f90
+42c2f44a9bf4cc5179b045a68528da9150d3e4cf111bcab0f4d7a3bf43c56eda  forward/v425_d.msg
+97094f218fbf772cc3aa0671418a2fbdb499f9dcd264aed4311bb799821334c6  reverse/v425_b.f90
+42c2f44a9bf4cc5179b045a68528da9150d3e4cf111bcab0f4d7a3bf43c56eda  reverse/v425_b.msg
+case_artifact_sha256:
+b39a802b01d7a33676246c453ce25a66cd2b10a785f25bef970731c69f74cc27  manifest.toml
+a4b2a33b6b965f280d24737c0e2946c21a63813a56e4be5245f72cc823202e40  notes.md
+152dc6dbfc5d1e0486c161d427d7c247e53e51d923cfb616fbb9e94d1f2e923f  oracle.py
+5c7196db2624f6079a4ecd0e58b71bad85fd81a2590d6bdf8e9df9d55b0ab423  run.sh
+f0173164eb861ecc451bf4e6e5a46a4cff5c7c0c10b8000b0d0205574c254d1b  test_contract.py

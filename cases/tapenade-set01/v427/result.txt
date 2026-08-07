@@ -1,0 +1,45 @@
+case: Tapenade todoF90 REFERENCES/v427 allocatable-module-state boundary
+classification: expected-refusal-allocatable-module-state-and-no-active-derivative
+recorded_utc: 2026-08-07T13:12:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: m.setupData(dim)
+tapenade_options: -association byaddress -p/-d/-b -root setupData
+upstream_exact_strict_compile: program.f90=0 program_Rd.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v427_p.f90 tangent=none(AD06) reverse=none(AD06)
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable reverse=not-applicable
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 2"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 2"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 2"
+independent_oracle: allocation-state model with extent and repeated-allocation checks
+first_call_extent: someTData=3 i=3
+second_call_effect: someTData=5 then allocation_failure=i_already_allocated
+numeric_contents: undefined (setupData assigns no array elements)
+oracle_status: pass
+oracle_result: allocation-state boundary; no numerical derivative map
+port_result: not-applicable-allocatable-module-state
+closure: no bounded port; replacing allocatables or adding a numeric result changes the candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v427/Options
+dd7b472f3b33c2b106d8adbc19bd1e64782666cb4f9857a5ea3991cfbdcffae7  todoF90/REFERENCES/v427/m.mod
+2b69e01c28870bd4e775404417f25dd140403e0fe0788f400fe77f8e568f1e54  todoF90/REFERENCES/v427/program.f90
+f56f81886a1e62140d4eaa0fe8013c97c2b173553987c81d2610c8eefc4e645a  todoF90/REFERENCES/v427/program_Rd.f90
+44cbcd71f418c995f3fa330c4c1685ab78b47afa56e67cd247b8c71994144cbf  todoF90/REFERENCES/v427/program_Rd.msg
+fresh_tapenade_sha256:
+4d1b53f712073137bca0391f2348438aed7d4c3dfb096bf39d77f921cafc30f6  parser/v427_p.f90
+78c6662a82b89946ccbca84c8f6f086ec9e4c7a11f78e0285e53a6b3d934178c  parser/v427_p.msg
+c2a875763fac8b9c1789959ce58acc44b5fe9c8c383d7903ffe540bb2cb09c48  forward/v427_d.msg
+c2a875763fac8b9c1789959ce58acc44b5fe9c8c383d7903ffe540bb2cb09c48  reverse/v427_b.msg
+case_artifact_sha256:
+1a9a6a52dd145a9cd16481047e0af5511cecf215bb56fc7912fab3873bb51629  cases/tapenade-set01/v427/manifest.toml
+724b883d0ed0b5923449d270172ed02d9f1c0afa5dce97536204a9f7a374b093  cases/tapenade-set01/v427/notes.md
+3d8b2d1845d8303e754e411043492231a19079fc8ba3aaf65e94e3e4297162d5  cases/tapenade-set01/v427/oracle.py
+a619735ee2fb785c9f4f33ddace5b717a9930328ecd82b0d9d7738234de03989  cases/tapenade-set01/v427/run.sh
+612666a638bbc0031053f8a6b6f9691fd936a0e040666bd2dcd9dc77c6b25877  cases/tapenade-set01/v427/test_contract.py

@@ -1,0 +1,94 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v469"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v469/run.sh"
+result = "cases/tapenade-set01/v469/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; strict-free-form-tab-boundary"
+source_files = [
+    "todoF90/REFERENCES/v469/Options",
+    "todoF90/REFERENCES/v469/all_globals_mod.mod",
+    "todoF90/REFERENCES/v469/anothermodule.mod",
+    "todoF90/REFERENCES/v469/program.f90",
+    "todoF90/REFERENCES/v469/program_Rd.f90",
+    "todoF90/REFERENCES/v469/program_Rd.msg",
+    "todoF90/REFERENCES/v469/program_Rb.f90",
+    "todoF90/REFERENCES/v469/program_Rb.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v469/Options",
+    "todoF90/REFERENCES/v469/all_globals_mod.mod",
+    "todoF90/REFERENCES/v469/anothermodule.mod",
+    "todoF90/REFERENCES/v469/program.f90",
+    "todoF90/REFERENCES/v469/program_Rd.f90",
+    "todoF90/REFERENCES/v469/program_Rd.msg",
+    "todoF90/REFERENCES/v469/program_Rb.f90",
+    "todoF90/REFERENCES/v469/program_Rb.msg",
+]
+stored_references = [
+    "program_Rd.f90",
+    "program_Rd.msg",
+    "program_Rb.f90",
+    "program_Rb.msg",
+    "all_globals_mod.mod",
+    "anothermodule.mod",
+]
+missing_stored_references = []
+
+upstream_entry_point = "head(x,y)"
+selected_entry_points = ["head(x,y)"]
+ported_entry_point = "v469_head(x,y)"
+independent = ["x"]
+dependent = ["y"]
+function = "y(1) = sin(2*pi*x(1)) with pi imported through anotherModule"
+options = [
+    "Options: -association byaddress -vars x -outvars y -nooptim diffmodules",
+    "fresh pinned invocation: -association byaddress -p/-d/-b -root head -O . -o v469 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compile-boundary",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-FortAD-three-mode-products-bounded-port-runtime-and-independent-oracle",
+]
+oracle = [
+    "strict-gfortran exact-source and stored-reference boundary",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse generation and strict compilation",
+    "bounded one-element port with explicit finite-real domain",
+    "independent sin-map central-difference JVP and VJP adjoint identity",
+    "upstream-source SHA-256 contract",
+]
+classification = "runnable-ported-with-exact-source-refusal"
+expected_diagnostics = [
+    "strict gfortran rejects exact program.f90 because tabs are nonconforming under -pedantic-errors",
+    "stored program_Rd.f90 and program_Rb.f90 compile strictly",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD exact parser, forward, and reverse products generate and compile strictly",
+    "the bounded port is defined for one-element finite real arrays and its generated products pass runtime checks",
+]
+fresh_generated_sources = ["v469_p.f90", "v469_d.f90", "v469_b.f90"]
+fresh_generated_messages = ["v469_p.msg", "v469_d.msg", "v469_b.msg"]
+bounded_sources = [
+    "cases/tapenade-set01/v469/port.f90",
+    "cases/tapenade-set01/v469/harness.f90",
+]
+bounded_domain = "x and y are one-element finite real(8) arrays; y is output"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "exact-parser-forward-reverse-transform-strict-compile; bounded-port-forward-reverse-runtime-pass"
+closure = "The exact source remains unchanged and its strict tab diagnostic is recorded. The bounded port only standardizes the source form, makes the one-element domain and intents explicit, and retains the imported constant value and head map; its FortAD products, harness, and independent oracle are checked."
+
+[upstream_sha256]
+"Options" = "2596f484c771a0e7dfabf549ab8a6dcd26a7ccfd2a3621442d6a0a7e8c165267"
+"all_globals_mod.mod" = "03869c635b0e1a8cbf63c3f2ec0dd2b1e6b9543d36fb05de4790149e7fa8ba62"
+"anothermodule.mod" = "71e8058e8fe65823a87e33da6b4fc50a900e0675fbfee01df89c7631ba0c7226"
+"program.f90" = "033fc09478d1e8363e3a30ba74c11d0850bd52f41cd9e23e8bfb5e29d6ddef2c"
+"program_Rd.f90" = "05fba8734883ab0bf6670b165b153ffa802005b1ba206cd0a0771ab064e01dbe"
+"program_Rd.msg" = "d2c250b585cd98314a12b75adda9845c93ada00cc513ed8e0f3468516e8feff9"
+"program_Rb.f90" = "d327ac53acc978a90646aec502c3bcb6c5f2000819fdb497939db94d40c12d2d"
+"program_Rb.msg" = "66b07a1553e0cd5b1e7c6ba0c08fa3b20c2cd495be97851fea0deaabefee2b05"

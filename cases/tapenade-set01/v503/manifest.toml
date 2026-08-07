@@ -1,0 +1,56 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v503"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v503/run.sh"
+result = "cases/tapenade-set01/v503/result.txt"
+source_form = "free"
+
+queue_source = "todoF90/REFERENCES/v503"
+static_classification = "program-candidate; invalid-incomplete-upstream; allocation-and-external-symbol-boundary"
+upstream_sources = ["todoF90/REFERENCES/v503/program.f90"]
+stored_references = []
+missing_stored_references = [
+    "todoF90/REFERENCES/v503/Options",
+    "todoF90/REFERENCES/v503/program_d.f90",
+    "todoF90/REFERENCES/v503/program_d.msg",
+    "todoF90/REFERENCES/v503/program_b.f90",
+    "todoF90/REFERENCES/v503/program_b.msg",
+]
+upstream_entry_point = "SYSTEME"
+selected_entry_points = ["SYSTEME"]
+ported_entry_point = "not-applicable-invalid-incomplete-program"
+independent = []
+dependent = []
+options = [
+    "-p -root SYSTEME -O . -o v503 program.f90",
+    "-d -root SYSTEME -O . -o v503 program.f90",
+    "-b -root SYSTEME -O . -o v503 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-strict-refusal-and-no-stored-reference-contract",
+    "fresh-pinned-Tapenade-generation-and-applicable-strict-compile-contract",
+    "exact-FortAD-parser-forward-reverse-refusal-and-independent-semantic-oracle",
+]
+oracle = [
+    "strict-compiler-boundary",
+    "fresh-pinned-Tapenade-generation",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-source-structure-and-control-flow-semantic-oracle",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-incomplete-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects the exact program at allocate(SVRAI(size(X))) line 80 because SVRAI is not declared allocatable",
+    "the pinned Tapenade parser source is generated but fails strict compilation; tangent and reverse produce messages only because SYSTEME has no active input or output",
+    "FortAD parser, forward, and reverse refuse at allocate line 80 before producing output",
+    "the independent semantic oracle confirms the initial guard path, allocation frontier, allocation count, and non-termination control-flow shape without executing or repairing the program",
+]
+fresh_generated_sources = ["v503_p.f90"]
+fresh_generated_messages = ["v503_p.msg", "v503_d.msg", "v503_b.msg"]
+closure = "The exact corpus has one invalid, context-free program source and no stored references. Its allocatable objects, project-wide constants, external procedures, and undeclared active state cannot be reconstructed from this checkout. No numerical port is claimed; adding declarations, interfaces, or initial state would define a different case."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v503/program.f90" = "6793bcc9a94e91e394e82a25683c5fb6ac4f44b3bac8a368bc723da40ab25d7d"

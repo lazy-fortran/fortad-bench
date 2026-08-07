@@ -1,0 +1,53 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v426"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v426/run.sh"
+result = "cases/tapenade-set01/v426/result.txt"
+
+queue_source = "todoF90/REFERENCES/v426"
+static_classification = "fortran-runnable-primal-and-stored-tangent; allocatable-parser-refusal"
+upstream_sources = [
+    "todoF90/REFERENCES/v426/Options",
+    "todoF90/REFERENCES/v426/program.f90",
+    "todoF90/REFERENCES/v426/program_Rd.f90",
+    "todoF90/REFERENCES/v426/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg"]
+
+upstream_entry_point = "head()"
+selected_entry_points = ["head()"]
+independent = ["tDataIn%v", "inputs"]
+dependent = ["outputs"]
+function = "allocated arrays: outputs = 2 * (tDataIn%v + inputs)"
+options = ["-association byaddress", "-vars inputs", "-outvars outputs", "-context", "-noisize", "-root head"]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-three-mode-allocation-refusal-and-independent-oracle",
+]
+oracle = [
+    "independent allocation-lifecycle model",
+    "hand JVP checked by central differences",
+    "hand VJP checked by adjoint identity",
+    "pinned-source SHA-256 contract",
+]
+classification = "expected-refusal-unsupported-allocatable-lifetime"
+expected_diagnostics = [
+    "strict gfortran compiles the exact primal and stored forward reference",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD parser, forward, and reverse refuse the allocatable declaration/component at line 4",
+    "the independent oracle checks setup/cleanup allocation semantics and the live head map",
+]
+fresh_generated_sources = ["v426_p.f90", "v426_d.f90", "v426_b.f90"]
+bounded_port = false
+closure = "The exact source and stored tangent are retained unchanged. FortAD stops at the allocatable component declaration because active allocation state is not represented; no bounded port is claimed because replacing the allocatable derived-type and saved allocation lifecycle with fixed storage would change this case."
+
+[upstream_sha256]
+"Options" = "8fcad9a73bf6e93f64c4ab61fee85e77d3591b0ba589e424fa743bfd9a24fd88"
+"program.f90" = "b012ee4b5daf600166cbfa2b201e541e04d8974542584712e07581ecf3732f7c"
+"program_Rd.f90" = "486c235b4a23e58e477a92f442e0dfb35f270fb4b43f912d0b5502fcdff1f2a2"
+"program_Rd.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

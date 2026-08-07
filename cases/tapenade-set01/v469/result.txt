@@ -1,0 +1,60 @@
+case: Tapenade todoF90 REFERENCES/v469 strict tab boundary and bounded port
+classification: runnable-ported-with-exact-source-refusal
+recorded_utc: 2026-08-07T13:12:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: head(x,y)
+tapenade_options: -association byaddress; parser=-p tangent=-d reverse=-b; root=head
+upstream_exact_strict_compile: program.f90=1 program_Rd.f90=0 program_Rb.f90=0
+exact_primal_diagnostic: nonconforming-tab-character-under-pedantic-errors
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v469_p.f90 tangent=v469_d.f90 reverse=v469_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: transform=0 strict_compile=0
+fortad_exact_forward: transform=0 strict_compile=0
+fortad_exact_reverse: transform=0 strict_compile=0
+fortad_bounded_forward: transform=0 strict_compile=0
+fortad_bounded_reverse: transform=0 strict_compile=0
+bounded_port_compile: port=0 harness=0 link=0 runtime=0
+oracle_status: pass bounded_domain=one-element-finite-real
+finite_difference_max_error: 7.5080608397115611e-11
+adjoint_identity_residual: 2.2204460492503131e-16
+harness_status: pass
+bounded_domain: one-element finite real(8) x and y arrays
+upstream_sha256:
+2596f484c771a0e7dfabf549ab8a6dcd26a7ccfd2a3621442d6a0a7e8c165267  todoF90/REFERENCES/v469/Options
+03869c635b0e1a8cbf63c3f2ec0dd2b1e6b9543d36fb05de4790149e7fa8ba62  todoF90/REFERENCES/v469/all_globals_mod.mod
+71e8058e8fe65823a87e33da6b4fc50a900e0675fbfee01df89c7631ba0c7226  todoF90/REFERENCES/v469/anothermodule.mod
+033fc09478d1e8363e3a30ba74c11d0850bd52f41cd9e23e8bfb5e29d6ddef2c  todoF90/REFERENCES/v469/program.f90
+05fba8734883ab0bf6670b165b153ffa802005b1ba206cd0a0771ab064e01dbe  todoF90/REFERENCES/v469/program_Rd.f90
+d2c250b585cd98314a12b75adda9845c93ada00cc513ed8e0f3468516e8feff9  todoF90/REFERENCES/v469/program_Rd.msg
+d327ac53acc978a90646aec502c3bcb6c5f2000819fdb497939db94d40c12d2d  todoF90/REFERENCES/v469/program_Rb.f90
+66b07a1553e0cd5b1e7c6ba0c08fa3b20c2cd495be97851fea0deaabefee2b05  todoF90/REFERENCES/v469/program_Rb.msg
+fresh_tapenade_sha256:
+5ff8b699f90cc3274ecf2376ac56900b15e22bfafd02aafdd42679f3455aa9d1  parser/v469_p.f90
+a6bfa3370cc9fa76f457e7f0a311e33b997539b2fe44e9f798facd5926afc057  parser/v469_p.msg
+ead597dd6486994841a159ad299f6ccb40a37ba1fae983004d07330288022c96  tangent/v469_d.f90
+a6bfa3370cc9fa76f457e7f0a311e33b997539b2fe44e9f798facd5926afc057  tangent/v469_d.msg
+a893473d6f0fc66da9cfa019618fcc86f796c00fe1d368c170161a13ea845ac7  reverse/v469_b.f90
+a6bfa3370cc9fa76f457e7f0a311e33b997539b2fe44e9f798facd5926afc057  reverse/v469_b.msg
+fortad_exact_sha256:
+77e8478f939c5576eade29b3172437f9bacafba399b5abffb2dfba08f4665a0c  /var/tmp/fortad-bench-v469.X5tD1b/fortad/parser.f90
+20e331e1388fd2a78b5cdee27531bef5b025ef6097b674b62695586e37e5ceac  /var/tmp/fortad-bench-v469.X5tD1b/fortad/forward.f90
+8564900ce6b985f08c9cba523af9c47619dd09c16289b159ebd428b58fc803c1  /var/tmp/fortad-bench-v469.X5tD1b/fortad/reverse.f90
+fortad_bounded_sha256:
+92bb2b1c6e64b5896b123e673828f30259754ba519b91b0217fa26cfacb3a12b  /var/tmp/fortad-bench-v469.X5tD1b/port-generated/forward.f90
+ebf65faa02bcbc0b75a7812fcb3bb7b88c522d9b642a59abdf6c46516495f67c  /var/tmp/fortad-bench-v469.X5tD1b/port-generated/reverse.f90
+case_artifact_sha256:
+5957a4ad108226035bed14fdfc7be4734a01e4826b27ad63fd0c0e6f7d79a0de  manifest.toml
+7f85c677ebbc9a9d57c22aab0746186a5a008d89dd2ef0666c3374340aa34206  notes.md
+23d4b5589bb5f99c69b32f47255081d92e1b0a574c71bc5d378262b199af4ae2  port.f90
+3ede920455afa7fb8f9c58643bda6932b27c16974585faa3627fe4396dbb13d9  harness.f90
+c60134c3ad4939973489876f912cac347acd730e36705cd54fd264f81aa2f0ad  oracle.py
+3bd21be5a6cac169b1194cf9db0465429a811bcf1e0ad98ace3d509deed66cad  run.sh
+e6f8ac0ffc96095b493ad3736498a5f5bc496d9f006e1efeaa1db80ac7e983fa  test_contract.py

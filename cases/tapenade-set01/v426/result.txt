@@ -1,0 +1,43 @@
+case: Tapenade todoF90 REFERENCES/v426 allocatable lifetime boundary
+classification: expected-refusal-unsupported-allocatable-lifetime
+recorded_utc: 2026-08-07T13:12:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: head()
+independent: tDataIn%v, inputs
+dependent: outputs
+tapenade_options: -association byaddress -vars inputs -outvars outputs -context -noisize -p/-d/-b -root head
+upstream_exact_strict_compile: primal=0 stored_tangent=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="allocatable declaration/component at line 4"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="allocatable declaration/component at line 4"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="allocatable declaration/component at line 4"
+port_result: not-applicable-no-bounded-port
+closure: fixed-size storage would remove the allocatable derived-type and saved allocation lifecycle
+independent_oracle: allocation lifecycle, hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass finite_difference_max_error: 3.646e-10 adjoint_identity_residual: 0.000e+00
+upstream_sha256:
+8fcad9a73bf6e93f64c4ab61fee85e77d3591b0ba589e424fa743bfd9a24fd88  todoF90/REFERENCES/v426/Options
+b012ee4b5daf600166cbfa2b201e541e04d8974542584712e07581ecf3732f7c  todoF90/REFERENCES/v426/program.f90
+486c235b4a23e58e477a92f442e0dfb35f270fb4b43f912d0b5502fcdff1f2a2  todoF90/REFERENCES/v426/program_Rd.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  todoF90/REFERENCES/v426/program_Rd.msg
+fresh_tapenade_sha256:
+b4f2a6e932f432d5576fd72c296c8937fce250ec1a07acd7bab04f9624a0c9cc  ./parser/v426_p.f90
+51978fafa73e47da8b52abe8cb640bf8034ef272a6ae90a8f41eff812672458c  ./parser/v426_p.msg
+f39f1ebf29a969b4d74271dd8748b1a84a3352492de7703f64b087e132131b6f  ./reverse/v426_b.f90
+fadf57d3f522307a4f22b043a7160c06c2e8ac579d4683b7ebf12fda78b24df8  ./reverse/v426_b.msg
+739962c21a167ae6e4a5ed5523a10e03e7760030a76dc77b38a98f230c31e72c  ./tangent/v426_d.f90
+6a78478916fd3077720a97ad1ee1fc9c89cd3014affc939852efaa65be1cc419  ./tangent/v426_d.msg
+case_artifact_sha256:
+37f36c631b4213e9892982fc0a28c5299fb0a50bcc768f3cf52cdc9b4bac4ef6  cases/tapenade-set01/v426/manifest.toml
+7d4099f0117e404e921587f69155ea5c2cc5f294b756e347443dfa562c9a9ae0  cases/tapenade-set01/v426/notes.md
+546f685e2312302d0b0f7f267db5031af702934b1b9504a7dba860c64be3877f  cases/tapenade-set01/v426/oracle.py
+547ae9eca1e9b467ddd16500db52c44a203139c9b08948194e7ac345db5e6707  cases/tapenade-set01/v426/run.sh
+c90a59caf484298b94b31ad7a3b7bd5a0c0ef4ba5f590fede147599077e1960d  cases/tapenade-set01/v426/test_contract.py
