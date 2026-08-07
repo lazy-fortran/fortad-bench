@@ -78,6 +78,11 @@ now wired into the harness for seventeen small set01 cases, with four exact-sour
 refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
+The product target is the 1,432-row strict pure-Fortran population. Fourteen
+rows currently pass as runnable support cases, seven are measured expected
+refusals, and 1,411 remain untriaged. The 74 mixed C/C++-Fortran rows stay in
+a separate dependency lane.
+
 The complete tracked checkout is now reproducible. The
 [`corpus manifest`](docs/corpora/tapenade.toml) pins commit
 `e59864cab441d4175df75383b3ff58c3dcd26df9` and tree
@@ -174,18 +179,19 @@ explicitly refused, independently checked, and measured when runnable.
 - [x] Record `ADFirstAidKit/testMemSizef.f` as a runnable ABI probe with no
   derivative contract. The unmodified program and Tapenade parser round-trip
   match an independent `storage_size` oracle for all 15 reported types.
-  Tapenade emits `AD06` and FortAD rejects the program as a non-procedure; both
+  Tapenade emits `AD06`. FortAD rejects the program as a non-procedure, and both
   modes emit no derivative source. See the
   [case](cases/tapenade-first-aid-kit/testMemSizef/README.md) and
   [validation record](results/tapenade_firstaid_memsize_refusal_validation.txt).
 - [x] Record `ADFirstAidKit/validityTest.f`. The exact legacy source and fresh
   Tapenade tangent/adjoint outputs compile, and an independent executable
   checks its interval-state transitions. FortAD refuses the exact `COMMON`
-  statement before differentiation; see the [case](cases/tapenade-first-aid/README.md).
+  statement before differentiation. See the [case](cases/tapenade-first-aid/README.md).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,485 untriaged rows after the language
-  boundary, seventeen set01 evidence rows, and four additional evidence cases.
+  reproducible evidence. There are 1,411 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside seventeen set01 evidence rows and four
+  additional evidence cases.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external
