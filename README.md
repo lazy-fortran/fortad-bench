@@ -333,7 +333,7 @@ because it belongs next to the engines rather than next to the compiler.
   not a FortAD, Tapenade, runtime, or derivative-support result.
   The deterministic [pure-Fortran batch manifest](docs/corpora/tapenade-fortran-batch.md)
   joins those file results with static entry-point hints for every pure-Fortran
-  queue row. Its `next_action` values only schedule the next probe; they do not
+  queue row. Its `next_action` values only schedule the next probe. They do not
   change the ledger or claim transformation support.
   The bounded [known-failure and large-example shard](docs/corpora/tapenade-known-failures.md)
   records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
