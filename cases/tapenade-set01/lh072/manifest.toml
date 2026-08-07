@@ -1,0 +1,63 @@
+schema_version = 1
+name = "tapenade-set01-lh072"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh072/run.sh"
+result = "cases/tapenade-set01/lh072/result.txt"
+source_harness = "cases/tapenade-set01/lh072/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh072/program.f",
+    "nonRegressions/set01/lh072/program_p.f",
+    "nonRegressions/set01/lh072/program_d.f",
+    "nonRegressions/set01/lh072/program_b.f",
+    "nonRegressions/set01/lh072/program_dv.f",
+    "nonRegressions/set01/lh072/program_p.msg",
+    "nonRegressions/set01/lh072/program_d.msg",
+    "nonRegressions/set01/lh072/program_b.msg",
+    "nonRegressions/set01/lh072/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+bounded_sources = [
+    "cases/tapenade-set01/lh072/port.f90",
+    "cases/tapenade-set01/lh072/hand.f90",
+    "cases/tapenade-set01/lh072/harness.f90",
+    "cases/tapenade-set01/lh072/oracle.py",
+]
+upstream_entry_point = "top(A,B); extf(B(10))"
+ported_entry_point = "set01_lh072(a_in,b_in,a_out,b_out,a_sum)"
+independent = ["a_in", "b_in"]
+dependent = ["a_out", "b_out", "a_sum"]
+options = ["-p -root top", "-d -root top", "-b -root top"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse-a-sum"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-parser-tangent-reverse-compile",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "compiled-FortAD-harness",
+]
+classification = "expected-refusal-with-bounded-callback-specialization"
+dependencies = "The exact multidirectional reference includes absent DIFFSIZES.inc. The exact top call chain passes EXTF through TOTO and TUTU as an EXTERNAL dummy, which FortAD cannot inline. The bounded port specializes only the locally defined EXTF(r)=r*r callback, preserves B(4) then B(10) in-place update order, and exposes a_sum for a compilable reverse probe without inventing an external."
+expected_diagnostics = [
+    "strict compilation accepts program.f, program_p.f, program_d.f, and program_b.f",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD exact forward and reverse refuse while inlining toto because its callback call chain has no supported statement form",
+    "bounded reverse differentiates the explicit a_sum observation; array a_out reverse is not claimed",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "exact-refusal-bounded-forward-and-a-sum-reverse-transform-compile-runtime"
+closure = "The exact legacy callback source remains a named FortAD refusal and the stored multidirectional reference remains blocked by its missing include. Fresh pinned Tapenade parser, tangent, and reverse outputs compile strictly. The bounded callback specialization has independent hand, central-difference, adjoint, and compiled FortAD evidence; it is not promoted as exact-source support."

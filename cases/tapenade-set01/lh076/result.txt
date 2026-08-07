@@ -1,0 +1,57 @@
+case: Tapenade nonRegressions set01 lh076
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T11:30:28Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: primal=1 parser=1 tangent=1 reverse=1 multidirectional=1
+upstream_stored_diagnostics: primal=legacy-REAL*8-COMPLEX*16 parser=legacy-REAL*8-COMPLEX*16 tangent=legacy-REAL*8-COMPLEX*16 reverse=legacy-REAL*8-COMPLEX*16 multidirectional=missing-DIFFSIZES.inc
+tapenade_options: parser=-p/-root onegvert tangent=-d/-root onegvert reverse=-b/-root onegvert
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+tapenade_fresh_diagnostics: parser=tangent=reverse=legacy-REAL*8-COMPLEX*16
+fortad_exact_forward: expected-refusal status=1 diagnostic="independent pin4 is not declared in onegvert"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="dependent emipint is not declared in onegvert"
+fortad_bounded_forward: pass-transform-compile-runtime transform=pass compile=0 runtime=pass
+fortad_bounded_reverse: expected-refusal status=1 diagnostic="active complex-output reverse boundary"
+bounded_scope: standard real(8)/complex(8) spelling with explicit intents; scalar-to-complex map only
+independent_oracle: hand complex JVP/VJP, central-difference sweep, real-coordinate adjoint identity
+numeric_hand_jvp: pass max_error=0.000e+00
+finite_difference: pass max_error=6.100e-11
+adjoint_identity: pass max_residual=2.776e-17
+oracle_status: pass
+jvp_error:   0.0000E+00
+finite_difference_error:   1.5704E-11
+adjoint_identity_residual:   1.3878E-17
+harness_status: pass
+upstream_sha256:
+afa815c9dcd139f652d0181015d2fecf4d987d3349f3959f37652174457d9aa5  program.f
+d7f5e480c94e781dd7f54b14adccb700f12eb0872f8bc67494b168abd160e987  program_p.f
+d46df9b943fabf5cf698b251425ae9159f893a88eb2692949141248d834c1059  program_d.f
+9cba3f1368232e55e5d997232add76234e73ae5e93e398ce84f48c7fc64aaad7  program_b.f
+f0e77a47cc1598e3a46cd59299f42bf6dd1a84dfa2f794c7b9e066e0810dd803  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+688d076e7759f41d8e1fb40a846107d7cc1b672986b9442afba716291087bb64  program_d.msg
+688d076e7759f41d8e1fb40a846107d7cc1b672986b9442afba716291087bb64  program_b.msg
+3cecaf64651e57b7b16fe99f538b12306a633e7335f27b771ea2205bc3762cd2  program_dv.msg
+fresh_tapenade_sha256:
+a827e35c186af5058af5aaedbe6e684717d06a8b123d2ba8465a638e27d554b4  lh076_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh076_p.msg
+bcae3d275336f119b789fb0cdfd31c14d87a5ff271c8ce46b8a9ee76c1d176fb  lh076_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh076_d.msg
+ae6bc040b97a63fa9769ceccefaf924c81182785b19842de1e7c7556aef251a8  lh076_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh076_b.msg
+case_artifact_sha256:
+a895505c622648744d1dfe5b24624bb0180efdb9cde2402cbf1a972a5494ecd5  manifest.toml
+4618f4d38c0d89e333bdc6dc9f2f8cff2615c43917350f7dd500557d1b633af9  notes.md
+046e0ee01927809e9548d88b354b3b0a26481fbe4644a6a0e09497854fcd5ce7  port.f90
+ef0a68d174211891c3a14a0a59e4b1d0497c2e52b89b898c233d8f905cf8e877  hand.f90
+0d7f7119594465de8fae27dae233a50e4c8a705f3f4b2e35feeb7b2e472db135  harness.f90
+405acfe6f985f67c33db81f41476f62be64cee8687de3463863e9299124c0c63  oracle.py
+ff4a784a0a8917caac8726c0f96259fb9511797a2f73d956864f601741c7b8bf  run.sh
+bdfc5e45c58b7c48dcdda82657bf77233afabc567e4984ae49c5777272e187c5  test_contract.py

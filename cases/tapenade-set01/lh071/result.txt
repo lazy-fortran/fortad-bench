@@ -1,0 +1,35 @@
+case: Tapenade nonRegressions set01/set03 lh071
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T11:31:27Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh071 -J/var/tmp/fortad-bench-lh071.NiY5x9/mod
+strict_free_flags: -std=f2018 -ffree-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/lh071 -J/var/tmp/fortad-bench-lh071.NiY5x9/mod
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: set01_program=1 set01_program_b=1 set03_program=1 set03_program_b=1
+upstream_stored_reference_strict_compile: set01_program_b=1 set03_program_b=1
+upstream_diagnostics: set01=rank-mismatch-d-and-db; set03=pointer-target-not-TARGET-or-POINTER
+tapenade_generation: set01_parser=0 set01_tangent=0 set01_reverse=0 set03_parser=0 set03_tangent=0 set03_reverse=0
+tapenade_fresh_strict_compile: set01_parser=1 set01_tangent=1 set01_reverse=1 set03_parser=1 set03_tangent=1 set03_reverse=1
+tapenade_diagnostics: set01=rank-mismatch-d-and-db; set03=pointer-target-not-TARGET-or-POINTER
+fortad_exact_forward: set01=expected-refusal status=1 output=none diagnostic="unsupported statement at line 4"; set03=expected-refusal status=1 output=none diagnostic="unsupported aliasing declaration p at line 8"
+fortad_exact_reverse: set01=expected-refusal status=1 output=none diagnostic="unsupported statement at line 4"; set03=expected-refusal status=1 output=none diagnostic="unsupported aliasing declaration p at line 8"
+bounded_port: not-claimed reason=repair-would-change-invalid-upstream-semantics
+upstream_sha256:
+32220e472e81bd54da630ca06b58cddaf90123c0ee87cb1c356a2dd7ae259b50  nonRegressions/set01/lh071/program.f
+d0d70955606c6786653a2379dbd910aa04dafbf59bc9abe0476d6cb268ae9851  nonRegressions/set01/lh071/program_b.f
+98d994a3ccb3c2cd8e717d8d03ceaddb750d047d22f8b52cf5af27b95c127a8d  nonRegressions/set01/lh071/program_b.msg
+d318652dec25821d8458a36921e3cece2c7790035cf124fd11895f87296b175f  nonRegressions/set03/lh071/program.f90
+3f099f4af3ce67f0774bc31c5fa04c9e97946eb667551f718f769f9a993f70b7  nonRegressions/set03/lh071/program_b.f90
+8e702d067f1ca30ccc0c6a127ad5cd58c9ab10ae6efa9da9b975f4e0737665b0  nonRegressions/set03/lh071/program_b.msg
+fresh_tapenade_sha256:
+1538b7261352ba7662d9231568297dfd3c0fbb9a163f92e4a7be26abd7f5e959  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set01/parser/fresh_set01_parser_p.f
+fb089b4d17c8a740cc2c2764ec2b0ab6364c93aba941b3cc103c99570e2a5b5f  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set01/forward/fresh_set01_tangent_d.f
+6f4f6827bafc69f18245fb2a6da8ccbeead6d3fb58391029d1c75d5db4afba75  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set01/reverse/fresh_set01_reverse_b.f
+a54c2fde7c0ace22c6d0ce4b17ea0acc3e2c594538c7f03bdc0b44f4af883446  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set03/parser/fresh_set03_parser_p.f90
+1383ed07c7744fd69abf309de82c44201b3e3de108acd28c3076fd3a85a2fe39  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set03/forward/fresh_set03_tangent_d.f90
+d217cb086c5c09a0d2b2f8ae599c5ee45ed1378b8efaa7ec8341963967ef9f70  /var/tmp/fortad-bench-lh071.NiY5x9/tapenade/set03/reverse/fresh_set03_reverse_b.f90

@@ -1,0 +1,54 @@
+schema_version = 1
+name = "tapenade-lh071-duplicate-legacy-syntax"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "fixed-and-free"
+runner = "cases/tapenade-set01/lh071/run.sh"
+result = "cases/tapenade-set01/lh071/result.txt"
+queue_category = "runnable-procedure-candidate"
+static_classification = "fortran-procedure-candidate; compiler-errors-after-strict-check"
+static_entry_point_hints = ["adj", "sub", "adj_b", "sub_b", "nonadjdeadtest", "nonadjdeadtest_b"]
+
+upstream_sources = [
+    "nonRegressions/set01/lh071/program.f",
+    "nonRegressions/set01/lh071/program_b.f",
+    "nonRegressions/set01/lh071/program_b.msg",
+    "nonRegressions/set03/lh071/program.f90",
+    "nonRegressions/set03/lh071/program_b.f90",
+    "nonRegressions/set03/lh071/program_b.msg",
+]
+stored_references = [
+    "nonRegressions/set01/lh071/program_b.f",
+    "nonRegressions/set01/lh071/program_b.msg",
+    "nonRegressions/set03/lh071/program_b.f90",
+    "nonRegressions/set03/lh071/program_b.msg",
+]
+upstream_entry_points = ["adj(a,b,c,d)", "sub(a,b,c,d)", "nonadjdeadtest(x,y)"]
+selected_entry_points = ["set01/lh071:adj(a,b,c,d)", "set03/lh071:nonadjdeadtest(x,y)"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["a", "b", "c", "d", "x"]
+dependent = ["c", "y"]
+options = ["-p -root adj", "-d -root adj", "-b -root adj", "-p -root nonadjdeadtest", "-d -root nonadjdeadtest", "-b -root nonadjdeadtest"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-compiler-diagnostic-identity",
+    "fresh-pinned-Tapenade-generation-and-strict-compilation",
+    "FortAD-exact-diagnostic-and-no-output",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+dependencies = [
+    "set01 program.f passes an array d(10) to sub's scalar REAL d; program_b.f repeats the invalid scalar/rank-1 calls for d and db",
+    "set01 COMMON blocks and implicit interfaces are retained as legacy source context; no repair is applied",
+    "set03 program.f90 assigns p to non-TARGET dummies x and y, and program_b.f90 assigns pb to non-TARGET xb and yb under strict F2018",
+]
+expected_diagnostics = [
+    "set01 exact and fresh files: Rank mismatch in argument d (and db in program_b.f)",
+    "set03 exact and fresh files: Pointer assignment target is neither TARGET nor POINTER",
+    "FortAD set01 exact forward/reverse: unsupported statement at line 4",
+    "FortAD set03 exact forward/reverse: unsupported aliasing declaration p at line 8",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-expected-refusal-strict-compile"
+fortad_result = "expected-refusal-both-entry-points-no-output"
+closure = "No bounded port, hand derivative, or runtime harness is claimed. Changing d to d(i), adding TARGET to x/y/xb/yb, or removing legacy COMMON/pointer constructs would define repaired programs rather than preserve the exact invalid corpus sources."

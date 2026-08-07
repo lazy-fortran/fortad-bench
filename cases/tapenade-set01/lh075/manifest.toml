@@ -1,0 +1,62 @@
+schema_version = 1
+name = "tapenade-set01-lh075"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/lh075/run.sh"
+result = "cases/tapenade-set01/lh075/result.txt"
+source_form = "fixed"
+
+queue_category = "runnable-procedure-candidate"
+queue_rank = 50
+static_classification = "fortran-procedure-candidate"
+source_files = [
+    "nonRegressions/set01/lh075/program.f",
+    "nonRegressions/set01/lh075/program_p.f",
+]
+upstream_sources = [
+    "nonRegressions/set01/lh075/program.f",
+    "nonRegressions/set01/lh075/program_p.f",
+    "nonRegressions/set01/lh075/program_b.msg",
+    "nonRegressions/set01/lh075/program_d.msg",
+    "nonRegressions/set01/lh075/program_dv.msg",
+    "nonRegressions/set01/lh075/program_p.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_b.msg",
+    "program_d.msg",
+    "program_dv.msg",
+    "program_p.msg",
+]
+
+upstream_entry_point = "phi(PHIS,s1)"
+ported_entry_point = "not-applicable (invalid exact source; no bounded port)"
+independent = ["s1"]
+dependent = ["PHIS"]
+options = ["-p", "-d -root phi", "-b -root phi"]
+modes = ["exact-forward:refused", "exact-reverse:refused"]
+oracle = [
+    "strict-compiler-diagnostics",
+    "stored-reference-checksum",
+    "fresh-Tapenade-parser-tangent-reverse-boundary",
+    "FortAD-diagnostic",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "gfortran: Unexpected use of subroutine name 'phi'",
+    "Tapenade: TC32 conflicting numbers of arguments and TC35 subroutine used as a function",
+    "FortAD: unsupported statement at line 3",
+]
+fresh_generated_sources = ["lh075_p.f"]
+fresh_generated_messages = ["lh075_p.msg", "lh075_d.msg", "lh075_b.msg"]
+fresh_missing_sources = ["lh075_d.f", "lh075_b.f"]
+closure = "The exact source calls the two-argument subroutine PHI as a one-argument function and has no standard-conforming semantics to preserve. The stored parser source has the same compiler error; stored tangent/reverse source files are absent. Fresh pinned Tapenade produces parser source but no tangent/reverse source, and FortAD refuses both exact modes at line 3. No port or support claim is made."
+
+[upstream_sha256]
+"program.f" = "96059b02f384f5afd010f02bcff0e9d1a1f5bede680ef7cdc4ee43bdd477d816"
+"program_p.f" = "8f06d17db5a4f0c52641b7e107d4016472f666bceacda9b742319ce29757b075"
+"program_b.msg" = "91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b"
+"program_d.msg" = "91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b"
+"program_dv.msg" = "91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b"
+"program_p.msg" = "af30cb4e7cfc3fa675442ae66f83feadb3f852edb1f3ffc6eb4e3ef200043b32"

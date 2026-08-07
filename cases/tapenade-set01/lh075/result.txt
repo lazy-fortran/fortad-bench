@@ -1,0 +1,85 @@
+case: Tapenade nonRegressions set01 lh075 invalid fixed-form boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T11:31:36Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I. -InonRegressions/set01/lh075 -J<scratch>
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: phi(PHIS,s1)
+upstream_exact_strict_compile: program.f=1 program_p.f=1
+upstream_exact_diagnostics:
+upstream_program.stderr:
+Error: Unexpected use of subroutine name ‘phi’ at (1)
+upstream_program_p.stderr:
+Error: Unexpected use of subroutine name ‘phi’ at (1)
+stored_references: program_p.f plus program_b.msg program_d.msg program_dv.msg program_p.msg
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_outputs: parser=lh075_p.f tangent=none reverse=none
+tapenade_fresh_strict_compile: parser=1 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_fresh_parser_diagnostic:
+Error: Unexpected use of subroutine name ‘phi’ at (1)
+tapenade_fresh_message_diagnostics:
+lh075_p.msg:
+1 (TC42) Recursivity: phi-->phi
+2 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+3 phi: (TC35) Subroutine phi used as a function
+4 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+5 phi: (TC35) Subroutine phi used as a function
+6 phi: (DF06) Procedure phi does not terminate properly
+7 phi: (DF05) External routine phi, called by (phi), is assumed default In:...11 and Out:...11
+8 phi: (DF03) variable tort1 is used before initialized
+9 phi: (DF03) variable s2 is used before initialized
+10 phi: (DF03) variable tort2 is used before initialized
+lh075_d.msg:
+1 (TC42) Recursivity: phi-->phi
+2 (AD06) Differentiation root procedures (phi) have no active input nor output
+3 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+4 phi: (TC35) Subroutine phi used as a function
+5 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+6 phi: (TC35) Subroutine phi used as a function
+7 phi: (DF06) Procedure phi does not terminate properly
+8 phi: (DF05) External routine phi, called by (phi), is assumed default In:...11 and Out:...11
+9 phi: (DF03) variable tort1 is used before initialized
+10 phi: (DF03) variable s2 is used before initialized
+11 phi: (DF03) variable tort2 is used before initialized
+lh075_b.msg:
+1 (TC42) Recursivity: phi-->phi
+2 (AD06) Differentiation root procedures (phi) have no active input nor output
+3 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+4 phi: (TC35) Subroutine phi used as a function
+5 phi: (TC32) Conflicting numbers of arguments for procedure phi, expected 2, is here 1
+6 phi: (TC35) Subroutine phi used as a function
+7 phi: (DF06) Procedure phi does not terminate properly
+8 phi: (DF05) External routine phi, called by (phi), is assumed default In:...11 and Out:...11
+9 phi: (DF03) variable tort1 is used before initialized
+10 phi: (DF03) variable s2 is used before initialized
+11 phi: (DF03) variable tort2 is used before initialized
+fortad_exact_forward: expected-refusal status=1 diagnostic="fortad: unsupported statement at line 3"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="fortad: unsupported statement at line 3"
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: source-boundary and SHA-256 contract; no bounded numerical oracle because the exact call is invalid
+port_result: not-applicable-no-standard-conforming-semantics-to-preserve
+closure: no port and no exact-source support claim; repairing PHI as a function would invent candidate semantics
+upstream_sha256:
+96059b02f384f5afd010f02bcff0e9d1a1f5bede680ef7cdc4ee43bdd477d816  program.f
+8f06d17db5a4f0c52641b7e107d4016472f666bceacda9b742319ce29757b075  program_p.f
+91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b  program_b.msg
+91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b  program_d.msg
+91676580cbaeb54c588e8fb066685b10ba3838dfb05b642616b03fb3ce00a85b  program_dv.msg
+af30cb4e7cfc3fa675442ae66f83feadb3f852edb1f3ffc6eb4e3ef200043b32  program_p.msg
+fresh_tapenade_sha256:
+d341ee8cf2d99ca73528688520fab5773a1b6249e00c0f925241a7b0a031254c  lh075_p.f
+af30cb4e7cfc3fa675442ae66f83feadb3f852edb1f3ffc6eb4e3ef200043b32  lh075_p.msg
+a7640d7cd00908cc4cbd3d22c0b9a1069fea2c10fcc17d188b67869cf70a1cec  lh075_d.msg
+a7640d7cd00908cc4cbd3d22c0b9a1069fea2c10fcc17d188b67869cf70a1cec  lh075_b.msg
+case_artifact_sha256:
+d8100eccb7dc31e1e4c32e172f6f861a501a9c26c8e09a2280fdcf2299ceaf7b  cases/tapenade-set01/lh075/manifest.toml
+2b3b43a0dd51207227fb98b3d4ac4fb3c5da5144b1d15f814b741aed9b238dfa  cases/tapenade-set01/lh075/notes.md
+545894fabaa34e6c34125bc76c37aa49981400b19256dbc910fe25ecaa3bf47d  cases/tapenade-set01/lh075/run.sh
+d5f8bc9d1048aa2028872ddb3e97e4b50dd418839110f3b81a7009eebf5d7d69  cases/tapenade-set01/lh075/test_contract.py

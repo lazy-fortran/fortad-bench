@@ -1,0 +1,56 @@
+schema_version = 1
+name = "tapenade-set01-lh073"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh073/run.sh"
+result = "cases/tapenade-set01/lh073/result.txt"
+source_harness = "cases/tapenade-set01/lh073/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh073/program.f",
+    "nonRegressions/set01/lh073/program_p.f",
+    "nonRegressions/set01/lh073/program_d.f",
+    "nonRegressions/set01/lh073/program_b.f",
+    "nonRegressions/set01/lh073/program_dv.f",
+    "nonRegressions/set01/lh073/program_p.msg",
+    "nonRegressions/set01/lh073/program_d.msg",
+    "nonRegressions/set01/lh073/program_b.msg",
+    "nonRegressions/set01/lh073/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+missing_dependencies = ["DIFFSIZES.inc"]
+upstream_entry_point = "top(A,B) via toto(extf,B) and extf(B(10))"
+ported_entry_point = "set01_lh073(a_in,b_in,a_out,b_out,objective)"
+independent = ["a_in", "b_in"]
+dependent = ["a_out", "b_out", "objective"]
+options = ["-p -root top", "-d -root top", "-b -root top"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse-objective"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-parser-tangent-reverse-compile",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "compiled-FortAD-harness",
+]
+classification = "expected-refusal-with-bounded-concrete-callback-port"
+dependencies = "program_dv.f includes the absent DIFFSIZES.inc. The exact top/toto/tutu path passes an untyped external procedure argument and mutates callback arguments in place; the bounded port specializes the observed extf(r)=r*r callback, exposes pre-state and complete post-state arrays, collapses the two B(10) callback applications to the equivalent fourth-power state map, and adds a scalar objective for a compilable reverse probe."
+expected_diagnostics = [
+    "program_dv.f refuses strict compilation because DIFFSIZES.inc is absent",
+    "FortAD exact forward and reverse refuse while inlining toto with an unsupported procedure-argument statement form",
+    "FortAD bounded reverse is claimed only for scalar objective, not the in-place exact interface or generic callbacks",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "exact-refusal-bounded-forward-and-objective-reverse-transform-compile-runtime"
+closure = "The exact fixed-form source remains an explicit FortAD refusal and its stored multidirectional file remains dependency-blocked. The bounded port is a concrete extf-square state-transition specialization with an algebraically equivalent fourth-power B(10) expression, independently checked by hand formulas, finite differences, an adjoint identity, and a compiled FortAD harness; it is not generic callback or exact-interface support."

@@ -1,0 +1,72 @@
+schema_version = 1
+name = "tapenade-set01-lh076-onegvert"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh076/run.sh"
+result = "cases/tapenade-set01/lh076/result.txt"
+source_harness = "cases/tapenade-set01/lh076/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh076/program.f",
+    "nonRegressions/set01/lh076/program_p.f",
+    "nonRegressions/set01/lh076/program_d.f",
+    "nonRegressions/set01/lh076/program_b.f",
+    "nonRegressions/set01/lh076/program_dv.f",
+    "nonRegressions/set01/lh076/program_p.msg",
+    "nonRegressions/set01/lh076/program_d.msg",
+    "nonRegressions/set01/lh076/program_b.msg",
+    "nonRegressions/set01/lh076/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "onegvert(pin4,emipint)"
+ported_entry_point = "set01_lh076(pin4,emipint)"
+independent = ["pin4"]
+dependent = ["emipint"]
+options = ["-p -root onegvert", "-d -root onegvert", "-b -root onegvert"]
+modes = [
+    "stored-parser:refused",
+    "stored-forward:refused",
+    "stored-reverse:refused",
+    "stored-multidirectional:refused",
+    "fresh-parser:generated-but-refused-by-strict-compile",
+    "fresh-forward:generated-but-refused-by-strict-compile",
+    "fresh-reverse:generated-but-refused-by-strict-compile",
+    "exact-forward:refused",
+    "exact-reverse:refused",
+    "bounded-forward",
+    "bounded-reverse:complex-adjoint-refusal",
+]
+oracle = [
+    "strict fixed-form compiler",
+    "fresh pinned Tapenade parser/tangent/reverse generation",
+    "fresh generated strict compilation",
+    "FortAD exact forward/reverse diagnostics",
+    "independent hand complex JVP/VJP",
+    "central-difference sweep",
+    "real-coordinate adjoint identity",
+    "compiled FortAD JVP harness",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The stored multidirectional reference includes the absent DIFFSIZES.inc. All fixed-form files use legacy REAL*8 and COMPLEX*16 declarations, which strict F2018 rejects. The bounded port preserves the scalar pin4 to complex emipint map after spelling those kinds as standard real(8)/complex(8); its independent VJP is an oracle only because active complex-output reverse is a FortAD refusal boundary."
+expected_diagnostics = [
+    "strict compilation refuses program.f, program_p.f, program_d.f, and program_b.f on REAL*8/COMPLEX*16",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "fresh Tapenade parser, tangent, and reverse generation succeeds but each generated file refuses the legacy kinds",
+    "FortAD exact forward refuses because pin4 is not declared after the legacy declarations are rejected by its parser",
+    "FortAD exact reverse refuses because emipint is not declared after the legacy declarations are rejected by its parser",
+    "FortAD bounded forward transforms, compiles, and runs; bounded active complex-output reverse is not claimed",
+]
+tapenade_result = "fresh-parser-tangent-reverse-generated-strict-compile-refusal"
+fortad_result = "exact-forward-reverse-refusal-bounded-forward-pass-complex-reverse-refusal"
+closure = "The exact legacy source and every stored derivative artifact remain refusal evidence; no exact-source support is claimed. The bounded port changes only nonstandard kind spelling and adds explicit intents. Its complex JVP, hand VJP, finite differences, adjoint identity, and compiled generated-JVP harness establish the preserved scalar-to-complex semantics, not reverse support for the original complex output."

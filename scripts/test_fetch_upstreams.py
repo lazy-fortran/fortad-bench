@@ -682,6 +682,10 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "nonRegressions/set01/lh067",
                 "nonRegressions/set01/lh069",
                 "nonRegressions/set01/lh070",
+                "nonRegressions/set01/lh072",
+                "nonRegressions/set01/lh073",
+                "nonRegressions/set01/lh076",
+                "nonRegressions/set01/lh077",
             "nonRegressions/set02/lh150",
             "nonRegressions/set03/ht09",
             "nonRegressions/set04/lh110",
@@ -723,6 +727,8 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 ("nonRegressions/set01/lh056", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh063", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh065", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh071", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh075", "not-run-invalid-upstream-source"),
             ],
         )
         self.assertEqual(len(language_exclusions), 508)
@@ -774,6 +780,10 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "exact-refusal-bounded-forward-transform-compile-runtime-reverse-not-claimed",
                 "pass-forward-transform-compile-reverse-transform-compile-runtime",
                 "exact-refusal-bounded-forward-and-y-reverse-transform-compile-runtime",
+                "exact-refusal-bounded-forward-and-a-sum-reverse-transform-compile-runtime",
+                "exact-refusal-bounded-forward-and-objective-reverse-transform-compile-runtime",
+                "exact-forward-reverse-refusal-bounded-forward-pass-complex-reverse-refusal",
+                "exact-refusal-bounded-forward-reverse-transform-compile-runtime",
             },
         )
         expected_evidence = {
@@ -953,7 +963,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "dependencies": "COMMON /ls0001/ TN and opaque FX3/FX4 callbacks; absent DIFFSIZES.inc blocks stored and fresh reverse; bounded port exposes state and fixes callback algebra",
                 "tapenade_result": "pass-fresh-Tapenade-parser-tangent-reverse-generation-generated-compile-refusal",
             },
-                "nonRegressions/set01/lh061": {
+            "nonRegressions/set01/lh061": {
                     "entry_point": "test(y,f,jac,pjac,slvs)",
                     "tapenade_options": "-p|-d-root-test|-b-root-test",
                     "modes": "parser|forward|reverse",
@@ -1000,6 +1010,38 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
                 "dependencies": "uninitialized local n controls a GOTO loop and program_dv.f requires absent DIFFSIZES.inc; bounded specialization makes n=10 and the one-iteration terminating path explicit",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh072": {
+                "entry_point": "top(A,B); extf(B(10)); port set01_lh072(a_in,b_in,a_out,b_out,a_sum)",
+                "tapenade_options": "-p|-d-root-top|-b-root-top",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|compiled-FortAD-harness",
+                "dependencies": "absent DIFFSIZES.inc blocks multidirectional reference; exact EXTF callback chain is external to FortAD; bounded port specializes EXTF(r)=r*r and exposes a_sum",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set01/lh073": {
+                "entry_point": "top(A,B) via toto(extf,B); port set01_lh073(a_in,b_in,a_out,b_out,objective)",
+                "tapenade_options": "-p|-d-root-top|-b-root-top",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|compiled-FortAD-harness",
+                "dependencies": "absent DIFFSIZES.inc blocks multidirectional reference; exact untyped external callback mutates actuals; bounded port specializes the observed EXTF square state transition",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set01/lh076": {
+                "entry_point": "onegvert(pin4,emipint); port set01_lh076(pin4,emipint)",
+                "tapenade_options": "-p|-d-root-onegvert|-b-root-onegvert",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|compiled-FortAD-harness",
+                "dependencies": "absent DIFFSIZES.inc and legacy REAL*8/COMPLEX*16 declarations block exact/generated strict compilation; bounded port standardizes kinds and claims only complex JVP",
+                "tapenade_result": "fresh-parser-tangent-reverse-generated-strict-compile-refusal",
+            },
+            "nonRegressions/set01/lh077": {
+                "entry_point": "testinit(A,B,C); toto(T,S,R); port set01_lh077(a,b,c,c_out)",
+                "tapenade_options": "-p|-d-root-testinit|-b-root-testinit",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|compiled-FortAD-harness",
+                "dependencies": "absent DIFFSIZES.inc blocks multidirectional output; exact no-INTENT callback actuals are not plain writable variables for FortAD inlining; bounded explicit-interface port exposes c_out",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
             },
             "nonRegressions/set01/lh070": {
                 "entry_point": "top(A,B); F(); port set01_lh070(a,b,x,y,z)",

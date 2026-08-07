@@ -1,0 +1,63 @@
+case: Tapenade nonRegressions set01 lh077
+classification: expected-refusal-with-bounded-explicit-interface-port
+recorded_utc: 2026-08-07T11:34:01Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: supplied checkout clean and pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: testinit(A,B,C); toto(T,S,R)
+bounded_entry_point: set01_lh077(a,b,c,c_out); independent: a,b,c; dependent: c_out
+upstream_exact_strict_compile: primal=0 parser=0 tangent=0 reverse=0 multidirectional=1
+upstream_multidirectional_diagnostic: Fatal Error: Cannot open included file ‘DIFFSIZES.inc’
+tapenade_options: parser=-p/-root testinit forward=-d/-root testinit reverse=-b/-root testinit
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_forward: expected-refusal status=1 diagnostic="fortad: inlining toto needs plain variables as arguments, because it may write to them"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="fortad: inlining toto needs plain variables as arguments, because it may write to them"
+fortad_bounded_forward: transform=pass status=0 compile=0 runtime=pass
+fortad_bounded_reverse: transform=pass status=0 compile=0 runtime=pass
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 4.234759e-09
+adjoint_identity_residual: 1.332268e-15
+hand_vjp_a1: 1.03700000000000001e-01
+hand_vjp_b: 3.11099999999999977e+00
+hand_vjp_c: 8.81449999999999889e+00
+harness_status: pass
+value:   2.9626748657226562E+02
+forward:   1.1900049448013306E-01
+reverse_b:   3.1110000610351562E+00
+reverse_c:   8.8144998550415039E+00
+upstream_sha256:
+0ab3221097f39bc2f4e388a1503445d02229080a861682778d4fbb81205c4c4c  program.f
+380908c5e40535bdd1827ddf195be35df9956639ffdf23de2aa40b6bc19bbf70  program_p.f
+23ed64fdd3ae6921bde4e885c6f83f0988d9ac85c5be1eef95473f3c084e774a  program_d.f
+4dd0b5ef8fae2b3b6a09bb4dd4344083681856e2aa29f0cfaa45c873fe19a542  program_b.f
+c9f5107335514112ab6becbaaf15216ebd984a7c34674dc09f12a875a6f8c781  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+151a07207d67da8a8902c1c6fae562ccfe412981a680fa111e39c1f0dc9f8899  program_d.msg
+151a07207d67da8a8902c1c6fae562ccfe412981a680fa111e39c1f0dc9f8899  program_b.msg
+ba41ad560f409008c4c028b5d626536615231f871e94efca37a04907421adab2  program_dv.msg
+fresh_tapenade_sha256:
+b30473070ae12a18a723b070d15bba9523fb190b6cddf6b134d159a514968710  lh077_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh077_p.msg
+d5a20244a0ba07063ecbcd71bf691940edda08fef7606d0710a5977e8810b3b8  lh077_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh077_d.msg
+f953605f333e4cd3445760d18f64dd54136a98320a298c083d9b354eb608bf1b  lh077_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh077_b.msg
+case_artifact_sha256:
+f4725240397290ef88db548d62c0e4eb6f5db544f378e1b95a4c8844d8c90e03  cases/tapenade-set01/lh077/manifest.toml
+71f452539b661e0d2b7d8983e4de81bdc095a8fd1f26f6d4c6d654b186321fca  cases/tapenade-set01/lh077/notes.md
+bd24d1b821c4dff4aab4b05a58b1b7e90dbf4254452a64fbfe7b2f36f94e8b29  cases/tapenade-set01/lh077/port.f90
+50b34a0a5b7ce31e3cb09d7294883c5da4110017c74a6bcb0720d77c3c667808  cases/tapenade-set01/lh077/hand.f90
+09c182da2b53828428b196971718541e0c73b8d967af1ce5457f8932f229844e  cases/tapenade-set01/lh077/oracle.py
+a0db0a844e5fe9defb99990edb701bc9919768cbfc251f327bcfd8c3b03cd3e3  cases/tapenade-set01/lh077/harness.f90
+8649c35c2a792c48bb01369766e19f10ac12c87399b0f7d817dedcb19c80241d  cases/tapenade-set01/lh077/run.sh
+c5f2fb091d4600f3a1a9047848356b40ea3332ea41e8f7d40ec41796b87114dc  cases/tapenade-set01/lh077/test_contract.py
