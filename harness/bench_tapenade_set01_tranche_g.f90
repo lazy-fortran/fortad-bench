@@ -165,7 +165,7 @@ contains
             call lh002_vjp(x, z, b, x_v, y_v, z_v, a_v, x_final_b, x_b, &
                 z_b, b_b)
             sink = sink + 1.0e-15_dp*(x_f + x_f_d + y_f + y_f_d + z_f + &
-                z_f_d + a_f + a_f_d + x_v + y_v + z_v + a_v + x_b + z_b + b_b)
+                z_f_d + a_f + a_f_d + x_v + x_b + z_b + b_b)
         end do
         call system_clock(clock_stop)
         elapsed = real(clock_stop - clock_start, dp)/real(clock_rate, dp)
