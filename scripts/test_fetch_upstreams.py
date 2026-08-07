@@ -816,6 +816,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set05/v062",
             "nonRegressions/set05/v064",
             "nonRegressions/set05/v065",
+            "nonRegressions/set05/v067",
             "nonRegressions/set05/v125",
             "nonRegressions/set05/v137",
             "nonRegressions/set05/v150",
@@ -946,6 +947,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "exact-forward-reverse-expected-refusal-external-call-inlining-no-output",
                 "pass-exact-check-jvp-compile-expected-refusal-vjp-per-iteration-storage",
                 "expected-refusal-exact-parser-forward-reverse-labeled-do",
+                "expected-refusal-forward-reverse-generic-call-no-output",
                 "forward-unsafe-generated-code-reverse-dependent-refusal",
                 "expected-refusal-unsupported-statement-line-11-no-output",
                 "pass-check-reemit; expected-refusal-forward-undeclared-a-and-reverse-undeclared-a",
@@ -2515,6 +2517,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
                 "dependencies": "exact v065 source and stored references compile unchanged; ptab is the active input and cst is passive in the selected value-map closure; generic caller and mppsum_real3 remain outside",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set05/v067": {
+                "entry_point": "RUN::s(mb1,mb2,mb3)",
+                "tapenade_options": "-p/-root-s|-d/-root-s|-b/-root-s",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-exact-and-stored-compiler|legacy-control-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-and-legacy-compile|FortAD-exact-parser-forward-reverse-no-output|independent-source-compiler-oracle",
+                "dependencies": "exact and stored sources use nonstandard REAL*8; standardizing it or changing the generic interface would be a source repair, so no repaired port is claimed",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-legacy-compile-strict-REAL8-refusal",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))

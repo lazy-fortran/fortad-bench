@@ -1,0 +1,56 @@
+schema_version = 1
+name = "tapenade-set05-v067-modern-boundary"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0f3afaf2cb709a5c7d2949cae74b3f3a581f51"
+source_form = "free"
+runner = "cases/tapenade-set05/v067_run.sh"
+result = "cases/tapenade-set05/v067_result.txt"
+
+upstream_sources = [
+    "nonRegressions/set05/v067/program.f90",
+    "nonRegressions/set05/v067/program_d.f90",
+    "nonRegressions/set05/v067/program_p.f90",
+    "nonRegressions/set05/v067/program_d.msg",
+    "nonRegressions/set05/v067/program_p.msg",
+    "nonRegressions/set05/v067/Options",
+]
+stored_references = [
+    "program_d.f90",
+    "program_p.f90",
+    "program_d.msg",
+    "program_p.msg",
+    "Options",
+]
+
+upstream_entry_point = "RUN::s(mb1,mb2,mb3)"
+selected_entry_points = ["RUN::s(mb1,mb2,mb3)"]
+ported_entry_point = "not-applicable-modern-source-refusal"
+independent = ["mb1"]
+dependent = "in-place update of mb1"
+function = "generic FUNC overloads with legacy REAL*8 actual mb3"
+options = ["-p -root s", "-d -root s", "-b -root s"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact pinned-source SHA-256 contract",
+    "strict F2018 exact-source and stored-reference compiler refusal",
+    "legacy compiler control for exact and stored sources",
+    "fresh pinned Tapenade parser/tangent/reverse generation with strict and legacy compilation",
+    "FortAD exact parser check and forward/reverse no-output refusal",
+    "independent source-invariant and compiler oracle",
+]
+classification = "expected-refusal"
+dependencies = [
+    "the exact and stored sources use nonstandard REAL*8 declarations, which the modern strict F2018 contract rejects",
+    "the exact s procedure routes mb3 through the generic FUNC interface and FortAD has no derivative rule for that call",
+    "standardizing REAL*8 or changing the generic interface would be a source repair, so no repaired port is claimed",
+]
+expected_diagnostics = [
+    "strict exact and stored compilation rejects GNU Extension: Nonstandard type declaration REAL*8",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile only in legacy mode",
+    "FortAD parser extraction passes; exact forward and reverse probes refuse the generic FUNC call and emit no derivative source",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-legacy-compile-strict-REAL8-refusal"
+fortad_result = "expected-refusal-forward-reverse-generic-call-no-output"
+closure = "v067 is a legacy-compatible Tapenade example, but it is outside FortAD's modern strict-Fortran support contract because of REAL*8. The measured boundary is preserved without silently standardizing the source or claiming a derivative port."
