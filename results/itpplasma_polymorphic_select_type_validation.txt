@@ -1,5 +1,5 @@
 case: itpplasma polymorphic SELECT TYPE JVP and VJP
-recorded_utc: 2026-08-07T00:43:29Z
+recorded_utc: 2026-08-07T00:44:14Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -10,12 +10,12 @@ fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
 fortad_commit: bc4f2a2621e680ebbcaefc797c29f000a023561c
 required_fortad_commit: da1d876afa29f2357bce45ce3500904270ddda83
-fortad_setup_seconds_cached_or_incremental: 1.096088
-jvp_transform_seconds: 0.005901
-vjp_transform_seconds: 0.005752
-generated_jvp_object_compile_seconds: 0.017345
-generated_vjp_object_compile_seconds: 0.019172
-case_compile_and_link_seconds: 0.184412
+fortad_setup_seconds_cached_or_incremental: 1.060449
+jvp_transform_seconds: 0.005611
+vjp_transform_seconds: 0.006293
+generated_jvp_object_compile_seconds: 0.018187
+generated_vjp_object_compile_seconds: 0.019588
+case_compile_and_link_seconds: 0.198065
 generated_jvp_source_bytes: 1127
 generated_vjp_source_bytes: 1621
 generated_jvp_object_bytes: 1744
@@ -23,7 +23,7 @@ generated_vjp_object_bytes: 1792
 generated_jvp_object_text_bytes: 163
 generated_vjp_object_text_bytes: 203
 runtime_wall_seconds=0.13
-runtime_peak_rss_kb=2844
+runtime_peak_rss_kb=3228
 generated_jvp_vectorized_loop_messages: 0
 generated_vjp_vectorized_loop_messages: 0
 jvp_optimization_report: build/itpplasma-polymorphic-select-type/generated_jvp_optimization.txt
@@ -59,12 +59,12 @@ fff1be7d9ca00f5e7b76200f924f094eca5b35a8af146f079b233ee7131aefe5  harness/bench_
 94d0eabbb414e5b5ce185d93ca0d674689e7c5fa94a2a1b07712d1a2ae4aa18e  scripts/bench_itpplasma_polymorphic_select_type.sh
 run_output:
 dispatches_per_implementation 10000000
-generated_jvp_seconds_per_dispatch   3.54883250E-09
-hand_jvp_seconds_per_dispatch   3.39602160E-09
-generated_over_hand_jvp_runtime   1.04499703E+00
-generated_vjp_seconds_per_dispatch   3.33786300E-09
-hand_vjp_seconds_per_dispatch   3.43754680E-09
-generated_over_hand_vjp_runtime   9.71001471E-01
+generated_jvp_seconds_per_dispatch   3.52143890E-09
+hand_jvp_seconds_per_dispatch   3.39168850E-09
+generated_over_hand_jvp_runtime   1.03825540E+00
+generated_vjp_seconds_per_dispatch   3.47432110E-09
+hand_vjp_seconds_per_dispatch   3.49995340E-09
+generated_over_hand_vjp_runtime   9.92676388E-01
 generated_jvp_sink   6.18778798E+06
 generated_vjp_sink   6.18778798E+06
 PASS: both runtime children pass JVP, VJP, FD, and adjoint checks
