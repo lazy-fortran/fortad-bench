@@ -15,11 +15,11 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade corpus has ninety-nine
-set01 evidence rows (thirty-one positive cases, forty-eight reproducible refusals, and
-twenty invalid-upstream closures), plus five new positive rows across sets 02--06,
+timing table is FortAD versus Enzyme. The pinned Tapenade corpus has 105
+set01 evidence rows (thirty-one positive cases, fifty-one reproducible refusals, and
+twenty-three invalid-upstream closures), plus five new positive rows across sets 02--06,
 the v420 positive case, the f03typf01 OO refusal, and the two first-aid refusals.
-There are 1,398 queued candidates still
+There are 1,392 queued candidates still
 untriaged. A broader feature
 or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
@@ -76,14 +76,14 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support is
-now wired into the harness for ninety-nine small set01 evidence cases
-(thirty-one positive, forty-eight exact-source refusals, and twenty invalid-upstream
-closure), plus five positive bounded ports from sets 02--06. A fresh Tapenade
+now wired into the harness for 105 small set01 evidence cases
+(thirty-one positive, fifty-one exact-source refusals, and twenty-three invalid-upstream
+closures), plus five positive bounded ports from sets 02--06. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The product target is the 1,432-row strict pure-Fortran population. Thirty-seven
-rows currently pass as runnable support cases, fifty-one are measured expected
-refusals, twenty are invalid-upstream closures, and 1,324 remain untriaged. The
+rows currently pass as runnable support cases, fifty-four are measured expected
+refusals, twenty-three are invalid-upstream closures, and 1,318 remain untriaged. The
 74 mixed C/C++-Fortran rows stay in
 a separate dependency lane.
 
@@ -113,7 +113,7 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,398 remaining candidates into 74 mixed-language-risk, 24
+  partition the 1,392 remaining candidates into 74 mixed-language-risk, 18
   historical-failure, 20 no-entry-point, 315 program, and 965 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 133 rows
   with non-local include hints. Include targets are dependency-risk signals
@@ -286,10 +286,15 @@ explicitly refused, independently checked, and measured when runnable.
   and independent case-local contracts. `v144`, `v270`, `v322`, and `v377` are
   invalid-upstream closures; `v100` and `v101` retain exact FortAD refusals with
   bounded witnesses. See the [tranche-AA notes](cases/tapenade-set01/README.md#tranche-aa-todof90-references-v100-v101-v144-v270-v322-and-v377).
+- [x] Close `todoF90/REFERENCES/v385`, `v402`, `v412`, `v413`, `v414`, and
+  `v415` with strict exact-source/reference checks, fresh Tapenade generation,
+  and independent case-local contracts. `v385`, `v402`, and `v412` are
+  invalid-upstream closures; `v413`, `v414`, and `v415` retain expected FortAD
+  refusal boundaries without bounded ports. See the [tranche-AB notes](cases/tapenade-set01/README.md#tranche-ab-todof90-references-v385-v402-v412-v413-v414-and-v415).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,324 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside ninety-nine set01 evidence rows and nine additional
+  reproducible evidence. There are 1,318 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside 105 set01 evidence rows and nine additional
   evidence cases.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or

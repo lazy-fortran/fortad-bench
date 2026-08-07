@@ -692,6 +692,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "todoF90/REFERENCES/v02",
                 "todoF90/REFERENCES/v100",
                 "todoF90/REFERENCES/v101",
+                "todoF90/REFERENCES/v413",
+                "todoF90/REFERENCES/v414",
+                "todoF90/REFERENCES/v415",
             "nonRegressions/set02/lh150",
             "nonRegressions/set03/ht09",
             "nonRegressions/set04/lh110",
@@ -741,6 +744,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 ("todoF90/REFERENCES/v270", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v322", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v377", "not-run-invalid-upstream-source"),
+                ("todoF90/REFERENCES/v385", "not-run-invalid-upstream-source"),
+                ("todoF90/REFERENCES/v402", "not-run-invalid-upstream-source"),
+                ("todoF90/REFERENCES/v412", "not-run-invalid-upstream-source"),
             ],
         )
         self.assertEqual(len(language_exclusions), 508)
@@ -802,6 +808,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "exact-parser-forward-generated-compile-refusal-reverse-refusal-bounded-forward-reverse-transform-compile-runtime",
                 "exact-parser-transform-strict-compile-forward-reverse-refusal-bounded-forward-reverse-transform-compile-runtime",
                 "exact-parser-forward-reverse-refusal-bounded-forward-reverse-transform-compile-runtime",
+                "expected-refusal-exact-parser-forward-reverse-unsupported-return-statement",
+                "generation-success-strict-compile-refusal-for-parser-forward-reverse",
+                "expected-refusal-exact-parser-forward-reverse-no-output",
             },
         )
         expected_evidence = {
@@ -1108,6 +1117,30 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|FortAD-exact-parser-forward-reverse-refusal|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|compiled-FortAD-bounded-forward-reverse-harness",
                 "dependencies": "the exact routine allocates and deallocates a local rank-one array; the bounded port specializes the normal allocated fixed-size a(2) path and does not claim allocation failure or unallocated-state behavior",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-strict-compile",
+            },
+            "todoF90/REFERENCES/v413": {
+                "entry_point": "f4(t,ss,hr)",
+                "tapenade_options": "-p|-d|-b-root-f4",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-gfortran-compile-of-exact-and-stored-forward-source|fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation|FortAD-exact-parser-forward-reverse-boundary|independent-undefined-local-state-model|upstream-source-sha256-contract",
+                "dependencies": "local mt is read before assignment, so the exact procedure has no defined numerical value",
+                "tapenade_result": "pass-fresh-Tapenade-parser-tangent-reverse-generation-strict-compile-with-undefined-local-warning",
+            },
+            "todoF90/REFERENCES/v414": {
+                "entry_point": "example3.addvector(a,b)",
+                "tapenade_options": "-association-byaddress|-p|-d|-b-root-addvector",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-compiler-for-exact-primal-and-stored-tangent|fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation|FortAD-exact-parser-forward-reverse-generation-and-strict-compilation-boundary|independent-x-component-finite-difference-JVP|independent-x-component-adjoint-identity",
+                "dependencies": "the exact source leaves addvector%y undefined; FortAD lacks the private derived-type context in generated outputs",
+                "tapenade_result": "pass-fresh-Tapenade-parser-tangent-reverse-generation-strict-compile",
+            },
+            "todoF90/REFERENCES/v415": {
+                "entry_point": "calc_force(geom,prop,obj,acc)",
+                "tapenade_options": "-p/-d/-b-root-calc_force|Options",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-compiler|fresh-pinned-Tapenade-generation-and-strict-compile|FortAD-exact-parser-forward-reverse-boundary|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|upstream-source-sha256-contract",
+                "dependencies": "stored program_d is invalid; exact derived types contain allocatable components and FortAD stops before transformation",
+                "tapenade_result": "pass-fresh-Tapenade-parser-tangent-reverse-generation-strict-compile",
             },
             "nonRegressions/set01/lh070": {
                 "entry_point": "top(A,B); F(); port set01_lh070(a,b,x,y,z)",
