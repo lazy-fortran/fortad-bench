@@ -324,3 +324,34 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 See the [`lh007` notes](lh007.md), [`lh009` notes](lh009.md),
 [`lh011` notes](tranche-q-lh011.md), [`lh015` notes](tranche-lh015.md), and
 their corresponding manifests and measurement records.
+
+## Tranche S: `lh020`, `lh021`, `lh024`, `lh025`, `lh026`, and `lh027`
+
+This tranche closes six adjacent fixed-form rows with independent case-local
+runners. `lh020`, `lh025`, and `lh027` provide bounded standard-conforming
+ports whose JVP/VJP checks pass hand, finite-difference, and adjoint oracles;
+their exact sources remain visible where legacy control flow is unsupported.
+`lh021`, `lh024`, and `lh026` record exact-source refusal boundaries while
+their bounded observations still pass independent numerical checks. Every
+case retains strict upstream/reference compilation, fresh pinned Tapenade
+parser/tangent/reverse generation, and machine-readable results:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh020.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  cases/tapenade-set01/lh021/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh024.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh025.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh026.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh027.sh
+```
+
+See the [lh020 manifest](lh020-manifest.toml), [lh021 notes](lh021/notes.md),
+[lh024 manifest](lh024-manifest.toml), [lh025 manifest](tranche-lh025-manifest.toml),
+[lh026 manifest](tranche-lh026-manifest.toml), [lh027 manifest](lh027-manifest.toml),
+and the six linked result records.
