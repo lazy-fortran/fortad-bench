@@ -28,7 +28,7 @@ non-regressions,nonRegressions/set01/lh006,fortran,fixed,"mixed regression cases
 non-regressions,nonRegressions/set01/lh007,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh008,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh009,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
-non-regressions,nonRegressions/set01/lh010,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
+non-regressions,nonRegressions/set01/lh010,fortran,fixed,"mixed regression cases, references, harness, and data",runnable-ported,"toto(x); port set01_lh010(x,total)",none,forward|reverse,strict-compiler|hand|central-difference-sweep|adjoint-identity,none,pass-transform-compile,pass-transform-compile-runtime
 non-regressions,nonRegressions/set01/lh011,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh012,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
 non-regressions,nonRegressions/set01/lh013,fortran,fixed,"mixed regression cases, references, harness, and data",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,not-run,not-run
