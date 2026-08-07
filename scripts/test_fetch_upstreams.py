@@ -815,6 +815,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set05/v061",
             "nonRegressions/set05/v062",
             "nonRegressions/set05/v064",
+            "nonRegressions/set05/v065",
             "nonRegressions/set05/v125",
             "nonRegressions/set05/v137",
             "nonRegressions/set05/v150",
@@ -2504,6 +2505,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "parser|forward|reverse",
                 "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
                 "dependencies": "exact v064 source and stored references compiled unchanged; standards-clean selected value-map extraction of LIB::mppsum_real(ptab); generic caller remains outside derivative closure",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set05/v065": {
+                "entry_point": "LIB::mppsum_real2(ptab,cst,str)",
+                "tapenade_options": "-p/-root-mppsum_real2|-d/-root-mppsum_real2|-b/-root-mppsum_real2",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
+                "dependencies": "exact v065 source and stored references compile unchanged; ptab is the active input and cst is passive in the selected value-map closure; generic caller and mppsum_real3 remain outside",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
             },
         }
