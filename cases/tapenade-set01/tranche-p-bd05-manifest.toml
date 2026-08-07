@@ -1,0 +1,17 @@
+schema_version = 1
+name = "tapenade-set01-tranche-p-bd05"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_source = "nonRegressions/set01/bd05/program.f"
+upstream_entry_point = "head(a,b,c); leaf(a,b,c)"
+ported_entry_point = "set01_bd05(a_in,b_in,c_in) -> c_out"
+runner = "scripts/bench_tapenade_set01_bd05.sh"
+result = "results/tapenade_set01_bd05_validation.txt"
+independent = ["a_in", "b_in", "c_in"]
+dependent = "c_out"
+upstream_options = "none"
+modes = ["forward", "reverse:c_out"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+port_note = "The fixed-form upstream leaves I implicit and mutates A/C in place; the bounded scalar projection declares I, uses an external LEAF, returns the final C objective, and preserves both product loops."
+tapenade_result = "pass-exact-checked-and-fresh-generated-compile"
+fortad_result = "pass-transform-compile-runtime"

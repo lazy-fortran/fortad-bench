@@ -1,0 +1,18 @@
+schema_version = 1
+name = "tapenade-set05-v052"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set05_v052.sh"
+result = "results/tapenade_set05_v052_validation.txt"
+
+[[case]]
+id = "v052"
+upstream_source = "nonRegressions/set05/v052/program.f90"
+stored_references = ["program_p.f90", "program_d.f90"]
+upstream_entry_point = "test(x,i)"
+ported_entry_point = "set05_v052(x,i)"
+independent = ["x"]
+dependent = "y"
+function = "scalar elemental-function composition: 2*x + 2*i"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"

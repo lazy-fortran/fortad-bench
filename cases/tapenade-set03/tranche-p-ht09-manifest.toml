@@ -1,0 +1,18 @@
+schema_version = 1
+name = "tapenade-set03-tranche-p-ht09"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set03_ht09.sh"
+result = "results/tapenade_set03_ht09_validation.txt"
+
+[[case]]
+id = "ht09"
+upstream_source = "nonRegressions/set03/ht09/program.f90"
+stored_references = ["program_b.f90"]
+upstream_entry_point = "fofo(x,y)"
+ported_entry_point = "fofo(x,y)"
+independent = ["x"]
+dependent = "y"
+function = "elementwise square-root absolute value"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable"

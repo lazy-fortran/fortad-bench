@@ -1,0 +1,42 @@
+suite: Tapenade nonRegressions set05 v052
+recorded_utc: 2026-08-07T08:11:18Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
+required_fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_transform_seconds_total: 0.630291
+fortad_transform_seconds_total: 0.00896263
+generated_compile_seconds_total: 0.110719
+upstream_exact_source_compile_statuses:
+upstream-program.status 0
+upstream-program_d.status 0
+upstream-program_p.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict flags
+tapenade_generated_compile_statuses:
+tapenade/forward/v052_d_d.f90.status 0
+tapenade/parser/v052_p_p.f90.status 0
+tapenade/reverse/v052_b_b.f90.status 0
+fortad_transform_compile_statuses:
+forward.status 0
+hand_derivative_v052.status 0
+reverse.status 0
+upstream-program.status 0
+upstream-program_d.status 0
+upstream-program_p.status 0
+v052.status 0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2860
+oracle_status: pass
+source_sha256:
+b5143080ebc1545e8f8be03742f072340f0fcc057cb674bf298dca57d97f4dbb  cases/tapenade-set05/v052.f90
+50449f7d0214bf9d5fa91ff5793d78e09bb40f12a1bf44536b05dc351430e79e  cases/tapenade-set05/hand_derivative_v052.f90
+6001a69071e37f7637ee7f48d57393d5268e53726ac110832c50bfa368bb6423  cases/tapenade-set05/tranche-v052-manifest.toml
+5ac04cfe8fbb50d8ab08fea0323a327ad84d4ef83e9f6c484019d6d7033f6743  cases/tapenade-set05/tranche-v052.md
+5984b515433a4697ec3c6e6aaa34fe82c22b9d2226f1dcfecb24bc8e01b876d7  harness/bench_tapenade_set05_v052.f90
+8a159551d3cf7781099365f76116bdd5f48167ba82883026e57b1b610d9420f1  scripts/bench_tapenade_set05_v052.sh
+run_output:
+oracle_status: pass

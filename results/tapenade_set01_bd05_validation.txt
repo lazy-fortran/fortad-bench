@@ -1,0 +1,41 @@
+suite: Tapenade nonRegressions set01 tranche P (bd05)
+recorded_utc: 2026-08-07T08:19:51Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_transform_seconds_total: 0.664307
+fortad_transform_seconds_total: 0.0118313
+generated_compile_seconds_total: 0.177302
+upstream_exact_source_compile_statuses:
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade/forward/bd05_d_d.f.status 0
+tapenade/parser/bd05_p_p.f.status 0
+tapenade/reverse/bd05_b_b.f.status 0
+fortad_transform_compile_statuses:
+bd05.status 0
+bd05_forward.status 0
+bd05_reverse.status 0
+hand_derivative_bd05.status 0
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity with preserved reverse seed
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2916
+oracle_status: pass
+source_sha256:
+1e671940f8d72102377af98d4c90feb86d39edc31598923a220f436b649ba5c7  cases/tapenade-set01/bd05.f90
+e52345063110594b941b19a8e1d412adc3a8126f01e5d8a71c8436add4537356  cases/tapenade-set01/hand_derivative_bd05.f90
+f71d4e8b7eb3a8bfcb76e035f597301b457a8d60fe43989c7afa5a57dfc6a4e9  cases/tapenade-set01/tranche-p-bd05-manifest.toml
+ac9db1fa10e412a0c871016e3cf309148deb40b2ac96a6265e976fc7498f9227  harness/bench_tapenade_set01_bd05.f90
+68c8155315e3f399a8db64b20ba174f6ea8e9e4eebd8f45824d0de0c5e20e5cb  scripts/bench_tapenade_set01_bd05.sh
+run_output:
+oracle_status: pass
