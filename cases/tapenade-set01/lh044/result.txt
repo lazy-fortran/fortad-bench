@@ -1,0 +1,58 @@
+case: Tapenade nonRegressions set01 lh044
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T10:10:40Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only -I /var/tmp/tapenade-set01-lh044.0TwEnh/include
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: temporary clean clone pinned to required commit
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_program.f_strict_compile: expected-refusal status=1 diagnostic=FX1-intrinsic-dummy
+upstream_program_p.f_strict_compile: expected-refusal status=1 diagnostic=FX1-intrinsic-dummy
+upstream_program_d.f_strict_compile: expected-refusal status=1 diagnostic=FX1-intrinsic-dummy
+upstream_program_b.f_strict_compile: expected-refusal status=1 diagnostic=FX1-intrinsic-dummy
+upstream_program_dv.f_strict_compile: expected-refusal status=1 diagnostic=FX1-intrinsic-dummy
+stored_diagnostics: program_p.msg program_d.msg program_b.msg program_dv.msg retained
+source_harness: expected-refusal diagnostic=FX1-intrinsic-dummy
+tapenade_fresh_generation_seconds: 0.647755
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=expected-refusal tangent=expected-refusal reverse=expected-refusal
+tapenade_generated_diagnostic: DUMMY attribute conflicts with INTRINSIC attribute
+fortad_transform_seconds: 0.011573
+fortad_forward: expected-refusal status=1 at line 5
+fortad_reverse: expected-refusal status=1 at line 5
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: strict compiler rejection identity for exact and stored sources; no numerical semantics-preserving port
+oracle_program.f: expected-refusal status=1 FX1-intrinsic-dummy
+oracle_program_p.f: expected-refusal status=1 FX1-intrinsic-dummy
+oracle_program_d.f: expected-refusal status=1 FX1-intrinsic-dummy
+oracle_program_b.f: expected-refusal status=1 FX1-intrinsic-dummy
+oracle_program_dv.f: expected-refusal status=1 FX1-intrinsic-dummy
+oracle_status: pass
+closure: no standard-conforming port or support claim; repairing FX1 or unresolved callbacks would invent upstream semantics
+upstream_sha256:
+6e4128667c701b305b6f86d336812200a0c891565930a1f86fdc2d0256fa69ce  program.f
+affda9635148f33a2dbc4b8013b6fa6ef15d0cbe7096936c8c8c7a31bd85f9a1  program_p.f
+8a1fae2ccf90770f377eea3bbbe1b43c52ec4d72a2b48d094b9530380a7ddea9  program_d.f
+7183c41fcc1c0ce1a4ebe7a16c726af64ee448d7af9e0c062b36cd5d3bf4aadb  program_b.f
+bf2dcdaf664004ec177292522010eed281a11c41774d7386a6c287661fcb8806  program_dv.f
+b5d65e90c2b26b2c6bb174f52c9d9ef356732e0fcd1bb727c5d6ba8366b56e93  program_p.msg
+11b1c6c968cfc680d68f33cbe9203c4df4b2b83c3810df7fb8cb6ed55fb228aa  program_d.msg
+11b1c6c968cfc680d68f33cbe9203c4df4b2b83c3810df7fb8cb6ed55fb228aa  program_b.msg
+2fabb79a571816b942a6fb0486173ac1b9c1296bab368f928ccea8841635b8ce  program_dv.msg
+fresh_tapenade_sha256:
+abe6bf490f45d018ec6ba65d0e3311bf58b2f598308096a830b45bfd056542f1  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/parser/lh044_p.f
+b5d65e90c2b26b2c6bb174f52c9d9ef356732e0fcd1bb727c5d6ba8366b56e93  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/parser/lh044_p.msg
+61ede544392e00c1c07b19cea6a91681ece38d9e14e3f74a36b4336b5c45e892  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/forward/lh044_d.f
+2c1a08be7cd452c1ee5f713be9bbd682f8f77271e5d798098caa1d96b001665d  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/forward/lh044_d.msg
+11c0426fce2395f6215f6578db850afc28fbd11dc2b4511738a9e44bfe7b3fc7  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/reverse/lh044_b.f
+2c1a08be7cd452c1ee5f713be9bbd682f8f77271e5d798098caa1d96b001665d  /var/tmp/tapenade-set01-lh044.0TwEnh/tapenade/reverse/lh044_b.msg
+case_artifact_sha256:
+6d53a6bf37b6fe91791d39bbe943754a0451fca9c15f156cd4daa5e02f311c64  cases/tapenade-set01/lh044/manifest.toml
+be9006835b9d4e7ed03fa886de0921ff38fa099bdc3176ed76329200d4ad280a  cases/tapenade-set01/lh044/notes.md
+2456ad6cda346642981ee0e9fb0efb46bc75864e7b64d47e5b332e015dc86994  cases/tapenade-set01/lh044/oracle.py
+5f498c0fa83eee74023ecbe76f2d126b2e7ab0b90c07a63ce513f7f8280aa006  cases/tapenade-set01/lh044/harness.f
+5b851e2c117c29c15896e7c0968cacc6480b34fdce954791288ac23b36ba819c  cases/tapenade-set01/lh044/run.sh
+bd48153cfc817145055cb2d68d9a357961b9b8114ab95a999c54dcf7055b1eae  cases/tapenade-set01/lh044/test_contract.py

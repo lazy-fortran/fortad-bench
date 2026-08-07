@@ -387,3 +387,29 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 See the case manifests and result records under `cases/tapenade-set01/lh029/`
 through `lh036/` and `results/tapenade_set01_lh029_validation.txt` through
 `results/tapenade_set01_lh034_validation.txt`.
+
+## Tranche U: `lh037`, `lh038`, `lh041`, `lh042`, `lh044`, and `lh045`
+
+This tranche closes six more fixed-form rows with exact-source and fresh
+Tapenade evidence. `lh037`, `lh042`, and `lh044` are invalid-upstream
+closures: deleted assigned `GOTO`, declaration/kind conflicts, missing
+includes, and an `INTRINSIC`/dummy conflict make repaired numerical ports
+semantically unsafe. `lh038`, `lh041`, and `lh045` retain exact FortAD
+refusals while bounded forward paths pass independent hand, finite-difference,
+and adjoint checks; their bounded reverse compile boundaries remain recorded.
+Every case has a pinned runner and a 3-test contract oracle.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh037/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh038/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh041/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh042/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh044/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh045/run.sh
+```
+
+See the case manifests, result records, and independent contract tests under
+`cases/tapenade-set01/lh037/`, `lh038/`, `lh041/`, `lh042/`, `lh044/`, and
+`lh045/`.

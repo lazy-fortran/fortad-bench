@@ -1,0 +1,67 @@
+case: Tapenade nonRegressions set01 lh041
+classification: runnable-ported-with-exact-source-fortad-refusal
+recorded_utc: 2026-08-07T10:09:15Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.072412
+upstream_program.f_strict_compile: pass status=0
+upstream_program_d.f_strict_compile: pass status=0
+upstream_program_b.f_strict_compile: pass status=0
+upstream_program_dv.f_strict_compile: expected-refusal status=1 missing DIFFSIZES.inc
+upstream_program_p.f_strict_compile: pass status=0
+stored_references: program_d.f program_b.f program_dv.f program_p.f and message files present
+tapenade_generation_seconds: 0.763586
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_parser_strict_compile: pass status=0
+tapenade_forward_strict_compile: pass status=0
+tapenade_reverse_strict_compile: pass status=0
+fortad_exact_forward: expected-refusal status=1
+fortad_exact_reverse: expected-refusal status=1
+fortad_exact_diagnostic: fortad: parse failed: ERROR at line 18, column 7: internal: could not locate the end of this do construct; refusing to drop the statements that follow
+fortad_port_transform_seconds: 0.010868
+fortad_port_forward: pass-transform-compile-runtime status=0
+fortad_port_reverse: expected-refusal status=1
+fortad_port_reverse_diagnostic: fortad: reverse mode: 'x' is both read and written in the same loop; that needs per-iteration storage
+fortad_port_compile_statuses: port=0 generated_forward=0 harness=0
+compile_link_seconds: 0.127653
+independent_oracle: hand dual-number JVP, central-difference sweep, and adjoint identity
+oracle_status: pass
+primal: 5.6699999999999999e+00
+hand_jvp: -6.8999999999999978e-02
+finite_difference: -6.8999999980334792e-02
+fd_error: 1.9665186146156088e-11
+adjoint_identity_residual: 0.0000000000000000e+00
+source: /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set01/lh041/oracle.py
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3216
+compiled_harness_output:
+oracle_status: pass
+primal:   5.6699999999999999E+00
+jvp:  -6.8999999999999978E-02
+fd_error:   1.9665186146156088E-11
+source_sha256:
+bc93fc168075dcd95c5cbe28bdd3510ceea22cf1b77ccd00a047ef5f0d87f3d4  nonRegressions/set01/lh041/program.f
+cc80a76d78b9b177172c2a4672aa854825df895f89c090403df138342bf78db2  nonRegressions/set01/lh041/program_d.f
+b3216e09d8d2343b9052a060338e9c1f823b9d6da5760f53f889db4a353d1df7  nonRegressions/set01/lh041/program_b.f
+13706705f0cb002181ea667a5bf08a59f54b0ff686338f485e0fdcd0fce3da7a  nonRegressions/set01/lh041/program_dv.f
+e5c8bf040e2c1702074215392cf0dc2ce0975574bbe0c43fc0d226706eff0fc3  nonRegressions/set01/lh041/program_p.f
+84ea79712daf76a06d3d514c865c91ba41447a79888469a5dc517ac51c79a8be  nonRegressions/set01/lh041/program_d.msg
+84ea79712daf76a06d3d514c865c91ba41447a79888469a5dc517ac51c79a8be  nonRegressions/set01/lh041/program_b.msg
+da27216a8a1653e20bdca87d008f7f27ab035bd1a4c3241a50be6a1e55781798  nonRegressions/set01/lh041/program_dv.msg
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/lh041/program_p.msg
+case_artifact_sha256:
+6591f8ffc42ce5f04f25f571d596a9471a0d29cbaaed2062fff5bcdb328b37ee  cases/tapenade-set01/lh041/manifest.toml
+9306f39b4110ac26dc9e9a0581f4f481060c5201906f5ef5b0d9a66a5b1e44f2  cases/tapenade-set01/lh041/notes.md
+a2e276a18e11cced40a953141443aef95f3a33a65d5fbb72f610175922e5b22b  cases/tapenade-set01/lh041/port.f90
+65964c34522318573020127864b1b5aad0b5eb851c4c75742729030c86446678  cases/tapenade-set01/lh041/oracle.py
+acf47b418f462857aa60ded574305235c568d1bf2940810913e3d443ec01ace0  cases/tapenade-set01/lh041/run.sh
+d8d0b6e95927e4c3f057fd8c6fdc16699007e571084fd66bba21fc6617db6b3a  cases/tapenade-set01/lh041/test_contract.py
+1b528dfc44c476745ac966e9a7bf484ebc9c6b0fff66a51dd77c52c12dcca6a9  harness/bench_tapenade_set01_lh041.f90

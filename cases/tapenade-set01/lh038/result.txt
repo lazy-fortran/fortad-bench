@@ -1,0 +1,67 @@
+case: Tapenade nonRegressions set01 lh038
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T10:10:48Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+strict_free_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: temporary clean clone pinned to required commit
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: top(x); bounded_port: set01_lh038(pi,x); indep: pi,x; dep: x
+commands:
+exact_compile: gfortran -std=f2018 -pedantic-errors -ffixed-line-length-none -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh038 -I/var/tmp/tapenade-set01-lh038.vus8AS/include -c <each of program.f program_p.f program_d.f program_b.f program_dv.f>
+fresh_parser: tapenade -p -root top -o lh038 program.f
+fresh_tangent: tapenade -d -root top -o lh038 program.f
+fresh_reverse: tapenade -b -root top -o lh038 program.f
+upstream_strict_compile_seconds: 0.064664
+upstream_exact_source_compile: pass
+upstream_stored_references_strict_compile: program_p.f=pass program_d.f=pass program_b.f=pass program_dv.f=pass
+tapenade_fresh_generation_seconds: 0.620648
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=pass tangent=pass reverse=pass
+tapenade_generated_diagnostics: parser=none tangent=none reverse=none
+fortad_exact_probe_seconds: 0.010375
+fortad_exact_result: expected-refusal forward_status=1 reverse_status=1 diagnostic="fortad: unsupported statement at line 3 (COMMON /ext/)"
+fortad_port_transform_seconds: 0.008527
+fortad_port_result: forward=pass reverse=expected-refusal-generated-compile
+fortad_port_forward_status: 0
+fortad_port_reverse_generation_status: 0
+fortad_port_reverse_compile_status: 1
+fortad_port_reverse_diagnostic: Duplicate symbol x_b in formal argument list
+independent_oracle: hand closed form, central finite differences, and adjoint identity
+oracle_status: pass
+fd_errors: 1.137979e-14 6.991629e-13 6.406264e-12 4.688444e-11 5.617729e-14 1.449951e-13 1.449951e-13 9.026668e-12
+adjoint_residual: 0.000000e+00
+oracle_status: pass
+oracle_status: pass
+upstream_sha256:
+b6adf68eb83ca1bcfa0b0771e6f47bb23738438cf36aa6dd938564db5405b79f  program.f
+e0ae3673f49aa146c9cbc29666b694e841985cf644153304c4631ebab9de4ada  program_p.f
+864149d37014ce3faaf281e57b59a1e9e551fb1e191de9fc686872ec9afede26  program_d.f
+ffb6dede45a3ba38aa2f648815d7057d1c8d9d9df20014ad695d8fa7fd6dfd93  program_b.f
+71ac04f20e5e46923656d2ca94151dc6cb12549e5776d613c710b7b8fd242b8b  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_d.msg
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_b.msg
+8c5da34659b672ee66913364b516d2759b66ec94f3c8e84e15757a3590df416d  program_dv.msg
+fresh_generated_sha256:
+18c11a83839059ea209614cd470d0fd0632b204e69879c8109c116466cd61fac  lh038_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh038_p.msg
+492d9541e1927ce23d8da5da66a4d66e79e52921b053eed490db2fac96f8cacd  lh038_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh038_d.msg
+7b8db6a539af9cd6aceefbb2e2ac97747bc30fda9abc2afedc03992b1f897f62  lh038_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh038_b.msg
+case_artifact_sha256:
+fa1a604d2724fe0cfd51786e48125fc1ccc453058334ef4341097564f6772cbd  cases/tapenade-set01/lh038/manifest.toml
+907305cf25c0be5cb413946f3d41fe894f6dc414872213e12a7a4bb7de3a8ed9  cases/tapenade-set01/lh038/notes.md
+a3e2237c426cb6c9e71909680d6a3e5ef1f1a7ccb017efd08bee8f9470feb4c9  cases/tapenade-set01/lh038/port.f90
+f97ec9bdf81048c5d77c339cde7eda9f53991c7aa760c097ca9921b1c0ba045e  cases/tapenade-set01/lh038/hand.f90
+f89dbdf1c55e0a477e56da6f72bd9d063a47cb49b7d1c0e682a546f7088a6c9b  cases/tapenade-set01/lh038/harness.f90
+373a49c210a024c10869e5f39bf31e6f6514d992989ae0daf5f070e59fe2f680  cases/tapenade-set01/lh038/oracle.py
+121ff3a10b00a2bdc820bc73bb9b3e17f23874d6d951015b35de25062793f77d  cases/tapenade-set01/lh038/run.sh
+1fbda19f77b8e808ad613720630a93019b5a9d11a711f088609eb02d266ae577  cases/tapenade-set01/lh038/test_contract.py

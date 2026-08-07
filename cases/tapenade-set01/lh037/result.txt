@@ -1,0 +1,62 @@
+case: Tapenade nonRegressions set01 lh037
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T10:08:16Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: supplied checkout clean and pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.035494
+upstream_exact_strict_compile: expected-refusal program=1 program_b=1 program_d=1 program_dv=1 program_p=1
+upstream_stored_reference_strict_compile: program_p=1 program_d=1 program_b=1 program_dv=1
+upstream_diagnostic_contract: ASSIGN deleted; REAL*8 nonstandard; program_dv missing DIFFSIZES.inc
+tapenade_fresh_generation_seconds: 0.636773
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=expected-refusal tangent=expected-refusal reverse=expected-refusal
+fortad_exact_probe_seconds: 0.010098
+fortad_exact_result: expected-refusal forward_status=1 reverse_status=1 diagnostic="fortad: unsupported statement at line 8 (assigned GOTO)"
+fortad_port_transform_seconds: 0.012738
+fortad_port_result: pass-transform-compile-runtime
+fortad_port_modes: forward=pass reverse=a,b,c=pass
+port_precondition: b-c>8 before entry; nonterminating alternate path is intentionally outside the bounded port
+port_compile_seconds: 0.115869
+independent_oracle: closed-form JVP/VJP, central finite differences, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2912
+oracle_status: pass
+oracle_program.f: expected-refusal status=1 diagnostic=Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_b.f: expected-refusal status=1 diagnostic=Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f: expected-refusal status=1 diagnostic=Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_p.f: expected-refusal status=1 diagnostic=Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_dv.f: expected-refusal status=1 diagnostic=Fatal Error: Cannot open included file ‘DIFFSIZES.inc’
+numeric_hand_jvp: pass
+numeric_hand_vjp: pass
+finite_difference: pass
+adjoint_identity: pass
+oracle_status: pass
+oracle_status: pass
+source_sha256:
+996c18c40570f6c738804a57e450b575e850f2ea96ddc22c07952ad35afa65fa  program.f
+35bd9014dae90874e19179015ee4f9bc550b681ae10976bb7eaf4d7c0b84c716  program_p.f
+a307caf3bdb59b3553d2b014a4f92cfca851ff13e42297ced862104fbae7498b  program_d.f
+a344854fb8025e30f3a727cd3323064215e51c9be2557d34ac919942375fbcc3  program_b.f
+8655ca0451b7292b96d7b24584de7bda2f6baafe5e018c04fdc90d0029b59d54  program_dv.f
+c6e0bfcc0539cafa6e66c12326d173da121e4578ceae518e24ee172fa2d088c7  program_p.msg
+19dedd13976b43101a26fe0aae5f0832be40828fcc16cad5335cbdf6a7e52b94  program_d.msg
+387f829b186a8955517db9541b23e265571d4dc527b3add7f33ccf7d3b7a0fa7  program_dv.msg
+19dedd13976b43101a26fe0aae5f0832be40828fcc16cad5335cbdf6a7e52b94  program_b.msg
+case_artifact_sha256:
+1c1bafdcd47b5b0a3af0ed61d16f071edbebe45b20a1b13e2e167d9598386032  cases/tapenade-set01/lh037/manifest.toml
+4d6fd8348cb9fbe327ff82c60f422977fc3a26c15f1b6cf0d8d2ec6670ee09b0  cases/tapenade-set01/lh037/notes.md
+fb091729c945e086b6f9d74c60b0a7b91ab85a7e5b54d8081428f7866f5a844b  cases/tapenade-set01/lh037/port.f90
+f6c715c8f61ca9662fdfca7754681fe1403e186633d4e166b129bfba292fa8d4  cases/tapenade-set01/lh037/hand.f90
+30714fa0444f42b04bf8e23765c488a668c663b0edef40246eb8bd892a93a9e8  cases/tapenade-set01/lh037/harness.f90
+61dd83859f6a3dfa4946cc791a8ecd2113c61d7dc9cd68004bcf77a9606be78a  cases/tapenade-set01/lh037/oracle.py
+781f2de00815526a3f7019b719d085e9e8f1cca8d16150434789ab8824fb48da  cases/tapenade-set01/lh037/run.sh
+9bc2716b954da532a203f725de854682df3e4e88f1240908064b089922014400  cases/tapenade-set01/lh037/test_contract.py

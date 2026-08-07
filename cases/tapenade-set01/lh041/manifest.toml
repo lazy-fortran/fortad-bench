@@ -1,0 +1,30 @@
+schema_version = 1
+name = "tapenade-set01-lh041"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh041/run.sh"
+result = "cases/tapenade-set01/lh041/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh041/program.f",
+    "nonRegressions/set01/lh041/program_d.f",
+    "nonRegressions/set01/lh041/program_b.f",
+    "nonRegressions/set01/lh041/program_dv.f",
+    "nonRegressions/set01/lh041/program_p.f",
+]
+stored_references = ["program_d.msg", "program_b.msg", "program_dv.msg", "program_p.msg"]
+upstream_entry_point = "adj10(tab,q)"
+ported_entry_point = "set01_lh041(a,b,q,result)"
+independent = ["a", "b", "q"]
+dependent = ["result"]
+function = "fixed-form COMMON state, nested loops, in-place arrays, and a multidirectional include dependency"
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["independent-hand-JVP", "central-difference", "adjoint-identity"]
+classification = "runnable-ported-with-exact-source-fortad-refusal"
+expected_diagnostics = [
+    "FortAD exact source: could not locate the end of this do construct at line 18",
+    "FortAD bounded reverse: x is both read and written in the same loop; that needs per-iteration storage",
+]
+closure = "The exact source is preserved unchanged. The bounded port makes COMMON and fixed-form labeled loops explicit and keeps the nested loop arithmetic; it is not an exact-source support claim."

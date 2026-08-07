@@ -1,0 +1,82 @@
+case: Tapenade nonRegressions set01 lh042
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T10:07:36Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh042 -J/var/tmp/tapenade-set01-lh042.yHH5Mt/mod
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: decls1(t1,t2,t3,n,m,t4,t5)
+tapenade_options: parser=-p forward=-d/-root decls1 reverse=-b/-root decls1 multidirectional=-d/-root decls1/-multi
+upstream_exact_source_strict_compile: expected-refusal
+upstream_program.f_strict_compile: expected-refusal status=1
+upstream_program_d.f_strict_compile: expected-refusal status=1
+upstream_program_b.f_strict_compile: expected-refusal status=1
+upstream_program_dv.f_strict_compile: expected-refusal status=1
+upstream_program_p.f_strict_compile: expected-refusal status=1
+stored_references: Options program_d.f/.msg program_b.f/.msg program_dv.f/.msg program_p.f/.msg
+tapenade_generation_seconds_total: 2.523967
+tapenade_generation: parser=pass forward=pass reverse=pass multidirectional=pass
+tapenade_fresh_strict_compile: parser=expected-refusal forward=expected-refusal reverse=expected-refusal multidirectional=expected-refusal
+tapenade_parser_strict_compile: expected-refusal status=1
+tapenade_forward_strict_compile: expected-refusal status=1
+tapenade_reverse_strict_compile: expected-refusal status=1
+tapenade_vector_strict_compile: expected-refusal status=1
+fortad_transform_seconds_total: 0.023418
+fortad_forward: expected-refusal parse declaration-order line 10 status=1
+fortad_reverse: expected-refusal parse declaration-order line 10 status=1
+fortad_generated_compile: not-applicable-no-output-on-parse-refusal
+independent_oracle: strict compiler diagnostic identity; no numerical oracle because the upstream source is invalid
+oracle_program.f: expected-refusal status=1 diagnostics=IMPLICIT statement,Nonstandard type declaration,EQUIVALENCE attribute conflicts with DUMMY attribute
+oracle_program.f_diagnostic: Error: IMPLICIT statement at (1) cannot follow attribute declaration statement at (2)
+oracle_program.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*8 at (1)
+oracle_program.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*16 at (1)
+oracle_program_d.f: expected-refusal status=1 diagnostics=Nonstandard type declaration,EQUIVALENCE attribute conflicts with DUMMY attribute
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*8 at (1)
+oracle_program_d.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*16 at (1)
+oracle_program_b.f: expected-refusal status=1 diagnostics=Nonstandard type declaration,EQUIVALENCE attribute conflicts with DUMMY attribute
+oracle_program_b.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_b.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_b.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*8 at (1)
+oracle_program_b.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*16 at (1)
+oracle_program_dv.f: expected-refusal status=1 diagnostics=Cannot open included file
+oracle_program_dv.f_diagnostic: Fatal Error: Cannot open included file ‘DIFFSIZES.inc’
+oracle_program_p.f: expected-refusal status=1 diagnostics=Nonstandard type declaration,EQUIVALENCE attribute conflicts with DUMMY attribute
+oracle_program_p.f_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+oracle_program_p.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*8 at (1)
+oracle_program_p.f_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*16 at (1)
+oracle_program_p.f_diagnostic: Error: EQUIVALENCE attribute conflicts with DUMMY attribute in ‘t5’ at (1)
+oracle_status: pass
+closure: no standard-conforming port or support claim; repairing declarations or the absent include would invent upstream semantics
+upstream_sha256:
+5baa95dd287b0d7b14a8b4146031ece3306cab12ed698bd7c1825fa010570e94  Options
+78aeb786e42b362eb89ba7623227b4953f23117f7d34dc92f966f74068532490  program.f
+943b9180934338c409e4e721895d4f3a33c08ed7b05543200c969be4e8f3be19  program_d.f
+a04e02520a2c0a6671e3577d4382597f2f67f48d4225cdcdc896fc96b414399b  program_d.msg
+7a9b1c9194c57209dcc1205f75fe10f6ad3bf0d857d4518a5ddaa1a04c18f26b  program_b.f
+a04e02520a2c0a6671e3577d4382597f2f67f48d4225cdcdc896fc96b414399b  program_b.msg
+8194f2a1227b05eb064fbb0e53ce83265ecf10d7d7a45f115a86de061507fe57  program_dv.f
+2cd4b27c4ed51fd6504ae5c49c9f0f30ceaf370a30ea660fd4af94c19ec33c4f  program_dv.msg
+23e97daaec741c93b02275c7ebacac35f9b2f8534c6225f1b64a3dd0488771d9  program_p.f
+760efc683b815a4a0499ae3f30bd28d94fe7b4b0350968a252ae7e69b8bd5b03  program_p.msg
+tapenade_generated_sha256:
+a20e16da2bffb9cbfa683710d01a96d2fb3a23df83bc70384ef91502856a4643  lh042_p_p.f
+760efc683b815a4a0499ae3f30bd28d94fe7b4b0350968a252ae7e69b8bd5b03  lh042_p_p.msg
+336433f84650d2d5c5b92dcedffceed67ce8e35e549b7f521681eba3dbc75a4e  lh042_d_d.f
+760efc683b815a4a0499ae3f30bd28d94fe7b4b0350968a252ae7e69b8bd5b03  lh042_d_d.msg
+6f64593a8d4414e99519a61746edf227ae979f684af7f03ac6b305a21652899f  lh042_b_b.f
+760efc683b815a4a0499ae3f30bd28d94fe7b4b0350968a252ae7e69b8bd5b03  lh042_b_b.msg
+9e877e728cf7b878f192e5a209406a0fcaeaec6025b8e9edd46a29b19dd2029a  lh042_dv_dv.f
+b09a8e3fa65434469db3f68a52b8cf89a0aadb23c60a26a52e41801ddd1ae098  lh042_dv_dv.msg
+case_artifact_sha256:
+55f8431aa3c3db0edd8aee8211f91061053fe18e8b4745672e91e0d50570e639  cases/tapenade-set01/lh042/manifest.toml
+9ffed60f6777b4a2618b168fdb9862edb05f62e51ac07c52a8067b6b90584a6a  cases/tapenade-set01/lh042/notes.md
+cfd5bbaff3b116faa2b8ed7babc08e5b05ca322992126bbf880f32d18e260c87  cases/tapenade-set01/lh042/oracle.py
+1be3cbfaa7634768cdce2f95a3773979b9eba70ffb9a5e9311014702f9698e0c  cases/tapenade-set01/lh042/run.sh
+58d3554dc63aca88faa6c5fbb155c7338df1da82bc24afecbee18c74cab45eda  cases/tapenade-set01/lh042/test_contract.py

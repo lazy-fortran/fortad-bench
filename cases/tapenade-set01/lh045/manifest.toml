@@ -1,0 +1,29 @@
+schema_version = 1
+name = "tapenade-set01-lh045"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh045/run.sh"
+result = "cases/tapenade-set01/lh045/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh045/program.f",
+    "nonRegressions/set01/lh045/program_d.f",
+    "nonRegressions/set01/lh045/program_b.f",
+]
+stored_references = ["program_d.f", "program_b.f", "program_d.msg", "program_b.msg"]
+upstream_entry_point = "S1(x,i1,y,i2,z)"
+ported_entry_point = "set01_lh045(x,y,w4,v2,x_out,z,w4_out)"
+independent = ["x", "y", "w4", "v2"]
+dependent = ["x_out", "z", "w4_out"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact procedure uses hidden COMMON /c1/ and /c2/ state and mutates it across S2/S3; the bounded port makes the two relevant initial values explicit."
+expected_diagnostics = [
+    "FortAD refuses exact fixed-form COMMON /c1/ at line 34",
+    "strict compilation rejects exact and fresh reverse output's INTEGER*4 branch extension",
+    "FortAD reverse bounded output contains invalid 0.0_kind=8 literals",
+]
+closure = "Exact source support is not claimed. The bounded port preserves the S1/S2/S3 arithmetic and branch while exposing hidden state; its forward transform passes the independent numerical oracle, while current FortAD reverse output remains an explicit code-generation refusal."

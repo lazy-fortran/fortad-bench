@@ -1,0 +1,44 @@
+schema_version = 1
+name = "tapenade-set01-lh042-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh042/run.sh"
+result = "cases/tapenade-set01/lh042/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh042/program.f",
+    "nonRegressions/set01/lh042/program_d.f",
+    "nonRegressions/set01/lh042/program_b.f",
+    "nonRegressions/set01/lh042/program_dv.f",
+    "nonRegressions/set01/lh042/program_p.f",
+]
+stored_references = [
+    "Options",
+    "program_d.f",
+    "program_d.msg",
+    "program_b.f",
+    "program_b.msg",
+    "program_dv.f",
+    "program_dv.msg",
+    "program_p.f",
+    "program_p.msg",
+]
+upstream_entry_point = "decls1(t1,t2,t3,n,m,t4,t5)"
+ported_entry_point = "not-applicable (invalid upstream source)"
+independent = ["t1", "t2", "t3", "t4", "t5"]
+dependent = ["t1", "t4"]
+function = "declaration stress case with COMMON, EQUIVALENCE, derived-type arrays, and nonstandard kind syntax"
+options = ["-p", "-d -root decls1", "-b -root decls1", "-d -root decls1 -multi"]
+modes = ["parser", "forward", "reverse", "multidirectional"]
+oracle = ["strict-compiler-diagnostic-identity", "fresh-pinned-Tapenade-generation", "FortAD-diagnostic"]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects declaration order, INTEGER*8/INTEGER*16/REAL*8, and dummy/EQUIVALENCE conflicts",
+    "stored program_dv.f additionally requires missing DIFFSIZES.inc",
+    "fresh parser, tangent, reverse, and multidirectional outputs all fail strict compilation",
+    "FortAD refuses the exact primal at line 10 before transformation",
+]
+closure = "The exact corpus source is not a valid strict Fortran program and its stored multidirectional reference has an absent include. Repairing declaration order, kinds, dummy aliasing, or missing include semantics would invent the upstream case, so no numerical port or support claim is justified."
+diffsizes_include = "not-present"

@@ -1,0 +1,37 @@
+schema_version = 1
+name = "tapenade-set01-lh044-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh044/run.sh"
+result = "cases/tapenade-set01/lh044/result.txt"
+source_harness = "cases/tapenade-set01/lh044/harness.f"
+
+upstream_sources = [
+    "nonRegressions/set01/lh044/program.f",
+    "nonRegressions/set01/lh044/program_p.f",
+    "nonRegressions/set01/lh044/program_d.f",
+    "nonRegressions/set01/lh044/program_b.f",
+    "nonRegressions/set01/lh044/program_dv.f",
+]
+stored_references = [
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "invert(FX0,FX1,X,A0,B0,N,FX2,FX3)"
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["A0", "B0"]
+dependent = ["INVERT"]
+function = "fixed-form bisection with an intrinsic/dummy declaration conflict and unresolved callbacks"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler-diagnostic-identity", "fresh-Tapenade-generation", "FortAD-diagnostic"]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "gfortran rejects FX1 because the dummy and INTRINSIC attributes conflict",
+    "fresh Tapenade parser, tangent, and reverse outputs retain that conflict",
+    "FortAD refuses the exact source at the INTRINSIC statement on line 5",
+]
+closure = "The exact source is not standard-conforming and leaves callback semantics unresolved; repairing FX1 or supplying callback bodies would define a different program, so no numerical port is claimed."

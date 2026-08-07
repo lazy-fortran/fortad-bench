@@ -1,0 +1,22 @@
+schema_version = 1
+name = "tapenade-set01-lh038-bounded-forward-port"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "cases/tapenade-set01/lh038/run.sh"
+result = "cases/tapenade-set01/lh038/result.txt"
+
+[[case]]
+id = "lh038"
+upstream_source = "nonRegressions/set01/lh038/program.f"
+stored_references = ["program_p.f", "program_d.f", "program_b.f", "program_dv.f", "program_p.msg", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "top(x)"
+ported_entry_point = "set01_lh038(pi,x)"
+independent = ["pi", "x"]
+dependent = ["x"]
+function = "fixed-form COMMON state with a conditional call to F1"
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["strict-compiler", "fresh-pinned-Tapenade-generation", "independent-hand-JVP", "central-difference", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+expected_diagnostics = ["FortAD exact source: unsupported statement at line 3 (COMMON /ext/)", "FortAD bounded reverse: duplicate symbol x_b in generated formal argument list"]
+closure = "The exact fixed-form source and all stored references compile strictly, and fresh parser/tangent/reverse outputs compile strictly. FortAD refuses the exact COMMON boundary; an explicit-state free-form port passes forward transformation, compilation, runtime, and independent numerical checks, while generated reverse is recorded as a deterministic compile refusal."
