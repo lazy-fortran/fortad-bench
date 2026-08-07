@@ -306,8 +306,8 @@ because it belongs next to the engines rather than next to the compiler.
   Run `scripts/fetch_upstreams.py --audit-pins` for the offline pin and checkout
   audit. It fails on floating refs, wrong commits, dirty trees, or origin
   mismatches without inventing hashes.
-- **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c` (tree
-  `17288bdf`) contains 10,977 tracked files and 2,014 candidate cases. Run
+- **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c`, with tree
+  `17288bdf`, contains 10,977 tracked files and 2,014 candidate cases. Run
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
@@ -327,6 +327,12 @@ because it belongs next to the engines rather than next to the compiler.
   no-entry-point, program, and procedure candidates without changing their
   `untriaged` status. Include targets are recorded only as dependency-risk
   signals.
+  The compiler-backed [Fortran triage report](docs/corpora/tapenade-fortran-compiler.md)
+  is the next evidence layer: it runs every tracked `.f*` source individually
+  with strict `gfortran -fsyntax-only` flags, records per-file exit status and
+  diagnostic hashes, and keeps include fragments explicit without compiling
+  them as standalone units. `compiled` means compiler acceptance only. It is
+  not a FortAD, Tapenade, runtime, or derivative-support result.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.

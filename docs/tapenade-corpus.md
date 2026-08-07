@@ -115,6 +115,22 @@ declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
 label claims parsing, compilation, transformation, runtime, or correctness.
 
+Run the compiler-backed evidence pass after fetching the pinned checkout:
+
+```bash
+scripts/triage_tapenade_fortran.py --jobs 4
+scripts/triage_tapenade_fortran.py --check
+```
+
+[`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
+and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
+per queued candidate and one status/hash record per tracked Fortran source.
+Fixed/free source forms get strict syntax-only flags and local include roots;
+`.inc`/`.fh` fragments are listed as evidence but not compiled alone. A
+`compiled` status is only compiler acceptance, never a transformation or
+derivative-support claim. Use `--shard-index`/`--shard-count` for independent
+workers and `--merge-input` to produce the same sorted report from shards.
+
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh001`,
 `lh023`, `lh032`, `lh057`, `lh058`, `lh068`, `lh088`, and `lh134`. The exact in-place
