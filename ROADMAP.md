@@ -98,8 +98,11 @@ record both, plus complete case build time.
 
 ### itpplasma runtime polymorphism
 
-Forward mode now covers exact `TYPE IS` guards, an intermediate `CLASS IS` guard
-matching a grandchild, and `CLASS DEFAULT`. The factory-created polymorphic
+Forward mode covers exact `TYPE IS` guards, an intermediate `CLASS IS` guard
+matching a grandchild, and `CLASS DEFAULT`. Reverse mode covers the same two
+exact runtime children in the first case. Its VJP is checked against a hand
+adjoint, central differences, and the JVP/VJP adjoint identity. The dynamic
+type remains a fixed, passive choice. The factory-created polymorphic
 allocatable case has an independently checked primal and an explicit
 allocation-lifetime derivative refusal. See the
 [`manifest`](cases/itpplasma/manifest.toml), the first measured
@@ -112,10 +115,9 @@ writes no derivative file. The equivalent explicit `SELECT TYPE` wrapper runs
 and matches hand JVPs. See the paired
 [`record`](results/itpplasma_callback_boundary_validation.txt).
 
-This records a safe refusal, not procedure-pointer support. FortAD has an
-in-tree reverse `SELECT TYPE` implementation and oracle, but this benchmark
-corpus still lacks a measured reverse dispatch case and the broader n-way and
-finite-difference closeout remains open. Deferred type-bound calls, active
+This records a safe refusal, not procedure-pointer support. The first measured
+case now closes two-child reverse `SELECT TYPE` dispatch. Broader n-way and
+switch-boundary coverage remains open. Deferred type-bound calls, active
 model components, arrays of polymorphic objects, procedure-pointer
 differentiation, and alias-aware object lifetimes remain open.
 The separate bounded concrete type-bound-call oracle is implemented in FortAD,
