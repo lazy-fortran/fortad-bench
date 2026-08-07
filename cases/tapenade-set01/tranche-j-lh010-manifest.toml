@@ -1,0 +1,16 @@
+schema_version = 1
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh010.sh"
+
+[[case]]
+id = "lh010"
+upstream_path = "nonRegressions/set01/lh010/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "toto(x)"
+ported_entry_point = "set01_lh010(x,total)"
+independent = ["x"]
+dependent = ["total"]
+domain = "x(i)=0.995+0.0001*i; all entries nonzero"
+oracle = ["closed-form-product-gradient", "central-difference-sweep", "adjoint-identity"]
+license = "MIT"

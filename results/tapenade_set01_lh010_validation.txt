@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions set01 lh010
+recorded_utc: 2026-08-07T05:20:50Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fortad_commit: 1aae732d54d2be5b4da43270cdc10a1a325f9fd3
+required_fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.122237
+upstream_strict_compile_seconds: 0.043638
+tapenade_parser_seconds: 0.175856
+tapenade_forward_seconds: 0.237825
+tapenade_reverse_seconds: 0.230501
+tapenade_generated_compile_seconds: 0.040272
+fortad_forward_seconds: 0.005452
+fortad_reverse_seconds: 0.006340
+fortad_generated_compile_and_link_seconds: 0.191792
+tapenade_forward_source_bytes: 695
+tapenade_reverse_source_bytes: 678
+fortad_forward_source_bytes: 1085
+fortad_reverse_source_bytes: 2276
+runtime_wall_seconds=0.09
+runtime_peak_rss_kb=3432
+upstream_compiler_oracle: exact primal and stored tangent/adjoint references compile with -std=f2018 -pedantic-errors
+tapenade_oracle: fresh parser, tangent, and adjoint outputs compile with strict Fortran flags
+oracle: independent closed-form product gradient, four-step central differences, and the JVP/VJP adjoint identity
+runtime_method: Fortran system_clock over 200000 calls per mode; /usr/bin/time %e and %M wrap the executable
+source_sha256:
+35f654a20b30769b59b56bede140a1e7620b7da4013d24b9dcf0900337c0b584  cases/tapenade-set01/lh010.f90
+ce3832d0caa3e2092fb98cdff20ef5a2749759e2dbfc04f813de01af4a73787a  cases/tapenade-set01/hand_derivatives_lh010.f90
+76fd8cb1986104a71677bc91583247f185ec6ff5e55987b9cd5852065005e7b2  cases/tapenade-set01/tranche-j-lh010-manifest.toml
+7bfc626bf6a8de2d4fbbfe2aa25bfcf2d8b42abd362159e2452bceb19019969f  cases/tapenade-set01/tranche-j-lh010.md
+35713ae508563282d395c76bbc4f09df496f08721955c79c996794fd101979b3  harness/bench_tapenade_set01_lh010.f90
+2e399f2b806e10b41895d9757d2915d14222db2d08c3ecaba4570c8704b48aea  scripts/bench_tapenade_set01_lh010.sh
+generated_source_sha256:
+873df02f6605106eccc4bda03f4da96a52d7c94c4eb8bfae7aff2c982611e218  lh010_forward.f90
+e73f979a1bb0a56de0e5b71e99702795a9340952a9e62f16de28dd7e49c6177f  lh010_reverse.f90
+run_output:
+oracle_status: pass
+jvp:  -1.3058722667144322E-02
+fd_errors:   2.9800E-09   7.3205E-11   6.6099E-11   3.3445E-09
+adjoint_residual:   1.2143064331837650E-17
+checksum:   2.0343265036760025E+07
+primal_ns_per_call:   8.0744465000000005E+01
+jvp_ns_per_call:   1.6675319999999999E+02
+vjp_ns_per_call:   2.0944548000000000E+02
