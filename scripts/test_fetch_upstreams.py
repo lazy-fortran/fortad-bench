@@ -622,6 +622,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh068",
             "todoF90/REFERENCES/v420",
             "nonRegressions/set12/f03typf01",
+            "ADFirstAidKit/validityTest.f",
         }
         evidence = [
             row for row in rows
@@ -661,6 +662,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "unsupported-reverse-constant-loop",
                 "unsupported-type-bound-call",
                 "reverse-refused-branch-in-loop",
+                "unsupported-common-block",
             },
         )
         expected_evidence = {
@@ -791,6 +793,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|forward-transform|primal|hand|central-difference-sweep|FortAD-diagnostic",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-reference-not-rerun",
+            },
+            "ADFirstAidKit/validityTest.f": {
+                "entry_point": "validity_domain_real8(t,td)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|interval-state-transitions|FortAD-diagnostic",
+                "dependencies": "none",
+                "tapenade_result": "pass-transform-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
