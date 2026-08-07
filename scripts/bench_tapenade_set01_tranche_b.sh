@@ -120,8 +120,13 @@ if test "$bd06_reverse_status" -eq 0; then
     printf 'FortAD unexpectedly accepted bd06 reverse mode\n' >&2
     exit 1
 fi
-grep -F "this loop accumulates nothing, writes no array element" \
-    "$out/bd06_reverse.stderr" >/dev/null
+bd06_diagnostic=$(grep -F "fortad: reverse mode:" \
+    "$out/bd06_reverse.stderr" | tail -1)
+expected_bd06_diagnostic="fortad: reverse mode: this loop accumulates nothing, writes no array element, and carries nothing across iterations, so its results do not leave the body"
+if test "$bd06_diagnostic" != "$expected_bd06_diagnostic"; then
+    printf 'Unexpected bd06 refusal diagnostic: %s\n' "$bd06_diagnostic" >&2
+    exit 1
+fi
 
 lh057_forward_start=$(date +%s.%N)
 (
@@ -208,7 +213,7 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
         "$bd06_reverse_status"
     printf 'with FortAD one-trip-loop diagnostic; not counted as support\n'
     printf 'lh057_oracle: hand JVP/VJPs, four-step central differences, '
-    printf 'fixed primal outputs, and two adjoint identities\n'
+    printf 'hand-computed primal outputs, and two adjoint identities\n'
     printf 'tapenade_result: stored upstream d/b references inspected; '
     printf 'current Tapenade executable not rerun\n'
     printf 'source_sha256:\n'
@@ -223,8 +228,7 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
     printf 'generated_source_sha256:\n'
     sha256sum "$out/lh057_forward.f90" "$out/lh057_reverse_a.f90" \
         "$out/lh057_reverse_c.f90" | sed "s#$out/##"
-    printf 'bd06_reverse_diagnostic:\n'
-    cat "$out/bd06_reverse.stderr"
+    printf 'bd06_reverse_diagnostic: %s\n' "$bd06_diagnostic"
     printf 'run_output:\n'
     cat "$out/run.txt"
 } >"$result"
