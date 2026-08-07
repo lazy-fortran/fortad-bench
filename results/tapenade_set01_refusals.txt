@@ -1,5 +1,5 @@
 suite: Tapenade set01 exact-source refusal regression
-recorded_utc: 2026-08-07T01:55:14Z
+recorded_utc: 2026-08-07T01:57:27Z
 case: lh066
 upstream_source: nonRegressions/set01/lh066/program.f
 fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
