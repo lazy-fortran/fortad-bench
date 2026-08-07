@@ -356,6 +356,22 @@ because it belongs next to the engines rather than next to the compiler.
   joins those file results with static entry-point hints for every pure-Fortran
   queue row. Its `next_action` values only schedule the next probe. They do not
   change the ledger or claim transformation support.
+  The manifest-aware [source probe](scripts/probe_tapenade_fortad.py) is the
+  next automation layer. A single manifest or case runs pinned Tapenade and
+  FortAD parser/forward/reverse probes, preserves generated source and full
+  stdout/stderr diagnostics, and writes a machine-readable JSON result. Queue
+  mode supports deterministic shards and parallel jobs:
+
+  ```bash
+  scripts/probe_tapenade_fortad.py --manifest cases/tapenade-set01/lh093/manifest.toml
+  scripts/probe_tapenade_fortad.py --queue --shard-count 8 --shard-index 0 \
+    --jobs 4 --result-dir /var/tmp/fortad-tapenade-probes
+  ```
+
+  Static discovery runs only for a single unambiguous source procedure.
+  Ambiguous or program-only rows are recorded without transforming them; an
+  explicit manifest or `--entry-point` is required. Probe output is evidence
+  for triage, not an independent derivative oracle.
   The bounded [known-failure and large-example shard](docs/corpora/tapenade-known-failures.md)
   records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
   `runnable` label is source viability only. Those rows remain untriaged until

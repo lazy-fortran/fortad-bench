@@ -271,6 +271,16 @@ numerical case also gets transformation time, compile time, runtime, peak
 memory, and generated-source size for each applicable engine. Until that work
 is recorded, the row remains `untriaged` with both results set to `not-run`.
 
+The manifest-aware source workflow in
+[`scripts/probe_tapenade_fortad.py`](../scripts/probe_tapenade_fortad.py) turns
+that triage into repeatable parser/forward/reverse probes. It accepts an
+existing case manifest or a queue case, writes generated products and complete
+stdout/stderr diagnostics, and emits JSON records. Queue shards can run in
+parallel. Static discovery refuses zero- or multi-procedure cases rather than
+guessing a root or derivative arguments; these records still need explicit
+case manifests and independent numerical contracts before their ledger status
+changes.
+
 Fortran cases close only after all valid differentiable paths work in FortAD
 and pass an independent oracle. Invalid programs and cases that require an
 unavailable external library get a reproducible classification. C, C++, and
