@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+import sys
 
 import fetch_upstreams
 
@@ -216,6 +217,31 @@ expected_candidate_cases = 1
                 (checkout / "untracked.f90").write_text("end\n")
                 with self.assertRaisesRegex(fetch_upstreams.CorpusError, "checkout is modified"):
                     fetch_upstreams.audit_corpus(entry)
+
+    def test_failed_fetch_discards_a_prior_corpus_inventory(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            generated = root / "docs" / "generated"
+            generated.mkdir(parents=True)
+            stale = generated / "fixture-corpus.md"
+            stale.write_text("stale\n")
+            entry = {
+                "name": "fixture",
+                "url": "https://example.invalid/fixture.git",
+                "ref": "0" * 40,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            argv = ["fetch_upstreams.py", "--corpus", "fixture"]
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", root / "upstream"), \
+                    patch.object(fetch_upstreams, "GENERATED", generated), \
+                    patch.object(fetch_upstreams, "load", return_value=[entry]), \
+                    patch.object(fetch_upstreams, "clone", return_value=False), \
+                    patch.object(fetch_upstreams, "scan_licenses"), \
+                    patch.object(sys, "argv", argv):
+                self.assertEqual(fetch_upstreams.main(), 1)
+            self.assertFalse(stale.exists())
 
 
 if __name__ == "__main__":

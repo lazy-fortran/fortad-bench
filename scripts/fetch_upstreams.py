@@ -355,14 +355,20 @@ def write_corpus_inventory(inventory: dict) -> Path:
     return out
 
 
+def discard_corpus_inventory(entry: dict) -> None:
+    if "corpus_manifest" not in entry:
+        return
+    out = GENERATED / f"{entry['name']}-corpus.md"
+    if out.exists():
+        out.unlink()
+
+
 def scan_corpora(entries: list[dict]) -> list[str]:
     failed = []
     for entry in entries:
         if "corpus_manifest" not in entry:
             continue
-        out = GENERATED / f"{entry['name']}-corpus.md"
-        if out.exists():
-            out.unlink()
+        discard_corpus_inventory(entry)
         try:
             inventory = audit_corpus(entry)
         except CorpusError as error:
@@ -481,6 +487,8 @@ def main() -> int:
         return 1 if failed else 0
 
     DEST.mkdir(parents=True, exist_ok=True)
+    for entry in entries:
+        discard_corpus_inventory(entry)
     print(f"fetching {len(entries)} upstream(s) into {DEST}\n")
     failed = [e["name"] for e in entries if not clone(e, args.depth)]
     scan_licenses(entries)
