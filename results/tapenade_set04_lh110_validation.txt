@@ -1,15 +1,15 @@
 suite: Tapenade nonRegressions set04 (lh110)
-recorded_utc: 2026-08-07T08:31:03Z
+recorded_utc: 2026-08-07T18:09:03Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
-fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
 required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-tapenade_transform_seconds_total: 0.661426
-fortad_transform_seconds_total: 0.00865436
-generated_compile_seconds_total: 0.113986
+tapenade_transform_seconds_total: 0.68463
+fortad_transform_seconds_total: 0.00902438
+generated_compile_seconds_total: 0.120706
 upstream_exact_source_compile_statuses:
 upstream-program.status 0
 upstream-program_d.status 0
@@ -27,7 +27,7 @@ upstream-program.status 0
 upstream-program_d.status 0
 independent_oracle: hand storage-chain JVP/VJP, central difference, and adjoint identity
 runtime_wall_seconds=0.00
-runtime_peak_rss_kb=2912
+runtime_peak_rss_kb=2884
 oracle_status: pass
 source_sha256:
 fad7f364d46d7e59a9b525f93fbd8243d7558d5ce56afc1c8110e880729516b8  cases/tapenade-set04/lh110.f90
