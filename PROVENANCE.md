@@ -20,7 +20,7 @@ implementation. See [LEGAL.md](LEGAL.md) for the rules this table enforces.
 
 | Corpus | Upstream revision | Licence | Local scope | Committed here |
 |---|---|---|---|---|
-| Tapenade | `tapenade/tapenade` `e59864cab441d4175df75383b3ff58c3dcd26df9` | MIT, INRIA | full 10,977-file checkout with 2,014 candidates inventoried by `docs/corpora/tapenade.toml` | manifest plus eleven attributed set01 ports, one v420 port, and four explicit refusals; upstream checkout and generated inventories remain gitignored |
+| Tapenade | `tapenade/tapenade` `e59864cab441d4175df75383b3ff58c3dcd26df9` | MIT, INRIA | full 10,977-file checkout with 2,014 candidates inventoried by `docs/corpora/tapenade.toml` | manifest plus eleven attributed set01 ports, one v420 port, and five explicit refusals; upstream checkout and generated inventories remain gitignored |
 
 ## Measurement method
 
