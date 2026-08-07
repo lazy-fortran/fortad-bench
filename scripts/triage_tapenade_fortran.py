@@ -24,6 +24,7 @@ import tempfile
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from typing import Callable
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,6 +33,10 @@ DEFAULT_QUEUE = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.jsonl"
 DEFAULT_REPORT = ROOT / "docs" / "corpora" / "tapenade-fortran-compiler.jsonl"
 DEFAULT_SUMMARY = ROOT / "docs" / "corpora" / "tapenade-fortran-compiler.md"
 SCHEMA_VERSION = 1
+EVIDENCE_SCOPE = (
+    "individual gfortran syntax-only compile; no transformation, runtime, "
+    "or derivative oracle"
+)
 
 FIXED_SUFFIXES = frozenset({".f", ".for", ".ftn", ".f77"})
 FREE_SUFFIXES = frozenset({".f90", ".f95", ".f03", ".f08", ".f18", ".f2k"})
@@ -309,7 +314,7 @@ def _candidate(
         "include_roots": roots,
         "files": files,
         "ignored_non_fortran_files": ignored,
-        "evidence_scope": "individual gfortran syntax-only compile; no transformation, runtime, or derivative oracle",
+        "evidence_scope": EVIDENCE_SCOPE,
     }
 
 
@@ -328,27 +333,133 @@ def _shard(rows: list[dict], index: int, count: int) -> list[dict]:
 def build_report(
     rows: list[dict], compiler: str, checkout: Path, timeout: float, jobs: int,
     shard_index: int = 0, shard_count: int = 1,
+    resume_rows: list[dict] | None = None,
+    progress: Callable[[list[dict]], None] | None = None,
 ) -> list[dict]:
     selected = _shard(rows, shard_index, shard_count)
+    selected_by_key = {(row["component"], row["path"]): row for row in selected}
     version = _compiler_version(compiler)
     if jobs < 1:
         raise TriageError("jobs must be positive")
-    reports: list[dict] = []
+    reports_by_key: dict[tuple[str, str], dict] = {}
+    for report in resume_rows or []:
+        key = _report_key(report)
+        if key in reports_by_key:
+            raise TriageError(f"resume report has duplicate candidate: {key[0]}:{key[1]}")
+        queue_row = selected_by_key.get(key)
+        if queue_row is None:
+            raise TriageError(
+                f"resume report contains candidate outside selected shard: "
+                f"{key[0]}:{key[1]}"
+            )
+        _validate_report_row(report, queue_row)
+        if report.get("compiler") != Path(compiler).name:
+            raise TriageError(
+                f"resume report uses a different compiler for {key[0]}:{key[1]}"
+            )
+        if report.get("compiler_version") != version:
+            raise TriageError(
+                f"resume report uses a different compiler version for {key[0]}:{key[1]}"
+            )
+        reports_by_key[key] = report
+    pending = [
+        row for row in selected
+        if (row["component"], row["path"]) not in reports_by_key
+    ]
+
+    def record(report: dict) -> None:
+        key = _report_key(report)
+        reports_by_key[key] = report
+        if progress is not None:
+            progress(sorted(reports_by_key.values(), key=_report_sort_key))
+
     if jobs == 1:
-        reports = [_candidate(row, compiler, version, checkout, timeout) for row in selected]
+        for row in pending:
+            record(_candidate(row, compiler, version, checkout, timeout))
     else:
         with ThreadPoolExecutor(max_workers=jobs) as pool:
             futures = {
                 pool.submit(_candidate, row, compiler, version, checkout, timeout): row
-                for row in selected
+                for row in pending
             }
             for future in as_completed(futures):
-                reports.append(future.result())
-    return sorted(reports, key=lambda row: (row["component"], row["path"]))
+                record(future.result())
+    return sorted(reports_by_key.values(), key=_report_sort_key)
 
 
 def render_report(rows: list[dict]) -> str:
     return "".join(json.dumps(row, sort_keys=True, separators=(",", ":")) + "\n" for row in rows)
+
+
+def _report_key(row: dict) -> tuple[str, str]:
+    if not isinstance(row, dict):
+        raise TriageError("report row is not a JSON object")
+    key = (row.get("component"), row.get("path"))
+    if any(value is None for value in key):
+        raise TriageError("report row has missing component/path")
+    return str(key[0]), str(key[1])
+
+
+def _report_sort_key(row: dict) -> tuple[str, str]:
+    return _report_key(row)
+
+
+def _expected_sources(queue_row: dict) -> tuple[list[str], list[str]]:
+    source_files = sorted(str(path) for path in queue_row.get("source_files", []))
+    expected = [
+        path for path in source_files if _source_kind(path) != "not-fortran"
+    ]
+    ignored = [
+        path for path in source_files if _source_kind(path) == "not-fortran"
+    ]
+    return expected, ignored
+
+
+def _validate_report_row(row: dict, queue_row: dict) -> None:
+    """Reject rows that cannot be safely reused or merged as compiler evidence."""
+    key = _report_key(row)
+    expected_key = (str(queue_row["component"]), str(queue_row["path"]))
+    if key != expected_key:
+        raise TriageError(
+            f"report candidate does not match queue: {key[0]}:{key[1]}"
+        )
+    if row.get("schema_version") != SCHEMA_VERSION:
+        raise TriageError(f"unsupported report schema for {key[0]}:{key[1]}")
+    if row.get("evidence_scope") != EVIDENCE_SCOPE:
+        raise TriageError(
+            f"report is not compiler-only evidence for {key[0]}:{key[1]}"
+        )
+    for field in ("language", "queue_category", "source_form_hint"):
+        if row.get(field) != queue_row.get(field):
+            raise TriageError(
+                f"report {field} differs from queue for {key[0]}:{key[1]}"
+            )
+    if not row.get("compiler") or not row.get("compiler_version"):
+        raise TriageError(f"report has no compiler identity for {key[0]}:{key[1]}")
+    expected_sources, expected_ignored = _expected_sources(queue_row)
+    observed_sources = sorted(str(file.get("path", "")) for file in row.get("files", []))
+    if observed_sources != expected_sources:
+        raise TriageError(
+            f"report source set differs from queue for {key[0]}:{key[1]}"
+        )
+    if sorted(str(path) for path in row.get("ignored_non_fortran_files", [])) != expected_ignored:
+        raise TriageError(
+            f"report non-Fortran source set differs from queue for {key[0]}:{key[1]}"
+        )
+
+
+def _validate_report_rows(rows: list[dict], queue_rows: list[dict]) -> None:
+    queue = {(row["component"], row["path"]): row for row in queue_rows}
+    seen: set[tuple[str, str]] = set()
+    for row in rows:
+        key = _report_key(row)
+        if key in seen:
+            raise TriageError(f"report has duplicate candidate: {key[0]}:{key[1]}")
+        seen.add(key)
+        queue_row = queue.get(key)
+        if queue_row is None:
+            raise TriageError(f"report candidate is not in queue: {key[0]}:{key[1]}")
+        _validate_report_row(row, queue_row)
 
 
 def read_report(path: Path) -> list[dict]:
@@ -356,10 +467,12 @@ def read_report(path: Path) -> list[dict]:
         rows = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
     except (OSError, json.JSONDecodeError) as exc:
         raise TriageError(f"cannot read report {path}: {exc}") from exc
-    keys = [(row.get("component"), row.get("path")) for row in rows]
-    if any(None in key for key in keys) or len(keys) != len(set(keys)):
+    keys = [_report_key(row) for row in rows]
+    if len(keys) != len(set(keys)):
         raise TriageError(f"report {path} has missing or duplicate candidate keys")
     for row in rows:
+        if not isinstance(row.get("files"), list):
+            raise TriageError(f"report {path} has an invalid files list")
         file_paths = [file.get("path") for file in row.get("files", [])]
         if len(file_paths) != len(set(file_paths)):
             raise TriageError(f"report {path} has duplicate source paths")
@@ -370,15 +483,22 @@ def merge_reports(paths: list[Path], queue_rows: list[dict]) -> list[dict]:
     merged: dict[tuple[str, str], dict] = {}
     for path in paths:
         for row in read_report(path):
-            key = (row["component"], row["path"])
+            key = _report_key(row)
             if key in merged:
                 raise TriageError(f"duplicate candidate in shard reports: {key[0]}:{key[1]}")
             merged[key] = row
+    _validate_report_rows(list(merged.values()), queue_rows)
     expected = {(row["component"], row["path"]) for row in queue_rows}
     if set(merged) != expected:
         missing = sorted(expected - set(merged))
         extra = sorted(set(merged) - expected)
         raise TriageError(f"shards do not cover queue (missing={len(missing)}, extra={len(extra)})")
+    identities = {
+        (row.get("compiler"), row.get("compiler_version"))
+        for row in merged.values()
+    }
+    if len(identities) > 1:
+        raise TriageError("shard reports use different compiler identities")
     return [merged[key] for key in sorted(merged)]
 
 
@@ -443,6 +563,26 @@ def write_text(path: Path, content: str) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def write_text_atomic(path: Path, content: str) -> None:
+    """Replace a checkpoint atomically so interruption cannot corrupt it."""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary = tempfile.mkstemp(
+        prefix=f".{path.name}.", suffix=".tmp", dir=path.parent
+    )
+    try:
+        with os.fdopen(descriptor, "w", encoding="utf-8") as stream:
+            stream.write(content)
+            stream.flush()
+            os.fsync(stream.fileno())
+        os.replace(temporary, path)
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except FileNotFoundError:
+            pass
+        raise
+
+
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkout", type=Path, default=DEFAULT_CHECKOUT)
@@ -455,6 +595,10 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--merge-input", action="append", type=Path, default=[])
+    parser.add_argument(
+        "--resume", action="store_true",
+        help="reuse completed rows in --output and atomically checkpoint each new row",
+    )
     parser.add_argument("--check", action="store_true")
     return parser
 
@@ -463,10 +607,24 @@ def main(argv: list[str] | None = None) -> int:
     args = _parser().parse_args(argv)
     try:
         queue_rows = read_queue(args.queue)
+        if args.resume and (args.merge_input or args.check):
+            raise TriageError("--resume cannot be combined with --merge-input or --check")
         if args.merge_input:
             reports = merge_reports(args.merge_input, queue_rows)
-            summary = render_summary(reports, queue_count=len(queue_rows), compiler="merged", checkout=args.checkout, shard="merged shards")
+            compiler = next(iter(reports), {}).get("compiler", "unknown")
+            summary = render_summary(
+                reports,
+                queue_count=len(queue_rows),
+                compiler=compiler,
+                checkout=args.checkout,
+                shard="full queue",
+            )
         else:
+            resume_rows = read_report(args.output) if args.resume and args.output.is_file() else None
+            progress = (
+                lambda rows: write_text_atomic(args.output, render_report(rows))
+                if args.resume else None
+            )
             reports = build_report(
                 queue_rows,
                 args.compiler,
@@ -475,6 +633,8 @@ def main(argv: list[str] | None = None) -> int:
                 args.jobs,
                 args.shard_index,
                 args.shard_count,
+                resume_rows=resume_rows,
+                progress=progress,
             )
             shard = f"shard {args.shard_index + 1}/{args.shard_count}" if args.shard_count > 1 else "full queue"
             summary = render_summary(reports, queue_count=len(queue_rows), compiler=args.compiler, checkout=args.checkout, shard=shard)
@@ -485,7 +645,10 @@ def main(argv: list[str] | None = None) -> int:
             if not args.summary.is_file() or args.summary.read_text(encoding="utf-8") != summary:
                 raise TriageError(f"{args.summary} differs from deterministic compiler summary")
             return 0
-        write_text(args.output, rendered)
+        if args.resume:
+            write_text_atomic(args.output, rendered)
+        else:
+            write_text(args.output, rendered)
         write_text(args.summary, summary)
     except TriageError as exc:
         print(f"error: {exc}", file=sys.stderr)

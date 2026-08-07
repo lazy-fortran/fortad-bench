@@ -123,6 +123,14 @@ explicitly refused, independently checked, and measured when runnable.
   Fortran row, while keeping mixed-language rows out and preserving the
   evidence-only boundary. Its `next_action` field schedules entry-point and
   dependency probes without changing the status ledger.
+- [x] Make compiler-backed triage deterministic, shardable, and resumable.
+  `scripts/triage_tapenade_fortran.py --resume` atomically checkpoints
+  candidate rows and validates queue, shard, compiler, and source-set identity
+  before reuse. Repeated `--merge-input` arguments require complete coverage,
+  reject mixed compiler identities and non-compiler evidence, and write the
+  canonical report without touching curated ledger statuses. The four-shard
+  compiler totals are evidence-only input; a canonical report replacement must
+  go through this merge path.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
   `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)
