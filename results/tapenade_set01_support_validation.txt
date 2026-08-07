@@ -1,5 +1,5 @@
 case: Tapenade nonRegressions set01 lh023 lh032 lh134
-recorded_utc: 2026-08-07T01:32:33Z
+recorded_utc: 2026-08-07T01:37:18Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -10,13 +10,13 @@ fo: fo 0.3.2
 fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
 required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-fortad_setup_seconds_cached_or_incremental: 1.045555
-jvp_transform_seconds_three_cases: 0.012915
-vjp_transform_seconds_three_cases: 0.011685
-upstream_fixed_form_compile_seconds: 0.034259
-generated_jvp_object_compile_seconds: 0.039609
-generated_vjp_object_compile_seconds: 0.039660
-case_compile_and_link_seconds: 0.166234
+fortad_setup_seconds_cached_or_incremental: 1.059460
+jvp_transform_seconds_three_cases: 0.011079
+vjp_transform_seconds_three_cases: 0.011639
+upstream_fixed_form_compile_seconds: 0.035174
+generated_jvp_object_compile_seconds: 0.040137
+generated_vjp_object_compile_seconds: 0.041889
+case_compile_and_link_seconds: 0.161652
 generated_jvp_source_bytes: 1966
 generated_vjp_source_bytes: 2544
 generated_jvp_object_bytes: 4392
@@ -24,7 +24,7 @@ generated_vjp_object_bytes: 4672
 generated_jvp_object_text_bytes: 147
 generated_vjp_object_text_bytes: 218
 runtime_wall_seconds=0.01
-runtime_peak_rss_kb=3308
+runtime_peak_rss_kb=3204
 upstream_compiler_oracle: all three unmodified fixed-form sources compile with -std=f2018 -pedantic-errors
 tapenade_result: stored upstream d/b references present; current Tapenade executable not rerun
 oracle: hand JVP/VJP, four-step central differences, fixed values, and JVP/VJP adjoint identity
@@ -50,7 +50,7 @@ fd_errors_lh023:   3.5527E-15   1.0214E-14   1.1000E-12   2.2309E-12
 fd_errors_lh032:   1.7764E-15   2.2027E-13   2.0002E-12   5.3511E-11
 fd_errors_lh134:   2.9090E-07   2.9090E-09   2.9300E-11   2.6549E-12
 derivative_calls: 6000000
-derivative_runtime_seconds:   1.61786370E-02
-ns_per_derivative_call:   2.69643950E+00
+derivative_runtime_seconds:   1.60275430E-02
+ns_per_derivative_call:   2.67125717E+00
 runtime_sink:  -1.91746825E-09
 oracle_status: pass
