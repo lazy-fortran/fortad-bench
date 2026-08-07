@@ -1,14 +1,14 @@
 case: Tapenade nonRegressions set01 lh091
 classification: expected-refusal-fortad-common-equivalence-and-missing-diffsizes
 runner_result: pass
-recorded_utc: 2026-08-07T17:35:44Z
+recorded_utc: 2026-08-07T17:44:33Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only -I /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh091
 legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only -I /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh091
-fortad_commit: 61c20f0c19ad509dbf94a3a88423b493eb348ee4
-required_fortad_commit: 61c20f0c19ad509dbf94a3a88423b493eb348ee4
+fortad_commit: 8f4dd98ea062de107e9872f185d324b4e6d1f256
+required_fortad_commit: 8f4dd98ea062de107e9872f185d324b4e6d1f256
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 upstream_entry_point: bugequiv(c); FF(x)
@@ -39,15 +39,15 @@ fdbdfe84de7f210378a274ff3231889e823fb2e72b563cb3badce9f4be81c2b9  nonRegressions
 4e6507968bef05a9e12a8eb6d0f5391ce75cae6c34bab1cadd7ed4057d12c8bb  nonRegressions/set01/lh091/program_dv.f
 7c72648b73d8e016e03e459eb287161370442d286b8c8ca4759cac898642ced1  nonRegressions/set01/lh091/program_dv.msg
 fresh_tapenade_sha256:
-f6b1a9bd28568f41360d51f2da66856a040ca7a1946dcce9ebea864046438326  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/parser/lh091_p.f
-78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/parser/lh091_p.msg
-b79fb32f74a4b17fed266e2c3168e10795dbd504faff65562fe16793955fdbfe  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/forward/lh091_d.f
-78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/forward/lh091_d.msg
-2efc2c9fc05c5d352c5b77887dac5ed90d63b30e14df8e918de0daec173b6b52  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/reverse/lh091_b.f
-78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/reverse/lh091_b.msg
+f6b1a9bd28568f41360d51f2da66856a040ca7a1946dcce9ebea864046438326  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/parser/lh091_p.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/parser/lh091_p.msg
+b79fb32f74a4b17fed266e2c3168e10795dbd504faff65562fe16793955fdbfe  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/forward/lh091_d.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/forward/lh091_d.msg
+2efc2c9fc05c5d352c5b77887dac5ed90d63b30e14df8e918de0daec173b6b52  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/reverse/lh091_b.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.1sbO92/fresh/reverse/lh091_b.msg
 case_artifact_sha256:
-36d56622371ed04397e811b6deb078bffa636f93093612da2d6a1520e677e25b  cases/tapenade-set01/lh091/manifest.toml
-afe5f1fffb699c1a32a09c23ef3c899b7ad02ec0b2d25fd6e6e192b1f3bc87e8  cases/tapenade-set01/lh091/notes.md
+cfba11429c6daf6fd021cdc93139d6a2907bbc4f40fd7cb9ad20b4124eda40e8  cases/tapenade-set01/lh091/manifest.toml
+9549168e3cfa5e9de3f3675cba82a76afd4983105de8d5cf3375e6559bfa4cb4  cases/tapenade-set01/lh091/notes.md
 283acaf17bcad87256d9561b4fb7f1541f573f666e04ab8edcf3145303816510  cases/tapenade-set01/lh091/oracle.py
-b5dc34e065e8203259b264e8a6ed9a92b34685c0617c262b67fe5d08e9c89e93  cases/tapenade-set01/lh091/run.sh
-263e8627a3c35046d2d917e881c913d8123653fbec7314a16841481a200d31be  cases/tapenade-set01/lh091/test_contract.py
+51c3b1f22fb4687d94096054e05efebf43ffa7ba852290e42a139b85fb76c182  cases/tapenade-set01/lh091/run.sh
+bea112c1e507dc558c3a9de06b6ed6f63b5f6b180875ab3e62e4e1e782bb3e50  cases/tapenade-set01/lh091/test_contract.py

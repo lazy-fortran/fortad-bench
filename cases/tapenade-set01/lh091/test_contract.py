@@ -15,7 +15,7 @@ ROOT = CASE.parents[2]
 UPSTREAM_ROOT = Path(os.environ.get("TAPENADE_REPO", str(ROOT / "upstream" / "tapenade"))).resolve()
 FORTAD_ROOT = Path(os.environ.get("FORTAD_REPO", "/home/ert/code/lazy-fortran/fortad")).resolve()
 SOURCE_DIR = UPSTREAM_ROOT / "nonRegressions" / "set01" / "lh091"
-FORTAD_PIN = "61c20f0c19ad509dbf94a3a88423b493eb348ee4"
+FORTAD_PIN = "8f4dd98ea062de107e9872f185d324b4e6d1f256"
 TAPENADE_PIN = "e59864cab441d4175df75383b3ff58c3dcd26df9"
 STRICT = ("-std=f2018", "-ffixed-form", "-ffixed-line-length-none", "-pedantic-errors", "-Wall", "-Wextra", "-Wimplicit-interface", "-fsyntax-only", "-I", str(SOURCE_DIR))
 LEGACY = ("-std=legacy", "-ffixed-form", "-ffixed-line-length-none", "-Wall", "-Wextra", "-Wimplicit-interface", "-fsyntax-only", "-I", str(SOURCE_DIR))

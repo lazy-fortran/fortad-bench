@@ -10,7 +10,7 @@ source_dir="$tapenade_repo/nonRegressions/set01/lh096"
 result="$case_dir/result.txt"
 out=$(mktemp -d /var/tmp/fortad-bench-lh096.XXXXXX)
 trap 'rm -rf "$out"' EXIT
-required_fortad_commit=61c20f0c19ad509dbf94a3a88423b493eb348ee4
+required_fortad_commit=8f4dd98ea062de107e9872f185d324b4e6d1f256
 required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
 strict_fixed=(-std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto)
 legacy_fixed=(-std=legacy -ffixed-form -ffixed-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto)

@@ -22,7 +22,7 @@ Fresh pinned Tapenade probes are:
 All three generate `lh091_p.f`, `lh091_d.f`, and `lh091_b.f`, each passing the
 strict and legacy fixed-form syntax gates.
 
-At FortAD `61c20f0c19ad509dbf94a3a88423b493eb348ee4`, source-first `check`,
+At FortAD `8f4dd98ea062de107e9872f185d324b4e6d1f256`, source-first `check`,
 `jvp`, and `vjp` requests refuse at unsupported `COMMON` line 7. Compatibility
 `-p`, `-d -root bugequiv`, and `-b -root bugequiv` reach the same exact-source
 boundary (the latter two report the compatibility argument-inference wrapper).
