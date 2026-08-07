@@ -1,0 +1,142 @@
+# Tapenade corpus contract
+#
+# This manifest describes paths in the unmodified upstream checkout. The fetch
+# helper verifies the revision, tree, file counts, and candidate-case count. No
+# Tapenade source is committed to fortad-bench.
+
+schema_version = 1
+name = "tapenade"
+upstream = "tapenade"
+origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+tree = "17288bdf7e03cb23b82ddc769d884deed9c9575e"
+license = "MIT"
+license_file = "LICENSE.md"
+license_sha256 = "6e9ae5114a26dbb9c87fab1df1c8743f8e6ecb61c164e6b2eae3d5f45a840e2c"
+expected_tracked_files = 10977
+expected_manifest_files = 10513
+expected_candidate_cases = 2014
+
+# These six roots are Tapenade's checked-in regression and example corpus.
+# Counts include source, reference derivatives, messages, options, drivers,
+# scripts, and data. A candidate is only a unit of later classification. It is
+# not a claim that FortAD or Tapenade can execute the unit as a benchmark.
+
+[[component]]
+id = "non-regressions"
+path = "nonRegressions"
+classification = "mixed regression cases, references, harness, and data"
+expected_tracked_files = 9707
+case_globs = ["set[0-9][0-9]/*"]
+case_type = "directory"
+expected_candidate_cases = 1906
+
+[[component]]
+id = "large-examples"
+path = "examples"
+classification = "large example cases, references, and harness"
+expected_tracked_files = 256
+case_globs = ["big01/*"]
+case_type = "directory"
+expected_candidate_cases = 25
+
+[[component]]
+id = "fortran-77-harness"
+path = "examplesF77"
+classification = "legacy example harness with no checked-in case directory"
+expected_tracked_files = 9
+case_globs = []
+case_type = "any"
+expected_candidate_cases = 0
+
+[[component]]
+id = "c-examples"
+path = "examplesC"
+classification = "C reference cases and harness"
+expected_tracked_files = 111
+case_globs = ["REFERENCES/*"]
+case_type = "directory"
+expected_candidate_cases = 6
+
+[[component]]
+id = "cpp-parser-examples"
+path = "examplesCPP"
+classification = "standalone C++ parser examples"
+expected_tracked_files = 7
+case_globs = ["generic/*.cpp"]
+case_type = "file"
+expected_candidate_cases = 6
+
+[[component]]
+id = "openmp"
+path = "openmp"
+classification = "OpenMP examples, support runtime, diagrams, scripts, and data"
+expected_tracked_files = 89
+case_globs = [
+  "examples/*.f90",
+  "examples/stencil",
+  "examples/stencilrange",
+  "examples/tinymgopt",
+  "examples/stassuij",
+  "examples/lbm",
+]
+case_type = "any"
+expected_candidate_cases = 9
+
+# The checkout also contains these test, example, and support paths. They are
+# inventoried separately because Tapenade does not present them as the main
+# non-regression/example corpus.
+
+[[component]]
+id = "c-known-failures"
+path = "todoC"
+classification = "historical C issue and expected-failure references"
+expected_tracked_files = 79
+case_globs = ["REFERENCES/*"]
+case_type = "directory"
+expected_candidate_cases = 15
+
+[[component]]
+id = "fortran-known-failures"
+path = "todoF90"
+classification = "historical Fortran issue and expected-failure references"
+expected_tracked_files = 166
+case_globs = ["REFERENCES/*"]
+case_type = "directory"
+expected_candidate_cases = 37
+
+[[component]]
+id = "admm"
+path = "ADMM"
+classification = "ADMM support code and one C test"
+expected_tracked_files = 7
+case_globs = ["test1"]
+case_type = "directory"
+expected_candidate_cases = 1
+
+[[component]]
+id = "first-aid-kit"
+path = "ADFirstAidKit"
+classification = "derivative runtime and standalone runtime tests"
+expected_tracked_files = 66
+case_globs = ["testMemSizec.c", "testMemSizef.f", "validityTest.f"]
+case_type = "file"
+expected_candidate_cases = 3
+
+[[component]]
+id = "general-libraries"
+path = "resources/lib"
+classification = "language and message-passing support declarations"
+expected_tracked_files = 10
+case_globs = []
+case_type = "any"
+expected_candidate_cases = 0
+
+[[component]]
+id = "julia-parser-examples"
+path = "src/frontjulia/examples"
+classification = "standalone Julia front-end parser examples"
+expected_tracked_files = 6
+case_globs = ["*.jl"]
+case_type = "file"
+expected_candidate_cases = 6

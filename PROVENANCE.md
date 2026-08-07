@@ -11,9 +11,15 @@ implementation. See [LEGAL.md](LEGAL.md) for the rules this table enforces.
 | `heat1d` | one explicit step of the 1D heat equation | `lazy-fortran/differentiable-fortran` `docs/contract.md` | MIT, this project | reused | analytical JVP and VJP already in that repository |
 | `fortnum-kernels` | per-kernel, stated in fortnum | `lazy-fortran/fortnum` | MIT, this project | reused | existing `analytical` candidates and committed baselines |
 | `adbench` GMM, BA, hand, LSTM | as published with the suite | `microsoft/ADBench` | MIT | planned, with upstream notice | suite's own reference derivatives, plus finite differences |
-| `solve-heavy` | Newton solve and a contractive fixed-point iteration | original, written from the mathematics | — | n/a | implicit function theorem derivative, derived by hand |
-| `sparse` | Jacobians and Hessians with banded and arrowhead structure | original | — | n/a | dense evaluation of the same derivative |
-| `scaling` | synthetic sweeps in input, output, and direction count | original | — | n/a | analytical, by construction |
+| `solve-heavy` | Newton solve and a contractive fixed-point iteration | original, written from the mathematics | n/a | n/a | implicit function theorem derivative, derived by hand |
+| `sparse` | Jacobians and Hessians with banded and arrowhead structure | original | n/a | n/a | dense evaluation of the same derivative |
+| `scaling` | synthetic sweeps in input, output, and direction count | original | n/a | n/a | analytical, by construction |
+
+## Fetched corpora
+
+| Corpus | Upstream revision | Licence | Local scope | Committed here |
+|---|---|---|---|---|
+| Tapenade | `tapenade/tapenade` `e59864cab441d4175df75383b3ff58c3dcd26df9` | MIT, INRIA | full 10,977-file checkout with 2,014 candidates inventoried by `docs/corpora/tapenade.toml` | manifest only today. Upstream files and generated inventories remain gitignored |
 
 ## Measurement method
 
@@ -39,7 +45,7 @@ records only how each engine is reached and under what terms.
 | fortad | in-process | MIT | yes |
 | analytical, finite differences | in-process | MIT, ours | yes |
 | Enzyme (flang-new, LFortran, Clang) | compiler plugin, separate build | Apache-2.0 with LLVM exception | no |
-| Tapenade | separate program, source in / source out | Inria terms | no |
+| Tapenade | separate program, source in / source out | MIT | no |
 | Clad | Clang plugin, separate build | LGPL | no |
 | CoDiPack | separate build | GPL-3 | **never** |
 | ADOL-C | separate build | EPL-2.0 / GPL-2.0 | no |

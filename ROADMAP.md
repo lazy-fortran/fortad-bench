@@ -63,6 +63,32 @@ the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. It is not yet
 wired into the harness.
 
+The complete tracked checkout is now reproducible. The
+[`corpus manifest`](docs/corpora/tapenade.toml) pins commit
+`e59864cab441d4175df75383b3ff58c3dcd26df9` and tree
+`17288bdf7e03cb23b82ddc769d884deed9c9575e`. It verifies 10,977 tracked files
+and inventories 2,014 candidate cases without claiming that they run in
+FortAD. Completion requires each candidate to be classified, transformed or
+explicitly refused, independently checked, and measured when runnable.
+
+- [x] Fetch the pinned source and corpus with
+  `scripts/fetch_upstreams.py --corpus tapenade`. Keep both the checkout and
+  generated inventory out of Git.
+- [ ] Commit a status ledger for all 2,014 candidates: language, entry point,
+  mode, options, dependencies, oracle, Tapenade result, and FortAD result.
+- [ ] Convert every runnable Fortran candidate into a support case. Each valid
+  differentiable path must pass a hand derivative, finite-difference sweep, or
+  adjoint identity. Parser fixtures, invalid sources, and missing external
+  dependencies need reproducible classifications.
+- [ ] Record transformation time, compilation time, runtime, peak memory, and
+  generated-source size for every runnable numerical case and applicable mode.
+- [ ] Close every feature Tapenade supports on Fortran input, then cover the
+  modern Fortran features outside Tapenade's corpus. C, C++, and Julia entries
+  remain visible in the ledger and do not count as FortAD wins.
+- [ ] Beat each applicable engine on feature coverage and on the measured
+  runtime, build-time, and memory columns. Publish regressions and losses in the
+  same result tables as wins.
+
 ### Build-time measurement
 
 The 59-operator cross-engine table records runtime but lacks per-case AD

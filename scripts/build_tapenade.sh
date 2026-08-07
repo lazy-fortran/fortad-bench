@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Generate Tapenade adjoints for the suite kernels, in a container.
 #
-# Tapenade is a Java tool distributed by Inria under its own terms. Running it
-# from the official image means nothing is vendored here and the version is
-# pinned by digest rather than by a downloaded tarball nobody can reproduce.
+# Tapenade is an MIT-licensed Java tool maintained by Inria. Running it from the
+# official image keeps the installation outside this repository. The default
+# image is pinned by registry digest.
 #
 # Fairness note that shapes how these are used: `tapenade -b` emits a
 # gradient-only routine. fortad's and Enzyme's routines compute the primal and
@@ -16,7 +16,8 @@ set -euo pipefail
 root=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
 cd "$root"
 
-image=${TAPENADE_IMAGE:-registry.gitlab.inria.fr/tapenade/tapenade}
+default_image=registry.gitlab.inria.fr/tapenade/tapenade@sha256:1426f9f4fca94ccf665c96704886cf0595d806ca88e9fa63101a015dd62a46af
+image=${TAPENADE_IMAGE:-$default_image}
 out=build/tapenade
 # The ADFirstAidKit runtime is extracted once and kept: pulling it out of the
 # image on every build would make a container round trip part of the inner loop.
@@ -34,8 +35,8 @@ for k in euler rk4 lstm ba bruss; do
 done
 
 for k in euler rk4 lstm ba bruss; do
-    docker run --rm -v "$PWD/$out:/work" -w /work "$image" \
-        tapenade -b -head "$k(y)/(z)" -o "${k}_tap" -O /work "$k.f90" \
+    docker run --rm -v "$PWD/$out:/work" -w /work --entrypoint tapenade "$image" \
+        -b -head "$k(y)/(z)" -o "${k}_tap" -O /work "$k.f90" \
         > "$out/$k.log" 2>&1 || echo "  tapenade refused $k"
 done
 

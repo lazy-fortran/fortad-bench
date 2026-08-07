@@ -13,7 +13,7 @@
 #              cpp-oo | cpp-st | symbolic | infra | corpus
 #   level      the representation the tool differentiates
 #   inspect    paths worth reading first
-#   why        what fortad wants to learn from it
+#   purpose    what fortad wants to learn from it (stored in the `why` field)
 #   adapt      "none" (read-only study) or a description of any intended reuse.
 #              Anything other than "none" requires a PROVENANCE.md row and a
 #              licence-compatibility check before a line of code is written.
@@ -27,11 +27,12 @@ schema_version = 1
 [[upstream]]
 name = "tapenade"
 url = "https://gitlab.inria.fr/tapenade/tapenade.git"
-ref = "master"
+ref = "e59864cab441d4175df75383b3ff58c3dcd26df9"
 license = "MIT"
 category = "fortran-st"
 level = "Fortran 77/90/95 and C AST (IL / Java implementation)"
-inspect = ["src/", "doc/", "ADFirstAidKit/"]
+inspect = ["src/", "docs/", "ADFirstAidKit/", "nonRegressions/", "examples*/", "openmp/"]
+corpus_manifest = "docs/corpora/tapenade.toml"
 why = """The reference source-transformation AD system. Tangent, adjoint,
 tangent-of-adjoint, checkpointing on call graph, TBR and activity analysis,
 differentiable-vs-required dataflow, adjoint of loops, message-passing adjoints.
@@ -170,8 +171,8 @@ inspect = [
   "enzyme/Enzyme/InstructionDerivatives.td",
   "enzyme/MLIR/",
 ]
-why = """The system to beat. What matters is precisely enumerating what Enzyme
-gets from operating on optimised IR (post-inlining, post-LICM, post-SROA
+why = """Enzyme is the main compiler-IR comparison. The study enumerates what
+it gets from operating on optimised IR (post-inlining, post-LICM, post-SROA
 activity), and what it loses that fortad gets for free from Fortran semantics
 (intent, contiguity, shapes, aliasing rules, pure/elemental, array expressions).
 The .td derivative tables are the model for fortad's rule registry format."""
