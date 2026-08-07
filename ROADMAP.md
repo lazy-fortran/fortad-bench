@@ -110,7 +110,7 @@ explicitly refused, independently checked, and measured when runnable.
   not a support claim.
 - [x] Promote `lh058` through the focused tranche-C runner. Its Euclidean-norm
   JVP/VJP passes the hand oracle, four-step finite-difference sweep, and
-  adjoint identity; all five unmodified upstream sources compile strictly.
+  adjoint identity. All five unmodified upstream sources compile strictly.
   See [the tranche-C result](results/tapenade_set01_tranche_c_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
