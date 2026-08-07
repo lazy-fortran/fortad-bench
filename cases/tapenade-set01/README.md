@@ -609,6 +609,28 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/bd04/
 Each directory contains its pinned manifest, runner result, notes, oracle,
 and three-test contract.
 
+## Tranche AN: `lh091`, `lh095`, and `lh096`
+
+These three fixed-form liveness cases close the next pure-Fortran queue rows
+with fresh pinned Tapenade parser/forward/reverse generation, exact FortAD
+source-first and compatibility probes, strict/legacy compiler gates, and
+independent three-case JVP/VJP contracts. All three preserve the missing
+`DIFFSIZES.inc` boundary without copying an include from another case. `lh091`
+also records the exact `COMMON`/`EQUIVALENCE` refusal; `lh095` and `lh096`
+record the undeclared `SUB1` reverse boundary while their forward paths remain
+available. No source repair or synthetic derivative port is counted.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=/home/ert/code/lazy-fortran/fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh091/run.sh
+FORTAD_REPO=/home/ert/code/lazy-fortran/fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh095/run.sh
+FORTAD_REPO=/home/ert/code/lazy-fortran/fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh096/run.sh
+```
+
+Each directory contains its pinned manifest, runner result, notes, oracle,
+and three-test contract.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`

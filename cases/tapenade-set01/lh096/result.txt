@@ -1,0 +1,32 @@
+case: Tapenade nonRegressions/set01/lh096
+classification: expected-boundary-fortad-sub1-compatibility-and-missing-vector-include
+runner_result: pass
+recorded_utc: 2026-08-07T17:35:47Z
+fortad_commit: 150e663dbad239a3a11a679e3dcf16be76496f8d
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+exact_and_fresh_fixed_gates: pass; program_dv: strict=1 legacy=1 missing-DIFFSIZES.inc
+fortad_source_first: check=status-1-invalid-free-strict forward=pass-free-strict reverse=status-1-undeclared-sub1
+fortad_compatibility: parser=pass-invalid-free-strict forward=pass-free-strict reverse=status-2-dependent-inference
+missing_dependency: no unambiguous authoritative DIFFSIZES.inc; no repair
+oracle_source: exact liveness operation inventory pass
+oracle_case: small final_state=(47.234934035502334, 2.7433250560612676, 44.49160897944107) jvp=(24.39621120904871, 0.5285714285714286, 23.867639780477283) vjp_dot=49.3515186928
+oracle_case: unit final_state=(65.882, 3.1, 62.78200000000001) jvp=(21.704200000000004, 0.37, 21.334200000000003) vjp_dot=44.03111
+oracle_case: large final_state=(164.1363755573989, 4.278654996341646, 159.85772056105725) jvp=(12.618859274626743, 0.11384615384615385, 12.505013120780589) vjp_dot=25.7263538207
+oracle_behavioral_cases: 3
+oracle_status: pass
+upstream_sha256:
+698f9ed5647f801700878f87c62c5bdbc7560068a2c0ed33d325e7a74171c5bc  program.f
+a08cbca3b71612754f0990ac1784053fb880ebc34ecee4e3efaca4f5985db93d  program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+7a5d90edc2ded23c2c16e43711ac677a5cc964a5a3c696db391ee3f5e8acf0cc  program_d.f
+4d27f3bc0d7afac768156f248d13b94d81ac2a66655569579e711ed39a1e191e  program_d.msg
+70b1a648c31881112ecc11f21d7d5e2e20eecf773373e5e4877b8eac50a21539  program_b.f
+4d27f3bc0d7afac768156f248d13b94d81ac2a66655569579e711ed39a1e191e  program_b.msg
+7f97cb14a1a1c444167376b9550c003d35d600c9bfb9ae8fc5178486d5635b3b  program_dv.f
+f809dde5a41e4b0f6a153114f7125d1508181f7ca0b72853e31362c638cd243b  program_dv.msg
+case_artifact_sha256:
+07cb77d07387e5e9a4d3921a5222710c8ac8532bd4345f36e092b578bd49e9ed  manifest.toml
+2280ebca3e8d1eec9441d42b6b44d407ae5ff616ea739fae608963f2f951dcdf  notes.md
+73f19dcb4bc82b8743b6ad0cbcc06c57b006fa926288c33af06b4cbf204cbdf4  oracle.py
+0d12113ef668837383a1f02167631c1f5eb84dea806b7c321671f829ff814f6a  run.sh
+2996295482a33761455e29401dc80b32a73258bb469c070a5abc86feaa933dfa  test_contract.py

@@ -1,0 +1,11 @@
+case: Tapenade nonRegressions/set01/lh095
+runner_result: pass
+stored_strict_compile: primal=0 parser=0 forward=0 reverse=0 multidirectional=expected-refusal-missing-DIFFSIZES.inc
+fresh_tapenade: parser=0 forward=0 reverse=0; all strict compile=0
+fortad_source_first: check=0 forward=0 reverse=expected-refusal-undeclared-sub1
+fortad_compatibility: parser=0 forward=0 reverse=expected-refusal-undeclared-sub1
+independent_oracle: 3 cases, finite-difference JVP, reverse dot-product identity
+oracle_cases: 3
+oracle_jvp_finite_difference: pass
+oracle_vjp_adjoint_identity: pass
+oracle_status: pass

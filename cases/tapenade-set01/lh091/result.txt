@@ -1,0 +1,53 @@
+case: Tapenade nonRegressions set01 lh091
+classification: expected-refusal-fortad-common-equivalence-and-missing-diffsizes
+runner_result: pass
+recorded_utc: 2026-08-07T17:35:44Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only -I /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh091
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only -I /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh091
+fortad_commit: 150e663dbad239a3a11a679e3dcf16be76496f8d
+required_fortad_commit: 150e663dbad239a3a11a679e3dcf16be76496f8d
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: bugequiv(c); FF(x)
+tapenade_options: parser=-p forward=-d/-root bugequiv reverse=-b/-root bugequiv
+exact_compile: program=0/0 parser=0/0 forward=0/0 reverse=0/0 dv=1/1 missing-DIFFSIZES.inc
+fresh_tapenade_generation: parser=0 forward=0 reverse=0
+fresh_compile: parser=0/0 forward=0/0 reverse=0/0 strict/legacy
+fortad_source_first: check=1 jvp=1 vjp=1 diagnostic=unsupported-statement-line-7-no-output
+fortad_compatibility: p=1 d=2 b=2 diagnostic=unsupported-statement-line-7-no-output
+independent_oracle: FF-update-three-cases JVP-finite-difference VJP-adjoint
+oracle_source_inventory: exact BUGEQUIV/FF arithmetic shape pass
+oracle_ff: pass value=2*x
+oracle_bugequiv_update: 3 hidden-state cases pass
+oracle_jvp_finite_difference: pass max_error=3.9808023544196658e-10
+oracle_vjp_adjoint_identity: pass max_error=1.7763568394002505e-15
+oracle_behavioral_cases: 3
+oracle_status: pass
+missing_dependency: DIFFSIZES.inc absent; no authoritative substitution
+no_repaired_port: exact-source-only
+upstream_sha256:
+a0978dbea891ded9813b2824ab80c89671e96013bee6b334464814e0657c04de  nonRegressions/set01/lh091/program.f
+3263d7fde19f2a49e4d0e1b3668aa1b04d9d842c2e01843f275f236e27c637ed  nonRegressions/set01/lh091/program_p.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  nonRegressions/set01/lh091/program_p.msg
+1d3b4b2ac6ec18efdaaa4542ce04ec6c921e3867e4e310bb8b789616aebb5330  nonRegressions/set01/lh091/program_d.f
+fdbdfe84de7f210378a274ff3231889e823fb2e72b563cb3badce9f4be81c2b9  nonRegressions/set01/lh091/program_d.msg
+5fef1cc1d23f5f29ddf71d1b6a08230082e06671aae6fd3fc8dee4ade1f591a5  nonRegressions/set01/lh091/program_b.f
+fdbdfe84de7f210378a274ff3231889e823fb2e72b563cb3badce9f4be81c2b9  nonRegressions/set01/lh091/program_b.msg
+4e6507968bef05a9e12a8eb6d0f5391ce75cae6c34bab1cadd7ed4057d12c8bb  nonRegressions/set01/lh091/program_dv.f
+7c72648b73d8e016e03e459eb287161370442d286b8c8ca4759cac898642ced1  nonRegressions/set01/lh091/program_dv.msg
+fresh_tapenade_sha256:
+f6b1a9bd28568f41360d51f2da66856a040ca7a1946dcce9ebea864046438326  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/parser/lh091_p.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/parser/lh091_p.msg
+b79fb32f74a4b17fed266e2c3168e10795dbd504faff65562fe16793955fdbfe  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/forward/lh091_d.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/forward/lh091_d.msg
+2efc2c9fc05c5d352c5b77887dac5ed90d63b30e14df8e918de0daec173b6b52  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/reverse/lh091_b.f
+78b976678d3cb628a780856644a81df12773e20d926e8d7990334eb8c313d5bf  /var/tmp/fortad-bench-tapenade-set01-lh091.X89g9J/fresh/reverse/lh091_b.msg
+case_artifact_sha256:
+1c19b93810fa3e133572c4acd889592aeb6bfd4e3f8e8e17f59712a8398c2ed3  cases/tapenade-set01/lh091/manifest.toml
+289f9adb10c8065565808054b130b74a7008b9e51e7befaf9139d3204b3fca1a  cases/tapenade-set01/lh091/notes.md
+283acaf17bcad87256d9561b4fb7f1541f573f666e04ab8edcf3145303816510  cases/tapenade-set01/lh091/oracle.py
+c1e31fa6d476dbe5832cc6b343a21d5b99bd00c11c4afeebb997458dc002d323  cases/tapenade-set01/lh091/run.sh
+758dbac938f1baa1668190751f4712653ab86afcb842212d0a31f021de9fc78f  cases/tapenade-set01/lh091/test_contract.py
