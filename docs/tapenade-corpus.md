@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,402 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving twenty-six set01 evidence rows and four additional
+  either engine. It leaves 1,399 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving twenty-nine set01 evidence rows and four additional
 non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,7 +108,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,476 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,473 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
 rows with no entry-point hint, 318 program candidates, and 1,031 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 170 rows
@@ -158,6 +158,8 @@ The `lh004` branch-in-loop refusal result is in
 [`tranche-h`](../results/tapenade_set01_tranche_h_refusal_validation.txt).
 The `lh012`-`lh014` generated-compile refusal result is in
 [`lh007-015`](../results/tapenade_set01_lh007_015_refusal_validation.txt).
+The adjacent `lh017` support and `lh022`/`lh028` reverse-boundary results are
+in [`tranche-l`](../results/tapenade_set01_lh017_032_validation.txt).
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in

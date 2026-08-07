@@ -173,6 +173,23 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-h.md), [manifest](tranche-h-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_h_refusal_validation.txt).
+
+## Tranche L: `lh017`, `lh022`, and `lh028`
+
+The next runner closes three adjacent pure-Fortran rows. `lh017` is a
+piecewise branch with complete forward and reverse support. `lh022` and
+`lh028` have passing forward transforms and independent hand, finite
+difference, and adjoint checks, while reverse mode records distinct exact
+boundaries for per-iteration storage and control-flow reversal:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh017_032.sh
+```
+
+See the [case notes](tranche-l-lh017-032.md),
+[manifest](tranche-l-lh017-032-manifest.toml), and
+[measurement record](../../results/tapenade_set01_lh017_032_validation.txt).
 The `lh019` derived-component result is in
 [the tranche-I record](../../results/tapenade_set01_tranche_i_validation.txt).
 

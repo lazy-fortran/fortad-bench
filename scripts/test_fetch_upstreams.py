@@ -639,6 +639,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "ADFirstAidKit/testMemSizef.f",
             "ADFirstAidKit/validityTest.f",
             "nonRegressions/set01/lh016",
+            "nonRegressions/set01/lh017",
+            "nonRegressions/set01/lh022",
+            "nonRegressions/set01/lh028",
         }
         evidence = [
             row for row in rows
@@ -687,9 +690,35 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-forward-transform-reverse-generated-compile-refusal-indx-and-dependent-adjoint",
                 "pass-forward-transform-reverse-generated-compile-refusal-duplicate-adjoint",
                 "pass-generated-compile-refusal-implicit-index",
+                "pass-forward-transform-compile-reverse-refusal-per-iteration-storage",
+                "pass-forward-transform-compile-reverse-refusal-loop-control-flow",
             },
         )
         expected_evidence = {
+            "nonRegressions/set01/lh017": {
+                "entry_point": "test(a1,a2,b1,b2); port set01_lh017(a1,a2,branch,b1,b2)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:b1|reverse:b2",
+                "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "implicit branch state made explicit",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generated-compile",
+            },
+            "nonRegressions/set01/lh022": {
+                "entry_point": "test(x,y); port set01_lh022(x,y)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh028": {
+                "entry_point": "s1(a,b); port set01_lh028(a,b)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-reverse-compile-rejection-integer4",
+            },
             "nonRegressions/set01/lh023": {
                 "entry_point": "test(a,b,c); port set01_lh023(a,b,c)",
                 "tapenade_options": "none",
