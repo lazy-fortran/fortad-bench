@@ -1,0 +1,31 @@
+schema_version = 1
+name = "tapenade-set05-shard3-v125-v137"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "10e6846573a8a4f172f557dbb20169ee73bcbbd5"
+runner = "scripts/bench_tapenade_set05_shard3_v125_v137.sh"
+result = "results/tapenade_set05_shard3_v125_v137_validation.txt"
+
+[[case]]
+id = "v125"
+upstream_source = "nonRegressions/set05/v125/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "surface(x1,x2,y1,y2,z)"
+ported_source = "cases/tapenade-set05-shard3-v125-v137/v125.f90"
+ported_entry_point = "set05_v125(x1,x2,y1,y2,z)"
+independent = ["x1", "x2", "y1", "y2"]
+dependent = "z"
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "v137"
+upstream_source = "nonRegressions/set05/v137/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "s(x,y)"
+ported_source = "cases/tapenade-set05-shard3-v125-v137/v137.f90"
+ported_entry_point = "set05_v137(x,y,s)"
+independent = ["x", "y"]
+dependent = "s"
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "runnable-ported"

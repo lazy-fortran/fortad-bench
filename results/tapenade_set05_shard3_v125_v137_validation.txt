@@ -1,0 +1,27 @@
+suite: Tapenade nonRegressions set05/v125 set05/v137
+recorded_utc: 2026-08-07T19:46:31Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: 1ff8ad18b3d16a7ca6dd26338ab0af28d3b8a96c
+required_fortad_commit: 10e6846573a8a4f172f557dbb20169ee73bcbbd5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_gate: fresh parser, forward, and reverse products generated from exact upstream sources; all generated sources compile strictly
+fortad_gate: JVP and VJP generated from standards-clean ports; all generated sources compile
+independent_oracle: hand derivatives, central finite differences, and adjoint identities
+oracle_status: pass
+source_sha256:
+5b8756937321aa362c344b71ad0c59144c2f8a55ee3feebf5b4635c0d751f279  cases/tapenade-set05-shard3-v125-v137/v125.f90
+498dcecb3c416d003c43a1849ecdb0640a93b3ab5e65c4aee8024595a6c17229  cases/tapenade-set05-shard3-v125-v137/v137.f90
+d5966d00ea1b71135a4f8e832b374c45cec49acc08a09e46e14487eab407bca6  cases/tapenade-set05-shard3-v125-v137/oracle.py
+2249f3f136b1de3a8caad96ea198688b4df844fe7eb68c2eef2f3096421b79fd  cases/tapenade-set05-shard3-v125-v137/manifest.toml
+48c0595ae457f31caae2eaa418d9e841afcb1204e73d2b43350fd13ff6984518  cases/tapenade-set05-shard3-v125-v137/README.md
+1f282658af01d32af66e2aed7f692f39e5dccf0b162ecc7f0b028261f466f408  harness/bench_tapenade_set05_shard3_v125_v137.f90
+81c84fc5bb16d470746e31813584be2e1008c934b03a1c538ba513daeed6c655  scripts/bench_tapenade_set05_shard3_v125_v137.sh
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2900
+python_oracle:
+oracle_status: pass
+run_output:
+oracle_status: pass
