@@ -14,6 +14,12 @@ Every operator that both Enzyme and fortad can differentiate has numbers
 recorded. Nearly all measurements sit within the 30% band agreed for the port.
 The exceptions are named below.
 
+This is not yet a claim to beat every AD engine. The committed same-machine
+timing table is FortAD versus Enzyme; the pinned Tapenade corpus has nine
+set01 evidence rows (seven positive cases and two reproducible refusals), with
+1,497 candidates still untriaged. A broader feature or performance lead needs
+the remaining corpus classifications and the end-to-end itpplasma matrix below.
+
 The fortfem catalogue has 44 names. The checkout currently contains 43 primal
 kernel sources (plus their C-bound copies). The harness runs 42 of them.
 `cartesian_to_toroidal` is intentionally omitted because Enzyme has no rule for
@@ -96,9 +102,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,498 remaining candidates into 74 mixed-language-risk, 37
-  historical-failure, 20 no-entry-point, 320 program, and 1,047 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 175 rows
+  partition the 1,497 remaining candidates into 74 mixed-language-risk, 37
+  historical-failure, 20 no-entry-point, 320 program, and 1,046 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 174 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
