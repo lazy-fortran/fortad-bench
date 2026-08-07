@@ -16,6 +16,20 @@ network request with:
 scripts/fetch_upstreams.py --audit-corpora
 ```
 
+The offline audit also checks
+[`corpora/tapenade-status.csv`](corpora/tapenade-status.csv). The CSV has one
+row for each candidate in the pinned Git tree. Recreate the initial scaffold
+from an audited checkout with:
+
+```bash
+scripts/fetch_upstreams.py --seed-corpus-ledger tapenade
+```
+
+The seed command writes `untriaged` and `not-run` in every workflow field. It
+refuses to overwrite a ledger after any row has been curated.
+The audit rejects result changes on an `untriaged` row. A classified row must
+replace every `untriaged` workflow placeholder before it passes.
+
 ## Inventory
 
 The six checked-in Tapenade corpus roots contain:
@@ -42,11 +56,17 @@ case.
 
 ## Closeout rule
 
-Every candidate gets a committed status row with its language, source form,
-entry point, Tapenade options, derivative modes, oracle, dependencies, and
-FortAD result. A runnable numerical case also gets transformation time, compile
-time, runtime, peak memory, and generated-source size for each applicable
-engine.
+The committed ledger contains all 2,014 candidate paths. Its language and
+source-form columns are filename hints generated from Git-tracked files. A `|`
+separates languages when a candidate contains more than one. The component
+classification comes from the manifest. These fields locate work. They do not
+show that a source parses, compiles, runs, or differentiates.
+
+Every row still needs a checked entry point, Tapenade options, derivative
+modes, oracle, dependencies, and results for Tapenade and FortAD. A runnable
+numerical case also gets transformation time, compile time, runtime, peak
+memory, and generated-source size for each applicable engine. Until that work
+is recorded, the row remains `untriaged` with both results set to `not-run`.
 
 Fortran cases close only after all valid differentiable paths work in FortAD
 and pass an independent oracle. Invalid programs and cases that require an

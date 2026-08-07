@@ -75,8 +75,13 @@ explicitly refused, independently checked, and measured when runnable.
 - [x] Fetch the pinned source and corpus with
   `scripts/fetch_upstreams.py --corpus tapenade`. Keep both the checkout and
   generated inventory out of Git.
-- [ ] Commit a status ledger for all 2,014 candidates: language, entry point,
-  mode, options, dependencies, oracle, Tapenade result, and FortAD result.
+- [x] Commit a deterministic status-ledger scaffold for all 2,014 candidates.
+  The offline corpus audit checks each component, path, language hint, and
+  source-form hint against the pinned Git tree. All workflow fields start as
+  `untriaged` or `not-run`, so this closes inventory infrastructure only.
+- [ ] Classify every status row: entry point, mode, options, dependencies,
+  oracle, Tapenade result, and FortAD result. Replace placeholders only with
+  reproducible evidence.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

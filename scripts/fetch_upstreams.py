@@ -17,7 +17,9 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
+import io
 import os
 import re
 import subprocess
@@ -42,6 +44,29 @@ LICENSE_NAMES = (
 LICENSE_NAMES_CASEFOLD = {name.casefold() for name in LICENSE_NAMES}
 GIT_TIMEOUT_SECONDS = 120
 COMMIT_RE = re.compile(r"[0-9a-fA-F]{40}")
+
+LEDGER_COLUMNS = (
+    "component",
+    "path",
+    "language",
+    "source_form_hint",
+    "initial_classification",
+    "status",
+    "entry_point",
+    "tapenade_options",
+    "modes",
+    "oracle",
+    "dependencies",
+    "tapenade_result",
+    "fortad_result",
+)
+LEDGER_IDENTITY_COLUMNS = LEDGER_COLUMNS[:5]
+LEDGER_WORKFLOW_COLUMNS = LEDGER_COLUMNS[5:]
+FORTRAN_FIXED_SUFFIXES = {".f", ".for", ".ftn", ".f77"}
+FORTRAN_FREE_SUFFIXES = {".f90", ".f95", ".f03", ".f08", ".f18", ".f2k"}
+CPP_SUFFIXES = {".cc", ".cpp", ".cxx", ".c++"}
+CUDA_SUFFIXES = {".cu"}
+JULIA_SUFFIXES = {".jl"}
 
 
 class CorpusError(RuntimeError):
@@ -194,6 +219,11 @@ def _load_corpus_manifest(entry: dict) -> dict:
         raise CorpusError(f"{relative} revision differs from docs/upstreams.toml")
     if corpus.get("license") != entry["license"]:
         raise CorpusError(f"{relative} license differs from docs/upstreams.toml")
+    ledger = corpus.get("status_ledger")
+    if ledger:
+        ledger_path = Path(ledger)
+        if ledger_path.is_absolute() or ".." in ledger_path.parts:
+            raise CorpusError(f"{relative} has unsafe status_ledger {ledger!r}")
     return corpus
 
 
@@ -247,6 +277,15 @@ def audit_corpus(entry: dict) -> dict:
         sample = ", ".join(missing[:3])
         raise CorpusError(
             f"{entry['name']}: incomplete checkout, {len(missing)} path(s) missing: {sample}"
+        )
+    index_flags = _git(target, "ls-files", "-v")
+    unusual_flag = next(
+        (line for line in index_flags.splitlines() if not line.startswith("H ")),
+        None,
+    )
+    if unusual_flag:
+        raise CorpusError(
+            f"{entry['name']}: checkout has non-default index flags ({unusual_flag})"
         )
     dirty = _git(target, "status", "--porcelain=v1", "--untracked-files=all")
     if dirty:
@@ -319,6 +358,8 @@ def audit_corpus(entry: dict) -> dict:
         "manifest_files": len(manifest_paths),
         "candidate_cases": len(all_candidates),
         "components": components,
+        "tracked_paths": tracked,
+        "status_ledger": corpus.get("status_ledger"),
     }
 
 
@@ -355,6 +396,164 @@ def write_corpus_inventory(inventory: dict) -> Path:
     return out
 
 
+def _candidate_source_hints(candidate: str, tracked_paths: list[str]) -> tuple[str, str]:
+    """Infer language and Fortran source form from tracked filename suffixes."""
+    prefix = f"{candidate.rstrip('/')}/"
+    files = [
+        path for path in tracked_paths
+        if path == candidate or path.startswith(prefix)
+    ]
+    suffixes = {Path(path).suffix for path in files}
+    normalized_suffixes = {suffix.lower() for suffix in suffixes}
+    languages = []
+    if ".c" in suffixes:
+        languages.append("c")
+    if ".C" in suffixes or normalized_suffixes.intersection(CPP_SUFFIXES):
+        languages.append("c++")
+    if normalized_suffixes.intersection(CUDA_SUFFIXES):
+        languages.append("cuda")
+    has_fixed = bool(normalized_suffixes.intersection(FORTRAN_FIXED_SUFFIXES))
+    has_free = bool(normalized_suffixes.intersection(FORTRAN_FREE_SUFFIXES))
+    if has_fixed or has_free:
+        languages.append("fortran")
+    if normalized_suffixes.intersection(JULIA_SUFFIXES):
+        languages.append("julia")
+
+    language = "|".join(languages) if languages else "unknown"
+    if "fortran" not in languages:
+        source_form = "n/a"
+    elif has_fixed and has_free:
+        source_form = "mixed"
+    elif has_fixed:
+        source_form = "fixed"
+    else:
+        source_form = "free"
+    return language, source_form
+
+
+def initial_corpus_ledger_rows(inventory: dict) -> list[dict[str, str]]:
+    """Return a deterministic, evidence-neutral row for every candidate."""
+    rows = []
+    tracked_paths = inventory["tracked_paths"]
+    for component in inventory["components"]:
+        for candidate in component["candidates"]:
+            language, source_form = _candidate_source_hints(candidate, tracked_paths)
+            rows.append({
+                "component": component["id"],
+                "path": candidate,
+                "language": language,
+                "source_form_hint": source_form,
+                "initial_classification": component["classification"],
+                "status": "untriaged",
+                "entry_point": "untriaged",
+                "tapenade_options": "untriaged",
+                "modes": "untriaged",
+                "oracle": "untriaged",
+                "dependencies": "untriaged",
+                "tapenade_result": "not-run",
+                "fortad_result": "not-run",
+            })
+    if len(rows) != inventory["candidate_cases"]:
+        raise CorpusError(
+            f"{inventory['name']}: {len(rows)} ledger rows != "
+            f"{inventory['candidate_cases']} candidates"
+        )
+    return rows
+
+
+def render_initial_corpus_ledger(inventory: dict) -> str:
+    """Render the initial CSV ledger with stable ordering and line endings."""
+    stream = io.StringIO(newline="")
+    writer = csv.DictWriter(
+        stream,
+        fieldnames=LEDGER_COLUMNS,
+        lineterminator="\n",
+    )
+    writer.writeheader()
+    writer.writerows(initial_corpus_ledger_rows(inventory))
+    return stream.getvalue()
+
+
+def _corpus_ledger_path(inventory: dict) -> Path:
+    relative = inventory.get("status_ledger")
+    if not relative:
+        raise CorpusError(f"{inventory['name']}: corpus manifest has no status_ledger")
+    return ROOT / relative
+
+
+def write_initial_corpus_ledger(inventory: dict) -> Path:
+    """Create the committed untriaged scaffold from the audited checkout."""
+    out = _corpus_ledger_path(inventory)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    rendered = render_initial_corpus_ledger(inventory)
+    encoded = rendered.encode("utf-8")
+    if out.exists() and out.read_bytes() != encoded:
+        raise CorpusError(
+            f"{inventory['name']}: refusing to overwrite curated status ledger "
+            f"{out.relative_to(ROOT)}"
+        )
+    out.write_bytes(encoded)
+    return out
+
+
+def audit_corpus_ledger(inventory: dict) -> int:
+    """Verify exact candidate coverage while preserving later evidence fields."""
+    if not inventory.get("status_ledger"):
+        return 0
+    ledger = _corpus_ledger_path(inventory)
+    if not ledger.is_file():
+        raise CorpusError(f"{inventory['name']}: missing status ledger {ledger.relative_to(ROOT)}")
+    with ledger.open(encoding="utf-8", newline="") as stream:
+        reader = csv.DictReader(stream)
+        if tuple(reader.fieldnames or ()) != LEDGER_COLUMNS:
+            raise CorpusError(
+                f"{inventory['name']}: status ledger columns differ from schema"
+            )
+        rows = list(reader)
+
+    expected = initial_corpus_ledger_rows(inventory)
+    if len(rows) != len(expected):
+        raise CorpusError(
+            f"{inventory['name']}: {len(rows)} status rows != {len(expected)} candidates"
+        )
+    for line_number, (row, seed) in enumerate(zip(rows, expected), start=2):
+        if None in row or any(value is None for value in row.values()):
+            raise CorpusError(
+                f"{inventory['name']}: malformed status ledger row {line_number}"
+            )
+        for column in LEDGER_IDENTITY_COLUMNS:
+            if row[column] != seed[column]:
+                raise CorpusError(
+                    f"{inventory['name']}: status row {line_number} has unexpected {column}"
+                )
+        missing = [column for column in LEDGER_WORKFLOW_COLUMNS if not row[column].strip()]
+        if missing:
+            raise CorpusError(
+                f"{inventory['name']}: status row {line_number} has empty {missing[0]}"
+            )
+        if row["status"] == "untriaged":
+            changed = [
+                column for column in LEDGER_WORKFLOW_COLUMNS[1:]
+                if row[column] != seed[column]
+            ]
+            if changed:
+                raise CorpusError(
+                    f"{inventory['name']}: untriaged status row {line_number} "
+                    f"changes {changed[0]}"
+                )
+        else:
+            placeholders = [
+                column for column in LEDGER_WORKFLOW_COLUMNS[1:]
+                if row[column] == "untriaged"
+            ]
+            if placeholders:
+                raise CorpusError(
+                    f"{inventory['name']}: classified status row {line_number} "
+                    f"leaves {placeholders[0]} untriaged"
+                )
+    return len(rows)
+
+
 def discard_corpus_inventory(entry: dict) -> None:
     if "corpus_manifest" not in entry:
         return
@@ -371,6 +570,7 @@ def scan_corpora(entries: list[dict]) -> list[str]:
         discard_corpus_inventory(entry)
         try:
             inventory = audit_corpus(entry)
+            ledger_rows = audit_corpus_ledger(inventory)
         except CorpusError as error:
             print(f"  FAIL   {entry['name']} corpus: {error}")
             failed.append(entry["name"])
@@ -380,6 +580,8 @@ def scan_corpora(entries: list[dict]) -> list[str]:
             f"  corpus {entry['name']}: {inventory['candidate_cases']} candidates, "
             f"{inventory['tracked_files']} tracked files"
         )
+        if ledger_rows:
+            print(f"  ledger {entry['name']}: {ledger_rows} status rows")
         print(f"  wrote  {out.relative_to(ROOT)}")
     return failed
 
@@ -445,6 +647,8 @@ def main() -> int:
                     help="fetch one corpus entry and verify its committed manifest")
     ap.add_argument("--audit-corpora", action="store_true",
                     help="verify existing corpus checkouts without network access")
+    ap.add_argument("--seed-corpus-ledger", metavar="NAME",
+                    help="write an untriaged status ledger from an audited checkout")
     ap.add_argument("--depth", type=int, default=1, help="clone depth (default 1)")
     ap.add_argument("--list", action="store_true", help="list entries and exit")
     ap.add_argument("--licenses", action="store_true",
@@ -452,6 +656,11 @@ def main() -> int:
     args = ap.parse_args()
 
     entries = load()
+    if args.seed_corpus_ledger and (
+        args.names or args.category or args.corpus or args.audit_corpora
+        or args.list or args.licenses
+    ):
+        ap.error("--seed-corpus-ledger cannot be combined with other operations")
     if args.corpus and (args.names or args.category):
         ap.error("--corpus cannot be combined with names or --category")
     if args.category:
@@ -471,6 +680,24 @@ def main() -> int:
         if missing:
             print(f"unknown entries: {sorted(missing)}", file=sys.stderr)
             return 2
+
+    if args.seed_corpus_ledger:
+        entries = [e for e in entries if e["name"] == args.seed_corpus_ledger]
+        if not entries:
+            print(f"unknown corpus: {args.seed_corpus_ledger}", file=sys.stderr)
+            return 2
+        try:
+            inventory = audit_corpus(entries[0])
+            out = write_initial_corpus_ledger(inventory)
+            audit_corpus_ledger(inventory)
+        except CorpusError as error:
+            print(f"  FAIL   {args.seed_corpus_ledger} ledger: {error}")
+            return 1
+        print(
+            f"  wrote  {out.relative_to(ROOT)} "
+            f"({inventory['candidate_cases']} untriaged rows)"
+        )
+        return 0
 
     if args.list:
         width = max(len(e["name"]) for e in entries)
