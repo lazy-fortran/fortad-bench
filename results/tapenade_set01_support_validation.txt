@@ -1,0 +1,56 @@
+case: Tapenade nonRegressions set01 lh023 lh032 lh134
+recorded_utc: 2026-08-07T01:32:33Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds_cached_or_incremental: 1.045555
+jvp_transform_seconds_three_cases: 0.012915
+vjp_transform_seconds_three_cases: 0.011685
+upstream_fixed_form_compile_seconds: 0.034259
+generated_jvp_object_compile_seconds: 0.039609
+generated_vjp_object_compile_seconds: 0.039660
+case_compile_and_link_seconds: 0.166234
+generated_jvp_source_bytes: 1966
+generated_vjp_source_bytes: 2544
+generated_jvp_object_bytes: 4392
+generated_vjp_object_bytes: 4672
+generated_jvp_object_text_bytes: 147
+generated_vjp_object_text_bytes: 218
+runtime_wall_seconds=0.01
+runtime_peak_rss_kb=3308
+upstream_compiler_oracle: all three unmodified fixed-form sources compile with -std=f2018 -pedantic-errors
+tapenade_result: stored upstream d/b references present; current Tapenade executable not rerun
+oracle: hand JVP/VJP, four-step central differences, fixed values, and JVP/VJP adjoint identity
+transform_method: date +%s.%N around three fo exec --no-build calls per mode; engine setup timed separately
+runtime_method: Fortran system_clock over 1000000 repetitions of all six derivatives; /usr/bin/time %e and %M wrap the executable
+source_sha256:
+db8be9939a579838ed44174b311c44c396c0f5fe7d682e3a788f272d5a6f7ccb  cases/tapenade-set01/lh023.f90
+fe4aedf2505be6d55df427b2cc1bfbfe97e47a9c537ec2786d22dfaf7e825bd0  cases/tapenade-set01/lh032.f90
+1e222ca967478511f5de8722119a9fb1b13b340451838db5607a186dbce7dbca  cases/tapenade-set01/lh134.f90
+edc4e0521a87a748b42e80cffb2c7525aa9b5b37af50abcb5aad362b425fe913  cases/tapenade-set01/hand_derivatives.f90
+499a0817085e2a72a15a3062430de5b85fe9e596412aac26af7a37c14be38504  cases/tapenade-set01/manifest.toml
+1bc024d5975c290e36e11d23e0430e479ee9edcf0cfda661bdef19b5d042cba4  harness/bench_tapenade_set01.f90
+548b8f9a0bc75be46cd781cf1d068f5c3afa36d444cf8e4c35db5aa94a3aaeeb  scripts/bench_tapenade_set01.sh
+generated_source_sha256:
+7f6f4a2705a3d4561102feaa49dbbd17ffe5beacc9fac37444a8c079a46443f0  lh023_jvp.f90
+3dd3f943575f5e32496343f0db2558344670b88392bf853564af0c1e8de84023  lh032_jvp.f90
+bf6ee850027407ed55c480fff5847da1ff7a140a3c291f25a76bd7fe0213ce0c  lh134_jvp.f90
+d5ca6abcdc716d3327c1c8a9e53423d6b2216d8b8640114ecaa5f8edc7b47e5b  lh023_vjp.f90
+5d38b04b2b07539dd84ba05be3f3b47a445d392cb3c892441d9845aafcdde882  lh032_vjp.f90
+22366dc00299dab856605bc122a49190bc05739bd505e2ac9ecf025e03dd760a  lh134_vjp.f90
+run_output:
+fd_errors_lh023:   3.5527E-15   1.0214E-14   1.1000E-12   2.2309E-12
+fd_errors_lh032:   1.7764E-15   2.2027E-13   2.0002E-12   5.3511E-11
+fd_errors_lh134:   2.9090E-07   2.9090E-09   2.9300E-11   2.6549E-12
+derivative_calls: 6000000
+derivative_runtime_seconds:   1.61786370E-02
+ns_per_derivative_call:   2.69643950E+00
+runtime_sink:  -1.91746825E-09
+oracle_status: pass

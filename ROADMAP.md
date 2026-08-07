@@ -61,8 +61,9 @@ All three are recorded in `README.md` and none is resolved:
 
 Tapenade is the third engine of interest and the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
-makes it the honest comparison for the `rk4` reverse result. It is not yet
-wired into the harness.
+makes it the honest comparison for the `rk4` reverse result. Corpus support is
+now wired into the harness for three small set01 cases; a fresh Tapenade engine
+run and the rest of the corpus remain open.
 
 The complete tracked checkout is now reproducible. The
 [`corpus manifest`](docs/corpora/tapenade.toml) pins commit
@@ -83,6 +84,11 @@ explicitly refused, independently checked, and measured when runnable.
   6,078 tracked source files plus syntactic entry-point, include, and module
   dependency hints. Its classifications are discovery aids, not parse, build,
   transformation, or correctness results.
+- [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
+  `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
+  fixes the entry points and mathematics; the [measurement record](results/tapenade_set01_support_validation.txt)
+  shows successful forward/reverse transformation, generated-code compilation,
+  hand derivatives, four-step finite differences, and adjoint identities.
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
   reproducible evidence.
