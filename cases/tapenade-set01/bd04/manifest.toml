@@ -1,0 +1,57 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set01-bd04"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "72ca2aa1c6c7d4b171b13a3e13c5190944080032"
+source_form = "fixed"
+runner = "cases/tapenade-set01/bd04/run.sh"
+result = "cases/tapenade-set01/bd04/result.txt"
+
+source_files = ["nonRegressions/set01/bd04/program.f"]
+upstream_sources = [
+    "nonRegressions/set01/bd04/program.f",
+    "nonRegressions/set01/bd04/program_p.f",
+    "nonRegressions/set01/bd04/program_p.msg",
+    "nonRegressions/set01/bd04/program_d.f",
+    "nonRegressions/set01/bd04/program_d.msg",
+    "nonRegressions/set01/bd04/program_b.f",
+    "nonRegressions/set01/bd04/program_b.msg",
+]
+stored_references = ["program_p.f", "program_p.msg", "program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+
+upstream_entry_point = "toto(a)"
+independent = ["a"]
+dependent = ["a"]
+options = ["-p", "-d -root toto", "-b -root toto"]
+modes = [
+    "exact-source-strict-compile",
+    "stored-parser-forward-reverse-strict-compile",
+    "fresh-parser-forward-reverse-generation-and-strict-compile",
+    "FortAD-exact-parser:expected-refusal-unsupported-statement-line-26",
+    "FortAD-exact-forward:expected-refusal-unsupported-statement-line-26",
+    "FortAD-exact-reverse:expected-refusal-unsupported-statement-line-26",
+]
+oracle = [
+    "independent-Fortran-DO-control-trace",
+    "independent-in-place-update-JVP-finite-difference",
+    "independent-VJP-adjoint-identity",
+]
+classification = "expected-refusal-fortad-unsupported-print-statement"
+dependencies = "The exact fixed-form source changes DO bounds inside both loops and prints the loop indices before doubling A(i1,i2). Tapenade handles the source and emits parser, tangent, and reverse references. FortAD 72ca2aa refuses the exact source at the PRINT statement on line 26; no repaired or ported source is added."
+expected_diagnostics = [
+    "strict fixed-form compilation accepts program.f and the stored parser, forward, and reverse references",
+    "fresh pinned Tapenade parser, tangent, and reverse generation succeeds and all generated files compile strictly",
+    "FortAD check, exact forward, and exact reverse all refuse with unsupported statement at line 26 and emit no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "expected-refusal-parser-forward-reverse-unsupported-print-statement-line-26"
+closure = "This case records exact-source behavior and an explicit FortAD refusal only. The Python oracle models the original loop-control evaluation, in-place selected-cell update, JVP, and VJP independently; it is not a repaired Fortran port and does not claim exact FortAD support."
+
+[upstream_sha256]
+"program.f" = "5d07bbfa77d27c761647a7c94b7d206e32756d364aca0fd29aeb15a85cc432b0"
+"program_p.f" = "e150b08ec7cc2108b2f6a6c878fd56aa9928c5db18647ef7a81dba07f16ad10a"
+"program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"program_d.f" = "8cbb214c1fadabf6bd0085fa76ff1dc7698ab06035f1d8aa55fe9a62a842aece"
+"program_d.msg" = "18247c766a2b275f3dc16c226d7704fb76acadb7a97d49b30138148bc7e04e4f"
+"program_b.f" = "704c9fad8965e9d7301bd745f248217e7040c8f5cee4456c474660c7306f571f"
+"program_b.msg" = "18247c766a2b275f3dc16c226d7704fb76acadb7a97d49b30138148bc7e04e4f"

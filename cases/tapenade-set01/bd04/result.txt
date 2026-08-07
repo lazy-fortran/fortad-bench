@@ -1,0 +1,46 @@
+case: Tapenade nonRegressions set01 bd04
+classification: expected-refusal-fortad-unsupported-print-statement
+runner_result: pass
+recorded_utc: 2026-08-07T16:52:09Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: toto(a)
+upstream_exact_strict_compile: program.f=0
+stored_strict_compile: parser=0 forward=0 reverse=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported statement at line 26"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported statement at line 26"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported statement at line 26"
+independent_oracle: DO-control trace, selected-cell update, JVP finite difference, VJP adjoint identity
+oracle_trace: 100 visits, rows and columns 1..10 in order
+oracle_jvp: finite_difference_error=1.618e-08
+oracle_vjp: adjoint_residual=0.000e+00
+oracle_status: pass
+upstream_sha256:
+5d07bbfa77d27c761647a7c94b7d206e32756d364aca0fd29aeb15a85cc432b0  program.f
+e150b08ec7cc2108b2f6a6c878fd56aa9928c5db18647ef7a81dba07f16ad10a  program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+8cbb214c1fadabf6bd0085fa76ff1dc7698ab06035f1d8aa55fe9a62a842aece  program_d.f
+18247c766a2b275f3dc16c226d7704fb76acadb7a97d49b30138148bc7e04e4f  program_d.msg
+704c9fad8965e9d7301bd745f248217e7040c8f5cee4456c474660c7306f571f  program_b.f
+18247c766a2b275f3dc16c226d7704fb76acadb7a97d49b30138148bc7e04e4f  program_b.msg
+fresh_tapenade_sha256:
+e5f3f6c73238c1725e1bf71add119e5bc351cf5ad1e2ee42049a7409db74d0ce  bd04_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  bd04_p.msg
+3d513e44c04fc0be55ddeae2221ce61db1e58e0570e0fbed4f4cca1291036f99  bd04_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  bd04_d.msg
+d8c0a4ddc102daab360467f88b9312f936662e466bf77c69acd8af62b817cb50  bd04_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  bd04_b.msg
+case_artifact_sha256:
+de8dee0a23b7de7ba5482d7b7d3233221931c649909039fa5f0673ba309cdf19  manifest.toml
+abd871536603ce7e6a3a33717f29384c7c9dc4120ae21a8f6cb020bf204ba209  notes.md
+58042dca610c099f73bb76878e1a629107541e258316c542ae7689eb981c0cc7  oracle.py
+490c97d58adfaceef9a4b567da90cf477cf5d3840d820502b3553b883cc6727b  run.sh
+e2784763c3145f218cba3d69d054440036df3bf5997a605ed20654a554d9c15d  test_contract.py

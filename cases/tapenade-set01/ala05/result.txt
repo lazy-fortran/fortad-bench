@@ -1,0 +1,43 @@
+case: Tapenade nonRegressions/set01/ala05
+classification: expected-refusal-fortad-unsupported-do-while-line-27-and-tapenade-reverse-real8
+runner_result: pass
+recorded_utc: 2026-08-07T16:52:07Z
+fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+exact_compile: strict=program/parser/forward-pass reverse=REAL8-refusal legacy=all-pass
+exact_primal_runtime: build=0 run=0 output=2.346524320087...
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_strict: parser=0 forward=0 reverse=1-REAL8-refusal
+tapenade_fresh_legacy: parser=0 forward=0 reverse=0
+tapenade_reference_match: parser-and-forward-after-banner-normalization
+tapenade_reverse_difference: fresh=ADSTACK_STARTREPEAT/ENDREPEAT stored=zbconv
+fortad_exact_behavior: check/forward/reverse=expected-refusal unsupported-DO-WHILE-line-27 no-output
+independent_oracle: exact-source-shape default-real-increment primal jvp-finite-difference vjp-dot-product
+oracle_source_shape: exact NFP warm-start inventory pass
+oracle_primal: value=2.34652432008725 slices=50 iterations=457 pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_dot_product: pass
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+0ab2308c1565a3260805751ccf92fc6a22d427602ed4f7cb1cdb1d1748e42429  nonRegressions/set01/ala05/Options
+cc2ca8e123f630edaa158a9bb0e8681c09b5afa0958c2419364bba472290bde4  nonRegressions/set01/ala05/program.f90
+bb434cdca0ff2139275a4cd6dceb06c088e5a94b0dab5047f8bf4f964ece4dc0  nonRegressions/set01/ala05/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/ala05/program_p.msg
+ea5458a99a01e830c99f138ffa764d8d5c46d64590c3385aef62a11b4e1432f3  nonRegressions/set01/ala05/program_d.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/ala05/program_d.msg
+7472badbceaa11c98d5cc29b32dd169eb0e8ea3f1f5c62df85ed7a71fd6eb68a  nonRegressions/set01/ala05/program_b.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/ala05/program_b.msg
+fresh_tapenade_sha256:
+b1c130e74b2d4bfc824ecd7f6a8cbd00bba23b94979ebf63010c5e5a73571b82  parser/ala05_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/ala05_p.msg
+902965bc13757622908a864b2ee9e5f587f34aa5783b397f81400a4eb077f75e  forward/ala05_d.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  forward/ala05_d.msg
+fe86e0095e587ca0542e8022baa360fb1419c8fc30315c4d917f739fefb1cb65  reverse/ala05_b.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  reverse/ala05_b.msg
+case_artifact_sha256:
+d39986cf3b0dd92346ede36580ed141c6f747a783a6a92cf18b3802642cb145f  manifest.toml
+3297d4942dc4a0fa76c26a525df119d686aa29ec7048ca01a6983d9ebf655551  notes.md
+edd249a4a528e920358926c5004dbba809655a03cc35a9d5c6a8f092e335bd50  oracle.py
+ffab785264a0a3939a385e15030aea028446b5e5c5e74db6aa7fbc39e45153db  run.sh
+32e75f99f98d6d7385ae246dba3f4db4d43985b3b221301adac5d90809101c4e  test_contract.py

@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions/set01/ala03
+classification: expected-refusal-fortad-external-mpi-update-rules
+runner_result: pass
+recorded_utc: 2026-08-07T16:53:47Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only -fno-lto -I/usr/include -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/ADFirstAidKit
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only -fno-lto -I/usr/include -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/ADFirstAidKit
+mpi_include: /usr/include
+fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+required_fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: wave_resolution(id,p,n_global,n_local,nsteps,c,u_global)
+tapenade_options: Options=-head wave_resolution(u_global)/(c) -noisize -I ../ADFirstAidKit/mpich/include/; fresh=explicit-head-noisize-with-pinned-support-and-mpi-includes
+exact_compile: program=1/0 stored_d=0/0 stored_b=1/0 (strict/legacy)
+exact_diagnostics: program=strict-REAL8-INTEGER4-MPI-mismatch stored_b=strict-INTEGER4
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_compile: parser=1/0 forward=0/0 reverse=1/0 (strict/legacy)
+tapenade_fresh_diagnostics: parser=strict-REAL8-INTEGER4-MPI-mismatch reverse=strict-INTEGER4
+fortad_exact_behavior: check=0 output=pass forward=1 reverse=1 diagnostics=external-update-derivative-rules-no-output
+independent_oracle: serial-p1-primal wave-jvp-central-difference wave-vjp-dot-product
+oracle_source_shape: exact MPI wave/checkpoint inventory pass
+oracle_primal: serial p=1 wave recurrence and exact boundaries pass
+oracle_jvp: hand recurrence agrees with central difference max_error=8.655e-10
+oracle_vjp: hand reverse recurrence passes dot product residual=1.491e-19
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+5ac64e3343ce3b21609274ec83ab1730e64d68d0f23e98ae5a0561cfab131382  nonRegressions/set01/ala03/Options
+5730644de10a180569f994b679df83c258af2ac2f7346e00061ec055d6f53aab  nonRegressions/set01/ala03/program.f
+14de2ca3de73e34a018c4ab2a26cf3ddb443c1b731bf1f0b51d8eb8efe2a1f38  nonRegressions/set01/ala03/program_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/ala03/program_d.msg
+c3cdfdccc3ff98367f77c13db81fe7abcbd73e419b47cfe54c3b46437fdd5eb7  nonRegressions/set01/ala03/program_b.f
+1973552198ac4169411b3e309de0b0a029c47a52a1b67caf313699507520563b  nonRegressions/set01/ala03/program_b.msg
+fresh_tapenade_sha256:
+83790a281594d6cfdb1c5461b2da0d6d65c1acbd579edefec3153d904b519df2  parser/ala03_p.f
+31f8296aaaf448ebe7852ad14501f6aa69120a70ed8d906ed6499e2dc08aa718  parser/ala03_p.msg
+d97a9dbb2e9267ff2af80e4ac9cf64e70fa1616aa1607f384e5cfd4b0fd3c2de  forward/ala03_d.f
+10554dc26c069e8f6e961b01a63cdb0f454623235c8a09403b662834139bf462  forward/ala03_d.msg
+bb87ff57f47a1677dd2947c98adefc03104ce3b727cc68d4bb1e16a47606a491  reverse/ala03_b.f
+24298b52f9a0e4d0f186105a84f8fbca63f852ebe379b81548695bf7745d9bc8  reverse/ala03_b.msg
+case_artifact_sha256:
+e878dd862a68a8be6bc2c09135982e80510e7c2a8b51ab1108aa80cc617c79de  manifest.toml
+3c2fdd41e7e52c8859e4d93340c62b3ebd1e7ac5ef3a3f093106adf61317fd3b  notes.md
+91f2ca6ce3395feac99883de62a299cee0540b4bdf3e4cf846d1114e969625cc  oracle.py
+531d49d82e471bac724dbd74826444aacd96f9a423ca5c6985d34c42b2bad7c5  run.sh
+322224735f0c1e79af8816cc49544216b7b5df117dcd7772c9d4b38b9dc9275d  test_contract.py

@@ -1,0 +1,81 @@
+schema_version = 1
+name = "tapenade-set01-ala03-mpi-wave-checkpoint"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "72ca2aa1c6c7d4b171b13a3e13c5190944080032"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ala03/run.sh"
+result = "cases/tapenade-set01/ala03/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala03/Options",
+    "nonRegressions/set01/ala03/program.f",
+    "nonRegressions/set01/ala03/program_d.f",
+    "nonRegressions/set01/ala03/program_d.msg",
+    "nonRegressions/set01/ala03/program_b.f",
+    "nonRegressions/set01/ala03/program_b.msg",
+]
+stored_references = ["program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+
+upstream_entry_point = "wave_resolution(id,p,n_global,n_local,nsteps,c,u_global)"
+selected_entry_points = ["wave_resolution(id,p,n_global,n_local,nsteps,c,u_global)"]
+ported_entry_point = "not-claimed-exact-source-only"
+independent = ["c"]
+dependent = ["u_global"]
+function = "MPI-distributed explicit wave update with manual checkpoint regions and exact sinusoidal boundary data"
+options = [
+    "Options: -head wave_resolution(u_global)/(c) -noisize -I ../ADFirstAidKit/mpich/include/",
+    "fresh parser: -p -noisize -head wave_resolution(u_global)/(c)",
+    "fresh forward: -d -noisize -head wave_resolution(u_global)/(c)",
+    "fresh reverse: -b -noisize -head wave_resolution(u_global)/(c)",
+    "fresh include resolution: pinned ADFirstAidKit plus host MPI mpif.h; exact source unchanged",
+]
+modes = [
+    "exact-source:strict-refusal-implicit-MPI-argument-mismatch-legacy-pass",
+    "stored-forward:strict-pass-legacy-pass",
+    "stored-reverse:strict-refusal-INTEGER*4-legacy-pass",
+    "fresh-parser:generate-strict-refusal-implicit-MPI-argument-mismatch-legacy-pass",
+    "fresh-forward:generate-strict-pass-legacy-pass",
+    "fresh-reverse:generate-strict-refusal-INTEGER*4-legacy-pass",
+    "fortad-check:pass",
+    "fortad-forward-reverse:expected-refusal-external-update-rules-no-output",
+]
+contract_tests = [
+    "pinned-exact-source-and-stored-reference-compiler-boundary",
+    "fresh-pinned-Tapenade-three-mode-generation-and-independent-wave-JVP",
+    "FortAD-external-call-refusal-and-independent-wave-VJP-dot-product",
+]
+oracle = [
+    "independent p=1 wave-update primal recurrence",
+    "independent directional JVP versus central difference",
+    "independent VJP dot-product identity",
+    "upstream-source-SHA256-contract",
+]
+classification = "expected-refusal-fortad-external-mpi-update-rules"
+dependencies = [
+    "The exact fixed-form source includes mpif.h and calls external MPI, update, and collect routines; no MPI runtime is synthesized.",
+    "The pinned checkout has ADFirstAidKit/admpif.h and the host compiler supplies mpif.h; the runner adds those include locations without changing source.",
+    "Tapenade's stored and fresh reverse artifacts use INTEGER*4 branch declarations, which are rejected by strict F2018 syntax but accepted by the legacy gate.",
+    "FortAD can parse and emit the exact root, but forward and reverse differentiation stop at the external update call because no derivative rules are registered.",
+]
+expected_diagnostics = [
+    "exact program.f strict compilation refuses REAL(8)/INTEGER(4) MPI argument mismatches and legacy compilation passes",
+    "stored program_d.f passes strict and legacy; stored program_b.f refuses strict INTEGER*4 and passes legacy",
+    "fresh pinned Tapenade parser, forward, and reverse generation all return zero",
+    "fresh parser strict compilation refuses the preserved MPI mismatch, fresh forward passes strict, and fresh reverse refuses INTEGER*4",
+    "FortAD check passes; exact forward and reverse refuse external update derivative rules and emit no output",
+    "the independent serial p=1 wave recurrence passes primal, central-difference JVP, and VJP dot-product checks",
+]
+fresh_generated_sources = ["ala03_p.f", "ala03_d.f", "ala03_b.f"]
+fresh_generated_messages = ["ala03_p.msg", "ala03_d.msg", "ala03_b.msg"]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; parser-strict-MPI-mismatch-refusal; forward-strict-pass; reverse-strict-INTEGER*4-refusal; all-legacy-pass"
+fortad_result = "check-pass; expected-refusal-forward-reverse-external-update-no-output"
+closure = "The exact MPI/checkpoint source and stored references remain untouched and hash-locked. The Python oracle models only the closed serial arithmetic of update for p=1; it does not repair MPI interfaces, provide Tapenade runtime support, or claim an executable derivative port."
+
+[upstream_sha256]
+"nonRegressions/set01/ala03/Options" = "5ac64e3343ce3b21609274ec83ab1730e64d68d0f23e98ae5a0561cfab131382"
+"nonRegressions/set01/ala03/program.f" = "5730644de10a180569f994b679df83c258af2ac2f7346e00061ec055d6f53aab"
+"nonRegressions/set01/ala03/program_d.f" = "14de2ca3de73e34a018c4ab2a26cf3ddb443c1b731bf1f0b51d8eb8efe2a1f38"
+"nonRegressions/set01/ala03/program_d.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/ala03/program_b.f" = "c3cdfdccc3ff98367f77c13db81fe7abcbd73e419b47cfe54c3b46437fdd5eb7"
+"nonRegressions/set01/ala03/program_b.msg" = "1973552198ac4169411b3e309de0b0a029c47a52a1b67caf313699507520563b"

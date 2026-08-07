@@ -1,0 +1,84 @@
+schema_version = 1
+name = "tapenade-set01-ala05-warm-start-fixed-point"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "72ca2aa1c6c7d4b171b13a3e13c5190944080032"
+source_form = "free"
+runner = "cases/tapenade-set01/ala05/run.sh"
+result = "cases/tapenade-set01/ala05/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala05/Options",
+    "nonRegressions/set01/ala05/program.f90",
+    "nonRegressions/set01/ala05/program_p.f90",
+    "nonRegressions/set01/ala05/program_p.msg",
+    "nonRegressions/set01/ala05/program_d.f90",
+    "nonRegressions/set01/ala05/program_d.msg",
+    "nonRegressions/set01/ala05/program_b.f90",
+    "nonRegressions/set01/ala05/program_b.msg",
+]
+stored_references = ["program_p.f90", "program_p.msg", "program_d.f90", "program_d.msg", "program_b.f90", "program_b.msg"]
+
+upstream_entry_point = "NFP(x,y)"
+selected_entry_points = ["NFP(x,y)"]
+ported_entry_point = "not-applicable-exact-source-only"
+independent = ["x"]
+dependent = ["y"]
+function = "50-slice warm-start fixed-point iteration z = 0.75*z + 0.25*x/z, accumulated into y"
+options = [
+    "Options: -head NFP(y)/(x) -context -fixinterface",
+    "fresh: -p/-d/-b -head NFP(y)/(x) -context -fixinterface -O DIR -o ala05 program.f90",
+    "FortAD: check/forward/reverse exact program.f90 with --proc NFP --indep x --dep y",
+]
+modes = [
+    "exact-source:strict-and-legacy-compile-and-runtime-pass",
+    "stored-parser-and-forward:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-refusal-REAL*8-and-legacy-pass",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation",
+    "fresh-parser-and-forward:strict-and-legacy-compile-pass",
+    "fresh-reverse:strict-refusal-REAL*8-and-legacy-pass",
+    "exact-FortAD-check-forward-reverse:expected-refusal-DO-WHILE-line-27",
+]
+contract_tests = [
+    "exact-source-and-stored-reference-boundary-plus-primal-oracle",
+    "fresh-pinned-Tapenade-three-mode-generation-and-oracle-boundary",
+    "exact-FortAD-three-mode-refusal-plus-independent-JVP-VJP-oracle",
+]
+oracle = [
+    "independent exact-source warm-start inventory",
+    "independent NFP primal model preserving default-real 1.0/slices arithmetic",
+    "central-difference JVP and scalar VJP dot-product identity",
+    "upstream source SHA-256 contract",
+]
+classification = "expected-refusal-fortad-unsupported-do-while-line-27-and-tapenade-reverse-real8"
+dependencies = [
+    "The exact source contains DO WHILE at line 27, which current FortAD rejects in all three CLI modes.",
+    "Tapenade context runtime calls are not synthesized or linked by this exact-source case.",
+    "Stored and fresh reverse artifacts contain legacy REAL*8 cumul and fail strict F2018 while passing the legacy gate.",
+]
+expected_diagnostics = [
+    "exact program.f90, program_p.f90, and program_d.f90 pass strict and legacy free-form syntax checks",
+    "exact program.f90 runs with y approximately 2.346524320087252, matching the independent model",
+    "pinned Tapenade parser, forward, and reverse generation succeeds",
+    "strict reverse compilation refuses at REAL*8 while legacy compilation passes",
+    "fresh parser and forward match stored references after removing only the historical banner",
+    "fresh reverse uses ADSTACK repeat handling while stored reverse uses zbconv",
+    "FortAD check, forward, and reverse refuse at DO WHILE line 27 and write no output",
+]
+fresh_generated_sources = ["ala05_p.f90", "ala05_d.f90", "ala05_b.f90"]
+fresh_generated_messages = ["ala05_p.msg", "ala05_d.msg", "ala05_b.msg"]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; parser-forward-strict-legacy-pass; reverse-strict-REAL8-refusal-legacy-pass; fresh-reverse-repeat-stack-differs-from-stored"
+fortad_result = "expected-refusal-check-forward-reverse-unsupported-DO-WHILE-line-27-no-output"
+bounded_sources = []
+bounded_domain = "not-applicable-exact-source-only; Python arithmetic model is an independent oracle, not a repaired Fortran port"
+closure = "Exact source, Options, and stored references remain untouched and hash-locked. No DO WHILE rewrite, runtime stub, REAL*8 replacement, reverse port, or source repair is claimed."
+
+[upstream_sha256]
+"nonRegressions/set01/ala05/Options" = "0ab2308c1565a3260805751ccf92fc6a22d427602ed4f7cb1cdb1d1748e42429"
+"nonRegressions/set01/ala05/program.f90" = "cc2ca8e123f630edaa158a9bb0e8681c09b5afa0958c2419364bba472290bde4"
+"nonRegressions/set01/ala05/program_p.f90" = "bb434cdca0ff2139275a4cd6dceb06c088e5a94b0dab5047f8bf4f964ece4dc0"
+"nonRegressions/set01/ala05/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/ala05/program_d.f90" = "ea5458a99a01e830c99f138ffa764d8d5c46d64590c3385aef62a11b4e1432f3"
+"nonRegressions/set01/ala05/program_d.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/ala05/program_b.f90" = "7472badbceaa11c98d5cc29b32dd169eb0e8ea3f1f5c62df85ed7a71fd6eb68a"
+"nonRegressions/set01/ala05/program_b.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

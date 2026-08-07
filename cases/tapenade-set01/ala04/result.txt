@@ -1,0 +1,52 @@
+case: Tapenade nonRegressions/set01/ala04
+classification: expected-refusal-fortad-real8-declaration-boundary
+runner_result: pass
+recorded_utc: 2026-08-07T16:53:52Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+required_fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: FP2(x,y)
+tapenade_options: parser=-p -context forward=-d -context reverse=-b -context
+exact_strict_compile: program=1 program_p=1 program_d=1 program_b=1 diagnostic=REAL8
+exact_legacy_compile: program=0 program_p=0 program_d=0 program_b=0
+exact_primal_runtime: build=0 run=0 output= x=   1.0000000000000000      --> y=  0.99999999994905853      
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1 diagnostic=REAL8
+tapenade_fresh_legacy_compile: parser=0 forward=0 reverse=0
+tapenade_reference_match: parser=normalized-banner forward=normalized-banner reverse=normalized-banner messages=normalized-number-prefix
+fortad_exact_behavior: check=exit-0-non-equivalent-reemit-missing-REAL8-and-DO-WHILE forward=expected-refusal-independent-x-not-declared reverse=expected-refusal-dependent-y-not-declared no-derivative-output
+independent_oracle: nested-primal jvp-central-difference vjp-dot-product
+oracle_source_shape: exact nested FP2/TOTO recurrence inventory pass
+oracle_primal: y=0.9999999999490585 outer_iterations=133 inner_iterations=10158
+oracle_jvp: hand nested-recurrence JVP agrees with central difference
+oracle_vjp: hand reverse recurrence passes dot-product identity bar_x=0.6036363656796541 bar_initial_z=-1.692929314382089e-14
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+f9c2b96cfec05af95937ff9862ac813e2880b358d43c29ce32f7935f967a98a0  nonRegressions/set01/ala04/Options
+c60b6d14372d33b984c52129023ab66551d4a811ffcebda3e05b7e591a3276bd  nonRegressions/set01/ala04/program.f
+0cd891977b8cbb5e2e5ea9e3431d4a57c33e805f3a13f753b6c07baa4683f339  nonRegressions/set01/ala04/program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/ala04/program_p.msg
+6e096ae80f5c6706358a3a94b5e5629137b12b0d4e0265e4eed4237fdbba0727  nonRegressions/set01/ala04/program_d.f
+55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140  nonRegressions/set01/ala04/program_d.msg
+cc44c6c8949bcd7ed95e7e563f30e5025edb01aa7f52203a659e4a7f0729af47  nonRegressions/set01/ala04/program_b.f
+55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140  nonRegressions/set01/ala04/program_b.msg
+fresh_tapenade_sha256:
+3bff8d0abc67a60d90e0cee7d7b5c0cb4c2ad78b4fa3a560a592750d54b3d540  parser/ala04_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/ala04_p.msg
+98b2e8b235e9e50b3935860c7080b8e2540bc93e08b04f2ffc153a9790c746bc  forward/ala04_d.f
+55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140  forward/ala04_d.msg
+55fd72b8e5953db4320d1a1dd31c0ab6985365573d4c0beae3270e85154177c5  reverse/ala04_b.f
+55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140  reverse/ala04_b.msg
+case_artifact_sha256:
+54bc8ce8128cf9539ac6bfe9431deba9dc490c60ac69dd07a519aa837be400ff  manifest.toml
+c05de7d5b2a21f9102631d13b75c5ee3ff90ee961032942d4031931015e8cb17  notes.md
+25dccf77c247b699e987b66d1ae5bbe112a8c5f132fbd6881b05ba4215bee0f8  oracle.py
+e4eeb68de3df1ae7cb67791c4d4fed6e63b4d1dbeadd0352b01f8c5c7591a059  run.sh
+9a8f0fe90e9c1f2d973cd75577d719d88090fe342416ab7ca7ba56a2f663a9bc  test_contract.py

@@ -1,0 +1,85 @@
+schema_version = 1
+name = "tapenade-set01-ala04-nested-fixed-point-context"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "72ca2aa1c6c7d4b171b13a3e13c5190944080032"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ala04/run.sh"
+result = "cases/tapenade-set01/ala04/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala04/Options",
+    "nonRegressions/set01/ala04/program.f",
+    "nonRegressions/set01/ala04/program_p.f",
+    "nonRegressions/set01/ala04/program_p.msg",
+    "nonRegressions/set01/ala04/program_d.f",
+    "nonRegressions/set01/ala04/program_d.msg",
+    "nonRegressions/set01/ala04/program_b.f",
+    "nonRegressions/set01/ala04/program_b.msg",
+]
+stored_references = ["program_p.f", "program_p.msg", "program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+
+upstream_entry_point = "FP2(x,y)"
+selected_entry_points = ["FP2(x,y)"]
+ported_entry_point = "not-claimed-exact-source-only"
+independent = ["x"]
+dependent = ["y"]
+function = "FP2 applies nested fixed-point recurrences with checkpointed TOTO calls and returns y = z*x."
+options = [
+    "Tapenade parser: -p -context -O DIR -o ala04 program.f",
+    "Tapenade forward: -d -context -O DIR -o ala04 program.f",
+    "Tapenade reverse: -b -context -O DIR -o ala04 program.f",
+    "FortAD parser: check --proc FP2 --output FILE program.f",
+    "FortAD forward: --mode forward --proc FP2 --indep x --dep y --name ala04_d --module ala04_d_mod --output FILE program.f",
+    "FortAD reverse: --mode reverse --proc FP2 --indep x --dep y --name ala04_b --module ala04_b_mod --output FILE program.f",
+]
+modes = [
+    "exact-source-and-stored-references:strict-refusal-REAL8-legacy-pass",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation:strict-refusal-REAL8-legacy-pass",
+    "fresh-references-match-stored-after-banner-and-message-number-normalization",
+    "exact-primal-runtime:legacy-pass",
+    "fortad-check:exit-0-but-non-equivalent-reemit-missing-REAL8-and-loop-body",
+    "fortad-forward:expected-refusal-independent-x-not-declared",
+    "fortad-reverse:expected-refusal-dependent-y-not-declared",
+]
+contract_tests = [
+    "exact-source-hashes-legacy-runtime-and-independent-primal-oracle",
+    "fresh-pinned-tapenade-three-mode-generation-and-compiler-boundary",
+    "fortad-parser-boundary-refusals-and-independent-jvp-vjp-oracle",
+]
+oracle = [
+    "exact nested fixed-point source-shape inventory",
+    "independent nested-recurrence primal value and iteration accounting",
+    "independent directional JVP versus central difference",
+    "independent VJP dot-product identity",
+    "exact-primal compiler/runtime observation",
+    "upstream-source-SHA256 contract",
+]
+classification = "expected-refusal-fortad-real8-declaration-boundary"
+dependencies = [
+    "The exact source and all stored references use nonstandard REAL*8 declarations; strict F2018 rejects them while the legacy fixed-form gate accepts them.",
+    "Options contains -context; without an explicit root, pinned Tapenade selects subroutine FP2 as the default differentiation root and emits the stored context artifacts.",
+    "The stored context forward/reverse programs call Tapenade runtime routines; this case does not synthesize or link that runtime.",
+    "FortAD's current parser drops the REAL*8 declarations and fixed-point loop body in check output, so exact x-to-y forward/reverse requests refuse at the missing declarations.",
+]
+expected_diagnostics = [
+    "program.f, program_p.f, program_d.f, and program_b.f refuse strict F2018 at REAL*8 and pass the legacy syntax gate",
+    "fresh pinned Tapenade -p/-d/-b generation succeeds; every fresh artifact refuses strict F2018 at REAL*8 and passes legacy syntax",
+    "fresh sources match stored references after removing only the Tapenade banner line; message files match after removing only the numeric prefix",
+    "the exact primal source links and runs under the legacy compiler, producing y approximately 0.9999999999490585",
+    "FortAD check exits zero but its output omits REAL*8 declarations and DO WHILE body; forward refuses independent x and reverse refuses dependent y as undeclared",
+    "the independent nested recurrence passes primal, central-difference JVP, and VJP dot-product checks",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; all-exact-and-fresh-artifacts-strict-REAL8-refusal-legacy-pass; references-match-after-normalization"
+fortad_result = "check-exit-0-non-equivalent-reemit; expected-refusal-forward-independent-x-not-declared; expected-refusal-reverse-dependent-y-not-declared"
+closure = "The pinned exact source, Options file, and stored references remain authoritative by reference and hash. No REAL*8 replacement, loop repair, context-runtime stub, derivative port, or source copy is added. The Python oracle models the nested arithmetic separately and does not claim that FortAD transforms this exact source."
+
+[upstream_sha256]
+"nonRegressions/set01/ala04/Options" = "f9c2b96cfec05af95937ff9862ac813e2880b358d43c29ce32f7935f967a98a0"
+"nonRegressions/set01/ala04/program.f" = "c60b6d14372d33b984c52129023ab66551d4a811ffcebda3e05b7e591a3276bd"
+"nonRegressions/set01/ala04/program_p.f" = "0cd891977b8cbb5e2e5ea9e3431d4a57c33e805f3a13f753b6c07baa4683f339"
+"nonRegressions/set01/ala04/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/ala04/program_d.f" = "6e096ae80f5c6706358a3a94b5e5629137b12b0d4e0265e4eed4237fdbba0727"
+"nonRegressions/set01/ala04/program_d.msg" = "55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140"
+"nonRegressions/set01/ala04/program_b.f" = "cc44c6c8949bcd7ed95e7e563f30e5025edb01aa7f52203a659e4a7f0729af47"
+"nonRegressions/set01/ala04/program_b.msg" = "55e24adda5b4b9c6c37bb0d6ae4b457cf8ee740800a549ba6b0b9d7ae33e7140"
