@@ -8,7 +8,7 @@ Regenerate the full report:
 
 ```bash
 scripts/fetch_upstreams.py tapenade
-scripts/triage_tapenade_fortran.py --jobs 4
+scripts/triage_tapenade_fortran.py --jobs 1
 scripts/triage_tapenade_fortran.py --check
 ```
 
@@ -16,18 +16,18 @@ scripts/triage_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 2001 |
+| `compiled` | 2005 |
 | `include-fragment-not-compiled` | 147 |
-| `syntax-error` | 1424 |
+| `syntax-error` | 1420 |
 
 ## Failure kind
 
 | kind | files |
 |---|---:|
-| `compiler-diagnostic` | 861 |
+| `compiler-diagnostic` | 866 |
 | `include-fragment-not-compiled` | 147 |
-| `missing-dependency` | 563 |
-| `none` | 2001 |
+| `missing-dependency` | 554 |
+| `none` | 2005 |
 
 ## Source kinds
 
