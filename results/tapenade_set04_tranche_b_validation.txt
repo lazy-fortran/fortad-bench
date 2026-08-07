@@ -1,0 +1,53 @@
+suite: Tapenade nonRegressions set04 tranche B (lh128, lh151, lh152)
+recorded_utc: 2026-08-07T18:08:33Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -pedantic-errors -ffree-line-length-none
+normal_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_source_compile_statuses:
+lh128 0
+lh151 0
+lh152 0
+tapenade_generation: fresh parser, tangent, and reverse outputs generated for all three exact sources
+tapenade_generated_strict_statuses:
+tapenade/lh128/forward-generated-strict.status 0
+tapenade/lh128/parser-generated-strict.status 0
+tapenade/lh128/reverse-generated-strict.status 0
+tapenade/lh151/forward-generated-strict.status 0
+tapenade/lh151/parser-generated-strict.status 0
+tapenade/lh151/reverse-generated-strict.status 0
+tapenade/lh152/forward-generated-strict.status 0
+tapenade/lh152/parser-generated-strict.status 0
+tapenade/lh152/reverse-generated-strict.status 0
+fortad_lh128_forward: transform=0 compile=0
+fortad_lh128_reverse: transform=0 generated_compile=1 diagnostic=duplicate-w_b
+fortad_lh151_forward: transform=0 compile=0
+fortad_lh151_reverse: transform=1 diagnostic=stable-loop-refusal
+fortad_lh152_forward_reverse: transform=0 compile=0
+independent_oracle: central-difference JVPs, hand complex JVP, and scalar reverse adjoint
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3208
+lh128_numerical_oracle: pass
+lh151_forward_numerical_oracle: pass
+lh152_numerical_oracle: pass
+oracle_status: pass
+oracle_status: pass
+upstream_sha256:
+aae575748049b0ce08fcbe4689f950436a1d3d77b8ec2ea7c77c444cac3a9f10  nonRegressions/set04/lh128/program.f90
+1423de05fb5e423d65aa324219160325be00d9d0189ffe796447e35dda85c6c9  nonRegressions/set04/lh128/program_b.f90
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  nonRegressions/set04/lh128/program_b.msg
+8ae0a2022247543dfcf0e0ee0499673f37e97345738b0587428c940fa433dec0  nonRegressions/set04/lh151/program.f90
+e81fb5e41c000b459a202cb24cdc4dcf6f5860c47a12401470bbf0a47c5f0bb9  nonRegressions/set04/lh151/program_b.f90
+b07127a9b48d3d09a06ca8359e4fde0e88a4960cfbdc407f9ba668f9b55002b0  nonRegressions/set04/lh151/program_b.msg
+dcd408919910466eab4c0f149798eefbb560a58f446ca91848f6283a93ea379c  nonRegressions/set04/lh152/program.f90
+13cfa2afdd1edebc824963fa143e438f662eebfd0965584211947cc316aaaa4d  nonRegressions/set04/lh152/program_b.f90
+1890b962eb56e569eb9aa21c79317ca53273e497222861961b0313902c13f50c  nonRegressions/set04/lh152/program_b.msg
+artifact_sha256:
+4bb1f49b5e631ba4c2cf8d8df3c4f39f12137c9c97a2849e9274e32222f96463  cases/tapenade-set04/tranche-b-manifest.toml
+7ecf2bffa57eff4547d247267989f2d37f97dd5fa44e804a51711590beba689f  cases/tapenade-set04/tranche-b.md
+c74f87924092129e9293e9ac049f61b53538afed249c6e51bc7ea13e4caec811  harness/bench_tapenade_set04_tranche_b.f90
+97b96f74f18474af8d6f48105331d1132b7ac40b88e512ba3717ec8cb0c8edec  scripts/bench_tapenade_set04_tranche_b.sh

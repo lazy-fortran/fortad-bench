@@ -1,0 +1,57 @@
+schema_version = 1
+name = "tapenade-set04-tranche-b"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_tree = "17288bdf7e03cb23b82ddc769d884deed9c9575e"
+upstream_license = "MIT"
+baseline_fortad_commit = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set04_tranche_b.sh"
+result = "results/tapenade_set04_tranche_b_validation.txt"
+
+[[case]]
+id = "lh128"
+upstream_source = "nonRegressions/set04/lh128/program.f90"
+stored_references = ["program_b.f90", "program_b.msg"]
+upstream_entry_point = "test(w)"
+independent = ["w"]
+dependent = "w"
+modes = ["forward", "reverse:w"]
+function = "w(0) = w(1)**2 with the active index selected through a local integer"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "central-difference-JVP", "FortAD-generated-reverse-compile-refusal"]
+dependencies = "none"
+classification = "expected-refusal"
+expected_diagnostic = "generated FortAD reverse has duplicate symbol w_b in its formal argument list"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "pass-forward-transform-compile-reverse-generated-compile-refusal"
+
+[[case]]
+id = "lh151"
+upstream_source = "nonRegressions/set04/lh151/program.f90"
+stored_references = ["program_b.f90", "program_b.msg"]
+upstream_entry_point = "MUL(A,B,C)"
+independent = ["A", "B"]
+dependent = "C"
+modes = ["forward", "reverse:C"]
+function = "C = A + B*CMPLX(1.0,10.0) after the ten-trip loop"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "hand-complex-JVP", "central-difference-JVP", "FortAD-diagnostic"]
+dependencies = "none"
+classification = "expected-refusal"
+expected_diagnostic = "reverse mode: this loop accumulates nothing, writes no array element, and carries nothing across iterations"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "pass-forward-transform-compile-reverse-expected-refusal"
+
+[[case]]
+id = "lh152"
+upstream_source = "nonRegressions/set04/lh152/program.f90"
+stored_references = ["program_b.f90", "program_b.msg"]
+upstream_entry_point = "SATVAP(temp2,eval)"
+independent = ["temp2"]
+dependent = "eval"
+modes = ["forward", "reverse:eval"]
+function = "piecewise saturation-vapour formula, tested on both sides of temp2=253.155"
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "central-difference-sweep", "reverse-adjoint-scalar"]
+dependencies = "none"
+classification = "runnable-ported"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "pass-forward-reverse-transform-compile-runtime"
