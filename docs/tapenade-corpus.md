@@ -100,10 +100,10 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,233 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger now has 120 classified set01 rows (32 runnable, 72
-  expected refusals, and 16 invalid-upstream closures), plus 79 classified
-  rows elsewhere (67 runnable/refusal evidence rows and 12 invalid-upstream
+  either engine. It leaves 1,228 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger now has 122 classified set01 rows (32 runnable, 74
+  expected refusals, and 16 invalid-upstream closures), plus 82 classified
+  rows elsewhere (70 runnable/refusal evidence rows and 12 invalid-upstream
   closures).
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -272,6 +272,15 @@ declaration-only modules, invalid legacy declarations, pointers, private and
 derived-type layouts, an empty source, and the `vpf16` `Options` metadata.
 Each has fresh pinned Tapenade no-root evidence, strict source/reference
 checks, quiet FortAD no-entry behavior, and an independent three-test contract.
+
+Tranche AH (`set01/lh136`, `set01/lh144`, `set02/lh192`, and the modern
+`set12` trio `cmplxstep01`, `f03typf01`, and `f03fptr01`) adds five new ledger
+closures. The cases cover an unsupported fixed-form declaration, a generated
+reverse-signature collision, reverse checkpoint storage, mutable module state,
+abstract deferred dispatch, and procedure-pointer aliasing. Each has pinned
+source hashes, fresh Tapenade generation, exact FortAD results, and an
+independent arithmetic or finite-difference oracle. The modern three-case
+record is [here](../cases/tapenade-set12/modern-tranche-a.md).
 
 ## Closeout rule
 

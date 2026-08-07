@@ -309,12 +309,12 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Fifty-one rows now have executable FortAD evidence, 120 explicit
+  audit. Fifty-one rows now have executable FortAD evidence, 125 explicit
   refusals, and twenty-eight invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,307 rows are queued: 1,233 pure-Fortran rows and 74 mixed-language rows.
+  1,302 rows are queued: 1,228 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -386,6 +386,9 @@ because it belongs next to the engines rather than next to the compiler.
   The abstract OO boundary is an explicit expected refusal in
   [`f03typf01`](cases/tapenade-set12/f03typf01.md), with an independent
   child-value/finite-difference oracle and generated-source rejection record.
+  The modern set12 tranche adds exact-source refusal evidence for mutable
+  module state and procedure-pointer dispatch in
+  [`cmplxstep01`, `f03typf01`, and `f03fptr01`](cases/tapenade-set12/modern-tranche-a.md).
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.
