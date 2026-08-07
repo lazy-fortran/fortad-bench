@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set04/v025
+classification: reference-only-no-entry-point
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+static_queue_category: no-entry-point-evidence
+static_entry_point_hints: none
+upstream_entry_points: none (modules a, b, c, d, e only)
+selected_entry_points: none
+tapenade_options: parser=-p/-O ./-o v025; forward=-d/-O ./-o v025; reverse=-b/-O ./-o v025; no root
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v025_p.f90 forward=none reverse=none
+tapenade_fresh_strict_compile: parser=0 forward=not-applicable reverse=not-applicable
+tapenade_no_root_diagnostic: forward="No root unit to differentiate; The code provided does not contain a top procedure" reverse="No root unit to differentiate; The code provided does not contain a top procedure"
+fortad_exact_parser: not-applicable status=no-entry-point output=none
+fortad_exact_forward: not-applicable status=no-entry-point output=none
+fortad_exact_reverse: not-applicable status=no-entry-point output=none
+oracle_status: pass
+oracle_kind: independent-module-storage-semantic
+module_count: 5
+saved_real_variable_count: 6
+callable_or_executable_units: 0
+derivative_domain: empty-no-entry-point
+explicit_save_statement_count: 3
+save_attribute_count: 2
+port_result: not-applicable-no-entry-point-reference-only
+upstream_sha256:
+ac5963ba4de13e56c3d8e50245d94b4e5864986769d234ed292dc3dedb713dd4  nonRegressions/set04/v025/program.f90
+b90f0a9ffae554d1be46f4b93ba2ac287be2a5b30a989f3e3453a9d790c6f92f  nonRegressions/set04/v025/program_p.f90
+493681e8067ca2e09ffa2ceebd6f89108c386c8fc0b2082b3959a26a01db72ea  nonRegressions/set04/v025/program_p.msg
+fresh_tapenade_sha256:
+6980b291b4c6e960d0cf40410252a9e9451a40b6d74ee481445c27c80189393e  parser/v025_p.f90
+493681e8067ca2e09ffa2ceebd6f89108c386c8fc0b2082b3959a26a01db72ea  parser/v025_p.msg
+c455b1ff3d3baf6fa5fa9912c7a1fe1c06d64874e59b64c7320645f492d5ce64  forward/v025_d.msg
+c455b1ff3d3baf6fa5fa9912c7a1fe1c06d64874e59b64c7320645f492d5ce64  reverse/v025_b.msg
+case_artifact_sha256:
+58c756ef1872febeaed6332baf050f008900c686f71f02a492b4649d75a14a7e  manifest.toml
+a46d657e416d3173d94e6ca2751d631c7c50e0869cbf37f34df8291f307441aa  notes.md
+cfe8f6e0b324003cb65393cb8eba9b1177d47e3a45812db0eea320af90cadac8  oracle.py
+7fd664f67116a41f8491fc0a87aebb539625045346709962cd52ae1e46687467  run.sh
+8e6337ba9dbe24416d4b15bffcf55a227248174e3685a32a16442d65105d2a87  test_contract.py

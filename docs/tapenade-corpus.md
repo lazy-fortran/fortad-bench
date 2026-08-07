@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,300 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving 123 set01 evidence rows and nine additional
+  either engine. It leaves 1,294 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving 129 set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,374 rows
-into 74 mixed-language-risk candidates, 0 historical-failure candidates, 20
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,368 rows
+into 74 mixed-language-risk candidates, 0 historical-failure candidates, 14
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -230,6 +230,13 @@ cover procedure-interface collisions, external callbacks, `inout` and global
 state, standalone programs, module bundles with allocation, and legacy binding
 labels. Each has fresh pinned Tapenade generation, exact FortAD evidence, and
 an independent three-test contract.
+
+Tranche AF (`nonRegressions/set01/lh000`, `set02/v065`, `set04/v017`,
+`set04/v025`, `set05/v075`, and `set05/v146`) closes six no-entry-point
+candidate rows. The cases cover empty sources, `BLOCKDATA`, and module-only
+declarations with stored parser references. Each has fresh pinned Tapenade
+no-root evidence, an exact FortAD boundary where applicable, and an independent
+three-test semantic contract; no synthetic procedure is introduced.
 
 ## Closeout rule
 

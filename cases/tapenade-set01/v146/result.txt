@@ -1,0 +1,41 @@
+case: Tapenade nonRegressions/set05/v146
+classification: expected-refusal-no-entry-point-reference-only
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+static_inventory: module=A entries=none source=program.f90 stored_reference=program_p.f90
+upstream_entry_point: none
+tapenade_options: parser=-p/-root A forward=-d/-root A reverse=-b/-root A
+upstream_exact_strict_compile: primal=1 parser_reference=1
+upstream_strict_diagnostic: Kind 2 not supported for type REAL; D exponent and an explicit kind
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v146_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v146_p.msg tangent=v146_d.msg reverse=v146_b.msg
+tapenade_fresh_strict_compile: parser=1 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_generation_diagnostic: parser=not-a-standard-procedure; tangent/reverse=no-root-unit
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no procedure named A in this source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no procedure named A in this source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no procedure named A in this source"
+independent_oracle: oracle_status: pass classification=module-only-no-entry-point boundary=invalid-module-executable-statement-and-kind-literal
+bounded_port: not-claimed reason=no-transformable-entry-point-and-no-repair-of-invalid-module
+upstream_sha256:
+8924845e4f4d5e9557b1f8c93c4dc118c5e1014414217ff6f390e307fbef9b5e  program.f90
+ea951433d7bb46975a2ad51022afc9df8eafc95f919121b5f2ad9a0b9d8809bc  program_p.f90
+f05fa3015ddce09ffb25e3d9b9a1cfe09a2b0183d0ef3159ff64faee28688360  program_p.msg
+fresh_tapenade_sha256:
+e0c072e51f26436ed61a50379aa1961c4e004ae99c6b4933ba298e33cc4817c4  v146_p.f90
+2c0ebdfeadcb6da17a9b6c15cb90d24ea8a7be7f41281b77ef3635df5dc2762f  v146_p.msg
+1adf4e0d369322f6d70df9ab912b772397f711279e49023b2bdd1e1f49ba2525  v146_d.msg
+1adf4e0d369322f6d70df9ab912b772397f711279e49023b2bdd1e1f49ba2525  v146_b.msg
+case_artifact_sha256:
+7765be2f19daa15cb611ddaacbf0aaf5042117f289d186da14519c89d25b0cad  manifest.toml
+61c1f4c0b023736fd3ad485957d161d575e7521db5bfe001e6f616f7b6060ff4  notes.md
+d901d33fb99658ae477b7c6b4a97da2a6aa6f673e7e2933a7a60c1c069868086  oracle.py
+d8ea4313e24b74c55a4efdc0ba358545d7ef37567724f955790ffa4792552dc3  run.sh
+fae0ee01c7e9b5ec9544750ce9de36c96596538d351fecbdd1a9d1732c621f5c  test_contract.py

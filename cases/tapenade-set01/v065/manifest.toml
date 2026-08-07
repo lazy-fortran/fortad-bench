@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-nonregressions-set02-v065-blockdata-no-entry"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "fixed"
+runner = "cases/tapenade-set01/v065/run.sh"
+result = "cases/tapenade-set01/v065/result.txt"
+
+queue_category = "no-entry-point-evidence"
+queue_rank = 20
+static_classification = "Fortran BLOCKDATA unit; parser/reference-only; no transformable procedure"
+source_files = [
+    "nonRegressions/set02/v065/program.f",
+    "nonRegressions/set02/v065/program_p.f",
+    "nonRegressions/set02/v065/program_p.msg",
+]
+upstream_sources = [
+    "nonRegressions/set02/v065/program.f",
+    "nonRegressions/set02/v065/program_p.f",
+    "nonRegressions/set02/v065/program_p.msg",
+]
+stored_references = ["program_p.f", "program_p.msg"]
+missing_stored_references = [
+    "program_d.f",
+    "program_d.msg",
+    "program_b.f",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none (BLOCKDATA; no function or subroutine)"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = ["COMMON /axes/ values ii=1, jj=2, kk=3"]
+dependent = []
+function = "BLOCKDATA initializes the COMMON block /axes/ to (1, 2, 3)"
+options = [
+    "fresh Tapenade parser=-p, tangent=-d, reverse=-b with no root",
+    "FortAD check and exact forward/reverse modes with no procedure request",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "tracked-inventory-and-strict-exact-reference-compilation",
+    "fresh-pinned-Tapenade-no-root-probes-and-parser-compilation",
+    "exact-FortAD-no-entry-refusals-and-independent-common-state-oracle",
+]
+oracle = [
+    "strict gfortran compilation using the pinned fixed/free source forms",
+    "fresh pinned Tapenade parser/tangent/reverse no-root boundary",
+    "FortAD exact parser/forward/reverse no-entry refusal boundary",
+    "independent semantic/numerical model of COMMON /axes/ initialization",
+    "pinned upstream source SHA-256 contract",
+]
+classification = "expected-refusal-no-entry-point-reference-only"
+expected_diagnostics = [
+    "program.f is only a BLOCKDATA unit and declares no function or subroutine",
+    "program_p.f and empty program_p.msg are stored parser/reference artifacts, not differentiable procedures",
+    "fresh Tapenade parser succeeds; fresh tangent and reverse produce no source and report No root unit to differentiate",
+    "FortAD parser, forward, and reverse refuse without a procedure and write no output",
+]
+fresh_generated_sources = ["v065_p.f"]
+fresh_generated_messages = ["v065_p.msg", "v065_d.msg", "v065_b.msg"]
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-root"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The pinned source is BLOCKDATA, not a standalone PROGRAM and not a callable procedure; the only other tracked files are a parser reference and its empty message. No transformable entry point was missed, and no derivative port is claimed because adding an interface would invent semantics."
+
+[upstream_sha256]
+"nonRegressions/set02/v065/program.f" = "1c9aed54843ca37c96b2138f4615fb5b80ceb5fd944ac8c007c384256d668ec1"
+"nonRegressions/set02/v065/program_p.f" = "3cdce847f369407af9c717c7e592df99d65f6ebb7f3e3db6a8de26e81ae464d4"
+"nonRegressions/set02/v065/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

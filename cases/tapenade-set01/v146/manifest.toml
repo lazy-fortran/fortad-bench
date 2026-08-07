@@ -1,0 +1,56 @@
+schema_version = 1
+name = "tapenade-set05-v146-no-entry"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v146/run.sh"
+result = "cases/tapenade-set01/v146/result.txt"
+
+queue_category = "no-entry-point-evidence"
+queue_rank = 31
+static_classification = "reference-only-no-entry-point"
+source_files = [
+    "nonRegressions/set05/v146/program.f90",
+    "nonRegressions/set05/v146/program_p.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v146/program.f90",
+    "nonRegressions/set05/v146/program_p.f90",
+    "nonRegressions/set05/v146/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set05/v146/program_p.f90",
+    "nonRegressions/set05/v146/program_p.msg",
+]
+
+upstream_entry_point = "none: module A contains no procedure or program"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = []
+dependent = []
+options = [
+    "-p -root A (module-name probe only)",
+    "-d -root A (module-name probe only)",
+    "-b -root A (module-name probe only)",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "independent-module-and-entry-point-semantic-inventory",
+    "strict-source-and-stored-reference-compilation-boundary",
+    "fresh-pinned-Tapenade-no-root-and-FortAD-no-procedure-boundary",
+]
+classification = "expected-refusal-no-entry-point-reference-only"
+expected_diagnostics = [
+    "strict gfortran rejects REAL kind 2 and a D exponent with an explicit kind",
+    "fresh Tapenade reports that A is not a standard procedure and has no root unit for tangent/reverse",
+    "FortAD reports no procedure named A and emits no parser, forward, or reverse output",
+]
+fresh_generated_sources = ["v146_p.f90"]
+fresh_generated_messages = ["v146_p.msg", "v146_d.msg", "v146_b.msg"]
+closure = "The exact and stored files contain only module A and its parser reference; there is no transformable procedure or standalone program. No FortAD entry point or derivative contract is selected, and repairing the invalid module statement would invent a different case."
+
+[upstream_sha256]
+"program.f90" = "8924845e4f4d5e9557b1f8c93c4dc118c5e1014414217ff6f390e307fbef9b5e"
+"program_p.f90" = "ea951433d7bb46975a2ad51022afc9df8eafc95f919121b5f2ad9a0b9d8809bc"
+"program_p.msg" = "f05fa3015ddce09ffb25e3d9b9a1cfe09a2b0183d0ef3159ff64faee28688360"

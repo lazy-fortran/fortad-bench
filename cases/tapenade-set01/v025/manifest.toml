@@ -1,0 +1,66 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set04-v025-module-reference"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v025/run.sh"
+result = "cases/tapenade-set01/v025/result.txt"
+
+queue_category = "no-entry-point-evidence"
+queue_rank = 31
+static_classification = "fortran-source-candidate; module-only-reference"
+source_files = [
+    "nonRegressions/set04/v025/program.f90",
+    "nonRegressions/set04/v025/program_p.f90",
+]
+upstream_sources = [
+    "nonRegressions/set04/v025/program.f90",
+    "nonRegressions/set04/v025/program_p.f90",
+    "nonRegressions/set04/v025/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set04/v025/program_p.f90",
+    "nonRegressions/set04/v025/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set04/v025/program_d.f90",
+    "nonRegressions/set04/v025/program_d.msg",
+    "nonRegressions/set04/v025/program_b.f90",
+    "nonRegressions/set04/v025/program_b.msg",
+]
+
+upstream_entry_point = "none: modules a, b, c, d, and e only"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point-reference-only"
+independent = []
+dependent = []
+options = [
+    "-p -O . -o v025 program.f90 (no root)",
+    "-d -O . -o v025 program.f90 (no root)",
+    "-b -O . -o v025 program.f90 (no root)",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran compilation of exact source and stored parser reference",
+    "fresh pinned Tapenade no-root parser/tangent/reverse behavior",
+    "independent module-storage semantic oracle",
+    "principled FortAD no-entry boundary; no exact request is applicable",
+    "upstream-source SHA-256 contract",
+]
+classification = "reference-only-no-entry-point"
+expected_diagnostics = [
+    "static extraction reports no program, subroutine, or function hint",
+    "exact program.f90 and stored program_p.f90 compile under the strict free-form gate",
+    "fresh Tapenade parser emits v025_p.f90 and v025_p.msg without a root",
+    "fresh Tapenade tangent and reverse emit only v025_d.msg and v025_b.msg with no-root diagnostics",
+    "FortAD parser/forward/reverse are not applicable because the exact checkout contains no selectable procedure",
+]
+fresh_generated_sources = ["v025_p.f90"]
+fresh_generated_messages = ["v025_p.msg", "v025_d.msg", "v025_b.msg"]
+closure = "The exact checkout contains declarations only: there is no callable procedure or standalone program to select, differentiate, or run. The stored parser file is a reference-only module rendering; no stored tangent or reverse exists. A synthetic root, a module-state interface, or a bounded port would invent semantics, so no FortAD transform or numerical derivative claim is made."
+
+[upstream_sha256]
+"nonRegressions/set04/v025/program.f90" = "ac5963ba4de13e56c3d8e50245d94b4e5864986769d234ed292dc3dedb713dd4"
+"nonRegressions/set04/v025/program_p.f90" = "b90f0a9ffae554d1be46f4b93ba2ac287be2a5b30a989f3e3453a9d790c6f92f"
+"nonRegressions/set04/v025/program_p.msg" = "493681e8067ca2e09ffa2ceebd6f89108c386c8fc0b2082b3959a26a01db72ea"

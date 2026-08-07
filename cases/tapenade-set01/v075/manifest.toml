@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set05-v075"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v075/run.sh"
+result = "cases/tapenade-set01/v075/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-module; no-procedure; stored-parser-reference-only"
+source_files = [
+    "nonRegressions/set05/v075/program.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v075/program.f90",
+    "nonRegressions/set05/v075/program_p.f90",
+    "nonRegressions/set05/v075/program_p.msg",
+]
+stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "none (MODULE BLOCKS contains only a derived type)"
+selected_entry_points = []
+ported_entry_point = "not-claimed-no-entry-point"
+independent = []
+dependent = []
+options = [
+    "fresh invocation: -p/-d/-b -O . -o v075 program.f90 (no root)",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-source-strict-compile-and-stored-parser-reference-refusal",
+    "fresh-pinned-Tapenade-no-root-generation-and-strict-parser-boundary",
+    "exact-FortAD-three-mode-no-entry-refusal-and-independent-type-layout-oracle",
+]
+oracle = [
+    "strict gfortran exact-source and stored-reference boundary",
+    "fresh pinned Tapenade generation and strict compilation where a source is emitted",
+    "FortAD exact parser/forward/reverse no-entry refusal boundary",
+    "independent semantic/numerical model of the public BLOCK component layout",
+    "upstream-source and stored-reference SHA-256 contract",
+]
+classification = "expected-refusal-module-only-no-entry"
+expected_diagnostics = [
+    "exact program.f90 compiles strictly; stored program_p.f90 refuses INTEGER*4 under -pedantic-errors",
+    "fresh parser emits v075_p.f90 and v075_p.msg; the parser source has the same INTEGER*4 strict refusal",
+    "fresh tangent and reverse emit messages only: No root unit to differentiate",
+    "FortAD check, forward, and reverse all refuse because no function or subroutine exists in the source",
+]
+fresh_generated_sources = ["v075_p.f90"]
+fresh_generated_messages = ["v075_p.msg", "v075_d.msg", "v075_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source has no callable procedure interface"
+tapenade_result = "pass-no-root-parser-reference-only-tangent-reverse-messages"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-entry"
+closure = "The exact source is a valid module containing only a derived type. The stored parser reference is reference-only and uses INTEGER*4, while no procedure is available for differentiation. No bounded port or derivative claim is made; adding a procedure would change the corpus candidate."
+
+[upstream_sha256]
+"nonRegressions/set05/v075/program.f90" = "1b835c743b9e81cfb39a5f6d9fc8f5b7ccc00be06eaea2cab5907d54c5ea114f"
+"nonRegressions/set05/v075/program_p.f90" = "39d3b1ec46601efef0d61ca2a5667a05c65ebe0001cd8d32747035a414d03b17"
+"nonRegressions/set05/v075/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

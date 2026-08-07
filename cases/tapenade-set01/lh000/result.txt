@@ -1,0 +1,57 @@
+case: Tapenade nonRegressions set01 lh000 empty-source boundary
+classification: expected-refusal-no-entry-point
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (program.f and program.f90 are empty)
+upstream_sources: program.f program.f90 (both exactly empty)
+stored_references: program_p.msg program_d.msg program_db.msg program_dv.msg program_b.msg program_bv.msg
+tapenade_options: parser=-p tangent=-d reverse=-b (no root; source has no top procedure)
+upstream_exact_strict_compile: program.f=0 program.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=none tangent=none reverse=none
+tapenade_fresh_messages: parser=lh000_p.msg tangent=lh000_d.msg reverse=lh000_b.msg
+tapenade_fresh_strict_compile: not-applicable-no-fortran-source
+tapenade_tangent_reverse_diagnostic: no-root-unit-and-no-top-procedure
+fortad_exact_parser: not-applicable-no-entry-point
+fortad_exact_forward: not-applicable-no-entry-point
+fortad_exact_reverse: not-applicable-no-entry-point
+fortad_generated_compile: not-applicable-no-entry-point
+independent_semantic_oracle:
+  oracle_program.f: empty-source
+  oracle_program.f90: empty-source
+  oracle_program_p.msg: empty-parser-reference
+  oracle_program_b.msg: no-entry-refusal
+  oracle_program_bv.msg: no-entry-refusal
+  oracle_program_d.msg: no-entry-refusal
+  oracle_program_db.msg: no-entry-refusal
+  oracle_program_dv.msg: no-entry-refusal
+  oracle_entry_point: none
+  oracle_status: pass
+port_result: not-claimed reason=empty-source-has-no-procedure-interface
+closure: no bounded port; adding an entry point would invent missing semantics
+upstream_sha256:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/lh000/program.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/lh000/program.f90
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  nonRegressions/set01/lh000/program_b.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  nonRegressions/set01/lh000/program_bv.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  nonRegressions/set01/lh000/program_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  nonRegressions/set01/lh000/program_db.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  nonRegressions/set01/lh000/program_dv.msg
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set01/lh000/program_p.msg
+fresh_tapenade_sha256:
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh000_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  lh000_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  lh000_b.msg
+case_artifact_sha256:
+2dcdbc5ca2a87a4f48b69fb865f75b0add9d361c19fd653d2567dc0fd5307c75  manifest.toml
+2976516d4e6afc0418ed8076b781e2a5f4aad0ab214ee58ec27c25295c1a4d0b  notes.md
+ccbceb5a78f0f1ee001013ea96693be8a88047cb4ad4d7359e570849246545a9  oracle.py
+e957c2678c1be81e844840b98c9d6a7289d0ec6536fa79f6ba7b3e408b12db7f  run.sh
+3d4d3208561d35b9ca6397e3ec8b0bc930279b9845fa564da1718315ed6daeac  test_contract.py

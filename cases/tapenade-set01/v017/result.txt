@@ -1,0 +1,52 @@
+case: Tapenade nonRegressions set04 v017
+classification: no-entry-point-source-module
+runner_result: pass
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none
+static_extractor_boundary: no program/subroutine/function declaration
+upstream_exact_strict_compile: 0
+stored_program_p_strict_compile: expected-refusal SEQUENCE PRIVATE and PRIVATE SEQUENCE
+tapenade_parser_generation: 0
+tapenade_parser_fresh_strict_compile: expected-refusal SEQUENCE PRIVATE and PRIVATE SEQUENCE
+tapenade_tangent_generation: 0
+tapenade_tangent_output: message-only-no-root-no-top-procedure
+tapenade_reverse_generation: 0
+tapenade_reverse_output: message-only-no-root-no-top-procedure
+fortad_exact_parser: not-run-no-entry-point
+fortad_exact_forward: not-run-no-entry-point
+fortad_exact_reverse: not-run-no-entry-point
+fortad_boundary: exact requests are inapplicable; no selected entry point and no refusal location exists
+independent_oracle: module declaration inventory, COMMON layout, and executable-unit absence
+oracle_module: Z
+oracle_types: node_type,node_type1,node_type2 with fields x,y
+oracle_common_layout: /vars/ contains ff(100) and bval
+oracle_executable_units: 0
+oracle_numerical_observable: undefined-no-entry-point
+oracle_status: pass
+numerical_oracle: not-applicable-no-executable-observable
+upstream_sha256:
+6bbf4319ecd4ac52f73ef5de6e114bb04fe8b2080c10b5c40779c572a24de1a9  README
+c7646575a4dd346abb7bbab35d91410670c5f7cce30fe5d33ba2685de12321db  program.f90
+b362e379bedcb1346fb46693699f2926d638d42ee20d6e354ce7615c41bc1ed4  program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+fresh_tapenade_sha256:
+cd2c88b91781e2726382cc14ddb47b63f3debd57a7609da2a63a793730598997  v017_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v017_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v017_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v017_b.msg
+case_artifact_sha256:
+dfb32f17177b16ee53fd3c44c33305952f0988bf80dfa19c3a9d4c4312461cf8  cases/tapenade-set01/v017/manifest.toml
+efbe542dfb6ccc1845f4e67d8527846daf94e27e83e007c3c2255c6f484e063f  cases/tapenade-set01/v017/notes.md
+d4de6fd35283f2a7d04bf45d8570293c2334213d3c2ee3ff5da2543659189ede  cases/tapenade-set01/v017/oracle.py
+ead03235ca446d36c01bd467168ed95b5c13c6f5f6fdf6b06072336442caf547  cases/tapenade-set01/v017/run.sh
+72d01dac313d97ffb3b7c2c3ee5ff1e38bf89dc9d76f4f44592c0598ca680c3f  cases/tapenade-set01/v017/test_contract.py

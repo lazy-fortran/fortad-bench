@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set02/v065 BLOCKDATA no-entry boundary
+classification: expected-refusal-no-entry-point-reference-only
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags_free: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+strict_compiler_flags_fixed: -std=f2018 -ffixed-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (BLOCKDATA; no function or subroutine)
+stored_references: program_p.f program_p.msg
+missing_stored_references: program_d.f program_d.msg program_b.f program_b.msg
+tapenade_options: parser=-p tangent=-d reverse=-b (no root)
+upstream_exact_strict_compile: program.f=0 program_p.f=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v065_p.f tangent=none reverse=none
+tapenade_fresh_messages: parser=v065_p.msg tangent=v065_d.msg reverse=v065_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_tangent_reverse_diagnostic: No root unit to differentiate
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no function or subroutine found in source"
+independent_semantic_oracle:
+  oracle_unit_shape: BLOCKDATA only; no callable procedure
+  oracle_common_values: [1, 2, 3]
+  oracle_sum: 6
+  oracle_product: 6
+  oracle_weighted_checksum: 14
+  oracle_status: pass
+port_result: not-claimed reason=no-callable-procedure-interface
+closure: BLOCKDATA and parser-reference-only; no transformable entry point exists
+upstream_sha256:
+1c9aed54843ca37c96b2138f4615fb5b80ceb5fd944ac8c007c384256d668ec1  nonRegressions/set02/v065/program.f
+3cdce847f369407af9c717c7e592df99d65f6ebb7f3e3db6a8de26e81ae464d4  nonRegressions/set02/v065/program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set02/v065/program_p.msg
+fresh_tapenade_sha256:
+0b0b086b21ee8840a8f80c45c4e5f38a4643fa5912d39763186d30d6d1e79e1d  v065_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v065_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v065_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v065_b.msg
+case_artifact_sha256:
+cc3d575ea4256ec56b2e89aa2d6af9c468bc4249e32673bcba416922a75690f3  manifest.toml
+35f50168130f4856b6ca79c7d80354e936310091c612674d9dff0ef558819416  notes.md
+cd1373db4c0375a3cd8f8fabf7573d700e2b1a6989231c8b6904e26283948ed3  oracle.py
+a5903bf38f41327c1b6c249f6668d19de47071d9da005adb644dcc5eae685699  run.sh
+5cf0573fb1f3d58b2fff66f8b2e095e3537172a08a32dfeb77eee290cff2064b  test_contract.py

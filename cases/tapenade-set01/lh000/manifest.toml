@@ -1,0 +1,51 @@
+schema_version = 1
+name = "tapenade-set01-lh000-empty-source-no-entry"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/lh000/run.sh"
+result = "cases/tapenade-set01/lh000/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh000/program.f",
+    "nonRegressions/set01/lh000/program.f90",
+]
+stored_references = [
+    "program_b.msg",
+    "program_bv.msg",
+    "program_d.msg",
+    "program_db.msg",
+    "program_dv.msg",
+    "program_p.msg",
+]
+
+upstream_entry_point = "none (program.f and program.f90 are empty)"
+ported_entry_point = "not-applicable (no procedure or entry point)"
+independent = []
+dependent = []
+options = ["-p", "-d", "-b"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "independent-empty-source-and-refusal-semantics",
+    "strict-compiler",
+    "fresh-pinned-Tapenade-generation",
+    "FortAD-no-entry-boundary",
+]
+classification = "expected-refusal-no-entry-point"
+expected_diagnostics = [
+    "stored tangent/reverse references say no root unit and no top procedure",
+    "fresh pinned Tapenade tangent/reverse probes emit the same no-entry refusal",
+    "FortAD parser/forward/reverse requests are not applicable because no entry point exists",
+]
+closure = "The pinned source files are empty and contain no procedure semantics. No bounded port or numerical derivative oracle can preserve a nonexistent interface; adding one would invent a different case."
+
+[upstream_sha256]
+"nonRegressions/set01/lh000/program.f" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/lh000/program.f90" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/lh000/program_b.msg" = "b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d"
+"nonRegressions/set01/lh000/program_bv.msg" = "b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d"
+"nonRegressions/set01/lh000/program_d.msg" = "b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d"
+"nonRegressions/set01/lh000/program_db.msg" = "b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d"
+"nonRegressions/set01/lh000/program_dv.msg" = "b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d"
+"nonRegressions/set01/lh000/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

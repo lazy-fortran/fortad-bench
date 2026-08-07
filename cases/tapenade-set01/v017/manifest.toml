@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-nonRegressions-set04-v017"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v017/run.sh"
+result = "cases/tapenade-set01/v017/result.txt"
+
+queue_source = "nonRegressions/set04/v017"
+queue_category = "no-entry-point-evidence"
+queue_rank = 31
+static_classification = "fortran-source-candidate; no-entry-point-evidence"
+upstream_sources = [
+    "nonRegressions/set04/v017/program.f90",
+]
+upstream_metadata = [
+    "nonRegressions/set04/v017/README",
+]
+stored_references = [
+    "nonRegressions/set04/v017/program_p.f90",
+    "nonRegressions/set04/v017/program_p.msg",
+]
+missing_stored_references = [
+    "nonRegressions/set04/v017/program_d.f90",
+    "nonRegressions/set04/v017/program_d.msg",
+    "nonRegressions/set04/v017/program_b.f90",
+    "nonRegressions/set04/v017/program_b.msg",
+]
+
+upstream_entry_point = "none"
+selected_entry_points = []
+ported_entry_point = "not-applicable-no-entry-point"
+independent = []
+dependent = []
+options = [
+    "-p -O <disposable>/tapenade/parser -o v017 program.f90",
+    "-d -O <disposable>/tapenade/tangent -o v017 program.f90 (no root: source has no top procedure)",
+    "-b -O <disposable>/tapenade/reverse -o v017 program.f90 (no root: source has no top procedure)",
+]
+modes = ["parser", "forward:no-root", "reverse:no-root"]
+contract_tests = [
+    "independent-module-declaration-semantic-oracle",
+    "strict-compiler-primal-acceptance-and-stored-parser-refusal",
+    "no-entry-point-no-numerical-observable-boundary",
+]
+oracle = [
+    "strict compiler acceptance/refusal",
+    "fresh pinned Tapenade parser/tangent/reverse probes",
+    "independent module declaration and entry-point semantic oracle",
+    "no numerical oracle because no executable procedure or observable exists",
+    "upstream source/reference SHA-256 contract",
+]
+classification = "no-entry-point-source-module"
+expected_diagnostics = [
+    "the exact program.f90 is a module containing three type declarations and a COMMON block, with no program, subroutine, or function",
+    "the stored parser reference and fresh parser output fail strict compilation at the historical combined SEQUENCE PRIVATE and PRIVATE SEQUENCE attributes",
+    "fresh pinned Tapenade tangent and reverse probes return no-root/no-top-procedure diagnostics and emit messages only",
+    "FortAD exact parser, forward, and reverse requests are inapplicable because no selected entry point exists; no refusal diagnostic is fabricated",
+]
+fresh_generated_sources = ["v017_p.f90"]
+fresh_generated_messages = ["v017_p.msg", "v017_d.msg", "v017_b.msg"]
+tapenade_result = "parser-generated-strict-compile-refusal-tangent-reverse-no-root-messages"
+fortad_result = "not-run-no-entry-point-exact-boundary"
+closure = "The extractor classification is correct: program.f90 has no executable entry point, and the only stored derivative-era artifact is a parser projection. The source is not a standalone program, and there is no numerical map or transformable procedure to port. No bounded port, synthetic entry point, or FortAD exact request is claimed."
+
+[upstream_sha256]
+"README" = "6bbf4319ecd4ac52f73ef5de6e114bb04fe8b2080c10b5c40779c572a24de1a9"
+"program.f90" = "c7646575a4dd346abb7bbab35d91410670c5f7cce30fe5d33ba2685de12321db"
+"program_p.f90" = "b362e379bedcb1346fb46693699f2926d638d42ee20d6e354ce7615c41bc1ed4"
+"program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions/set05/v075 module-only no-entry boundary
+classification: expected-refusal-module-only-no-entry
+recorded_utc: 2026-08-07T13:56:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (MODULE BLOCKS contains only derived type BLOCK)
+selected_entry_points: none
+stored_references: program_p.f90 program_p.msg
+missing_stored_references: program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p forward=-d reverse=-b (no root)
+upstream_exact_strict_compile: program.f90=0
+stored_parser_strict_compile: program_p.f90=expected-refusal status=1 diagnostic="Nonstandard type declaration INTEGER*4"
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v075_p.f90 forward=none reverse=none
+tapenade_fresh_messages: parser=v075_p.msg forward=v075_d.msg reverse=v075_b.msg
+tapenade_fresh_parser_strict_compile: expected-refusal status=1 diagnostic="Nonstandard type declaration INTEGER*4"
+tapenade_fresh_forward_reverse_diagnostic: No root unit to differentiate; no top procedure
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_semantic_oracle:
+  oracle_module: BLOCKS with public derived type BLOCK
+  oracle_component_groups: 8 scalar integer(4), i_glob(5), j_glob(6)
+  oracle_component_count: 19
+  oracle_layout_weighted_checksum: 26043
+  oracle_entry_point: none; no executable numerical function exists
+  oracle_status: pass
+port_result: not-claimed reason=no-callable-entry-point
+closure: valid module and parser reference only; adding a procedure would invent missing semantics
+upstream_sha256:
+1b835c743b9e81cfb39a5f6d9fc8f5b7ccc00be06eaea2cab5907d54c5ea114f  nonRegressions/set05/v075/program.f90
+39d3b1ec46601efef0d61ca2a5667a05c65ebe0001cd8d32747035a414d03b17  nonRegressions/set05/v075/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set05/v075/program_p.msg
+fresh_tapenade_sha256:
+c8ed6523547e2f5e2b26fbcdce3ad67b36daeac17e1cd7b44b51da074dc69489  v075_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v075_p.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v075_d.msg
+b5d8d4574012ed23ef8308b9756633416c693d4bde0d88fd7aae7fc54a65332d  v075_b.msg
+case_artifact_sha256:
+e4648c04a26159d642b30b04dc8f04ec6e6ee8e46a2122b41580a76f870ba22d  manifest.toml
+98953cdcab0ce361bd1bea61e46658324856cabcf9f7a0ca7c405ed9ae9b87a3  notes.md
+15875ee2bedad65f9c09dc7ad2433fdd75d8deac4cd49946d3b0ee26837bbf91  oracle.py
+be46d704c541ec8658a890c70fa2824462ab71dec896ed4e8cf0ace124e90fce  run.sh
+cc9381767989ced9b9bbfcb7c4db25526700ead6f668dfa17b0db73a5f62a7e6  test_contract.py
