@@ -262,3 +262,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 See the [case notes](tranche-o-lh086.md),
 [manifest](tranche-o-lh086-manifest.toml), and
 [measurement record](../../results/tapenade_set01_lh086_validation.txt).
+
+## Tranche P: `bd05` and legacy loop indices
+
+The `bd05` runner preserves the upstream `HEAD`/`LEAF` call chain and both
+product loops, while exposing the mutated array and scalar as ordinary port
+outputs. The exact fixed-form upstream and freshly generated Tapenade files
+compile under strict legacy flags. FortAD forward and reverse transforms pass
+the independent hand JVP/VJP, central-difference sweep, and adjoint identity.
+The case also verifies that generated `implicit none` procedures synthesize an
+`integer` declaration for a legacy implicit `DO` index:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_bd05.sh
+```
+
+See the [manifest](tranche-p-bd05-manifest.toml), [runner](../../scripts/bench_tapenade_set01_bd05.sh),
+and [measurement record](../../results/tapenade_set01_bd05_validation.txt).

@@ -1,15 +1,15 @@
 suite: Tapenade nonRegressions set04 (lh110)
-recorded_utc: 2026-08-07T08:15:31Z
+recorded_utc: 2026-08-07T08:31:03Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
-fortad_commit: 09f2c0e593985c19825a8bd7da79b1315ad8d5eb
-required_fortad_commit: 09f2c0e593985c19825a8bd7da79b1315ad8d5eb
+fortad_commit: 1483302448aa5e1fc3ede8b00eaf1ac9a7b6b49d
+required_fortad_commit: 1483302448aa5e1fc3ede8b00eaf1ac9a7b6b49d
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-tapenade_transform_seconds_total: 0.65372
-fortad_transform_seconds_total: 0.00892353
-generated_compile_seconds_total: 0.11135
+tapenade_transform_seconds_total: 0.661426
+fortad_transform_seconds_total: 0.00865436
+generated_compile_seconds_total: 0.113986
 upstream_exact_source_compile_statuses:
 upstream-program.status 0
 upstream-program_d.status 0
@@ -27,7 +27,7 @@ upstream-program.status 0
 upstream-program_d.status 0
 independent_oracle: hand storage-chain JVP/VJP, central difference, and adjoint identity
 runtime_wall_seconds=0.00
-runtime_peak_rss_kb=2920
+runtime_peak_rss_kb=2912
 oracle_status: pass
 source_sha256:
 fad7f364d46d7e59a9b525f93fbd8243d7558d5ce56afc1c8110e880729516b8  cases/tapenade-set04/lh110.f90
@@ -35,6 +35,6 @@ fad7f364d46d7e59a9b525f93fbd8243d7558d5ce56afc1c8110e880729516b8  cases/tapenade
 5c221b894c16959de8ebe1a5ef82ee154e41ada79dca848e9ec4eb411b647b7a  cases/tapenade-set04/tranche-a-lh110-manifest.toml
 62171033b89c20dcbd8e4bdec974b9c64004d3e5039a4cc1f21468a4e4296f54  cases/tapenade-set04/tranche-a-lh110.md
 4e42f1c6e939775211ac435616abfbb559aeaceb43b5511893900a9951fdfc4e  harness/bench_tapenade_set04_lh110.f90
-01f7bf31770c0e71d1509e19a1c9aef2bf50258aece38b06295d858aa79208b8  scripts/bench_tapenade_set04_lh110.sh
+638caf31112236eaecd85c3ca9f7551af821a2b4e79ba901c3e300a0f680902d  scripts/bench_tapenade_set04_lh110.sh
 run_output:
 oracle_status: pass

@@ -81,21 +81,21 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1463)
+        self.assertEqual(len(rows), 1457)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 36,
                 "no-entry-point-evidence": 20,
-                "runnable-program-candidate": 318,
-                "runnable-procedure-candidate": 1015,
+                "runnable-program-candidate": 315,
+                "runnable-procedure-candidate": 1012,
             }),
         )
-        self.assertEqual(sum(row["dependency_risk"] for row in rows), 161)
+        self.assertEqual(sum(row["dependency_risk"] for row in rows), 160)
         self.assertEqual(
             sum("missing-dependency-risk" in row["risk_categories"] for row in rows),
-            161,
+            160,
         )
 
     def test_queue_is_reproducible_from_committed_inputs(self):
