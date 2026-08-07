@@ -624,6 +624,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set12/f03typf01",
             "ADFirstAidKit/testMemSizef.f",
             "ADFirstAidKit/validityTest.f",
+            "nonRegressions/set01/lh016",
         }
         evidence = [
             row for row in rows
@@ -665,6 +666,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "reverse-refused-branch-in-loop",
                 "unsupported-program-not-procedure",
                 "unsupported-common-block",
+                "pass-forward-reverse-complex-adjoint-refusal",
             },
         )
         expected_evidence = {
@@ -811,6 +813,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|interval-state-transitions|FortAD-diagnostic",
                 "dependencies": "none",
                 "tapenade_result": "pass-transform-compile",
+            },
+            "nonRegressions/set01/lh016": {
+                "entry_point": "ctest(in,out); port set01_lh016(input,output)",
+                "tapenade_options": "-root ctest",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|Tapenade-generated-compile|hand-real-coordinate-JVP-VJP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-forward-reverse-generated-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
