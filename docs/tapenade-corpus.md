@@ -100,9 +100,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,215 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 61 executable evidence rows, 126 explicit
-  refusals, and 29 invalid-upstream closures. The profile, shard-3, and shard-0
+  either engine. It leaves 1,214 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 61 executable evidence rows, 127 explicit
+  refusals, and 30 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -115,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,289 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,288 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 299 program candidates, and 916 procedure
+ rows with no entry-point hint, 298 program candidates, and 916 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -272,6 +272,18 @@ without derivative output. The independent oracle checks the compiler controls
 and source invariants; no repaired source or numerical derivative claim is
 made. See the [`case notes`](../cases/tapenade-set05/v067_notes.md) and
 [`validation result`](../cases/tapenade-set05/v067_result.txt).
+
+The next queue-selected row, `set05/v068` `RUN::s(mb1,mb2,mb3)`, is an
+invalid-upstream closure. Its exact and stored sources call generic `FUNC`
+with `real(wp)` and `REAL*8` actuals for which no specific procedure matches.
+Strict and legacy exact-source compilation both fail; fresh pinned Tapenade
+parser, tangent, and reverse products generate but fail both compiler controls
+at the corresponding generic boundary. FortAD exact parser extraction passes,
+while forward and reverse refuse the generic call without derivative output.
+The independent oracle checks the generic interface, exact source invariants,
+and all four compiler refusals, so no numerical derivative claim is made. See
+the [`case notes`](../cases/tapenade-set05/v068_notes.md) and
+[`validation result`](../cases/tapenade-set05/v068_result.txt).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

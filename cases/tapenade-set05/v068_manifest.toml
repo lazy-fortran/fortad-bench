@@ -1,0 +1,53 @@
+schema_version = 1
+name = "tapenade-set05-v068-invalid-upstream"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e790676b0c58ec758febe81d6216158040894ca3"
+source_form = "free"
+runner = "cases/tapenade-set05/v068_run.sh"
+result = "cases/tapenade-set05/v068_result.txt"
+
+source_files = [
+    "nonRegressions/set05/v068/program.f90",
+    "nonRegressions/set05/v068/program_p.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v068/program.f90",
+    "nonRegressions/set05/v068/program_p.f90",
+    "nonRegressions/set05/v068/program_p.msg",
+]
+stored_references = [
+    "nonRegressions/set05/v068/program_p.f90",
+    "nonRegressions/set05/v068/program_p.msg",
+]
+
+upstream_entry_point = "RUN::s(mb1,mb2,mb3)"
+selected_entry_points = ["RUN::s(mb1,mb2,mb3)"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["mb1", "mb2", "mb3"]
+dependent = "in-place updates through generic FUNC calls"
+function = "generic FUNC with FUNC1(real(wp),integer) and FUNC2(real), called with real(wp) mb1 and REAL*8 mb3"
+options = ["-p -root s", "-d -root s", "-b -root s"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact pinned-source SHA-256 contract",
+    "strict F2018 and legacy compiler refusal for exact and stored sources",
+    "fresh pinned Tapenade parser/tangent/reverse generation with strict and legacy compilation",
+    "FortAD exact parser check and forward/reverse no-output refusal",
+    "independent generic-interface and kind-mismatch oracle",
+]
+classification = "unsupported-invalid-upstream-fortran"
+dependencies = [
+    "FUNC1 requires two arguments and has real(wp) first argument, while FUNC2 accepts only default REAL",
+    "s calls FUNC with real(wp) mb1 and REAL*8 mb3, for which no specific generic procedure matches",
+    "program_p.f90 preserves the same invalid generic calls and its stored message records the REAL*8 mismatch",
+]
+expected_diagnostics = [
+    "strict and legacy gfortran reject both exact sources with no specific subroutine for the generic FUNC",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate but reject FUNC/FUNC_D/FUNC_B under both compiler controls",
+    "FortAD parser extraction passes; forward and reverse refuse FUNC and emit no derivative source",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal"
+fortad_result = "not-run-invalid-upstream-source"
+closure = "The exact candidate is invalid before derivative behavior: its generic calls have no matching specific procedure. Repairing the interface or changing the actual kinds would define a different program, so no numerical derivative claim is made."
