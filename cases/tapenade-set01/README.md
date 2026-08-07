@@ -45,3 +45,20 @@ current reverse emitter produces duplicate `a_b` dummies and the independent
 Fortran compiler rejects the generated file. This is recorded in
 [`results/tapenade_set01_refusals.txt`](../../results/tapenade_set01_refusals.txt),
 not counted as support.
+
+## Tranche C: Euclidean norm
+
+The third focused runner promotes `lh058`, a dependency-free Euclidean norm
+over two arrays. Its [manifest](tranche-c-manifest.toml) fixes the upstream
+entry point and the nonzero-norm test domain. The runner checks all five
+unmodified primal/reference files, including the stored multi-direction source,
+then validates generated JVP/VJP code against hand derivatives, a
+four-step finite-difference sweep, and the adjoint identity:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_c.sh
+```
+
+See the focused [case notes](tranche-c.md) and the committed
+[measurement record](../../results/tapenade_set01_tranche_c_validation.txt).

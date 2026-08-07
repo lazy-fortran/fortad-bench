@@ -66,8 +66,8 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. Corpus support is
-now wired into the harness for four small set01 cases, with one exact-source
-refusal. A fresh Tapenade
+now wired into the harness for five small set01 cases, with two exact-source
+refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The complete tracked checkout is now reproducible. The
@@ -108,10 +108,14 @@ explicitly refused, independently checked, and measured when runnable.
   the independent Fortran compiler rejects the generated file. This is an
   expected refusal in [the refusal record](results/tapenade_set01_refusals.txt),
   not a support claim.
+- [x] Promote `lh058` through the focused tranche-C runner. Its Euclidean-norm
+  JVP/VJP passes the hand oracle, four-step finite-difference sweep, and
+  adjoint identity; all five unmodified upstream sources compile strictly.
+  See [the tranche-C result](results/tapenade_set01_tranche_c_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,499 untriaged rows after the language
-  boundary and seven set01 evidence rows.
+  reproducible evidence. There are 1,498 untriaged rows after the language
+  boundary and eight set01 evidence rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

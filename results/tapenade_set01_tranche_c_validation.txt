@@ -1,0 +1,42 @@
+case: Tapenade nonRegressions set01 lh058
+recorded_utc: 2026-08-07T02:32:54Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.052475
+upstream_strict_compile_seconds: 0.067534
+forward_transform_seconds: 0.005249
+reverse_transform_seconds: 0.005404
+generated_compile_and_link_seconds: 0.248779
+generated_forward_source_bytes: 1064
+generated_reverse_source_bytes: 2026
+runtime_wall_seconds=0.04
+runtime_peak_rss_kb=2948
+upstream_strict_compiler_oracle: all five unmodified set01 primal/reference files compile with -std=f2018 -pedantic-errors using the pinned DIFFSIZES.f include contract
+oracle: hand JVP/VJP, four-step central differences, fixed nonzero-norm values, and JVP/VJP adjoint identity
+tapenade_result: stored upstream d/b references inspected; current Tapenade executable not rerun
+transform_method: date +%s.%N around one fo exec --no-build call per mode; engine setup timed separately
+runtime_method: Fortran system_clock over 1000000 repetitions of both derivatives; /usr/bin/time %e and %M wrap executable
+source_sha256:
+9798c06730701dc711405fea07ae5263661721819b0fa83fc40133d72c511b87  cases/tapenade-set01/lh058.f90
+b3145cff3f7957d105a61c8a1c3c93662545efebe9e55242468ea76545666cca  cases/tapenade-set01/hand_derivatives_lh058.f90
+8e81f7480ac75be577ba602363a0e74121fbc74832d0d744869b1ea7d7d7e060  cases/tapenade-set01/tranche-c-manifest.toml
+e8a5e5879334e2f48218e6e63f60b7f37227fca593c62d83200007732c17327c  harness/bench_tapenade_set01_tranche_c.f90
+8061558d5bf1f5c86428f9db81b114f6f75cd5cb22f94fedcbd618daad50677d  scripts/bench_tapenade_set01_tranche_c.sh
+generated_source_sha256:
+d7cfb93ae19986e4ad7d7b87b3e8017d37947e1bcefecd1c3a8d560e58a9028b  lh058_forward.f90
+ed0c06ca7e5747d88574c15f451078bea8b804eb8fdee901cc7b423fc56c41be  lh058_reverse.f90
+run_output:
+fd_errors:   8.2304E-10   3.9195E-12   1.0581E-11   2.7808E-10
+derivative_calls: 2000000
+derivative_runtime_seconds:   4.29741200E-02
+ns_per_derivative_call:   2.14870600E+01
+runtime_sink:   1.44776069E-10
+oracle_status: pass

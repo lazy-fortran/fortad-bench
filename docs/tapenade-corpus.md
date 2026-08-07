@@ -95,16 +95,18 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-either engine. It leaves 1,425 pure Fortran and 74 mixed-language rows
-untriaged, while preserving the seven set01 evidence rows.
+either engine. It leaves 1,424 pure Fortran and 74 mixed-language rows
+untriaged, while preserving the eight set01 evidence rows.
 
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh023`,
-`lh032`, `lh057`, `lh088`, and `lh134`. The exact in-place `lh066` reverse
+`lh032`, `lh057`, `lh058`, `lh088`, and `lh134`. The exact in-place `lh066` reverse
 shape and the one-trip-loop `bd06` reverse shape are independently
 compiler-checked expected refusals. Both are recorded in the tranche results:
 [`lh066`](../results/tapenade_set01_refusals.txt) and
 [`bd06`](../results/tapenade_set01_tranche_b_validation.txt).
+The `lh058` support result is in
+[`tranche-c`](../results/tapenade_set01_tranche_c_validation.txt).
 
 ## Closeout rule
 
