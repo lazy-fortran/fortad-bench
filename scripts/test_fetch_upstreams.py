@@ -17,6 +17,43 @@ import fetch_upstreams
 
 
 class LicenseInventoryTests(unittest.TestCase):
+    def test_license_inventory_records_exact_commit_and_tree(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            checkout = root / "upstream" / "fixture"
+            checkout.mkdir(parents=True)
+            (checkout / "LICENSE").write_text("fixture license\n")
+            subprocess.run(["git", "init", "-q", str(checkout)], check=True)
+            subprocess.run(["git", "-C", str(checkout), "config", "user.name", "fixture"], check=True)
+            subprocess.run(
+                ["git", "-C", str(checkout), "config", "user.email", "fixture@example.invalid"],
+                check=True,
+            )
+            subprocess.run(["git", "-C", str(checkout), "add", "LICENSE"], check=True)
+            subprocess.run(["git", "-C", str(checkout), "commit", "-qm", "fixture"], check=True)
+            expected_revision = subprocess.run(
+                ["git", "-C", str(checkout), "rev-parse", "HEAD"],
+                check=True, capture_output=True, text=True,
+            ).stdout.strip()
+            expected_tree = subprocess.run(
+                ["git", "-C", str(checkout), "rev-parse", "HEAD^{tree}"],
+                check=True, capture_output=True, text=True,
+            ).stdout.strip()
+
+            generated = root / "docs" / "generated"
+            entry = {"name": "fixture", "ref": expected_revision, "license": "MIT"}
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", root / "upstream"), \
+                    patch.object(fetch_upstreams, "GENERATED", generated):
+                fetch_upstreams.scan_licenses([entry])
+
+            inventory = (generated / "license-inventory.md").read_text()
+            self.assertIn(
+                f"| fixture | {expected_revision} | {expected_revision} | "
+                f"{expected_tree} | MIT | LICENSE |",
+                inventory,
+            )
+
     def test_license_filename_matching_is_case_insensitive(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -719,6 +756,79 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             Counter(row["source_form_hint"] for row in rows),
             Counter({"free": 1057, "n/a": 508, "fixed": 420, "mixed": 29}),
         )
+
+
+class UpstreamPinAuditTests(unittest.TestCase):
+    def test_pin_audit_distinguishes_metadata_floating_and_verified_checkout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = CorpusFetchTests().make_source(root)
+            entries = [
+                {
+                    "name": "metadata",
+                    "url": "https://example.invalid/docs",
+                    "ref": "web",
+                    "license": "METADATA-ONLY (restricted source)",
+                    "why": "source is restricted",
+                },
+                {
+                    "name": "floating",
+                    "url": source.as_uri(),
+                    "ref": "main",
+                    "license": "MIT",
+                },
+                {
+                    "name": "pinned",
+                    "url": source.as_uri(),
+                    "ref": revision,
+                    "license": "MIT",
+                },
+            ]
+            destination = root / "upstream"
+            with patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entries[2], depth=1))
+                rows = fetch_upstreams.audit_upstream_pins(entries)
+
+            self.assertEqual(
+                [(row["name"], row["kind"], row["checkout"]) for row in rows],
+                [
+                    ("metadata", "metadata-only", "not-applicable"),
+                    ("floating", "floating-ref", "not-fetched"),
+                    ("pinned", "commit-pinned", "clean"),
+                ],
+            )
+            pinned = rows[2]
+            self.assertEqual(pinned["revision"], revision)
+            self.assertEqual(pinned["tree"], tree)
+            self.assertEqual(pinned["origin"], source.as_uri())
+            report = fetch_upstreams.render_upstream_pin_audit(rows)
+            self.assertIn("metadata-only", report)
+            self.assertIn("floating-ref", report)
+            self.assertIn(f"`{revision}`", report)
+            self.assertIn(f"`{tree}`", report)
+            self.assertIn("1 not-fetched checkouts", report)
+            self.assertIn("Result: FAIL", report)
+
+    def test_pin_audit_marks_modified_checkout_and_preserves_no_hash_claim(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = CorpusFetchTests().make_source(root)
+            entry = {
+                "name": "pinned",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+            }
+            destination = root / "upstream"
+            with patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                (destination / "pinned" / "untracked.txt").write_text("dirty\n")
+                row = fetch_upstreams.audit_upstream_pins([entry])[0]
+            self.assertEqual(row["checkout"], "dirty")
+            self.assertEqual(row["revision"], revision)
+            self.assertEqual(row["tree"], tree)
+            self.assertNotEqual(row["revision"], "n/a")
+            self.assertNotIn("invented", fetch_upstreams.render_upstream_pin_audit([row]))
 
 
 class CommittedTapenadeStaticTriageTests(unittest.TestCase):
