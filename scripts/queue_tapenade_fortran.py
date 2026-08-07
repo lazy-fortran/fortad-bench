@@ -224,8 +224,8 @@ def render_summary(rows: list[dict[str, object]]) -> str:
         "# Tapenade Fortran queue",
         "",
         "This is a deterministic, evidence-neutral queue for the currently "
-        f"untriaged rows ({len(rows)} candidates). It reads only the committed "
-        "static triage and status ledger; it does not run a compiler, Tapenade, "
+        f"untriaged rows ({len(rows):,} candidates). It reads only the committed "
+        "static triage and status ledger. It does not run a compiler, Tapenade, "
         "FortAD, or an oracle.",
         "",
         "Regenerate and check it with:",
@@ -240,9 +240,9 @@ def render_summary(rows: list[dict[str, object]]) -> str:
         "The first matching rule wins:",
         "",
         "1. `mixed-language-risk`: the filename language hint contains Fortran and another language.",
-        "2. `parser-or-invalid-risk`: the manifest marks the row as a historical Fortran issue/expected-failure component; this does not prove a parser failure.",
+        "2. `parser-or-invalid-risk`: the manifest marks the row as a historical Fortran issue/expected-failure component. This does not prove a parser failure.",
         "3. `reference-only-evidence`: every detected Fortran source name is derivative-shaped and no entry hint was found.",
-        "4. `no-entry-point-evidence`: the extractor found no program, subroutine, or function hint; this is not proof that no entry point exists.",
+        "4. `no-entry-point-evidence`: the extractor found no program, subroutine, or function hint. This is not proof that no entry point exists.",
         "5. `runnable-program-candidate`: a program declaration hint was found.",
         "6. `runnable-procedure-candidate`: a subroutine/function declaration hint was found.",
         "7. `needs-static-inspection`: residual rows that do not match these rules.",
@@ -267,8 +267,8 @@ def render_summary(rows: list[dict[str, object]]) -> str:
         f"`{dependency_rows}` rows carry the orthogonal `missing-dependency-risk` "
         "category because an include target's basename is "
         "not present among that candidate's tracked source/include files. This "
-        "is a dependency risk signal, not proof that the dependency is absent; "
-        "system headers and shared runtime files may be supplied externally.",
+        "is a dependency risk signal, not proof that the dependency is absent. "
+        "System headers and shared runtime files may be supplied externally.",
         "",
         "Most frequent unresolved include hints:",
         "",
