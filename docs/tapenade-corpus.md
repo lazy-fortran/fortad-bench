@@ -221,11 +221,15 @@ Their manifests, runners, and measurement records are linked from the
 corresponding case directories. The shard-0 `set04/lh148` `module1::toto`
 entry is independently promoted in
 [`cases/tapenade-set04/lh148`](../cases/tapenade-set04/lh148/notes.md).
-The next small pure-Fortran promotion is `set05/v060` `M::func(t,u)`, with
-exact upstream hashes, fresh pinned parser/tangent/reverse generation, strict
-FortAD forward/reverse compilation, and an independent average-function
-hand/finite-difference/adjoint oracle in
-[`cases/tapenade-set05/v060_manifest.toml`](../cases/tapenade-set05/v060_manifest.toml).
+The recent small pure-Fortran promotions are `set05/v060` and `set05/v061`,
+both selecting `M::func(t,u)`. The next queue-priority row is now promoted as
+`set05/v062` `M::func(t,u)`, with the unchanged upstream source compiled and
+hashed, fresh pinned parser/tangent/reverse generation, strict FortAD
+forward/reverse compilation, and an independent average-function
+hand/finite-difference/adjoint oracle. Its standards-clean selected closure is
+an explicit-result extraction; it is not a repaired upstream source. See the
+[`case manifest`](../cases/tapenade-set05/v062_manifest.toml) and
+[`validation result`](../cases/tapenade-set05/v062_result.txt).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

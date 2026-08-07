@@ -813,6 +813,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set05/v054",
             "nonRegressions/set05/v060",
             "nonRegressions/set05/v061",
+            "nonRegressions/set05/v062",
             "nonRegressions/set05/v125",
             "nonRegressions/set05/v137",
             "nonRegressions/set05/v150",
@@ -2486,6 +2487,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "parser|forward|reverse",
                 "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
                 "dependencies": "self-contained M::func(t,u); callback modules N/O and program driver remain outside the selected closure",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set05/v062": {
+                "entry_point": "M::func(t,u)",
+                "tapenade_options": "-p/-root-func|-d/-root-func|-b/-root-func",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
+                "dependencies": "exact program.f90 compiled unchanged; standards-clean selected M::func(t,u) extraction; N/O callbacks and program driver remain outside the FortAD derivative closure",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
             },
         }
