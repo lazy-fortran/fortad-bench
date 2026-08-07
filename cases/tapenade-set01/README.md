@@ -569,6 +569,30 @@ See the manifests, result records, independent oracles, and contract tests
 under `cases/tapenade-set01/v416/`, `v417/`, `v418/`, `v419/`, `v421/`, and
 `v422/`.
 
+## Tranche AD: `todoF90/REFERENCES/v425`, `v426`, `v427`, `v469`, `v500`, and `v503`
+
+This tranche closes six historical-reference rows. `v425`, `v426`, `v427`, and
+`v500` retain refusal boundaries for module parsing, allocatable lifetimes,
+allocatable module state, and `DATA`/singular normalization. `v469` adds a
+bounded one-element port for the strict tab boundary. `v503` is an incomplete
+invalid-upstream program with no stored references. Every case has fresh pinned
+Tapenade evidence and an independent three-test contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v425/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v426/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v427/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v469/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v500/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v503/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under `cases/tapenade-set01/v425/`, `v426/`, `v427/`, `v469/`, `v500/`, and
+`v503/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are
