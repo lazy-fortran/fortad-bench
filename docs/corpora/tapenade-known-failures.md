@@ -101,7 +101,7 @@ Tapenade setup for this run (from the pinned checkout):
 | fortran-known-failures | `todoF90/REFERENCES/v547` | `todoF90/REFERENCES/v547/program.f90` | free | `runnable` | gfortran strict syntax check passed | program_p output generated (parser probe only) | not-run; no derivative oracle |
 
 The other `runnable` rows are the next candidates for explicit entry-point
-selection, generated-code compilation, and independent finite-difference and
-adjoint-oracle cases. The separate [`v420` case](../../cases/tapenade-known-failures/v420/README.md)
-has already cleared those gates. This report remains source-viability evidence
-and must not be read as a support result for the other rows.
+selection, generated-code compilation, and independent finite-difference
+and adjoint-oracle cases. The separate `v420` case has already cleared
+those gates. This report remains source-viability evidence and must not
+be read as a support result for the other rows.
