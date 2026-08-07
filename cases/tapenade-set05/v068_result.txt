@@ -1,10 +1,10 @@
 case: Tapenade nonRegressions set05 v068 RUN::s(mb1,mb2,mb3)
 classification: unsupported-invalid-upstream-fortran
-recorded_utc: 2026-08-07T23:09:27Z
+recorded_utc: 2026-08-07T23:18:15Z
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
 legacy_free_flags: -std=legacy -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
-fortad_commit: 7b6311de54eb54e9f60cbc0f4bef3ab447bb2b9a
+fortad_commit: a1e63d0a170833211e059937f205e5d1791789ff
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 entry_point: RUN::s(mb1,mb2,mb3)
 tapenade_modes: parser tangent reverse
@@ -15,9 +15,9 @@ upstream_diagnostic: no specific subroutine for generic FUNC; REAL*8 mismatch re
 tapenade_generation: parser=0 tangent=0 reverse=0
 tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
 tapenade_fresh_legacy_compile: parser=1 tangent=1 reverse=1
-fortad_parser: pass-exact-procedure-extraction status=0
-fortad_forward: expected-refusal status=1 diagnostic="no derivative rule for the call to func"
-fortad_reverse: expected-refusal status=1 diagnostic="no reverse rule for the call to func"
+fortad_parser: expected-refusal status=1 diagnostic="conversion-required generic call func has no exact candidate"
+fortad_forward: expected-refusal status=1 diagnostic="conversion-required generic call func has no exact candidate"
+fortad_reverse: expected-refusal status=1 diagnostic="conversion-required generic call func has no exact candidate"
 fortad_generated_compile: not-applicable-no-output-on-refusal
 independent_oracle: generic procedure and kind mismatch plus strict and legacy compiler refusal
 oracle_source_invariants: generic-procedure-and-kind-mismatch
@@ -28,14 +28,14 @@ upstream_sha256:
 35fe2db3318a695de5b1bce57a909eb849b17f11b71c704b28f76d9b418dfd97  program_p.f90
 77f4ced4296827278e8ee8403d0fc7ecfd170fb0c69f405e24c295bdde286461  program_p.msg
 fresh_tapenade_sha256:
-9ba5edee18fbc03b041ad4210f25b13b5a084527b10ff41e3988aace596405a1  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/parser/v068_p.f90
-382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/parser/v068_p.msg
-67ef46a055d07dc8ead79847c7d1660b880eb98a4d53c42d32ab3b7f16f1f4ad  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/tangent/v068_d.f90
-382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/tangent/v068_d.msg
-8008b4f16035b0f5065c37908399519aaad7442af25e5acec60cd4cc0c7e6965  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/reverse/v068_b.f90
-382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.L2RiNW/fresh/reverse/v068_b.msg
+ce0b7a8a87a8bd18920e263040771f2cc863237bd6840d7e8b1c7aca0029e85a  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/parser/v068_p.f90
+382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/parser/v068_p.msg
+effbaa84d8083a61d7aeb4b89f4e377440fe98ecc47489335315217fe6803c70  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/tangent/v068_d.f90
+382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/tangent/v068_d.msg
+f55e2d66b0b3eda0c89dda2a4dd09ddb4710715e5bcb658c8fcbb29658bc20eb  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/reverse/v068_b.f90
+382e54238611eefc7a354e92b1f9202d2f31efe22a21be3d836757f4b7ce7572  /var/tmp/fortad-bench-tapenade-set05-v068.unfvnq/fresh/reverse/v068_b.msg
 case_artifact_sha256:
-10ac28affc5b53fa9875d77133f60cbf2da83a7af4a47946029a5c4159fa4e3c  /mnt/storage/code/lazy-fortran/.wt/fortad-bench-tapenade-v068/cases/tapenade-set05/v068_manifest.toml
-bd314de389d08a0ef29df1004edc85b4dc67d3492c5bfb5dd8eac245e626b401  /mnt/storage/code/lazy-fortran/.wt/fortad-bench-tapenade-v068/cases/tapenade-set05/v068_notes.md
-1c55b8b4933aae92ab30c338b00560bd73b1dce028d59c79ca9eb79e3b5355d9  /mnt/storage/code/lazy-fortran/.wt/fortad-bench-tapenade-v068/cases/tapenade-set05/v068_oracle.py
-e0d73409c2fe335bc0f19de31e8a0333d8eb4c114105e3bd367480932ac68d32  /mnt/storage/code/lazy-fortran/.wt/fortad-bench-tapenade-v068/cases/tapenade-set05/v068_run.sh
+4ea5e64b5a512b16d36dd9af84e1574ddce1684595f0fcdacdcbd5e8e24fab66  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v068_manifest.toml
+f51b0747f438f82fc9b22f28187070cb48b5a4c6496c98df06ddb279081e6e99  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v068_notes.md
+1c55b8b4933aae92ab30c338b00560bd73b1dce028d59c79ca9eb79e3b5355d9  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v068_oracle.py
+e05f9e85f66ed2ef22816f02e42cc786899b659e7ef63f90f4d0c8cf25b95e9f  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set05/v068_run.sh
