@@ -608,8 +608,11 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         evidence_paths = {
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",
+            "nonRegressions/set01/lh003",
             "nonRegressions/set01/lh019",
             "nonRegressions/set01/lh004",
+            "nonRegressions/set01/lh005",
+            "nonRegressions/set01/lh006",
             "nonRegressions/set01/lh008",
             "nonRegressions/set01/lh010",
             "nonRegressions/set01/lh023",
@@ -669,6 +672,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "unsupported-program-not-procedure",
                 "unsupported-common-block",
                 "pass-forward-reverse-complex-adjoint-refusal",
+                "pass-exact-source-refusal-unsupported-statement-line-11",
+                "pass-exact-source-refusal-unmatched-do-line-37",
+                "pass-exact-source-refusal-unterminated-character-line-49",
             },
         )
         expected_evidence = {
@@ -783,6 +789,30 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh003": {
+                "entry_point": "adj2(x,y,z,N,o)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-source-inspection|safe-trace-hand-tangent|central-difference-sweep",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
+            },
+            "nonRegressions/set01/lh005": {
+                "entry_point": "adj4(y)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-source-inspection|branch-hand-derivative|central-difference-sweep",
+                "dependencies": "COMMON blocks and unit I/O",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
+            },
+            "nonRegressions/set01/lh006": {
+                "entry_point": "adj6(x,y,z)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-source-inspection|fixed-trace-hand-derivative|central-difference-sweep",
+                "dependencies": "external file donnees and COMMON block donnees",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
             },
             "nonRegressions/set01/lh019": {
                 "entry_point": "top(x,y,n,*); port set01_lh019(x,y,n,output)",
