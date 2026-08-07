@@ -1,0 +1,21 @@
+case: Tapenade nonRegressions set01 lh052 strict-source refusal
+recorded_utc: 2026-08-07T06:43:15Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_primal_strict_compile: expected-refusal
+tapenade_parser_generation: pass
+tapenade_forward_generation: pass
+tapenade_reverse_generation: pass
+tapenade_parser_strict_compile: expected-refusal
+tapenade_forward_strict_compile: expected-refusal
+tapenade_reverse_strict_compile: expected-refusal
+independent_oracle: gfortran independently rejects the scalar COMMON aj subscript in exact and fresh-generated sources
+fortad_result: not-run-invalid-upstream-source
+runtime_result: not-run-no-conforming-primal
+refusal_reason: no semantics-preserving FortAD port exists without repairing the upstream source
+source_sha256:
+acee0492875fc88fbc07d26737a3006821f3b116e0ab072dfcf60432baf2947a  cases/tapenade-set01/tranche-m-lh052.md
+37dc92380e4dab63debe01689dae4c3015aaa4e7ceecd03e8d98336209156ea6  cases/tapenade-set01/tranche-m-lh052-manifest.toml
+25975a5369f1b7bc4df5874afb4846747d1646e8d862e108e7344d0a5a2acdfd  scripts/bench_tapenade_set01_lh052.sh
+refusal_oracle_status: pass

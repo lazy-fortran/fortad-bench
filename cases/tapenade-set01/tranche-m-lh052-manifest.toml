@@ -1,0 +1,17 @@
+schema_version = 1
+name = "tapenade-set01-lh052-strict-source-refusal"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_lh052.sh"
+result = "results/tapenade_set01_lh052_refusal_validation.txt"
+
+[[case]]
+id = "lh052"
+upstream_source = "nonRegressions/set01/lh052/program.f"
+entry_point = "f(t)"
+upstream_options = "-p; -d -root f; -b -root f"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler", "fresh-pinned-tapenade-generation", "diagnostic-identity"]
+dependencies = "none; program_dv.f additionally references DIFFSIZES.inc but is outside this refusal gate"
+classification = "unsupported-invalid-upstream-fortran"
+expected_diagnostic = "PROCEDURE attribute conflicts with COMMON attribute"
