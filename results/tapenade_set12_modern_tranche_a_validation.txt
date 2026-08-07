@@ -1,0 +1,44 @@
+tranche: Tapenade set12 modern tranche A
+recorded_utc: 2026-08-07T18:50:19Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_commit: b7533af9c4d22eae92b278d2f0200127061f00a9
+exact_source_compile_flags: cmplxstep01=-std=legacy -ffree-line-length-none; other cases=-std=f2018 -ffree-line-length-none
+tapenade_oracle: fresh parser, forward, and reverse generation; generated source compile status is recorded below
+tapenade_generated_compile_statuses:
+cmplxstep01 forward 0 1
+cmplxstep01 parser 0 0
+cmplxstep01 reverse 0 0
+cmplxstep01 source 0
+f03fptr01 forward 0 1
+f03fptr01 parser 0 1
+f03fptr01 reverse 0 1
+f03fptr01 source 0
+f03typf01 forward 0 missing
+f03typf01 parser 0 1
+f03typf01 reverse 0 missing
+f03typf01 source 0
+fortad_oracle: both requested modes refuse the active boundary; stderr is retained in the run build directory
+fortad_statuses:
+cmplxstep01 forward 1
+cmplxstep01 reverse 1
+f03fptr01 forward 1
+f03fptr01 reverse 1
+f03typf01 forward 1
+f03typf01 reverse 1
+independent_oracle: hand primal/JVP/VJP formulas for pure quadratic, deferred child dispatch, and procedure-pointer selection
+oracle_status: pass
+classification:
+cmplxstep01 expected-refusal (active mutable module state)
+f03typf01 expected-refusal (abstract deferred type-bound dispatch)
+f03fptr01 expected-refusal (abstract procedure interface and procedure pointer)
+exact_source_sha256:
+81a09c37178bea796bd8d128199627a3bf3872c5284d04453eed47b373803d51  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set12/cmplxstep01/program.f90
+125fc6c50e1bfbfee3d6f61a3f00fbfa60cdf531bf58ca5c2725f12f2382e99c  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set12/f03typf01/program.f90
+391e905319d3e6d82c47f4f19d12323a4f23d0e630e85460b7267d2a2a70dd38  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set12/f03fptr01/program.f90
+artifact_sha256:
+0b85b7d5eee6d960d42885260b72e1fd636e109a4e74238cfb3cc5d9ace8e79f  cases/tapenade-set12/modern-tranche-a-manifest.toml
+7bb59674d8a4e707ee2be403796969113513bcd8045a315f9611cc3729007cf7  cases/tapenade-set12/modern-tranche-a.md
+7419a4aef0f21140f059fd601418ef7ab871b4f718006293f0c153275877d8b3  harness/bench_tapenade_set12_modern_tranche_a.f90
+116f5f5f31cbf8bd25e4ef321095a7563a1136157cc1d16190b163d70ca86e4b  scripts/bench_tapenade_set12_modern_tranche_a.sh
+95d44e9b4646933cbfb87532270ec84e8b280d8f5b8a56d88ff0b4b354bac566  scripts/test_tapenade_set12_modern_tranche_a.py

@@ -1,0 +1,44 @@
+schema_version = 1
+name = "tapenade-set12-modern-tranche-a"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+baseline_fortad_commit = "b7533af9c4d22eae92b278d2f0200127061f00a9"
+runner = "scripts/bench_tapenade_set12_modern_tranche_a.sh"
+result = "results/tapenade_set12_modern_tranche_a_validation.txt"
+
+[[case]]
+id = "cmplxstep01"
+upstream_source = "nonRegressions/set12/cmplxstep01/program.f90"
+upstream_references = ["AATypes_aad.f03", "program_p.f90", "program_d.f90", "program_aad.f03"]
+upstream_entry_point = "ff1(a,b,c)>(ff1)"
+independent = ["a", "b"]
+dependent = "ff1"
+modes = ["parser", "forward", "reverse"]
+classification = "expected-refusal"
+reason = "active module variables and a mutable derived-type component cross the differentiated call boundary"
+oracle = ["exact-source-compile", "fresh-Tapenade-parser-forward-reverse-generation", "independent-pure-subexpression-JVP-VJP"]
+
+[[case]]
+id = "f03typf01"
+upstream_source = "nonRegressions/set12/f03typf01/program.f90"
+upstream_references = ["program_p.f90"]
+upstream_entry_point = "foo(t,x,y)"
+independent = ["x"]
+dependent = "y"
+modes = ["parser", "forward", "reverse"]
+classification = "expected-refusal"
+reason = "abstract deferred type-bound dispatch is not yet lowered by FortAD"
+oracle = ["exact-source-compile", "fresh-Tapenade-parser-forward-reverse-generation", "independent-child-dispatch-JVP-VJP"]
+
+[[case]]
+id = "f03fptr01"
+upstream_source = "nonRegressions/set12/f03fptr01/program.f90"
+upstream_references = ["program_p.f90"]
+upstream_entry_point = "foo(i,x,y)"
+independent = ["x"]
+dependent = "y"
+modes = ["parser", "forward", "reverse"]
+classification = "expected-refusal"
+reason = "an abstract procedure interface and procedure-pointer dispatch require storage-identity analysis"
+oracle = ["exact-source-compile", "fresh-Tapenade-parser-forward-reverse-generation", "independent-procedure-selection-JVP-VJP"]
