@@ -1,0 +1,27 @@
+schema_version = 1
+name = "tapenade-set01-lh035-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "cases/tapenade-set01/lh035/run.sh"
+result = "cases/tapenade-set01/lh035/result.txt"
+
+[[case]]
+id = "lh035"
+upstream_source = "nonRegressions/set01/lh035/program.f"
+stored_references = ["program_p.f", "program_p.msg"]
+upstream_entry_point = "bug7(x)"
+ported_entry_point = "not-applicable (invalid upstream source)"
+independent = ["x"]
+dependent = ["none: conflicting COMMON state is not a valid real-valued output"]
+function = "COMMON real array redeclared as a character array and assigned character data"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler", "fresh-pinned-Tapenade-generation", "FortAD-diagnostic"]
+classification = "unsupported-invalid-upstream-fortran"
+expected_diagnostics = [
+    "strict gfortran rejects the duplicate declaration and character-to-real assignment",
+    "Tapenade emits DD02, DD01, and TC16; all fresh generated sources fail strict compilation",
+    "FortAD refuses both modes at the COMMON statement on line 3",
+]
+closure = "The source gives t incompatible REAL COMMON and CHARACTER declarations, so no standard-conforming numerical port or derivative oracle can preserve its stated semantics."
+diffsizes_include = "not-present"

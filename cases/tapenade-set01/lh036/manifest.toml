@@ -1,0 +1,26 @@
+schema_version = 1
+name = "tapenade-set01-lh036-invalid-upstream"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh036/run.sh"
+result = "cases/tapenade-set01/lh036/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh036/program.f",
+    "nonRegressions/set01/lh036/program_d.f",
+    "nonRegressions/set01/lh036/program_p.f",
+]
+stored_references = ["program_d.msg", "program_p.msg"]
+upstream_entry_point = "f(t)"
+ported_entry_point = "not-applicable-invalid-upstream"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler-diagnostic-identity", "fresh-Tapenade-generation", "FortAD-diagnostic"]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "gfortran rejects ZE(...) as a function result on the left-hand side",
+    "gfortran rejects ZE as an actual argument without an explicit interface or EXTERNAL declaration",
+    "FortAD refuses the exact fixed-form source at line 9",
+]
+closure = "The corpus row supplies no definitions or interfaces for ZE, TRUC, or TRUC1 and uses I/J before initialization. Repairing those declarations would invent semantics, so no numerical port or support claim is justified."

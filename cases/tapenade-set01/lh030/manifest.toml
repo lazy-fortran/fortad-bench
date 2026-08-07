@@ -1,0 +1,22 @@
+schema_version = 1
+name = "tapenade-set01-lh030-bounded-port"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "cases/tapenade-set01/lh030/run.sh"
+result = "cases/tapenade-set01/lh030/result.txt"
+
+[[case]]
+id = "lh030"
+upstream_source = "nonRegressions/set01/lh030/program.f"
+stored_references = ["program_p.f", "program_d.f", "program_b.f", "program_dv.f", "program_p.msg", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "head(i1,i2,o)"
+ported_entry_point = "set01_lh030(i1,i2,o)"
+independent = ["i1", "i2"]
+dependent = ["o"]
+function = "nested square-root/exponential/sinc chain with COMMON-carried zn and zd"
+modes = ["parser", "forward", "reverse", "multidirectional"]
+oracle = ["strict-compiler", "fresh-pinned-Tapenade-generation", "closed-form-JVP-VJP", "finite-difference", "adjoint-identity"]
+classification = "runnable-ported-with-exact-source-fortad-refusal"
+expected_diagnostics = ["FortAD exact source: unsupported statement at line 2 (COMMON /zz/)"]
+closure = "The exact fixed-form source and all stored references compile strictly; the bounded standard-conforming port replaces COMMON with local state and passes independent numerical checks."

@@ -1,0 +1,59 @@
+case: Tapenade nonRegressions set01 lh034
+recorded_utc: 2026-08-07T09:46:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+normal_free_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_binary: /home/ert/code/lazy-fortran/fortad-lh034-clean.TiVwuZ/build/fo/bin/fortad
+fortad_binary_sha256: a7159d188fab3adfc809999f04571f7af3045f4a7cae977ff0431f45b1745da2
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.029440
+tapenade_fresh_generation_seconds: 0.678935
+fortad_exact_refusal_seconds: 0.009911
+fortad_bounded_port_seconds: 0.012361
+bounded_port_compile_link_seconds: 0.089687
+upstream_exact_source_compile_statuses:
+program.status 0
+program_d.status 0
+program_d.msg.present 1
+program_b.f.present 0
+program_dv.f.present 0
+tapenade_result: fresh parser and tangent compile strictly; fresh reverse generation succeeds but strict compilation refuses INTEGER*4 branch
+tapenade_generated_compile_statuses:
+parser.status 0
+forward.status 0
+reverse.status 1
+tapenade_reverse_diagnostic: INTEGER*4 branch; branch has no IMPLICIT NONE declaration
+fortad_exact_forward_status: 1
+fortad_exact_reverse_status: 1
+fortad_exact_diagnostic: fortad: unsupported statement at line 23
+fortad_exact_result: expected-refusal; unresolved external callback semantics not claimed
+fortad_port_forward_status: 0
+fortad_port_reverse_status: 1
+fortad_port_reverse_diagnostic: fortad: reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone
+fortad_port_result: bounded quadratic callback forward transform compiles; reverse remains refused
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity on fixed branch path
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2952
+oracle_status: pass
+source_sha256:
+0cf855e97adb32568adf9365f353ef6b772c7965859172a6d6e50752b2d31f3a  nonRegressions/set01/lh034/program.f
+d748d5ebad990a5f3129a37e64d857e1a851b7863c2813cb484fef8f06a77536  nonRegressions/set01/lh034/program_d.f
+beb0c44bfdbaa91fd69c2f69d67bf0c11ce48a3376c79749c1e50ea97d63d6d8  nonRegressions/set01/lh034/program_d.msg
+artifact_sha256:
+52ebaf82a9bf14b9c7fb0eef57bebfb6449e5dffebe549648d7bd12d8e0161f5  cases/tapenade-set01/lh034/manifest.toml
+7c1d62272f9eae92ae828a4108d90c0328cf3661857b2f33ed660e4ce76cdff7  cases/tapenade-set01/lh034/notes.md
+608cd91a07f2b38bf3347689784588ebde3f0f4c36195c4660ddf6b14ca776f6  cases/tapenade-set01/lh034/port.f90
+def50c27932b2ec5c12bc9d555fa852e6fbebf7e61f4d16a9ac4f2bcfdcb9d22  cases/tapenade-set01/lh034/hand.f90
+bd6197add5852af40e7817542af6ce77b2a5ecec8415ee136fe9ad3c7f0627a9  harness/bench_tapenade_set01_lh034.f90
+7fadbafde06c38caaeafa82041b1517aec8691915e71b643d7d8b93df61ac600  scripts/bench_tapenade_set01_lh034.sh
+2a7a4bb675a7b7a149e8db278f42993479593fb3d5f836f64f534fa332a0cb9d  scripts/test_tapenade_set01_lh034.py
+run_output:
+oracle_status: pass
+fd_errors:   3.6244E-03   3.4006E-13   7.0014E-12   2.9206E-11
+adjoint_residual:   1.0842021724855044E-17

@@ -1,0 +1,63 @@
+case: Tapenade nonRegressions set01 lh031
+classification: runnable-ported-with-exact-source-fortad-refusal
+recorded_utc: 2026-08-07T09:46:04Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_build_seconds: 1.838362
+upstream_strict_compile_seconds: 0.055694
+upstream_program_strict_compile_status: 0
+upstream_program_d_strict_compile_status: 0
+upstream_program_b_strict_compile_status: 0
+upstream_program_dv_strict_compile_status: 0
+stored_reference_messages: program_d.msg program_b.msg program_dv.msg
+stored_multidirectional_include: pinned nonRegressions/DIFFSIZES.f as DIFFSIZES.inc
+tapenade_generation_seconds: 0.628839
+tapenade_generation: fresh parser, tangent, and reverse pass
+tapenade_parser_strict_compile_status: 0
+tapenade_forward_strict_compile_status: 0
+tapenade_reverse_strict_compile_status: 0
+fortad_exact_probe_seconds: 0.014462
+fortad_exact_forward_status: 1
+fortad_exact_reverse_status: 1
+fortad_exact_diagnostic: fortad: unsupported statement at line 9
+fortad_port_transform_seconds: 0.020434
+fortad_port_forward_status: 0
+fortad_port_reverse_x_status: 0
+fortad_port_reverse_y_status: 0
+fortad_port_reverse_z_status: 0
+fortad_port_generated_compile_statuses: forward=0 reverse_x=0 reverse_y=0 reverse_z=0
+port_compile_statuses: port=0 hand=0 harness=0
+fortad_port_result: pass-transform-compile-runtime
+compile_seconds: 0.149378
+independent_oracle: closed-form JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3208
+oracle_status: pass
+source_sha256:
+f2aedc0990aa28d5a6e757c4852c33e05f708ca8923e2c0131d145029c287cab  nonRegressions/set01/lh031/program.f
+4079bd0ca2ad41240482a32c5a7a089ae1ade5bb0893ff9c36cf1453fc5a7ee6  nonRegressions/set01/lh031/program_d.f
+02b19a52260c0a01bff893fadd4a7159c6d3bb7c10446226ec0ff03506765fa3  nonRegressions/set01/lh031/program_b.f
+ad1de266a56625927de5ebb9f082a966591222fdb4f6d848d1f11d794db0e2a2  nonRegressions/set01/lh031/program_dv.f
+815c398083e95a346dc2e4269638c07c7beee4953f17d3ffd5a299ddff3e5125  nonRegressions/set01/lh031/program_d.msg
+815c398083e95a346dc2e4269638c07c7beee4953f17d3ffd5a299ddff3e5125  nonRegressions/set01/lh031/program_b.msg
+2e88e69c77d0294831c39a72753eb5121e138864532fec43176e667a1b2428ab  nonRegressions/set01/lh031/program_dv.msg
+artifact_sha256:
+906b6cbfc3ffaf96875da736ced783bb4d65a715c4db7489f7e33f1aeb85c5e5  cases/tapenade-set01/lh031.f90
+05fb56d73ad35f6f2feea8ca36340e8c865df0c8a7573bee197bcb64e9b24a76  cases/tapenade-set01/hand_derivative_lh031.f90
+21716232f045627d08c3350174bb3a24803a6d1a1f329ab22a3e7600934848dd  cases/tapenade-set01/lh031-manifest.toml
+1c287d58a7142c52740e29f4b15b49bec5e1c480e340d1e51a2a91211750a686  cases/tapenade-set01/lh031.md
+f545fb50796e69c41938e501ebd76db8a8a272649175acc082b927066c4cdb35  harness/bench_tapenade_set01_lh031.f90
+158ad7ca0a58b2475d1ef3a2afe7459097d896595a977892353afea68632273e  scripts/bench_tapenade_set01_lh031.sh
+32260703326b6f34a17ba8b4fb8af4be3c6a252328dd36ed4cf5f50a16e7f897  scripts/test_tapenade_set01_lh031.py
+oracle_output:
+oracle_status: pass
+fd_errors:   1.2309E-13   0.0000E+00   0.0000E+00   0.0000E+00
+adjoint_residual:   0.0000000000000000E+00

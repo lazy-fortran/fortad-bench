@@ -1,0 +1,21 @@
+schema_version = 1
+name = "tapenade-set01-lh034"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh034.sh"
+result = "results/tapenade_set01_lh034_validation.txt"
+
+[[case]]
+id = "lh034"
+upstream_source = "nonRegressions/set01/lh034/program.f"
+stored_references = ["program_d.f", "program_d.msg"]
+upstream_entry_point = "invert(f,x,a0,b0,n)"
+ported_entry_point = "set01_lh034(a0,b0,x,n,root)"
+independent = ["a0", "b0"]
+dependent = ["invert", "root"]
+function = "fixed-form bisection with an unresolved external callback"
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse:refused"]
+oracle = ["independent-hand-JVP", "independent-hand-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+expected_diagnostic = "fortad: unsupported statement at line 23"

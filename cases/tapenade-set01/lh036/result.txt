@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions set01 lh036
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T09:41:05Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh036 -J/var/tmp/tapenade-set01-lh036.Anoxx1/mod
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_program.f_strict_compile: expected-refusal status=1
+upstream_program_d.f_strict_compile: expected-refusal status=1
+upstream_program_p.f_strict_compile: expected-refusal status=1
+upstream_stored_diagnostics: program_d.msg and program_p.msg retained
+tapenade_generation_seconds_total: 0.651577
+tapenade_generation: parser=pass forward=pass reverse=pass
+tapenade_parser_strict_compile: expected-refusal status=1
+tapenade_forward_strict_compile: expected-refusal status=1
+tapenade_reverse_strict_compile: pass
+fortad_build_check: pass
+fortad_transform_seconds_total: 0.010791
+fortad_forward: expected-refusal at line 9
+fortad_reverse: expected-refusal at line 9
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: strict compiler rejection identity; no numerical oracle because ZE/TRUC/TRUC1 semantics are absent
+oracle_program.f: expected-refusal status=1 ZE-lhs
+oracle_program_d.f: expected-refusal status=1 ZE-lhs
+oracle_program_p.f: expected-refusal status=1 ZE-lhs
+oracle_status: pass
+closure: no standard-conforming port or support claim; repairing declarations would invent upstream semantics
+upstream_sha256:
+1685178cb927abb09ed4d73cc966486bcb0214ffd7752e636bf659782d78c830  program.f
+3f555900b84619bf8c15cf77d0d30302e520f7a2f6e61b1fab2326006965a893  program_d.f
+0d9abae639dfa84dff231ecb7e9d63fbef88e2a2425555b9b4b4f5ed7f34290d  program_p.f
+d44750fd7ab65efca3a71753fd258bfbd12fa210ce3f5bf7363da5744392781a  program_d.msg
+5a3275d2d5bdb8b26d20af83abe28b743efa47e447fb60a911fc04e987f7b2b3  program_p.msg
+tapenade_generated_sha256:
+a206da26fd781938699ff19bc424ff87918d7c6057e9848b4bd9e05f18329e78  lh036_p.f
+5a3275d2d5bdb8b26d20af83abe28b743efa47e447fb60a911fc04e987f7b2b3  lh036_p.msg
+0218d4eb0bd027b9143f83e788b49675390f02e6a6ce7371840fdfec51367e98  lh036_d.f
+f9812d1cdecb79d3228e275b23908b319bad42c3ce6e2fb69ddba4abd3cf84b8  lh036_d.msg
+8d284c3a0752eb82459aed936a5b8ac78f9c4ddf107a36a9c50880a0c24f35b6  lh036_b.f
+f9812d1cdecb79d3228e275b23908b319bad42c3ce6e2fb69ddba4abd3cf84b8  lh036_b.msg
+case_artifact_sha256:
+7a92dba7a37a0d2d6f6fb87afbfba80bd92c575a6f743aff227312936d3be970  cases/tapenade-set01/lh036/manifest.toml
+f574ea7dfa5df5df1a7944e71b96aa3b6a32ac48822743060c3d62a3342a13f6  cases/tapenade-set01/lh036/notes.md
+eb26f56802d82f5dd34c25a3ea453e6da01b3bb4f996f59aecffc200a9403c74  cases/tapenade-set01/lh036/oracle.py
+44cc25b25c8ce3d51710b3b2dbb8ada5b17be437b280f2a9cfac70505bf838d5  cases/tapenade-set01/lh036/run.sh
+6914278c0bf83f4677b7149f64e745e1674fcf7ef63b6f288cf8515ddbb84f04  cases/tapenade-set01/lh036/test_contract.py

@@ -1,0 +1,22 @@
+schema_version = 1
+name = "tapenade-set01-lh031"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+baseline_fortad_commit = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh031.sh"
+result = "results/tapenade_set01_lh031_validation.txt"
+
+upstream_path = "nonRegressions/set01/lh031/program.f"
+stored_references = ["program_d.f", "program_b.f", "program_dv.f", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "sub1(x,y,z)"
+ported_entry_point = "set01_lh031(x,y,z,x_out,y_out,z_out)"
+independent = ["x", "y", "z"]
+dependent = ["x_out", "y_out", "z_out"]
+function = "a = x + sin(x) - y; b = y*a; c = z + a*b"
+modes = ["forward", "reverse"]
+oracle = ["independent-closed-form-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported-with-exact-source-fortad-refusal"
+exact_source_diagnostic = "fortad: unsupported statement at line 9"
+stored_multidirectional_note = "program_dv.f needs the pinned nonRegressions/DIFFSIZES.f include"
+port_scope = "standard-conforming real64 port with explicit outputs for the three overwritten arguments"
+license = "MIT"

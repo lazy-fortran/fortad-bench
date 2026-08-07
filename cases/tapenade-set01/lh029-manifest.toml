@@ -1,0 +1,22 @@
+schema_version = 1
+name = "tapenade-set01-lh029"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+baseline_bench_commit = "bbdd8dd3f33cc6931474615e3e9acf28468a8777"
+baseline_fortad_commit = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh029.sh"
+result = "results/tapenade_set01_lh029_validation.txt"
+
+upstream_source = "nonRegressions/set01/lh029/program.f"
+stored_references = ["program_d.f", "program_b.f", "program_dv.f", "program_b.msg", "program_d.msg", "program_dv.msg"]
+upstream_entry_point = "s1(T,n,xx,z); s2(V,nn,res,z); s3(T,n,res,z)"
+ported_entry_point = "set01_lh029(t,z,xx,z_out)"
+independent = ["t", "z"]
+dependent = ["xx", "z_out"]
+domain = "bounded standard-conforming port with exactly seven t elements and nonzero z"
+oracle = ["independent-hand-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported-with-exact-source-fortad-refusal"
+exact_source_boundary = "all exact upstream references and fresh Tapenade outputs compile strictly; pinned FortAD refuses the nested s2 call because it may write actual arguments"
+port_contract = "The port is a seven-element, double-precision, standard-conforming oracle case. It preserves s1's two s3 evaluations and the 100-term V sum by unrolling the bounded computation; it makes no exact-source support claim."
+license = "MIT"

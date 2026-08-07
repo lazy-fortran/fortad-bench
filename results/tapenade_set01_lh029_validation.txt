@@ -1,0 +1,60 @@
+case: Tapenade nonRegressions set01 lh029
+classification: runnable-ported-with-exact-source-fortad-refusal
+recorded_utc: 2026-08-07T09:48:27Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -pedantic-errors -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface
+compile_free_flags: -std=f2018 -pedantic-errors -ffree-form -ffree-line-length-none -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_original_commit: 096613772705dcd44a8e0c6bb573fc12bc563bd3
+fortad_original_dirty: clean
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_strict_compile_seconds: 0.064573
+upstream_program_strict_compile_status: 0
+upstream_program_d_strict_compile_status: 0
+upstream_program_b_strict_compile_status: 0
+upstream_program_dv_strict_compile_status: 0
+stored_messages: program_b.msg program_d.msg program_dv.msg
+tapenade_fresh_generation_seconds: 0.791178
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_parser_strict_compile_status: 0
+tapenade_forward_strict_compile_status: 0
+tapenade_reverse_strict_compile_status: 0
+fortad_exact_probe_seconds: 0.017691
+fortad_exact_forward_status: 1
+fortad_exact_reverse_status: 1
+fortad_exact_diagnostic: inlining s2 needs plain variables as arguments, because it may write to them
+fortad_port_transform_seconds: 0.035663
+fortad_port_forward_status: 0
+fortad_port_reverse_xx_status: 0
+fortad_port_reverse_z_out_status: 0
+fortad_port_generated_compile_statuses: forward=0 reverse_xx=0 reverse_z_out=0
+port_compile_statuses: port=0 hand=0 harness=0
+port_contract: exactly seven t elements; nonzero z; 100-term constant V sum unrolled
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2856
+oracle_status: pass
+upstream_sha256:
+4f0ea6e9c150c2598bc43bbecf68cc2b5ca7cca3e4d6b8f9a580b729378087d2  nonRegressions/set01/lh029/program.f
+3dcf157d0a706b1bf12c8468ef936df81d1bce78fb430ea162f0d56860e4bdf7  nonRegressions/set01/lh029/program_d.f
+544a8028441dd1965b66980f897eee3717f56a5643749589aed3b706dc7dcc62  nonRegressions/set01/lh029/program_b.f
+71c121bdd8bbb384c8a5b338f4260bcfb62622531d863270a479004e4f3deb82  nonRegressions/set01/lh029/program_dv.f
+271e7867f032b5d006385f144c1bdd657168fb3abe8f20c5cb2c20078b88ce4e  nonRegressions/set01/lh029/program_b.msg
+271e7867f032b5d006385f144c1bdd657168fb3abe8f20c5cb2c20078b88ce4e  nonRegressions/set01/lh029/program_d.msg
+b6f213173846c63ac38c45ceba3ce5dd0a17e57cb03d4603f34de04c4a576310  nonRegressions/set01/lh029/program_dv.msg
+751f30f2ead18254151f977b8f30a5dd35631517bf50306e70b56ccab003a0e5  nonRegressions/DIFFSIZES.f
+artifact_sha256:
+56eadddb4f9bf3dd41378eccbdd01a120ebfc24177bb271a5b0b73689cf7be3c  cases/tapenade-set01/lh029.f90
+e9978c78b691a254a78553ac9070e7ab0a1c25d5e8f72f03d9813bea025bab28  cases/tapenade-set01/hand_derivatives_lh029.f90
+033d13139a6d1d879d358491c42ee3f81107e1942cc1926c0be3dcfcf8399513  cases/tapenade-set01/lh029-manifest.toml
+59b18bda73320317384207deaec6cf8d229622408925e438008f9bafc075b417  cases/tapenade-set01/lh029.md
+1527fc4fe705569dae29a6dd5381636164b9687dc72ff228496b6dceccf56f94  harness/bench_tapenade_set01_lh029.f90
+8dbc07c876c8bc233796a71d2fc1ebde7466e7a5d39d62bbb625c41d7640f1a7  scripts/bench_tapenade_set01_lh029.sh
+673b66a0c20fb6fd311402f86f4d353bf39c82bb87ed79f193006415c33f0d0f  scripts/test_tapenade_set01_lh029.py
+oracle_output:
+oracle_status: pass

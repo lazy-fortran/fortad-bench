@@ -1,0 +1,46 @@
+case: Tapenade nonRegressions set01 lh035
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T09:39:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffixed-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+stored_references: program_p.f program_p.msg
+diffsizes_include: not-present
+upstream_exact_strict_compile: expected-refusal status=1
+upstream_stored_parser_strict_compile: expected-refusal status=1
+tapenade_parser_generation: pass status=0
+tapenade_forward_generation: pass status=0
+tapenade_reverse_generation: pass status=0
+tapenade_parser_strict_compile: expected-refusal status=1
+tapenade_forward_strict_compile: expected-refusal status=1
+tapenade_reverse_strict_compile: expected-refusal status=1
+tapenade_diagnostics: DD02 DD01 TC16 in parser, forward, and reverse messages
+stored_program_p_msg: DD02 DD01 TC16
+fortad_forward: expected-refusal status=1 diagnostic="fortad: unsupported statement at line 3"
+fortad_reverse: expected-refusal status=1 diagnostic="fortad: unsupported statement at line 3"
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: strict compiler rejection of exact and stored parser sources; no numerical semantics-preserving port exists
+oracle_exact_status: 1
+oracle_stored_parser_status: 1
+oracle_reason: strict compiler rejects incompatible t declarations and assignment
+oracle_status: pass
+upstream_sha256:
+943cabd59de232b351770af5aa1f197a384078a1c0b46f788ec2ae5364c1ebb8  program.f
+e5fc7ff63ea53069308d9c9885cfea905764a4669e76cfe5aedb36b83d742e40  program_p.f
+6e5db5646d97107fc397a3b950841683074c2adc5a8e4ede032c5fc5cca27aa7  program_p.msg
+fresh_tapenade_sha256:
+6d366148f32d45342a85caa06d7812b4f227d7b8ebda43cb61a914e4a700c072  /var/tmp/fortad-bench-tapenade-set01-lh035.jqFUsv/tapenade/parser/lh035_p.f
+54d19f469608befbfd9aa0c609d62163b0d7741183c00de80992666936e0b332  /var/tmp/fortad-bench-tapenade-set01-lh035.jqFUsv/tapenade/forward/lh035_d.f
+7974e58957d45e204585caeee96ccdd7a152410d36a60b57b204685e38dd3480  /var/tmp/fortad-bench-tapenade-set01-lh035.jqFUsv/tapenade/reverse/lh035_b.f
+case_artifact_sha256:
+b6da3928041372c5f382068dc2ea180b2368e63eb8f6cacd747d50be49376a77  cases/tapenade-set01/lh035/manifest.toml
+a8ab58252e105982736657219f7ae48d03fb7cd1f10d50869d53bf384ad09144  cases/tapenade-set01/lh035/notes.md
+a836eb3db75f9f2d2db280bffc1eb56b89c6c9b9651286afe27e7a583224cbf1  cases/tapenade-set01/lh035/oracle.py
+2587510028e1c5fe35d3597cae8250547f1743e2d41373fa4dbb8b191533a124  cases/tapenade-set01/lh035/run.sh
+a428e1cce9a46b159aa3fca7c5ea2a57f1951e2a6da8d0e3b3af08a9e6f331ee  cases/tapenade-set01/lh035/test_contract.py
