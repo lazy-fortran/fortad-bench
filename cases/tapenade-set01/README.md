@@ -8,6 +8,7 @@ closed-form derivative:
 - `lh023`: `c = b*b + a/100`
 - `lh032`: `y = 2*x**2`
 - `lh134`: `f = log(-x)` on `x < 0`
+- `lh002`: branch and nested-call state update from `top(x,y,z,a,b,c)`
 - `lh049`: `z = 3*(x*y)**2 + x`, followed by the in-place `y = 2*x`
 
 The ports make types, intents, and `real64` explicit. The arithmetic is
@@ -115,3 +116,20 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-f.md), [manifest](tranche-f-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_f_validation.txt).
+
+## Tranche G: branch and nested-call state
+
+The seventh focused runner promotes `lh002`, a dependency-free fixed-form
+regression with a positive/negative branch and two calls to `sub1`. The port
+retains the branch, nested call, in-place updates, and final state while making
+the initial `x`, `z`, and `b` explicit independent inputs. The oracle exercises
+both branch sides and checks the generated JVP and reverse mode against hand
+derivatives, a four-step central-difference sweep, and the adjoint identity:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_g.sh
+```
+
+See the [case notes](tranche-g.md), [manifest](tranche-g-manifest.toml), and
+[measurement record](../../results/tapenade_set01_tranche_g_validation.txt).
