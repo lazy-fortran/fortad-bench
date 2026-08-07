@@ -1,5 +1,5 @@
 case: Tapenade nonRegressions set01 bd06 and lh057
-recorded_utc: 2026-08-07T02:00:33Z
+recorded_utc: 2026-08-07T02:07:42Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -10,17 +10,17 @@ fo: fo 0.3.2
 fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
 required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-fortad_setup_seconds: 2.348238
-upstream_strict_compile_seconds: 0.381575
-bd06_forward_transform_seconds: 0.012784
+fortad_setup_seconds: 1.050370
+upstream_strict_compile_seconds: 0.140935
+bd06_forward_transform_seconds: 0.004427
 bd06_reverse_status: 1
-lh057_forward_transform_seconds: 0.014210
-lh057_reverse_transform_seconds_two_dependents: 0.015355
-lh057_generated_compile_and_link_seconds: 0.389214
+lh057_forward_transform_seconds: 0.004805
+lh057_reverse_transform_seconds_two_dependents: 0.008789
+lh057_generated_compile_and_link_seconds: 0.184746
 lh057_generated_forward_source_bytes: 1171
 lh057_generated_reverse_a_source_bytes: 1276
 lh057_generated_reverse_c_source_bytes: 1762
-runtime_wall_seconds=0.07
+runtime_wall_seconds=0.02
 runtime_peak_rss_kb=3200
 upstream_strict_compiler_oracle: all ten unmodified set01 primal/reference files compile with -std=f2018 -pedantic-errors using the pinned DIFFSIZES.f include contract
 bd06_refusal_oracle: forward transforms; reverse returns status 1 with FortAD one-trip-loop diagnostic; not counted as support
@@ -40,24 +40,24 @@ bd06_reverse_diagnostic:
 ERROR STOP 1
 
 Error termination. Backtrace:
-#0  0x7f1e8ca27602 in ???
-#1  0x7f1e8ca2848a in ???
-#2  0x55af259a4091 in MAIN__
-#3  0x55af259a9305 in main
+#0  0x7ffb54c27602 in ???
+#1  0x7ffb54c2848a in ???
+#2  0x55e440d4d091 in MAIN__
+#3  0x55e440d52305 in main
 fortad: reverse mode: this loop accumulates nothing, writes no array element, and carries nothing across iterations, so its results do not leave the body
 ERROR STOP 1
 
 Error termination. Backtrace:
-#0  0x7fb0e7e27602 in ???
-#1  0x7fb0e7e2848a in ???
-#2  0x55e971354818 in cmd_exec.27
-#3  0x55e97135bd4a in MAIN__
-#4  0x55e97134d99e in main
+#0  0x7fa5c0a27602 in ???
+#1  0x7fa5c0a2848a in ???
+#2  0x5633cc6b6818 in cmd_exec.27
+#3  0x5633cc6bdd4a in MAIN__
+#4  0x5633cc6af99e in main
 run_output:
 fd_errors_a_out:   1.0352E-10   5.4896E-13   5.6126E-13   6.7175E-11
 fd_errors_c_out:   1.1478E-09   1.0906E-11   9.7959E-12   5.6817E-11
 derivative_calls: 3000000
-derivative_runtime_seconds:   7.19912300E-02
-ns_per_derivative_call:   2.39970767E+01
+derivative_runtime_seconds:   2.19451340E-02
+ns_per_derivative_call:   7.31504467E+00
 runtime_sink:   1.54896290E-09
 oracle_status: pass

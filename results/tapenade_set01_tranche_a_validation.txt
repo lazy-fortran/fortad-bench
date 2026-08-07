@@ -1,5 +1,5 @@
 suite: Tapenade nonRegressions set01 tranche A (lh088 plus lh066 refusal)
-recorded_utc: 2026-08-07T01:57:27Z
+recorded_utc: 2026-08-07T02:00:18Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,10 +8,10 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-fortad_setup_seconds_cached_or_incremental: 1.094242
-lh088_jvp_transform_seconds: 0.004895
-lh088_vjp_transform_seconds: 0.005976
-lh088_generated_compile_and_link_seconds: 0.129659
+fortad_setup_seconds_cached_or_incremental: 1.039184
+lh088_jvp_transform_seconds: 0.004904
+lh088_vjp_transform_seconds: 0.004941
+lh088_generated_compile_and_link_seconds: 0.118229
 oracle: hand JVP/VJP, four-step central differences, adjoint identity
 upstream_compiler_oracle: lh088 unmodified fixed-form source compiles with -std=f2018 -pedantic-errors
 tapenade_result: stored program_d/program_b references present; current Tapenade executable not rerun
