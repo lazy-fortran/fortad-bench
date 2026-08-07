@@ -280,3 +280,47 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [manifest](tranche-p-bd05-manifest.toml), [runner](../../scripts/bench_tapenade_set01_bd05.sh),
 and [measurement record](../../results/tapenade_set01_bd05_validation.txt).
+
+## Tranche Q: `lh018`
+
+The `lh018` runner preserves the exact fixed-form upstream source and stored
+`program_b.f`/`program_d.f` references, then regenerates fresh Tapenade parser,
+tangent, and reverse sources and compiles every generated file strictly. The
+exact source mutates a dead function argument, so the bounded FortAD port makes
+that argument passive and exposes the resulting scalar output explicitly. Its
+closed form is `a_out = 343*b*c(10)`; the hand JVP/VJP, central-difference sweep,
+and VJP/JVP adjoint identity all pass independently:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh018.sh
+```
+
+See the [manifest](tranche-q-lh018-manifest.toml), [case notes](tranche-q-lh018.md),
+and [measurement record](../../results/tapenade_set01_lh018_validation.txt).
+
+## Tranche R: `lh007`, `lh009`, `lh011`, and `lh015`
+
+This refusal tranche records four additional exact-source boundaries. `lh007`
+passes strict primal and fresh Tapenade compilation but stops at the upstream
+`COMMON` block. `lh011` stops at computed `GOTO` while its fresh reverse output
+also fails strict compilation. `lh009` and `lh015` preserve invalid upstream
+Fortran classifications rather than repairing their conflicting declarations or
+type-invalid loop expressions. Each runner retains the pinned source,
+generated-source diagnostics, and an independent bounded hand/finite-difference
+or adjoint oracle; the bounded ports are not support claims for the exact source.
+
+Run the cases individually with their linked runners:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh007.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh011.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh015.sh
+```
+
+See the [`lh007` notes](lh007.md), [`lh009` notes](lh009.md),
+[`lh011` notes](tranche-q-lh011.md), [`lh015` notes](tranche-lh015.md), and
+their corresponding manifests and measurement records.

@@ -1,0 +1,21 @@
+schema_version = 1
+name = "tapenade-set01-lh015-strict-source-refusal"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_lh015.sh"
+result = "results/tapenade_set01_lh015_refusal_validation.txt"
+
+[[case]]
+id = "lh015"
+upstream_source = "nonRegressions/set01/lh015/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+entry_point = "s2(i1,p,i2,t1)"
+ported_entry_point = "none"
+independent = ["p"]
+dependent = ["t1"]
+upstream_options = "-p; -d -root s2; -b -root s2"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-source-compile-status", "fresh-pinned-Tapenade-generation", "bounded-loop-body hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "The exact source mixes INTEGER and REAL arguments in MAX, reads uninitialized REAL i3, and uses COMMON /c2/."
+classification = "unsupported-invalid-upstream-fortran"
+expected_diagnostic = "gfortran: the a2 argument of MAX must be INTEGER; FortAD: unsupported statement at line 8 (COMMON)"

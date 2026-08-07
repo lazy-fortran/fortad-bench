@@ -1,0 +1,24 @@
+schema_version = 1
+name = "tapenade-set01-lh009-refusal"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_source = "nonRegressions/set01/lh009/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+runner = "scripts/bench_tapenade_set01_lh009.sh"
+result = "results/tapenade_set01_lh009_refusal_validation.txt"
+classification = "expected-refusal-invalid-upstream"
+
+[[case]]
+id = "lh009"
+upstream_entry_point = "cfgLoop1(a,b,s)"
+ported_entry_point = "set01_lh009(a_in,b_in,s,a_out,b_out)"
+independent = ["a_in", "b_in"]
+dependent = ["a_out", "b_out"]
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-source-compile-status", "fresh-Tapenade-parser-tangent-reverse-generation-compile-status", "independent hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+port_note = "The bounded port repairs only the conflicting A declaration and is an independent numerical oracle; it is not counted as FortAD support for the invalid upstream case."
+expected_diagnostic = "Symbol a already has basic type of REAL"
+tapenade_result = "pass-generation-expected-refusal-strict-compile"
+fortad_result = "not-run-invalid-upstream-source"
