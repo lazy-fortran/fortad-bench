@@ -608,6 +608,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         evidence_paths = {
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",
+            "nonRegressions/set01/lh012",
+            "nonRegressions/set01/lh013",
+            "nonRegressions/set01/lh014",
             "nonRegressions/set01/lh003",
             "nonRegressions/set01/lh019",
             "nonRegressions/set01/lh004",
@@ -675,6 +678,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-exact-source-refusal-unsupported-statement-line-11",
                 "pass-exact-source-refusal-unmatched-do-line-37",
                 "pass-exact-source-refusal-unterminated-character-line-49",
+                "pass-forward-transform-reverse-generated-compile-refusal-indx-and-dependent-adjoint",
+                "pass-forward-transform-reverse-generated-compile-refusal-duplicate-adjoint",
+                "pass-generated-compile-refusal-implicit-index",
             },
         )
         expected_evidence = {
@@ -797,6 +803,30 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-source-inspection|safe-trace-hand-tangent|central-difference-sweep",
                 "dependencies": "none",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
+            },
+            "nonRegressions/set01/lh012": {
+                "entry_point": "test(A,B,C)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|safe-index-hand-JVP-VJP|central-difference-sweep|adjoint-identity",
+                "dependencies": "INDX-uninitialized-local",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generated-compile",
+            },
+            "nonRegressions/set01/lh013": {
+                "entry_point": "test(x,y)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|initialization-safe-hand-JVP-VJP|central-difference-sweep|adjoint-identity",
+                "dependencies": "A(2)-read-before-initialization",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generated-compile",
+            },
+            "nonRegressions/set01/lh014": {
+                "entry_point": "test(X,Y,p,q)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand-JVP-VJP|central-difference-sweep|adjoint-identity",
+                "dependencies": "implicit-loop-index-i",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generated-compile",
             },
             "nonRegressions/set01/lh005": {
                 "entry_point": "adj4(y)",
