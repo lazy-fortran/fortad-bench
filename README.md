@@ -303,8 +303,8 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Four rows now have executable FortAD evidence and one exact-source
-  refusal is independently recorded. The remaining rows are untriaged. The first
+  audit. Five rows now have executable FortAD evidence and two exact-source
+  refusals are independently recorded. The remaining rows are untriaged. The first
   [set01 support cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
   paths. The companion
