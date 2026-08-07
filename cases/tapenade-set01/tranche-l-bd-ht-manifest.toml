@@ -1,0 +1,51 @@
+schema_version = 1
+name = "tapenade-set01-tranche-l-bd-ht"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_l_bd_ht.sh"
+result = "results/tapenade_set01_tranche_l_bd_ht_validation.txt"
+
+[[case]]
+id = "bd01"
+upstream_source = "nonRegressions/set01/bd01/program.f"
+entry_point = "titi(w,x,y,z)"
+ported_entry_point = "set01_bd01(x_initial,y_initial,z_initial,w_final,x_final,y_final,z_final)"
+independent = ["x_initial", "y_initial", "z_initial"]
+dependent = "w_final"
+function = "nested toto call; w=x*y*z*(x+y), then x=w*w and y=x+w*z"
+upstream_options = "none"
+modes = ["forward", "reverse:w_final"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-adjoint-compile", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile"
+fortad_result = "pass-transform-compile-runtime"
+
+[[case]]
+id = "bd02"
+upstream_source = "nonRegressions/set01/bd02/program.f"
+entry_point = "toto(a,b); titi(a,b)"
+ported_entry_point = "set01_bd02(b,a)"
+independent = ["b"]
+dependent = "a"
+function = "nested assignment call a=b"
+upstream_options = "none"
+modes = ["forward", "reverse:a"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-adjoint-compile", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile"
+fortad_result = "pass-transform-compile-runtime"
+
+[[case]]
+id = "bd03"
+upstream_source = "nonRegressions/set01/bd03/program.f"
+entry_point = "g(a,b); f(a,b)"
+ported_entry_point = "set01_bd03(b,a)"
+independent = ["b"]
+dependent = "a"
+function = "split regression call boundary with a=b"
+upstream_options = "none"
+modes = ["forward", "reverse:a"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-adjoint-compile", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile"
+fortad_result = "pass-transform-compile-runtime"

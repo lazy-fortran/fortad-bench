@@ -119,6 +119,9 @@ class CommittedLedgerTests(unittest.TestCase):
             }
         }
         self.assertEqual(evidence_paths, {
+            "nonRegressions/set01/bd01",
+            "nonRegressions/set01/bd02",
+            "nonRegressions/set01/bd03",
             "nonRegressions/set01/bd06",
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",

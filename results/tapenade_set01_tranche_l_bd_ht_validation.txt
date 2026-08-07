@@ -1,0 +1,66 @@
+case: Tapenade nonRegressions set01 bd01 bd02 bd03
+recorded_utc: 2026-08-07T06:15:12Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fortad_commit: febf9671b4204c517a98c101428b8002791ce528
+required_fortad_commit: 477bd5a80aabe2d0556c3f4c29015e6593b92082
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.078233
+upstream_strict_compile_seconds: 0.160048
+tapenade_parser_forward_reverse_seconds: 1.865748
+tapenade_generated_compile_seconds: 0.113305
+fortad_forward_seconds: 0.013784
+fortad_reverse_seconds: 0.015440
+fortad_generated_compile_and_link_seconds: 0.275390
+bd01_tapenade_parser_source_bytes: 462
+bd01_tapenade_forward_source_bytes: 1083
+bd01_tapenade_reverse_source_bytes: 1558
+bd01_fortad_forward_source_bytes: 2130
+bd01_fortad_reverse_source_bytes: 2840
+bd02_tapenade_parser_source_bytes: 309
+bd02_tapenade_forward_source_bytes: 713
+bd02_tapenade_reverse_source_bytes: 1017
+bd02_fortad_forward_source_bytes: 533
+bd02_fortad_reverse_source_bytes: 607
+bd03_tapenade_parser_source_bytes: 368
+bd03_tapenade_forward_source_bytes: 766
+bd03_tapenade_reverse_source_bytes: 786
+bd03_fortad_forward_source_bytes: 533
+bd03_fortad_reverse_source_bytes: 607
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3068
+upstream_compiler_oracle: all unmodified program and stored reference sources compile with strict fixed-form flags
+tapenade_oracle: fresh parser, tangent, and adjoint outputs for all three cases compile with -std=f2018 -pedantic-errors
+oracle: independent hand JVP/VJP, four-step central differences, and JVP/VJP adjoint identities for every promoted case
+runtime_method: Fortran system_clock over 200000 repetitions; /usr/bin/time %e and %M wrap the executable
+source_sha256:
+9ff2ace6535f07322930e82937edf393ac7da3fe0de013a84e73e05a91a7ae37  cases/tapenade-set01/bd01.f90
+f06cf4a4a453ff6c6abddc6e790ca4c09f5ee7f20b1ca1b0f8ac27857aa09f60  cases/tapenade-set01/bd02.f90
+7a2a9d55690fab382b8ce3e1f69e8cc6c5ba52ae30ed2eb0ece7c3f0b1f8e1df  cases/tapenade-set01/bd03.f90
+ecd45f35771f919d78b426d723439f6744356ab1a6fa12146c7cb31c69d04358  cases/tapenade-set01/hand_derivatives_bd01.f90
+8505c6acb06b1ce3f17090e0d1b09c060a00aaa709283fe8e58e83b73a0c7785  cases/tapenade-set01/hand_derivatives_bd02.f90
+e8f4a8706aaf162726091b601632c9b7a42effa12e32f3d99f78a14c8cadda0a  cases/tapenade-set01/hand_derivatives_bd03.f90
+0b0534469986c729715f328e15eefa57d118b59aed9a2f8d98b01703b75b2455  cases/tapenade-set01/tranche-l-bd-ht-manifest.toml
+96330c2de541e136cabf58653c3c33d7f90253af33639cfe03d54664b08609f7  cases/tapenade-set01/tranche-l-bd-ht.md
+46839de1f98edb26c6e0333a4b4f92e6b357f89534fbe7797492ad0a108af6c0  harness/bench_tapenade_set01_tranche_l_bd_ht.f90
+3746906ce3a1372b986d33626b1c3a78ce95255154776d102e28ac36abc67c26  scripts/bench_tapenade_set01_tranche_l_bd_ht.sh
+generated_source_sha256:
+3cfb703211e17acc02e82b5310c538ac3d8bf715e668cd11dc62ddd93fb1ce69  bd01_forward.f90
+4f299c5edb5750fa4bb09eb5948c2a1c2723a61abcbe1619e8107815b52d3b55  bd02_forward.f90
+26b9a065012525294b3a98cfe23e2fc7516d5fe0ac5d5c16ff2aa1c2af35f96d  bd03_forward.f90
+2da772c63f1c9972c16aaa7e98761659d5407823055a492263db3158c5f71274  bd01_reverse.f90
+aba3ee5feb79ac052b5a14c47cf07e1824945e8a7eaf457ac6228522da4914e0  bd02_reverse.f90
+ad061f3d651b456fc3673f89c95f34e0e08f1d2b5bfc7d073b886ac29df28cc4  bd03_reverse.f90
+run_output:
+fd_errors_bd01:   1.1600E-08   1.1552E-10   3.8087E-12   3.3661E-11
+fd_errors_bd02:   3.3029E-14   2.5507E-13   2.4755E-12   4.6884E-11
+fd_errors_bd03:   8.3489E-14   5.8265E-13   9.4645E-12   3.4944E-11
+derivative_calls: 1600000
+derivative_runtime_seconds:   2.83858500E-03
+ns_per_derivative_call:   1.77411563E+00
+runtime_sink:  -3.66414204E-10
+oracle_status: pass
