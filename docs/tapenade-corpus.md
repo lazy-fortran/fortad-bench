@@ -242,6 +242,16 @@ value-map extraction is explicitly not a repaired upstream source. See the
 [`case manifest`](../cases/tapenade-set05/v064_manifest.toml) and
 [`validation result`](../cases/tapenade-set05/v064_result.txt).
 
+The next queue-selected pure-Fortran row, `set05/v065`, selects
+`LIB::mppsum_real2(ptab,cst,str)`. Its exact source and stored tangent/adjoint
+references compile strictly, fresh pinned Tapenade parser/tangent/reverse
+generation compiles strictly, and the selected ten loop assignments pass a
+FortAD vector value-map forward/reverse harness plus independent hand,
+central-difference, and adjoint checks with `ptab` active and `cst` passive.
+The vector map is not a repaired upstream source. See the
+[`case manifest`](../cases/tapenade-set05/v065_manifest.toml) and
+[`validation result`](../cases/tapenade-set05/v065_result.txt).
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent

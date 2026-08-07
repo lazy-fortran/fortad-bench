@@ -360,6 +360,12 @@ because it belongs next to the engines rather than next to the compiler.
   exact-source, fresh-Tapenade, strict FortAD, harness, and independent
   hand/finite-difference/adjoint gates; see its [manifest](cases/tapenade-set05/v064_manifest.toml)
   and [validation result](cases/tapenade-set05/v064_result.txt).
+  The next queue-selected pure-Fortran `set05/v065`
+  `LIB::mppsum_real2(ptab,cst,str)` entry records the same gates with `ptab`
+  active and passive `cst`; its exact ten loop assignments are represented by
+  a standards-clean vector value map, not a repaired upstream source. See its
+  [manifest](cases/tapenade-set05/v065_manifest.toml) and
+  [validation result](cases/tapenade-set05/v065_result.txt).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
