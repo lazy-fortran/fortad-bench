@@ -100,11 +100,10 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,222 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger now has 122 classified set01 rows (32 runnable, 74
-  expected refusals, and 16 invalid-upstream closures), plus 87 classified
-  rows elsewhere (75 runnable/refusal evidence rows and 12 invalid-upstream
-  closures). The profile, shard-3, and shard-0 tranches add exact-source
+  either engine. It leaves 1,217 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 61 executable evidence rows, 126 explicit
+  refusals, and 28 invalid-upstream closures. The profile, shard-3, and shard-0
+  tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
 
@@ -116,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,296 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,291 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 302 program candidates, and 920 procedure
+ rows with no entry-point hint, 300 program candidates, and 917 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -164,7 +163,7 @@ supported way to replace the canonical report after sharded triage.
 [`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
 and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
-The latest complete four-shard run accepted 2,024 files, rejected 1,422 with
+The latest complete four-shard run accepted 1,996 files, rejected 1,420 with
 syntax or dependency diagnostics, and listed 147 include fragments without
 compiling them as standalone units.
 Fixed/free source forms get strict syntax-only flags and local include roots;
