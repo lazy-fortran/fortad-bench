@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Behavioral checks for the study-corpus fetch and license inventory helpers."""
 
-from pathlib import Path
+import csv
 import hashlib
 import subprocess
-import tempfile
-import unittest
-from unittest.mock import patch
 import sys
+import tempfile
+import tomllib
+import unittest
+from collections import Counter
+from pathlib import Path
+from unittest.mock import patch
 
 import fetch_upstreams
 
@@ -95,10 +98,19 @@ class CorpusFetchTests(unittest.TestCase):
         ).stdout.strip()
         return source, revision, tree
 
-    def write_manifest(self, root: Path, source: Path, revision: str, tree: str) -> None:
+    def write_manifest(
+        self,
+        root: Path,
+        source: Path,
+        revision: str,
+        tree: str,
+        *,
+        with_ledger: bool = False,
+    ) -> None:
         manifest = root / "docs" / "corpora" / "fixture.toml"
         manifest.parent.mkdir(parents=True)
         license_digest = hashlib.sha256(b"fixture license\n").hexdigest()
+        ledger = 'status_ledger = "docs/corpora/fixture-status.csv"\n' if with_ledger else ""
         manifest.write_text(
             f'''schema_version = 1
 name = "fixture"
@@ -112,6 +124,7 @@ license_sha256 = "{license_digest}"
 expected_tracked_files = 4
 expected_manifest_files = 3
 expected_candidate_cases = 3
+{ledger}
 
 [[component]]
 id = "language-cases"
@@ -132,6 +145,119 @@ case_type = "file"
 expected_candidate_cases = 1
 '''
         )
+
+    def test_status_ledger_seed_is_reproducible_and_covers_every_candidate(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = self.make_source(root)
+            self.write_manifest(root, source, revision, tree, with_ledger=True)
+            destination = root / "upstream"
+            entry = {
+                "name": "fixture",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            expected = (
+                "component,path,language,source_form_hint,initial_classification,"
+                "status,entry_point,tapenade_options,modes,oracle,dependencies,"
+                "tapenade_result,"
+                "fortad_result\n"
+                "language-cases,corpus/set01/case_a,fortran,free,test language cases,"
+                "untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,"
+                "not-run,not-run\n"
+                "language-cases,corpus/set01/case_b,c,n/a,test language cases,"
+                "untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,"
+                "not-run,not-run\n"
+                "auxiliary-case,aux/test.jl,julia,n/a,test auxiliary case,"
+                "untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,"
+                "not-run,not-run\n"
+            )
+            self.assertEqual(
+                fetch_upstreams._candidate_source_hints(
+                    "case", ["case/kernel.C", "case/kernel.cu"]
+                ),
+                ("c++|cuda", "n/a"),
+            )
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                inventory = fetch_upstreams.audit_corpus(entry)
+                first = fetch_upstreams.render_initial_corpus_ledger(inventory)
+                second = fetch_upstreams.render_initial_corpus_ledger(inventory)
+                self.assertEqual(first, expected)
+                self.assertEqual(second.encode(), first.encode())
+
+                ledger = fetch_upstreams.write_initial_corpus_ledger(inventory)
+                self.assertEqual(ledger.read_text(), expected)
+                self.assertEqual(fetch_upstreams.audit_corpus_ledger(inventory), 3)
+
+                unsupported = expected.replace(",not-run,not-run\n", ",passed,not-run\n", 1)
+                ledger.write_text(unsupported)
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "untriaged status row"):
+                    fetch_upstreams.audit_corpus_ledger(inventory)
+
+                curated = expected.replace(
+                    ",untriaged,untriaged,untriaged,untriaged,untriaged,untriaged,"
+                    "not-run,not-run\n",
+                    ",classified,a,none,forward,hand derivative,none,passed,not-run\n",
+                    1,
+                )
+                ledger.write_text(curated)
+                self.assertEqual(fetch_upstreams.audit_corpus_ledger(inventory), 3)
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "refusing to overwrite"):
+                    fetch_upstreams.write_initial_corpus_ledger(inventory)
+                ledger.write_text(expected)
+
+                checkout = destination / "fixture"
+                (checkout / ".git" / "info" / "exclude").write_text("ignored.cpp\n")
+                (checkout / "corpus" / "set01" / "case_a" / "ignored.cpp").write_text(
+                    "void ignored() {}\n"
+                )
+                clean_inventory = fetch_upstreams.audit_corpus(entry)
+                self.assertEqual(
+                    fetch_upstreams.render_initial_corpus_ledger(clean_inventory),
+                    expected,
+                )
+
+    def test_status_ledger_audit_rejects_missing_or_reordered_candidates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = self.make_source(root)
+            self.write_manifest(root, source, revision, tree, with_ledger=True)
+            destination = root / "upstream"
+            entry = {
+                "name": "fixture",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                inventory = fetch_upstreams.audit_corpus(entry)
+                ledger = fetch_upstreams.write_initial_corpus_ledger(inventory)
+                lines = ledger.read_text().splitlines()
+                ledger.write_text("\n".join(lines[:-1]) + "\n")
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "2 status rows"):
+                    fetch_upstreams.audit_corpus_ledger(inventory)
+
+                ledger.write_text("\n".join([lines[0], lines[2], lines[1], lines[3]]) + "\n")
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "unexpected path"):
+                    fetch_upstreams.audit_corpus_ledger(inventory)
+
+                ledger.write_text("\n".join([lines[0], lines[1], lines[1], lines[3]]) + "\n")
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "unexpected path"):
+                    fetch_upstreams.audit_corpus_ledger(inventory)
+
+                changed_language = lines[1].replace(",fortran,free,", ",c,n/a,")
+                ledger.write_text(
+                    "\n".join([lines[0], changed_language, lines[2], lines[3]]) + "\n"
+                )
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "unexpected language"):
+                    fetch_upstreams.audit_corpus_ledger(inventory)
 
     def test_pinned_commit_fetch_and_corpus_audit_are_offline(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -214,8 +340,28 @@ expected_candidate_cases = 1
                 self.assertFalse(report.exists())
 
                 tracked.write_text(original)
-                (checkout / "untracked.f90").write_text("end\n")
+                untracked = checkout / "untracked.f90"
+                untracked.write_text("end\n")
                 with self.assertRaisesRegex(fetch_upstreams.CorpusError, "checkout is modified"):
+                    fetch_upstreams.audit_corpus(entry)
+
+                untracked.unlink()
+                tracked.write_text("subroutine hidden\nend subroutine hidden\n")
+                subprocess.run(
+                    [
+                        "git", "-C", str(checkout), "update-index", "--assume-unchanged",
+                        "corpus/set01/case_a/program.f90",
+                    ],
+                    check=True,
+                )
+                status = subprocess.run(
+                    ["git", "-C", str(checkout), "status", "--porcelain=v1"],
+                    check=True,
+                    capture_output=True,
+                    text=True,
+                ).stdout
+                self.assertEqual(status, "")
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "non-default index flags"):
                     fetch_upstreams.audit_corpus(entry)
 
     def test_failed_fetch_discards_a_prior_corpus_inventory(self):
@@ -242,6 +388,65 @@ expected_candidate_cases = 1
                     patch.object(sys, "argv", argv):
                 self.assertEqual(fetch_upstreams.main(), 1)
             self.assertFalse(stale.exists())
+
+
+class CommittedTapenadeLedgerTests(unittest.TestCase):
+    def test_committed_ledger_is_the_complete_untriaged_scaffold(self):
+        root = Path(__file__).resolve().parent.parent
+        with (root / "docs" / "corpora" / "tapenade.toml").open("rb") as stream:
+            manifest = tomllib.load(stream)
+        ledger = root / manifest["status_ledger"]
+        expected_columns = [
+            "component",
+            "path",
+            "language",
+            "source_form_hint",
+            "initial_classification",
+            "status",
+            "entry_point",
+            "tapenade_options",
+            "modes",
+            "oracle",
+            "dependencies",
+            "tapenade_result",
+            "fortad_result",
+        ]
+        with ledger.open(encoding="utf-8", newline="") as stream:
+            reader = csv.DictReader(stream)
+            self.assertEqual(reader.fieldnames, expected_columns)
+            rows = list(reader)
+
+        self.assertEqual(len(rows), manifest["expected_candidate_cases"])
+        self.assertEqual(len(rows), 2014)
+        self.assertEqual(
+            len({(row["component"], row["path"]) for row in rows}),
+            2014,
+        )
+        self.assertTrue(all(row["initial_classification"] for row in rows))
+        self.assertEqual({row["status"] for row in rows}, {"untriaged"})
+        for column in (
+            "entry_point", "tapenade_options", "modes", "oracle", "dependencies"
+        ):
+            self.assertEqual({row[column] for row in rows}, {"untriaged"})
+        self.assertEqual({row["tapenade_result"] for row in rows}, {"not-run"})
+        self.assertEqual({row["fortad_result"] for row in rows}, {"not-run"})
+        self.assertEqual(
+            Counter(row["language"] for row in rows),
+            Counter({
+                "fortran": 1432,
+                "c": 445,
+                "c|fortran": 72,
+                "cuda": 35,
+                "c++": 16,
+                "julia": 10,
+                "c++|fortran": 2,
+                "unknown": 2,
+            }),
+        )
+        self.assertEqual(
+            Counter(row["source_form_hint"] for row in rows),
+            Counter({"free": 1057, "n/a": 508, "fixed": 420, "mixed": 29}),
+        )
 
 
 if __name__ == "__main__":
