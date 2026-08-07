@@ -1,0 +1,65 @@
+case: Tapenade nonRegressions set01 bd06 and lh057
+recorded_utc: 2026-08-07T01:58:30Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.159558
+upstream_strict_compile_seconds: 0.140666
+bd06_forward_transform_seconds: 0.004430
+bd06_reverse_status: 1
+lh057_forward_transform_seconds: 0.004229
+lh057_reverse_transform_seconds_two_dependents: 0.008233
+lh057_generated_compile_and_link_seconds: 0.180182
+lh057_generated_forward_source_bytes: 1171
+lh057_generated_reverse_a_source_bytes: 1276
+lh057_generated_reverse_c_source_bytes: 1762
+runtime_wall_seconds=0.02
+runtime_peak_rss_kb=3192
+upstream_strict_compiler_oracle: all ten unmodified set01 primal/reference files compile with -std=f2018 -pedantic-errors using the pinned DIFFSIZES.f include contract
+bd06_refusal_oracle: forward transforms; reverse returns status  with FortAD one-trip-loop diagnostic; not counted as support
+lh057_oracle: hand JVP/VJPs, four-step central differences, fixed primal outputs, and two adjoint identities
+tapenade_result: stored upstream d/b references inspected; current Tapenade executable not rerun
+source_sha256:
+5ee74a961e93b0fe250073b80b48b3ee1654d22788fbf5ca20f0637193d4b1c4  /var/tmp/ert/fortad-bench-tapenade-tranche-b/cases/tapenade-set01/lh057_tranche_b.f90
+f15985032ceca2b9808aeedb29db8228fba61da7af3f7ed153372070083cb346  /var/tmp/ert/fortad-bench-tapenade-tranche-b/cases/tapenade-set01/lh057_tranche_b_hand.f90
+f30006199527783c162730d2be481ce827e51fb1b097989ae7a0966d046e3d2f  /var/tmp/ert/fortad-bench-tapenade-tranche-b/cases/tapenade-set01/tranche-b-manifest.toml
+e28f14e5f452df5bde53e54d410f756f1b5318b43935e7c6bed81c8791c2999e  harness/bench_tapenade_set01_tranche_b.f90
+9c73730ac502f44d160270100157280459a1b934b473c3e5e824c22584fb25d7  scripts/bench_tapenade_set01_tranche_b.sh
+generated_source_sha256:
+d4c8924185889749c5f33249a8775f4dc12b2b08639b2b305df2c921b9870b60  lh057_forward.f90
+e07e95eadfaab4a69c2b64477763e29e3afdab0c8173566f0876018a856ac6fd  lh057_reverse_a.f90
+63477de737df681c74a36d738cebc4aef672af4e1e96ab0f8bae2868cb7f2c2c  lh057_reverse_c.f90
+bd06_reverse_diagnostic:
++ cd /mnt/storage/code/lazy-fortran/fortad
++ fo exec --no-build fortad --mode reverse --indep a,b --dep a --proc toto --name toto_vjp --module toto_reverse_ad --output /var/tmp/ert/fortad-bench-tapenade-tranche-b/build/tapenade-set01-tranche-b.t9fGs8/bd06_vjp.f90 /var/tmp/ert/fortad-bench-tapenade-tranche-b/upstream/tapenade/nonRegressions/set01/bd06/program.f
+ERROR STOP 1
+
+Error termination. Backtrace:
+#0  0x7ff84e627602 in ???
+#1  0x7ff84e62848a in ???
+#2  0x565480f72091 in MAIN__
+#3  0x565480f77305 in main
+fortad: reverse mode: this loop accumulates nothing, writes no array element, and carries nothing across iterations, so its results do not leave the body
+ERROR STOP 1
+
+Error termination. Backtrace:
+#0  0x7fbb90e27602 in ???
+#1  0x7fbb90e2848a in ???
+#2  0x563647911818 in cmd_exec.27
+#3  0x563647918d4a in MAIN__
+#4  0x56364790a99e in main
+run_output:
+fd_errors_a_out:   1.0352E-10   5.4896E-13   5.6126E-13   6.7175E-11
+fd_errors_c_out:   1.1478E-09   1.0906E-11   9.7959E-12   5.6817E-11
+derivative_calls: 3000000
+derivative_runtime_seconds:   2.05562060E-02
+ns_per_derivative_call:   6.85206867E+00
+runtime_sink:   1.54896290E-09
+oracle_status: pass

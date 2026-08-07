@@ -1,0 +1,32 @@
+schema_version = 1
+name = "tapenade-set01-tranche-b"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_b.sh"
+result = "results/tapenade_set01_tranche_b_validation.txt"
+
+[[case]]
+id = "bd06"
+upstream_source = "nonRegressions/set01/bd06/program.f"
+entry_point = "toto(a,b)"
+ported_entry_point = "none"
+independent = ["a", "b"]
+dependent = "a"
+function = "a = b in a one-trip loop"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "FortAD-diagnostic"]
+classification = "unsupported-reverse-constant-loop"
+
+[[case]]
+id = "lh057"
+upstream_source = "nonRegressions/set01/lh057/program.f"
+entry_point = "test(a,b,c)"
+ported_entry_point = "set01_lh057_split(a,b,c,a_out,c_out)"
+independent = ["a", "b", "c"]
+dependent = "a_out|c_out"
+function = "a_out=b*sqrt(a*c); c_out=sqrt(a_out**2+b**2+c**2)"
+upstream_options = "none"
+modes = ["forward", "reverse:a_out", "reverse:c_out"]
+oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
