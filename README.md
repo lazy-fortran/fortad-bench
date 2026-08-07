@@ -237,7 +237,7 @@ Planned, in the order fortad's roadmap needs them:
 
 Runtime-polymorphism cases:
 
-- [`TYPE IS`](cases/itpplasma/polymorphic_select_type/README.md)
+- [runtime `SELECT TYPE` with deferred child bindings](cases/itpplasma/polymorphic_select_type/README.md)
 - [`CLASS IS` and `CLASS DEFAULT`](cases/itpplasma/class_is_default/README.md)
 - [factory-created polymorphic allocatable](cases/itpplasma/factory_allocatable/README.md)
 - [dynamic callback refusal](cases/itpplasma/dynamic_callback_refusal/README.md)
@@ -247,10 +247,10 @@ Runtime-polymorphism cases:
 - [`class(*)` callback-context refusal](cases/itpplasma/callback_context_refusal/README.md)
 
 Positive cases run every supported runtime arm against fixed values and hand
-derivatives. The `TYPE IS` case measures both JVP and VJP paths for two child
-types. Its reverse oracle also uses central differences and the adjoint
-identity. Refusal cases first validate the primal arms and central finite
-differences.
+derivatives. The runtime `SELECT TYPE` case measures both JVP and VJP paths for
+linear and quadratic deferred child bindings. Its reverse oracle also uses
+central differences and the adjoint identity. Refusal cases first validate the
+primal arms and central finite differences.
 The case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
 the [`advanced record`](results/itpplasma_polymorphism_advanced_validation.txt).
@@ -264,8 +264,9 @@ adds three valid primal oracles: abstract deferred bindings, an allocatable
 polymorphic owner with `move_alloc` and finalization, and procedure pointers
 with a `class(*)` context. Each checks fixed values and central finite
 differences, then records FortAD's nonzero refusal and confirms that no
-derivative file is left behind. These are P8.4-P8.6 boundary records, not
-claims that those unsupported paths differentiate.
+derivative file is left behind. The separate positive runtime `SELECT TYPE`
+case covers the bounded deferred-binding path. These records cover the
+remaining ownership and callback boundaries.
 
 Procedure-interface and complex-value boundaries:
 

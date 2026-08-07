@@ -172,17 +172,25 @@ allocation-lifetime derivative refusal. See the
 [`record`](results/itpplasma_polymorphic_select_type_validation.txt), and the
 advanced measured [`record`](results/itpplasma_polymorphism_advanced_validation.txt).
 
+The positive runtime `SELECT TYPE` case also dispatches an abstract deferred
+`response` binding to linear and quadratic children. Its generated JVP and VJP
+pass hand, finite-difference, and adjoint oracles, and its measurement records
+the cost of ten million dispatches. This is bounded fixed-trace support: the
+selector is passive, the child implementations are in the same source, and
+the dynamic type cannot change during a call.
+
 A procedure-pointer callback is now an explicit boundary case. Its primal runs
 both targets, while the transform exits nonzero, names `selected_callback`, and
 writes no derivative file. The equivalent explicit `SELECT TYPE` wrapper runs
 and matches hand JVPs. See the paired
 [`record`](results/itpplasma_callback_boundary_validation.txt).
 
-This records a safe refusal, not procedure-pointer support. The first measured
-case now closes two-child reverse `SELECT TYPE` dispatch. Broader n-way and
-switch-boundary coverage remains open. Deferred type-bound calls, active
-model components, arrays of polymorphic objects, procedure-pointer
-differentiation, and alias-aware object lifetimes remain open.
+This records a safe refusal, not procedure-pointer support. The measured cases
+now close bounded two-child reverse `SELECT TYPE` dispatch and bounded deferred
+child bindings. Broader n-way and switch-boundary coverage remains open.
+Direct class dispatch, active model components, arrays of polymorphic objects,
+procedure-pointer differentiation, and alias-aware object lifetimes remain
+open.
 The separate bounded concrete type-bound-call oracle is implemented in FortAD,
 but it is not yet a timed case in this corpus.
 
@@ -193,10 +201,9 @@ with a two-level override. It also has an allocatable polymorphic owner using
 `move_alloc`, replacement, and finalization, plus procedure-pointer callbacks
 carrying a `class(*)` context with reassignment and a null path. FortAD exits
 nonzero and
-writes no derivative for each. These records make P8.4-P8.6 boundaries
-reproducible, but they do not close the positive derivative work: generated
-bindings, active ownership, callback JVP/VJP rules, and switch-boundary
-diagnostics remain open.
+writes no derivative for each. These records make the remaining P8.5-P8.6
+boundaries reproducible, but active ownership, callback JVP/VJP rules, and
+switch-boundary diagnostics remain open.
 
 ### Procedure interfaces and complex values
 
