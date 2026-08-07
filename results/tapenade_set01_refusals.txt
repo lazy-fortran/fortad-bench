@@ -1,0 +1,111 @@
+suite: Tapenade set01 exact-source refusal regression
+recorded_utc: 2026-08-07T01:55:14Z
+case: lh066
+upstream_source: nonRegressions/set01/lh066/program.f
+fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
+attempted_command: fo exec --no-build fortad --mode reverse --indep a,b --dep a --proc set01_lh066_refusal
+transform_exit_status: 0
+generated_source_compile_exit_status: 1
+oracle: gfortran -std=f2018 -pedantic-errors rejects duplicate a_b dummy
+diagnostic:
+<build>/lh066_refusal_vjp.f90:13:59:
+
+   13 |     subroutine set01_lh066_refusal_vjp(a, b, a_b, a_b, b_b)
+      |                                                           1
+Error: Duplicate symbol ‘a_b’ in formal argument list at (1)
+<build>/lh066_refusal_vjp.f90:14:21:
+
+   14 |         implicit none
+      |                     1
+Error: Unexpected IMPLICIT NONE statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:15:32:
+
+   15 |         real, intent(inout) :: a
+      |                                1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:16:29:
+
+   16 |         real, intent(in) :: b
+      |                             1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:17:32:
+
+   17 |         real, intent(out) :: a_b
+      |                                1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:18:32:
+
+   18 |         real, intent(out) :: b_b
+      |                                1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:19:20:
+
+   19 |         real :: a_v1
+      |                    1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:20:22:
+
+   20 |         real :: a_v1_b
+      |                      1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:21:22:
+
+   21 |         real :: fad_t1
+      |                      1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:22:22:
+
+   22 |         real :: fad_t2
+      |                      1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:23:22:
+
+   23 |         real :: fad_t3
+      |                      1
+Error: Unexpected data declaration statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:25:28:
+
+   25 |         a_v1 = a / (3.0 - b)
+      |                            1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:26:16:
+
+   26 |         a = a_v1
+      |                1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:27:22:
+
+   27 |         a_v1_b = 0.0e0
+      |                      1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:28:19:
+
+   28 |         a_b = 0.0e0
+      |                   1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:29:20:
+
+   29 |         a_v1_b = a_b
+      |                    1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:30:47:
+
+   30 |         a_b = a_b * (1.0d0 + 1.0e0 / (3.0 - b))
+      |                                               1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:31:60:
+
+   31 |         b_b = a_v1_b * ((-a_v1) / (3.0 - b) ** 2) * (-1.0e0)
+      |                                                            1
+Error: Unexpected assignment statement in CONTAINS section at (1)
+<build>/lh066_refusal_vjp.f90:32:7:
+
+   32 |     end subroutine set01_lh066_refusal_vjp
+      |       1
+Error: Expecting END MODULE statement at (1)
+<build>/lh066_refusal_vjp.f90:13:5:
+
+   13 |     subroutine set01_lh066_refusal_vjp(a, b, a_b, a_b, b_b)
+      |     1~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Error: Symbol ‘set01_lh066_refusal_vjp’ at (1) has no IMPLICIT type
+status: expected-refusal

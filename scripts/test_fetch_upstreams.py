@@ -572,11 +572,16 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh134",
+            "nonRegressions/set01/lh066",
+            "nonRegressions/set01/lh088",
         }
         curated = [row for row in rows if row["status"] != "untriaged"]
         untriaged = [row for row in rows if row["status"] == "untriaged"]
         self.assertEqual({row["path"] for row in curated}, curated_paths)
-        self.assertEqual({row["status"] for row in curated}, {"runnable-ported"})
+        self.assertEqual(
+            {row["status"] for row in curated},
+            {"runnable-ported", "expected-refusal"},
+        )
         for column in (
             "entry_point", "tapenade_options", "modes", "oracle", "dependencies"
         ):
@@ -587,7 +592,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         self.assertNotIn("not-run", {row["tapenade_result"] for row in curated})
         self.assertEqual(
             {row["fortad_result"] for row in curated},
-            {"pass-transform-compile-runtime"},
+            {"pass-transform-compile-runtime", "refused-generated-reverse-does-not-compile"},
         )
         expected_evidence = {
             "nonRegressions/set01/lh023": {
@@ -614,6 +619,22 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
             },
+            "nonRegressions/set01/lh066": {
+                "entry_point": "testSimplif(a,b); exact port set01_lh066_refusal(a,b)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "gfortran-compile-rejection",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-reference-not-rerun",
+            },
+            "nonRegressions/set01/lh088": {
+                "entry_point": "nondiff(a,b,c,d); port set01_lh088(a,b,c,d,total)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
         for row in curated:
@@ -621,6 +642,13 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 {column: row[column] for column in evidence_columns},
                 expected_evidence[row["path"]],
             )
+        self.assertEqual(
+            {
+                row["path"]: row["fortad_result"]
+                for row in curated
+            }["nonRegressions/set01/lh066"],
+            "refused-generated-reverse-does-not-compile",
+        )
         self.assertEqual(
             Counter(row["language"] for row in rows),
             Counter({
