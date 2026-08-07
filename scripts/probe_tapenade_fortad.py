@@ -213,7 +213,13 @@ def specs_from_case(case_path: str, all_entries: bool = False) -> list[ProbeSpec
     source = _select_source(case)
     source_name = str(source.relative_to(UPSTREAM)).replace("\\", "/")
     hints = _canonical_hints(case_path, source_name)
-    entries = hints if all_entries else (hints[:1] if len(hints) == 1 else [None])
+    if all_entries:
+        # Preserve one explicit refusal record when static discovery finds no
+        # canonical procedure.  Dropping the row makes a shard look complete
+        # while silently losing a corpus candidate.
+        entries = hints or [None]
+    else:
+        entries = hints[:1] if len(hints) == 1 else [None]
     return [
         ProbeSpec(
             case_path=case_path,
@@ -412,13 +418,28 @@ def _spec_slug(spec: ProbeSpec) -> str:
 def _queue_specs(args: argparse.Namespace) -> list[ProbeSpec]:
     rows = _load_jsonl(Path(args.queue_file))
     rows = [row for row in rows if args.include_classified or row.get("path")]
-    rows = [row for row in rows if row["queue_rank"] % args.shard_count == args.shard_index]
+    rows = _select_queue_rows(rows, args.shard_index, args.shard_count)
     if args.limit is not None:
         rows = rows[: args.limit]
     specs: list[ProbeSpec] = []
     for row in rows:
         specs.extend(specs_from_case(row["path"], all_entries=True))
     return specs
+
+
+def _select_queue_rows(rows: list[dict[str, Any]], index: int, count: int) -> list[dict[str, Any]]:
+    """Select a deterministic, disjoint shard of queue rows.
+
+    ``queue_rank`` is a priority bucket, not a row identifier: using it for
+    sharding sends every row in a bucket to the same worker and leaves most
+    shard indices empty.  The generated queue is already sorted, so its row
+    ordinal is the stable partition key.  Keep the validation here as well as
+    in ``main`` so callers and tests cannot accidentally create overlapping
+    shards.
+    """
+    if count < 1 or not 0 <= index < count:
+        raise ValueError("shard index must satisfy 0 <= index < shard count")
+    return [row for ordinal, row in enumerate(rows) if ordinal % count == index]
 
 
 def _write_record(path: Path, record: dict[str, Any]) -> None:

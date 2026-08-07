@@ -113,8 +113,8 @@ explicitly refused, independently checked, and measured when runnable.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
   partition the 1,322 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 309 program, and 942 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 126 rows
+  historical-failure, 0 no-entry-point, 309 program, and 939 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 123 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Generate the pure-Fortran candidate handoff with

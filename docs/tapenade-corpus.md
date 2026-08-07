@@ -112,8 +112,8 @@ scripts/queue_tapenade_fortran.py --check
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
 and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,322 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
-rows with no entry-point hint, 309 program candidates, and 942 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 126 rows
+rows with no entry-point hint, 309 program candidates, and 939 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 123 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -293,7 +293,9 @@ static triage, records each root separately, and refuses only cases with no
 discoverable procedure; `--all-entry-points` provides the same behavior for a
 single case. The workflow never guesses active or dependent arguments, and
 each record still needs an independent numerical contract before its ledger
-status changes.
+status changes. Sharding partitions the generated queue by stable row ordinal,
+not by `queue_rank` (which is only a priority bucket), so every shard is
+disjoint and the shard union covers the selected queue.
 
 Fortran cases close only after all valid differentiable paths work in FortAD
 and pass an independent oracle. Invalid programs and cases that require an
