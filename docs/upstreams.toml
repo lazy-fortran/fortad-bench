@@ -19,6 +19,11 @@
 #   adapt      "none" (read-only study) or a description of any intended reuse.
 #              Anything other than "none" requires a PROVENANCE.md row and a
 #              licence-compatibility check before a line of code is written.
+#
+# Git refs below are immutable commit IDs resolved on 2026-08-07. The former
+# `master` names for fazang and rust-std-autodiff no longer exist; their hashes
+# are the advertised `main` heads. `auto_deriv` remains metadata-only because
+# its declared source URL currently returns 404.
 
 schema_version = 1
 

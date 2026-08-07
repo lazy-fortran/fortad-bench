@@ -159,6 +159,8 @@ def _checkout_pin_metadata(entry: dict) -> dict[str, str]:
         }
     if origin != entry["url"]:
         checkout = "origin-mismatch"
+    elif COMMIT_RE.fullmatch(entry["ref"]) and revision != entry["ref"]:
+        checkout = "revision-mismatch"
     elif dirty:
         checkout = "dirty"
     else:
@@ -229,7 +231,10 @@ def render_upstream_pin_audit(rows: list[dict[str, str]]) -> str:
         "metadata-only entries": sum(row["kind"] == "metadata-only" for row in rows),
         "not-fetched checkouts": sum(row["checkout"] == "not-fetched" for row in rows),
         "dirty or invalid checkouts": sum(
-            row["checkout"] in {"dirty", "invalid", "origin-mismatch"} for row in rows
+            row["checkout"] in {
+                "dirty", "invalid", "origin-mismatch", "revision-mismatch"
+            }
+            for row in rows
         ),
     }
     lines += [
@@ -239,7 +244,9 @@ def render_upstream_pin_audit(rows: list[dict[str, str]]) -> str:
     if counts["floating refs"] or counts["dirty or invalid checkouts"]:
         lines.append("Result: FAIL — commit-pin floating refs and repair checkout violations.")
     else:
-        lines.append("Result: PASS — every git ref is commit-pinned and every checkout is clean.")
+        lines.append(
+            "Result: PASS — every git ref is commit-pinned; fetched checkouts are clean."
+        )
     return "\n".join(lines) + "\n"
 
 
@@ -1132,7 +1139,9 @@ def main() -> int:
         print(render_upstream_pin_audit(rows), end="")
         return 1 if any(
             row["kind"] == "floating-ref"
-            or row["checkout"] in {"dirty", "invalid", "origin-mismatch"}
+            or row["checkout"] in {
+                "dirty", "invalid", "origin-mismatch", "revision-mismatch"
+            }
             for row in rows
         ) else 0
 
