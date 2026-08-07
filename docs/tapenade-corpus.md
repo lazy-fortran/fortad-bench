@@ -130,6 +130,35 @@ scripts/triage_tapenade_fortran.py --jobs 4
 scripts/triage_tapenade_fortran.py --check
 ```
 
+The run is resumable and shard-safe. Give each worker a distinct output file;
+`--resume` atomically checkpoints completed candidate rows and validates that a
+checkpoint belongs to the selected shard, compiler, and queue source set:
+
+```bash
+scripts/triage_tapenade_fortran.py --shard-count 4 --shard-index 0 \
+  --jobs 4 --resume --output results/triage/shard-0.jsonl \
+  --summary results/triage/shard-0.md
+```
+
+After all shards finish, promote only the complete compiler-only handoff to
+the canonical report with repeated `--merge-input` arguments:
+
+```bash
+scripts/triage_tapenade_fortran.py \
+  --merge-input results/triage/shard-0.jsonl \
+  --merge-input results/triage/shard-1.jsonl \
+  --merge-input results/triage/shard-2.jsonl \
+  --merge-input results/triage/shard-3.jsonl \
+  --output docs/corpora/tapenade-fortran-compiler.jsonl \
+  --summary docs/corpora/tapenade-fortran-compiler.md
+```
+
+Merge refuses partial or duplicate coverage, queue/source-set drift, mixed
+compiler identities, and rows whose evidence scope is not compiler-only. The
+result remains evidence-neutral input for the batch handoff; it never changes
+the curated status ledger or adds a derivative claim. A merge is the only
+supported way to replace the canonical report after sharded triage.
+
 [`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
 and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
@@ -137,7 +166,10 @@ Fixed/free source forms get strict syntax-only flags and local include roots;
 `.inc`/`.fh` fragments are listed as evidence but not compiled alone. A
 `compiled` status is only compiler acceptance, never a transformation or
 derivative-support claim. Use `--shard-index`/`--shard-count` for independent
-workers and `--merge-input` to produce the same sorted report from shards.
+workers and the documented `--merge-input` command to produce the same sorted
+report from shards. The generated report is intentionally separate from the
+ledger, so compiler-only coverage can be refreshed without reclassifying any
+candidate.
 
 The [bounded known-failure and large-example report](corpora/tapenade-known-failures.md)
 adds compiler and Tapenade parser evidence for 59 additional rows. It is still

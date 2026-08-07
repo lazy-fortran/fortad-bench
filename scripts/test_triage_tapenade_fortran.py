@@ -7,6 +7,7 @@ import json
 import shutil
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 import triage_tapenade_fortran as triage
@@ -90,6 +91,78 @@ class CompilerOracleTests(unittest.TestCase):
         shard_b_path.write_text(triage.render_report(shard_b), encoding="utf-8")
         merged = triage.merge_reports([shard_b_path, shard_a_path], self.rows)
         self.assertEqual(triage.render_report(full), triage.render_report(merged))
+
+    def test_resume_reuses_completed_rows_and_checkpoints_sorted_progress(self) -> None:
+        full = triage.build_report(self.rows, "gfortran", self.root, 15.0, jobs=1)
+        partial = [full[0]]
+        progress: list[list[dict]] = []
+        with mock.patch.object(triage, "_candidate", wraps=triage._candidate) as candidate:
+            resumed = triage.build_report(
+                self.rows,
+                "gfortran",
+                self.root,
+                15.0,
+                jobs=1,
+                resume_rows=partial,
+                progress=lambda rows: progress.append(rows),
+            )
+        self.assertEqual(candidate.call_count, 1)
+        self.assertEqual(triage.render_report(resumed), triage.render_report(full))
+        self.assertEqual(
+            [(row["component"], row["path"]) for row in progress[-1]],
+            [("fixture", "fixture/a"), ("fixture", "fixture/b")],
+        )
+
+    def test_resume_rejects_a_row_from_another_shard(self) -> None:
+        full = triage.build_report(self.rows, "gfortran", self.root, 15.0, jobs=1)
+        selected = triage._shard(self.rows, 0, 2)
+        outside = next(row for row in self.rows if row not in selected)
+        report = next(row for row in full if row["path"] == outside["path"])
+        with self.assertRaises(triage.TriageError):
+            triage.build_report(
+                self.rows,
+                "gfortran",
+                self.root,
+                15.0,
+                jobs=1,
+                shard_index=0,
+                shard_count=2,
+                resume_rows=[report],
+            )
+
+    def test_merge_rejects_non_compiler_evidence(self) -> None:
+        full = triage.build_report(self.rows, "gfortran", self.root, 15.0, jobs=1)
+        full[0]["evidence_scope"] = "FortAD derivative result"
+        report_path = self.root / "unsafe.jsonl"
+        report_path.write_text(triage.render_report(full), encoding="utf-8")
+        with self.assertRaises(triage.TriageError):
+            triage.merge_reports([report_path], self.rows)
+
+    def test_cli_merge_writes_a_canonical_report_that_check_accepts(self) -> None:
+        full = triage.build_report(self.rows, "gfortran", self.root, 15.0, jobs=1)
+        shard_a = self.root / "shard-a.jsonl"
+        shard_b = self.root / "shard-b.jsonl"
+        shard_a.write_text(triage.render_report([full[0]]), encoding="utf-8")
+        shard_b.write_text(triage.render_report([full[1]]), encoding="utf-8")
+        queue = self.root / "queue.jsonl"
+        queue.write_text("".join(json.dumps(row) + "\n" for row in self.rows), encoding="utf-8")
+        output = self.root / "canonical.jsonl"
+        summary = self.root / "canonical.md"
+        arguments = [
+            "--checkout", str(self.root), "--queue", str(queue),
+            "--output", str(output), "--summary", str(summary),
+            "--merge-input", str(shard_b), "--merge-input", str(shard_a),
+        ]
+        self.assertEqual(triage.main(arguments), 0)
+        self.assertEqual(output.read_text(encoding="utf-8"), triage.render_report(full))
+        self.assertEqual(triage.main([*arguments, "--check"]), 0)
+        self.assertEqual(
+            triage.main([
+                "--checkout", str(self.root), "--queue", str(queue),
+                "--output", str(output), "--summary", str(summary), "--check",
+            ]),
+            0,
+        )
 
     def test_summary_is_independent_of_checkout_path(self) -> None:
         report = triage.build_report(self.rows, "gfortran", self.root, 15.0, jobs=1)
