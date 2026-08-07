@@ -618,6 +618,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh058",
             "nonRegressions/set01/lh068",
             "todoF90/REFERENCES/v420",
+            "nonRegressions/set12/f03typf01",
         }
         evidence = [
             row for row in rows
@@ -655,6 +656,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-transform-compile-runtime",
                 "refused-generated-reverse-does-not-compile",
                 "unsupported-reverse-constant-loop",
+                "unsupported-type-bound-call",
             },
         )
         expected_evidence = {
@@ -753,6 +755,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "pass-parser-and-generated-compile",
+            },
+            "nonRegressions/set12/f03typf01": {
+                "entry_point": "foo(t,x,y); port evaluate_deferred(model,x)",
+                "tapenade_options": "-p program.f90; derivative probe records malformed generated source",
+                "modes": "forward",
+                "oracle": "strict-upstream-compile|generated-source-compile-rejection|concrete-child-values|central-difference-sweep",
+                "dependencies": "none",
+                "tapenade_result": "generated-source-compile-rejection",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
