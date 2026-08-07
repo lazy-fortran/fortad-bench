@@ -4,6 +4,7 @@ upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
 upstream_license = "MIT"
 runner = "scripts/bench_tapenade_set01.sh"
 result = "results/tapenade_set01_support_validation.txt"
+refusal_result = "results/tapenade_set01_refusals.txt"
 
 [[case]]
 id = "lh023"
@@ -41,3 +42,25 @@ function = "f = log(-x)"
 upstream_options = "none"
 modes = ["forward", "reverse"]
 oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
+
+[[case]]
+id = "lh088"
+upstream_source = "nonRegressions/set01/lh088/program.f"
+entry_point = "nondiff(a,b,c,d)"
+ported_entry_point = "set01_lh088(a,b,c,d,total)"
+independent = ["a", "b", "c", "d"]
+dependent = "total"
+domain = "b > 0 and c > 0"
+function = "sqrt(b) + log(c) + c**d"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
+
+[[refusal]]
+id = "lh066"
+upstream_source = "nonRegressions/set01/lh066/program.f"
+entry_point = "testSimplif(a,b)"
+exact_source = "cases/tapenade-set01/lh066_refusal.f90"
+attempted_modes = ["forward", "reverse"]
+reason = "reverse emits duplicate a_b dummy for an inout dependent that is also an independent"
+expected_diagnostic = "gfortran: Duplicate symbol a_b in formal argument list"

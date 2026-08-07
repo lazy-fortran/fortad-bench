@@ -62,7 +62,8 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. Corpus support is
-now wired into the harness for three small set01 cases. A fresh Tapenade
+now wired into the harness for four small set01 cases, with one exact-source
+refusal. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
 The complete tracked checkout is now reproducible. The
@@ -89,6 +90,15 @@ explicitly refused, independently checked, and measured when runnable.
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)
   shows successful forward/reverse transformation, generated-code compilation,
   hand derivatives, four-step finite differences, and adjoint identities.
+- [x] Promote `lh088` through the focused tranche-A runner. The retained
+  `sqrt`/`log`/power chain passes FortAD forward and reverse compilation,
+  hand derivatives, finite-difference convergence, and the adjoint identity.
+  see [its result](results/tapenade_set01_tranche_a_validation.txt).
+- [x] Record the exact `lh066` in-place reverse boundary. FortAD emits a
+  duplicate `a_b` dummy when the mutated dependent is also independent, and
+  the independent Fortran compiler rejects the generated file. This is an
+  expected refusal in [the refusal record](results/tapenade_set01_refusals.txt),
+  not a support claim.
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
   reproducible evidence.

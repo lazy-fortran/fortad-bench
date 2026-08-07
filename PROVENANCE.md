@@ -10,7 +10,7 @@ implementation. See [LEGAL.md](LEGAL.md) for the rules this table enforces.
 | `vmec-jacobian` | half-grid metric quantities and Jacobian `tau` from full-grid geometry; `tau` nonlinear in the geometry | VMEC++ `vmec/ideal_mhd_model/jacobian_kernel.h`, commit `ccdeec53` | MIT, Proxima Fusion | ported in `cases/vmec-jacobian/kernel.f90`; Fortran arrays replace flat buffers and fixed zero-based offsets; upstream notice retained | hand-derived JVP/VJP, central-difference step sweep, adjoint identity |
 | `heat1d` | one explicit step of the 1D heat equation | `lazy-fortran/differentiable-fortran` `docs/contract.md` | MIT, this project | reused | analytical JVP and VJP already in that repository |
 | `fortnum-kernels` | per-kernel, stated in fortnum | `lazy-fortran/fortnum` | MIT, this project | reused | existing `analytical` candidates and committed baselines |
-| `tapenade-set01` lh023, lh032, lh134 | `c=b*b+a/100`; `y=2*x**2`; `f=log(-x)` for `x<0` | Tapenade `nonRegressions/set01/{lh023,lh032,lh134}/program.f`, commit `e59864c` | MIT, INRIA | ported in `cases/tapenade-set01`; arithmetic retained, with explicit names, intents, and `real64` kinds; upstream notice retained | hand JVP/VJP, four-step central differences, adjoint identity |
+| `tapenade-set01` lh023, lh032, lh134, lh088; lh066 refusal | `c=b*b+a/100`; `y=2*x**2`; `f=log(-x)` for `x<0`; `sqrt(b)+log(c)+c**d` on `b,c>0`; lh066 mutates `a` in place | Tapenade `nonRegressions/set01/{lh023,lh032,lh134,lh088,lh066}/program.f`, commit `e59864c` | MIT, INRIA | ports in `cases/tapenade-set01`; explicit names, intents, and `real64` kinds; lh088 adds only an aggregate output for scalar reverse seeding; lh066 exact in-place reverse is an expected refusal | hand JVP/VJP, four-step central differences, adjoint identity; gfortran compile oracle for refusal |
 | `adbench` GMM, BA, hand, LSTM | as published with the suite | `microsoft/ADBench` | MIT | planned, with upstream notice | suite's own reference derivatives, plus finite differences |
 | `solve-heavy` | Newton solve and a contractive fixed-point iteration | original, written from the mathematics | n/a | n/a | implicit function theorem derivative, derived by hand |
 | `sparse` | Jacobians and Hessians with banded and arrowhead structure | original | n/a | n/a | dense evaluation of the same derivative |
@@ -20,7 +20,7 @@ implementation. See [LEGAL.md](LEGAL.md) for the rules this table enforces.
 
 | Corpus | Upstream revision | Licence | Local scope | Committed here |
 |---|---|---|---|---|
-| Tapenade | `tapenade/tapenade` `e59864cab441d4175df75383b3ff58c3dcd26df9` | MIT, INRIA | full 10,977-file checkout with 2,014 candidates inventoried by `docs/corpora/tapenade.toml` | manifest plus three attributed set01 ports; upstream checkout and generated inventories remain gitignored |
+| Tapenade | `tapenade/tapenade` `e59864cab441d4175df75383b3ff58c3dcd26df9` | MIT, INRIA | full 10,977-file checkout with 2,014 candidates inventoried by `docs/corpora/tapenade.toml` | manifest plus four attributed set01 ports and one exact-source refusal; upstream checkout and generated inventories remain gitignored |
 
 ## Measurement method
 

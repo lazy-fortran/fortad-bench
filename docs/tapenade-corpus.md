@@ -83,6 +83,12 @@ numerical oracle. Symlink paths stay in `source_files`, but their targets are
 not read when generating hints. The line-based extractor can miss multiline
 declarations and does not resolve include or module targets.
 
+The first curated rows are the set01 checks in
+[`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh023`,
+`lh032`, `lh134`, and the `lh088` intrinsic chain. The exact in-place `lh066`
+reverse shape is an independently compiler-checked expected refusal, recorded
+in [`results/tapenade_set01_refusals.txt`](../results/tapenade_set01_refusals.txt).
+
 ## Closeout rule
 
 The committed ledger contains all 2,014 candidate paths. Its language and
@@ -91,8 +97,8 @@ separates languages when a candidate contains more than one. The component
 classification comes from the manifest. These fields locate work. They do not
 show that a source parses, compiles, runs, or differentiates.
 
-Every row still needs a checked entry point, Tapenade options, derivative
-modes, oracle, dependencies, and results for Tapenade and FortAD. A runnable
+Every untriaged row still needs a checked entry point, Tapenade options,
+derivative modes, oracle, dependencies, and results for Tapenade and FortAD. A runnable
 numerical case also gets transformation time, compile time, runtime, peak
 memory, and generated-source size for each applicable engine. Until that work
 is recorded, the row remains `untriaged` with both results set to `not-run`.
