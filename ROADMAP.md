@@ -109,6 +109,12 @@ explicitly refused, independently checked, and measured when runnable.
   candidates. An orthogonal missing-dependency-risk signal covers 172 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
+- [x] Generate the pure-Fortran candidate handoff with
+  `scripts/batch_tapenade_fortran.py`. It deterministically joins the queue,
+  static entry-point hints, and compiler-backed file evidence for every pure
+  Fortran row, while keeping mixed-language rows out and preserving the
+  evidence-only boundary. Its `next_action` field schedules entry-point and
+  dependency probes without changing the status ledger.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
   `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)
