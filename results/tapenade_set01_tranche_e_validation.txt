@@ -1,0 +1,44 @@
+case: Tapenade nonRegressions set01 lh001
+recorded_utc: 2026-08-07T03:11:56Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: e8fd620d81c5c352ea2050d84655156776c4065c
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.749162
+upstream_strict_compile_seconds: 0.072237
+forward_transform_seconds: 0.006236
+reverse_transform_seconds: 0.006680
+generated_compile_and_link_seconds: 0.175858
+generated_forward_source_bytes: 1465
+generated_reverse_source_bytes: 2349
+runtime_wall_seconds=0.02
+runtime_peak_rss_kb=3216
+upstream_compiler_oracle: unmodified primal, forward, multidirectional, and plain-reference files compile with -std=f2018 -pedantic-errors and fixed-form line length; 
+the stored reverse file compiles under -std=legacy
+oracle: independent hand JVP/VJP, four-step central differences, and the JVP/VJP adjoint identity at i1=4, i2=1, i3=2
+tapenade_result: stored upstream d/b references inspected; current Tapenade executable not rerun
+transform_method: date +%s.%N around one fo exec --no-build call per generated mode; engine setup timed separately
+runtime_method: Fortran system_clock over 1000000 repetitions of one JVP and one VJP; /usr/bin/time %e and %M wrap executable
+source_sha256:
+e7907afbd9b7ff95214a1ab1de93be562b67b7a8861a132e6f1f04cb8b9fa638  cases/tapenade-set01/lh001.f90
+483611d01daf29c11c3fa2d05265a12bea7d3fcae9b78e558a651b407946f3ec  cases/tapenade-set01/hand_derivatives_lh001.f90
+fea6d10a02df3980819d65d079319ad8f13435455ba0cd51a093bc4b5d94ec76  cases/tapenade-set01/tranche-e-manifest.toml
+978b59e228600681b07d031464aa7966eb4e370da03518f070be0cf640f65ff6  cases/tapenade-set01/tranche-e.md
+a70ffc27570788d0636128fc353e3b028d1fc5a3f3430639cd62867e2951ef42  harness/bench_tapenade_set01_tranche_e.f90
+65e0b11ee9becd09d4f0b31e983cd947e3c55cf68b2ee55f8d96ffd6dd73d951  scripts/bench_tapenade_set01_tranche_e.sh
+generated_source_sha256:
+77f35c57c9ab034b383c05758656389945a5397db013bdf9edce7d128a09be00  lh001_forward.f90
+a7f355681736936f23533b74e887cefa284517a7c2420f8115d315c04f316a39  lh001_reverse.f90
+run_output:
+fd_errors_o1:   2.2680E-05   2.2670E-07   9.5817E-10   3.0801E-08
+derivative_calls: 2000000
+derivative_runtime_seconds:   2.33153590E-02
+ns_per_derivative_call:   1.16576795E+01
+runtime_sink:   6.53027203E-07
+oracle_status: pass
