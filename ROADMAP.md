@@ -186,6 +186,36 @@ See [`cases/itpplasma/manifest.toml`](cases/itpplasma/manifest.toml), the
 [`case pages`](README.md#itpplasma-language-cases), and
 [`results/itpplasma_interfaces_validation.txt`](results/itpplasma_interfaces_validation.txt).
 
+### itpplasma end-to-end closeout
+
+“Supported” means that the same case passes every gate below. A refusal is a
+result only when the primal is valid, the transform fails at the named
+boundary, no derivative artifact is emitted, and the diagnostic is stable.
+
+- [ ] **Interfaces (P7):** optional and keyword arguments, `present`, elemental
+  calls, generic rank resolution, assumed-rank/`select rank`, fixed form,
+  preprocessing, includes, and real-coordinate complex JVP/VJP.
+- [ ] **Objects (P8):** concrete `pass`/`nopass`/named-pass calls, inherited
+  bindings, abstract deferred bindings, runtime `TYPE IS`/`CLASS IS` dispatch,
+  active components, arrays of polymorphic objects, and receiver cotangents.
+- [ ] **Lifetimes (P8):** allocatable components, `allocate(source=...)`,
+  assignment, `move_alloc`, replacement, finalization, and alias/section
+  checks. Either differentiate the executed lifetime or record the exact
+  refusal boundary.
+- [ ] **Callbacks (P8):** active procedure pointers, `class(*)` context,
+  reassignment, null paths, and callback JVP/VJP rules. A passive callback
+  choice is a separate case from a differentiated callback body.
+- [ ] **Boundaries and numerics (P8/P9):** branch, clamp, dispatch, I/O,
+  external-library, solve, adaptive-step, and stochastic boundaries are
+  either covered on a fixed smooth path or refused before code generation.
+
+Each positive case needs a strict primal build, generated-code build and run,
+hand or symbolic derivative, a central-difference sweep, and a JVP/VJP adjoint
+identity where both modes exist. Each record also stores transform time,
+generated-source size, compile time, runtime, and peak memory. The matrix is
+closed only when every row is positive evidence or an independently checked,
+reproducible refusal; “not tested” is not coverage.
+
 ## Harness notes for anyone extending this
 
 - `scripts/build_fortnum_suite.sh` and `scripts/build_fortfem_suite.sh`
