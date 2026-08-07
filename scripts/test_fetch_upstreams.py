@@ -608,6 +608,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         evidence_paths = {
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",
+            "nonRegressions/set01/lh019",
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh049",
@@ -772,6 +773,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh019": {
+                "entry_point": "top(x,y,n,*); port set01_lh019(x,y,n,output)",
+                "tapenade_options": "associationByAddress references",
+                "modes": "forward|reverse:output",
+                "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none for port; upstream AATypes modules",
+                "tapenade_result": "stored-aad-aab-references-compiled",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
