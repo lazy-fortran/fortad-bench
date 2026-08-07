@@ -5,7 +5,7 @@ refuted. It holds the workloads, the engine adapters, the harness, and the
 committed results. `README.md` reports the current numbers. This file tracks
 what is missing from them.
 
-## Status, 2026-08-06
+## Status, 2026-08-07
 
 Coverage stands at 59 downstream operators: 17 in the fortnum suite and 42 in
 the fortfem suite. A separate Enzyme-native suite contributes five more.
