@@ -83,6 +83,21 @@ numerical oracle. Symlink paths stay in `source_files`, but their targets are
 not read when generating hints. The line-based extractor can miss multiline
 declarations and does not resolve include or module targets.
 
+Materialize the FortAD language boundary from that report with:
+
+```bash
+scripts/classify_tapenade_nonfortran.py
+scripts/classify_tapenade_nonfortran.py --check
+```
+
+The command classifies 506 candidates containing only C, C++, CUDA, or Julia
+source as unsupported FortAD input. It separately marks two candidates with no
+recognized source. Entry points, options, modes, and dependencies remain
+`not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
+unsupported source language or no recognized source. The command does not run
+either engine. It leaves 1,425 pure Fortran and 74 mixed-language rows
+untriaged, while preserving the seven set01 evidence rows.
+
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh023`,
 `lh032`, `lh057`, `lh088`, and `lh134`. The exact in-place `lh066` reverse

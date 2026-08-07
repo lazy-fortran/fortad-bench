@@ -85,6 +85,11 @@ explicitly refused, independently checked, and measured when runnable.
   6,078 tracked source files plus syntactic entry-point, include, and module
   dependency hints. Its classifications are discovery aids, not parse, build,
   transformation, or correctness results.
+- [x] Close the FortAD language boundary for 508 rows with
+  `scripts/classify_tapenade_nonfortran.py`. The static report identifies 506
+  C, C++, CUDA, or Julia candidates and two candidates with no recognized
+  source. Their ledger rows record no FortAD run and no Tapenade run. The 74
+  mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
   `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)
@@ -101,7 +106,8 @@ explicitly refused, independently checked, and measured when runnable.
   not a support claim.
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence.
+  reproducible evidence. There are 1,499 untriaged rows after the language
+  boundary and seven set01 evidence rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

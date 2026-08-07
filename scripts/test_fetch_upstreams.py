@@ -568,7 +568,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             2014,
         )
         self.assertTrue(all(row["initial_classification"] for row in rows))
-        curated_paths = {
+        evidence_paths = {
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh134",
@@ -577,23 +577,38 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/bd06",
             "nonRegressions/set01/lh057",
         }
-        curated = [row for row in rows if row["status"] != "untriaged"]
+        evidence = [
+            row for row in rows
+            if row["status"] in {"runnable-ported", "expected-refusal"}
+        ]
+        language_exclusions = [
+            row for row in rows
+            if row["status"] in {
+                "fortad-unsupported-source-language", "no-recognized-source"
+            }
+        ]
         untriaged = [row for row in rows if row["status"] == "untriaged"]
-        self.assertEqual({row["path"] for row in curated}, curated_paths)
+        self.assertEqual({row["path"] for row in evidence}, evidence_paths)
         self.assertEqual(
-            {row["status"] for row in curated},
+            {row["status"] for row in evidence},
             {"runnable-ported", "expected-refusal"},
         )
+        self.assertEqual(len(language_exclusions), 508)
         for column in (
             "entry_point", "tapenade_options", "modes", "oracle", "dependencies"
         ):
             self.assertEqual({row[column] for row in untriaged}, {"untriaged"})
-            self.assertNotIn("untriaged", {row[column] for row in curated})
+            self.assertNotIn("untriaged", {row[column] for row in evidence})
+            self.assertNotIn("untriaged", {row[column] for row in language_exclusions})
         self.assertEqual({row["tapenade_result"] for row in untriaged}, {"not-run"})
         self.assertEqual({row["fortad_result"] for row in untriaged}, {"not-run"})
-        self.assertNotIn("not-run", {row["tapenade_result"] for row in curated})
+        self.assertNotIn("not-run", {row["tapenade_result"] for row in evidence})
         self.assertEqual(
-            {row["fortad_result"] for row in curated},
+            {row["tapenade_result"] for row in language_exclusions},
+            {"not-run"},
+        )
+        self.assertEqual(
+            {row["fortad_result"] for row in evidence},
             {
                 "pass-transform-compile-runtime",
                 "refused-generated-reverse-does-not-compile",
@@ -659,7 +674,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
-        for row in curated:
+        for row in evidence:
             self.assertEqual(
                 {column: row[column] for column in evidence_columns},
                 expected_evidence[row["path"]],
@@ -667,14 +682,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         self.assertEqual(
             {
                 row["path"]: row["fortad_result"]
-                for row in curated
+                for row in evidence
             }["nonRegressions/set01/lh066"],
             "refused-generated-reverse-does-not-compile",
         )
         self.assertEqual(
             {
                 row["path"]: row["fortad_result"]
-                for row in curated
+                for row in evidence
             }["nonRegressions/set01/bd06"],
             "unsupported-reverse-constant-loop",
         )
