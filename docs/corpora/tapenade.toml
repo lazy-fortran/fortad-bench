@@ -17,6 +17,7 @@ expected_tracked_files = 10977
 expected_manifest_files = 10513
 expected_candidate_cases = 2014
 status_ledger = "docs/corpora/tapenade-status.csv"
+static_triage = "docs/corpora/tapenade-static.jsonl"
 
 # These six roots are Tapenade's checked-in regression and example corpus.
 # Counts include source, reference derivatives, messages, options, drivers,

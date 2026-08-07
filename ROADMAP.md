@@ -79,6 +79,10 @@ explicitly refused, independently checked, and measured when runnable.
   The offline corpus audit checks each component, path, language hint, and
   source-form hint against the pinned Git tree. All workflow fields start as
   `untriaged` or `not-run`, so this closes inventory infrastructure only.
+- [x] Commit static triage for all 2,014 candidates. The generated JSONL records
+  6,078 tracked source files plus syntactic entry-point, include, and module
+  dependency hints. Its classifications are discovery aids, not parse, build,
+  transformation, or correctness results.
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
   reproducible evidence.

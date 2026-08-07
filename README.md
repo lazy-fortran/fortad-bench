@@ -303,8 +303,11 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) has one untriaged row per
-  candidate and is checked by the same audit. These rows describe upstream
-  material, not current FortAD support.
+  candidate. The companion
+  [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
+  files and syntactic entry-point and dependency hints. Both are checked by the
+  same audit. These rows describe upstream material, not current FortAD
+  support.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.

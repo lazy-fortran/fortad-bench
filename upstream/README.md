@@ -11,6 +11,7 @@ scripts/fetch_upstreams.py --category julia
 scripts/fetch_upstreams.py --corpus tapenade # pinned full checkout + corpus audit
 scripts/fetch_upstreams.py --audit-corpora   # repeat corpus audit without network
 scripts/fetch_upstreams.py --seed-corpus-ledger tapenade # initial status scaffold
+scripts/fetch_upstreams.py --write-corpus-triage tapenade # static source hints
 scripts/fetch_upstreams.py --licenses # rescan and write the licence inventory
 ```
 
