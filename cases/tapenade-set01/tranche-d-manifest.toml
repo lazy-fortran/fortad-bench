@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-d"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_d.sh"
+result = "results/tapenade_set01_tranche_d_validation.txt"
+
+[[case]]
+id = "lh068"
+upstream_source = "nonRegressions/set01/lh068/program.f"
+entry_point = "stmtfunc(a,b,c)"
+ported_entry_point = "set01_lh068_split(a,b,c,c3,c7)"
+independent = ["a", "b", "c"]
+dependent = ["c3", "c7"]
+function = "c(i)=min(0,c(i)*a(i-2)+b(i+5)) for i=3,7"
+upstream_options = "none"
+modes = ["forward", "reverse:c3", "reverse:c7"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for primal; DIFFSIZES.inc for stored multi-direction reference"

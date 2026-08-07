@@ -614,6 +614,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/bd06",
             "nonRegressions/set01/lh057",
             "nonRegressions/set01/lh058",
+            "nonRegressions/set01/lh068",
         }
         evidence = [
             row for row in rows
@@ -716,6 +717,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "forward|reverse",
                 "oracle": "hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh068": {
+                "entry_point": "stmtfunc(a,b,c); port set01_lh068_split(a,b,c,c3,c7)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:c3|reverse:c7",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none; split outputs c3,c7 for in-place upstream update",
                 "tapenade_result": "stored-d-b-references-not-rerun",
             },
         }
