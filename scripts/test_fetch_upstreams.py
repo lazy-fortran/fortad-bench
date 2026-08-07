@@ -606,6 +606,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         )
         self.assertTrue(all(row["initial_classification"] for row in rows))
         evidence_paths = {
+            "nonRegressions/set01/bd01",
+            "nonRegressions/set01/bd02",
+            "nonRegressions/set01/bd03",
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",
             "nonRegressions/set01/lh012",

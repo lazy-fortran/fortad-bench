@@ -92,10 +92,10 @@ class CommittedQueueTests(unittest.TestCase):
                 "runnable-procedure-candidate": 1031,
             }),
         )
-        self.assertEqual(sum(row["dependency_risk"] for row in rows), 172)
+        self.assertEqual(sum(row["dependency_risk"] for row in rows), 170)
         self.assertEqual(
             sum("missing-dependency-risk" in row["risk_categories"] for row in rows),
-            172,
+            170,
         )
 
     def test_queue_is_reproducible_from_committed_inputs(self):
