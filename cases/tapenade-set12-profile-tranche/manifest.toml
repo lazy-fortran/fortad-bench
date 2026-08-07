@@ -1,0 +1,30 @@
+schema_version = 1
+name = "tapenade-set12-profile-tranche"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "597ea236fb5ede09c0e6fb752355f78511746608"
+runner = "scripts/bench_tapenade_set12_profile_tranche.sh"
+result = "results/tapenade_set12_profile_tranche_validation.txt"
+
+[[case]]
+id = "jlb012"
+upstream_source = "nonRegressions/set12/jlb012/program.f90"
+upstream_entry_point = "mysum(n,x)"
+independent = ["x"]
+dependent = "mysum"
+modes = ["parser", "forward", "reverse"]
+classification = "expected-refusal"
+reason = "FortAD emits an invalid function-result interface for this exact assumed-size, kind-dependent function; no repaired source is claimed."
+oracle = ["exact-source-compile", "fresh-Tapenade-parser-forward-reverse-generation", "strict-generated-compile", "hand", "central-difference-sweep", "adjoint-identity"]
+
+[[case]]
+id = "profile01"
+upstream_source = "nonRegressions/set12/profile01/program.f"
+upstream_entry_point = "foo(a,b,c)"
+independent = ["a", "b"]
+dependent = "a,c"
+modes = ["parser", "forward", "reverse"]
+classification = "runnable-ported"
+reason = "The exact fixed-form procedure is a pure two-output map; FortAD forward and reverse products compile and agree with independent numerical checks."
+oracle = ["exact-source-compile", "fresh-Tapenade-parser-forward-reverse-generation", "strict-generated-compile", "hand", "central-difference-sweep", "adjoint-identity"]

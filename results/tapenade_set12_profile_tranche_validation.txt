@@ -1,0 +1,22 @@
+tranche: Tapenade set12 profile
+runner_result: pass
+tapenade_revision: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_revision: 597ea236fb5ede09c0e6fb752355f78511746608
+exact_source_compile: jlb012=pass-free-form; profile01=pass-fixed-form
+tapenade_modes: fresh-parser-forward-reverse; jlb012-generated-strict-compile-refusal; profile01-generated-strict-compile-pass
+jlb012 parser generated-strict-compile-refused probe_p.f90
+jlb012 forward generated-strict-compile-refused probe_d.f90
+jlb012 reverse generated-strict-compile-refused probe_b.f90
+profile01 parser generated-and-strict-compiled probe_p.f
+profile01 forward generated-and-strict-compiled probe_d.f
+profile01 reverse generated-and-strict-compiled probe_b.f
+fortad_profile01: forward-reverse-generated-strict-compile-runtime-pass
+fortad_jlb012: forward-reverse-generated-but-strict-compile-refusal
+tapenade_jlb012_compile_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*4 at (1)
+fortad_jlb012_forward_compile_diagnostic: Error: Invalid character in name at (1)
+fortad_jlb012_reverse_compile_diagnostic: Error: Symbol ‘wp’ at (1) has no IMPLICIT type
+independent_oracle: hand-central-difference-sweep-adjoint-identity
+oracle_status: pass
+source_sha256:
+fcbe42b1dc14f0b7d9dccf992bd65e11ab704caf2f0645b074e7c1b1d3385c22  /mnt/storage/code/lazy-fortran/fortad-bench-profile-tranche/upstream/tapenade/nonRegressions/set12/jlb012/program.f90
+1195654cabba4740769c516bb8430c39a6c493dbf3757d09bcdde4648d1e2257  /mnt/storage/code/lazy-fortran/fortad-bench-profile-tranche/upstream/tapenade/nonRegressions/set12/profile01/program.f
