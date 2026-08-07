@@ -141,6 +141,12 @@ explicitly refused, independently checked, and measured when runnable.
   compilation, FortAD forward/reverse generation, hand derivatives, a
   four-step finite-difference sweep, and the adjoint identity. See the
   [tranche-F result](results/tapenade_set01_tranche_f_validation.txt).
+- [x] Promote the dependency-free `todoF90/REFERENCES/v420` historical case.
+  The runner compiles its unmodified upstream source, invokes Tapenade for
+  parser/tangent/adjoint output, generates FortAD JVP/VJP code, and checks hand
+  derivatives, four-step finite differences, and the adjoint identity. See the
+  [v420 case](cases/tapenade-known-failures/v420/README.md) and its
+  [measurement record](results/tapenade_known_failure_v420_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
   reproducible evidence. There are 1,495 untriaged rows after the language
