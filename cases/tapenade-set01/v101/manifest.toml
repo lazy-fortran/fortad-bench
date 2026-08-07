@@ -1,0 +1,73 @@
+schema_version = 1
+name = "tapenade-set01-v101-allocated-local-array"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v101/run.sh"
+result = "cases/tapenade-set01/v101/result.txt"
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+
+source_files = [
+    "todoF90/REFERENCES/v101/Options",
+    "todoF90/REFERENCES/v101/program.f90",
+    "todoF90/REFERENCES/v101/program_Rb.f90",
+    "todoF90/REFERENCES/v101/program_Rb.msg",
+    "todoF90/REFERENCES/v101/program_Rd.f90",
+    "todoF90/REFERENCES/v101/program_Rd.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v101/program.f90",
+    "todoF90/REFERENCES/v101/program_Rb.f90",
+    "todoF90/REFERENCES/v101/program_Rb.msg",
+    "todoF90/REFERENCES/v101/program_Rd.f90",
+    "todoF90/REFERENCES/v101/program_Rd.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v101/program_Rb.f90",
+    "todoF90/REFERENCES/v101/program_Rb.msg",
+    "todoF90/REFERENCES/v101/program_Rd.f90",
+    "todoF90/REFERENCES/v101/program_Rd.msg",
+]
+upstream_entry_point = "head(x,y)"
+selected_entry_points = ["head(x,y)"]
+ported_entry_point = "head_v101(x,y)"
+independent = ["x"]
+dependent = "y"
+options = [
+    "-association byaddress -vars x -outvars y",
+    "-p",
+    "-d",
+    "-b",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict compiler for primal and stored references",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal diagnostics",
+    "independent hand JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+    "compiled FortAD bounded forward/reverse harness",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact routine allocates a local rank-one array, tests ALLOCATED(a), and deallocates it. The bounded port specializes the successful fixed-size a(2) path; it does not model allocation failure or claim support for the exact allocation-state construct."
+expected_diagnostics = [
+    "FortAD exact parser, forward, and reverse all refuse the allocatable declaration at line 6",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs compile strictly",
+]
+fresh_generated_sources = ["v101_p.f90", "v101_d.f90", "v101_b.f90"]
+fresh_generated_messages = ["v101_p.msg", "v101_d.msg", "v101_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "exact-parser-forward-reverse-refusal-bounded-forward-reverse-transform-compile-runtime"
+closure = "The exact source and stored association-by-address references compile, and fresh pinned Tapenade derivatives compile. FortAD's exact modes stop at the allocatable declaration. The bounded fixed-array port preserves the normal allocated path and is independently checked, but allocation lifetime and failure behavior remain outside the support claim."
+
+[upstream_sha256]
+"Options" = "65a369595e074fbbc23d221e22fc28490610b34afd59518a58e7c1bb4a8de825"
+"program.f90" = "77ddbe743627959612a3b7fef9cf7760482271934b785087c508e3b02eab257f"
+"program_Rb.f90" = "beb87cbc889ff0e945ba7a5ea47a8f66f93b7a748a7ae28180a648048ceed17c"
+"program_Rb.msg" = "66b07a1553e0cd5b1e7c6ba0c08fa3b20c2cd495be97851fea0deaabefee2b05"
+"program_Rd.f90" = "e22b2b4e8f2e9c19da3a73bcc36a2531e8ec98922b0b4d37dd3e4f79f4e7ff35"
+"program_Rd.msg" = "d2c250b585cd98314a12b75adda9845c93ada00cc513ed8e0f3468516e8feff9"

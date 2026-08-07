@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-todoF90-v270-invalid-module"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v270/run.sh"
+result = "cases/tapenade-set01/v270/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate"
+source_files = ["todoF90/REFERENCES/v270/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v270/program.f90",
+    "todoF90/REFERENCES/v270/DIFFSIZES.f90",
+    "todoF90/REFERENCES/v270/Options",
+    "todoF90/REFERENCES/v270/NoInlineABS",
+    "todoF90/REFERENCES/v270/README",
+    "todoF90/REFERENCES/v270/program_d.f90",
+    "todoF90/REFERENCES/v270/program_d.msg",
+    "todoF90/REFERENCES/v270/program_dv.f90",
+    "todoF90/REFERENCES/v270/program_dv.msg",
+]
+stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_dv.f90",
+    "program_dv.msg",
+    "DIFFSIZES.f90",
+]
+
+upstream_entry_point = "simtest1.solvereal(this,c)"
+ported_entry_point = "not-applicable (invalid exact source; no bounded port)"
+independent = ["this%cmob", "c"]
+dependent = ["this%cmob", "c"]
+options = [
+    "-p -nolib -ext REFERENCES/v270/NoInlineABS",
+    "-d -root solvereal -nolib -ext REFERENCES/v270/NoInlineABS",
+    "-b -root solvereal -nolib -ext REFERENCES/v270/NoInlineABS",
+]
+modes = [
+    "exact-parser:refused",
+    "exact-forward:refused",
+    "exact-reverse:refused",
+]
+oracle = [
+    "strict compiler diagnostic",
+    "fresh pinned Tapenade parser-tangent-reverse generation and strict compilation",
+    "FortAD exact parser-forward-reverse diagnostic",
+    "pinned source SHA-256 contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran: GNU Extension: Nonstandard type declaration REAL*8",
+    "stored references: the same strict REAL*8 boundary before generated-reference semantic checks",
+    "fresh Tapenade parser/tangent/reverse outputs: the same strict REAL*8 boundary",
+    "FortAD exact parser/forward/reverse: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet",
+]
+closure = "The pinned source is not accepted by the strict Fortran 2018 gate because it uses legacy REAL*8 and INTEGER*4 declarations. The stored derivative references also have generated-reference defects after that legacy boundary. Fresh Tapenade generation succeeds but its three fresh sources fail strict compilation at the same legacy declaration. FortAD refuses all exact modes at the allocatable derived-type component. No repair or bounded port is included; adding standard-kind declarations, allocation handling, or a selected isotherm would change the candidate."
+
+[upstream_sha256]
+"DIFFSIZES.f90" = "3815e05f4438ff9d5e3ed1d3b6fa68d3b48005ed5ba3963fd26d1418bd0cd4dc"
+"NoInlineABS" = "725d2dab9f1e900b3b2a0ab65d6504a8673382029a696184fae500711e4ce590"
+"Options" = "a01bd77ddf01433e17913817bf9219ffe095b28e735275329846d01e14942b11"
+"README" = "6d16686e21c3cc2fb3ce92d2fa1bbfb55a40fba92fd05088d39ca589a1658e6d"
+"program.f90" = "5cf0f10d27da0c6f6ef25a8fda1e0275fecdaf81c7abb1619c5ff2a6d0f09cab"
+"program_d.f90" = "c58507b9d8eebd601b1fc6393a31c6ccd840da7bfbac4b756810e7e5d0d8c647"
+"program_d.msg" = "2fa4c032aa17fd40752a0209471447e012a8b072860c512b1cf31959a04f30b3"
+"program_dv.f90" = "a5af27accf4c6afda192a19192aa167323eb0f2dca20ef305a383d5f1e4c1c9e"
+"program_dv.msg" = "36a0baec0845a3f09576a987e026be88eda5b7cdc7b55fc617006cb553438869"

@@ -1,0 +1,46 @@
+case: Tapenade todoF90/REFERENCES/v322
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:18:14Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+legacy_flags: -std=legacy -ffree-form -ffree-line-length-none -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: solvereal(this,c); private qcalc(this,Cmob)
+upstream_exact_strict_compile: DIFFSIZES.f90=0 program.f90=1 program_b.f90=1
+upstream_legacy_compile: program.f90=0 program_b.f90=1
+upstream_strict_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+upstream_legacy_reference_diagnostic: Fatal Error: Cannot open module file ‘admm_tapenade_interface.mod’ for reading at (1): No such file or directory
+stored_references: program_b.f90=present program_b.msg=present program_p.f90=missing program_d.f90=missing program_dv.f90=missing
+tapenade_options: -nolib; parser=-p/-root solvereal forward=-d/-root solvereal reverse=-b/-root solvereal
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_outputs: parser=v322_p.f90 tangent=v322_d.f90 reverse=v322_b.f90
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+bounded_port: not-claimed reason=invalid-legacy-kinds-missing-reference-dependency-and-allocatable-derived-type-state
+oracle_status: pass strict-compiler-legacy-dependency-diagnostic-and-exact-FortAD-boundary
+upstream_sha256:
+6a73c0ec675831fce4cf58f745935cf335d9bd3f1dfb951700c4c8c10fe51a9b  DIFFSIZES.f90
+54dd5f7bb51c84b060a09d3abff0d76c802e002e4233adefb58d363e378b3c4e  Options
+5cf0f10d27da0c6f6ef25a8fda1e0275fecdaf81c7abb1619c5ff2a6d0f09cab  program.f90
+c35ad9ea4609087bf464954c418bfd0ac26ffb15cefac8ff4eaa924334eb7738  program_b.f90
+8e515288a207d682d8b31d67d1f4fe8d2ae752f95a82b6f6c4282fe015be993b  program_b.msg
+2a84f025f37faedde5ce5032800b63e2c487ef5cc1e5fb76766a1edc754209e5  simtest1.mod
+fresh_tapenade_sha256:
+27e5f1b38c9925117c35dd7fdbcffe6bea40d4e0a49c4def92313209046cf06d  v322_p.f90
+d26854b21b832b76e4105b69f42f8bc4e61e2bc69c56e1002d308aaf47b14cfd  v322_p.msg
+40fa04ac7efa5b0f19f0a83c0b86c6b644007228ea7bf19949963310caa70a80  v322_d.f90
+a8b3bf23b5933b2834e999b14c9b43d9814b1101e93e2e6d380d15a2932eccbf  v322_d.msg
+ce22c14e93da501b2dc31765f8c76983dad2e7616ebaa90b1a473bffc27e237d  v322_b.f90
+17952dd4cc1cc5a13fe3da3c51f73731e5cd05d1b72859d9a6e6632d4dc05a39  v322_b.msg
+case_artifact_sha256:
+45a224ba8560d0d8a7dccaf63264a0296e0cc0065f51d117d0353c328c1e6ea0  manifest.toml
+af65cdc1a37cc0d1dd604db77ac4a26791e8196d6ec575868e829d558407068f  notes.md
+ad3336c0d8fac31b1af6c2492f21218a3e75ac4782ed54a355e3f197368a541f  run.sh
+74f0e665de0d66457b6ee812f37c23bf4db44d89afb07a896759556f4f01d51d  test_contract.py

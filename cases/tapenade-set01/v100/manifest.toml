@@ -1,0 +1,58 @@
+schema_version = 1
+name = "tapenade-set01-v100-mod-real-array"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v100/run.sh"
+result = "cases/tapenade-set01/v100/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; historical-reference-with-strict-source-format-error"
+static_entry_point_hints = ["head(x,y)"]
+source_files = ["todoF90/REFERENCES/v100/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v100/program.f90",
+    "todoF90/REFERENCES/v100/program_Rd.f90",
+    "todoF90/REFERENCES/v100/program_Rb.f90",
+    "todoF90/REFERENCES/v100/program_Rd.msg",
+    "todoF90/REFERENCES/v100/program_Rb.msg",
+    "todoF90/REFERENCES/v100/Options",
+]
+stored_references = [
+    "program_Rd.f90",
+    "program_Rd.msg",
+    "program_Rb.f90",
+    "program_Rb.msg",
+    "Options",
+]
+
+upstream_entry_point = "head(x,y)"
+ported_entry_point = "head_v100_port(x_in,x_out,y); exact on 0.2 < x_in(1) < 0.4"
+independent = ["x_in"]
+dependent = "y"
+options = [
+    "-association byaddress -vars x -outvars y",
+    "-p -root head",
+    "-d -root head",
+    "-b -root head",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict compiler with diagnostic identity",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse boundary",
+    "independent MOD-domain equivalence and central-difference sweep",
+    "independent JVP/VJP adjoint identity",
+    "compiled FortAD bounded forward/reverse harness",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+expected_diagnostics = [
+    "strict gfortran rejects tabs in the exact upstream primal with -pedantic-errors",
+    "stored Tapenade tangent and reverse references compile strictly",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD exact parser succeeds, while exact forward and reverse refuse because MOD has no derivative rule",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "exact-parser-transform-strict-compile-forward-reverse-refusal-bounded-forward-reverse-transform-compile-runtime"
+closure = "The exact source's observable map is x_out=10*x_in and y=MOD(x_out,2). The bounded port exposes the in-place x update as x_out and replaces MOD by x_out-2 only on the explicitly tested open interval 0.2 < x_in < 0.4, where the two maps and their derivatives agree. It is not a general MOD derivative or exact-source support claim."

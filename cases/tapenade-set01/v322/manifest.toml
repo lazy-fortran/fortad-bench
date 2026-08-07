@@ -1,0 +1,76 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v322"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v322/run.sh"
+result = "cases/tapenade-set01/v322/result.txt"
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+
+source_files = [
+    "todoF90/REFERENCES/v322/DIFFSIZES.f90",
+    "todoF90/REFERENCES/v322/program.f90",
+    "todoF90/REFERENCES/v322/program_b.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v322/DIFFSIZES.f90",
+    "todoF90/REFERENCES/v322/Options",
+    "todoF90/REFERENCES/v322/program.f90",
+    "todoF90/REFERENCES/v322/program_b.f90",
+    "todoF90/REFERENCES/v322/program_b.msg",
+    "todoF90/REFERENCES/v322/simtest1.mod",
+]
+stored_references = [
+    "todoF90/REFERENCES/v322/program_b.f90",
+    "todoF90/REFERENCES/v322/program_b.msg",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_d.f90",
+    "program_d.msg",
+    "program_dv.f90",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "solvereal(this,c); private qcalc(this,Cmob)"
+selected_entry_points = ["solvereal(this,c)", "qcalc(this,Cmob)"]
+ported_entry_point = "not-applicable-invalid-legacy-source"
+independent = ["this", "c"]
+dependent = ["c", "this%cmob"]
+function = "module procedure with derived-type allocatable components and array-valued qcalc"
+options = ["-nolib -p -root solvereal", "-nolib -d -root solvereal", "-nolib -b -root solvereal"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran-compiler-diagnostic",
+    "legacy-gfortran-reference-dependency-diagnostic",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-exact-parser-forward-reverse-diagnostic-and-no-output",
+    "upstream-source-checksum-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+dependencies = [
+    "program.f90 and program_b.f90 use nonstandard REAL*8 and INTEGER*4 declarations rejected by strict F2018 compilation",
+    "program_b.f90 requires the absent ADMM_TAPENADE_INTERFACE module in addition to DIFFSIZES",
+    "simtest1.mod is a shipped binary module artifact and is recorded but not treated as source compilation evidence",
+]
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 and program_b.f90 at REAL*8 declarations as GNU extensions",
+    "legacy gfortran accepts program.f90 but program_b.f90 stops at missing admm_tapenade_interface.mod",
+    "fresh Tapenade parser, tangent, and reverse sources are generated but each fails strict compilation on REAL*8",
+    "FortAD parser, forward, and reverse all refuse the exact source at allocatable declaration/component line 6",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-expected-refusal-strict-compile"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-output"
+closure = "The exact source is not strict-conforming Fortran and its stored reverse reference also depends on an absent Tapenade runtime module. Rewriting legacy kinds, supplying the missing module, or specializing the allocatable derived-type state would define a different program, so no bounded port or derivative oracle is claimed."
+
+[upstream_sha256]
+"DIFFSIZES.f90" = "recorded-by-runner"
+"Options" = "recorded-by-runner"
+"program.f90" = "recorded-by-runner"
+"program_b.f90" = "recorded-by-runner"
+"program_b.msg" = "recorded-by-runner"
+"simtest1.mod" = "recorded-by-runner"

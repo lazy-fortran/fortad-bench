@@ -1,0 +1,59 @@
+case: Tapenade todoF90 REFERENCES v101 allocated local array
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T12:15:54Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: head(x,y)
+ported_entry_point: head_v101(x,y); independent: x; dependent: y
+tapenade_options: -association byaddress -vars x -outvars y; parser=-p forward=-d reverse=-b
+upstream_exact_strict_compile: primal=0 stored_reverse=0 stored_forward=0
+stored_references: program_Rb.f90/.msg program_Rd.f90/.msg
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 6"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 6"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 6"
+fortad_bounded_forward: transform=0 compile=0 runtime=pass
+fortad_bounded_reverse: transform=0 compile=0 runtime=pass
+bounded_port_scope: fixed-size a(2) normal allocated path only; allocation failure and unallocated state not claimed
+bounded_port_compile: 0 hand_compile: 0 harness_compile: 0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 5.695391e-10
+adjoint_identity_residual: 2.220446e-16
+hand_y_vjp_x1: -1.83000000000000007e+00
+hand_y_vjp_x2: 3.04999999999999982e+00
+harness_status: pass
+forward_y:  -3.7500000000000000E+00
+forward_y_d:  -1.6600000000000001E+00
+reverse_x1_b:  -1.8300000000000001E+00
+reverse_x2_b:   3.0499999999999998E+00
+upstream_sha256:
+65a369595e074fbbc23d221e22fc28490610b34afd59518a58e7c1bb4a8de825  Options
+77ddbe743627959612a3b7fef9cf7760482271934b785087c508e3b02eab257f  program.f90
+beb87cbc889ff0e945ba7a5ea47a8f66f93b7a748a7ae28180a648048ceed17c  program_Rb.f90
+66b07a1553e0cd5b1e7c6ba0c08fa3b20c2cd495be97851fea0deaabefee2b05  program_Rb.msg
+e22b2b4e8f2e9c19da3a73bcc36a2531e8ec98922b0b4d37dd3e4f79f4e7ff35  program_Rd.f90
+d2c250b585cd98314a12b75adda9845c93ada00cc513ed8e0f3468516e8feff9  program_Rd.msg
+fresh_tapenade_sha256:
+0ad7340bf4ef9eeb90e4e6a40395ca8c724f49bbbf31dc11134b13bcbdcb9eb5  v101_p.f90
+a6bfa3370cc9fa76f457e7f0a311e33b997539b2fe44e9f798facd5926afc057  v101_p.msg
+4abe70adfc5902764e387cd2602138221b6f6d5a8d519edf8244fa8e42b09953  v101_d.f90
+108e672288a3541300879c772b2fbc3f229eee58e129dc34053b6475805bb78a  v101_d.msg
+4e4537cb50176c0631c6e814cb71c16adf65bf744071cd2f9938233339015f67  v101_b.f90
+4cad0c1fcf87f16e85fba22728f43c4731ac1e05ff0ee424459ea107f416fa17  v101_b.msg
+case_artifact_sha256:
+b55cea32beaa6e26a7d67046f726ab1b5d6fcd75580ac2ee11f0600be6be2d8d  cases/tapenade-set01/v101/manifest.toml
+d9c331745d8d1aacd7b257eae4419d7a77f4a251b9e45bdfcb1cd762d53a237d  cases/tapenade-set01/v101/notes.md
+ab45154527e2d559068918e63cf8001593e80353dc5ee1d92cd2f2e2e0f9497a  cases/tapenade-set01/v101/port.f90
+2ce20c97ae6177d17bf291786330590879b798ceb3adbe0693f10072ddf7228d  cases/tapenade-set01/v101/hand.f90
+36d72e9474fe4435c5cd65fc1829bd897ab793967672e84043a82795c4b8b1fc  cases/tapenade-set01/v101/oracle.py
+80c665c579729afaced58a5cbc3189a2dd850e92c664190d5d3323ff9d9c9b4f  cases/tapenade-set01/v101/harness.f90
+546c43908f0069b147f2271e261dff588f435bb6f6f97060f2f0ba17c9e16c9c  cases/tapenade-set01/v101/run.sh
+3af297e597b2a2f53d4a967d6e61c2b262d40e7f12b41cb4a11f48ba057d8871  cases/tapenade-set01/v101/test_contract.py

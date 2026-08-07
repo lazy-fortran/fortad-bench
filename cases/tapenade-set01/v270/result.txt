@@ -1,0 +1,49 @@
+case: Tapenade todoF90 REFERENCES v270 invalid-source boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:17:50Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_worktree: clean-and-pinned
+upstream_entry_point: simtest1.solvereal(this,c)
+upstream_exact_strict_compile: program=1 diffsizes=0
+upstream_exact_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+stored_references: program_d.f90 program_dv.f90 plus messages and DIFFSIZES.f90
+stored_strict_compile: program_d=1 program_dv=1
+stored_program_d_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+stored_program_dv_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+tapenade_options: parser=-p tangent=-d/-root solvereal reverse=-b/-root solvereal -nolib -ext REFERENCES/v270/NoInlineABS
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_outputs: parser=v270_p.f90 tangent=v270_d.f90 reverse=v270_b.f90
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+tapenade_fresh_parser_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+tapenade_fresh_tangent_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+tapenade_fresh_reverse_diagnostic: Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 6; active allocation state is not represented yet"
+independent_oracle: reproducible strict compiler diagnostic and pinned source SHA-256; no numerical oracle for invalid source
+port_result: not-applicable-no-standard-conforming-semantics-to-preserve
+closure: no bounded port or exact-source support claim
+upstream_sha256:
+3815e05f4438ff9d5e3ed1d3b6fa68d3b48005ed5ba3963fd26d1418bd0cd4dc  DIFFSIZES.f90
+725d2dab9f1e900b3b2a0ab65d6504a8673382029a696184fae500711e4ce590  NoInlineABS
+a01bd77ddf01433e17913817bf9219ffe095b28e735275329846d01e14942b11  Options
+6d16686e21c3cc2fb3ce92d2fa1bbfb55a40fba92fd05088d39ca589a1658e6d  README
+5cf0f10d27da0c6f6ef25a8fda1e0275fecdaf81c7abb1619c5ff2a6d0f09cab  program.f90
+c58507b9d8eebd601b1fc6393a31c6ccd840da7bfbac4b756810e7e5d0d8c647  program_d.f90
+2fa4c032aa17fd40752a0209471447e012a8b072860c512b1cf31959a04f30b3  program_d.msg
+a5af27accf4c6afda192a19192aa167323eb0f2dca20ef305a383d5f1e4c1c9e  program_dv.f90
+36a0baec0845a3f09576a987e026be88eda5b7cdc7b55fc617006cb553438869  program_dv.msg
+case_artifact_sha256:
+1634af975b8df5cc635151a946b0e0bbab7e767a2324375a94ce27e8f790056e  cases/tapenade-set01/v270/manifest.toml
+fb40a6164d52ea58db4f831dc44a2773c99e6439bd8dc3368993d2382064ceb6  cases/tapenade-set01/v270/notes.md
+d716dc543fc8e88caa5204d389a5ba88f612b7d563fbbdc197f8e9d8faab41a1  cases/tapenade-set01/v270/run.sh
+63c65929fbddb90bac91825d717b7e66ec9404999aa67aab7363d9c867b61b69  cases/tapenade-set01/v270/test_contract.py

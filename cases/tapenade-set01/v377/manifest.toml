@@ -1,0 +1,65 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v377"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v377/run.sh"
+result = "cases/tapenade-set01/v377/result.txt"
+source_form = "free"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-runnable-candidate; historical-failure-component"
+static_entry_point_hints = ["main", "test", "test_d", "test_b"]
+source_files = [
+    "todoF90/REFERENCES/v377/program.f90",
+    "todoF90/REFERENCES/v377/program_d.f90",
+    "todoF90/REFERENCES/v377/program_b.f90",
+    "todoF90/REFERENCES/v377/topd.f90",
+    "todoF90/REFERENCES/v377/topb.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v377/program.f90",
+    "todoF90/REFERENCES/v377/program_d.f90",
+    "todoF90/REFERENCES/v377/program_d.msg",
+    "todoF90/REFERENCES/v377/program_b.f90",
+    "todoF90/REFERENCES/v377/program_b.msg",
+    "todoF90/REFERENCES/v377/topd.f90",
+    "todoF90/REFERENCES/v377/topb.f90",
+]
+stored_references = ["program_d.f90", "program_d.msg", "program_b.f90", "program_b.msg", "topd.f90", "topb.f90"]
+
+upstream_entry_point = "test(ce,rank); main"
+selected_entry_points = ["test(ce,rank)", "main"]
+ported_entry_point = "not-applicable-invalid-MPI-call-and-no-valid-main-communication"
+independent = ["ce"]
+dependent = ["ce"]
+options = ["-p -root test", "-d -root test", "-b -root test"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-mpifort-compile-of-exact-and-stored-sources",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-MPI-communication-safety-model",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict mpifort rejects MPI_SEND with 8 actual arguments where the explicit MPI module interface expects 7",
+    "fresh Tapenade parser output preserves the MPI_SEND argument-count/type mismatch",
+    "fresh Tapenade tangent and reverse output compile only with the pinned Tapenade ADFirstAidKit adMPI module",
+    "FortAD exact forward refuses because MPI_irecv has no derivative rule; exact reverse refuses at a loop with no active carried result",
+    "the independent communication model finds rank -1 and an unmatched rank-2 destination in the main program's active ranks",
+]
+fresh_generated_sources = ["v377_p.f90", "v377_d.f90", "v377_b.f90"]
+fresh_generated_messages = ["v377_p.msg", "v377_d.msg", "v377_b.msg"]
+closure = "The exact primal is not standard-conforming under the explicit mpi module interface: MPI_SEND passes status and ierr as two arguments after the communicator, making eight actuals instead of seven. Even after that compiler boundary, main calls test only on ranks 0 and 1, so rank 0 receives from invalid rank -1 and rank 1 sends to inactive rank 2. Repairing the MPI call, adding matching communication, or specializing MPI would change the candidate; no bounded port or derivative support claim is made."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v377/program.f90" = "99faf350f2cb8d4c0a4d764eea418d098b65716488e26a01438ed5128b25bb45"
+"todoF90/REFERENCES/v377/program_d.f90" = "c4edacacf2e5d80fa16cd1a6723f3cef1c6902c2267c062045d97b22d058d9bd"
+"todoF90/REFERENCES/v377/program_d.msg" = "dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9"
+"todoF90/REFERENCES/v377/program_b.f90" = "5c4c707fd9a95ac5881956591c1887ce74c4ad8d9b38d45abad2c474ef3d3e5d"
+"todoF90/REFERENCES/v377/program_b.msg" = "dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9"
+"todoF90/REFERENCES/v377/topd.f90" = "f6d79c311a3badce2ada3cb761325658a9611cf43e5ae928f49021f85e19edc3"
+"todoF90/REFERENCES/v377/topb.f90" = "217823704af2f87e5d79ebc0d8854dbdab588e4508673c8693b68840f5d5b93f"

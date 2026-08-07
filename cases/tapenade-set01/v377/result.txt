@@ -1,0 +1,46 @@
+case: Tapenade todoF90 REFERENCES/v377 MPI boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:14:51Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_points: test(ce,rank); main
+tapenade_options: parser=-p/-root test forward=-d/-root test reverse=-b/-root test
+upstream_exact_strict_compile: program=1 tangent=0 reverse=0 topd=0 topb=0 admpi_support=0
+upstream_diagnostic: MPI_SEND explicit-interface-argument-count-and-rank-mismatch
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v377_p.f90 tangent=v377_d.f90 reverse=v377_b.f90
+tapenade_fresh_strict_compile: parser=1 tangent=0 reverse=0 admpi_support=0
+tapenade_fresh_parser_diagnostic: Error: Rank mismatch in argument ‘ierror’ at (1) (scalar and rank-1)
+fortad_exact_parser: transform=0 generated=strict-compile-1 diagnostic="MPI_SEND explicit-interface-argument-count-and-rank-mismatch"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no derivative rule for the call to MPI_irecv"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="reverse loop accumulates nothing"
+independent_oracle: oracle_status: pass rank0-receives-from-invalid-minus-one rank1-sends-to-inactive-rank-two
+port_result: not-applicable-no-standard-conforming-semantics-to-preserve
+closure: no bounded port; repairing MPI argument count or communication matching would change the candidate
+upstream_sha256:
+99faf350f2cb8d4c0a4d764eea418d098b65716488e26a01438ed5128b25bb45  todoF90/REFERENCES/v377/program.f90
+c4edacacf2e5d80fa16cd1a6723f3cef1c6902c2267c062045d97b22d058d9bd  todoF90/REFERENCES/v377/program_d.f90
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  todoF90/REFERENCES/v377/program_d.msg
+5c4c707fd9a95ac5881956591c1887ce74c4ad8d9b38d45abad2c474ef3d3e5d  todoF90/REFERENCES/v377/program_b.f90
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  todoF90/REFERENCES/v377/program_b.msg
+f6d79c311a3badce2ada3cb761325658a9611cf43e5ae928f49021f85e19edc3  todoF90/REFERENCES/v377/topd.f90
+217823704af2f87e5d79ebc0d8854dbdab588e4508673c8693b68840f5d5b93f  todoF90/REFERENCES/v377/topb.f90
+fresh_tapenade_sha256:
+e3181010c6288501f1454617f5419bd60dfa3a9cf55bf4c9fa0f977012aafc63  ./forward/v377_d.f90
+f3cd6d48c0735a5b585df20bd92cdf32ceb437548c423a274c981665faa072d3  ./forward/v377_d.msg
+87a9e179779df5fc33d9498b8837daa8bb3135f39f63b296236660b1bb95eabc  ./parser/v377_p.f90
+f3cd6d48c0735a5b585df20bd92cdf32ceb437548c423a274c981665faa072d3  ./parser/v377_p.msg
+8de0ab186936bc10790bc5b8d92b2ec9f435ceea5ab29c59dec5d2c3e9235ac3  ./reverse/v377_b.f90
+f3cd6d48c0735a5b585df20bd92cdf32ceb437548c423a274c981665faa072d3  ./reverse/v377_b.msg
+case_artifact_sha256:
+77e45f9112ccb33a04f1b26c3a524532c4f7004fc519faf96490fc33d64210ee  cases/tapenade-set01/v377/manifest.toml
+f089fdc1d350c532d698af8b7ed8f1b378df3a91f07ec6563c0541025558325b  cases/tapenade-set01/v377/notes.md
+82045db5e009f987d5747b09f6c1588ff7f2eee4bde9fd981db2959ec0747824  cases/tapenade-set01/v377/oracle.py
+482d5e4879d7eee9f586e1084feff148473943588e64a280b24e94bebcf58e84  cases/tapenade-set01/v377/run.sh
+298a752463d89cacb53497858dd2efa9144a623011cd88b069ca5036e80e7127  cases/tapenade-set01/v377/test_contract.py

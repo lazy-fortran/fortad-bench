@@ -1,0 +1,70 @@
+schema_version = 1
+name = "tapenade-todof90-references-v144"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v144/run.sh"
+result = "cases/tapenade-set01/v144/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; implicit-interface-and-rank-risk"
+source_files = ["todoF90/REFERENCES/v144/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v144/program.f90",
+    "todoF90/REFERENCES/v144/program_d.f90",
+    "todoF90/REFERENCES/v144/program_d.msg",
+    "todoF90/REFERENCES/v144/program_b.f90",
+    "todoF90/REFERENCES/v144/program_b.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v144/program_d.f90",
+    "todoF90/REFERENCES/v144/program_d.msg",
+    "todoF90/REFERENCES/v144/program_b.f90",
+    "todoF90/REFERENCES/v144/program_b.msg",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_dv.f90",
+    "program_dv.msg",
+]
+
+upstream_entry_point = "head(a,b,c,resu)"
+selected_entry_points = ["head(a,b,c,resu)", "F(t,u) helper"]
+ported_entry_point = "not-applicable-invalid-exact-source"
+independent = []
+dependent = []
+function = "array-valued external function called through an implicit interface"
+options = [
+    "-p -root head",
+    "-d -root head",
+    "-b -root head",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "independent-strict-gfortran-compiler-diagnostic",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-exact-parser-forward-reverse-diagnostic-and-no-output",
+    "upstream-source-and-fresh-output-SHA-256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 because F has an array result behind an implicit interface and its scalar 2.0 actual mismatches rank-1 u",
+    "strict gfortran rejects program_d.f90 and program_b.f90 at the generated call with the legacy REAL array-index diagnostic and/or rank mismatch",
+    "fresh Tapenade parser, tangent, and reverse outputs are emitted but each fails the same strict compilation boundary",
+    "FortAD check, forward, and reverse all refuse the SUM expression at line 10 before emitting a file",
+]
+fresh_generated_sources = ["v144_p.f90", "v144_d.f90", "v144_b.f90"]
+fresh_generated_messages = ["v144_p.msg", "v144_d.msg", "v144_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-unsupported-expression"
+closure = "The exact source has no standard-conforming behavior to differentiate: its external array-valued F is called through an implicit interface with a scalar actual for rank-1 u. Repairing the interface or replacing 2.0 by a rank-1 value would change the candidate, so no bounded port, derivative oracle, or support claim is made."
+
+[upstream_sha256]
+"program.f90" = "05f317d68816eee68481cabaf2d46090eba7906fcbf38356592a5d8b67fa82ff"
+"program_d.f90" = "f05e47fa9a6e9c7d12170b5fe0e2ec933735d4d7bdb8b4aed1458eafa98dc104"
+"program_d.msg" = "0c729282189b7e35725ecc88ca12306797aee6d8ce53589c2e52d946deedb103"
+"program_b.f90" = "3d76abac713d2f4da76f07f02050b026ca9730ee3c4d0f4c7f306dabb22da108"
+"program_b.msg" = "1577c3b71ce129807a2d08249e9731aa40e688306d2b8d3398c81cb02381f258"

@@ -1,0 +1,52 @@
+case: Tapenade todoF90/REFERENCES/v100
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T12:17:35Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: head(x,y)
+bounded_entry_point: head_v100_port(x_in,x_out,y); independent: x_in; dependent: y; domain: 0.2 < x_in(1) < 0.4
+upstream_exact_strict_compile: primal=1 stored_tangent=0 stored_reverse=0
+upstream_primal_diagnostic: Error: Nonconforming tab character at (1) [-Werror=tabs]
+tapenade_options: parser=-p/-root head tangent=-d/-root head reverse=-b/-root head
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+tapenade_fresh_reverse_diagnostic: Warning: Unused dummy argument ‘y’ at (1) [-Wunused-dummy-argument]
+fortad_exact_parser: transform=0 strict_compile=0 output=present
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no derivative rule for mod"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no derivative rule for mod"
+fortad_bounded_forward: transform=0 compile=0 runtime=pass
+fortad_bounded_reverse: transform=0 compile=0 runtime=pass
+bounded_port_compile: 0 hand_compile: 0 harness_compile: 0
+finite_difference_max_error: 1.398e-09
+adjoint_identity_residual: 8.882e-16
+oracle_status: pass
+harness_status: pass
+upstream_sha256:
+5ca7ea9d7a87ea8fa5c61d67e537ae4a8287688424f5e75c7d37c530231fa186  todoF90/REFERENCES/v100/program.f90
+54d7c059a509066822b925af3dccaf9ef33632012ab3c4c24a04663803626c23  todoF90/REFERENCES/v100/program_Rd.f90
+9b22ccb347c18cee2dcbe834f2ccbf9fcec05fb5fd50d79826b073445cfdcebd  todoF90/REFERENCES/v100/program_Rb.f90
+2b3ce15cc19c2df09725f5eb9793fca8f0e1811f82fbf52be66bc1f547f13f77  todoF90/REFERENCES/v100/program_Rd.msg
+66b07a1553e0cd5b1e7c6ba0c08fa3b20c2cd495be97851fea0deaabefee2b05  todoF90/REFERENCES/v100/program_Rb.msg
+65a369595e074fbbc23d221e22fc28490610b34afd59518a58e7c1bb4a8de825  todoF90/REFERENCES/v100/Options
+fresh_tapenade_sha256:
+97669af314138b982eb271a7f30f53888a908da2006c8e70d8a8369231fdde74  v100_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v100_p.msg
+71558b763091fe5951233956594c37902823a03005fec768bae82559df3379ee  v100_d.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v100_d.msg
+a8cd010d48a0ea21b124fdfb0710deac09f1beb857f19e81878e85d4515f37f0  v100_b.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  v100_b.msg
+case_artifact_sha256:
+27f7e782028418e5fb74f24a849c43230765aa3dfc9f69f30047402405b59206  manifest.toml
+88479e8d19c0358ff8e6c6d4113b6b5cecdb70e5e32f1bf28bd4a78453cdc98d  notes.md
+7c7aec398956e5547d5b2282027a8e56cea3927498162e47d5e547416a766207  run.sh
+672a1b238343b5a04ada460b7a46913d0556732709e026540b0e2eed010fc49b  test_contract.py
+8a0a508eca6bc7e316819d52e149ceb75d05684d98066dc699731db34a04960c  port.f90
+39e1f313e0cb90ab5d32bf3b757b73f4be7b7a57a75414660716e25172fcdca1  hand.f90
+7d7ecbe7f7074adffe2b93bf2820981646439275c81ec71755e10385b04c84bc  harness.f90
+91d2ed117f49d9a58712d34e82feb6d6d2f6801c799e0720a6d0590ed9e7768e  oracle.py
