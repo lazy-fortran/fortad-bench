@@ -309,12 +309,12 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Fifty-five rows now have executable FortAD evidence, 126 explicit
+  audit. Sixty rows now have executable FortAD evidence, 126 explicit
   refusals, and twenty-eight invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,296 rows are queued: 1,222 pure-Fortran rows and 74 mixed-language rows.
+  1,292 rows are queued: 1,218 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -356,6 +356,10 @@ because it belongs next to the engines rather than next to the compiler.
   FortAD forward/reverse compilation, and an independent average-function
   hand/finite-difference/adjoint oracle; see its [case record](cases/tapenade-set05/v060_manifest.toml)
   and [validation result](cases/tapenade-set05/v060_result.txt).
+  The subsequent `set05/v064` `LIB::mppsum_real(ptab)` entry records the same
+  exact-source, fresh-Tapenade, strict FortAD, harness, and independent
+  hand/finite-difference/adjoint gates; see its [manifest](cases/tapenade-set05/v064_manifest.toml)
+  and [validation result](cases/tapenade-set05/v064_result.txt).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
