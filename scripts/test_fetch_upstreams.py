@@ -536,7 +536,7 @@ expected_candidate_cases = 1
 
 
 class CommittedTapenadeLedgerTests(unittest.TestCase):
-    def test_committed_ledger_is_the_complete_untriaged_scaffold(self):
+    def test_committed_ledger_has_complete_scaffold_and_curated_cases(self):
         root = Path(__file__).resolve().parent.parent
         with (root / "docs" / "corpora" / "tapenade.toml").open("rb") as stream:
             manifest = tomllib.load(stream)
@@ -568,13 +568,59 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             2014,
         )
         self.assertTrue(all(row["initial_classification"] for row in rows))
-        self.assertEqual({row["status"] for row in rows}, {"untriaged"})
+        curated_paths = {
+            "nonRegressions/set01/lh023",
+            "nonRegressions/set01/lh032",
+            "nonRegressions/set01/lh134",
+        }
+        curated = [row for row in rows if row["status"] != "untriaged"]
+        untriaged = [row for row in rows if row["status"] == "untriaged"]
+        self.assertEqual({row["path"] for row in curated}, curated_paths)
+        self.assertEqual({row["status"] for row in curated}, {"runnable-ported"})
         for column in (
             "entry_point", "tapenade_options", "modes", "oracle", "dependencies"
         ):
-            self.assertEqual({row[column] for row in rows}, {"untriaged"})
-        self.assertEqual({row["tapenade_result"] for row in rows}, {"not-run"})
-        self.assertEqual({row["fortad_result"] for row in rows}, {"not-run"})
+            self.assertEqual({row[column] for row in untriaged}, {"untriaged"})
+            self.assertNotIn("untriaged", {row[column] for row in curated})
+        self.assertEqual({row["tapenade_result"] for row in untriaged}, {"not-run"})
+        self.assertEqual({row["fortad_result"] for row in untriaged}, {"not-run"})
+        self.assertNotIn("not-run", {row["tapenade_result"] for row in curated})
+        self.assertEqual(
+            {row["fortad_result"] for row in curated},
+            {"pass-transform-compile-runtime"},
+        )
+        expected_evidence = {
+            "nonRegressions/set01/lh023": {
+                "entry_point": "test(a,b,c); port set01_lh023(a,b,c)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh032": {
+                "entry_point": "sub1(x,y); port set01_lh032(x,y)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh134": {
+                "entry_point": "toto(x,f); port set01_lh134(x,f)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+        }
+        evidence_columns = tuple(next(iter(expected_evidence.values())))
+        for row in curated:
+            self.assertEqual(
+                {column: row[column] for column in evidence_columns},
+                expected_evidence[row["path"]],
+            )
         self.assertEqual(
             Counter(row["language"] for row in rows),
             Counter({

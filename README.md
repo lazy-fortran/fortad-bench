@@ -302,12 +302,15 @@ because it belongs next to the engines rather than next to the compiler.
   `17288bdf`) has 10,977 tracked files and 2,014 candidate cases. Run
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
-  [`status ledger`](docs/corpora/tapenade-status.csv) has one untriaged row per
-  candidate. The companion
+  [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
+  audit. Three rows now have executable FortAD evidence; the remaining rows are
+  untriaged. The first [set01 support cases](cases/tapenade-set01/README.md) link
+  their manifest, runner, oracles, and measurements, and record exact upstream
+  paths. The companion
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
-  files and syntactic entry-point and dependency hints. Both are checked by the
-  same audit. These rows describe upstream material, not current FortAD
-  support.
+  files plus syntactic entry-point, include, and module dependency hints. It is
+  discovery evidence only, not a parse, build, transformation, or correctness
+  result.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.

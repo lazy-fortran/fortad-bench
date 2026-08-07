@@ -1,0 +1,43 @@
+schema_version = 1
+name = "tapenade-set01-support"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01.sh"
+result = "results/tapenade_set01_support_validation.txt"
+
+[[case]]
+id = "lh023"
+upstream_source = "nonRegressions/set01/lh023/program.f"
+entry_point = "test(a,b,c)"
+ported_entry_point = "set01_lh023(a,b,c)"
+independent = ["a", "b"]
+dependent = "c"
+function = "c = b*b + a/100"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
+
+[[case]]
+id = "lh032"
+upstream_source = "nonRegressions/set01/lh032/program.f"
+entry_point = "sub1(x,y)"
+ported_entry_point = "set01_lh032(x,y)"
+independent = ["x"]
+dependent = "y"
+function = "y = 2*x**2"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
+
+[[case]]
+id = "lh134"
+upstream_source = "nonRegressions/set01/lh134/program.f"
+entry_point = "toto(x,f)"
+ported_entry_point = "set01_lh134(x,f)"
+independent = ["x"]
+dependent = "f"
+domain = "x < 0"
+function = "f = log(-x)"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["hand", "central-difference-sweep", "adjoint-identity"]
