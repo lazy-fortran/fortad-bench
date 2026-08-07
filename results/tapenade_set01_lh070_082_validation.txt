@@ -1,0 +1,55 @@
+suite: Tapenade nonRegressions set01 tranche M (lh074, lh080, lh082)
+recorded_utc: 2026-08-07T06:57:32Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: 72f8fe87abfcf44cdf0350cb0ebf3eadf90f41e1
+required_fortad_commit: 72f8fe8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_source_compile_statuses:
+tapenade/lh074/upstream-primal.status 0
+tapenade/lh074/upstream-program_b.f.status 0
+tapenade/lh074/upstream-program_d.f.status 0
+tapenade/lh080/upstream-primal.status 0
+tapenade/lh080/upstream-program_b.f.status 0
+tapenade/lh080/upstream-program_d.f.status 0
+tapenade/lh082/upstream-primal.status 0
+tapenade/lh082/upstream-program_b.f.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade/lh074/forward-generated.status 0
+tapenade/lh074/parser-generated.status 0
+tapenade/lh074/reverse-generated.status 0
+tapenade/lh080/forward-generated.status 0
+tapenade/lh080/parser-generated.status 0
+tapenade/lh080/reverse-generated.status 0
+tapenade/lh082/forward-generated.status 0
+tapenade/lh082/parser-generated.status 0
+tapenade/lh082/reverse-generated.status 0
+fortad_transform_compile_statuses:
+lh074-port-forward.status 0
+lh080-port-forward.status 0
+lh080-port-reverse.status 0
+lh082-port-forward.status 0
+fortad_lh074_exact_forward_status: 1
+fortad_lh074_exact_diagnostic: unsupported statement at line 9
+fortad_lh082_exact_reverse_status: 1
+fortad_lh082_exact_diagnostic: reverse mode: 'A' is both read and written in the same loop; that needs per-iteration storage
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2908
+oracle_status: pass
+source_sha256:
+930115713ee95cacff4d43b346e2d23fe363a7a827090b06bd5e934efaba8c95  cases/tapenade-set01/lh074.f90
+c12cada0e32f511ee2e6cf1fb0e78346e51b1622523eeba203cc6474bc13fc56  cases/tapenade-set01/lh080.f90
+282db57ca104165fd97bce82eadade538bb45e4d1f9d9f17b944ff3db6ffad0b  cases/tapenade-set01/lh082.f90
+3f13d71b953c94698610a8589ab7c0438f0554ad2a3482d191e0ba3e51582b9a  cases/tapenade-set01/hand_derivatives_lh074.f90
+3fb1cda6ae36d57f32c40fda97fe7d1ca31984e946698dafc1a9f4ba800ed767  cases/tapenade-set01/hand_derivatives_lh080.f90
+30363ac40d614beed3308bb18a6ebad50a758d62a69214a9df565a4684362a65  cases/tapenade-set01/hand_derivatives_lh082.f90
+b7b1f3737d89fb747984990cddaeca85b7c7e8488ab39fcdabc6399dbba05f9f  cases/tapenade-set01/tranche-m-lh070-082-manifest.toml
+646d3f9b68bc0563cb8b3ce1b85bd7de32cec5f57d635134c324b9ced2f126d7  cases/tapenade-set01/tranche-m-lh070-082.md
+042dc2aa8dea2ecfffdaef3604f8a2b94d59379b588c25c058b335402f440f25  harness/bench_tapenade_set01_lh070_082.f90
+4e429250fd58f85240090705c5a7b8bc90d046e61d0e7003af6429ab37216ceb  scripts/bench_tapenade_set01_lh070_082.sh
+run_output:
+oracle_status: pass

@@ -1,0 +1,44 @@
+schema_version = 1
+name = "tapenade-set01-tranche-m-lh070-082"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh070_082.sh"
+result = "results/tapenade_set01_lh070_082_validation.txt"
+
+[[case]]
+id = "lh074"
+upstream_source = "nonRegressions/set01/lh074/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "fexchem(a,b,chem)"
+ported_entry_point = "set01_lh074(a,b,chem)"
+independent = ["a", "b"]
+dependent = "chem"
+function = "two-component chemical update with an obsolete RETURN statement"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal"
+expected_diagnostic = "unsupported statement at line 9"
+
+[[case]]
+id = "lh080"
+upstream_source = "nonRegressions/set01/lh080/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "sub1(a,b)"
+ported_entry_point = "set01_lh080(a,b)"
+independent = ["a"]
+dependent = "b"
+function = "scalar result assembled from local array-element stores"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "lh082"
+upstream_source = "nonRegressions/set01/lh082/program.f"
+stored_references = ["program_b.f"]
+upstream_entry_point = "alias(A,n,x)"
+ported_entry_point = "set01_lh082(a,n,x)"
+independent = ["a"]
+dependent = "a"
+function = "in-place aliasing loop with fixed-index and offset element references"
+oracle = ["independent-hand", "central-difference-sweep"]
+classification = "expected-refusal"
+expected_diagnostic = "reverse mode: 'A' is both read and written in the same loop; that needs per-iteration storage"
