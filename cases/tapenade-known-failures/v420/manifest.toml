@@ -1,0 +1,18 @@
+schema_version = 1
+name = "tapenade-known-failure-v420"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_source = "todoF90/REFERENCES/v420/program.f90"
+runner = "scripts/bench_tapenade_known_failure_v420.sh"
+result = "results/tapenade_known_failure_v420_validation.txt"
+
+[[case]]
+id = "v420"
+entry_point = "g(u,v)"
+ported_entry_point = "v420(u,v)"
+independent = ["u"]
+dependent = "v"
+function = "v = 50*u"
+upstream_options = "-association byaddress"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
