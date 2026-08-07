@@ -268,6 +268,66 @@ def _git(target: Path, *args: str) -> str:
     return rc.stdout.strip()
 
 
+def _pinned_checkout_error(entry: dict, target: Path) -> str | None:
+    """Return a materialization error for a pinned checkout, if any.
+
+    This is deliberately narrower than ``audit_corpus``: it only decides
+    whether a checkout can be safely replaced during fetch.  A dirty checkout
+    is reported last so that local edits are preserved for the later corpus
+    audit instead of being overwritten automatically.
+    """
+    if not target.is_dir():
+        return "checkout is not a directory"
+    if not (target / ".git").exists():
+        return "checkout is not a Git checkout"
+    try:
+        revision = _git(target, "rev-parse", "HEAD")
+        origin = _git(target, "remote", "get-url", "origin")
+        tracked_output = _git(target, "ls-tree", "-r", "--name-only", "HEAD")
+        index_flags = _git(target, "ls-files", "-v")
+    except CorpusError as error:
+        return f"invalid Git checkout ({error})"
+
+    tracked = tracked_output.splitlines() if tracked_output else []
+    missing = [path for path in tracked if not os.path.lexists(target / path)]
+    if missing:
+        sample = ", ".join(missing[:3])
+        return f"incomplete checkout, {len(missing)} path(s) missing: {sample}"
+    unusual_flag = next(
+        (line for line in index_flags.splitlines() if not line.startswith("H ")),
+        None,
+    )
+    if unusual_flag:
+        return f"checkout has non-default index flags ({unusual_flag})"
+    try:
+        dirty = _git(target, "status", "--porcelain=v1", "--untracked-files=all")
+    except CorpusError as error:
+        return f"invalid Git checkout ({error})"
+    if dirty:
+        return f"checkout is modified ({dirty.splitlines()[0]})"
+    if revision != entry["ref"]:
+        return f"revision {revision} != {entry['ref']}"
+    if origin != entry["url"]:
+        return f"remote {origin!r} != {entry['url']!r}"
+    return None
+
+
+def _install_checkout(checkout: Path, target: Path) -> None:
+    """Install a complete temporary checkout without exposing a partial tree."""
+    target.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(prefix=f".{target.name}-old-", dir=DEST) as old_dir:
+        old_target = Path(old_dir) / "old"
+        had_target = os.path.lexists(target)
+        if had_target:
+            target.rename(old_target)
+        try:
+            checkout.rename(target)
+        except OSError:
+            if had_target and not os.path.lexists(target):
+                old_target.rename(target)
+            raise
+
+
 def _clone_pinned_commit(url: str, ref: str, target: Path, depth: int) -> bool:
     """Fetch one advertised commit without downloading unrelated history."""
     DEST.mkdir(parents=True, exist_ok=True)
@@ -291,9 +351,20 @@ def _clone_pinned_commit(url: str, ref: str, target: Path, depth: int) -> bool:
                     tail = (rc.stderr or rc.stdout).strip().splitlines()[-1:]
                     print(f"  FAIL   {target.name}: {tail}")
                     return False
-            checkout.rename(target)
+            try:
+                fetched_revision = _git(checkout, "rev-parse", "HEAD")
+            except CorpusError as error:
+                print(f"  FAIL   {target.name}: fetched checkout is invalid ({error})")
+                return False
+            if fetched_revision != ref:
+                print(f"  FAIL   {target.name}: fetched revision is not {ref}")
+                return False
+            _install_checkout(checkout, target)
     except subprocess.TimeoutExpired:
         print(f"  FAIL   {target.name}: clone timed out after {GIT_TIMEOUT_SECONDS}s")
+        return False
+    except OSError as error:
+        print(f"  FAIL   {target.name}: could not install checkout: {error}")
         return False
     return True
 
@@ -314,24 +385,50 @@ def clone(entry: dict, depth: int, jobs_note: str = "") -> bool:
 
     if target.exists():
         print(f"  update {name}")
+        if COMMIT_RE.fullmatch(ref):
+            existing_error = _pinned_checkout_error(entry, target)
+            if existing_error and existing_error.startswith("checkout is modified"):
+                print(f"  WARN   {name}: preserving locally modified checkout")
+                return True
         try:
             rc = subprocess.run(
                 ["git", "-C", str(target), "fetch", "--depth", str(depth), "origin", ref],
                 capture_output=True, text=True, timeout=GIT_TIMEOUT_SECONDS,
             )
         except subprocess.TimeoutExpired:
+            if COMMIT_RE.fullmatch(ref):
+                print(f"  repair {name}: existing checkout fetch timed out; rebuilding")
+                return _clone_pinned_commit(url, ref, target, depth)
             print(f"  WARN   {name}: fetch timed out after {GIT_TIMEOUT_SECONDS}s")
             return False
         if rc.returncode != 0:
+            if COMMIT_RE.fullmatch(ref):
+                print(f"  repair {name}: existing checkout is unusable; rebuilding")
+                return _clone_pinned_commit(url, ref, target, depth)
             print(f"  WARN   {name}: fetch failed: {rc.stderr.strip().splitlines()[-1:]}")
             return False
-        checked_out = subprocess.run(
-            ["git", "-C", str(target), "checkout", "-q", "FETCH_HEAD"],
-            check=False, timeout=GIT_TIMEOUT_SECONDS,
-        )
+        try:
+            checked_out = subprocess.run(
+                ["git", "-C", str(target), "checkout", "-q", "FETCH_HEAD"],
+                check=False, timeout=GIT_TIMEOUT_SECONDS,
+            )
+        except subprocess.TimeoutExpired:
+            if COMMIT_RE.fullmatch(ref):
+                print(f"  repair {name}: checkout timed out; rebuilding")
+                return _clone_pinned_commit(url, ref, target, depth)
+            print(f"  WARN   {name}: checkout timed out after {GIT_TIMEOUT_SECONDS}s")
+            return False
         if checked_out.returncode != 0:
+            if COMMIT_RE.fullmatch(ref):
+                print(f"  repair {name}: requested checkout could not be materialized; rebuilding")
+                return _clone_pinned_commit(url, ref, target, depth)
             print(f"  WARN   {name}: checkout of fetched revision failed")
             return False
+        if COMMIT_RE.fullmatch(ref):
+            error = _pinned_checkout_error(entry, target)
+            if error and not error.startswith("checkout is modified"):
+                print(f"  repair {name}: {error}; rebuilding")
+                return _clone_pinned_commit(url, ref, target, depth)
         return True
 
     print(f"  clone  {name}  <- {url} @ {ref}")
