@@ -1,0 +1,52 @@
+case: Tapenade nonRegressions/set01/B01 GRADFB
+case_id: B01
+classification: expected-refusal-fortad-legacy-do-line-116
+recorded_utc: 2026-08-07T16:47:21Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only
+fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+required_fortad_commit: 72ca2aa1c6c7d4b171b13a3e13c5190944080032
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: gradfb(x,y,z,b,c,d,vol6)
+tapenade_options: parser=-p forward=-d/-root gradfb reverse=-b/-root gradfb
+upstream_strict_compile: program=1 program_d=1 program_b=1
+upstream_legacy_compile: program=0 program_d=0 program_b=0
+tapenade_generation: parser=0 forward=0 reverse=0
+fresh_strict_compile: parser=1 forward=1 reverse=1
+fresh_legacy_compile: parser=0 forward=0 reverse=0
+fortad_exact_behavior: check=1 jvp=1 vjp=1 diagnostic=legacy-do-line-116 no-output
+independent_oracle: determinant-volume JVP-finite-difference VJP-adjoint
+oracle_source_inventory: exact GRADFB determinant body pass
+oracle_jvp_finite_difference: pass max_error=5.1706461334788401e-09
+oracle_gradient_finite_difference: pass max_error=3.0525875160947180e-09
+oracle_vjp_adjoint_identity: pass max_error=2.8797839668470715e-09
+oracle_behavioral_cases: 3
+oracle_status: pass
+no_repaired_port: exact-source-only
+upstream_sha256:
+3d739990ef29a533f076d44a53093cf7b86677eee4ff099647d8d3d01e4d8739  nonRegressions/set01/B01/Param3D.h
+e0ab4a9f0b00b26a1c26e07a32263052aa900f90e42fce856ebd307c9b6bac47  nonRegressions/set01/B01/Paramopt3D.h
+80393987360f2756e59470cf49068b559ef69d9ebbc9d5afbafaaa99064026dc  nonRegressions/set01/B01/Paramopt3D_b.h
+dee10287859640f0b41d71f24530ab30fb692b084f0d7420e4b1e21806e98c61  nonRegressions/set01/B01/Paramopt3D_d.h
+3d104a861f08659b69f25aa33abba009faf608779e03ca47755fc8694c33b9f2  nonRegressions/set01/B01/program.f
+b22dd929b305535a9f9bb1e46621dfe1660ca0c073b7012537a301da3643b652  nonRegressions/set01/B01/program_d.f
+dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784  nonRegressions/set01/B01/program_d.msg
+5ed6e4209c0789d8db1c74f3e54644b25308aa4503fe854041d9f9833e94812e  nonRegressions/set01/B01/program_b.f
+dab099218475489f433faa34cfd666c94dbfc81c67575a7b36e8eb96d4e9f784  nonRegressions/set01/B01/program_b.msg
+fresh_tapenade_sha256:
+ea701f2870702fa98f1b913fa80f90fb47e1f011d70e9fc71cb6bd0f886be723  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/parser/b01_p.f
+8599980a05afa9794f811abf9a39f05c80183c130c436cb536193f904068ad6f  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/parser/b01_p.msg
+c497d8c5e37123d4c75616e60a6bcde4b0b1e4344a5f2ae5892573973f54c5a7  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/forward/b01_d.f
+8599980a05afa9794f811abf9a39f05c80183c130c436cb536193f904068ad6f  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/forward/b01_d.msg
+89d5cd5e7b2d599904bbec642df33abf4498abc63cfedbfa44d320e117c8de98  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/reverse/b01_b.f
+8599980a05afa9794f811abf9a39f05c80183c130c436cb536193f904068ad6f  /var/tmp/fortad-bench-tapenade-set01-B01.O11r38/fresh/reverse/b01_b.msg
+case_artifact_sha256:
+4369770aee5047bd451e684fdabb9ee8fcb634683545486740351493d403dee6  manifest.toml
+82a5cb5b101d6d6b9795bc12b9bb833b2d6843b0dc5bd42c1d5d338532752ca3  notes.md
+3109a697be655eea1829e6fb6a4e81a51561f26ac888fc3e424a7b571895e793  oracle.py
+1c0ea85c1209729d84f535b54cddfe4c9d04b648c86b0ab825784ca67c17de69  run.sh
+8045356e159806155fcd935c2258cef1f31eafd35f56d33e76677e332c5aeafd  test_contract.py
