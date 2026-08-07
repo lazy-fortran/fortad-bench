@@ -16,18 +16,18 @@ scripts/triage_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 2009 |
+| `compiled` | 2013 |
 | `include-fragment-not-compiled` | 147 |
-| `syntax-error` | 1424 |
+| `syntax-error` | 1420 |
 
 ## Failure kind
 
 | kind | files |
 |---|---:|
-| `compiler-diagnostic` | 861 |
+| `compiler-diagnostic` | 866 |
 | `include-fragment-not-compiled` | 147 |
-| `missing-dependency` | 563 |
-| `none` | 2009 |
+| `missing-dependency` | 554 |
+| `none` | 2013 |
 
 ## Source kinds
 

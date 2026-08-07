@@ -810,6 +810,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set03/ht09",
             "nonRegressions/set04/lh110",
             "nonRegressions/set05/v052",
+            "nonRegressions/set05/v054",
             "nonRegressions/set05/v125",
             "nonRegressions/set05/v137",
             "nonRegressions/set05/v150",
@@ -2460,6 +2461,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|FortAD-forward-reverse-transform-strict-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|upstream-source-SHA-256-contract",
                 "dependencies": "same-file module1/module2/module3 source; no external dependency",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set05/v054": {
+                "entry_point": "f_vector(x)",
+                "tapenade_options": "-p/-root-f_vector|-d/-root-f_vector|-b/-root-f_vector",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source strict compile|fresh pinned Tapenade parser-forward-reverse generation|FortAD exact module-extraction JVP-VJP strict compile-runtime|independent reciprocal vector hand-central-difference-adjoint oracle",
+                "dependencies": "upstream module and driver; FortAD uses the exact f_vector module extraction",
+                "tapenade_result": "pass-fresh-parser-forward-reverse-generation-strict-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
