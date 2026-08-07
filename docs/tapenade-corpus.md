@@ -160,6 +160,8 @@ The `lh012`-`lh014` generated-compile refusal result is in
 [`lh007-015`](../results/tapenade_set01_lh007_015_refusal_validation.txt).
 The adjacent `lh017` support and `lh022`/`lh028` reverse-boundary results are
 in [`tranche-l`](../results/tapenade_set01_lh017_032_validation.txt).
+The adjacent `lh039` support and exact `lh033`/`lh040` fixed-form boundaries
+are in [`tranche-m`](../results/tapenade_set01_lh033_047_validation.txt).
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in

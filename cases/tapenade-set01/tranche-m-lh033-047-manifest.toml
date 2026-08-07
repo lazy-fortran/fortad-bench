@@ -1,0 +1,44 @@
+schema_version = 1
+name = "tapenade-set01-tranche-m-lh033-047"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh033_047.sh"
+result = "results/tapenade_set01_lh033_047_validation.txt"
+
+[[case]]
+id = "lh033"
+upstream_source = "nonRegressions/set01/lh033/program.f"
+upstream_entry_point = "absorbN(data,resu,iz)"
+ported_entry_point = "not-applicable (exact-source boundary)"
+independent = ["data"]
+dependent = ["resu"]
+function = "fixed-form COMMON state and a loop-carried sum"
+modes = ["forward:refused", "reverse:refused"]
+oracle = ["independent-hand", "central-difference"]
+classification = "expected-refusal"
+expected_diagnostic = "FortAD: unsupported statement at line 5 (COMMON /ccc/)"
+
+[[case]]
+id = "lh039"
+upstream_source = "nonRegressions/set01/lh039/program.f"
+upstream_entry_point = "top(i1,i2,i3,o1,o2,o3)"
+ported_entry_point = "set01_lh039(i1,i2,i3,o1,o2,o3)"
+independent = ["i1", "i2", "i3"]
+dependent = ["o1"]
+function = "nested subroutine call with in-place input writes and rational product"
+modes = ["forward", "reverse:o1"]
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "lh040"
+upstream_source = "nonRegressions/set01/lh040/program.f"
+upstream_entry_point = "f(t)"
+ported_entry_point = "not-applicable (exact-source boundary)"
+independent = ["t"]
+dependent = ["f"]
+function = "double-precision exponential with a fixed-form CHARACTER DATA declaration"
+modes = ["forward:refused", "reverse:refused"]
+oracle = ["independent-hand", "central-difference"]
+classification = "expected-refusal"
+expected_diagnostic = "FortAD: unsupported statement at line 4 (CHARACTER*10 declaration)"
