@@ -1,0 +1,36 @@
+case: Tapenade nonRegressions set01 lh008
+recorded_utc: 2026-08-07T05:24:02Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 1aae732d54d2be5b4da43270cdc10a1a325f9fd3
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.098597
+upstream_strict_compile_seconds: 0.040801
+forward_transform_seconds: 0.004949
+reverse_transform_seconds: 0.004938
+generated_compile_and_link_seconds: 0.121815
+tapenade_forward_transform_seconds: 0.222219
+tapenade_reverse_transform_seconds: 0.225281
+tapenade_generated_compile: pass-strict
+oracle: independent hand JVP/VJP, four-step central differences, and adjoint identity
+tapenade_result: parser and generated forward/reverse references compile under strict fixed-form mode
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3200
+generated_forward_source_bytes: 985
+generated_reverse_source_bytes: 1295
+source_sha256:
+f9b74cbb30f08c22b62e180ff5e9dba49bdc7eacad59fb57d5aa08c6289c9637  cases/tapenade-set01/lh008.f90
+e59b6da9c9cc1981635c5647e950e9b45150e2d3a2a50c093e6e0d341b1d2561  cases/tapenade-set01/hand_derivatives_lh008.f90
+fd13300ebadee47f2c030df0e73a67aa6a64442618b1a8f3b6a330e80653bec6  cases/tapenade-set01/lh008-manifest.toml
+c7542fc04ef96d52aff89d7b12e722f07aa0b8a9c44709dfe139e35db5cce681  cases/tapenade-set01/lh008.md
+f41d6af3d2bbe34b0100f0ad2812b86b5eea2c94954f74b78ed62e2decabc822  harness/bench_tapenade_set01_lh008.f90
+34e321a4d8ec0c93847afcdc972fd957f148d74ee06fd6430aec582762b63b0a  scripts/bench_tapenade_set01_lh008.sh
+run_output:
+fd_errors_objective:   1.3727E-12   8.4781E-12   4.0412E-13   9.7740E-10
+oracle_status: pass

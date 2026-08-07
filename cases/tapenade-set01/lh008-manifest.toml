@@ -1,0 +1,20 @@
+schema_version = 1
+name = "tapenade-set01-lh008"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_source = "nonRegressions/set01/lh008/program.f"
+runner = "scripts/bench_tapenade_set01_lh008.sh"
+result = "results/tapenade_set01_lh008_validation.txt"
+
+[[case]]
+id = "lh008"
+upstream_entry_point = "adjBlock1(x,y,z)"
+ported_entry_point = "set01_lh008(y,x,z,objective)"
+independent = ["y"]
+dependent = "objective"
+function = "x=10.5*y; z=11.5*y; objective=x+0.5*z; final y=0"
+upstream_options = "none"
+modes = ["forward", "reverse:objective"]
+oracle = ["strict-compiler", "hand JVP/VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none"
+tapenade_result = "pass-parser-and-generated-compile"
+fortad_result = "pass-transform-compile-runtime"
