@@ -1,5 +1,5 @@
 case: itpplasma polymorphic SELECT TYPE JVP and VJP
-recorded_utc: 2026-08-07T00:44:14Z
+recorded_utc: 2026-08-07T03:09:16Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -8,22 +8,22 @@ compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
 time_tool: time (GNU Time) 1.10
-fortad_commit: bc4f2a2621e680ebbcaefc797c29f000a023561c
-required_fortad_commit: da1d876afa29f2357bce45ce3500904270ddda83
-fortad_setup_seconds_cached_or_incremental: 1.060449
-jvp_transform_seconds: 0.005611
-vjp_transform_seconds: 0.006293
-generated_jvp_object_compile_seconds: 0.018187
-generated_vjp_object_compile_seconds: 0.019588
-case_compile_and_link_seconds: 0.198065
-generated_jvp_source_bytes: 1127
-generated_vjp_source_bytes: 1621
+fortad_commit: be6c6fe02746b98b34ef1b9286dfcbb61587c7ea
+required_fortad_commit: 51e54576dac9f62a3629c2fc23f54ee6dd014a15
+fortad_setup_seconds_cached_or_incremental: 1.207413
+jvp_transform_seconds: 0.006586
+vjp_transform_seconds: 0.006824
+generated_jvp_object_compile_seconds: 0.015013
+generated_vjp_object_compile_seconds: 0.017604
+case_compile_and_link_seconds: 0.180746
+generated_jvp_source_bytes: 1297
+generated_vjp_source_bytes: 2123
 generated_jvp_object_bytes: 1744
-generated_vjp_object_bytes: 1792
+generated_vjp_object_bytes: 1800
 generated_jvp_object_text_bytes: 163
-generated_vjp_object_text_bytes: 203
+generated_vjp_object_text_bytes: 207
 runtime_wall_seconds=0.13
-runtime_peak_rss_kb=3228
+runtime_peak_rss_kb=3200
 generated_jvp_vectorized_loop_messages: 0
 generated_vjp_vectorized_loop_messages: 0
 jvp_optimization_report: build/itpplasma-polymorphic-select-type/generated_jvp_optimization.txt
@@ -34,37 +34,37 @@ Unit growth for small function inlining: 36->36 (0%)
 
 Inlined 0 calls, eliminated 0 functions
 
-build/itpplasma-polymorphic-select-type/generated_jvp.f90:26:46: optimized: sinking common stores to *y_33(D)
-build/itpplasma-polymorphic-select-type/generated_jvp.f90:34:37: note: ***** Analysis failed with vector mode V2DI
-build/itpplasma-polymorphic-select-type/generated_jvp.f90:34:37: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:30:46: optimized: sinking common stores to *y_33(D)
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:38:37: note: ***** Analysis failed with vector mode V2DI
+build/itpplasma-polymorphic-select-type/generated_jvp.f90:38:37: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
 vjp_optimization_diagnostic:
-Unit growth for small function inlining: 47->47 (0%)
+Unit growth for small function inlining: 49->49 (0%)
 
 Inlined 0 calls, eliminated 0 functions
 
-build/itpplasma-polymorphic-select-type/generated_vjp.f90:40:20: optimized: sinking common stores with same value to *x_b_43(D)
-build/itpplasma-polymorphic-select-type/generated_vjp.f90:38:16: optimized: sinking common stores to *y_41(D)
-build/itpplasma-polymorphic-select-type/generated_vjp.f90:51:37: note: ***** Analysis failed with vector mode V2DI
-build/itpplasma-polymorphic-select-type/generated_vjp.f90:51:37: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
-build/itpplasma-polymorphic-select-type/generated_vjp.f90:44:44: optimized: sinking common stores to *x_b_43(D)
+build/itpplasma-polymorphic-select-type/generated_vjp.f90:46:20: optimized: sinking common stores with same value to *x_b_43(D)
+build/itpplasma-polymorphic-select-type/generated_vjp.f90:42:16: optimized: sinking common stores to *y_41(D)
+build/itpplasma-polymorphic-select-type/generated_vjp.f90:59:37: note: ***** Analysis failed with vector mode V2DI
+build/itpplasma-polymorphic-select-type/generated_vjp.f90:59:37: note: ***** Skipping vector mode V16QI, which would repeat the analysis for V2DI
+build/itpplasma-polymorphic-select-type/generated_vjp.f90:51:62: optimized: sinking common stores to *x_b_43(D)
 transform_method: date +%s.%N around fo exec --no-build; engine setup is timed separately
 runtime_method: Fortran system_clock over 10000000 dispatches per implementation; /usr/bin/time %e and %M wrap the executable
-oracle: hand JVP/VJP, central finite differences, fixed values, and the adjoint identity for both fixed runtime children
-discrete_contract: dynamic type is passive and fixed throughout each derivative call; switching child type is outside the derivative
+oracle: abstract deferred binding, hand JVP/VJP, central finite differences, fixed values, and the adjoint identity for both runtime children
+discrete_contract: dynamic type is passive and fixed throughout each derivative call; switching child type is outside the derivative; the active input is scalar x
 source_sha256:
-d21040cb9e15768b9102737dab64554344b22fe9eb5619c9385a1adedbc4468d  cases/itpplasma/polymorphic_select_type/primal.f90
+8dfeb874fdf0c7ce90c3e9d73524f8725f8fa6ef7bc09e9ad44d712ae116693f  cases/itpplasma/polymorphic_select_type/primal.f90
 911adb7c8f2454e0aa98334e9f89da150ec0b07032d2936e056accd6dec9a17f  cases/itpplasma/polymorphic_select_type/hand_jvp.f90
 768b92dfc5eb7f52190493a63ae1322173bfef5e0e1e029eea536f0028a85c34  cases/itpplasma/polymorphic_select_type/hand_vjp.f90
 fff1be7d9ca00f5e7b76200f924f094eca5b35a8af146f079b233ee7131aefe5  harness/bench_polymorphic_select_type.f90
-94d0eabbb414e5b5ce185d93ca0d674689e7c5fa94a2a1b07712d1a2ae4aa18e  scripts/bench_itpplasma_polymorphic_select_type.sh
+1f774af5ea289f150129af58971632ac8c873042557be0556aabd599085e9f58  scripts/bench_itpplasma_polymorphic_select_type.sh
 run_output:
 dispatches_per_implementation 10000000
-generated_jvp_seconds_per_dispatch   3.52143890E-09
-hand_jvp_seconds_per_dispatch   3.39168850E-09
-generated_over_hand_jvp_runtime   1.03825540E+00
-generated_vjp_seconds_per_dispatch   3.47432110E-09
-hand_vjp_seconds_per_dispatch   3.49995340E-09
-generated_over_hand_vjp_runtime   9.92676388E-01
+generated_jvp_seconds_per_dispatch   3.44444950E-09
+hand_jvp_seconds_per_dispatch   3.38545440E-09
+generated_over_hand_jvp_runtime   1.01742605E+00
+generated_vjp_seconds_per_dispatch   3.35741460E-09
+hand_vjp_seconds_per_dispatch   3.46976330E-09
+generated_over_hand_vjp_runtime   9.67620644E-01
 generated_jvp_sink   6.18778798E+06
 generated_vjp_sink   6.18778798E+06
 PASS: both runtime children pass JVP, VJP, FD, and adjoint checks

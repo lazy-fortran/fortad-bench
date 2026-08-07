@@ -8,7 +8,7 @@ case_dir="$root/$case_rel"
 out="$root/build/itpplasma-polymorphic-select-type"
 result="$root/results/itpplasma_polymorphic_select_type_validation.txt"
 fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
-required_fortad_commit=da1d876afa29f2357bce45ce3500904270ddda83
+required_fortad_commit=51e54576dac9f62a3629c2fc23f54ee6dd014a15
 fc=${FC:-gfortran}
 compile_flags=(-std=f2018 -O3 -ffree-line-length-none -fno-lto)
 
@@ -161,10 +161,12 @@ os_name=$(awk -F= '$1 == "PRETTY_NAME" {gsub(/"/, "", $2); print $2}' \
     printf 'setup is timed separately\n'
     printf 'runtime_method: Fortran system_clock over 10000000 dispatches per '
     printf 'implementation; /usr/bin/time %%e and %%M wrap the executable\n'
-    printf 'oracle: hand JVP/VJP, central finite differences, fixed values, and '
-    printf 'the adjoint identity for both fixed runtime children\n'
+    printf 'oracle: abstract deferred binding, hand JVP/VJP, central finite '
+    printf 'differences, fixed values, and the adjoint identity for both '
+    printf 'runtime children\n'
     printf 'discrete_contract: dynamic type is passive and fixed throughout each '
-    printf 'derivative call; switching child type is outside the derivative\n'
+    printf 'derivative call; switching child type is outside the derivative; '
+    printf 'the active input is scalar x\n'
     printf 'source_sha256:\n'
     (
         cd "$root"
