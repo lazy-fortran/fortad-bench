@@ -1,6 +1,6 @@
 # Pure-Fortran Tapenade batch manifest
 
-This report joins static and compiler evidence for `1,218` pure-Fortran candidates from a `1,292`-row queue. Mixed-language candidates are excluded.
+This report joins static and compiler evidence for `1,217` pure-Fortran candidates from a `1,291`-row queue. Mixed-language candidates are excluded.
 
 It is an evidence-only handoff. `compiler-clean` means each listed source was accepted by the recorded syntax-only compiler (apart from include fragments, which are not standalone units). It does not claim Tapenade parsing, FortAD support, linking, runtime behavior, or derivative correctness.
 
@@ -15,7 +15,7 @@ scripts/batch_tapenade_fortran.py --check
 
 | status | candidates |
 |---|---:|
-| `compiler-clean` | 515 |
+| `compiler-clean` | 514 |
 | `compiler-errors` | 450 |
 | `compiler-missing-dependency` | 253 |
 
@@ -23,7 +23,7 @@ scripts/batch_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 1811 |
+| `compiled` | 1808 |
 | `include-fragment-not-compiled` | 123 |
 | `syntax-error` | 1376 |
 
