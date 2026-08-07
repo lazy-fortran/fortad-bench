@@ -1,0 +1,33 @@
+schema_version = 1
+name = "tapenade-set05-tranche-b"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set05_set06_tranche_b.sh"
+result = "results/tapenade_set05_set06_tranche_b_validation.txt"
+
+[[case]]
+id = "v150"
+upstream_source = "nonRegressions/set05/v150/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "f(t)"
+ported_entry_point = "set05_v150(t,f)"
+independent = ["t"]
+dependent = "f"
+function = "f = exp(t*t)"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "v168"
+upstream_source = "nonRegressions/set05/v168/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "test(x,y)"
+ported_entry_point = "set05_v168(x,y)"
+independent = ["x"]
+dependent = "y"
+function = "y = abs(abs(2*x)-4) * abs(2*x)"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+domain = "all x components avoid the ABS kinks at x=0 and abs(2*x)=4"
+classification = "runnable-ported"
+port_boundary = "The overwritten upstream x intermediate is represented by a local temporary; y is unchanged."

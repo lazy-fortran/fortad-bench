@@ -1,0 +1,33 @@
+schema_version = 1
+name = "tapenade-set06-tranche-b"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set05_set06_tranche_b.sh"
+result = "results/tapenade_set05_set06_tranche_b_validation.txt"
+
+[[case]]
+id = "v314"
+upstream_source = "nonRegressions/set06/v314/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "test1(x,y,z)"
+ported_entry_point = "set06_v314(x,y,z)"
+independent = ["y", "z"]
+dependent = "x"
+function = "x = y + z*z"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+port_boundary = "The unused upstream eor DATA table is omitted; the active map is unchanged."
+
+[[case]]
+id = "v379"
+upstream_source = "nonRegressions/set06/v379/program.f90"
+stored_references = ["program_p.f90", "program_p.msg"]
+upstream_entry_point = "subr(n,x,f)"
+ported_entry_point = "set06_v379(n,x,f)"
+independent = ["x"]
+dependent = "f"
+function = "f = sqrt(sum(x)**2)"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+domain = "sum(x) != 0; tests use positive sums away from the absolute-value kink"
+classification = "runnable-ported"
