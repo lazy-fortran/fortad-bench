@@ -282,6 +282,8 @@ Procedure-interface and complex-value boundaries:
 The paired measurements and refusal diagnostics are in the
 [`procedure-interface record`](results/itpplasma_interfaces_validation.txt).
 Expected refusals are progress evidence, not performance wins.
+The full positive/refusal acceptance matrix is in the
+[`itpplasma end-to-end closeout`](ROADMAP.md#itpplasma-end-to-end-closeout).
 
 FortAD also has an in-tree bounded concrete type-bound-call oracle for a
 same-file `type(t)` receiver with default implicit `PASS`.
