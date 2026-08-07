@@ -1,0 +1,55 @@
+schema_version = 1
+name = "tapenade-set01-lh107-multi-argument-max"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh107/run.sh"
+result = "cases/tapenade-set01/lh107/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh107/program.f",
+    "nonRegressions/set01/lh107/program_b.f",
+    "nonRegressions/set01/lh107/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+
+upstream_entry_point = "test(a,b)"
+ported_entry_point = "test(a,b); exact-source FortAD -p/-d/-b products"
+independent = ["a", "b"]
+dependent = ["a", "b"]
+options = ["-p", "-d -root test", "-b -root test"]
+modes = [
+    "exact-source:strict-compile-pass-legacy-compile-pass",
+    "stored-reverse:strict-compile-refusal-legacy-compile-pass",
+    "fresh-parser:generate-strict-and-legacy-compile-pass",
+    "fresh-forward:generate-strict-and-legacy-compile-refusal",
+    "fresh-reverse:generate-strict-compile-refusal-legacy-compile-pass",
+    "fortad-exact:check-and--p--d--b-generate-strict-compile-pass",
+]
+oracle = [
+    "independent exact-source inventory of the two MAX expressions and overwrite order",
+    "central-difference JVP for b below and above the MAX kink",
+    "reverse dot-product identity for both final outputs",
+]
+classification = "runnable-upstream-fortad-multi-argument-max"
+dependencies = [
+    "Tapenade records TC32/AD09 for the seven-actual MAX call and emits an unresolved MAX_D in fresh forward output",
+    "stored and fresh reverse references use legacy INTEGER*4 and implicit external runtime procedures; strict compilation refuses while legacy syntax compilation passes",
+    "no custom MAX derivative rule, source rewrite, or synthetic port is introduced",
+]
+expected_diagnostics = [
+    "the exact upstream primal passes both strict F2018 and legacy fixed-form gates",
+    "FortAD direct Tapenade-compatible parser, forward, and reverse products all pass the strict free-form gate",
+    "the independent oracle treats the exact sequential operation as max(b,10) for both final values and checks JVP/VJP behavior away from the kink",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; parser-strict-pass; forward-compiler-refusal-MAX_D; reverse-strict-refusal-legacy-pass"
+fortad_result = "pass-check-and-direct-p-d-b-generation-strict-compilation"
+bounded_sources = []
+bounded_domain = "exact scalar source semantics sampled away from b=10; no repaired Fortran source"
+closure = "The exact upstream files are used by reference at pinned hashes. This is a runnable FortAD transform of the original source, not a repaired upstream case and not evidence that Tapenade's unresolved MAX_D forward product is executable."
+
+[upstream_sha256]
+"program.f" = "recorded-by-runner"
+"program_b.f" = "recorded-by-runner"
+"program_b.msg" = "recorded-by-runner"

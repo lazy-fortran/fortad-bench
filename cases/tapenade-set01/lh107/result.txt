@@ -1,0 +1,44 @@
+case: Tapenade nonRegressions/set01/lh107
+classification: runnable-upstream-fortad-multi-argument-max
+runner_result: pass
+recorded_utc: 2026-08-07T16:00:04Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+required_fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_worktree: clean
+upstream_entry_point: test(a,b)
+strict_compile: exact=0 stored_reverse=1 fresh_parser=0 fresh_forward=1 fresh_reverse=1 fortad_check=0 fortad_parser=0 fortad_forward=0 fortad_reverse=0
+legacy_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=1 fresh_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+fortad_exact_behavior: check=pass parser=pass forward=pass reverse=pass all_direct_products_strict_compile
+independent_oracle: source-inventory max-sequence-jvp-finite-difference vjp-adjoint-identity
+oracle_source_inventory: pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_adjoint_identity: pass
+oracle_status: pass
+upstream_sha256:
+69c375b30fe8852d0fb15d55c040e8bd09e9d19bd26d744cb4fd5a3e5bbd1473  nonRegressions/set01/lh107/program.f
+1e796229b0973580b61e1a18cdecb40c0a2b29da93a1cec32e6341e7af1204e0  nonRegressions/set01/lh107/program_b.f
+1fabf36eef0be9505bec4d96a8cf65bfa9627ae973e69f31ee86845906530c14  nonRegressions/set01/lh107/program_b.msg
+fresh_tapenade_sha256:
+313dd3fdd13503922e9b892a84bd787c8c9dcb5bc565f866002565d99c3f2f1a  parser/lh107_p.f
+2d52946536b9817ac5d202134db6a6e23b40cb3dd4951f5d0becd72f9eafd3ec  parser/lh107_p.msg
+d3e60cd011c5560d6e32dc9528cef068f9624c108f44c9617f59d655bce28b6c  forward/lh107_d.f
+dbd09a6b8267189c79df61875f6c1f9e13035d77520a0c457eb17fecf71e0415  forward/lh107_d.msg
+dcf59e142adc66e9946f8724081346bd6377d933dbed8bf83bf6ded49c172b1a  reverse/lh107_b.f
+dbd09a6b8267189c79df61875f6c1f9e13035d77520a0c457eb17fecf71e0415  reverse/lh107_b.msg
+fortad_output_sha256:
+3a1980577f6f20d50fb3ffd9c69ed63e6f65f3227462d1d44c5e711e0a0a908e  check.f90
+3a1980577f6f20d50fb3ffd9c69ed63e6f65f3227462d1d44c5e711e0a0a908e  parser/lh107_p.f90
+e3df508321ee067e782af7ffb1056a2335f58bbaa7523a6f06d37b2122c89448  forward/lh107_d.f90
+e1b5f59604066e7eb6efdacc733963b922c2c1b79bd9419fc5681a093ecea4af  reverse/lh107_b.f90
+case_artifact_sha256:
+7895392daa9ae127d2c10f65ac0746bcab29254f0bab0fe19c95922f31a46449  manifest.toml
+de70a854ec141adc069e3b49d9d0c0decc28cfeb4d14af3c8d01be4f96873cab  notes.md
+742b3b38635cb0450cee2bdbcd4eb9bdf367fffbc69970515a8d4cf4742f3a34  oracle.py
+078d0fb0bc8b59f7ff49ddc116aafe57ef2825d8d1f959f17105400d6da69ba9  run.sh
+f3bdd82a22e0f6dc6311d223d944ef4ff14b6687a03c0ed24222c8555520763c  test_contract.py

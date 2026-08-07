@@ -441,6 +441,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("--shard-count", type=int, default=1)
     parser.add_argument("--shard-index", type=int, default=0)
     parser.add_argument("--limit", type=int)
+    parser.add_argument("--verbose", action="store_true", help="print the complete single-case JSON record")
     parser.add_argument("--include-classified", action="store_true", help=argparse.SUPPRESS)
     return parser
 
@@ -498,6 +499,8 @@ def main(argv: Iterable[str] | None = None) -> int:
     record = probe_spec(spec, single_dir, tapenade, fortad, args.timeout)
     if args.result:
         _write_record(Path(args.result), record)
+    elif not args.verbose:
+        print(json.dumps({key: record[key] for key in ("case_path", "status", "entry_point", "result_dir")}))
     else:
         print(json.dumps(record, indent=2, sort_keys=True))
     return 0
