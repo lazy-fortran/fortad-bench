@@ -665,6 +665,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh030",
             "nonRegressions/set01/lh031",
             "nonRegressions/set01/lh034",
+            "nonRegressions/set01/lh038",
+            "nonRegressions/set01/lh041",
+            "nonRegressions/set01/lh045",
             "nonRegressions/set02/lh150",
             "nonRegressions/set03/ht09",
             "nonRegressions/set04/lh110",
@@ -698,6 +701,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 ("nonRegressions/set01/lh015", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh035", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh036", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh037", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh042", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh044", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set01/lh052", "not-run-invalid-upstream-source"),
             ],
         )
@@ -743,6 +749,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-exact-source-refusal-mutating-call-boundary",
                 "pass-transform-compile-runtime-exact-source-refusal",
                 "pass-forward-transform-compile-reverse-refusal-control-flow",
+                "pass-forward-transform-compile-reverse-refusal-generated-compile",
             },
         )
         expected_evidence = {
@@ -824,6 +831,30 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "forward|reverse",
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
                 "dependencies": "unresolved external callback; fixed-form RETURN boundary",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
+            },
+            "nonRegressions/set01/lh038": {
+                "entry_point": "top(x); port set01_lh038(pi,x)",
+                "tapenade_options": "-p|-d-root-top|-b-root-top",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
+                "dependencies": "exact COMMON /ext/ boundary; bounded port makes state explicit; bounded reverse has duplicate x_b",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh041": {
+                "entry_point": "adj10(tab,q); port set01_lh041(a,b,q,result)",
+                "tapenade_options": "-p|-d-root-adj10|-b-root-adj10",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
+                "dependencies": "exact COMMON/fixed-form nested-loop boundary; bounded port makes state explicit; bounded reverse needs per-iteration storage",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh045": {
+                "entry_point": "S1(x,i1,y,i2,z); port set01_lh045(x,y,w4,v2,x_out,z,w4_out)",
+                "tapenade_options": "-p|-d-root-S1|-b-root-S1",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
+                "dependencies": "exact COMMON /c1/ and /c2/ state; bounded forward exposes state; bounded reverse has INTEGER*4/0.0_kind=8 compile boundary",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
             },
             "nonRegressions/set01/lh007": {
