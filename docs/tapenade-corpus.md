@@ -8,9 +8,13 @@ scripts/fetch_upstreams.py --corpus tapenade
 
 The command checks out Tapenade commit
 `e59864cab441d4175df75383b3ff58c3dcd26df9`, verifies its Git tree and all
-10,977 tracked paths, then writes `docs/generated/tapenade-corpus.md`. Both the
-checkout and generated inventory are gitignored. Repeat the audit without a
-network request with:
+10,977 tracked paths, and verifies the committed static triage and status
+ledger against that checkout before writing `docs/generated/tapenade-corpus.md`.
+Both the checkout and generated inventory are gitignored. If a previous
+gitignored checkout is incomplete or malformed, the pinned fetch rebuilds it
+from a temporary checkout; a locally modified checkout is preserved and fails
+the audit. A fresh clone therefore needs no separate seed or triage step.
+Repeat the audit without a network request with:
 
 ```bash
 scripts/fetch_upstreams.py --audit-corpora

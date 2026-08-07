@@ -490,6 +490,37 @@ expected_candidate_cases = 1
                 with self.assertRaisesRegex(fetch_upstreams.CorpusError, "incomplete checkout"):
                     fetch_upstreams.audit_corpus(entry)
 
+    def test_pinned_fetch_repairs_an_incomplete_existing_checkout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = self.make_source(root)
+            self.write_manifest(root, source, revision, tree)
+            destination = root / "upstream"
+            entry = {
+                "name": "fixture",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                checkout = destination / "fixture"
+                missing = checkout / "corpus" / "set01" / "case_a" / "program.f90"
+                missing.unlink()
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                inventory = fetch_upstreams.audit_corpus(entry)
+                tracked = checkout / "corpus" / "set01" / "case_a" / "program.f90"
+                tracked.write_text("local edit\n")
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                self.assertEqual(tracked.read_text(), "local edit\n")
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "checkout is modified"):
+                    fetch_upstreams.audit_corpus(entry)
+
+            self.assertEqual(inventory["revision"], revision)
+            self.assertTrue(missing.is_file())
+
     def test_audit_rejects_modified_and_untracked_materialized_files(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
