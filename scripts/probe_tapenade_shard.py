@@ -215,10 +215,11 @@ def render(rows: list[dict[str, str]]) -> str:
         lines.append("| " + " | ".join(value.replace("|", "\\|") for value in values) + " |")
     lines += [
         "",
-        "The `runnable` rows are the next candidates for explicit entry-point",
+        "The other `runnable` rows are the next candidates for explicit entry-point",
         "selection, generated-code compilation, and independent finite-difference",
-        "and adjoint-oracle cases. Until those gates exist, the ledger remains",
-        "`untriaged` and this report must not be read as a support result.",
+        "and adjoint-oracle cases. The separate `v420` case has already cleared",
+        "those gates. This report remains source-viability evidence and must not",
+        "be read as a support result for the other rows.",
         "",
     ]
     return "\n".join(lines)
