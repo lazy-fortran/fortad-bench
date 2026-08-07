@@ -1,0 +1,22 @@
+schema_version = 1
+name = "tapenade-set01-tranche-h"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_h.sh"
+result = "results/tapenade_set01_tranche_h_refusal_validation.txt"
+
+[[case]]
+id = "lh004"
+upstream_source = "nonRegressions/set01/lh004/program.f"
+entry_point = "tata(y,z,x)"
+ported_entry_point = "set01_lh004(y_initial,z_initial,x1_final,x2_final)"
+independent = ["y_initial", "z_initial"]
+dependent = ["x1_final", "x2_final"]
+domain = "y_initial=2.3 and z_initial=+/-0.7; fixed four-iteration trace"
+function = "x1_final=4*abs(z_initial), x2_final=4*y_initial"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "forward-transform", "primal", "hand", "central-difference-sweep", "FortAD-diagnostic"]
+dependencies = "none"
+classification = "unsupported-reverse-branch-in-loop"
+expected_diagnostic = "fortad: reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone"

@@ -608,6 +608,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         evidence_paths = {
             "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh002",
+            "nonRegressions/set01/lh004",
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh049",
@@ -658,6 +659,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "refused-generated-reverse-does-not-compile",
                 "unsupported-reverse-constant-loop",
                 "unsupported-type-bound-call",
+                "reverse-refused-branch-in-loop",
             },
         )
         expected_evidence = {
@@ -772,6 +774,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh004": {
+                "entry_point": "tata(y,z,x); port set01_lh004(y_initial,z_initial,x1_final,x2_final)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse",
+                "oracle": "strict-compiler|forward-transform|primal|hand|central-difference-sweep|FortAD-diagnostic",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-reference-not-rerun",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))
