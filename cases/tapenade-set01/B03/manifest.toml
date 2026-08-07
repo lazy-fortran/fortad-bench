@@ -1,0 +1,86 @@
+schema_version = 1
+name = "tapenade-set01-B03-unsupported-common"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "8137837b6c474708c20ea86ad02b086aa15322fd"
+source_form = "fixed"
+runner = "cases/tapenade-set01/B03/run.sh"
+result = "cases/tapenade-set01/B03/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/B03/Options",
+    "nonRegressions/set01/B03/program.f",
+    "nonRegressions/set01/B03/program_p.f",
+    "nonRegressions/set01/B03/program_p.msg",
+    "nonRegressions/set01/B03/program_d.f",
+    "nonRegressions/set01/B03/program_d.msg",
+    "nonRegressions/set01/B03/program_b.f",
+    "nonRegressions/set01/B03/program_b.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_p.msg",
+    "program_d.f",
+    "program_d.msg",
+    "program_b.f",
+    "program_b.msg",
+]
+
+upstream_entry_point = "viscflux(npdes,ewt,ubn,nl,beta,xi1,qi1,xdoti1,qli1,qpi1,disti1,epst,xi2,qi2,xdoti2,qli2,qpi2,disti2,vres6,fn,second_order)"
+ported_entry_point = "not-claimed; exact source reaches unsupported COMMON at line 33"
+independent = ["qpi2", "fn", "vres6", "qli1", "qli2", "qi1", "qi2", "qpi1"]
+dependent = ["fn", "vres6"]
+options = [
+    "Tapenade parser: -p -root viscflux -O DIR -o b03b01",
+    "Tapenade forward: -d -root viscflux -O DIR -o b03b01",
+    "Tapenade reverse: -b -root viscflux -O DIR -o b03b01",
+    "FortAD parser: check --proc viscflux --output PATH",
+    "FortAD forward: --mode forward --proc viscflux --indep qpi1,qi1,qli1,qi2,qli2,qpi2,vres6,fn --dep fn",
+    "FortAD reverse: --mode reverse --proc viscflux --indep qpi1,qi1,qli1,qi2,qli2,qpi2,vres6,fn --dep fn",
+]
+modes = [
+    "exact-source:strict-refusal-legacy-compile-pass",
+    "stored-parser-forward-reverse:strict-refusal-legacy-compile-pass",
+    "fresh-parser-forward-reverse:generate-strict-refusal-legacy-compile-pass",
+    "fortad-check:expected-refusal-unsupported-common-line-33-no-output",
+    "fortad-forward:expected-refusal-unsupported-common-line-33-no-output",
+    "fortad-reverse:expected-refusal-unsupported-common-line-33-no-output",
+]
+contract_tests = [
+    "independent-source-shape-and-final-flux-jvp-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-with-strict-and-legacy-gates",
+    "exact-FortAD-parser-forward-reverse-common-refusal-with-no-output",
+]
+oracle = [
+    "independent exact-source procedure/common/external-call inventory",
+    "independent hand model of the final laminar tensor and heat-flux assignments",
+    "central-difference directional JVP check",
+    "independent Jacobian-transpose dot-product VJP check",
+]
+classification = "expected-refusal-fortad-unsupported-common-line-33"
+dependencies = [
+    "The exact fixed-form source uses legacy INTEGER*4 and REAL*8 declarations; exact and stored sources pass the legacy gate but refuse strict F2018.",
+    "The exact procedure enters COMMON /files/ at source line 33, which is currently unsupported by FortAD's parser.",
+    "Tapenade reports the undeclared external procedure low and requests a differential for it; no external rule or repaired source is added.",
+    "The independent oracle covers only the exact final viscous-flux arithmetic subgraph on a bounded laminar domain; it is not a support port.",
+]
+expected_diagnostics = [
+    "exact program.f and stored program_p.f/program_d.f/program_b.f compile in legacy fixed form and refuse strict F2018 on nonstandard declarations",
+    "fresh pinned Tapenade parser, tangent, and adjoint generation succeeds; every fresh output has the same strict refusal and legacy compile pass",
+    "FortAD check, forward, and reverse all return unsupported statement at line 33 and emit no derivative output",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; strict-refusal-legacy-compile-pass"
+fortad_result = "expected-refusal-check-forward-reverse-unsupported-common-line-33-no-output"
+bounded_sources = []
+bounded_domain = "exact-source final tensor/heat-flux arithmetic with fixed unit normal, laminar coefficients, and no repaired Fortran source"
+closure = "The pinned upstream source and all stored references remain authoritative and untouched. The bounded independent arithmetic oracle is evidence for the exact assignment semantics only; no COMMON implementation, external LOW rule, or synthetic port is claimed."
+
+[upstream_sha256]
+"nonRegressions/set01/B03/Options" = "recorded-by-runner"
+"nonRegressions/set01/B03/program.f" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_p.f" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_p.msg" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_d.f" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_d.msg" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_b.f" = "recorded-by-runner"
+"nonRegressions/set01/B03/program_b.msg" = "recorded-by-runner"

@@ -540,6 +540,29 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh109
 Each directory contains its manifest, runner result, notes, oracle, and
 contract test.
 
+## Tranche AK: `B03`, `ala00`, `ala01`, and `ala02`
+
+This tranche closes four early set01 fixed-form cases with fresh pinned
+Tapenade parser/forward/reverse generation, strict and legacy gates, exact
+FortAD probes, and independent three-test contracts. `B03` retains the exact
+`COMMON`/external-call boundary. `ala00`, `ala01`, and `ala02` retain the
+fixed-point cases' unsupported `PRINT` boundary; their stored and fresh
+reverse references also expose legacy `REAL*8` or implicit-interface limits.
+No source rewrite, I/O removal, runtime stub, or synthetic derivative port is
+counted.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/B03/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala00/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala01/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/ala02/run.sh
+```
+
+Each directory contains its manifest, runner result, notes, oracle, and
+contract test.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`

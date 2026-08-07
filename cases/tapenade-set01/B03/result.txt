@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions set01 B03/B03
+classification: expected-refusal-fortad-unsupported-common-line-33
+runner_result: pass
+recorded_utc: 2026-08-07T16:35:53Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: 8137837b6c474708c20ea86ad02b086aa15322fd
+required_fortad_commit: 8137837b6c474708c20ea86ad02b086aa15322fd
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: viscflux(npdes,ewt,ubn,nl,beta,xi1,qi1,xdoti1,qli1,qpi1,disti1,epst,xi2,qi2,xdoti2,qli2,qpi2,disti2,vres6,fn,second_order)
+tapenade_options: parser=-p/-root viscflux forward=-d/-root viscflux reverse=-b/-root viscflux -O DIR -o b03b01
+exact_and_stored_compile: program=1/0 program_p=1/0 program_d=1/0 program_b=1/0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1
+tapenade_fresh_legacy_compile: parser=0 forward=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 diagnostic="unsupported statement at line 33" output=none
+fortad_exact_forward: expected-refusal status=1 diagnostic="unsupported statement at line 33" output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic="unsupported statement at line 33" output=none
+independent_oracle:
+  oracle_source_shape: viscflux, COMMON, LOW call, final flux block pass
+  oracle_jvp: final tensor/heat-flux model agrees with central differences
+  oracle_vjp: hand Jacobian-transpose dot-product identity passes
+  oracle_domain: fixed unit normal and laminar coefficients; no repaired port
+  oracle_status: pass
+no_repaired_port: common-block-and-external-low-boundary
+upstream_sha256:
+7420b55fc4ff87a94afb687355f4d23131b9863cb3a6e6baad5f4bd612c80602  nonRegressions/set01/B03/Options
+5d9743dae56eda01f09462193df7f40ee8ec887a3aeddf60f40b024c902abd22  nonRegressions/set01/B03/program.f
+bdeaf719fb3231c58ef739581ce83e2fde890568b9ce1e7a89f56ce06de2d3e2  nonRegressions/set01/B03/program_p.f
+e9873ebda70eb3dc57601c1b6187e2697c2acf859f6f3a050f21f276e21a4a31  nonRegressions/set01/B03/program_p.msg
+cfc4e3efbca058f76194826109a646ba11e2dd9293ac02d1cdbdb5e25b53533c  nonRegressions/set01/B03/program_d.f
+8d5b76d91ff6df5e840528ffba581555456e7e37c21ca72b37b865d266e60743  nonRegressions/set01/B03/program_d.msg
+790d3d760a28f138c528aa92849740a85ad6fba08d139067f7f117ebbd610896  nonRegressions/set01/B03/program_b.f
+8d5b76d91ff6df5e840528ffba581555456e7e37c21ca72b37b865d266e60743  nonRegressions/set01/B03/program_b.msg
+fresh_tapenade_sha256:
+429e6ecf0e92e411b5c834154604b7864721849e3ceaa9d3ea6e7b891b39c24f  b03b01_p.f
+e9873ebda70eb3dc57601c1b6187e2697c2acf859f6f3a050f21f276e21a4a31  b03b01_p.msg
+7ac1eac2ab3075661b44b2b931d942422d3461e99715dd1bfbba2be012887f17  b03b01_d.f
+092615352c10e335370a10f740c1804db3fd90b5a92ba7c45efc8f23c8b5baac  b03b01_d.msg
+0ac4598ffd1cf513beb3f314f3d50bb495626c108eb089d524dc8c96b1c1cfed  b03b01_b.f
+092615352c10e335370a10f740c1804db3fd90b5a92ba7c45efc8f23c8b5baac  b03b01_b.msg
+case_artifact_sha256:
+aed61608e01299891210e8d7c56f925927771a52465c3de0c29442641319c72c  manifest.toml
+10158e07182979e88a48008a8c97628936c6b8ee19f581f78e2003a50c65dd17  notes.md
+c31cec6326ac4150cac5676b12554bf8c0ffc438aa8f32794c38016f5c357a94  oracle.py
+8012c2528b5a59ba6f2f1fd8008aaa2d253daff3a7c50b74245e9be57b6b0e29  run.sh
+5a764a39a907fc4bec11cb7b255d72aa5751c48215b18d3c2c4dddaaf92f549e  test_contract.py

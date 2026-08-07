@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set01/ala02
+classification: expected-refusal-fortad-unsupported-print-line-39
+runner_result: pass
+recorded_utc: 2026-08-07T16:36:00Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only
+fortad_commit: 8137837b6c474708c20ea86ad02b086aa15322fd
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: root(x,y,initial)
+tapenade_options: -p; -d -root root; -b -root root; Options=-context -fixinterface -standalonediff
+strict_compile: exact=0 stored_p=0 stored_d=0 stored_b=1 fresh_parser=0 fresh_forward=0 fresh_reverse=1
+legacy_compile: exact=0 stored_p=0 stored_d=0 stored_b=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_reference_diagnostics: normalized-p-d-b-match-stored
+fortad_modern_behavior: check=1 forward=1 reverse=1 diagnostic=unsupported-statement-line-39 no-output
+fortad_compatible_behavior: parser=1 forward=2 reverse=2 diagnostic=unsupported-statement-line-39 no-output
+independent_oracle: intended-fixed-point-primal jvp-finite-difference vjp-adjoint-identity
+oracle_behavioral_cases: 3
+oracle_sample_value_x1: 1.0000025309070517e+00
+oracle_sample_iterations_x1: 20
+oracle_finite_difference_max_error: 7.8685058468863645e-11
+oracle_adjoint_max_error: 2.8326674339496094e-11
+oracle_status: pass
+no_repaired_port: exact-source-only
+upstream_sha256:
+152b2f704166c2b6fa2704546be392a70adc12662de2f3018e2e154c7ac8f8d2  nonRegressions/set01/ala02/Options
+2ff11a38a4e8344db2d891130743b38ab02698420b2f97c37b004ddad89f98a4  nonRegressions/set01/ala02/program.f
+7ed26ef2c3f83b20c81313628913d7a7fa95453e5f5ac1b142c141e71b1a9890  nonRegressions/set01/ala02/program_p.f
+ab98e5227a3bbed7e82589e0e4e148d3d73cb5b26d5404f2e20be8482eaf2e18  nonRegressions/set01/ala02/program_p.msg
+d0ed9d1ae0265bb96dd028e4c45852c76c4e909d6fed9ddb9b74bb98c506b011  nonRegressions/set01/ala02/program_d.f
+93d54a88b28058b0dac0dd82701cecd1c1e87eca0bb85e575a39811065f27955  nonRegressions/set01/ala02/program_d.msg
+6bd01fa590072fa089fd5cb76eabbf701c834165a8ad8c2aa837545ece3ef833  nonRegressions/set01/ala02/program_b.f
+93d54a88b28058b0dac0dd82701cecd1c1e87eca0bb85e575a39811065f27955  nonRegressions/set01/ala02/program_b.msg
+fresh_tapenade_sha256:
+5d35da1186ec728b86f27b43e616e00f89944c80c72d60cb90bddce80a12487b  parser/ala02_p.f
+ab98e5227a3bbed7e82589e0e4e148d3d73cb5b26d5404f2e20be8482eaf2e18  parser/ala02_p.msg
+93339e52bd35d0c7a928e216b2738b84a7690a993ffbffd2461b24673dc62767  forward/ala02_d.f
+ab98e5227a3bbed7e82589e0e4e148d3d73cb5b26d5404f2e20be8482eaf2e18  forward/ala02_d.msg
+c18f38a12e67773d7d7ef44a7751e476e8c6adc0426ecb3d787b1ca21e46c802  reverse/ala02_b.f
+ab98e5227a3bbed7e82589e0e4e148d3d73cb5b26d5404f2e20be8482eaf2e18  reverse/ala02_b.msg
+case_artifact_sha256:
+cda2bde668714d2b99301fd6a378cfc6e1a48d6ce689f9752eb703e04eb2b9b8  manifest.toml
+3090aa79fdbab1daeb05b5201e58fa7674f192042a47f10ed811da9c9a1295f7  notes.md
+6d909b89dbc536e7ed76e413727a923483c2edadb3c9ec73846af0e172d9958d  oracle.py
+d8ceadeb59596da867186c80ce6ada0791d3203c1d938f42984812f61884f63e  run.sh
+022c0c44bc073e98f0fb9b142042079ba654ef344d45c88bc78ce00b260c9917  test_contract.py

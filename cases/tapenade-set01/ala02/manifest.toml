@@ -1,0 +1,84 @@
+schema_version = 1
+name = "tapenade-set01-ala02-nested-fixed-point"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "8137837b6c474708c20ea86ad02b086aa15322fd"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ala02/run.sh"
+result = "cases/tapenade-set01/ala02/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala02/Options",
+    "nonRegressions/set01/ala02/program.f",
+    "nonRegressions/set01/ala02/program_p.f",
+    "nonRegressions/set01/ala02/program_d.f",
+    "nonRegressions/set01/ala02/program_b.f",
+]
+stored_references = [
+    "program_p.f",
+    "program_p.msg",
+    "program_d.f",
+    "program_d.msg",
+    "program_b.f",
+    "program_b.msg",
+]
+
+upstream_entry_point = "root(x,y,initial)"
+selected_entry_points = ["root(x,y,initial)"]
+ported_entry_point = "not-claimed; exact root is refused at PRINT line 39"
+independent = ["x"]
+dependent = ["y"]
+options = [
+    "-context -fixinterface -standalonediff",
+    "-p",
+    "-d -root root",
+    "-b -root root",
+]
+modes = [
+    "exact-source:strict-and-legacy-syntax-pass",
+    "stored-parser-and-forward:strict-and-legacy-syntax-pass",
+    "stored-reverse:strict-refusal-legacy-pass",
+    "fresh-parser-and-forward:strict-and-legacy-syntax-pass",
+    "fresh-reverse:strict-refusal-legacy-pass",
+    "fortad-modern-check-forward-reverse:expected-refusal-unsupported-print-line-39",
+    "fortad-tapenade-compatible-p-d-b:expected-refusal-unsupported-print-line-39",
+]
+contract_tests = [
+    "independent-fixed-point-primal-iteration-oracle",
+    "independent-root-JVP-central-difference-oracle",
+    "independent-root-VJP-adjoint-identity-oracle",
+]
+oracle = [
+    "independent model of the exact root/toto arithmetic with the inner loop skipped by source order",
+    "finite-difference check of the converged scalar output away from the iteration-count boundary",
+    "JVP/VJP dot-product identity for the scalar x-to-y map",
+]
+classification = "expected-refusal-fortad-unsupported-print-line-39"
+dependencies = [
+    "the exact source has PRINT at line 39, which is an unsupported FortAD statement",
+    "the exact main program passes REAL initial=24. to the INTEGER initial dummy through an implicit interface; Tapenade records TC16 and no exact runtime claim is made",
+    "the stored reverse reference uses nonstandard REAL*8 and therefore refuses the strict F2018 gate while passing the legacy gate",
+    "no repaired source, I/O rule, type-conversion repair, or synthetic derivative port is added",
+]
+expected_diagnostics = [
+    "exact program.f, stored parser, and stored forward sources pass strict and legacy fixed-form syntax gates",
+    "stored reverse passes the legacy gate and refuses strict F2018 at REAL*8",
+    "fresh pinned Tapenade -p, -d -root root, and -b -root root generation succeeds; fresh parser/forward compile strictly and fresh reverse only compiles with legacy syntax",
+    "fresh diagnostics preserve the stored TC16 message after removing only the historical default-root line",
+    "FortAD modern check/forward/reverse and Tapenade-compatible -p/-d/-b probes report unsupported statement at line 39 and emit no derivative output",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; parser-forward-strict-legacy-pass; reverse-strict-refusal-legacy-pass; diagnostics-match-after-default-root-normalization"
+fortad_result = "expected-refusal-modern-check-forward-reverse-unsupported-print-line-39-no-output; compatible-p-d-b-refusal-no-output"
+bounded_sources = []
+bounded_domain = "not-applicable; independent oracle is an idealized arithmetic model only because the exact source has a mismatched REAL-to-INTEGER call and unsupported PRINT"
+closure = "The pinned exact source and all six stored references remain authoritative by reference and hash. The independent fixed-point oracle checks the arithmetic intended by root/toto without turning it into a repaired Fortran port or claiming support for the exact PRINT/type-mismatch boundary."
+
+[upstream_sha256]
+"nonRegressions/set01/ala02/Options" = "152b2f704166c2b6fa2704546be392a70adc12662de2f3018e2e154c7ac8f8d2"
+"nonRegressions/set01/ala02/program.f" = "2ff11a38a4e8344db2d891130743b38ab02698420b2f97c37b004ddad89f98a4"
+"nonRegressions/set01/ala02/program_p.f" = "7ed26ef2c3f83b20c81313628913d7a7fa95453e5f5ac1b142c141e71b1a9890"
+"nonRegressions/set01/ala02/program_p.msg" = "ab98e5227a3bbed7e82589e0e4e148d3d73cb5b26d5404f2e20be8482eaf2e18"
+"nonRegressions/set01/ala02/program_d.f" = "d0ed9d1ae0265bb96dd028e4c45852c76c4e909d6fed9ddb9b74bb98c506b011"
+"nonRegressions/set01/ala02/program_d.msg" = "93d54a88b28058b0dac0dd82701cecd1c1e87eca0bb85e575a39811065f27955"
+"nonRegressions/set01/ala02/program_b.f" = "6bd01fa590072fa089fd5cb76eabbf701c834165a8ad8c2aa837545ece3ef833"
+"nonRegressions/set01/ala02/program_b.msg" = "93d54a88b28058b0dac0dd82701cecd1c1e87eca0bb85e575a39811065f27955"

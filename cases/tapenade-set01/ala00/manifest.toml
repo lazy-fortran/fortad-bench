@@ -1,0 +1,90 @@
+schema_version = 1
+name = "tapenade-set01-ala00-fixed-point-context"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "8137837b6c474708c20ea86ad02b086aa15322fd"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ala00/run.sh"
+result = "cases/tapenade-set01/ala00/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala00/Options",
+    "nonRegressions/set01/ala00/program.f",
+    "nonRegressions/set01/ala00/program_p.f",
+    "nonRegressions/set01/ala00/program_p.msg",
+    "nonRegressions/set01/ala00/program_d.f",
+    "nonRegressions/set01/ala00/program_d.msg",
+    "nonRegressions/set01/ala00/program_b.f",
+    "nonRegressions/set01/ala00/program_b.msg",
+]
+stored_references = ["program_p.f", "program_p.msg", "program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+
+upstream_entry_point = "root(x,y,initial)"
+selected_entry_points = ["root(x,y,initial)"]
+ported_entry_point = "not-applicable-exact-source-fortad-print-refusal"
+independent = ["x", "initial"]
+dependent = ["y"]
+function = "Fixed-point iteration z = 2/(z+x), followed by y = z*x; the exact source also prints the iteration count."
+options = [
+    "Tapenade parser: -p -root root -O DIR -o ala00 program.f",
+    "Tapenade forward: -d -root root -O DIR -o ala00 program.f",
+    "Tapenade reverse: -b -root root -O DIR -o ala00 program.f",
+    "FortAD parser: check --proc root --output FILE program.f",
+    "FortAD forward: --mode forward --proc root --indep x,initial --dep y --name ala00_d --module ala00_d_mod --output FILE program.f",
+    "FortAD reverse: --mode reverse --proc root --indep x,initial --dep y --name ala00_b --module ala00_b_mod --output FILE program.f",
+]
+modes = [
+    "exact-primal:strict-pass-legacy-pass",
+    "stored-parser:strict-pass-legacy-pass",
+    "stored-forward:strict-pass-legacy-pass",
+    "stored-reverse:strict-refusal-real8-cumul-legacy-pass",
+    "fresh-parser:generate-strict-pass-legacy-pass",
+    "fresh-forward:generate-strict-pass-legacy-pass",
+    "fresh-reverse:generate-strict-refusal-real8-cumul-legacy-pass",
+    "fortad-parser:expected-refusal-unsupported-print-line-39",
+    "fortad-forward:expected-refusal-unsupported-print-line-39",
+    "fortad-reverse:expected-refusal-unsupported-print-line-39",
+]
+contract_tests = [
+    "exact-source-and-stored-reference-strict-legacy-compiler-boundary",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-and-compiler-boundary",
+    "exact-FortAD-three-mode-refusal-and-independent-fixed-point-JVP-VJP-oracle",
+]
+oracle = [
+    "strict-and-legacy-fixed-form-compiler-gates",
+    "fresh-pinned-Tapenade-generation",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent fixed-point iteration source-shape model",
+    "independent directional JVP versus central difference",
+    "independent VJP dot-product identity",
+    "upstream-source-SHA256-contract",
+]
+classification = "expected-refusal-fortad-unsupported-print-and-reverse-real8"
+dependencies = [
+    "Options contains -context; the exact stored reverse reference uses REAL*8 cumul and therefore fails the strict F2018 gate while passing the legacy gate.",
+    "The exact source has PRINT *, '#iterations:', i at line 39; FortAD currently refuses parser, forward, and reverse requests at that unsupported statement.",
+    "Tapenade-generated reverse code retains the same REAL*8 strict-compiler boundary; the external Tapenade runtime is not synthesized or linked by this case.",
+]
+expected_diagnostics = [
+    "exact program.f, program_p.f, and program_d.f pass strict and legacy fixed-form syntax checks",
+    "exact program_b.f passes legacy syntax but strict syntax refuses GNU-extension REAL*8 cumul",
+    "fresh pinned Tapenade parser and tangent sources generate and pass strict and legacy checks",
+    "fresh pinned Tapenade reverse source generates, passes legacy, and refuses strict syntax at REAL*8 cumul",
+    "FortAD check, forward, and reverse all refuse at unsupported statement line 39 and produce no output",
+    "the independent fixed-point model passes primal, central-difference JVP, and VJP dot-product checks",
+]
+fresh_generated_sources = ["ala00_p.f", "ala00_d.f", "ala00_b.f"]
+fresh_generated_messages = ["ala00_p.msg", "ala00_d.msg", "ala00_b.msg"]
+tapenade_result = "pass-fresh-parser-forward-generation-strict-legacy; reverse-generation-legacy-pass-strict-REAL8-refusal"
+fortad_result = "expected-refusal-parser-forward-reverse-unsupported-print-line-39-no-output"
+closure = "The exact source, Options file, and stored references remain untouched and are retained by hash. No print removal, fixed-point specialization, Tapenade runtime stub, REAL*8 replacement, or derivative port is claimed. The Python oracle models only the deterministic root map and its derivatives to validate the semantic boundary independently."
+
+[upstream_sha256]
+"nonRegressions/set01/ala00/Options" = "f9c2b96cfec05af95937ff9862ac813e2880b358d43c29ce32f7935f967a98a0"
+"nonRegressions/set01/ala00/program.f" = "c9f808bcda7b9527193b142786be5e90da771a74268e3ec0cae5713201069092"
+"nonRegressions/set01/ala00/program_p.f" = "be6611dad7ecd75a05d967139e8fdd7ceb420c4c5607231730c16d174224df66"
+"nonRegressions/set01/ala00/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set01/ala00/program_d.f" = "fcc0c6f0db129932c0f6aecf58524b9c78809e963bfbadca63ee77d996662907"
+"nonRegressions/set01/ala00/program_d.msg" = "4db1566b3dd741034efbb04ae7010288f7caadc1f6089bd8acd3b00757a3a1b5"
+"nonRegressions/set01/ala00/program_b.f" = "edba01baa4c2363af7ae8fe270daf2ed03a1d1fb58d228c4eeb4782baaf6a4e5"
+"nonRegressions/set01/ala00/program_b.msg" = "4db1566b3dd741034efbb04ae7010288f7caadc1f6089bd8acd3b00757a3a1b5"

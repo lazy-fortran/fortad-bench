@@ -1,0 +1,66 @@
+schema_version = 1
+name = "tapenade-set01-ala01-fixed-point-context-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "8137837b6c474708c20ea86ad02b086aa15322fd"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ala01/run.sh"
+result = "cases/tapenade-set01/ala01/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ala01/Options",
+    "nonRegressions/set01/ala01/program.f",
+    "nonRegressions/set01/ala01/program_d.f",
+    "nonRegressions/set01/ala01/program_d.msg",
+    "nonRegressions/set01/ala01/program_b.f",
+    "nonRegressions/set01/ala01/program_b.msg",
+]
+stored_references = ["program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+upstream_entry_point = "root(x,y,initial)"
+selected_entry_points = ["root(x,y,initial)"]
+ported_entry_point = "not-claimed-exact-source-only"
+independent = ["x", "initial"]
+dependent = ["y"]
+options = [
+    "-p -context -root root -O . -o ala01 program.f",
+    "-d -context -root root -O . -o ala01 program.f",
+    "-b -context -root root -O . -o ala01 program.f",
+]
+modes = [
+    "exact-source-strict-and-legacy-syntax-gates",
+    "stored-forward-strict-and-legacy-syntax-gates",
+    "stored-reverse-strict-refusal-REAL*8-and-legacy-pass",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation",
+    "fresh-parser-and-forward-strict-legacy-pass",
+    "fresh-reverse-strict-refusal-REAL*8-and-legacy-pass",
+    "exact-FortAD-check-forward-reverse-refusal",
+]
+oracle = [
+    "independent fixed-point primal recurrence",
+    "analytic JVP checked against central finite differences",
+    "analytic VJP checked by the dot-product identity",
+    "upstream source SHA-256 contract",
+]
+classification = "expected-refusal-fortad-unsupported-print-line-39"
+dependencies = [
+    "The exact source is self-contained; no external implementation is needed for root.",
+    "FortAD's exact fixed-form parser refuses the PRINT statement at source line 39 in all three CLI modes.",
+    "Tapenade's reverse artifact uses nonstandard REAL*8 cumul, so the exact and fresh reverse artifacts fail strict F2018 but pass the legacy gate.",
+]
+expected_diagnostics = [
+    "program.f and program_d.f pass strict and legacy fixed-form syntax gates; program_b.f passes legacy and is rejected strictly for REAL*8",
+    "fresh pinned Tapenade -p/-d/-b generation with -context and -root root succeeds; parser and tangent pass strict and legacy, reverse passes legacy and is rejected strictly for REAL*8",
+    "FortAD check, forward, and reverse all refuse exact program.f at line 39 and emit no derivative output",
+    "the independent recurrence oracle validates primal iteration count, JVP finite differences, and VJP dot-product consistency",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation; fresh-forward-matches-stored; fresh-reverse-matches-stored-after-banner-normalization; strict-reverse-REAL*8-refusal-legacy-pass"
+fortad_result = "expected-refusal-unsupported-print-line-39-no-output"
+closure = "The exact fixed-point context case and its stored references remain untouched and hash-locked. The precise FortAD parser boundary is recorded; no repaired source, synthetic support, or numerical port is claimed."
+
+[upstream_sha256]
+"nonRegressions/set01/ala01/Options" = "f9c2b96cfec05af95937ff9862ac813e2880b358d43c29ce32f7935f967a98a0"
+"nonRegressions/set01/ala01/program.f" = "0ed0dc8098c41c34aad819eaa9e4a043a988a42b4372f119ac011c13e97f8c1a"
+"nonRegressions/set01/ala01/program_d.f" = "c9cef75622ef9ce2bde3d80a0cd1492d43f003989a86d5056bf17fe50d712887"
+"nonRegressions/set01/ala01/program_d.msg" = "4db1566b3dd741034efbb04ae7010288f7caadc1f6089bd8acd3b00757a3a1b5"
+"nonRegressions/set01/ala01/program_b.f" = "dade49c5786cd484ace0432e8290ffd684f6bad1fa118f27f0628446560d7cf7"
+"nonRegressions/set01/ala01/program_b.msg" = "4db1566b3dd741034efbb04ae7010288f7caadc1f6089bd8acd3b00757a3a1b5"
