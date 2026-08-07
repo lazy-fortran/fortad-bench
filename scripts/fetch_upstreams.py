@@ -10,6 +10,7 @@ Usage:
     scripts/fetch_upstreams.py --category julia
     scripts/fetch_upstreams.py --corpus tapenade
     scripts/fetch_upstreams.py --audit-corpora # no network
+    scripts/fetch_upstreams.py --write-corpus-triage tapenade
     scripts/fetch_upstreams.py --list
     scripts/fetch_upstreams.py --licenses      # re-scan checkouts, write inventory
 """
@@ -20,6 +21,7 @@ import argparse
 import csv
 import hashlib
 import io
+import json
 import os
 import re
 import subprocess
@@ -67,6 +69,32 @@ FORTRAN_FREE_SUFFIXES = {".f90", ".f95", ".f03", ".f08", ".f18", ".f2k"}
 CPP_SUFFIXES = {".cc", ".cpp", ".cxx", ".c++"}
 CUDA_SUFFIXES = {".cu"}
 JULIA_SUFFIXES = {".jl"}
+C_INCLUDE_SUFFIXES = {".h", ".hh", ".hpp", ".hxx", ".cuh"}
+FORTRAN_INCLUDE_SUFFIXES = {".fh", ".inc"}
+SOURCE_INCLUDE_SUFFIXES = C_INCLUDE_SUFFIXES | FORTRAN_INCLUDE_SUFFIXES
+STATIC_TRIAGE_SCHEMA_VERSION = 1
+
+FORTRAN_PROGRAM_RE = re.compile(r"^\s*program\s+([a-z][a-z0-9_]*)\b", re.IGNORECASE)
+FORTRAN_SUBROUTINE_RE = re.compile(
+    r"^\s*(?:(?:recursive|pure|elemental|impure|module)\s+)*"
+    r"subroutine\s+([a-z][a-z0-9_]*)\b",
+    re.IGNORECASE,
+)
+FORTRAN_FUNCTION_RE = re.compile(
+    r"\bfunction\s+([a-z][a-z0-9_]*)\s*\(",
+    re.IGNORECASE,
+)
+FORTRAN_USE_RE = re.compile(
+    r"^\s*use(?:\s*,\s*[a-z][a-z0-9_]*)?\s*(?:::\s*)?"
+    r"([a-z][a-z0-9_]*)\b",
+    re.IGNORECASE,
+)
+FORTRAN_INCLUDE_RE = re.compile(r"^\s*include\s*['\"]([^'\"]+)['\"]", re.IGNORECASE)
+CPP_INCLUDE_RE = re.compile(r"^\s*#\s*include\s*[<\"]([^>\"]+)[>\"]")
+C_FUNCTION_RE = re.compile(r"\b([A-Za-z_][A-Za-z0-9_]*)\s*\([^;{}]*\)\s*\{")
+JULIA_FUNCTION_RE = re.compile(r"^\s*function\s+([A-Za-z_][A-Za-z0-9_!.]*)")
+JULIA_SHORT_FUNCTION_RE = re.compile(r"^\s*([A-Za-z_][A-Za-z0-9_!.]*)\s*\([^=]*\)\s*=")
+JULIA_USE_RE = re.compile(r"^\s*(?:using|import)\s+([A-Za-z_][A-Za-z0-9_.]*)")
 
 
 class CorpusError(RuntimeError):
@@ -219,11 +247,12 @@ def _load_corpus_manifest(entry: dict) -> dict:
         raise CorpusError(f"{relative} revision differs from docs/upstreams.toml")
     if corpus.get("license") != entry["license"]:
         raise CorpusError(f"{relative} license differs from docs/upstreams.toml")
-    ledger = corpus.get("status_ledger")
-    if ledger:
-        ledger_path = Path(ledger)
-        if ledger_path.is_absolute() or ".." in ledger_path.parts:
-            raise CorpusError(f"{relative} has unsafe status_ledger {ledger!r}")
+    for field in ("status_ledger", "static_triage"):
+        path = corpus.get(field)
+        if path:
+            relative_path = Path(path)
+            if relative_path.is_absolute() or ".." in relative_path.parts:
+                raise CorpusError(f"{relative} has unsafe {field} {path!r}")
     return corpus
 
 
@@ -360,6 +389,8 @@ def audit_corpus(entry: dict) -> dict:
         "components": components,
         "tracked_paths": tracked,
         "status_ledger": corpus.get("status_ledger"),
+        "static_triage": corpus.get("static_triage"),
+        "checkout": target,
     }
 
 
@@ -396,13 +427,17 @@ def write_corpus_inventory(inventory: dict) -> Path:
     return out
 
 
-def _candidate_source_hints(candidate: str, tracked_paths: list[str]) -> tuple[str, str]:
-    """Infer language and Fortran source form from tracked filename suffixes."""
+def _candidate_tracked_paths(candidate: str, tracked_paths: list[str]) -> list[str]:
     prefix = f"{candidate.rstrip('/')}/"
-    files = [
+    return [
         path for path in tracked_paths
         if path == candidate or path.startswith(prefix)
     ]
+
+
+def _candidate_source_hints(candidate: str, tracked_paths: list[str]) -> tuple[str, str]:
+    """Infer language and Fortran source form from tracked filename suffixes."""
+    files = _candidate_tracked_paths(candidate, tracked_paths)
     suffixes = {Path(path).suffix for path in files}
     normalized_suffixes = {suffix.lower() for suffix in suffixes}
     languages = []
@@ -429,6 +464,197 @@ def _candidate_source_hints(candidate: str, tracked_paths: list[str]) -> tuple[s
     else:
         source_form = "free"
     return language, source_form
+
+
+def _is_source_file(path: str) -> bool:
+    suffix = Path(path).suffix
+    normalized = suffix.lower()
+    return (
+        suffix == ".C"
+        or normalized in FORTRAN_FIXED_SUFFIXES
+        or normalized in FORTRAN_FREE_SUFFIXES
+        or normalized in CPP_SUFFIXES
+        or normalized in CUDA_SUFFIXES
+        or normalized in JULIA_SUFFIXES
+        or normalized in SOURCE_INCLUDE_SUFFIXES
+        or suffix == ".c"
+    )
+
+
+def _static_source_hints(checkout: Path, source_files: list[str]) -> tuple[list, list, list]:
+    entry_points: list[dict[str, str]] = []
+    includes: list[dict[str, str]] = []
+    uses: list[dict[str, str]] = []
+    for source in source_files:
+        suffix = Path(source).suffix
+        normalized = suffix.lower()
+        source_path = checkout / source
+        if source_path.is_symlink():
+            continue
+        text = source_path.read_bytes().decode("utf-8", errors="replace")
+        for line in text.splitlines():
+            stripped = line.lstrip()
+            if normalized in FORTRAN_FIXED_SUFFIXES and line[:1] in {"c", "C", "*", "!"}:
+                continue
+            if stripped.startswith("!"):
+                continue
+            match = CPP_INCLUDE_RE.match(line)
+            if match:
+                includes.append({"source": source, "target": match.group(1)})
+
+            if normalized in (
+                FORTRAN_FIXED_SUFFIXES | FORTRAN_FREE_SUFFIXES | FORTRAN_INCLUDE_SUFFIXES
+            ):
+                if not re.match(r"^\s*end\b", line, re.IGNORECASE):
+                    match = FORTRAN_PROGRAM_RE.match(line)
+                    if match:
+                        entry_points.append({
+                            "kind": "program",
+                            "name": match.group(1).lower(),
+                            "source": source,
+                        })
+                    match = FORTRAN_SUBROUTINE_RE.match(line)
+                    if match:
+                        entry_points.append({
+                            "kind": "subroutine",
+                            "name": match.group(1).lower(),
+                            "source": source,
+                        })
+                    match = FORTRAN_FUNCTION_RE.search(line)
+                    if match:
+                        entry_points.append({
+                            "kind": "function",
+                            "name": match.group(1).lower(),
+                            "source": source,
+                        })
+                match = FORTRAN_USE_RE.match(line)
+                if match:
+                    uses.append({"name": match.group(1).lower(), "source": source})
+                match = FORTRAN_INCLUDE_RE.match(line)
+                if match:
+                    includes.append({"source": source, "target": match.group(1)})
+
+            if suffix == ".c" or suffix == ".C" or normalized in (
+                CPP_SUFFIXES | CUDA_SUFFIXES | C_INCLUDE_SUFFIXES
+            ):
+                if not stripped.startswith(("#", "//", "/*")):
+                    match = C_FUNCTION_RE.search(line)
+                    if match and match.group(1) not in {"if", "for", "while", "switch"}:
+                        entry_points.append({
+                            "kind": "function",
+                            "name": match.group(1),
+                            "source": source,
+                        })
+
+            if normalized in JULIA_SUFFIXES and not stripped.startswith("#"):
+                match = JULIA_FUNCTION_RE.match(line) or JULIA_SHORT_FUNCTION_RE.match(line)
+                if match:
+                    entry_points.append({
+                        "kind": "function",
+                        "name": match.group(1),
+                        "source": source,
+                    })
+                match = JULIA_USE_RE.match(line)
+                if match:
+                    uses.append({"name": match.group(1), "source": source})
+
+    def unique_sorted(items: list[dict[str, str]]) -> list[dict[str, str]]:
+        return [dict(values) for values in sorted({tuple(sorted(item.items())) for item in items})]
+
+    return unique_sorted(entry_points), unique_sorted(includes), unique_sorted(uses)
+
+
+def _static_classification(
+    language: str,
+    source_files: list[str],
+    entry_points: list[dict[str, str]],
+) -> str:
+    if not source_files:
+        return "harness-reference-data"
+    languages = language.split("|")
+    if language == "unknown":
+        return "unknown-source"
+    if "fortran" in languages and len(languages) > 1:
+        return "mixed-language-source"
+    if language != "fortran":
+        return "non-fortran-source"
+    kinds = {entry["kind"] for entry in entry_points}
+    if "program" in kinds:
+        return "fortran-runnable-candidate"
+    if kinds.intersection({"subroutine", "function"}):
+        return "fortran-procedure-candidate"
+    return "fortran-source-candidate"
+
+
+def static_triage_rows(inventory: dict) -> list[dict]:
+    """Extract reproducible syntax hints without making transformation claims."""
+    rows = []
+    tracked_paths = inventory["tracked_paths"]
+    checkout = inventory["checkout"]
+    for component in inventory["components"]:
+        for candidate in component["candidates"]:
+            language, source_form = _candidate_source_hints(candidate, tracked_paths)
+            candidate_paths = _candidate_tracked_paths(candidate, tracked_paths)
+            source_files = sorted(path for path in candidate_paths if _is_source_file(path))
+            entry_points, includes, uses = _static_source_hints(checkout, source_files)
+            rows.append({
+                "classification": _static_classification(
+                    language, source_files, entry_points
+                ),
+                "component": component["id"],
+                "entry_point_hints": entry_points,
+                "include_hints": includes,
+                "language": language,
+                "path": candidate,
+                "schema_version": STATIC_TRIAGE_SCHEMA_VERSION,
+                "source_files": source_files,
+                "source_form_hint": source_form,
+                "use_hints": uses,
+            })
+    if len(rows) != inventory["candidate_cases"]:
+        raise CorpusError(
+            f"{inventory['name']}: {len(rows)} static triage rows != "
+            f"{inventory['candidate_cases']} candidates"
+        )
+    return rows
+
+
+def render_static_triage(inventory: dict) -> bytes:
+    lines = [
+        json.dumps(row, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        for row in static_triage_rows(inventory)
+    ]
+    return ("\n".join(lines) + "\n").encode("utf-8")
+
+
+def _static_triage_path(inventory: dict) -> Path:
+    relative = inventory.get("static_triage")
+    if not relative:
+        raise CorpusError(f"{inventory['name']}: corpus manifest has no static_triage")
+    return ROOT / relative
+
+
+def write_static_triage(inventory: dict) -> Path:
+    out = _static_triage_path(inventory)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_bytes(render_static_triage(inventory))
+    return out
+
+
+def audit_static_triage(inventory: dict) -> int:
+    if not inventory.get("static_triage"):
+        return 0
+    report = _static_triage_path(inventory)
+    if not report.is_file():
+        raise CorpusError(
+            f"{inventory['name']}: missing static triage {report.relative_to(ROOT)}"
+        )
+    rendered = render_static_triage(inventory)
+    if report.read_bytes() != rendered:
+        raise CorpusError(
+            f"{inventory['name']}: static triage differs from pinned checkout"
+        )
+    return inventory["candidate_cases"]
 
 
 def initial_corpus_ledger_rows(inventory: dict) -> list[dict[str, str]]:
@@ -571,6 +797,7 @@ def scan_corpora(entries: list[dict]) -> list[str]:
         try:
             inventory = audit_corpus(entry)
             ledger_rows = audit_corpus_ledger(inventory)
+            triage_rows = audit_static_triage(inventory)
         except CorpusError as error:
             print(f"  FAIL   {entry['name']} corpus: {error}")
             failed.append(entry["name"])
@@ -582,6 +809,8 @@ def scan_corpora(entries: list[dict]) -> list[str]:
         )
         if ledger_rows:
             print(f"  ledger {entry['name']}: {ledger_rows} status rows")
+        if triage_rows:
+            print(f"  triage {entry['name']}: {triage_rows} static rows")
         print(f"  wrote  {out.relative_to(ROOT)}")
     return failed
 
@@ -649,6 +878,8 @@ def main() -> int:
                     help="verify existing corpus checkouts without network access")
     ap.add_argument("--seed-corpus-ledger", metavar="NAME",
                     help="write an untriaged status ledger from an audited checkout")
+    ap.add_argument("--write-corpus-triage", metavar="NAME",
+                    help="write static source hints from an audited checkout")
     ap.add_argument("--depth", type=int, default=1, help="clone depth (default 1)")
     ap.add_argument("--list", action="store_true", help="list entries and exit")
     ap.add_argument("--licenses", action="store_true",
@@ -658,9 +889,14 @@ def main() -> int:
     entries = load()
     if args.seed_corpus_ledger and (
         args.names or args.category or args.corpus or args.audit_corpora
-        or args.list or args.licenses
+        or args.list or args.licenses or args.write_corpus_triage
     ):
         ap.error("--seed-corpus-ledger cannot be combined with other operations")
+    if args.write_corpus_triage and (
+        args.names or args.category or args.corpus or args.audit_corpora
+        or args.list or args.licenses or args.seed_corpus_ledger
+    ):
+        ap.error("--write-corpus-triage cannot be combined with other operations")
     if args.corpus and (args.names or args.category):
         ap.error("--corpus cannot be combined with names or --category")
     if args.category:
@@ -696,6 +932,24 @@ def main() -> int:
         print(
             f"  wrote  {out.relative_to(ROOT)} "
             f"({inventory['candidate_cases']} untriaged rows)"
+        )
+        return 0
+
+    if args.write_corpus_triage:
+        entries = [e for e in entries if e["name"] == args.write_corpus_triage]
+        if not entries:
+            print(f"unknown corpus: {args.write_corpus_triage}", file=sys.stderr)
+            return 2
+        try:
+            inventory = audit_corpus(entries[0])
+            out = write_static_triage(inventory)
+            audit_static_triage(inventory)
+        except CorpusError as error:
+            print(f"  FAIL   {args.write_corpus_triage} triage: {error}")
+            return 1
+        print(
+            f"  wrote  {out.relative_to(ROOT)} "
+            f"({inventory['candidate_cases']} static rows)"
         )
         return 0
 

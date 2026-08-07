@@ -54,6 +54,35 @@ are expected output, parser fixtures, support files, or historical failures.
 The inventory does not claim that FortAD currently differentiates any new
 case.
 
+## Static triage
+
+[`corpora/tapenade-static.jsonl`](corpora/tapenade-static.jsonl) records source
+metadata for every candidate. Regenerate it from the audited checkout with:
+
+```bash
+scripts/fetch_upstreams.py --write-corpus-triage tapenade
+```
+
+The report contains 6,078 tracked source and include files, 12,960 syntactic
+entry-point hints, 2,488 include hints, and 2,348 Fortran `use` or Julia import
+hints. The offline corpus audit reproduces the JSONL byte for byte.
+
+| static classification | candidates | rule |
+|---|---:|---|
+| `fortran-runnable-candidate` | 330 | a tracked Fortran source contains a `program` declaration |
+| `fortran-procedure-candidate` | 1,081 | a tracked Fortran source contains a subroutine or function declaration |
+| `fortran-source-candidate` | 21 | tracked Fortran source exists without a detected entry point |
+| `mixed-language-source` | 74 | tracked source uses Fortran and another language |
+| `non-fortran-source` | 506 | tracked source contains no Fortran compilation unit |
+| `harness-reference-data` | 2 | the candidate has no recognized source or include file |
+
+These are filename and declaration hints. Reference derivatives checked into
+Tapenade appear in `source_files` and may contribute entry-point hints. A
+`fortran-runnable-candidate` has not passed a compiler, Tapenade, FortAD, or a
+numerical oracle. Symlink paths stay in `source_files`, but their targets are
+not read when generating hints. The line-based extractor can miss multiline
+declarations and does not resolve include or module targets.
+
 ## Closeout rule
 
 The committed ledger contains all 2,014 candidate paths. Its language and

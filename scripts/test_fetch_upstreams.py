@@ -3,6 +3,7 @@
 
 import csv
 import hashlib
+import json
 import subprocess
 import sys
 import tempfile
@@ -78,9 +79,18 @@ class CorpusFetchTests(unittest.TestCase):
         )
         files = {
             "LICENSE.md": "fixture license\n",
-            "corpus/set01/case_a/program.f90": "subroutine a\nend subroutine a\n",
-            "corpus/set01/case_b/program.c": "void b(void) {}\n",
-            "aux/test.jl": "f(x) = x\n",
+            "corpus/set01/case_a/program.f90": (
+                "program a\n"
+                "  use iso_fortran_env, only: real64\n"
+                "  include 'fixture.inc'\n"
+                "#include \"pre.inc\"\n"
+                "contains\n"
+                "  subroutine step()\n"
+                "  end subroutine step\n"
+                "end program a\n"
+            ),
+            "corpus/set01/case_b/program.c": "#include <math.h>\nvoid b(void) {}\n",
+            "aux/test.jl": "using LinearAlgebra\nf(x) = x\n",
         }
         for relative, contents in files.items():
             path = source / relative
@@ -106,11 +116,13 @@ class CorpusFetchTests(unittest.TestCase):
         tree: str,
         *,
         with_ledger: bool = False,
+        with_triage: bool = False,
     ) -> None:
         manifest = root / "docs" / "corpora" / "fixture.toml"
         manifest.parent.mkdir(parents=True)
         license_digest = hashlib.sha256(b"fixture license\n").hexdigest()
         ledger = 'status_ledger = "docs/corpora/fixture-status.csv"\n' if with_ledger else ""
+        triage = 'static_triage = "docs/corpora/fixture-static.jsonl"\n' if with_triage else ""
         manifest.write_text(
             f'''schema_version = 1
 name = "fixture"
@@ -125,6 +137,7 @@ expected_tracked_files = 4
 expected_manifest_files = 3
 expected_candidate_cases = 3
 {ledger}
+{triage}
 
 [[component]]
 id = "language-cases"
@@ -145,6 +158,138 @@ case_type = "file"
 expected_candidate_cases = 1
 '''
         )
+
+    def test_static_triage_is_reproducible_and_uses_tracked_source_evidence(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = self.make_source(root)
+            self.write_manifest(root, source, revision, tree, with_triage=True)
+            destination = root / "upstream"
+            entry = {
+                "name": "fixture",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            outside = root / "outside.f90"
+            outside.write_text("program escaped\nend program escaped\n")
+            symlink = source / "corpus" / "set01" / "case_a" / "escape.f90"
+            symlink.symlink_to(outside)
+            self.assertEqual(
+                fetch_upstreams._static_source_hints(source, [
+                    "corpus/set01/case_a/escape.f90"
+                ]),
+                ([], [], []),
+            )
+            expected = [
+                {
+                    "classification": "fortran-runnable-candidate",
+                    "component": "language-cases",
+                    "entry_point_hints": [
+                        {
+                            "kind": "program",
+                            "name": "a",
+                            "source": "corpus/set01/case_a/program.f90",
+                        },
+                        {
+                            "kind": "subroutine",
+                            "name": "step",
+                            "source": "corpus/set01/case_a/program.f90",
+                        },
+                    ],
+                    "include_hints": [
+                        {
+                            "source": "corpus/set01/case_a/program.f90",
+                            "target": "fixture.inc",
+                        },
+                        {
+                            "source": "corpus/set01/case_a/program.f90",
+                            "target": "pre.inc",
+                        },
+                    ],
+                    "language": "fortran",
+                    "path": "corpus/set01/case_a",
+                    "schema_version": 1,
+                    "source_files": ["corpus/set01/case_a/program.f90"],
+                    "source_form_hint": "free",
+                    "use_hints": [
+                        {
+                            "name": "iso_fortran_env",
+                            "source": "corpus/set01/case_a/program.f90",
+                        }
+                    ],
+                },
+                {
+                    "classification": "non-fortran-source",
+                    "component": "language-cases",
+                    "entry_point_hints": [
+                        {
+                            "kind": "function",
+                            "name": "b",
+                            "source": "corpus/set01/case_b/program.c",
+                        }
+                    ],
+                    "include_hints": [
+                        {
+                            "source": "corpus/set01/case_b/program.c",
+                            "target": "math.h",
+                        }
+                    ],
+                    "language": "c",
+                    "path": "corpus/set01/case_b",
+                    "schema_version": 1,
+                    "source_files": ["corpus/set01/case_b/program.c"],
+                    "source_form_hint": "n/a",
+                    "use_hints": [],
+                },
+                {
+                    "classification": "non-fortran-source",
+                    "component": "auxiliary-case",
+                    "entry_point_hints": [
+                        {
+                            "kind": "function",
+                            "name": "f",
+                            "source": "aux/test.jl",
+                        }
+                    ],
+                    "include_hints": [],
+                    "language": "julia",
+                    "path": "aux/test.jl",
+                    "schema_version": 1,
+                    "source_files": ["aux/test.jl"],
+                    "source_form_hint": "n/a",
+                    "use_hints": [
+                        {"name": "LinearAlgebra", "source": "aux/test.jl"}
+                    ],
+                },
+            ]
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination):
+                self.assertTrue(fetch_upstreams.clone(entry, depth=1))
+                inventory = fetch_upstreams.audit_corpus(entry)
+                self.assertEqual(fetch_upstreams.static_triage_rows(inventory), expected)
+                first = fetch_upstreams.render_static_triage(inventory)
+                second = fetch_upstreams.render_static_triage(inventory)
+                self.assertEqual(second, first)
+                self.assertEqual(
+                    [json.loads(line) for line in first.splitlines()],
+                    expected,
+                )
+
+                report = fetch_upstreams.write_static_triage(inventory)
+                self.assertEqual(fetch_upstreams.audit_static_triage(inventory), 3)
+                report.write_bytes(first.replace(b'"math.h"', b'"wrong.h"', 1))
+                with self.assertRaisesRegex(fetch_upstreams.CorpusError, "differs"):
+                    fetch_upstreams.audit_static_triage(inventory)
+                report.write_bytes(first)
+
+                checkout = destination / "fixture"
+                (checkout / ".git" / "info" / "exclude").write_text("ignored.f90\n")
+                ignored = checkout / "corpus" / "set01" / "case_a" / "ignored.f90"
+                ignored.write_text("program ignored\nend program ignored\n")
+                clean_inventory = fetch_upstreams.audit_corpus(entry)
+                self.assertEqual(fetch_upstreams.render_static_triage(clean_inventory), first)
 
     def test_status_ledger_seed_is_reproducible_and_covers_every_candidate(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -447,6 +592,63 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             Counter(row["source_form_hint"] for row in rows),
             Counter({"free": 1057, "n/a": 508, "fixed": 420, "mixed": 29}),
         )
+
+
+class CommittedTapenadeStaticTriageTests(unittest.TestCase):
+    def test_committed_static_triage_covers_the_pinned_candidate_keys(self):
+        root = Path(__file__).resolve().parent.parent
+        with (root / "docs" / "corpora" / "tapenade.toml").open("rb") as stream:
+            manifest = tomllib.load(stream)
+        with (root / manifest["static_triage"]).open(encoding="utf-8") as stream:
+            rows = [json.loads(line) for line in stream]
+        with (root / manifest["status_ledger"]).open(
+            encoding="utf-8", newline=""
+        ) as stream:
+            ledger = {
+                (row["component"], row["path"]): row
+                for row in csv.DictReader(stream)
+            }
+
+        self.assertEqual(len(rows), manifest["expected_candidate_cases"])
+        keys = [(row["component"], row["path"]) for row in rows]
+        self.assertEqual(len(set(keys)), 2014)
+        self.assertEqual(set(keys), set(ledger))
+        self.assertEqual({row["schema_version"] for row in rows}, {1})
+        self.assertEqual(
+            Counter(row["classification"] for row in rows),
+            Counter({
+                "fortran-procedure-candidate": 1081,
+                "fortran-runnable-candidate": 330,
+                "fortran-source-candidate": 21,
+                "harness-reference-data": 2,
+                "mixed-language-source": 74,
+                "non-fortran-source": 506,
+            }),
+        )
+        self.assertEqual(sum(len(row["source_files"]) for row in rows), 6078)
+        self.assertEqual(sum(len(row["entry_point_hints"]) for row in rows), 12960)
+        self.assertEqual(sum(len(row["include_hints"]) for row in rows), 2488)
+        self.assertEqual(sum(len(row["use_hints"]) for row in rows), 2348)
+        for row in rows:
+            key = (row["component"], row["path"])
+            self.assertEqual(row["language"], ledger[key]["language"])
+            self.assertEqual(row["source_form_hint"], ledger[key]["source_form_hint"])
+            self.assertTrue(
+                all(
+                    source == row["path"] or source.startswith(f"{row['path']}/")
+                    for source in row["source_files"]
+                )
+            )
+            self.assertTrue(
+                all(
+                    hint["source"] in row["source_files"]
+                    for field in ("entry_point_hints", "include_hints", "use_hints")
+                    for hint in row[field]
+                )
+            )
+            self.assertFalse(
+                {"status", "tapenade_result", "fortad_result"}.intersection(row)
+            )
 
 
 if __name__ == "__main__":
