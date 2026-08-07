@@ -1,0 +1,42 @@
+case: Tapenade nonRegressions/set01/ht02
+classification: expected-refusal-fortad-unsupported-I-O-line-7
+runner_result: pass
+recorded_utc: 2026-08-07T15:59:05Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fsyntax-only
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fsyntax-only
+fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+required_fortad_commit: 93f41d60d882778699ec1a887ce9a665a75afcf8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(a)
+strict_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+legacy_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+fortad_exact_behavior: check=1 forward=1 reverse=1 diagnostic=unsupported-statement-line-7 no-output
+independent_oracle: fixed-external-read JVP-finite-difference VJP-adjoint
+oracle_source_inventory: exact external-read shape pass
+oracle_jvp_finite_difference: pass max_error=3.2948492822981734e-09
+oracle_vjp_adjoint_identity: pass max_error=0.0000000000000000e+00
+oracle_behavioral_cases: 3
+oracle_status: pass
+no_repaired_port: exact-source-only
+upstream_sha256:
+60c0401ca7d741a43363787f3ed1de3149102fe44a10ca77c839a372f613c97b  nonRegressions/set01/ht02/program.f
+e7f73b392ad9bf3ce15d9cb1f01a17cf7ef9faa6872ba6935f9ebb72fd9ceedd  nonRegressions/set01/ht02/program_b.f
+5214b9f72d9afc521a9ad3fb373d89888ae05f34a11488b9d526e1e472a43d51  nonRegressions/set01/ht02/program_b.msg
+fresh_tapenade_sha256:
+89a751c320834bdf6025c4b205f87d3bc0dc0c8328cd05979e9b48cf5c14de8b  parser/ht02_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/ht02_p.msg
+0885d6ee7e6bb2b7c79fc2e6941e9d2a22996469e968e5d458f47951228e5154  forward/ht02_d.f
+ab046fe48a799827f695f10bcde50f728ccb6005ad896e8915f676b4705c38ac  forward/ht02_d.msg
+d15a435f505dea1afe340ed356153429a69901998aee30c89688848e94d139dd  reverse/ht02_b.f
+ab046fe48a799827f695f10bcde50f728ccb6005ad896e8915f676b4705c38ac  reverse/ht02_b.msg
+case_artifact_sha256:
+a02216a4b8fdbbf57435a857d27be13c6ae8aefa2fc1cdabf1036c45f317087c  manifest.toml
+9ad49d9772982e36210dac9736e273074807e053fb608971098e2e9b8e5b845e  notes.md
+18e122b5ef23008e196134bc331f0cc8b1cf5fc8712b898a6b71c5fb8d66f549  oracle.py
+b7572da8f0e6b8d2479d2e7bf8e8983d8792f4f98269667904456924c166937b  run.sh
+634cddbbf93618324e24d346a97f395929b9021a8a8be17a9eb8c307dd75433e  test_contract.py

@@ -1,0 +1,62 @@
+schema_version = 1
+name = "tapenade-set01-ht02-external-read-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93f41d60d882778699ec1a887ce9a665a75afcf8"
+source_form = "fixed"
+runner = "cases/tapenade-set01/ht02/run.sh"
+result = "cases/tapenade-set01/ht02/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/ht02/program.f",
+    "nonRegressions/set01/ht02/program_b.f",
+    "nonRegressions/set01/ht02/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+
+upstream_entry_point = "top(a)"
+ported_entry_point = "not-applicable-exact-source-only"
+independent = ["a"]
+dependent = ["a"]
+options = ["-p", "-d -root top", "-b -root top"]
+modes = [
+    "exact-source:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-and-legacy-compile-pass",
+    "fresh-parser:generate-strict-and-legacy-compile-pass",
+    "fresh-forward:generate-strict-and-legacy-compile-pass",
+    "fresh-reverse:generate-strict-and-legacy-compile-pass",
+    "exact-check:expected-refusal-unsupported-read-line-7",
+    "exact-forward:expected-refusal-unsupported-read-line-7",
+    "exact-reverse:expected-refusal-unsupported-read-line-7",
+]
+contract_tests = [
+    "independent-fixed-read-value-JVP-finite-difference-and-VJP-adjoint-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-with-strict-and-legacy-gates",
+    "exact-FortAD-check-forward-reverse-refusal-with-no-output",
+]
+oracle = [
+    "independent exact-source I/O and assignment inventory",
+    "fixed-external-read JVP checked against central differences",
+    "fixed-external-read VJP checked by an adjoint identity",
+]
+classification = "expected-refusal-fortad-unsupported-I-O-line-7"
+dependencies = [
+    "top reads x from an external unit after myopen opens that unit",
+    "the exact source therefore has an unsupported external I/O boundary rather than a closed numerical input",
+    "the stored reverse reference is retained as upstream evidence; no synthetic I/O value, rule, or repaired port is added",
+]
+expected_diagnostics = [
+    "exact and stored fixed-form sources pass strict F2018 and legacy syntax gates",
+    "fresh pinned Tapenade parser, forward, and reverse generation succeeds and all fresh outputs pass both compiler gates",
+    "FortAD check, forward, and reverse refuse with unsupported statement at line 7 and emit no derivative output",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-legacy-compile"
+fortad_result = "expected-refusal-check-forward-reverse-unsupported-read-line-7-no-output"
+bounded_sources = []
+bounded_domain = "not-applicable; oracle-only fixed-external-read algebra"
+closure = "The exact upstream source and stored reverse reference remain authoritative and untouched. The independent oracle fixes the external read value only to check the local multiplication semantics; it is not a repaired source port or a claim of I/O support."
+
+[upstream_sha256]
+"nonRegressions/set01/ht02/program.f" = "60c0401ca7d741a43363787f3ed1de3149102fe44a10ca77c839a372f613c97b"
+"nonRegressions/set01/ht02/program_b.f" = "e7f73b392ad9bf3ce15d9cb1f01a17cf7ef9faa6872ba6935f9ebb72fd9ceedd"
+"nonRegressions/set01/ht02/program_b.msg" = "5214b9f72d9afc521a9ad3fb373d89888ae05f34a11488b9d526e1e472a43d51"
