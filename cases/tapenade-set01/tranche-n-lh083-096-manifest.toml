@@ -1,0 +1,30 @@
+schema_version = 1
+name = "tapenade-set01-tranche-n-lh083-096"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh083_096.sh"
+result = "results/tapenade_set01_lh083_096_validation.txt"
+
+[[case]]
+id = "lh085"
+upstream_source = "nonRegressions/set01/lh085/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "bigexpr(flur1,fltr1,aux1,dpex,e2,dpm,aux2,dpor,r1,r2,v,v3,v6)"
+ported_entry_point = "set01_lh085(flur1,fltr1,aux1,dpex,e2,dpm,aux2,dpor,r1,r2,v,v3,v6)"
+independent = ["v"]
+dependent = "r1"
+function = "large-expression split with scalar and array-element products"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "lh092"
+upstream_source = "nonRegressions/set01/lh092/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "f1(a,b,c)"
+ported_entry_point = "set01_lh092(a,b,c)"
+independent = ["a", "b"]
+dependent = "c"
+function = "nested-call split with generated temporary typing"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"

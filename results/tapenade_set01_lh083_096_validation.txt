@@ -1,0 +1,45 @@
+suite: Tapenade nonRegressions set01 tranche N (lh085, lh092)
+recorded_utc: 2026-08-07T07:30:30Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: a0b32845a1062421d44ca40622df4d78e4bb5261
+required_fortad_commit: 72f8fe8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_transform_seconds_total: 1.32354
+fortad_transform_seconds_total: 0.0219128
+generated_compile_seconds_total: 0.225139
+upstream_exact_source_compile_statuses:
+tapenade/lh085/upstream-primal.status 0
+tapenade/lh092/upstream-primal.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade/lh085/forward/lh085_d_d.f.status 0
+tapenade/lh085/parser/lh085_p_p.f.status 0
+tapenade/lh085/reverse/lh085_b_b.f.status 0
+tapenade/lh092/forward/lh092_d_d.f.status 0
+tapenade/lh092/parser/lh092_p_p.f.status 0
+tapenade/lh092/reverse/lh092_b_b.f.status 0
+fortad_transform_compile_statuses:
+hand_derivatives_lh085_092.status 0
+lh085.status 0
+lh085_forward.status 0
+lh085_reverse.status 0
+lh092.status 0
+lh092_forward.status 0
+lh092_reverse.status 0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3112
+oracle_status: pass
+source_sha256:
+63a730dcbf962e241f50513fb2944ce7ec4be8f91c910cb70afccf503d54603f  cases/tapenade-set01/lh085.f90
+62cbcfab3c8bdaa2c4d79c763ad393cb6a1f552057ecfd0457030678b8a5d195  cases/tapenade-set01/lh092.f90
+a7619ebd515cd219ec9b319958cd6489354f90d76013a9ca95533738a12158f2  cases/tapenade-set01/hand_derivatives_lh085_092.f90
+2024678d177b84c0d99193a498648c13c6e45cd141edd9a1bd92f7b8158266e7  cases/tapenade-set01/tranche-n-lh083-096-manifest.toml
+c25ecd54095d2885e346ac0a58d018d006de866adb3a2b977207e7c1fe9263ea  cases/tapenade-set01/tranche-n-lh083-096.md
+e1c1abaa8f2818b4ee86a2c9fe70739b44f06e4bce0ed4fe88a4dda34383c95a  harness/bench_tapenade_set01_lh083_096.f90
+bf142e029ed27cd43574ad59b704b7200d63335f47cef850fa6f266dbf4b19fa  scripts/bench_tapenade_set01_lh083_096.sh
+run_output:
+oracle_status: pass

@@ -227,3 +227,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-m-lh033-047.md), [manifest](tranche-m-lh033-047-manifest.toml),
 and [measurement record](../../results/tapenade_set01_lh033_047_validation.txt).
+
+## Tranche N: `lh085` and `lh092`
+
+The adjacent `lh085`/`lh092` runner closes two pure-Fortran rows with fresh
+Tapenade parser, tangent, and reverse generation. `lh085` checks a large
+expression with active array elements through forward and reverse modes;
+`lh092` checks a nested-call split with both scalar inputs active. Both ports
+pass independent hand derivatives, a central-difference directional check, and
+the JVP/VJP adjoint identity:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh083_096.sh
+```
+
+See the [case notes](tranche-n-lh083-096.md),
+[manifest](tranche-n-lh083-096-manifest.toml), and
+[measurement record](../../results/tapenade_set01_lh083_096_validation.txt).
