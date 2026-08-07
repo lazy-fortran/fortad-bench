@@ -15,7 +15,7 @@ recorded. Nearly all measurements sit within the 30% band agreed for the port.
 The exceptions are named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme; the pinned Tapenade corpus has nine
+timing table is FortAD versus Enzyme. The pinned Tapenade corpus has nine
 set01 evidence rows (seven positive cases and two reproducible refusals), with
 1,497 candidates still untriaged. A broader feature or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
