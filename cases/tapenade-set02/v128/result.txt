@@ -1,0 +1,33 @@
+case: Tapenade nonRegressions set02 v128
+recorded_utc: 2026-08-07T17:59:58Z
+machine: mailuefterl
+os: CachyOS
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: foo
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+upstream_exact_strict_compile: primal=0 program_dv=0
+fortad_exact_check_forward_reverse: 0 0 0
+fortad_generated_strict_compile: forward=0 reverse=0
+fortad_harness: harness_status: pass
+oracle_status: pass
+finite_difference_max_error: 8.7091445166720405e-11
+adjoint_identity_max_error: 5.5511151231257827e-17
+oracle: independent hand JVP/VJP, central-difference sweep, adjoint identity
+upstream_sha256:
+751f30f2ead18254151f977b8f30a5dd35631517bf50306e70b56ccab003a0e5  nonRegressions/set02/v128/DIFFSIZES.inc
+997a2a7d901bdd09a1e08168561183c212342a6956ecdf903fd01dc11e5ad56f  nonRegressions/set02/v128/program.f
+8da66e865b3d356a6464c525eabdede92c8652c47bd7a6d7e59ced802da6b005  nonRegressions/set02/v128/program_dv.f
+cdb9e6b351831604e699fe683c51063e5127b631f10d8616a1c200598c23c6ae  nonRegressions/set02/v128/program_dv.msg
+case_artifact_sha256:
+41f0beadf213a9291631f963660e421a3ee3e59c3c5e6f844954f659cfbada97  cases/tapenade-set02/v128/manifest.toml
+361e15b811647f895b9dbda410fa0f9fc4eed66000f50e0ea4d31758b1a8ebdd  cases/tapenade-set02/v128/notes.md
+36f1db05af3f1a64d9932f9af4c84e5931cf8d45225ccb3e5c24ab5d2bf8236a  cases/tapenade-set02/v128/oracle.py
+5c29fa705055544d74dabb6769610a29ab56fa147db94402214a4f983f9d8dfe  cases/tapenade-set02/v128/run.sh
+04bcde48577dfe1b96d5a4d2484cc6de7dae8e3b74e38d03c99eaa8bd4f8b3e4  scripts/bench_tapenade_set02_tranche_b.sh
+2d1fbc1544dcf75f06c74aa28906fe6a84beda2c0d53df9ad45f63ec552481eb  cases/tapenade-set02/v128/harness.f90

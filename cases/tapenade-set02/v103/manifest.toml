@@ -1,0 +1,35 @@
+schema_version = 1
+name = "tapenade-set02-v103"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a1c9f25f87eaadf700ba47ee3e841a0fb41585a3"
+source_form = "fixed"
+runner = "cases/tapenade-set02/v103/run.sh"
+result = "cases/tapenade-set02/v103/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set02/v103/program.f",
+    "nonRegressions/set02/v103/program_d.f",
+    "nonRegressions/set02/v103/program_p.f",
+]
+stored_references = ["program_d.f", "program_p.f", "program_d.msg", "program_p.msg"]
+upstream_entry_point = "foo(x,y)"
+selected_entry_points = ["foo(x,y)"]
+ported_entry_point = "none"
+independent = ["x"]
+dependent = ["y"]
+options = ["-p", "-d -root foo", "-b -root foo"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict exact-source and stored-reference compilation",
+    "fresh pinned Tapenade parser/tangent/reverse generation and compilation",
+    "FortAD exact check/forward/reverse explicit-refusal boundary",
+    "independent linear COMMON-state hand JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+]
+classification = "expected-refusal"
+dependencies = "Exact COMMON /c/ is pure Fortran; current FortAD refuses it at line 32 and no port is claimed"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile"
+fortad_result = "expected-refusal-exact-check-forward-reverse-unsupported-common-line-32"
+closure = "The exact source and fresh Tapenade products compile, but current FortAD refuses the COMMON declaration. The independent oracle checks the visible map y=2*x without presenting a repaired port as support."

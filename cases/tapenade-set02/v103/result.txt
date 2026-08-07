@@ -1,0 +1,33 @@
+case: Tapenade nonRegressions set02 v103
+recorded_utc: 2026-08-07T18:00:07Z
+machine: mailuefterl
+os: CachyOS
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: foo
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+upstream_exact_strict_compile: primal=0 program_d=0 program_p=0
+fortad_exact_check_forward_reverse: 1 1 1
+fortad_result: expected-refusal; diagnostic="unsupported statement at line 32"; no output
+oracle_status: pass
+finite_difference_max_error: 3.7332492652808469e-10
+adjoint_identity_max_error: 0.0000000000000000e+00
+visible_map: y = 2*x; COMMON state is not ported
+oracle: independent hand JVP/VJP, central-difference sweep, adjoint identity
+upstream_sha256:
+4bcaa64db8222e2c2474b84f8c0be2b9123abfefcc30035eb61a65bc7720c7c3  nonRegressions/set02/v103/program.f
+36d468468aa8abb283d9e951c8ae270f571f27d24aaada00848ef1995d8d7e26  nonRegressions/set02/v103/program_d.f
+40e34c86d2fb05943c7de3a698db632760e6c2e1e173e076aa47921d6660b5fe  nonRegressions/set02/v103/program_p.f
+56e8fc488d514a2c7585f6c8ea8a614f73a16ded929510a98731cab144e4a9da  nonRegressions/set02/v103/program_d.msg
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set02/v103/program_p.msg
+case_artifact_sha256:
+a455ab515296f2ce96b39853f8b26f35b025c9db682e25dad9315f0416405f1b  cases/tapenade-set02/v103/manifest.toml
+b7a2151794b0ffea2d87abfc2a901ba986f21649758344669e71a8b62248a1fe  cases/tapenade-set02/v103/notes.md
+08deaccb97286c019a634729a23e485e11de0db29c96ee15e8dafdaac3086b4f  cases/tapenade-set02/v103/oracle.py
+e8f361992ce80cc17437a7ded0a449abb676ff8cc71d1362c89299f5af426910  cases/tapenade-set02/v103/run.sh
+04bcde48577dfe1b96d5a4d2484cc6de7dae8e3b74e38d03c99eaa8bd4f8b3e4  scripts/bench_tapenade_set02_tranche_b.sh

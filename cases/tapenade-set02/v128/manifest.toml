@@ -1,0 +1,37 @@
+schema_version = 1
+name = "tapenade-set02-v128"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a1c9f25f87eaadf700ba47ee3e841a0fb41585a3"
+source_form = "fixed"
+runner = "cases/tapenade-set02/v128/run.sh"
+result = "cases/tapenade-set02/v128/result.txt"
+source_harness = "cases/tapenade-set02/v128/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set02/v128/DIFFSIZES.inc",
+    "nonRegressions/set02/v128/program.f",
+    "nonRegressions/set02/v128/program_dv.f",
+]
+stored_references = ["program_dv.f", "program_dv.msg"]
+upstream_entry_point = "foo(n,x,y)"
+selected_entry_points = ["foo(n,x,y)"]
+ported_entry_point = "foo(n,x,y) (exact source)"
+independent = ["x"]
+dependent = ["y"]
+options = ["-p", "-d -root foo", "-b -root foo"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict upstream and stored-reference compilation",
+    "fresh pinned Tapenade parser/tangent/reverse generation and compilation",
+    "FortAD exact forward/reverse generation and compilation",
+    "compiled FortAD harness",
+    "independent exponential hand JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+]
+classification = "runnable-ported"
+dependencies = "DIFFSIZES.inc is local to the pinned case; no mixed-language dependency"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile"
+fortad_result = "pass-exact-transform-compile-runtime"
+closure = "The exact fixed-form foo routine is directly differentiated; no repaired port is claimed."
