@@ -1,0 +1,25 @@
+case: Tapenade nonRegressions/set12/f03typf01 OO boundary
+recorded_utc: 2026-08-07T03:46:48Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -ffree-line-length-none -pedantic-errors
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_commit: 54726bb4cf685cfc949cf297ae2208ee1407b17c
+upstream_primal_compile: pass
+upstream_reference_compile: pass
+tapenade_parser_status: 0
+tapenade_generated_source: program_p.f90
+tapenade_generated_compile_status: 1 (expected rejection)
+tapenade_generated_diagnostic: abstract type regenerated without ABSTRACT; deferred PROCEDURE declaration invalid
+ported_primal_oracle: pass (two concrete children and central finite differences)
+fortad_status: expected-refusal
+fortad_refusal_status: 1
+fortad_diagnostic: unsupported type-bound call 'value': the concrete type is not defined in this source
+oracle_contract: dynamic child selection is passive; x is the only differentiated scalar
+source_sha256:
+f4620ead6231087784c882f30c4063bedf72e46d3187bb510eff347ad29b4098  cases/tapenade-set12/f03typf01.toml
+ad08763ce92badbdec37901f16d130fd7ce6b77757c036c9818fafbd7495cee1  cases/tapenade-set12/f03typf01.md
+3f20aeb6b08c46a5f9f059cbaf1e0f28169cce516fab79692ef4c4bb4852a0b3  cases/itpplasma/abstract_deferred_refusal/primal.f90
+471f389a3a338e6ecf868e1694197b2dedf33dad5ac1033bc00c1bbc67eb7fc1  harness/check_tapenade_f03typf01.f90
+1b32f7596cd07c51ba850ca1bdc4d5b6dfc9b2f7e75379dda8d50fdaa8ad5f65  scripts/bench_tapenade_f03typf01_oo.sh
+oracle_output:
+PASS: Tapenade f03typf01 primal and finite-difference oracle

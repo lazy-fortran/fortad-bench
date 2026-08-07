@@ -88,7 +88,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 36,
                 "no-entry-point-evidence": 20,
-                "runnable-program-candidate": 320,
+                "runnable-program-candidate": 319,
                 "runnable-procedure-candidate": 1044,
             }),
         )

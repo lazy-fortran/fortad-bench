@@ -27,7 +27,7 @@ The first matching rule wins:
 | `parser-or-invalid-risk` | 36 |
 | `reference-only-evidence` | 0 |
 | `no-entry-point-evidence` | 20 |
-| `runnable-program-candidate` | 320 |
+| `runnable-program-candidate` | 319 |
 | `runnable-procedure-candidate` | 1044 |
 | `needs-static-inspection` | 0 |
 
