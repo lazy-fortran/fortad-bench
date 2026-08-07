@@ -1,0 +1,61 @@
+case: Tapenade nonRegressions set01 lh054
+classification: fortad-semantic-mismatch-with-bounded-forward-port
+recorded_utc: 2026-08-07T10:56:51Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+fortad_worktree: supplied checkout clean and pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: pass status=0
+upstream_stored_references_strict_compile: program_p.f=pass program_d.f=pass program_b.f=pass program_dv.f=expected-refusal status=1 missing-DIFFSIZES.inc
+tapenade_options: parser=-p forward=-d/-root test reverse=-b/-root test
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile: parser=pass tangent=pass reverse=pass
+fortad_exact_transform: forward=pass status=0 reverse=pass status=0
+fortad_exact_generated_strict_compile: forward=expected-refusal status=1 diagnostic=invalid-character-in-omitted-declarations reverse=expected-refusal status=1 diagnostic=duplicate-b_b-formal
+fortad_bounded_port: source_compile=pass status=0 forward_transform=pass status=0 forward_compile=pass status=0 reverse_transform=pass status=0 reverse_compile=expected-refusal status=1 diagnostic=duplicate-b_b-formal
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+primal_objective: 2.50000000000000000e+00
+hand_jvp: -7.50000000000000000e-01
+hand_vjp: 1.39999999999999991e+00
+finite_difference: -7.49999999938300022e-01
+fd_error: 6.16999784597282996e-11
+central_difference_sweep_error: 2.79555933957453817e-10
+adjoint_identity_residual: 0.00000000000000000e+00
+direction: -3.75000000000000000e-01
+seed: 6.99999999999999956e-01
+harness_status: pass
+b_1:   3.5000000000000000E+00
+b_d_1:   5.0000000000000000E-01
+upstream_sha256:
+3816a57f6200b030ca43728fa5f8dc10fb72ce9cd27395210e1d4086b466a06d  program.f
+200dd25876a015dce13210903732feefa3c9bbfbd235bc05704ab175179f8696  program_p.f
+418933facd18fdd27e8a65db4ee5b3d33a6d4f1ebded4bada4a622b0ac1892fe  program_d.f
+77e9bb4fdb474e12bd6bd34e9d953d6215d49a9dce3c07a549cdc8eb4611fc7b  program_b.f
+33fa7b26cdda600c08419acbc322f2c9a4f7c8804d101cbed4ec5176fd2593f1  program_dv.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  program_d.msg
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  program_b.msg
+fb497b9efe95d812321a0e3db2af0e1f10deb45fb72169297ef8212bdd08b63d  program_dv.msg
+fresh_tapenade_sha256:
+ccfea737908e948b8e0d52690994ff6d4853833c1ffe50dcdcae93b9cf9c48d3  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/parser/lh054_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/parser/lh054_p.msg
+f730562d2a75e7b4d31ff2e8e7c7d263b6aed4d83bc0428008540862e6328678  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/forward/lh054_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/forward/lh054_d.msg
+32cd5c5f5f67cc998ae396c1e853a4913b8e8d6e6582b4abfe8d1c12ead731e4  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/reverse/lh054_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-set01-lh054.ldNrhI/tapenade/reverse/lh054_b.msg
+case_artifact_sha256:
+c0b20b6b349c023bd1c5d00099471d8c2f634bf5f445dabaeab5572b18c4d8c7  cases/tapenade-set01/lh054/manifest.toml
+e8e22241f3425411905ac76f31ee0261a363b3dc7bf77a9c17279573dd2308de  cases/tapenade-set01/lh054/notes.md
+ecf076adcbb13faf1738f743be48d3a3105abd2c9bdef542d4e1bb32ecf96a4a  cases/tapenade-set01/lh054/port.f90
+c8d2b9ee5ca38e1a898de98b9b0dd71974fae5f5fd32be89d00b6868e8e2bd2e  cases/tapenade-set01/lh054/oracle.py
+b34154b77617672544f691f3ac29bff2f7c2d27c7f3381606b9293890abbb963  cases/tapenade-set01/lh054/harness.f90
+48e0fbf0b00db023f92bb9e0d9b7d4ea0cc0e5ef2144908f28e51970bb0c8c16  cases/tapenade-set01/lh054/run.sh
+2f759b551b92d509ca8cfa261cef3069213732f83f07c4468f00d81b467f2892  cases/tapenade-set01/lh054/test_contract.py

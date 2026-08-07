@@ -1,0 +1,38 @@
+schema_version = 1
+name = "tapenade-set01-lh061-exact-source-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh061/run.sh"
+result = "cases/tapenade-set01/lh061/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh061/program.f",
+    "nonRegressions/set01/lh061/program_p.f",
+    "nonRegressions/set01/lh061/program_d.f",
+    "nonRegressions/set01/lh061/program_b.f",
+    "nonRegressions/set01/lh061/program_dv.f",
+]
+stored_references = [
+    "program_p.msg",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "test(y,f,jac,pjac,slvs)"
+ported_entry_point = "not-applicable (unresolved callback boundary)"
+independent = ["y"]
+dependent = ["y"]
+options = ["-p", "-d -root test", "-b -root test"]
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-compiler", "fresh-Tapenade-parser-tangent-reverse-compile", "FortAD-diagnostic"]
+classification = "expected-refusal"
+dependencies = "The only operation is an external PJAC(Y,JAC) callback; definitions and derivative rules for F, JAC, PJAC, and SLVS are absent from the corpus row. program_dv.f additionally requires the absent DIFFSIZES.inc include."
+expected_diagnostics = [
+    "strict compilation accepts the exact, parser, tangent, and reverse single-direction sources",
+    "strict compilation refuses program_dv.f because DIFFSIZES.inc is absent",
+    "FortAD exact forward refuses implicit y because it is not declared in test",
+    "FortAD exact reverse refuses implicit y because it is not declared in test",
+]
+closure = "No numerical bounded port is claimed: supplying callback bodies or PJAC derivative rules would define semantics not present in the upstream row. The independent oracle is therefore the strict compiler gate, while the runner records fresh Tapenade generation and exact FortAD refusals."

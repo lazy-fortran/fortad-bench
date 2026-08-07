@@ -439,3 +439,32 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh053
 
 See the manifests, results, independent oracles, and contract tests under the
 six corresponding `cases/tapenade-set01/lh0*/` directories.
+
+## Tranche W: `lh054`, `lh055`, `lh056`, `lh059`, `lh060`, and `lh061`
+
+This tranche closes six more fixed-form rows with exact-source and fresh
+Tapenade evidence. `lh054` is a FortAD semantic/code-generation mismatch on
+an alternate-return and implicit interface; its bounded forward witness
+passes while exact forward/reverse output is rejected by the compiler.
+`lh055`, `lh059`, and `lh060` retain exact-source refusals with bounded
+forward witnesses checked by independent hand, finite-difference, and
+adjoint oracles. `lh056` is invalid upstream because its three-argument,
+mixed-kind `AMIN1` call has no standard-defined meaning. `lh061` remains an
+unresolved callback boundary: adding callback bodies or derivative rules
+would define a different program, so no bounded numerical port is claimed.
+Every case has fresh pinned Tapenade parser/tangent/reverse evidence and a
+three-test local contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh054/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh055/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh056/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh059/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh060/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh061/run.sh
+```
+
+See the manifests, results, independent oracles, and contract tests under
+the six corresponding `cases/tapenade-set01/lh0*/` directories.

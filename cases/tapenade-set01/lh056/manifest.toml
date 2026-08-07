@@ -1,0 +1,49 @@
+schema_version = 1
+name = "tapenade-set01-lh056-invalid-amin1"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+runner = "cases/tapenade-set01/lh056/run.sh"
+result = "cases/tapenade-set01/lh056/result.txt"
+source_form = "fixed"
+
+[[case]]
+id = "lh056"
+upstream_sources = [
+    "nonRegressions/set01/lh056/program.f",
+    "nonRegressions/set01/lh056/program_p.f",
+    "nonRegressions/set01/lh056/program_d.f",
+    "nonRegressions/set01/lh056/program_b.f",
+    "nonRegressions/set01/lh056/program_dv.f",
+    "nonRegressions/set01/lh056/program_p.msg",
+    "nonRegressions/set01/lh056/program_d.msg",
+    "nonRegressions/set01/lh056/program_b.msg",
+    "nonRegressions/set01/lh056/program_dv.msg",
+]
+stored_references = ["program_p.f", "program_d.f", "program_b.f", "program_dv.f"]
+upstream_entry_point = "f(t)"
+ported_entry_point = "not-applicable (invalid upstream intrinsic call)"
+options = ["-p", "-d -root f", "-b -root f"]
+modes = ["parser", "forward", "reverse"]
+independent = ["t"]
+dependent = ["f"]
+function = "f=exp(t*t); the source then calls AMIN1(f,0.9,5) with mixed kinds and a nonstandard argument count"
+dependencies = [
+    "AMIN1 is declared intrinsic but receives three arguments, including mixed REAL and INTEGER kinds; strict source semantics are undefined",
+    "program_dv.f includes the absent DIFFSIZES.inc",
+    "stored tangent and reverse references call external AMIN1_D/AMIN1_B helpers and reverse stack routines",
+]
+oracle = [
+    "strict compiler diagnostic identity",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact diagnostic",
+]
+classification = "unsupported-invalid-upstream-fortran"
+expected_diagnostics = [
+    "strict gfortran rejects program.f and program_p.f at the mixed-kind three-argument AMIN1 call",
+    "strict gfortran rejects program_dv.f because DIFFSIZES.inc is absent",
+    "FortAD refuses the exact source at the INTRINSIC AMIN1 declaration",
+]
+tapenade_result = "pass-generation-mixed-strict-compile"
+fortad_result = "refused-unsupported-intrinsic-no-output"
+closure = "No bounded port is supplied: repairing AMIN1's argument count or kinds would choose semantics that the invalid upstream row does not define, so no derivative oracle or support claim is valid."

@@ -1,0 +1,60 @@
+case: Tapenade nonRegressions set01 lh056
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T10:41:10Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh056 -J/var/tmp/fortad-set01-lh056.n30Nlr/mod
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+required_fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: f(t)
+tapenade_options: parser=-p forward=-d/-root f reverse=-b/-root f
+upstream_program.f_strict_compile: expected-refusal status=1 diagnostic=mixed-kind-three-argument-AMIN1
+upstream_program_p.f_strict_compile: expected-refusal status=1 diagnostic=mixed-kind-three-argument-AMIN1
+upstream_program_d.f_strict_compile: pass status=0 stored-tangent-syntax-only
+upstream_program_b.f_strict_compile: pass status=0 stored-reverse-syntax-only
+upstream_program_dv.f_strict_compile: expected-refusal status=1 diagnostic=missing-DIFFSIZES.inc
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_parser_strict_compile: expected-refusal status=1 diagnostic=mixed-kind-three-argument-AMIN1
+tapenade_forward_strict_compile: pass status=0 syntax-only-external-AMIN1_D
+tapenade_reverse_strict_compile: pass status=0 syntax-only-external-AMIN1_B-stack
+fortad_exact_forward: expected-refusal status=1 diagnostic=unsupported-INTRINSIC-AMIN1
+fortad_exact_reverse: expected-refusal status=1 diagnostic=unsupported-INTRINSIC-AMIN1
+fortad_bounded_port: not-applicable-invalid-upstream-no-semantics-preserving-repair
+independent_oracle: strict compiler diagnostic identity; no numerical derivative oracle because the upstream call is invalid
+oracle_program.f: status=1 diagnostics=Different type kinds,not compatible with an intrinsic
+oracle_program.f_diagnostic: Error: GNU Extension: Different type kinds at (1)
+oracle_program.f_diagnostic: Error: Function ‘amin1’ at (1) is INTRINSIC but is not compatible with an intrinsic
+oracle_program_p.f: status=1 diagnostics=Different type kinds,not compatible with an intrinsic
+oracle_program_p.f_diagnostic: Error: GNU Extension: Different type kinds at (1)
+oracle_program_p.f_diagnostic: Error: Function ‘amin1’ at (1) is INTRINSIC but is not compatible with an intrinsic
+oracle_program_d.f: status=0 diagnostics=none-required
+oracle_program_b.f: status=0 diagnostics=none-required
+oracle_program_dv.f: status=1 diagnostics=Cannot open included file
+oracle_program_dv.f_diagnostic: Fatal Error: Cannot open included file ‘DIFFSIZES.inc’
+oracle_status: pass
+closure: no bounded port or exact-support claim; repairing AMIN1 argument count or kinds would invent upstream semantics
+upstream_sha256:
+73deca4f0b9962281c482a16fa3de2f63598c841d9d36fdbbdd940902e14a92b  program.f
+0a2609040c66c83ebcca73cd4d2dcf969b6ba534ba753daf72342c4e9e8b86ba  program_p.f
+0a4acd6226db495ad9360be3d7b724b8bf0fe0a52d3dc4f0605ba5e98ff5586d  program_d.f
+d17ea252eb0170434e6496f56f7c8a755b2959661363f48501e723bdef4bb14b  program_b.f
+6156e8d49d3af6c12104d26edc7237f1d50f371c7e7b04e3faef4362cda08f32  program_dv.f
+d2ba67aa2b504f956eb636bcaa0e55d33b59a5051ea31318e6e6089db85b007b  program_p.msg
+095fee71bfbfc112051da0f4a5479aab7f42c25fbdb22d5ccee84f72e4956dfe  program_d.msg
+095fee71bfbfc112051da0f4a5479aab7f42c25fbdb22d5ccee84f72e4956dfe  program_b.msg
+4eecf302ecbf7fd3cf545d8378af668d683b09e0f5377d910874d0fcbb880f2d  program_dv.msg
+tapenade_generated_sha256:
+2a1537ac8db0365cd6a054663774a1c725d2f64c62b2714b55b1d874e143c830  lh056_p_p.f
+d2ba67aa2b504f956eb636bcaa0e55d33b59a5051ea31318e6e6089db85b007b  lh056_p_p.msg
+0f3b7c9299580c8da7029074821a31611f7cdae8fb796792367c05690b8bc2a3  lh056_d_d.f
+e2a31df44c33da446f3a5f8aca0b73ff65e0bcc12b47cbbc0fdae8fe7f6e71ee  lh056_d_d.msg
+f1946b92ede4cf259f04e94c63615a36fb1f71c16778ba486a43be65dd25716d  lh056_b_b.f
+e2a31df44c33da446f3a5f8aca0b73ff65e0bcc12b47cbbc0fdae8fe7f6e71ee  lh056_b_b.msg
+case_artifact_sha256:
+1c9bf696fdc25529f346cb2f7e129eeda51a05b82cc0a6c0e6be7f1b7b1071c5  cases/tapenade-set01/lh056/manifest.toml
+5e03f0a338ef392077be3bb88a553c0e0d6d2a8f5e4ccf5d571e5fa3884a806a  cases/tapenade-set01/lh056/notes.md
+dfc4ff5d1b4947ec905f43cfa7650611211935396512c7bb7697e9b4ed23b0c2  cases/tapenade-set01/lh056/oracle.py
+ec37a5afdbaad28e17f839bf58a923ef8c7b1e4d1e6a1430efba028e54e071e9  cases/tapenade-set01/lh056/run.sh
+3c5b3c4133356ef468d8c52de651ad5b06ff4daeb33ac6192615aa7216276486  cases/tapenade-set01/lh056/test_contract.py

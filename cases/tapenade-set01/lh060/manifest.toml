@@ -1,0 +1,46 @@
+schema_version = 1
+name = "tapenade-set01-lh060"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh060/run.sh"
+result = "cases/tapenade-set01/lh060/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh060/program.f",
+    "nonRegressions/set01/lh060/program_p.f",
+    "nonRegressions/set01/lh060/program_d.f",
+    "nonRegressions/set01/lh060/program_b.f",
+    "nonRegressions/set01/lh060/program_dv.f",
+]
+stored_references = [
+    "program_d.f",
+    "program_b.f",
+    "program_dv.f",
+    "program_d.msg",
+    "program_b.msg",
+    "program_dv.msg",
+]
+upstream_entry_point = "invert(neq,y,savf,FX3,FX4)"
+ported_entry_point = "set01_lh060(neq,y,savf,tn,c3,c4,y_out,savf_out,tn_out)"
+independent = ["y", "savf", "tn", "c3", "c4"]
+dependent = ["y_out", "savf_out", "tn_out"]
+options = ["-p", "-d -root invert", "-b -root invert"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-generation",
+    "independent-hand-JVP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "FortAD-diagnostic",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact routine carries TN in COMMON /ls0001/ and delegates all numerical work to opaque external FX3 and FX4 callbacks; stored and fresh reverse references additionally require the absent DIFFSIZES.inc. The bounded port exposes state and fixes explicit callback algebra, so its derivative evidence is a bounded specialization rather than exact-source support."
+expected_diagnostics = [
+    "FortAD refuses exact forward and reverse at COMMON /ls0001/tn on line 8",
+    "strict compilation refuses program_b.f and program_dv.f because DIFFSIZES.inc is absent",
+    "fresh Tapenade reverse output has the same absent DIFFSIZES.inc compile refusal",
+]
+closure = "Exact-source support is not claimed. Fresh Tapenade parser and tangent output compile strictly, while its reverse output and the stored reverse/multidirectional references remain blocked by the missing include. FortAD records the exact COMMON refusal. The explicit-state bounded callback specialization has passing FortAD forward and reverse generation/compilation, an independent hand JVP, a central-difference sweep, and an adjoint identity."

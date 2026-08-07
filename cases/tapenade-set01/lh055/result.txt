@@ -1,0 +1,53 @@
+case: Tapenade nonRegressions set01 lh055
+classification: expected-refusal-with-bounded-forward-port
+fortad_commit: 0e156041c1f92736c1e35f8164b37992c4c8d780
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+upstream_exact_strict_compile: expected-refusal program=1 program_p=1 program_d=1 program_b=1 program_dv=1
+upstream_stored_reference_strict_compile: program_p=1 program_d=1 program_b=1 program_dv=1
+upstream_diagnostic_contract: REAL*8 in scalar files; program_dv missing DIFFSIZES.inc
+tapenade_generation: parser=pass tangent=pass reverse=pass root=test
+tapenade_generated_strict_compile: parser=expected-refusal tangent=expected-refusal reverse=expected-refusal
+fortad_exact_forward: expected-refusal status=1 diagnostic=independent-b-not-declared
+fortad_exact_reverse: expected-refusal status=1 diagnostic=dependent-a-not-declared
+fortad_port_forward: pass-transform-compile-runtime status=0
+fortad_port_reverse: pass-transform-compile-runtime status=0
+independent_oracle: hand JVP/VJP, central-difference sweep, adjoint identity
+oracle_status: pass
+primal: 3.31499999999999950e+00
+hand_jvp: -1.27749999999999986e+00
+hand_vjp: 2.91999999999999993e+00
+finite_difference: -1.27750000022963661e+00
+fd_error: 2.29636754056627979e-10
+adjoint_identity_residual: 0.00000000000000000e+00
+b=1.69999999999999996e+00 bd=-3.49999999999999978e-01 seed=8.00000000000000044e-01
+harness_status: pass
+forward_value:   3.3149999999999995E+00
+forward_derivative:  -1.2774999999999999E+00
+reverse_input_adjoint:   2.9200000000000004E+00
+commands:
+tapenade_parser: (cd <out>/parser && /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade -p -root test -o lh055 /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh055/program.f)
+tapenade_forward: (cd <out>/forward && /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade -d -root test -o lh055 /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh055/program.f)
+tapenade_reverse: (cd <out>/reverse && /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade -b -root test -o lh055 /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh055/program.f)
+fortad_exact_forward: /home/ert/code/lazy-fortran/fortad/build/fo/bin/fortad --mode forward --indep b --dep a --proc test --name test_f --module test_f_mod --output <out>/test_f.f90 /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh055/program.f
+fortad_exact_reverse: /home/ert/code/lazy-fortran/fortad/build/fo/bin/fortad --mode reverse --indep b --dep a --proc test --name test_b --module test_b_mod --output <out>/test_b.f90 /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh055/program.f
+fortad_port_forward: /home/ert/code/lazy-fortran/fortad/build/fo/bin/fortad --mode forward --indep b --dep a --proc set01_lh055 --name lh055_forward --module lh055_forward_mod --output <out>/fortad/lh055_forward.f90 /var/tmp/fortad-bench-lh055-worker/cases/tapenade-set01/lh055/port.f90
+fortad_port_reverse: /home/ert/code/lazy-fortran/fortad/build/fo/bin/fortad --mode reverse --indep b --dep a --proc set01_lh055 --name lh055_reverse --module lh055_reverse_mod --output <out>/fortad/lh055_reverse.f90 /var/tmp/fortad-bench-lh055-worker/cases/tapenade-set01/lh055/port.f90
+source_sha256:
+4ec30793c07cbb7830ebbe50c4ba31fe28586f8463e3cd9a72c04b066420777e  nonRegressions/set01/lh055/program.f
+d9da57d1737f3e3744e3faab068fbe8b5e1567c07653b7eb587b924378b45f78  nonRegressions/set01/lh055/program_b.f
+2aed9374ffa0668e0fd7c44b723f493632d8ec9356bb1544791fae18f86f14a1  nonRegressions/set01/lh055/program_d.f
+234aba62f8c8ab79fff02afd6e20def05fa485dad61d30781c27411c7778b6db  nonRegressions/set01/lh055/program_dv.f
+c2d4a07658adb295e6a12ee721fc0d65462c94d04c2906448f1fdaefad56dea0  nonRegressions/set01/lh055/program_p.f
+2e5e9385526cbfab44c4edcc6546a4ef62b89e20ea1099d028b924e968d98724  nonRegressions/set01/lh055/program_b.msg
+2e5e9385526cbfab44c4edcc6546a4ef62b89e20ea1099d028b924e968d98724  nonRegressions/set01/lh055/program_d.msg
+50b99f0bf687dcde35c0798afd12c17c4a8ff574498e22d41813d6556eba6735  nonRegressions/set01/lh055/program_dv.msg
+cc299bd1497993a94cc15a1d26aa7b2dd64266e6deac2f9e79fa1f8dc811797b  nonRegressions/set01/lh055/program_p.msg
+case_artifact_sha256:
+6f7e8e595a1474c488b43d96af706a713799b71fa33a446a1ac906976404f68f  cases/tapenade-set01/lh055/manifest.toml
+65ffc05b39e26338ff9a2c0f52d0ea1c369f65298e7c3d5ba810b8f80bffd5d5  cases/tapenade-set01/lh055/notes.md
+a6a8cbd3b9194674ceaa9afd06bbe2cae9e150ae4b8498f7e1536e0996c2856e  cases/tapenade-set01/lh055/port.f90
+579f56f528f3cce3a1b5b3beff83c3948ce2d74484837885f1a18bc469cdf626  cases/tapenade-set01/lh055/oracle.py
+18122c8e46b50507ec964fd1ed5d62f9004aeddabbd439137faa9b1ded29e348  cases/tapenade-set01/lh055/harness.f90
+0d3aae44837dce5d35d71be313da8ed3712bf78d6620883ba5c4e9691bb95f98  cases/tapenade-set01/lh055/run.sh
+ce31ecfc98edfc6a7999c01814d18b6579d071a57ecf24eed86b74e3d91b8599  cases/tapenade-set01/lh055/test_contract.py

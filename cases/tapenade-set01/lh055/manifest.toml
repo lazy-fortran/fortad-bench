@@ -1,0 +1,34 @@
+schema_version = 1
+name = "tapenade-set01-lh055"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0e156041c1f92736c1e35f8164b37992c4c8d780"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh055/run.sh"
+result = "cases/tapenade-set01/lh055/result.txt"
+source_harness = "cases/tapenade-set01/lh055/harness.f90"
+
+upstream_sources = [
+    "nonRegressions/set01/lh055/program.f",
+    "nonRegressions/set01/lh055/program_p.f",
+    "nonRegressions/set01/lh055/program_d.f",
+    "nonRegressions/set01/lh055/program_b.f",
+    "nonRegressions/set01/lh055/program_dv.f",
+]
+stored_references = ["program_p.f", "program_d.f", "program_b.f", "program_dv.f", "program_p.msg", "program_d.msg", "program_b.msg", "program_dv.msg"]
+upstream_entry_point = "test(a,b)"
+ported_entry_point = "set01_lh055(a,b)"
+independent = ["b"]
+dependent = ["a"]
+options = ["-p", "-d -root test", "-b -root test"]
+modes = ["exact-forward:refused", "exact-reverse:refused", "bounded-forward", "bounded-reverse"]
+oracle = ["strict-compiler", "fresh-Tapenade-generation", "independent-hand-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact source declares REAL*8 and calls an unresolved external TOTO; the stored multidirectional reference includes absent DIFFSIZES.inc. The bounded witness resolves TOTO to toto(x)=x*x+0.25*x with explicit real64 INTENT interfaces."
+expected_diagnostics = [
+    "strict F2018 rejects REAL*8 in the primal and stored scalar derivatives",
+    "strict F2018 rejects program_dv.f because DIFFSIZES.inc is absent",
+    "fresh Tapenade parser, tangent, and reverse generation succeeds but all generated outputs reject REAL*8 under strict compilation",
+    "FortAD exact forward reports that b is not declared in TEST and exact reverse reports that a is not declared in TEST",
+]
+closure = "The unknown external callback prevents an exact numerical oracle. The bounded standard-conforming witness is separately checked by hand JVP/VJP, central differences, an adjoint identity, and compiled FortAD forward/reverse outputs; it is not promoted as exact upstream support."
