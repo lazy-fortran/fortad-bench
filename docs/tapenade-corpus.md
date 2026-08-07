@@ -100,14 +100,13 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,224 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,223 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger now has 122 classified set01 rows (32 runnable, 74
-  expected refusals, and 16 invalid-upstream closures), plus 86 classified
-  rows elsewhere (74 runnable/refusal evidence rows and 12 invalid-upstream
-  closures). The profile tranche adds `set12/jlb012` and `set12/profile01`,
-  while the shard-3 tranche adds `set05/v125` and `set05/v137`, all with
-  exact-source Tapenade generation, strict generated compilation, FortAD
-  transforms, and independent derivative checks.
+  expected refusals, and 16 invalid-upstream closures), plus 87 classified
+  rows elsewhere (75 runnable/refusal evidence rows and 12 invalid-upstream
+  closures). The profile, shard-3, and shard-0 tranches add exact-source
+  Tapenade generation, strict generated compilation, FortAD transforms, and
+  independent derivative checks; the shard-0 case is `set04/lh148`.
 
 Build the next-tranche queue without changing those ledger statuses:
 
@@ -116,10 +115,10 @@ scripts/queue_tapenade_fortran.py
 scripts/queue_tapenade_fortran.py --check
 ```
 
- [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
- and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,298 rows
+[`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,297 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 303 program candidates, and 921 procedure
+ rows with no entry-point hint, 303 program candidates, and 920 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -219,7 +218,9 @@ linked from the set01 case notes.
 The parallel cross-set tranche adds six positive rows: `set01/bd05`,
 `set02/lh150`, `set03/ht09`, `set04/lh110`, `set05/v052`, and `set06/v234`.
 Their manifests, runners, and measurement records are linked from the
-corresponding case directories.
+corresponding case directories. The shard-0 `set04/lh148` `module1::toto`
+entry is independently promoted in
+[`cases/tapenade-set04/lh148`](../cases/tapenade-set04/lh148/notes.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
