@@ -1,0 +1,44 @@
+schema_version = 1
+name = "tapenade-set01-tranche-l-lh017-032"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh017_032.sh"
+result = "results/tapenade_set01_lh017_032_validation.txt"
+
+[[case]]
+id = "lh017"
+upstream_source = "nonRegressions/set01/lh017/program.f"
+upstream_entry_point = "test(a1,a2,b1,b2)"
+ported_entry_point = "set01_lh017(a1,a2,branch,b1,b2)"
+independent = ["a1", "a2"]
+dependent = ["b1", "b2"]
+function = "piecewise quadratic/cubic branch with explicit branch state"
+modes = ["forward", "reverse:b1", "reverse:b2"]
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "runnable-ported"
+
+[[case]]
+id = "lh022"
+upstream_source = "nonRegressions/set01/lh022/program.f"
+upstream_entry_point = "test(x,y)"
+ported_entry_point = "set01_lh022(x,y)"
+independent = ["x", "y"]
+dependent = ["x", "y"]
+function = "elementwise nonlinear in-place loop"
+modes = ["forward", "reverse:refused"]
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "expected-refusal"
+expected_diagnostic = "reverse mode: 'y' is both read and written in the same loop; that needs per-iteration storage"
+
+[[case]]
+id = "lh028"
+upstream_source = "nonRegressions/set01/lh028/program.f"
+upstream_entry_point = "s1(a,b)"
+ported_entry_point = "set01_lh028(a,b)"
+independent = ["a", "b"]
+dependent = ["a", "b"]
+function = "nested piecewise branches inside a loop"
+modes = ["forward", "reverse:refused"]
+oracle = ["independent-hand", "central-difference", "adjoint-identity"]
+classification = "expected-refusal"
+expected_diagnostic = "reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone"

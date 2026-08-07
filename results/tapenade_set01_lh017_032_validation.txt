@@ -1,0 +1,50 @@
+suite: Tapenade nonRegressions set01 tranche L (lh017, lh022, lh028)
+recorded_utc: 2026-08-07T06:24:12Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+fortad_commit: 90e9b9b15941f4e4f2f8d75a0a74a20650f69e9b
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_compiler_oracle: exact primal and stored references are attempted under strict flags; statuses are recorded below
+tapenade_oracle: fresh parser, tangent, and reverse files generated; strict compile statuses are recorded below
+fortad_oracle: lh017 forward and both reverse seeds compile; lh022/lh028 forward compile and exact reverse refusals match
+independent_oracle: hand JVP/VJP, central differences, and adjoint identities
+oracle_status: pass
+lh017_reverse_refusal_status: not-applicable (supported)
+lh022_reverse_refusal_status: 1
+lh022_diagnostic: fortad: reverse mode: 'y' is both read and written in the same loop; that needs per-iteration storage
+lh028_reverse_refusal_status: 1
+lh028_diagnostic: fortad: reverse mode: a branch inside a loop needs control-flow reversal, which is the next milestone
+upstream_compile_statuses:
+tapenade/lh017/upstream-program.f.status 0
+tapenade/lh017/upstream-program_b.f.status 0
+tapenade/lh017/upstream-program_d.f.status 0
+tapenade/lh022/upstream-program.f.status 0
+tapenade/lh022/upstream-program_b.f.status 0
+tapenade/lh022/upstream-program_d.f.status 0
+tapenade/lh028/upstream-program.f.status 0
+tapenade/lh028/upstream-program_b.f.status 1
+tapenade/lh028/upstream-program_d.f.status 0
+tapenade_generated_compile_statuses:
+tapenade/lh017/forward/lh017_d.f.status 0
+tapenade/lh017/parser/lh017_p.f.status 0
+tapenade/lh017/reverse/lh017_b.f.status 0
+tapenade/lh022/forward/lh022_d.f.status 0
+tapenade/lh022/parser/lh022_p.f.status 0
+tapenade/lh022/reverse/lh022_b.f.status 0
+tapenade/lh028/forward/lh028_d.f.status 0
+tapenade/lh028/parser/lh028_p.f.status 0
+tapenade/lh028/reverse/lh028_b.f.status 1
+runtime_metrics:
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3104
+source_sha256:
+109abcac4215495c09eb00265873aeb7bea758a390a3075c8e5d32ac38eb5d31  cases/tapenade-set01/lh017.f90
+5dda7b32c07f8bbf9bcf78de5ba797aad0a635b178a16cc1010ba53e9d87d01b  cases/tapenade-set01/lh022.f90
+a508ad12250b2f5bb5ae4e85c96623f2086b97f221739d9d65e906e0790e824f  cases/tapenade-set01/lh028.f90
+e2675975be392c11723f124f9464a1f00a18dce304811eec82a82c04a117e823  cases/tapenade-set01/hand_derivatives_lh017_032.f90
+dbddad0888c9a02ae96e3a871c532af8dae144d2d9086a6e53462745fa375791  cases/tapenade-set01/tranche-l-lh017-032-manifest.toml
+ad07599873596d261ee0c695f4be3337f2efc566b6ece9ebe5686c63789d4f86  cases/tapenade-set01/tranche-l-lh017-032.md
+087760459c22ef9668fc3e86ad08618c7b34f90b9ffabfad48856fa313ad3344  harness/bench_tapenade_set01_lh017_032.f90
+73bc0bddec33b4475757e451d3e629c3773892478f6fd81260d48d7fc7cb009c  scripts/bench_tapenade_set01_lh017_032.sh
+run_output:
+oracle_status: pass
