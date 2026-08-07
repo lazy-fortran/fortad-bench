@@ -309,12 +309,12 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Thirty-seven rows now have executable FortAD evidence, fifty-one explicit
-  refusals, and twenty invalid-upstream closures are independently recorded. Another
+  audit. Thirty-seven rows now have executable FortAD evidence, fifty-four explicit
+  refusals, and twenty-three invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,398 rows are queued: 1,324 pure-Fortran rows and 74 mixed-language rows.
+  1,392 rows are queued: 1,318 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream

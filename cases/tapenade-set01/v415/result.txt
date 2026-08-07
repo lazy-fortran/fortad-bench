@@ -1,0 +1,38 @@
+case: Tapenade todoF90 REFERENCES/v415 allocatable-component boundary
+classification: expected-refusal-invalid-stored-derivative-and-unsupported-allocatable
+recorded_utc: 2026-08-07T12:40:57Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: calc_force(geom,prop,obj,acc)
+upstream_exact_strict_compile: primal=0 stored_program_d=1
+stored_program_d_diagnostic: generated-percent-v-accesses-on-nonderived-components
+stored_program_d_message: 1 Command: Procedure calc_force understood as calc_m.calc_force
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass finite_difference_max_error: 4.401e-10 adjoint_identity_residual: 0.000e+00
+port_result: not-applicable-exact-allocatable-component-refusal
+closure: no bounded port; replacing allocatable components would change the candidate
+upstream_sha256:
+617c7cea519d245ada8dde29ce63348c7ea7ba3be64c1f2703fa8aa13aff02fe  todoF90/REFERENCES/v415/Options
+ed1c4b225f036ba4fc54a0bdde47e0329da3fe997617353f503584451cb95453  todoF90/REFERENCES/v415/param_m.mod
+755abaa5a3f8c9afad8462eeae4cb87759fa446d8b3733e4ef952d41d38df437  todoF90/REFERENCES/v415/program.f90
+78c5591cf19ed7c9b8114199de9d405600eea8a85a10257381a6769457bb6ee2  todoF90/REFERENCES/v415/program_d.f90
+59e51da52433d8f70537ca135ea85ea01bdf0f472e7f02b2b8e2fd04bf4f6179  todoF90/REFERENCES/v415/program_d.msg
+ab115beba4a0437c6e66833197649473205d129812c475584232efb1200cc35b  todoF90/REFERENCES/v415/struc_m.mod
+fresh_tapenade_sha256:
+2d01ebee54ef7faad69036869ca2e0240205da79ac1c37a2e924bb3bac78a3f3  p/v415_p.f90
+edbbf512ee6fef62ea323ee9baf914dfb8445046674a2aa3c1edc604eebad2d1  p/v415_p.msg
+839496cc3854e39d2bfaef33bdc3cc62b5f867b01d9c36eba256f6c78c0b1b7f  d/v415_d.f90
+edbbf512ee6fef62ea323ee9baf914dfb8445046674a2aa3c1edc604eebad2d1  d/v415_d.msg
+906de3dc5c867888c4c97c089eca68d1cd51dd0a97e1583f4a9312d7f9a4bf1d  b/v415_b.f90
+edbbf512ee6fef62ea323ee9baf914dfb8445046674a2aa3c1edc604eebad2d1  b/v415_b.msg

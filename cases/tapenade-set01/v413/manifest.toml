@@ -1,0 +1,66 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v413"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v413/run.sh"
+result = "cases/tapenade-set01/v413/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; uninitialized-local-risk"
+static_entry_point_hints = ["f4(t,ss,hr)"]
+source_files = ["todoF90/REFERENCES/v413/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v413/Options",
+    "todoF90/REFERENCES/v413/program.f90",
+    "todoF90/REFERENCES/v413/program_Rd.f90",
+    "todoF90/REFERENCES/v413/program_Rd.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v413/program_Rd.f90",
+    "todoF90/REFERENCES/v413/program_Rd.msg",
+]
+missing_stored_references = [
+    "program_Rb.f90",
+    "program_Rb.msg",
+]
+
+upstream_entry_point = "f4(t,ss,hr)"
+selected_entry_points = ["f4(t,ss,hr)"]
+ported_entry_point = "not-applicable-uninitialized-local-mt"
+independent = ["hr"]
+dependent = ["ss", "f4"]
+function = "f4 = ss = hr ** (1./mt), with local mt read before assignment"
+options = [
+    "-p -root f4",
+    "-d -root f4",
+    "-b -root f4",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran-compile-of-exact-and-stored-forward-source",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-undefined-local-state-model",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran accepts program.f90 and program_Rd.f90 but warns that local mt is used uninitialized",
+    "stored program_Rd.msg records Tapenade DF03: variable mt is used before initialized",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs are emitted and compile strictly, each retaining the mt warning",
+    "FortAD check, forward, and reverse all refuse the exact source at the RETURN statement on line 6",
+]
+fresh_generated_sources = ["v413_p.f90", "v413_d.f90", "v413_b.f90"]
+fresh_generated_messages = ["v413_p.msg", "v413_d.msg", "v413_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-with-undefined-local-warning"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-unsupported-return-statement"
+closure = "The exact procedure reads local mt before any assignment, so hr ** (1./mt), ss, and f4 have no defined numerical value for any input. Assigning mt, making it an argument, or selecting a bounded exponent would change the upstream procedure; no port or derivative runtime claim is made."
+
+[upstream_sha256]
+"Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"program.f90" = "f8fbc95c66d7fbb326395d65dcfdd33e9981f205d4205fec6780a8ce3663a7ba"
+"program_Rd.f90" = "51b3885717c9376d22a39acb791b5c5cec08a00ebdeb069ce19cf15d85032df0"
+"program_Rd.msg" = "b99c8e97640c39cf6d526d200723b510c918b989fc9c2504bca5cd2c992a5a81"

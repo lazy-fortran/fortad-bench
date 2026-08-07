@@ -1,0 +1,43 @@
+case: Tapenade todoF90/REFERENCES/v402
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:41:11Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+source_checkout: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade
+upstream_entry_points: timeloop(k); f(a); g(a)
+tapenade_options: parser=-p/-root timeloop forward=-d/-root timeloop reverse=-b/-root timeloop
+upstream_exact_strict_compile: program.f90=1 program_b.f90=1
+upstream_diagnostics: program.f90="Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)" program_b.f90="Error: GNU Extension: Nonstandard type declaration REAL*8 at (1)"
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v402_p.f90 forward=v402_d.f90 reverse=v402_b.f90
+tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 12"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 12"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="allocatable declaration/component line 12"
+oracle_status: pass
+oracle_obligations: timeloop-formal-1-actual-0 missing-diffsizes-module
+oracle_result: no standard-conforming numerical map; no port claimed
+port_result: not-applicable-invalid-source-no-standard-conforming-map
+upstream_sha256:
+172542c7742e579b3c55d150ee20854cad9e7ac123fbe128ba3f187fd7b56a26  todoF90/REFERENCES/v402/program.f90
+9d09bd811848bbeb24f874775a5b3c26f585890ea105af18403b47090ad5c2f0  todoF90/REFERENCES/v402/program_b.f90
+75aef03fa93124602d84ccf6fdb3dbedd9a191ee052c3f36fe378e49d08e5baf  todoF90/REFERENCES/v402/program_b.msg
+fresh_tapenade_sha256:
+55976eca038c55e1f7251307f95025e1541b8f727ccfaf9b12c78117da402c6e  parser/v402_p.f90
+ed779823d04b712636e1333fa7b9df0ad320d27ec42b477fc02b1cc01e2867b4  parser/v402_p.msg
+eb77b124f224d53f79ad005e0cc520592334d7177672ea68a5e91a9e5dca57e0  forward/v402_d.f90
+ed779823d04b712636e1333fa7b9df0ad320d27ec42b477fc02b1cc01e2867b4  forward/v402_d.msg
+14f68bfddcb716fc4c1d7d35f49d216ca23798f7aeacceaed1f3c0416b0077d0  reverse/v402_b.f90
+fdd8e21df240f435638572d1ae0a51a63bee2e427567acab9e6ed8f285bc44b6  reverse/v402_b.msg
+case_artifact_sha256:
+ae90aa9f4df55f0f4d6d0aadb8cd8af65c09de3f32aa9c061af08e82b3ecda2d  manifest.toml
+c64dd705e6483140ff668dc94259b73acfd9cd2fb52193d1e9065ca6145d493d  notes.md
+017cbdfefaaf293d7b405e171fede309405a4d29beb8bf40dab1346a58e88993  oracle.py
+fb8f572b993b6123cff8ec3fb62e21fe940db500bf9f0d05b59d373531484332  run.sh
+4657dab3c4939cedc1a7b75c1723f95db14b7b5dd66f553e155ab0402e978076  test_contract.py

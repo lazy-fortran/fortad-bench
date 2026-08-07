@@ -1,0 +1,43 @@
+case: Tapenade todoF90/REFERENCES/v385
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:40:57Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: fonctiontTest(buf,resultat)
+tapenade_options: parser=-p/-root fonctiontTest forward=-d/-root fonctiontTest reverse=-b/-root fonctiontTest
+upstream_exact_strict_compile: primal=1 tangent=1 reverse=1
+upstream_strict_diagnostic: Nonstandard type declaration REAL*8
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v385_p.f90 tangent=v385_d.f90 reverse=v385_b.f90
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1 admpi_support=0
+tapenade_generation_diagnostic: conflicting MPI_ISEND actual count; unexpected MPI_TEST primitive
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 11; active allocation state is not represented yet"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 11; active allocation state is not represented yet"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: unsupported allocation lifetime construct 'allocatable declaration/component' at line 11; active allocation state is not represented yet"
+independent_oracle: oracle_status: pass local-square-map max_fd_error=7.572e-10 dot_error=0.000e+00
+bounded_port: not-claimed reason=invalid-strict-source-and-unsupported-MPI-allocation-state
+upstream_sha256:
+2c0a76b1cc8503935a7ecf481b3a427133c202a47e8698349538c6185b61e94d  program.f90
+8d8c38fcb765a6581f20ad0b758ea6edc8f93b3341cec3fac707486b3478cf61  program_d.f90
+2a21b7debbe38868f4d13a984d8b949302fd4f60ed6c085c5f8a79675262f385  program_d.msg
+2677617a27ed59e25db3420b07c3bddc5778d316dcb49c06e9115160714fe601  program_b.f90
+2a21b7debbe38868f4d13a984d8b949302fd4f60ed6c085c5f8a79675262f385  program_b.msg
+fresh_tapenade_sha256:
+ece3bce7b1fa1e00ed7f3edaa2ac494967bd22ac04bd41867b8c4e0b8171dd2c  v385_p.f90
+85b4ccb354b2cfd402efa8a77382f40ab253512b4c66ea7020ba096e02401d25  v385_p.msg
+4195021e0eb0bf7b164550d292661f4f6035fd4d5caa2548d0b59a0e023c6092  v385_d.f90
+85b4ccb354b2cfd402efa8a77382f40ab253512b4c66ea7020ba096e02401d25  v385_d.msg
+2bc39b1171c19759d3d5433d2a21c58159d303a61afe74e1420059c1a98e6da6  v385_b.f90
+85b4ccb354b2cfd402efa8a77382f40ab253512b4c66ea7020ba096e02401d25  v385_b.msg
+case_artifact_sha256:
+e11b537614c0615f513d3c7ee259c357387387403a4d9bdc17dcc188a058988b  manifest.toml
+b2e48efc9941c55521df1814dfadb7550e094587c37f91bade9801a5e707f266  notes.md
+cfd2ffa10b9c3bdc97ec475c8538f7a1a6ecd7a056f6bd295d9db6e629af0dfa  oracle.py
+c920b433f32a3a8b8f0cb78d0b5aeab14520bacb21444db45fd2fe7b40f29bef  run.sh
+eaa80af9222a32c78598dc36b8ca89859362f2550c3ce7893921cea8d50396bf  test_contract.py

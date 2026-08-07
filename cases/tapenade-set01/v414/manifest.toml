@@ -1,0 +1,57 @@
+schema_version = 1
+name = "tapenade-set01-v414-derived-type-codegen-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v414/run.sh"
+result = "cases/tapenade-set01/v414/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; derived-type-codegen-boundary"
+source_files = [
+    "todoF90/REFERENCES/v414/Options",
+    "todoF90/REFERENCES/v414/program.f90",
+    "todoF90/REFERENCES/v414/program_Rd.f90",
+    "todoF90/REFERENCES/v414/program_Rd.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v414/Options",
+    "todoF90/REFERENCES/v414/program.f90",
+    "todoF90/REFERENCES/v414/program_Rd.f90",
+    "todoF90/REFERENCES/v414/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg"]
+
+upstream_entry_point = "example3.addvector(a,b)"
+selected_entry_points = ["addvector(a,b)"]
+ported_entry_point = "not-applicable-exact-derived-type-output-and-unassigned-y"
+independent = ["a%x", "b%x"]
+dependent = "addvector%x"
+options = ["-association byaddress", "-p -root addvector", "-d -root addvector", "-b -root addvector"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict compiler for exact primal and stored tangent",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse generation and strict-compilation boundary",
+    "independent x-component finite-difference JVP",
+    "independent x-component adjoint identity",
+]
+classification = "expected-refusal-without-port"
+expected_diagnostics = [
+    "the exact primal and stored tangent compile strictly; addvector leaves y unassigned",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD parser output has invalid result() and no VECTOR declaration",
+    "FortAD forward output has a blank derivative dummy and no VECTOR declaration",
+    "FortAD reverse output emits component designator addvector%x_b as a type name and no VECTOR declaration",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "generation-success-strict-compile-refusal-for-parser-forward-reverse"
+closure = "The exact source is strict-compilable but only defines addvector%x; addvector%y is left undefined. Fresh pinned Tapenade references and derivatives compile. FortAD emits files for all three exact modes, but none is strict-compilable because the generated procedure/module does not carry the private VECTOR type context and the forward/reverse signatures contain malformed derived-type handling. No repaired type exposure, y assignment, or bounded port is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v414/Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"todoF90/REFERENCES/v414/program.f90" = "d7c58baca2912b27c9ee00921b3ce18ee5ed8a15e683f6785243ff7f9d78781d"
+"todoF90/REFERENCES/v414/program_Rd.f90" = "b86cc4830325976d7a965ea4d54bd4b8177220b896dfe11e6b453b175bdebe27"
+"todoF90/REFERENCES/v414/program_Rd.msg" = "9cc144729bbd2dc25a264420b3e63de2f01eb25fe7d207059be37049a9c9efc7"

@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,324 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving ninety-nine set01 evidence rows and nine additional
+  either engine. It leaves 1,318 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving 105 set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,398 rows
-into 74 mixed-language-risk candidates, 24 historical-failure candidates, 20
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,392 rows
+into 74 mixed-language-risk candidates, 18 historical-failure candidates, 20
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -201,6 +201,13 @@ Tranche AA (`todoF90/REFERENCES/v100`, `v101`, `v144`, `v270`, `v322`, and
 The cases cover MOD, allocatable lifetime, implicit-interface/rank, legacy-kind,
 derived-type-state, and MPI communication boundaries with fresh Tapenade and
 FortAD evidence.
+
+Tranche AB (`todoF90/REFERENCES/v385`, `v402`, `v412`, `v413`, `v414`, and
+`v415`) adds three invalid-upstream closures and three expected-refusal
+boundaries. The cases cover MPI/allocatable state, invalid calls and missing
+runtime dependencies, mixed-kind interfaces, undefined local state, private
+derived types, and allocatable components. Each has fresh pinned Tapenade
+generation, exact FortAD evidence, and an independent three-test contract.
 
 ## Closeout rule
 

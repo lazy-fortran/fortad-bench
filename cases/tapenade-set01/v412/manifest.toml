@@ -1,0 +1,51 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v412"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v412/run.sh"
+result = "cases/tapenade-set01/v412/result.txt"
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; mixed-kind-and-undeclared-external-risk"
+source_files = ["todoF90/REFERENCES/v412/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v412/Options",
+    "todoF90/REFERENCES/v412/program.f90",
+    "todoF90/REFERENCES/v412/program_Rd.f90",
+    "todoF90/REFERENCES/v412/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg"]
+missing_stored_references = ["program_Rb.f90", "program_Rb.msg"]
+upstream_entry_point = "top(x,y); helpers f0-f7"
+selected_entry_points = ["top(x,y)", "f0(t1,t2,t3)", "f5(t)", "f6(t)", "f7(t)"]
+ported_entry_point = "not-applicable-invalid-exact-source"
+independent = ["x"]
+dependent = ["y"]
+function = "mixed REAL/DOUBLE PRECISION implicit-interface calls and undeclared external undef"
+options = ["-association byaddress", "-p -root top", "-d -root top", "-b -root top"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "independent strict-gfortran compiler diagnostics",
+    "fresh pinned Tapenade generation followed by strict compilation",
+    "FortAD exact parser/forward/reverse refusal and no-output boundary",
+    "pinned source SHA-256 contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 at implicit-interface return-type and REAL(8)-to-REAL(4) mismatches",
+    "strict gfortran rejects stored program_Rd.f90 at undeclared generated function results and mixed-type calls",
+    "fresh Tapenade parser, tangent, and reverse outputs are generated but each fails strict compilation at the mixed-kind calls",
+    "FortAD check, forward, and reverse all refuse the exact source at unsupported statement line 56",
+]
+fresh_generated_sources = ["v412_p.f90", "v412_d.f90", "v412_b.f90"]
+fresh_generated_messages = ["v412_p.msg", "v412_d.msg", "v412_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-unsupported-statement"
+closure = "The exact source is not strict-conforming: top calls REAL functions f6 and f7 with DOUBLE PRECISION actuals, implicit interfaces mis-type the other helper results, and f5 calls undeclared external undef. The stored tangent reference also has generated declaration defects, and the source uses RETURN in top where FortAD stops at line 56. Repairing those boundaries would change the candidate, so no bounded port or derivative claim is made."
+
+[upstream_sha256]
+"Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"program.f90" = "b2bfd5337eaf288460a530edece31a9aa4c4d59867c291ae9820f1845675d114"
+"program_Rd.f90" = "49360e5bf3db321d7975d6e11dd8ed2579dd10f228c4432181676c85732d5dbb"
+"program_Rd.msg" = "80d543985a937b58b2605d64aa6f2d3f1ccf036e8f9ae591404267e0fd2fed7d"

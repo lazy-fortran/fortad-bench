@@ -1,0 +1,43 @@
+case: Tapenade todoF90/REFERENCES/v413 undefined local-state boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:40:56Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: f4(t,ss,hr)
+upstream_exact_strict_compile: program.f90=0 program_Rd.f90=0
+upstream_diagnostic: local mt used uninitialized; stored message=DF03 variable mt is used before initialized
+stored_references: program_Rd.f90=present program_Rd.msg=present program_Rb.f90=missing program_Rb.msg=missing
+tapenade_options: parser=-p/-root f4 forward=-d/-root f4 reverse=-b/-root f4; upstream Options recorded
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v413_p.f90 tangent=v413_d.f90 reverse=v413_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported statement at line 6"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported statement at line 6"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported statement at line 6"
+independent_oracle: oracle_status: pass undefined-mt-propagates-through-exponent-ss-and-f4
+port_result: not-applicable-undefined-local-mt
+closure: no bounded port; assigning or exposing mt would change the candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  Options
+f8fbc95c66d7fbb326395d65dcfdd33e9981f205d4205fec6780a8ce3663a7ba  program.f90
+51b3885717c9376d22a39acb791b5c5cec08a00ebdeb069ce19cf15d85032df0  program_Rd.f90
+b99c8e97640c39cf6d526d200723b510c918b989fc9c2504bca5cd2c992a5a81  program_Rd.msg
+fresh_tapenade_sha256:
+ee6c68f7d25bc0fd31cbb37c31f6189f8838d64001bde3d4425cf62236d6d1c6  /var/tmp/fortad-bench-v413.wPLCHn/fresh/parser/v413_p.f90
+b0403679ec5d474919b8a2cb5fc2be90d2e7d91c0ae2614ac6e25a50329c3c22  /var/tmp/fortad-bench-v413.wPLCHn/fresh/parser/v413_p.msg
+ed2d0361a9ee3bee0aff3ff71c94cfe6b1a8a611c2d77e211fbdb54e7bddd24c  /var/tmp/fortad-bench-v413.wPLCHn/fresh/forward/v413_d.f90
+b0403679ec5d474919b8a2cb5fc2be90d2e7d91c0ae2614ac6e25a50329c3c22  /var/tmp/fortad-bench-v413.wPLCHn/fresh/forward/v413_d.msg
+70a82f99036efde79672e8bdb9d7b738f5e4b74ce15952824e0eee3060bd1106  /var/tmp/fortad-bench-v413.wPLCHn/fresh/reverse/v413_b.f90
+b0403679ec5d474919b8a2cb5fc2be90d2e7d91c0ae2614ac6e25a50329c3c22  /var/tmp/fortad-bench-v413.wPLCHn/fresh/reverse/v413_b.msg
+case_artifact_sha256:
+a171caff4480b59106b8a669ff91c19e4be379630cc645cf962b809206c3e848  manifest.toml
+5900513348f4977fbda35261f0561bacf72a904c046c8d14d90974e03b6d8f85  notes.md
+0832127f539917204d5f2ba93345b70dccc3618b75bcf6929c857225895af6ce  oracle.py
+668f97718dacfa185301f2b962ea3f5fe43d563af3228b5a0e9a24c08079a0a0  run.sh
+a632f7ce1cafe5bee7ed41fd5b641c3d909446f1f33afd86cb1d26e2166e99d1  test_contract.py

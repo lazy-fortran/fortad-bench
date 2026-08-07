@@ -519,6 +519,32 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v377/
 See the manifests, result records, oracles, and contract tests under
 `cases/tapenade-set01/v100/`, `v101/`, `v144/`, `v270/`, `v322/`, and `v377/`.
 
+## Tranche AB: `todoF90/REFERENCES/v385`, `v402`, `v412`, `v413`, `v414`, and `v415`
+
+This tranche closes six more historical-reference rows. `v385`, `v402`, and
+`v412` are invalid-upstream closures covering MPI/allocatable state, a
+zero-actual call plus missing `DIFFSIZES`, and mixed-kind implicit interfaces.
+`v413` records an undefined local exponent, while `v414` and `v415` retain
+FortAD refusal boundaries for private derived types and allocatable components.
+Fresh pinned Tapenade generation and strict compilation are recorded for every
+case, and each has an independent three-test contract. No bounded port is
+claimed for this tranche.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v385/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v402/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v412/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v413/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v414/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v415/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under `cases/tapenade-set01/v385/`, `v402/`, `v412/`, `v413/`, `v414/`, and
+`v415/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are

@@ -1,0 +1,43 @@
+case: Tapenade todoF90 REFERENCES/v412 mixed-kind and unsupported-statement boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:40:56Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(x,y); helpers f0-f7
+tapenade_options: parser=-p/-root top forward=-d/-root top reverse=-b/-root top
+upstream_exact_strict_compile: program.f90=1 program_Rd.f90=1
+upstream_diagnostics: program.f90=implicit-interface-return-type-and-real-kind-mismatch program_Rd.f90=undeclared-generated-function-results-and-mixed-kind-calls
+upstream_stored_references: program_Rd.f90=present program_Rd.msg=present program_Rb.f90=missing program_Rb.msg=missing
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_fresh_sources: parser=v412_p.f90 forward=v412_d.f90 reverse=v412_b.f90
+tapenade_fresh_strict_compile: parser=1 forward=1 reverse=1
+tapenade_fresh_diagnostic: mixed-kind-call-Type-mismatch-in-argument
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: unsupported statement at line 56"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: unsupported statement at line 56"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: unsupported statement at line 56"
+independent_oracle: pass-strict-gfortran-and-pinned-source-checksums
+port_result: not-applicable-invalid-upstream-source
+closure: no bounded port or exact-source support claim; repairing mixed kinds, interfaces, or RETURN support would change the candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  Options
+b2bfd5337eaf288460a530edece31a9aa4c4d59867c291ae9820f1845675d114  program.f90
+49360e5bf3db321d7975d6e11dd8ed2579dd10f228c4432181676c85732d5dbb  program_Rd.f90
+80d543985a937b58b2605d64aa6f2d3f1ccf036e8f9ae591404267e0fd2fed7d  program_Rd.msg
+fresh_tapenade_sha256:
+14b2133ed5a0b477e4658f3bf09694659ab7da143d065f3d5e0628450c37aa1d  v412_p.f90
+60ab117bd8a17770dfd1f91821fafab903e2d5df6c5d8ce79a4390a5ce6c315d  v412_p.msg
+67eaefca60737617590b2b3021aca3ab70d0ab17bf96b181b51e602fe498c2a3  v412_d.f90
+6cefff8a20ebbff2e5ac19f6462d3ba23864bb9b809f4aa9f23aa15244d71202  v412_d.msg
+0292231a318569f512354ff4fc4cbf89d968a620251877dac954faf9e0e22276  v412_b.f90
+6cefff8a20ebbff2e5ac19f6462d3ba23864bb9b809f4aa9f23aa15244d71202  v412_b.msg
+case_artifact_sha256:
+892343487e948bb337ff6c2dfc5213218ce74f942da5c2bd9353ea31307c3e72  manifest.toml
+4880ca7cd05492b80081b3273b3cdb51c6910058728fd59d949a3670503c53f4  notes.md
+1b05429e53021e9881177d4eeaa9a59566b9a2272369e55fd4639cd160364c09  run.sh
+007bf97befef034dfdb7d7adba6d9e494b66ee3c16db888c2cb13165c0c54fb8  test_contract.py

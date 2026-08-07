@@ -1,0 +1,47 @@
+case: Tapenade todoF90 REFERENCES/v414 derived-type output boundary
+classification: expected-refusal-without-port
+recorded_utc: 2026-08-07T12:40:56Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: example3.addvector(a,b)
+selected_entry_point: addvector(a,b); defined observable: addvector%x; unassigned: addvector%y
+tapenade_options: -association byaddress; parser=-p/-root addvector forward=-d/-root addvector reverse=-b/-root addvector
+upstream_exact_strict_compile: primal=0 stored_tangent=0
+upstream_stored_tangent_diagnostic: Warning: Unused variable ‘addvector’ declared at (1) [-Wunused-variable]
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: transform=0 strict_compile=1 output=present diagnostic="empty result() and missing VECTOR context"
+fortad_exact_forward: transform=0 strict_compile=1 output=present diagnostic="blank derivative dummy and missing VECTOR context"
+fortad_exact_reverse: transform=0 strict_compile=1 output=present diagnostic="invalid addvector%x_b declaration and missing VECTOR context"
+independent_oracle:
+observable: addvector%x = a%x + b%x
+unassigned_component: addvector%y
+finite_difference_max_error: 1.028e-09
+adjoint_identity_residual: 0.000e+00
+oracle_status: pass
+port_result: not-claimed
+closure: no repaired type context, y assignment, or bounded port; those would change the exact case
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v414/Options
+d7c58baca2912b27c9ee00921b3ce18ee5ed8a15e683f6785243ff7f9d78781d  todoF90/REFERENCES/v414/program.f90
+b86cc4830325976d7a965ea4d54bd4b8177220b896dfe11e6b453b175bdebe27  todoF90/REFERENCES/v414/program_Rd.f90
+9cc144729bbd2dc25a264420b3e63de2f01eb25fe7d207059be37049a9c9efc7  todoF90/REFERENCES/v414/program_Rd.msg
+fresh_tapenade_sha256:
+5a3b8768d58a8cdee2f575558087038284ee388abdd112c9b12a3e8e4b219860  v414_p.f90
+2b0ae1f2c592353887ec808c522887d800246fc38c9e0ad03b7119108e682853  v414_p.msg
+d5a7e053bae902420725191460ce9816db1d048924e284c09758a8fd79fdca9f  v414_d.f90
+2b0ae1f2c592353887ec808c522887d800246fc38c9e0ad03b7119108e682853  v414_d.msg
+ddaddadb75c62e21bed2c2c32a33c6c5a6018bf1da985fd20877158768b910f3  v414_b.f90
+2b0ae1f2c592353887ec808c522887d800246fc38c9e0ad03b7119108e682853  v414_b.msg
+case_artifact_sha256:
+89c4d111237634a6f071de79d837688e529a65d3fab71321f738473ea3884043  manifest.toml
+f3d0f525f36b8c2e7c51ec66b0e97e89a0b249ab892362d626a87225aa536a4a  notes.md
+eba6773be24d57ff724ab67287b3a08e4872de29810d45313e90be57c2c04c45  oracle.py
+3bf46bdb4a4b513c179493671ae17481b8dcc7ea6d9a0f80194643b9760e3734  run.sh
+7ede369ffaa605e5898025c98183edceb5dc53a8c409863a1e5ab89df8cf05b0  test_contract.py

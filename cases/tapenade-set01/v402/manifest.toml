@@ -1,0 +1,67 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v402"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v402/run.sh"
+result = "cases/tapenade-set01/v402/result.txt"
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+
+source_files = [
+    "todoF90/REFERENCES/v402/program.f90",
+    "todoF90/REFERENCES/v402/program_b.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v402/program.f90",
+    "todoF90/REFERENCES/v402/program_b.f90",
+    "todoF90/REFERENCES/v402/program_b.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v402/program_b.f90",
+    "todoF90/REFERENCES/v402/program_b.msg",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_d.f90",
+    "program_d.msg",
+]
+
+upstream_entry_point = "timeloop(k); f(a); g(a)"
+selected_entry_points = ["timeloop(k)", "f(a)", "g(a)"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["k", "a"]
+dependent = "allocatable a state"
+function = "allocating subroutine with a zero-actual call and stored reverse reference"
+options = ["-p -root timeloop", "-d -root timeloop", "-b -root timeloop"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran compiler diagnostics",
+    "independent source call-arity and dependency oracle",
+    "fresh pinned Tapenade generation plus strict compilation",
+    "FortAD exact parser/forward/reverse diagnostic and no-output boundary",
+    "pinned-source checksums",
+]
+classification = "expected-refusal-invalid-upstream"
+dependencies = [
+    "program.f90 calls timeloop with zero actual arguments although timeloop declares k",
+    "program.f90 uses nonstandard REAL*8 declarations rejected by strict F2018 compilation",
+    "program_b.f90 requires the absent DIFFSIZES module",
+    "the only stored derivative artifact is the reverse source and message file",
+]
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 at REAL*8 and program_b.f90 at missing diffsizes.mod",
+    "fresh Tapenade parser, tangent, and reverse outputs generate but fail strict compilation at REAL*8",
+    "FortAD parser, forward, and reverse refuse allocatable declaration/component at line 12",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-expected-refusal-strict-compile"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-output"
+closure = "The exact candidate is invalid before derivative behavior: the main program calls timeloop without its declared k argument, the primal uses nonstandard REAL*8, and the stored reverse source requires absent DIFFSIZES. Repairs or a bounded port would define a different program, so no derivative runtime or numerical result is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v402/program.f90" = "172542c7742e579b3c55d150ee20854cad9e7ac123fbe128ba3f187fd7b56a26"
+"todoF90/REFERENCES/v402/program_b.f90" = "9d09bd811848bbeb24f874775a5b3c26f585890ea105af18403b47090ad5c2f0"
+"todoF90/REFERENCES/v402/program_b.msg" = "75aef03fa93124602d84ccf6fdb3dbedd9a191ee052c3f36fe378e49d08e5baf"

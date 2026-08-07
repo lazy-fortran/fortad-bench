@@ -1,0 +1,49 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v415"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v415/run.sh"
+result = "cases/tapenade-set01/v415/result.txt"
+source_form = "free"
+
+static_classification = "fortran-runnable-primal; invalid-stored-derivative; allocatable-parser-refusal"
+upstream_sources = [
+    "todoF90/REFERENCES/v415/program.f90",
+    "todoF90/REFERENCES/v415/program_d.f90",
+    "todoF90/REFERENCES/v415/program_d.msg",
+    "todoF90/REFERENCES/v415/Options",
+]
+stored_references = ["program_d.f90", "program_d.msg", "param_m.mod", "struc_m.mod"]
+
+upstream_entry_point = "calc_force(geom,prop,obj,acc)"
+selected_entry_points = ["calc_force(geom,prop,obj,acc)"]
+ported_entry_point = "not-applicable-exact-allocatable-component-refusal"
+independent = ["geom%vol", "prop%den", "obj%force", "obj%acc"]
+dependent = ["acc", "obj%force", "obj%acc"]
+options = ["-p/-d/-b -root calc_force -O . -o v415 program.f90", "Options file retained as corpus evidence"]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-strict-compile-and-stored-generation-boundary",
+    "fresh-tapenade-parser-tangent-reverse-generation-and-strict-compile",
+    "exact-fortad-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict-compiler",
+    "fresh-pinned-Tapenade-generation-and-strict-compile",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-stored-derivative-and-unsupported-allocatable"
+expected_diagnostics = [
+    "the exact primal program.f90 compiles strictly",
+    "the stored program_d.f90 is invalid because generated %v accesses are applied to intrinsic obj%acc, geom%vol, and acc values",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD parser, forward, and reverse all refuse at allocatable declaration/component handling",
+    "the independent arithmetic oracle passes finite-difference and adjoint checks for a nonzero bounded input point",
+]
+fresh_generated_sources = ["v415_p.f90", "v415_d.f90", "v415_b.f90"]
+closure = "The exact primal is retained unchanged and its historical stored derivative remains an expected strict-compile refusal. Fresh Tapenade output is a separate positive generation/compile result. FortAD stops before transforming calc_force because its type components contain allocatable declarations; no bounded port is supplied because specializing away those components would change the case boundary."
