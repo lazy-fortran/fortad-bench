@@ -112,9 +112,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,307 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 308 program, and 925 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 123 rows
+  partition the 1,302 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 305 program, and 923 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 122 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Generate the pure-Fortran candidate handoff with
@@ -129,8 +129,9 @@ explicitly refused, independently checked, and measured when runnable.
   before reuse. Repeated `--merge-input` arguments require complete coverage,
   reject mixed compiler identities and non-compiler evidence, and write the
   canonical report without touching curated ledger statuses. The four-shard
-  compiler totals are evidence-only input; a canonical report replacement must
-  go through this merge path.
+  compiler totals are 2,024 accepted files, 1,422 syntax errors, and 147
+  include fragments; they are evidence-only input. A canonical report
+  replacement must go through this merge path.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
   `lh134`](cases/tapenade-set01/README.md). Their [manifest](cases/tapenade-set01/manifest.toml)
   fixes the entry points and mathematics. The [measurement record](results/tapenade_set01_support_validation.txt)

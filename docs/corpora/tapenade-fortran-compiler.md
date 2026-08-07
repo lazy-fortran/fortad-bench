@@ -1,6 +1,6 @@
 # Tapenade compiler-backed Fortran triage
 
-This report covers `1,452` of `1,452` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
+This report covers `1,302` of `1,302` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
 
 The checkout is the pinned Tapenade revision named in `docs/corpora/tapenade.toml`. Source form is selected by suffix (`.f`/`.for` fixed, `.f90`/`.f03`/similar free). Candidate-local source/include directories and the checkout root are passed as `-I` roots. Paths, command flags, and diagnostic hashes are deterministic. Compiler identity is recorded explicitly because diagnostics can vary by compiler release.
 
@@ -16,26 +16,26 @@ scripts/triage_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 2288 |
-| `include-fragment-not-compiled` | 149 |
-| `syntax-error` | 1602 |
+| `compiled` | 2024 |
+| `include-fragment-not-compiled` | 147 |
+| `syntax-error` | 1422 |
 
 ## Failure kind
 
 | kind | files |
 |---|---:|
-| `compiler-diagnostic` | 980 |
-| `include-fragment-not-compiled` | 149 |
-| `missing-dependency` | 622 |
-| `none` | 2288 |
+| `compiler-diagnostic` | 867 |
+| `include-fragment-not-compiled` | 147 |
+| `missing-dependency` | 555 |
+| `none` | 2024 |
 
 ## Source kinds
 
 | kind | files |
 |---|---:|
-| `fixed` | 1089 |
-| `free` | 2801 |
-| `include-fragment` | 149 |
+| `fixed` | 796 |
+| `free` | 2650 |
+| `include-fragment` | 147 |
 
 `syntax-error`, `missing-source`, `checkout-missing`, `timeout`, and `compiler-unavailable` are evidence statuses, not support/refusal classifications. A `missing-dependency` failure is inferred only from compiler diagnostic text (`include`/`module` open failures). It is not a claim that the dependency is absent. Include fragments are listed but intentionally not compiled as standalone translation units. Each source is checked independently, so a sibling `use` without a pre-existing local `.mod` is reported as dependency evidence rather than silently treated as a candidate-level failure or success.
 

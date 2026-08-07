@@ -114,10 +114,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,307 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,302 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
-rows with no entry-point hint, 308 program candidates, and 925 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 123 rows
+rows with no entry-point hint, 305 program candidates, and 923 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -162,6 +162,9 @@ supported way to replace the canonical report after sharded triage.
 [`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
 and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
+The latest complete four-shard run accepted 2,024 files, rejected 1,422 with
+syntax or dependency diagnostics, and listed 147 include fragments without
+compiling them as standalone units.
 Fixed/free source forms get strict syntax-only flags and local include roots;
 `.inc`/`.fh` fragments are listed as evidence but not compiled alone. A
 `compiled` status is only compiler acceptance, never a transformation or
