@@ -100,10 +100,10 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,228 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,226 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger now has 122 classified set01 rows (32 runnable, 74
   expected refusals, and 16 invalid-upstream closures), plus 82 classified
-  rows elsewhere (70 runnable/refusal evidence rows and 12 invalid-upstream
+  rows elsewhere (72 runnable/refusal evidence rows and 12 invalid-upstream
   closures).
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -114,7 +114,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,302 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,300 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
 rows with no entry-point hint, 305 program candidates, and 923 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
@@ -315,7 +315,12 @@ reverse-signature collision, reverse checkpoint storage, mutable module state,
 abstract deferred dispatch, and procedure-pointer aliasing. Each has pinned
 source hashes, fresh Tapenade generation, exact FortAD results, and an
 independent arithmetic or finite-difference oracle. The modern three-case
-record is [here](../cases/tapenade-set12/modern-tranche-a.md).
+record is [here](../cases/tapenade-set12/modern-tranche-a.md). The profile
+tranche adds `set12/jlb012` and `set12/profile01`: the former is an exact
+free-form expected refusal at strict generated compilation, while the latter
+passes FortAD forward/reverse generation, strict compilation, runtime, and
+the independent hand/finite-difference/adjoint oracle. See
+[`cases/tapenade-set12-profile-tranche`](../cases/tapenade-set12-profile-tranche/README.md).
 
 ## Closeout rule
 
