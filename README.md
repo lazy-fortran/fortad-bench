@@ -317,7 +317,11 @@ because it belongs next to the engines rather than next to the compiler.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
-  result.
+  result. The deterministic [Fortran queue](docs/corpora/tapenade-fortran-queue.md)
+  partitions the remaining rows into mixed-language, historical-failure,
+  no-entry-point, program, and procedure candidates without changing their
+  `untriaged` status. Include targets are recorded only as dependency-risk
+  signals.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.
