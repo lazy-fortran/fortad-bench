@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions set01 lh068
+recorded_utc: 2026-08-07T02:50:03Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
+required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.086021
+upstream_strict_compile_seconds: 0.060611
+forward_transform_seconds: 0.005063
+reverse_c3_transform_seconds: 0.005097
+reverse_c7_transform_seconds: 0.005245
+generated_compile_and_link_seconds: 0.346108
+generated_forward_source_bytes: 1256
+generated_reverse_c3_source_bytes: 1595
+generated_reverse_c7_source_bytes: 1596
+runtime_wall_seconds=0.04
+runtime_peak_rss_kb=3212
+upstream_compiler_oracle: unmodified primal, forward, multidirectional, and plain-reference files compile with -std=f2018 -pedantic-errors using the pinned DIFFSIZES.f include 
+contract; the stored reverse file compiles under -std=legacy 
+because it uses Tapenade INTEGER*4 syntax
+oracle: hand branch-aware JVP/VJP, four-step central differences, and one active (conv(3)<0) plus one inactive (conv(7)>0) min branch
+branch_margin: conv(3)=-0.35 and conv(7)=1.0 at the oracle point
+tapenade_result: stored upstream d/b references inspected; current Tapenade executable not rerun
+transform_method: date +%s.%N around one fo exec --no-build call per generated mode; engine setup timed separately
+runtime_method: Fortran system_clock over 1000000 repetitions of one JVP and two VJPs; /usr/bin/time %e and %M wrap executable
+source_sha256:
+e3232f668818301953896ec68e5ece48a5485ee2a35c9b738f912bd1db352569  cases/tapenade-set01/lh068.f90
+08ba5dd1dd98b6dafe5f1ac2f58cacc1db5a72779debe2105cce17a6bf379a88  cases/tapenade-set01/hand_derivatives_lh068.f90
+0fe54cada4f2273e7b7ef55216bf5a942656aed3a2af8d534d31cab92fe16b76  cases/tapenade-set01/tranche-d-manifest.toml
+f360e4b9a28e2d476620f31ac90e7242c7e898e5e41f528d29efddb30c2b32b3  cases/tapenade-set01/tranche-d.md
+a83775b5bda4902ae10c2ee6bf5c95e0b9c18027175736c32be77e787d1f5da8  harness/bench_tapenade_set01_tranche_d.f90
+a85e555832a10db49cb4651c01980d3f1c95120cef76eccaee169baf9f28bb63  scripts/bench_tapenade_set01_tranche_d.sh
+generated_source_sha256:
+cef6d9774ad68133f13f21ed66bfdca9ed09b65d4aefd241b0bc56350cf42f95  lh068_forward.f90
+3e2738bbc9579e724abf801f7436da52f0e6341a4a908fdd19c3be97f88b59d8  lh068_reverse_c3.f90
+13a6aef08d0eaec24a3fe2c15b01e87b8fb44c75d9b7a5799e8ff97e656fca03  lh068_reverse_c7.f90
+run_output:
+fd_errors_c3:   2.0733E-14   7.6245E-14   4.9198E-12   2.5611E-11
+fd_errors_c7:   0.0000E+00   0.0000E+00   0.0000E+00   0.0000E+00
+derivative_calls: 3000000
+derivative_runtime_seconds:   4.60871310E-02
+ns_per_derivative_call:   1.53623770E+01
+runtime_sink:  -3.84511808E-10
+oracle_status: pass

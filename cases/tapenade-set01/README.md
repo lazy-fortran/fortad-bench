@@ -62,3 +62,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the focused [case notes](tranche-c.md) and the committed
 [measurement record](../../results/tapenade_set01_tranche_c_validation.txt).
+
+## Tranche D: statement-function `min`
+
+The fourth focused runner promotes `lh068`, Tapenade's statement-function
+regression. The port keeps `HMIN(CONV)=AMIN1(0.,CONV)` and its two products,
+while splitting the overwritten `C(3)` and `C(7)` values into scalar `c3` and
+`c7` outputs. The oracle deliberately exercises one active and one inactive
+branch away from `conv=0`. Forward mode and separate reverse seeds for both
+outputs are checked against hand derivatives, finite differences, and adjoint
+identities:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_d.sh
+```
+
+See the [case notes](tranche-d.md), [manifest](tranche-d-manifest.toml), and
+[measurement record](../../results/tapenade_set01_tranche_d_validation.txt).
