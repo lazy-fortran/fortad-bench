@@ -545,6 +545,30 @@ See the manifests, result records, independent oracles, and contract tests
 under `cases/tapenade-set01/v385/`, `v402/`, `v412/`, `v413/`, `v414/`, and
 `v415/`.
 
+## Tranche AC: `todoF90/REFERENCES/v416`, `v417`, `v418`, `v419`, `v421`, and `v422`
+
+This tranche closes six historical-reference rows. `v416` retains an exact
+declaration-order refusal and adds a bounded, independently checked port.
+`v417` and `v419` retain allocatable/context-association refusal boundaries.
+`v418` and `v421` are invalid-upstream MPI and explicit-shape cases, while
+`v422` records an undefined function-result/code-generation boundary. Every
+case has fresh pinned Tapenade evidence and an independent three-test contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v416/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v417/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v418/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v419/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v421/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v422/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under `cases/tapenade-set01/v416/`, `v417/`, `v418/`, `v419/`, `v421/`, and
+`v422/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are
