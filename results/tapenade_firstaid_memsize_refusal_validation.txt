@@ -1,5 +1,5 @@
 case: Tapenade ADFirstAidKit testMemSizef
-recorded_utc: 2026-08-07T05:00:16Z
+recorded_utc: 2026-08-07T05:10:35Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -13,19 +13,19 @@ fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
 required_fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 tapenade_version: Tapenade 3.16 (HEAD) -  7 Aug 2026 05:39 - Java 21.0.12 Linux
-fortad_setup_seconds: 1.046734
+fortad_setup_seconds: 1.099234
 upstream_strict_compile_status: 1
-upstream_legacy_build_seconds: 0.140498
-oracle_build_seconds: 0.044524
-tapenade_parser_seconds: 0.255468
-tapenade_forward_seconds: 0.294879
-tapenade_reverse_seconds: 0.337274
-fortad_forward_seconds: 0.029273
-fortad_reverse_seconds: 0.028901
+upstream_legacy_build_seconds: 0.140016
+oracle_build_seconds: 0.040505
+tapenade_parser_seconds: 0.256007
+tapenade_forward_seconds: 0.307348
+tapenade_reverse_seconds: 0.343625
+fortad_forward_seconds: 0.031529
+fortad_reverse_seconds: 0.029507
 fortad_forward_status: 1
 fortad_reverse_status: 1
 upstream_runtime_wall_seconds=0.00
-upstream_peak_rss_kb=3116
+upstream_peak_rss_kb=3188
 tapenade_generated_derivative_files: 0
 fortad_generated_derivative_files: 0
 oracle: unmodified runtime and Tapenade parser round-trip match an independent Fortran storage_size program for all 15 types
