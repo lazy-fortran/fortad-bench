@@ -337,6 +337,9 @@ because it belongs next to the engines rather than next to the compiler.
   records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
   `runnable` label is source viability only; those rows remain untriaged until
   generated-code and independent numerical-oracle gates are added.
+  The small `todoF90/REFERENCES/v420` row has now cleared those gates as a
+  bounded support case: its [manifest, port, and independent oracle](cases/tapenade-known-failures/v420/README.md)
+  link to the [end-to-end record](results/tapenade_known_failure_v420_validation.txt).
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.
