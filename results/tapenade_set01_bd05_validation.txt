@@ -1,5 +1,5 @@
 suite: Tapenade nonRegressions set01 tranche P (bd05)
-recorded_utc: 2026-08-07T08:19:51Z
+recorded_utc: 2026-08-07T08:30:27Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
@@ -7,9 +7,9 @@ compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
 fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
 required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-tapenade_transform_seconds_total: 0.664307
-fortad_transform_seconds_total: 0.0118313
-generated_compile_seconds_total: 0.177302
+tapenade_transform_seconds_total: 0.665973
+fortad_transform_seconds_total: 0.0124102
+generated_compile_seconds_total: 0.188691
 upstream_exact_source_compile_statuses:
 upstream-program.status 0
 upstream-program_b.status 0

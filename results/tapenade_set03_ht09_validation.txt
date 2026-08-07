@@ -1,15 +1,15 @@
 suite: Tapenade nonRegressions set03 (ht09)
-recorded_utc: 2026-08-07T08:15:47Z
+recorded_utc: 2026-08-07T08:30:59Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
-fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
-required_fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-tapenade_transform_seconds_total: 0.64992
-fortad_transform_seconds_total: 0.008708
-generated_compile_seconds_total: 0.148683
+tapenade_transform_seconds_total: 0.649133
+fortad_transform_seconds_total: 0.00921917
+generated_compile_seconds_total: 0.152745
 upstream_exact_source_compile_statuses:
 upstream-program.status 0
 upstream-program_b.status 0
@@ -36,6 +36,6 @@ e830a93fb59806d4fce66aaef19baab47000d34b029e85fd3b765d3822178224  cases/tapenade
 870646e8ba90554d95b04a769ae84c3334cfe455ce428d988c0826f32befc9e3  cases/tapenade-set03/tranche-p-ht09-manifest.toml
 b388d44acc66713bd43dad6bf6d5d644ba650c2a1318f3af7f05a8827577973d  cases/tapenade-set03/tranche-p-ht09.md
 16d0624682ab54ab56eae78c293d52844b633797db7d4de7222f35dee6a6866d  harness/bench_tapenade_set03_ht09.f90
-309b80cc6bd5a06fe24e73e29d0e4df9d15364d7b793fb59674e600a21f01075  scripts/bench_tapenade_set03_ht09.sh
+05843d31dafd016266032c93784cbd849ad36e6d7f931d5ed42f8abccf171b4d  scripts/bench_tapenade_set03_ht09.sh
 run_output:
 oracle_status: pass

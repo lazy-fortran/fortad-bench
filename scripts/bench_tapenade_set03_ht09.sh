@@ -9,7 +9,7 @@ fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
 tapenade_repo=${TAPENADE_REPO:-"$root/upstream/tapenade"}
 fortad_repo=$(cd "$fortad_repo" && pwd)
 tapenade_repo=$(cd "$tapenade_repo" && pwd)
-required_fortad_commit=f1374ec7d43d73210ac7673edd0330716ee9b526
+required_fortad_commit=db0050259520b618e2a0aeba203c85a7613943b5
 required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
 fc=${FC:-gfortran}
 strict_flags=(-std=f2018 -pedantic-errors -ffree-line-length-none)

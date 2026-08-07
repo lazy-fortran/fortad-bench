@@ -1,16 +1,16 @@
 suite: Tapenade nonRegressions set06 tranche A (v234)
-recorded_utc: 2026-08-07T08:13:26Z
+recorded_utc: 2026-08-07T08:31:00Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
-fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
-required_fortad_commit: f1374ec7d43d73210ac7673edd0330716ee9b526
-fortad_worktree_note: concurrent tracked changes limited to src/fortad_forward.f90 and src/fortad_reverse.f90
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+fortad_worktree_note: clean
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-tapenade_transform_seconds_total: 0.577119
-fortad_transform_seconds_total: 0.00814676
-generated_compile_seconds_total: 0.108033
+tapenade_transform_seconds_total: 0.612148
+fortad_transform_seconds_total: 0.00805473
+generated_compile_seconds_total: 0.120019
 upstream_exact_source_compile_statuses:
 upstream-program.status 0
 upstream-program_d.status 0
@@ -28,7 +28,7 @@ v234_forward.status 0
 v234_reverse.status 0
 independent_oracle: hand derivative, central difference, and adjoint identity
 runtime_wall_seconds=0.00
-runtime_peak_rss_kb=2884
+runtime_peak_rss_kb=2908
 oracle_status: pass
 source_sha256:
 8c5a41b2b5f8951608ba349d7e06bf1eda57aef51624540a628e9affda91d179  cases/tapenade-set06/v234.f90
@@ -36,6 +36,6 @@ bd6bfd9fb158d381415823f06c107e5c0f3a1abfdc43dd1ae02f8c403f60e758  cases/tapenade
 f3b556b8855bcb1cc8d0787b83230089429e5190756925277185245be99e38b7  cases/tapenade-set06/tranche-a-v234-manifest.toml
 ba82185ef07f9447685d9a554bf00a410dd964b63ba7eccaa56a58aae8c89791  cases/tapenade-set06/tranche-a-v234.md
 23bcfd0718ae0f31ee5e6be5251148cefe500e395cc4fbc3440706417470a02e  harness/bench_tapenade_set06_v234.f90
-a171f1ba4aa7ee0047a34957d8a2506d9650b4e2d9e67309cbd5fe22a27da208  scripts/bench_tapenade_set06_v234.sh
+a65cc44cb3e407ca95a8521ed562de13ee8afeec27015ddac981688823a7647d  scripts/bench_tapenade_set06_v234.sh
 run_output:
 oracle_status: pass

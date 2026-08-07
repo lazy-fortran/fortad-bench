@@ -96,9 +96,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,389 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving thirty-nine set01 evidence rows and four additional
-non-set01 evidence cases.
+  either engine. It leaves 1,383 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving forty set01 evidence rows and nine additional
+  non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
 
@@ -108,10 +108,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,463 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,457 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
-rows with no entry-point hint, 318 program candidates, and 1,015 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 161 rows
+rows with no entry-point hint, 315 program candidates, and 1,012 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 160 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -166,6 +166,10 @@ The adjacent `lh085` and `lh092` large-expression and nested-call support
 results are in [`tranche-n`](../results/tapenade_set01_lh083_096_validation.txt).
 The bounded Newton-map port for `lh086`, with hand JVP/VJP, central-difference,
 and adjoint checks, is in [`tranche-o`](../results/tapenade_set01_lh086_validation.txt).
+The parallel cross-set tranche adds six positive rows: `set01/bd05`,
+`set02/lh150`, `set03/ht09`, `set04/lh110`, `set05/v052`, and `set06/v234`.
+Their manifests, runners, and measurement records are linked from the
+corresponding case directories.
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in
