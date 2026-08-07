@@ -11,8 +11,8 @@ Coverage stands at 59 downstream operators: 17 in the fortnum suite and 42 in
 the fortfem suite. A separate Enzyme-native suite contributes five additional
 operators, reported outside that 59-operator cross-engine total.
 Every operator that both Enzyme and fortad can differentiate has numbers
-recorded. Nearly all measurements sit within the 30% band agreed for the port.
-The exceptions are named below.
+recorded. Two measurements exceed the 30% band agreed for the port. Both are
+named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
 timing table is FortAD versus Enzyme. The pinned Tapenade corpus has fourteen
@@ -72,7 +72,7 @@ All three are recorded in `README.md` and none is resolved:
 
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
-makes it the honest comparison for the `rk4` reverse result. Corpus support is
+makes it the comparison baseline for the `rk4` reverse result. Corpus support is
 now wired into the harness for eleven small set01 cases, with three exact-source
 refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
@@ -159,7 +159,7 @@ explicitly refused, independently checked, and measured when runnable.
   exact control-flow reversal diagnostic. See the
   [tranche-H result](results/tapenade_set01_tranche_h_refusal_validation.txt).
 - [x] Record the `f03typf01` abstract OO boundary. Tapenade emits malformed
-  deferred-binding output and FortAD refuses the mapped direct deferred call;
+  deferred-binding output. FortAD refuses the mapped direct deferred call.
   the independent child-value/finite-difference oracle keeps this a
   reproducible expected refusal, not a support claim. See the
   [case](cases/tapenade-set12/f03typf01.md) and
@@ -295,4 +295,4 @@ candidates. One has no generated source and one is excluded from the
   cross-engine harness as described above.
 - A single evaluation of most of these kernels is far below timer
   resolution. Everything is batched, which is also how fortfem and fortnum
-  actually call them: once per cell or per quadrature point.
+  call them: once per cell or per quadrature point.

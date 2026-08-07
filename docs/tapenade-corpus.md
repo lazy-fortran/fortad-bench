@@ -46,7 +46,7 @@ The six checked-in Tapenade corpus roots contain:
 The manifest also records 52 known-failure cases under `todoC` and `todoF90`,
 the ADMM test, three FirstAidKit runtime tests, six Julia parser examples, and
 the support declarations in `resources/lib`. Those entries add 62 candidates.
-The manifest enumerates 10,513 candidate-relevant paths; the full pinned
+The manifest enumerates 10,513 candidate-relevant paths. The full pinned
 checkout contains 10,977 tracked files and 2,014 candidates. See
 [`corpora/tapenade.toml`](corpora/tapenade.toml) for the exact paths and counts.
 
@@ -135,7 +135,7 @@ workers and `--merge-input` to produce the same sorted report from shards.
 
 The [bounded known-failure and large-example report](corpora/tapenade-known-failures.md)
 adds compiler and Tapenade parser evidence for 59 additional rows. It is still
-source-viability evidence; every row remains `untriaged` until generated-code
+source-viability evidence. Every row remains `untriaged` until generated-code
 and independent numerical-oracle gates exist.
 
 The first curated rows are the set01 checks in
