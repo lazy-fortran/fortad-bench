@@ -245,3 +245,20 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 See the [case notes](tranche-n-lh083-096.md),
 [manifest](tranche-n-lh083-096-manifest.toml), and
 [measurement record](../../results/tapenade_set01_lh083_096_validation.txt).
+
+## Tranche O: `lh086`
+
+The `lh086` runner closes the Newton-map case with fresh Tapenade parser,
+tangent, and reverse generation. The exact upstream routine updates `x` in
+place; the FortAD case is a bounded port that exposes the final iterate as
+`y`, making the independent variables and dependent explicit. Its hand
+Newton-map JVP/VJP, central-difference sweep, and adjoint identity all pass:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh086.sh
+```
+
+See the [case notes](tranche-o-lh086.md),
+[manifest](tranche-o-lh086-manifest.toml), and
+[measurement record](../../results/tapenade_set01_lh086_validation.txt).

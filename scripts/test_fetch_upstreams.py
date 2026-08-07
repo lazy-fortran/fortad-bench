@@ -650,6 +650,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh082",
             "nonRegressions/set01/lh085",
             "nonRegressions/set01/lh092",
+            "nonRegressions/set01/lh086",
         }
         evidence = [
             row for row in rows
@@ -1040,6 +1041,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "forward|reverse",
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "inline of nested f2 body",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh086": {
+                "entry_point": "newton(x,n,alpha); port set01_lh086(x,n,alpha,y)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:y",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "upstream x is inout; bounded port exposes final iterate y",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
             },
         }

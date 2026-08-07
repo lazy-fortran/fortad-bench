@@ -1,6 +1,6 @@
 # Tapenade compiler-backed Fortran triage
 
-This report covers `1,464` of `1,464` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
+This report covers `1,463` of `1,463` queued candidates (`full queue`). It runs each tracked Fortran source as an individual `gfortran -fsyntax-only -std=f2018 -pedantic-errors` check. A `compiled` row is compiler acceptance only. It is not evidence that Tapenade, FortAD, a runtime, or derivatives work.
 
 The checkout is the pinned Tapenade revision named in `docs/corpora/tapenade.toml`. Source form is selected by suffix (`.f`/`.for` fixed, `.f90`/`.f03`/similar free). Candidate-local source/include directories and the checkout root are passed as `-I` roots. Paths, command flags, and diagnostic hashes are deterministic. Compiler identity is recorded explicitly because diagnostics can vary by compiler release.
 
@@ -16,9 +16,9 @@ scripts/triage_tapenade_fortran.py --check
 
 | status | files |
 |---|---:|
-| `compiled` | 2316 |
+| `compiled` | 2312 |
 | `include-fragment-not-compiled` | 149 |
-| `syntax-error` | 1611 |
+| `syntax-error` | 1610 |
 
 ## Failure kind
 
@@ -26,14 +26,14 @@ scripts/triage_tapenade_fortran.py --check
 |---|---:|
 | `compiler-diagnostic` | 986 |
 | `include-fragment-not-compiled` | 149 |
-| `missing-dependency` | 625 |
-| `none` | 2316 |
+| `missing-dependency` | 624 |
+| `none` | 2312 |
 
 ## Source kinds
 
 | kind | files |
 |---|---:|
-| `fixed` | 1117 |
+| `fixed` | 1112 |
 | `free` | 2810 |
 | `include-fragment` | 149 |
 

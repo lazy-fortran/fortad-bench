@@ -1,0 +1,18 @@
+schema_version = 1
+name = "tapenade-set01-tranche-o-lh086"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh086.sh"
+result = "results/tapenade_set01_lh086_validation.txt"
+
+[[case]]
+id = "lh086"
+upstream_source = "nonRegressions/set01/lh086/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "newton(x,n,alpha)"
+ported_entry_point = "set01_lh086(x,n,alpha,y)"
+independent = ["x", "alpha"]
+dependent = "y"
+function = "iterated Newton update with a preserved final iterate"
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
