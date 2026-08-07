@@ -231,6 +231,17 @@ an explicit-result extraction; it is not a repaired upstream source. See the
 [`case manifest`](../cases/tapenade-set05/v062_manifest.toml) and
 [`validation result`](../cases/tapenade-set05/v062_result.txt).
 
+The immediately following compiler-clean row, `set05/v063`, was probed at all
+three source procedures and is not promoted: FortAD refuses its overlapping
+whole-array sections. The next small numeric closure, `set05/v064`
+`LIB::mppsum_real(ptab)`, is promoted with the unchanged exact source and all
+stored Tapenade references compiled and hashed, fresh pinned parser/tangent/
+reverse generation, strict FortAD forward/reverse compilation, and an
+independent hand/finite-difference/adjoint oracle. Its standards-clean
+value-map extraction is explicitly not a repaired upstream source. See the
+[`case manifest`](../cases/tapenade-set05/v064_manifest.toml) and
+[`validation result`](../cases/tapenade-set05/v064_result.txt).
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent
