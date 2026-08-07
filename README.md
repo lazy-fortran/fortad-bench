@@ -298,9 +298,10 @@ This repository also holds the field survey that fortad's design rests on,
 because it belongs next to the engines rather than next to the compiler.
 
 - **[`docs/upstreams.toml`](docs/upstreams.toml)**: 39 third-party AD projects,
-  pinned with licence, the paths worth reading, and what we want to learn from
-  each. `scripts/fetch_upstreams.py` clones them into a gitignored `upstream/`
-  tree and records the licence files found in each checkout.
+  pinned to exact Git commits or marked metadata-only, with licence, the paths
+  worth reading, and what we want to learn from each. `scripts/fetch_upstreams.py`
+  clones Git entries into a gitignored `upstream/` tree and records each local
+  commit, tree, and licence file in the ignored licence inventory.
 - **[Tapenade corpus](docs/tapenade-corpus.md)**: commit `e59864c` (tree
   `17288bdf`) contains 10,977 tracked files and 2,014 candidate cases. Run
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the

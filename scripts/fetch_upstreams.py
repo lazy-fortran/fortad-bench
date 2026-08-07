@@ -10,6 +10,7 @@ Usage:
     scripts/fetch_upstreams.py --category julia
     scripts/fetch_upstreams.py --corpus tapenade
     scripts/fetch_upstreams.py --audit-corpora # no network
+    scripts/fetch_upstreams.py --audit-pins    # report floating refs (no network)
     scripts/fetch_upstreams.py --write-corpus-triage tapenade
     scripts/fetch_upstreams.py --list
     scripts/fetch_upstreams.py --licenses      # re-scan checkouts, write inventory
@@ -99,6 +100,147 @@ JULIA_USE_RE = re.compile(r"^\s*(?:using|import)\s+([A-Za-z_][A-Za-z0-9_.]*)")
 
 class CorpusError(RuntimeError):
     """The fetched checkout does not satisfy its committed corpus contract."""
+
+
+def _metadata_only_reason(entry: dict) -> str:
+    """Return the explicit policy reason for a non-git manifest entry.
+
+    This deliberately reads only the committed manifest text.  It does not
+    infer a legal status from a failed network request or from an absent local
+    checkout.
+    """
+    text = " ".join(
+        str(entry.get(field, "")) for field in ("license", "why", "adapt")
+    ).casefold()
+    if "restricted" in text:
+        return "restricted"
+    if "unavailable" in text:
+        return "unavailable"
+    if "unlicensed" in text or "no licence" in text or "none-found" in text:
+        return "unlicensed"
+    if "historical" in text:
+        return "historical-source"
+    return "metadata-only"
+
+
+def _checkout_pin_metadata(entry: dict) -> dict[str, str]:
+    """Read commit/tree/origin/cleanliness from an existing local checkout.
+
+    The function is intentionally offline.  A missing checkout is reported as
+    ``not-fetched`` rather than as an unavailable upstream; network
+    reachability belongs to the fetch operation itself.
+    """
+    target = DEST / entry["name"]
+    if not target.is_dir():
+        return {
+            "checkout": "not-fetched",
+            "revision": "n/a",
+            "tree": "n/a",
+            "origin": "n/a",
+        }
+    if not (target / ".git").exists():
+        return {
+            "checkout": "invalid",
+            "revision": "n/a",
+            "tree": "n/a",
+            "origin": "n/a",
+        }
+    try:
+        revision = _git(target, "rev-parse", "HEAD")
+        tree = _git(target, "rev-parse", "HEAD^{tree}")
+        origin = _git(target, "remote", "get-url", "origin")
+        dirty = bool(_git(target, "status", "--porcelain=v1", "--untracked-files=all"))
+    except CorpusError:
+        return {
+            "checkout": "invalid",
+            "revision": "n/a",
+            "tree": "n/a",
+            "origin": "n/a",
+        }
+    if origin != entry["url"]:
+        checkout = "origin-mismatch"
+    elif dirty:
+        checkout = "dirty"
+    else:
+        checkout = "clean"
+    return {
+        "checkout": checkout,
+        "revision": revision,
+        "tree": tree,
+        "origin": origin,
+    }
+
+
+def audit_upstream_pins(entries: list[dict]) -> list[dict[str, str]]:
+    """Return an offline, deterministic audit of manifest ref provenance.
+
+    ``ref = web`` entries are explicit metadata-only records.  A forty-digit
+    ref is an immutable commit pin; every other git ref is deliberately marked
+    as floating.  Existing checkouts contribute their verified HEAD and tree,
+    but no hash is invented when a checkout is absent.
+    """
+    rows = []
+    for entry in entries:
+        ref = entry["ref"]
+        if ref in NON_GIT:
+            kind = "metadata-only"
+            reason = _metadata_only_reason(entry)
+        elif COMMIT_RE.fullmatch(ref):
+            kind = "commit-pinned"
+            reason = "git-source"
+        else:
+            kind = "floating-ref"
+            reason = "git-source"
+        row = {
+            "name": entry["name"],
+            "ref": ref,
+            "kind": kind,
+            "source": reason,
+        }
+        if kind == "metadata-only":
+            row.update(
+                checkout="not-applicable",
+                revision="n/a",
+                tree="n/a",
+                origin="n/a",
+            )
+        else:
+            row.update(_checkout_pin_metadata(entry))
+        rows.append(row)
+    return rows
+
+
+def render_upstream_pin_audit(rows: list[dict[str, str]]) -> str:
+    """Render the pin audit in stable, human-readable form."""
+    lines = [
+        "Upstream pin audit (offline; no network request)",
+        "",
+        "| project | declared ref | ref kind | source policy | checkout | revision | tree |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for row in rows:
+        lines.append(
+            f"| {row['name']} | `{row['ref']}` | {row['kind']} | {row['source']} | "
+            f"{row['checkout']} | `{row['revision']}` | `{row['tree']}` |"
+        )
+    counts = {
+        "floating refs": sum(row["kind"] == "floating-ref" for row in rows),
+        "commit-pinned refs": sum(row["kind"] == "commit-pinned" for row in rows),
+        "metadata-only entries": sum(row["kind"] == "metadata-only" for row in rows),
+        "not-fetched checkouts": sum(row["checkout"] == "not-fetched" for row in rows),
+        "dirty or invalid checkouts": sum(
+            row["checkout"] in {"dirty", "invalid", "origin-mismatch"} for row in rows
+        ),
+    }
+    lines += [
+        "",
+        "Summary: " + "; ".join(f"{value} {key}" for key, value in counts.items()) + ".",
+    ]
+    if counts["floating refs"] or counts["dirty or invalid checkouts"]:
+        lines.append("Result: FAIL — commit-pin floating refs and repair checkout violations.")
+    else:
+        lines.append("Result: PASS — every git ref is commit-pinned and every checkout is clean.")
+    return "\n".join(lines) + "\n"
 
 
 def load() -> list[dict]:
@@ -221,11 +363,17 @@ def clone(entry: dict, depth: int, jobs_note: str = "") -> bool:
     return True
 
 
-def record_revision(entry: dict) -> str:
+def record_provenance(entry: dict) -> tuple[str, str]:
+    """Return the exact local commit and tree, or n/a for non-Git entries."""
     target = DEST / entry["name"]
-    rc = subprocess.run(["git", "-C", str(target), "rev-parse", "HEAD"],
-                        capture_output=True, text=True)
-    return rc.stdout.strip() if rc.returncode == 0 else "n/a"
+    rc = subprocess.run(
+        ["git", "-C", str(target), "rev-parse", "HEAD", "HEAD^{tree}"],
+        capture_output=True, text=True,
+    )
+    if rc.returncode != 0:
+        return "n/a", "n/a"
+    revision, tree = rc.stdout.splitlines()
+    return revision, tree
 
 
 def _load_corpus_manifest(entry: dict) -> dict:
@@ -831,19 +979,23 @@ def scan_licenses(entries: list[dict]) -> None:
         "read from the local checkout. A mismatch must be resolved before code in",
         "fortad is written against that project.",
         "",
-        "| project | pinned ref | local revision | declared | licence files found |",
-        "|---|---|---|---|---|",
+        "| project | pinned ref | local revision | local tree | declared | licence files found |",
+        "|---|---|---|---|---|---|",
     ]
     mismatches = 0
     for e in entries:
         target = DEST / e["name"]
         if e["ref"] in NON_GIT:
             lines.append(
-                f"| {e['name']} | {e['ref']} | METADATA ONLY | {e['license']} | - |"
+                f"| {e['name']} | {e['ref']} | METADATA ONLY | - | "
+                f"{e['license']} | - |"
             )
             continue
         if not target.exists():
-            lines.append(f"| {e['name']} | {e['ref']} | NOT FETCHED | {e['license']} | - |")
+            lines.append(
+                f"| {e['name']} | {e['ref']} | NOT FETCHED | - | "
+                f"{e['license']} | - |"
+            )
             continue
         found = sorted(
             p.name for p in target.iterdir()
@@ -854,8 +1006,9 @@ def scan_licenses(entries: list[dict]) -> None:
             mismatches += 1
         else:
             found_s = ", ".join(found)
+        revision, tree = record_provenance(e)
         lines.append(
-            f"| {e['name']} | {e['ref']} | {record_revision(e)[:12]} | "
+            f"| {e['name']} | {e['ref']} | {revision} | {tree} | "
             f"{e['license']} | {found_s} |"
         )
     lines += ["", f"Entries with no licence file: {mismatches}.", ""]
@@ -876,6 +1029,8 @@ def main() -> int:
                     help="fetch one corpus entry and verify its committed manifest")
     ap.add_argument("--audit-corpora", action="store_true",
                     help="verify existing corpus checkouts without network access")
+    ap.add_argument("--audit-pins", action="store_true",
+                    help="audit commit pins and local commit/tree metadata without network access")
     ap.add_argument("--seed-corpus-ledger", metavar="NAME",
                     help="write an untriaged status ledger from an audited checkout")
     ap.add_argument("--write-corpus-triage", metavar="NAME",
@@ -887,14 +1042,19 @@ def main() -> int:
     args = ap.parse_args()
 
     entries = load()
+    if args.audit_pins and (
+        args.corpus or args.seed_corpus_ledger or args.write_corpus_triage
+        or args.licenses or args.audit_corpora or args.list
+    ):
+        ap.error("--audit-pins cannot be combined with corpus, licence, audit, seed, triage, or list operations")
     if args.seed_corpus_ledger and (
         args.names or args.category or args.corpus or args.audit_corpora
-        or args.list or args.licenses or args.write_corpus_triage
+        or args.list or args.licenses or args.write_corpus_triage or args.audit_pins
     ):
         ap.error("--seed-corpus-ledger cannot be combined with other operations")
     if args.write_corpus_triage and (
         args.names or args.category or args.corpus or args.audit_corpora
-        or args.list or args.licenses or args.seed_corpus_ledger
+        or args.list or args.licenses or args.seed_corpus_ledger or args.audit_pins
     ):
         ap.error("--write-corpus-triage cannot be combined with other operations")
     if args.corpus and (args.names or args.category):
@@ -966,6 +1126,15 @@ def main() -> int:
     if args.audit_corpora:
         failed = scan_corpora(entries)
         return 1 if failed else 0
+
+    if args.audit_pins:
+        rows = audit_upstream_pins(entries)
+        print(render_upstream_pin_audit(rows), end="")
+        return 1 if any(
+            row["kind"] == "floating-ref"
+            or row["checkout"] in {"dirty", "invalid", "origin-mismatch"}
+            for row in rows
+        ) else 0
 
     DEST.mkdir(parents=True, exist_ok=True)
     for entry in entries:
