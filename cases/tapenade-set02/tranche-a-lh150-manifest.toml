@@ -1,0 +1,10 @@
+id = "set02-lh150"
+source = "cases/tapenade-set02/lh150.f90"
+upstream_path = "nonRegressions/set02/lh150/program.f"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_entry = "top(xx)"
+ported_entry = "set02_lh150(x,y)"
+independent = ["x"]
+dependent = ["y"]
+status = "runnable-ported"
+evidence = ["strict-upstream", "fresh-tapenade-parser-tangent-reverse", "fortad-jvp-vjp", "hand", "central-difference", "adjoint-identity"]

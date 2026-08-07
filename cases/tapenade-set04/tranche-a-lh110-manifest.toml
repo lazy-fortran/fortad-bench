@@ -1,0 +1,25 @@
+schema = 1
+suite = "tapenade-set04"
+case = "lh110"
+status = "runnable-ported"
+
+[upstream]
+repository = "https://github.com/LLNL/tapenade"
+commit = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+path = "nonRegressions/set04/lh110/program.f90"
+entry = "foo(x,y)"
+
+[port]
+source = "cases/tapenade-set04/lh110.f90"
+entry = "set04_lh110(x,y)"
+independents = ["x"]
+dependents = ["y"]
+boundary = "The exact regression uses TARGET objects, POINTER links, and nested derived components; the bounded port retains the active storage/dataflow chain with explicit lifetime."
+
+[evidence]
+checks = [
+  "exact upstream source compiles under strict Fortran",
+  "fresh Tapenade parser, tangent, and reverse outputs compile",
+  "FortAD JVP and VJP transform and compile the bounded port",
+  "hand JVP/VJP, central difference, and adjoint identity pass",
+]

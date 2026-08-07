@@ -1,0 +1,12 @@
+component = "non-regressions"
+set = "set06"
+id = "v234"
+upstream_path = "nonRegressions/set06/v234"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_entry = "program TEST; contained function F(t)"
+port_procedure = "set06_v234(t,f)"
+independent = ["t"]
+dependent = ["f"]
+status = "runnable-ported"
+oracle = "hand derivative, central difference, and adjoint identity"
+notes = "The exact upstream program is strict-compiler clean; the port exposes its contained function as a callable subroutine for FortAD."
