@@ -1,5 +1,5 @@
 case: Tapenade nonRegressions set01 lh058
-recorded_utc: 2026-08-07T02:32:54Z
+recorded_utc: 2026-08-07T02:36:33Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -10,15 +10,15 @@ fo: fo 0.3.2
 fortad_commit: 8fa5465a805d3f382d0eb64b0f36a84f7b39e105
 required_fortad_commit: 571c86da9516739653a558fabbd8277e796caec8
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
-fortad_setup_seconds: 1.052475
-upstream_strict_compile_seconds: 0.067534
-forward_transform_seconds: 0.005249
-reverse_transform_seconds: 0.005404
-generated_compile_and_link_seconds: 0.248779
+fortad_setup_seconds: 1.047697
+upstream_strict_compile_seconds: 0.065062
+forward_transform_seconds: 0.005464
+reverse_transform_seconds: 0.006121
+generated_compile_and_link_seconds: 0.261258
 generated_forward_source_bytes: 1064
 generated_reverse_source_bytes: 2026
 runtime_wall_seconds=0.04
-runtime_peak_rss_kb=2948
+runtime_peak_rss_kb=2912
 upstream_strict_compiler_oracle: all five unmodified set01 primal/reference files compile with -std=f2018 -pedantic-errors using the pinned DIFFSIZES.f include contract
 oracle: hand JVP/VJP, four-step central differences, fixed nonzero-norm values, and JVP/VJP adjoint identity
 tapenade_result: stored upstream d/b references inspected; current Tapenade executable not rerun
@@ -36,7 +36,7 @@ ed0c06ca7e5747d88574c15f451078bea8b804eb8fdee901cc7b423fc56c41be  lh058_reverse.
 run_output:
 fd_errors:   8.2304E-10   3.9195E-12   1.0581E-11   2.7808E-10
 derivative_calls: 2000000
-derivative_runtime_seconds:   4.29741200E-02
-ns_per_derivative_call:   2.14870600E+01
+derivative_runtime_seconds:   4.19647990E-02
+ns_per_derivative_call:   2.09823995E+01
 runtime_sink:   1.44776069E-10
 oracle_status: pass
