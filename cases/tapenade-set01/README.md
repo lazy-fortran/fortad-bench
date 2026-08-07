@@ -133,3 +133,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-g.md), [manifest](tranche-g-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_g_validation.txt).
+
+## Tranche I: association-by-address AA components
+
+The eighth focused runner promotes `lh019`, Tapenade's Fortran 2003
+`real8_diff` association-by-address regression. It compiles the unmodified
+primal and stored `AATypes_aad/aab` references, then checks a scalarized
+active-component port (`x%v`, `y%v`) through FortAD forward and reverse modes.
+The integer tag field stays passive. Hand JVP/VJP values, four-step central
+differences on the product and pass-through branches, and the adjoint identity
+are all checked:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_i.sh
+```
+
+See the [case notes](tranche-i.md), [manifest](tranche-i-manifest.toml), and
+[measurement record](../../results/tapenade_set01_tranche_i_validation.txt).
