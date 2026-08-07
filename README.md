@@ -45,10 +45,8 @@ fortad's comes out of flang. Whatever clang does with a libm call in a
 loop, flang does not, and `-fveclib=libmvec` on the flang side does not
 change it.
 
-So the number is real but it is a statement about two compilers rather
-than two differentiators. Left in the corpus, and labelled, because
-hiding a measurement that does not flatter the tool is worse than
-explaining it.
+So the number compares two compilers as well as two differentiators. The
+corpus keeps it with the compiler context.
 
 ### Read rk4 with care
 
@@ -335,7 +333,7 @@ because it belongs next to the engines rather than next to the compiler.
   not a FortAD, Tapenade, runtime, or derivative-support result.
   The bounded [known-failure and large-example shard](docs/corpora/tapenade-known-failures.md)
   records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
-  `runnable` label is source viability only; those rows remain untriaged until
+  `runnable` label is source viability only. Those rows remain untriaged until
   generated-code and independent numerical-oracle gates are added.
   The small `todoF90/REFERENCES/v420` row has now cleared those gates as a
   bounded support case: its [manifest, port, and independent oracle](cases/tapenade-known-failures/v420/README.md)
@@ -374,9 +372,9 @@ literature/ gitignored: locally held papers
    method are recorded in the result file. A number without them is discarded.
 3. Build time and runtime are reported together. A runtime win reported without
    its build cost is incomplete.
-4. Every engine gets its best honest configuration. Losing to a badly configured
-   competitor proves nothing, and a benchmark that flatters fortad is worse than
-   no benchmark.
+4. Every engine gets its best documented configuration. A loss to a badly
+   configured competitor is inconclusive. Results stay in the table, including
+   losses.
 5. Committed results are records of what happened on one machine, not promises
    about another.
 
