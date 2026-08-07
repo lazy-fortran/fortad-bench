@@ -607,6 +607,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         self.assertTrue(all(row["initial_classification"] for row in rows))
         evidence_paths = {
             "nonRegressions/set01/lh001",
+            "nonRegressions/set01/lh002",
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh049",
@@ -742,6 +743,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "tapenade_options": "none",
                 "modes": "forward|reverse:o1",
                 "oracle": "hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "none",
+                "tapenade_result": "stored-d-b-references-not-rerun",
+            },
+            "nonRegressions/set01/lh002": {
+                "entry_point": "top(x,y,z,a,b,c); port set01_lh002(x_initial,z_initial,b_initial,x_final,y_final,z_final,a_final)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:x_final",
+                "oracle": "strict-compiler|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "none",
                 "tapenade_result": "stored-d-b-references-not-rerun",
             },
