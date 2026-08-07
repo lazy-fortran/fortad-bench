@@ -97,7 +97,7 @@ recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
 either engine. It leaves 1,418 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving the fourteen set01 evidence rows and two additional
+  untriaged, while preserving the fourteen set01 evidence rows and three additional
 non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,7 +108,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,490 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,489 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
 rows with no entry-point hint, 319 program candidates, and 1,041 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 172 rows
@@ -160,6 +160,8 @@ The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in
 [`f03typf01`](../results/tapenade_f03typf01_oo_validation.txt).
+The first-aid `COMMON` refusal is in
+[`validityTest.f`](../results/tapenade_first_aid_validity_refusal_validation.txt).
 
 ## Closeout rule
 
