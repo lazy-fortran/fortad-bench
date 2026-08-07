@@ -620,6 +620,31 @@ See the manifests, result records, independent oracles, and contract tests
 under `cases/tapenade-set01/v504/`, `v505/`, `v508/`, `v519/`, `v526/`, and
 `v547/`.
 
+## Tranche AF: `nonRegressions/set01/lh000`, `set02/v065`, `set04/v017`, `set04/v025`, `set05/v075`, and `set05/v146`
+
+This tranche closes six candidates from the no-entry-point queue. `lh000` is
+empty; `v065` is `BLOCKDATA`; and `v017`, `v025`, `v075`, and `v146` contain
+modules or derived-type declarations only. Fresh pinned Tapenade probes and
+strict source/reference checks confirm that these rows contain no callable
+procedure or standalone program. FortAD records the exact no-entry boundary
+where a request is applicable, and each case has an independent three-test
+contract. No synthetic root or bounded derivative port is claimed.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh000/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v065/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v017/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v025/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v075/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v146/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under `cases/tapenade-set01/lh000/`, `v065/`, `v017/`, `v025/`, `v075/`, and
+`v146/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are
