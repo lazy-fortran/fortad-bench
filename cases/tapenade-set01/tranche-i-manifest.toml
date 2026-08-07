@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-i"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_i.sh"
+result = "results/tapenade_set01_tranche_i_validation.txt"
+
+[[case]]
+id = "lh019"
+upstream_source = "nonRegressions/set01/lh019/program.f"
+entry_point = "top(x,y,n,*)"
+ported_entry_point = "set01_lh019(x,y,n,output)"
+independent = ["x%v", "y%v"]
+dependent = "output"
+function = "n>=5: output=x%v*y%v; n<5: output=x%v"
+upstream_options = "associationByAddress references"
+modes = ["forward", "reverse:output"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for the port; upstream AATypes modules compile separately"
