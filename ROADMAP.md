@@ -15,9 +15,9 @@ recorded. Nearly all measurements sit within the 30% band agreed for the port.
 The exceptions are named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade corpus has nine
-set01 evidence rows (seven positive cases and two reproducible refusals), with
-1,497 candidates still untriaged. A broader feature or performance lead needs
+timing table is FortAD versus Enzyme. The pinned Tapenade corpus has ten
+set01 evidence rows (eight positive cases and two reproducible refusals), with
+1,496 candidates still untriaged. A broader feature or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
 
 The fortfem catalogue has 44 names. The checkout currently contains 43 primal
@@ -72,7 +72,7 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. Corpus support is
-now wired into the harness for seven small set01 cases, with two exact-source
+now wired into the harness for eight small set01 cases, with two exact-source
 refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
@@ -102,9 +102,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,497 remaining candidates into 74 mixed-language-risk, 37
-  historical-failure, 20 no-entry-point, 320 program, and 1,046 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 174 rows
+  partition the 1,496 remaining candidates into 74 mixed-language-risk, 37
+  historical-failure, 20 no-entry-point, 320 program, and 1,045 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 173 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Promote the first three runnable numerical cases: [`lh023`, `lh032`, and
@@ -131,10 +131,15 @@ explicitly refused, independently checked, and measured when runnable.
   scalar outputs. The runner checks strict upstream compilation, hand
   derivatives, finite differences, and both adjoint identities. See [the
   tranche-D result](results/tapenade_set01_tranche_d_validation.txt).
+- [x] Promote `lh001` through the focused tranche-E runner. Its fixed-form
+  external `sub1` call and in-place state writes pass strict upstream
+  compilation, FortAD forward/reverse generation, hand derivatives, a
+  four-step finite-difference sweep, and the adjoint identity. See [the
+  tranche-E result](results/tapenade_set01_tranche_e_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,497 untriaged rows after the language
-  boundary and nine set01 evidence rows.
+  reproducible evidence. There are 1,496 untriaged rows after the language
+  boundary and ten set01 evidence rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external

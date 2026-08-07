@@ -80,3 +80,21 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case notes](tranche-d.md), [manifest](tranche-d-manifest.toml), and
 [measurement record](../../results/tapenade_set01_tranche_d_validation.txt).
+
+## Tranche E: fixed-form in-place state
+
+The fifth focused runner promotes `lh001`, a small fixed-form regression with
+two in-place independent writes and a useful scalar result. The port retains
+those writes, while the derivative contract treats the initial `i1`, `i2`, and
+`i3` as independent and `o1` as the useful dependent; `o2=35` and the final
+`o3=2` are checked as constants. The hand oracle reduces the result to
+`35*i1*i2**2/(i1-3*i2)` and checks the generated JVP and VJP against a
+four-step central-difference sweep and the adjoint identity:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_e.sh
+```
+
+See the [case manifest](tranche-e-manifest.toml) and
+[measurement record](../../results/tapenade_set01_tranche_e_validation.txt).

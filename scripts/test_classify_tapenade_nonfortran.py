@@ -120,6 +120,7 @@ class CommittedLedgerTests(unittest.TestCase):
         }
         self.assertEqual(evidence_paths, {
             "nonRegressions/set01/bd06",
+            "nonRegressions/set01/lh001",
             "nonRegressions/set01/lh023",
             "nonRegressions/set01/lh032",
             "nonRegressions/set01/lh057",
@@ -131,7 +132,7 @@ class CommittedLedgerTests(unittest.TestCase):
         })
         self.assertEqual(
             sum(row["status"] == "untriaged" for row in ledger),
-            1497,
+            1496,
         )
 
 
