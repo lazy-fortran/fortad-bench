@@ -469,6 +469,29 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh061
 See the manifests, results, independent oracles, and contract tests under
 the six corresponding `cases/tapenade-set01/lh0*/` directories.
 
+## Tranche AH: `lh078`, `lh079`, `lh081`, `lh083`, `lh084`, `lh087`, `lh089`, and `lh090`
+
+This tranche adds eight adjacent fixed-form corpus boundaries with fresh
+Tapenade generation, exact FortAD probes, and independent three-test
+contracts. `lh078` and `lh079` are invalid-upstream closures. `lh081`,
+`lh083`, `lh084`, `lh087`, `lh089`, and `lh090` retain exact-source refusal
+boundaries while checking compiler validity, legacy dependencies, control-flow
+or array-domain hazards, and independent semantic oracles. The `lh083` case
+also records the first benefit of terminal `RETURN` support: FortAD accepts
+its check/JVP path and refuses reverse mode only at the per-iteration-storage
+boundary. No repaired source or synthetic derivative port is counted as exact
+support.
+
+Run any completed case with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh083/run.sh
+python3 cases/tapenade-set01/lh083/test_contract.py
+```
+
+The corresponding manifests, result records, independent oracles, and
+contract tests live under the eight `cases/tapenade-set01/lh0*/` directories.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`
