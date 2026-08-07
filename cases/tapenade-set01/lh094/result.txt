@@ -1,0 +1,41 @@
+case: Tapenade nonRegressions set01 lh094
+classification: expected-refusal-fortad-external-derivative-rule
+runner_result: pass
+recorded_utc: 2026-08-07T15:36:08Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: test(a,b)
+stored_compile: strict+legacy program=pass program_d=pass
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_behavior: check=pass check_strict_compile=expected-refusal-no-implicit-type forward=expected-refusal reverse=expected-refusal diagnostic=no-derivative-rule-DISACTIVATE no-output
+independent_oracle: source-shape identity-summary JVP-finite-difference VJP-dot-product
+oracle_source: exact algebra and external identity-summary boundary pass
+oracle_jvp: summary-level tangent agrees with central difference
+oracle_vjp: summary-level reverse dot-product identity pass
+oracle_status: pass
+no_repaired_port: exact external implementation intentionally absent
+upstream_sha256:
+03d1dd45be0f9d05165aa3eba38c5d785f3e8573308fef4b5689f4517c71824f  program.f
+e7edae95bfa6a16e608e9c2c47b53c7ad3c42b91c14e385bf5e0b7a7010990d5  program_d.f
+dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9  program_d.msg
+b9936c7ee46255657638fa21127e65155c6304f81be7214d3d5d171383b23281  Options
+e93be3d3075a7ecd049c608c01f4ab4e05005a96904860be0b74720e5ba0b12f  MyGeneralLib
+fresh_tapenade_sha256:
+1defc4d0b98b6a4cdc44624cf8248686c7f98f7c35e1fc1fe4656f4cf56acdd2  lh094_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh094_p.msg
+6e56bf9c126c1cd64c81b4c15f1e64d5192101cf06ab3c2168c83a9cec5977f6  lh094_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh094_d.msg
+db474661694af4eedc51bd8c933c424b56ab274c590626670c34748903d65fdf  lh094_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh094_b.msg
+case_artifact_sha256:
+142fa2d6efb8720513a06b212131e374be813f1fbd8d6fda2292a7535ee9a0db  manifest.toml
+d67edee1e41f727bb35d6c113388070913e1bd48d0745035e3e12a910d2b34b7  notes.md
+d95c612bd94353c97a356c7de91852ebbe681c9768859b6e2ee5c726b2756cc7  oracle.py
+90f3631dc895bdbf912781f84dff8d4816e5b1d6782c24c59c3dcbddd3e817e1  run.sh
+5ed873983235d6ca3004b57058dad2fb558c0ee5b765a857d1c6da2409c80e79  test_contract.py

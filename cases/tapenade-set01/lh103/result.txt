@@ -1,0 +1,33 @@
+case: Tapenade nonRegressions/set01/lh103
+classification: runnable-upstream-fortad-forward-pass-reverse-storage-boundary
+recorded_utc: 2026-08-07T15:36:08Z
+fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+upstream_entry_point: h(a,b,c,r)
+strict_compile: exact=0 stored_reverse=0 fresh_parser=0 fresh_forward=0 fresh_reverse=0 fortad_check=0 fortad_forward=0
+legacy_compile: exact=0 stored_reverse=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_reverse_reference: fresh-body-equals-stored-after-banner-normalization message-byte-equal
+fortad_exact_behavior: check=pass forward_jvp=pass reverse_vjp=expected-refusal-per-iteration-storage-no-output
+oracle_source_inventory: pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_dot_product: pass
+oracle_status: pass
+upstream_sha256:
+fcfcde4c3c898b2942d2672d9dfb1b82483f619c179d9eef56eff6978a1d8689  nonRegressions/set01/lh103/program.f
+93efa9239427f1740483f6a3b52874c45d4b1589c433045b910d34bfa0bc49ac  nonRegressions/set01/lh103/program_b.f
+73a98e1582921d4d3b356a0080c8a6863b5ae579754ea543448efbb44e7da85c  nonRegressions/set01/lh103/program_b.msg
+fresh_tapenade_sha256:
+d3da104b9c428010cdfb8a974bc4fe41070f9ce40916e6875c97cff9403cb2a2  parser/lh103_p.f
+0083d53e6aab4fcd6098a395bfb041b5ea3d2466f2e5aed83fc671a63f83716c  parser/lh103_p.msg
+4151965d8a36a3ce2a761df67479fd96a39e45b49d26265673efff2b7375d673  forward/lh103_d.f
+73a98e1582921d4d3b356a0080c8a6863b5ae579754ea543448efbb44e7da85c  forward/lh103_d.msg
+6ef8eb5afa4765ac9dc7be9cc46aeb747c24a12884d3b3087882430b98c321ed  reverse/lh103_b.f
+73a98e1582921d4d3b356a0080c8a6863b5ae579754ea543448efbb44e7da85c  reverse/lh103_b.msg
+case_artifact_sha256:
+fd0310d38ba956e99b5e9bf4b267afa1a3b27277e2288fb93ba5ee880191401f  manifest.toml
+4d06e135506dea4037bc53a79264aa9806fa54b56d88390ef65fd3dc5d22444d  notes.md
+36ea381a174201d0a8eeb52fd06705d1762a60190d752fd6ac289392b61f9f0d  oracle.py
+ad144ea3e4a47fa4204c02959c1f0c8de9d72a95dcb5812c510855964a9b6031  run.sh
+53254322574815f5cbcf2297eda75c2a02570ec0a89f323ab88134ba86ddf1ae  test_contract.py

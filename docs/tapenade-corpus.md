@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,272 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger now has 96 classified set01 rows (31 runnable, 49
+  either engine. It leaves 1,266 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger now has 102 classified set01 rows (31 runnable, 55
   expected refusals, and 16 invalid-upstream closures), plus 64 classified
   rows elsewhere (52 runnable/refusal evidence rows and 12 invalid-upstream
   closures).
@@ -110,9 +110,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,346 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,340 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
-rows with no entry-point hint, 315 program candidates, and 957 procedure
+rows with no entry-point hint, 315 program candidates, and 951 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 128 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -178,6 +178,14 @@ The parallel cross-set tranche adds six positive rows: `set01/bd05`,
 `set02/lh150`, `set03/ht09`, `set04/lh110`, `set05/v052`, and `set06/v234`.
 Their manifests, runners, and measurement records are linked from the
 corresponding case directories.
+
+The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
+`lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
+parser/forward/reverse generation, exact FortAD diagnostics, an independent
+behavioral oracle, and three contract tests. They remain explicit
+expected-refusal records rather than repaired ports: I/O boundaries, external
+derivative summaries/CNKLOG, incomplete protected-expression output, and
+reverse per-iteration storage.
 The `v420` large-example result is in
 [`v420`](../results/tapenade_known_failure_v420_validation.txt), and the
 abstract OO refusal boundary is in

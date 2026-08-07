@@ -1,0 +1,31 @@
+schema_version = 1
+name = "tapenade-set01-lh097-io-overwrite-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh097/run.sh"
+result = "cases/tapenade-set01/lh097/result.txt"
+upstream_sources = ["nonRegressions/set01/lh097/program.f", "nonRegressions/set01/lh097/program_b.f", "nonRegressions/set01/lh097/program_b.msg"]
+stored_references = ["program_b.f", "program_b.msg"]
+upstream_entry_point = "testiotbr(a,b,c)"
+ported_entry_point = "not-applicable-exact-source-only"
+independent = ["a"]
+dependent = ["b", "c"]
+options = ["-p", "-d -root testiotbr", "-b -root testiotbr"]
+modes = ["exact-source:legacy-compile-pass-strict-compile-refusal", "stored-reverse:legacy-compile-pass-strict-compile-refusal", "fresh-parser:generate-legacy-compile-pass-strict-compile-refusal", "fresh-forward:generate-legacy-compile-pass-strict-compile-refusal", "fresh-reverse:generate-legacy-compile-pass-strict-compile-refusal", "exact-check:expected-refusal-unsupported-read", "exact-forward:expected-refusal-unsupported-read", "exact-reverse:expected-refusal-unsupported-read"]
+contract_tests = ["independent-fixed-read-value-semantic-model-finite-difference-and-adjoint-oracle", "fresh-pinned-Tapenade-parser-forward-reverse-generation-with-strict-legacy-gates", "exact-FortAD-check-forward-reverse-refusal-with-no-output"]
+oracle = ["independent exact-source operation inventory", "fixed-read-value algebraic JVP checked against central differences", "fixed-read-value VJP checked by an adjoint identity", "strict-versus-legacy compiler gates"]
+classification = "expected-refusal-fortad-unsupported-io-overwrite"
+dependencies = ["READ(12, *) , a overwrites the active dummy from an external I/O operation", "the exact fixed-form source uses legacy comma-before-I/O-item syntax", "the stored reverse reference uses implicit PUSHREAL4/POPREAL4 external procedures"]
+expected_diagnostics = ["exact and stored reverse sources compile with -std=legacy but refuse strict pedantic F2018 at the comma before the I/O item list", "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile with the legacy gate", "fresh outputs refuse the strict gate for the same I/O syntax", "FortAD check, forward, and reverse all refuse unsupported statement at line 7 and write no derivative output", "no source rewrite, synthetic I/O value, or repaired numerical port is introduced"]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-legacy-compile; expected-strict-compile-refusal"
+fortad_result = "expected-refusal-unsupported-read-line-7-no-output"
+bounded_sources = []
+bounded_domain = "not-applicable; oracle-only fixed-read-value model"
+closure = "The exact upstream source remains authoritative and untouched. The independent oracle models the algebra after treating the external READ value as fixed; it does not claim to execute or repair the I/O operation."
+
+[upstream_sha256]
+"program.f" = "18037f78f2fd1f7bce0bf3ad70c3e8ab2547a163b6e7da6b27dd789431aca6cb"
+"program_b.f" = "55e4b5ff932ef413a269835bb0eef7d1659968d0a309a327f9744a1c3ba2a942"
+"program_b.msg" = "e7749ae0f7cb36389df5f3091267abdc4188c062eea05669372cbfffdbe29a37"

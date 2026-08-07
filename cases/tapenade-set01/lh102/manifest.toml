@@ -1,0 +1,35 @@
+schema_version = 1
+name = "tapenade-set01-lh102-procedure-candidate"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+runner = "cases/tapenade-set01/lh102/run.sh"
+result = "cases/tapenade-set01/lh102/result.txt"
+
+[[case]]
+id = "lh102"
+upstream_sources = [
+    "nonRegressions/set01/lh102/program.f",
+    "nonRegressions/set01/lh102/program_b.f",
+    "nonRegressions/set01/lh102/program_d.f",
+]
+stored_references = ["program_b.msg", "program_d.msg"]
+upstream_entry_point = "testprotect(xx,yy,zz,vv1,vv2,vv3)"
+ported_entry_point = "not-claimed; exact upstream source is the subject of the evidence"
+independent = ["xx", "vv1", "vv2", "vv3"]
+dependent = ["yy", "zz"]
+function = "Protected power, square-root, and logarithm expressions in a fixed-form subroutine"
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict and legacy compiler gates",
+    "fresh pinned Tapenade parser/forward/reverse generation",
+    "exact FortAD check/JVP/VJP requests",
+    "independent three-behavior semantic oracle",
+]
+classification = "transformable-upstream-fortad-output-gap"
+expected_diagnostics = [
+    "upstream and fresh Tapenade sources compile under strict and legacy fixed-form gates",
+    "FortAD check, JVP, and VJP requests return success and emit free-form modules",
+    "the exact FortAD JVP/VJP output does not preserve the complete upstream computation",
+]
+closure = "No repaired port is included; the package records exact-source behavior and bounds the FortAD output gap."

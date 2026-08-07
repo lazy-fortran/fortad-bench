@@ -1,0 +1,43 @@
+case: Tapenade nonRegressions set01 lh102
+classification: transformable-upstream-fortad-output-gap
+recorded_utc: 2026-08-07T15:36:08Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: testprotect(xx,yy,zz,vv1,vv2,vv3)
+upstream_strict_compile: program.f=0 program_b.f=0 program_d.f=0
+upstream_legacy_compile: program.f=0 program_b.f=0 program_d.f=0
+tapenade_generation: parser=0 forward=0 reverse=0
+tapenade_strict_compile: parser=0 forward=0 reverse=0
+tapenade_legacy_compile: parser=0 forward=0 reverse=0
+fortad_check: status=0 output=check.f90
+fortad_jvp: status=0 output=jvp.f90 observed-incomplete-zz-only-emission
+fortad_vjp: status=0 dep=yy output=vjp.f90 observed-zero-adjoint-emission
+fortad_strict_compile: check=0 jvp=0 vjp=0
+fortad_legacy_compile: check=0 jvp=0 vjp=0
+oracle_behavioral_cases: 3
+oracle_behavioral_cases: 3
+oracle_status: pass
+upstream_sha256:
+d8521cf2c273a80e1005cfe304cb71d0da5a4d5ce356ba0d200455b6de3abad0  program.f
+f79e97652740d9e6f5ef38d16b08f1e783a18a38a852b58a96396ef98fbe2267  program_b.f
+db17ea51c2f90f7eb4ace94f3aa4ffac992424a3cd71e68ce0808397e823d4a1  program_d.f
+775219cbe499d6bf7f8152f940df62e0ad542c82b503c1bbf47aec5ff555f5cc  program_b.msg
+775219cbe499d6bf7f8152f940df62e0ad542c82b503c1bbf47aec5ff555f5cc  program_d.msg
+fresh_tapenade_sha256:
+9a030ad2c7f562222cb8bf792b5af3be662e7b77bd86b1ddfa2a927fdf33ff62  tapenade/parser/lh102_p.f
+390abd93d3fd5214b466073399d9a7a52b8404c1dde0dea32b851e5fb7ef1f47  tapenade/forward/lh102_d.f
+0afe3e8feb081d5f36d9f6d4f19d6a044e146785d5000935832ba763496dd35b  tapenade/reverse/lh102_b.f
+fortad_observation: generated JVP/VJP compile but do not preserve complete exact-source computation; no repaired port claimed
+case_artifact_sha256:
+5e8f0831f878381e8ad45799ab15f4340247545f45ff1c6524a83fea2a2adbfe  cases/tapenade-set01/lh102/manifest.toml
+a5ce94770a9ad8a3eb8091742687d4e5dedba6e4f770e22ff15b5855332f3db9  cases/tapenade-set01/lh102/notes.md
+31d5043a33d4508024491516cc9b270f04d0f0f195a71a9e4f0f9f0a0ea7d841  cases/tapenade-set01/lh102/oracle.py
+ea524a30d8761ec8b04686a32d71328e36001385df3caf29f4b5f5e3d1486a84  cases/tapenade-set01/lh102/run.sh
+4755779101867ba8000c52c7baa4c70e007b3175bb89704a9a196933b03b2fe6  cases/tapenade-set01/lh102/test_contract.py

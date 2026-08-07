@@ -1,0 +1,39 @@
+case: Tapenade nonRegressions/set01/lh097
+classification: expected-refusal-fortad-unsupported-io-overwrite
+runner_result: pass
+recorded_utc: 2026-08-07T15:36:08Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+legacy_flags: -std=legacy -ffixed-form -ffixed-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+required_fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: testiotbr(a,b,c)
+strict_compile: exact=expected-refusal stored-reverse=expected-refusal fresh-parser=expected-refusal fresh-forward=expected-refusal fresh-reverse=expected-refusal
+legacy_compile: exact=pass stored-reverse=pass fresh-parser=pass fresh-forward=pass fresh-reverse=pass
+tapenade_generation: parser=pass tangent=pass reverse=pass
+fortad_exact_behavior: check=expected-refusal forward=expected-refusal reverse=expected-refusal diagnostic=unsupported-statement-line-7 no-output
+independent_oracle: fixed-read-value tangent-finite-difference reverse-adjoint
+oracle_source: exact I/O-overwrite operation inventory pass
+oracle_tangent: fixed-read-value JVP agrees with central differences
+oracle_reverse: fixed-read-value VJP passes the adjoint identity
+oracle_status: pass
+no_bounded_numerical_port: exact-source-only
+upstream_sha256:
+18037f78f2fd1f7bce0bf3ad70c3e8ab2547a163b6e7da6b27dd789431aca6cb  program.f
+55e4b5ff932ef413a269835bb0eef7d1659968d0a309a327f9744a1c3ba2a942  program_b.f
+e7749ae0f7cb36389df5f3091267abdc4188c062eea05669372cbfffdbe29a37  program_b.msg
+fresh_tapenade_sha256:
+5fe0f02b0cd72a75f4b2597cd6f64bdb3df291de8ec15dbcc500e6e98360218b  lh097_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  lh097_p.msg
+606bdd578a663c47443d215134533c8c230005f2a0736f4b8a4a8fc929ac6627  lh097_d.f
+e5b7b50d04c966fac070e6f18686e8bcd9d138c4729577052cc99743af992204  lh097_d.msg
+38f01e4be2d65a098a2f8f39d89c5418c53b32939d4a34a000e34ff1997b4119  lh097_b.f
+e5b7b50d04c966fac070e6f18686e8bcd9d138c4729577052cc99743af992204  lh097_b.msg
+case_artifact_sha256:
+c50f34d852d41806e4fa6e6732004e66827e3bbd964e9d7914a49d651928ecc3  manifest.toml
+a3318b19fd109cc5e2c2e08b3adb0fe8da5f0ac0a899ad5ca3d7f838d207594f  notes.md
+23bf6d159e7bea6115f6260a53c5ab86f653f2888fe25280e20e63964ff103ef  oracle.py
+247b968f860591d63c2801200aea076a7c55e3d70f62c41532f83c8a1fe820c0  run.sh
+73e47dbab3238e4d42621a26e36754726ed27aba780e907dd37571c9428c6cd1  test_contract.py

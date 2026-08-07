@@ -1,0 +1,31 @@
+case: Tapenade nonRegressions set01 lh093
+classification: expected-refusal-fortad-unsupported-I-O-line-8
+runner_result: pass
+recorded_utc: 2026-08-07T15:36:08Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+required_fortad_commit: ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+required_tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+stored_compilation: exact=strict-refusal-legacy-pass forward=strict-refusal-legacy-pass
+tapenade_generation: parser=0 forward=0 reverse=0
+fresh_legacy_compile: parser=0 forward=0 reverse=0
+fresh_strict_compile: parser=1 forward=1 reverse=1
+fortad_exact_behavior: check=expected-refusal forward=expected-refusal reverse=expected-refusal diagnostic=unsupported-statement-line-8 no-output
+independent_oracle: source-inventory array-product-jvp reverse-dot-product
+oracle_source_inventory: pass
+oracle_jvp_finite_difference: pass
+oracle_vjp_adjoint_identity: pass
+oracle_status: pass
+upstream_sha256:
+c4400ee479e918232812d4bbd2a717dd039940b78abe7772b9f6c89132dea6f1  program.f
+07b091a4d9d1f2a6d991ef2aa63dabcc9f52321de5f61e86820d11b73a11d66c  program_d.f90
+f8a101e7234ef1f30505bef25de90806087aeb35090492be7ecccd64cdf5b8a5  program_d.msg
+case_artifact_sha256:
+df1fe62b14ce509c1b7cc6f8c51fbe0d059c3f5e091aa740377d94eeea54c7e1  cases/tapenade-set01/lh093/manifest.toml
+1b1e1a770f6ee5aff09c845ef2cb5d8d66b873e44b45ff557ae395c8d56d5628  cases/tapenade-set01/lh093/notes.md
+6cfd41c8279e841ce8792abde8aabf39051f86055e02d6fdbd3f137e80252254  cases/tapenade-set01/lh093/oracle.py
+c694138160d3c67fca890081381b745dc9cbc6e6108cf3a0db083fd28160d1d3  cases/tapenade-set01/lh093/run.sh
+d04cce8ad61b304c50934241d8c963031112a62fde4ab399c7daa8f26c9f9d51  cases/tapenade-set01/lh093/test_contract.py

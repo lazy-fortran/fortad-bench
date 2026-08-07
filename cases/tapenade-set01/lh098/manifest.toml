@@ -1,0 +1,37 @@
+schema_version = 1
+name = "tapenade-set01-lh098-exact-ff"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh098/run.sh"
+result = "cases/tapenade-set01/lh098/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh098/program.f",
+    "nonRegressions/set01/lh098/program_d.f",
+    "nonRegressions/set01/lh098/program_d.msg",
+]
+upstream_entry_point = "ff(N,t,xbt,x)"
+ported_entry_point = "not-created (exact source preserved; external CNKLOG dependency)"
+independent = ["t", "x"]
+dependent = ["xbt"]
+options = ["-p", "-d", "-b"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "independent-analytic-primal-jvp-vjp",
+    "strict-and-legacy-compiler-gates",
+    "fresh-pinned-Tapenade-generation",
+    "FortAD-check-jvp-vjp",
+]
+classification = "runnable-exact-source-no-port"
+expected_diagnostics = [
+    "CNKLOG is an external function and is intentionally not linked by compile-only gates",
+    "Tapenade records DD31 declaration movement and DF05 assumed external interface",
+]
+closure = "The exact upstream source is retained. No repaired or renamed port is included; the Python oracle models the mathematical contract independently for interior real inputs."
+
+[upstream_sha256]
+"nonRegressions/set01/lh098/program.f" = "82207bcfcc4c9404e11c5e6195550fea8f4271ad884ad3a73a4b8713d79439f2"
+"nonRegressions/set01/lh098/program_d.f" = "e6182a5c7aa8abd92e54dc1612dccdeb2f0bf7af22195b91876c3c48d6611d6d"
+"nonRegressions/set01/lh098/program_d.msg" = "cac4c3480cc16e85cab3d9d2d43bab9a22ca823a6c88391bfe70a35f0948b5b6"

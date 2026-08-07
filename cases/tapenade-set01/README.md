@@ -492,6 +492,29 @@ python3 cases/tapenade-set01/lh083/test_contract.py
 The corresponding manifests, result records, independent oracles, and
 contract tests live under the eight `cases/tapenade-set01/lh0*/` directories.
 
+## Tranche AI: `lh093`, `lh094`, `lh097`, `lh098`, `lh102`, and `lh103`
+
+This tranche closes six adjacent fixed-form cases with fresh pinned Tapenade
+parser/forward/reverse generation, strict and legacy gates, exact FortAD
+probes, and independent three-test contracts. All six remain exact-source
+expected-refusal records: interactive or external I/O, external derivative
+summaries, external CNKLOG dependencies, incomplete protected-expression
+output, and reverse per-iteration storage. No repaired port is counted.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh093/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh094/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh097/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh098/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh102/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/lh103/run.sh
+```
+
+Each directory contains its manifest, runner result, notes, oracle, and
+contract test.
+
 ## Tranche Z: `todoF90/REFERENCES/bd01`, `bd11`, `v01`, `v02`, `v05`, and `v07`
 
 This historical-reference tranche closes six pure-Fortran queue rows. `bd01`

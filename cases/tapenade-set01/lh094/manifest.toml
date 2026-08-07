@@ -1,0 +1,31 @@
+schema_version = 1
+name = "tapenade-set01-lh094-external-summary-boundary"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh094/run.sh"
+result = "cases/tapenade-set01/lh094/result.txt"
+upstream_sources = ["nonRegressions/set01/lh094/program.f", "nonRegressions/set01/lh094/program_d.f", "nonRegressions/set01/lh094/program_d.msg", "nonRegressions/set01/lh094/Options", "nonRegressions/set01/lh094/MyGeneralLib"]
+stored_references = ["program_d.f", "program_d.msg"]
+missing_stored_references = ["program_p.f", "program_b.f", "program_dv.f"]
+upstream_entry_point = "test(a,b)"
+ported_entry_point = "not-claimed (exact external DISACTIVATE has no FortAD derivative rule)"
+independent = ["a"]
+dependent = ["b"]
+options = ["-p", "-d -root test", "-b -root test"]
+modes = ["exact-strict-and-legacy-compile:pass", "stored-tangent-strict-and-legacy-compile:pass", "fresh-parser:generate-and-strict-compile-pass", "fresh-forward:generate-and-strict-compile-pass", "fresh-reverse:generate-and-strict-compile-pass", "exact-check:pass-reemit-strict-compile", "exact-forward:expected-refusal-no-derivative-rule", "exact-reverse:expected-refusal-no-derivative-rule"]
+oracle = ["independent source-shape and external-summary identity semantics", "independent JVP finite-difference check", "independent VJP dot-product identity check"]
+classification = "expected-refusal-fortad-external-derivative-rule"
+dependencies = ["DISACTIVATE is supplied only as an upstream Tapenade external summary; the exact source does not define its implementation", "MyGeneralLib declares DISACTIVATE as an identity-like float function with its argument read and result written", "Tapenade's fresh forward and reverse outputs use the supplied summary and compile strictly"]
+expected_diagnostics = ["strict and legacy fixed-form syntax gates pass for program.f and stored program_d.f", "fresh pinned parser, forward, and reverse generation succeeds with MyGeneralLib", "FortAD check succeeds; exact forward and reverse refuse with no derivative rule for DISACTIVATE and emit no output"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "check-pass-reemit; expected-refusal-forward-reverse-no-derivative-rule"
+closure = "The exact source and upstream summary remain the sole source artifacts. No DISACTIVATE implementation, repaired port, synthetic derivative rule, or numerical support claim is added. The oracle tests only the bounded algebra implied by the summary and labels it as such."
+
+[upstream_sha256]
+"program.f" = "03d1dd45be0f9d05165aa3eba38c5d785f3e8573308fef4b5689f4517c71824f"
+"program_d.f" = "e7edae95bfa6a16e608e9c2c47b53c7ad3c42b91c14e385bf5e0b7a7010990d5"
+"program_d.msg" = "dad92f457f5bde0dbe70e09e2cfd946fbdcf679e48a6ec437edab8a372b6fde9"
+"Options" = "b9936c7ee46255657638fa21127e65155c6304f81be7214d3d5d171383b23281"
+"MyGeneralLib" = "e93be3d3075a7ecd049c608c01f4ab4e05005a96904860be0b74720e5ba0b12f"

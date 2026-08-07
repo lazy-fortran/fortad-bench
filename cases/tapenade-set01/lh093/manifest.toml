@@ -1,0 +1,55 @@
+schema_version = 1
+name = "tapenade-set01-lh093-testiomess"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh093/run.sh"
+result = "cases/tapenade-set01/lh093/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh093/program.f",
+    "nonRegressions/set01/lh093/program_d.f90",
+    "nonRegressions/set01/lh093/program_d.msg",
+]
+stored_references = ["program_d.f90", "program_d.msg"]
+
+upstream_entry_point = "testIOmess(a,b,c,d,e)"
+ported_entry_point = "not-applicable (exact source has interactive I/O and unsupported I/O statements)"
+independent = ["a", "b", "d"]
+dependent = ["b", "c", "d", "e"]
+options = ["-p", "-d -root testIOmess", "-b -root testIOmess"]
+modes = [
+    "stored-primal:strict-refusal-legacy-pass",
+    "stored-forward:strict-refusal-legacy-pass",
+    "fresh-parser:generate-strict-refusal-legacy-pass",
+    "fresh-forward:generate-strict-refusal-legacy-pass",
+    "fresh-reverse:generate-strict-refusal-legacy-pass",
+    "exact-check:expected-refusal-unsupported-statement-line-8",
+    "exact-forward:expected-refusal-unsupported-statement-line-8",
+    "exact-reverse:expected-refusal-unsupported-statement-line-8",
+]
+oracle = [
+    "independent exact-source I/O and assignment inventory",
+    "independent array-product/scalar-update JVP finite-difference check",
+    "independent reverse dot-product identity check",
+]
+classification = "expected-refusal-fortad-unsupported-I-O-line-8"
+dependencies = [
+    "the exact source uses legacy comma-before-I/O-item syntax at lines 8, 9, 10, 13, and 15",
+    "the exact procedure performs interactive reads and writes, so no bounded numerical port is claimed",
+    "program_d.f90 is free-form generated output and retains the same legacy I/O extension",
+]
+expected_diagnostics = [
+    "exact and fresh Tapenade sources pass legacy compilation and refuse strict F2018 pedantic compilation",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs are generated and pass the legacy gate",
+    "FortAD check, forward, and reverse refuse unsupported statement at line 8 and emit no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-legacy-compile"
+fortad_result = "expected-refusal-unsupported-statement-line-8-no-output"
+closure = "The exact upstream source is retained by reference without changing I/O syntax, adding intents, or inventing a repaired port. The independent oracle covers only the deterministic assignment/update core under explicit post-I/O inputs."
+
+[upstream_sha256]
+"program.f" = "c4400ee479e918232812d4bbd2a717dd039940b78abe7772b9f6c89132dea6f1"
+"program_d.f90" = "07b091a4d9d1f2a6d991ef2aa63dabcc9f52321de5f61e86820d11b73a11d66c"
+"program_d.msg" = "f8a101e7234ef1f30505bef25de90806087aeb35090492be7ecccd64cdf5b8a5"

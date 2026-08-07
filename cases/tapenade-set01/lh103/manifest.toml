@@ -1,0 +1,72 @@
+schema_version = 1
+name = "tapenade-set01-lh103-loop-bound-regeneration"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ba15d9fc2445e7aa8e8cd130484bd0984ceb2fc1"
+source_form = "fixed"
+runner = "cases/tapenade-set01/lh103/run.sh"
+result = "cases/tapenade-set01/lh103/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set01/lh103/program.f",
+    "nonRegressions/set01/lh103/program_b.f",
+    "nonRegressions/set01/lh103/program_b.msg",
+]
+stored_references = ["program_b.f", "program_b.msg"]
+missing_stored_references = ["program_p.f", "program_d.f", "program_p.msg", "program_d.msg"]
+
+upstream_entry_point = "h(a,b,c,r)"
+ported_entry_point = "not-applicable-exact-source-only"
+independent = ["A", "B", "C", "r"]
+dependent = ["r"]
+options = [
+    "Tapenade parser: -p -O . -o lh103",
+    "Tapenade forward: -d -O . -o lh103",
+    "Tapenade reverse: -b -O . -o lh103",
+    "FortAD check --proc h",
+    "FortAD forward --indep A,B,C,r",
+    "FortAD reverse --indep A,B,C,r --dep r",
+]
+modes = [
+    "exact-source:strict-and-legacy-compile-pass",
+    "stored-reverse:strict-and-legacy-compile-pass",
+    "fresh-parser:generate-and-strict-compile-pass",
+    "fresh-forward:generate-and-strict-compile-pass",
+    "fresh-reverse:generate-and-strict-compile-pass",
+    "fortad-check:exact-parse-reemit-and-strict-compile-pass",
+    "fortad-forward:exact-jvp-generation-and-strict-compile-pass",
+    "fortad-reverse:expected-refusal-per-iteration-storage-no-output",
+]
+contract_tests = [
+    "independent-finite-bounded-loop-semantic-model-jvp-and-vjp-oracle",
+    "fresh-pinned-Tapenade-parser-forward-reverse-generation-and-strict-compilation",
+    "exact-FortAD-check-jvp-vjp-boundary-with-no-repair",
+]
+oracle = [
+    "independent finite initialized-loop semantic model",
+    "central-difference directional derivative check",
+    "independent Jacobian-transpose dot-product identity",
+    "strict-versus-legacy fixed-form compiler gates",
+]
+classification = "runnable-upstream-fortad-forward-pass-reverse-storage-boundary"
+dependencies = [
+    "The exact source leaves jmax, imax, ifirst, and jfirst uninitialized local integers; the runner records compilation and generation only, not an exact runtime claim.",
+    "The exact reverse sweep uses per-iteration storage for A in a loop that both reads and writes A, which is the current FortAD refusal boundary.",
+    "The stored reverse reference calls Tapenade runtime stack procedures through implicit interfaces; no runtime link or synthetic stack implementation is introduced.",
+]
+expected_diagnostics = [
+    "exact and stored fixed-form sources pass strict F2018 and legacy syntax gates",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD check and exact forward/JVP emit strict-compiling files",
+    "FortAD exact reverse/VJP refuses A read/write per-iteration storage and emits no output",
+]
+tapenade_result = "pass-fresh-parser-forward-reverse-generation-strict-compile"
+fortad_result = "pass-check-forward-jvp-strict-compile; expected-reverse-vjp-refusal-no-output"
+bounded_sources = []
+bounded_domain = "oracle-only finite initialized bounds with arrays large enough for the post-loop j index; not an exact-source port"
+closure = "The exact upstream source and stored reverse reference remain untouched and are identified by pinned hashes. The finite semantic model in oracle.py is separately named and never presented as a repaired Fortran port."
+
+[upstream_sha256]
+"program.f" = "fcfcde4c3c898b2942d2672d9dfb1b82483f619c179d9eef56eff6978a1d8689"
+"program_b.f" = "93efa9239427f1740483f6a3b52874c45d4b1589c433045b910d34bfa0bc49ac"
+"program_b.msg" = "73a98e1582921d4d3b356a0080c8a6863b5ae579754ea543448efbb44e7da85c"
