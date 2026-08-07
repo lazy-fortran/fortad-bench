@@ -355,3 +355,35 @@ See the [lh020 manifest](lh020-manifest.toml), [lh021 notes](lh021/notes.md),
 [lh024 manifest](lh024-manifest.toml), [lh025 manifest](tranche-lh025-manifest.toml),
 [lh026 manifest](tranche-lh026-manifest.toml), [lh027 manifest](lh027-manifest.toml),
 and the six linked result records.
+
+## Tranche T: `lh029`, `lh030`, `lh031`, `lh034`, `lh035`, and `lh036`
+
+This tranche closes the next six fixed-form rows. `lh029`, `lh030`, and
+`lh031` retain exact upstream and fresh Tapenade evidence while validating
+bounded standard-conforming ports against independent JVP/VJP, finite-
+difference, and adjoint checks. `lh034` records an exact callback/`RETURN`
+boundary with a passing bounded forward oracle. `lh035` and `lh036` are
+invalid-upstream closures: their conflicting declarations or missing external
+semantics do not justify a repaired numerical port. Each case has a pinned
+runner, machine-readable result, and contract test.
+
+The runners are:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh029.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  cases/tapenade-set01/lh030/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh031.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_lh034.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  cases/tapenade-set01/lh035/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  cases/tapenade-set01/lh036/run.sh
+```
+
+See the case manifests and result records under `cases/tapenade-set01/lh029/`
+through `lh036/` and `results/tapenade_set01_lh029_validation.txt` through
+`results/tapenade_set01_lh034_validation.txt`.
