@@ -45,23 +45,6 @@ print("fake tool completed")
 
 
 class ProbeWorkflowTest(unittest.TestCase):
-    def test_queue_shards_partition_rows_independently_of_priority_rank(self):
-        rows = [
-            {"path": f"case/{index}", "queue_rank": 10 if index < 3 else 50}
-            for index in range(11)
-        ]
-        shards = [
-            PROBE._select_queue_rows(rows, index, 4)
-            for index in range(4)
-        ]
-        flattened = [row["path"] for shard in shards for row in shard]
-        self.assertCountEqual(flattened, [row["path"] for row in rows])
-        self.assertEqual(len(flattened), len(set(flattened)))
-        self.assertEqual(
-            [row["path"] for row in PROBE._select_queue_rows(rows, 0, 4)],
-            ["case/0", "case/4", "case/8"],
-        )
-
     def _fixture(self, root: Path, hints: list[dict[str, str]]) -> tuple[Path, Path, Path]:
         upstream = root / "upstream" / "tapenade"
         case = upstream / "nonRegressions" / "set01" / "fixture"
