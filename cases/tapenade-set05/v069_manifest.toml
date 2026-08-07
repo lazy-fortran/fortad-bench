@@ -1,0 +1,58 @@
+schema_version = 1
+name = "tapenade-set05-v069-invalid-upstream"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a41afdec1502e0399a145f7e68728e0cc6c1d915"
+source_form = "free"
+runner = "cases/tapenade-set05/v069_run.sh"
+result = "cases/tapenade-set05/v069_result.txt"
+queue_category = "runnable-program-candidate"
+queue_rank = 40
+
+source_files = [
+    "nonRegressions/set05/v069/program.f90",
+    "nonRegressions/set05/v069/program_d.f90",
+]
+upstream_sources = [
+    "nonRegressions/set05/v069/Options",
+    "nonRegressions/set05/v069/program.f90",
+    "nonRegressions/set05/v069/program_d.f90",
+    "nonRegressions/set05/v069/program_d.msg",
+]
+stored_references = [
+    "nonRegressions/set05/v069/program_d.f90",
+    "nonRegressions/set05/v069/program_d.msg",
+]
+
+upstream_sha256 = { "nonRegressions/set05/v069/Options" = "5baa95dd287b0d7b14a8b4146031ece3306cab12ed698bd7c1825fa010570e94", "nonRegressions/set05/v069/program.f90" = "8f3cb22e9113988b18cab478b6ee4e36df0eeda8e064ca4b715d8515acf66236", "nonRegressions/set05/v069/program_d.f90" = "4a410b63e11424af0aa64324b2a7252acd358ae491b55ae57ffa0441fc114331", "nonRegressions/set05/v069/program_d.msg" = "d7fa68e18fee50a0cb1feea7b53a61bdab8ac627c5afd59abc83cbee3f0bc23e" }
+
+upstream_entry_point = "RUN::s(mb1,mb2,mb3)"
+selected_entry_points = ["RUN::s(mb1,mb2,mb3)"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["mb1", "mb2", "mb3"]
+dependent = "in-place updates through generic FUNC calls"
+function = "generic FUNC with a dimension-3 REAL procedure and elemental REAL/REAL*8 procedures"
+options = ["-p -root s", "-d -root s", "-b -root s"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact and stored source SHA-256 contract",
+    "strict F2018 and legacy compiler refusal for exact and stored sources",
+    "fresh pinned Tapenade parser/tangent/reverse generation with strict and legacy compilation",
+    "FortAD exact parser, forward, and reverse refusal with no output",
+    "independent source/compiler oracle",
+]
+classification = "unsupported-invalid-upstream-fortran"
+dependencies = [
+    "ELEMENTAL procedures are implicitly PURE, but FUNC2 and FUNC3 execute PRINT statements",
+    "the exact and stored sources retain nonstandard REAL*8 declarations",
+    "Tapenade's stored program_d.msg records a TC30 type mismatch for s's generic FUNC call with REAL*8(3)",
+]
+expected_diagnostics = [
+    "strict and legacy gfortran reject both exact sources at PRINT in an implicitly PURE ELEMENTAL procedure",
+    "strict gfortran also rejects REAL*8; fresh pinned Tapenade products reproduce the purity boundary under both controls",
+    "FortAD reports unknown-type generic call 'func': no derivative output for parser, forward, and reverse",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-and-legacy-compile-refusal"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-output"
+closure = "The exact candidate is invalid before derivative behavior: ELEMENTAL implies PURE, yet the procedures PRINT, and the source also retains REAL*8 and a stored generic-call type mismatch. Repairing those declarations or interface calls would define a different program, so no numerical derivative or support claim is made."

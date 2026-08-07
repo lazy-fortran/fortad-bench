@@ -1,0 +1,47 @@
+case: Tapenade nonRegressions set05 v069 RUN::s(mb1,mb2,mb3)
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-07T23:48:16Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+legacy_free_flags: -std=legacy -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
+fortad_commit: a41afdec1502e0399a145f7e68728e0cc6c1d915
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: RUN::s(mb1,mb2,mb3)
+tapenade_modes: parser tangent reverse
+fortad_modes: parser forward reverse
+upstream_exact_strict_compile: program.f90=1 program_d.f90=1
+upstream_exact_legacy_compile: program.f90=1 program_d.f90=1
+upstream_diagnostic: ELEMENTAL implies PURE, but FUNC2/FUNC3 PRINT; strict also rejects REAL*8
+stored_diagnostic: program_d.msg TC30 type mismatch in argument 1 of procedure func, expected REAL(3), is here REAL*8(3)
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+tapenade_fresh_legacy_compile: parser=1 tangent=1 reverse=1
+fortad_parser: expected-refusal status=1 diagnostic="unknown-type generic call func: no derivative output"
+fortad_forward: expected-refusal status=1 diagnostic="unknown-type generic call func: no derivative output"
+fortad_reverse: expected-refusal status=1 diagnostic="unknown-type generic call func: no derivative output"
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: elemental-pure PRINT plus REAL*8, stored generic-call message, and strict/legacy compiler refusal
+oracle_source_invariants: elemental-pure-print-real8-and-generic-call
+oracle_compiler_checks: 4
+oracle_status: pass
+exact_source_sha256:
+8f3cb22e9113988b18cab478b6ee4e36df0eeda8e064ca4b715d8515acf66236  nonRegressions/set05/v069/program.f90
+stored_source_sha256:
+4a410b63e11424af0aa64324b2a7252acd358ae491b55ae57ffa0441fc114331  nonRegressions/set05/v069/program_d.f90
+d7fa68e18fee50a0cb1feea7b53a61bdab8ac627c5afd59abc83cbee3f0bc23e  nonRegressions/set05/v069/program_d.msg
+upstream_support_sha256:
+5baa95dd287b0d7b14a8b4146031ece3306cab12ed698bd7c1825fa010570e94  nonRegressions/set05/v069/Options
+fresh_tapenade_sha256:
+97c9debe8faa3aa2d9a9b84ade0c1c8ca3e4c94f917c37cf762344249449f8d4  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/parser/v069_p.f90
+f600b552295eb4673312f4a007dda626c121076322c2cc67c4805aff2a04615e  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/parser/v069_p.msg
+e3e0f6ae1fe03feee364c73867afd14c4c84e42c6a59fa941ed29c5252c5de1c  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/tangent/v069_d.f90
+f600b552295eb4673312f4a007dda626c121076322c2cc67c4805aff2a04615e  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/tangent/v069_d.msg
+e0962d6967639e9fa5cbc88f774bb986c44fba76e49c4189d760cc6883fe8fcc  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/reverse/v069_b.f90
+f600b552295eb4673312f4a007dda626c121076322c2cc67c4805aff2a04615e  /var/tmp/fortad-bench-tapenade-set05-v069.fhqnjm/fresh/reverse/v069_b.msg
+case_artifact_sha256:
+9ea117981754bc8c8fa2bcedb2045dba8a113c4c7047dfc9b9e0d295b18dfdcd  cases/tapenade-set05/v069_manifest.toml
+21bc2ff75aa7bf34a22cfa868d1b6cab9d7205a032cdbd8060693c14bcc3d661  cases/tapenade-set05/v069_notes.md
+8b408cd9f1a6eba7711e1db2a6c2d11f14efcd83b9ae8ec218227c62f2853187  cases/tapenade-set05/v069_oracle.py
+6b3b68e71ed2c23806079da1b721b5125f759120e7fa59fb92697fdcd1fdb95e  cases/tapenade-set05/v069_run.sh
+dc64e1e4f9f1a1566bde9f62b29a369e5f6dd4894ae63de4046966556907dce9  cases/tapenade-set05/v069_test_contract.py
+closure: invalid-upstream; no standard-conforming port, derivative oracle, or support claim
