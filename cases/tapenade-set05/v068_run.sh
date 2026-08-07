@@ -19,7 +19,7 @@ fortad="$fortad_repo/build/fo/bin/fortad"
 tapenade="$tapenade_repo/bin/tapenade"
 fc=${FC:-gfortran}
 result="$case_dir/v068_result.txt"
-required_fortad_commit=e790676b0c58ec758febe81d6216158040894ca3
+required_fortad_commit=a41afdec1502e0399a145f7e68728e0cc6c1d915
 required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
 source_dir="$tapenade_repo/nonRegressions/set05/v068"
 
@@ -101,8 +101,10 @@ done
 
 run_capture fortad-parser bash -c \
     "cd '$fortad_repo' && fo exec --no-build fortad check --proc s --output '$out/fortad/parser.f90' '$source_dir/program.f90'"
-test "$(cat "$out/fortad-parser.status")" -eq 0
-test -s "$out/fortad/parser.f90"
+test "$(cat "$out/fortad-parser.status")" -ne 0
+grep -Fq "conversion-required generic call 'func' has no exact candidate" \
+    "$out/fortad-parser.stderr"
+test ! -e "$out/fortad/parser.f90"
 
 run_capture fortad-forward bash -c \
     "cd '$fortad_repo' && fo exec --no-build fortad --mode forward --indep mb1 --proc s --name v068_jvp --module tapenade_set05_v068_forward --output '$out/fortad/forward.f90' '$source_dir/program.f90'"
@@ -110,8 +112,10 @@ run_capture fortad-reverse bash -c \
     "cd '$fortad_repo' && fo exec --no-build fortad --mode reverse --indep mb1 --dep mb1 --proc s --name v068_vjp --module tapenade_set05_v068_reverse --output '$out/fortad/reverse.f90' '$source_dir/program.f90'"
 test "$(cat "$out/fortad-forward.status")" -ne 0
 test "$(cat "$out/fortad-reverse.status")" -ne 0
-grep -Fq "fortad: no derivative rule for the call to 'func'" "$out/fortad-forward.stderr"
-grep -Fq "fortad: no reverse rule for the call to 'func'" "$out/fortad-reverse.stderr"
+grep -Fq "conversion-required generic call 'func' has no exact candidate" \
+    "$out/fortad-forward.stderr"
+grep -Fq "conversion-required generic call 'func' has no exact candidate" \
+    "$out/fortad-reverse.stderr"
 test ! -e "$out/fortad/forward.f90"
 test ! -e "$out/fortad/reverse.f90"
 
@@ -141,9 +145,9 @@ grep -Fqx "oracle_status: pass" <<<"$oracle_output"
         "$(cat "$out/fresh-strict-parser.status")" "$(cat "$out/fresh-strict-tangent.status")" "$(cat "$out/fresh-strict-reverse.status")"
     printf 'tapenade_fresh_legacy_compile: parser=%s tangent=%s reverse=%s\n' \
         "$(cat "$out/fresh-legacy-parser.status")" "$(cat "$out/fresh-legacy-tangent.status")" "$(cat "$out/fresh-legacy-reverse.status")"
-    printf 'fortad_parser: pass-exact-procedure-extraction status=%s\n' "$(cat "$out/fortad-parser.status")"
-    printf 'fortad_forward: expected-refusal status=%s diagnostic="no derivative rule for the call to func"\n' "$(cat "$out/fortad-forward.status")"
-    printf 'fortad_reverse: expected-refusal status=%s diagnostic="no reverse rule for the call to func"\n' "$(cat "$out/fortad-reverse.status")"
+    printf 'fortad_parser: expected-refusal status=%s diagnostic="conversion-required generic call func has no exact candidate"\n' "$(cat "$out/fortad-parser.status")"
+    printf 'fortad_forward: expected-refusal status=%s diagnostic="conversion-required generic call func has no exact candidate"\n' "$(cat "$out/fortad-forward.status")"
+    printf 'fortad_reverse: expected-refusal status=%s diagnostic="conversion-required generic call func has no exact candidate"\n' "$(cat "$out/fortad-reverse.status")"
     printf 'fortad_generated_compile: not-applicable-no-output-on-refusal\n'
     printf 'independent_oracle: generic procedure and kind mismatch plus strict and legacy compiler refusal\n'
     printf '%s\n' "$oracle_output"

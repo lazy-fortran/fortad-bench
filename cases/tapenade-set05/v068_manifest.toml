@@ -3,7 +3,7 @@ name = "tapenade-set05-v068-invalid-upstream"
 upstream = "tapenade"
 upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
 upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-fortad_revision = "e790676b0c58ec758febe81d6216158040894ca3"
+fortad_revision = "a41afdec1502e0399a145f7e68728e0cc6c1d915"
 source_form = "free"
 runner = "cases/tapenade-set05/v068_run.sh"
 result = "cases/tapenade-set05/v068_result.txt"
@@ -34,7 +34,7 @@ oracle = [
     "exact pinned-source SHA-256 contract",
     "strict F2018 and legacy compiler refusal for exact and stored sources",
     "fresh pinned Tapenade parser/tangent/reverse generation with strict and legacy compilation",
-    "FortAD exact parser check and forward/reverse no-output refusal",
+    "FortAD exact parser, forward, and reverse no-output refusal",
     "independent generic-interface and kind-mismatch oracle",
 ]
 classification = "unsupported-invalid-upstream-fortran"
@@ -46,7 +46,7 @@ dependencies = [
 expected_diagnostics = [
     "strict and legacy gfortran reject both exact sources with no specific subroutine for the generic FUNC",
     "fresh pinned Tapenade parser, tangent, and reverse outputs generate but reject FUNC/FUNC_D/FUNC_B under both compiler controls",
-    "FortAD parser extraction passes; forward and reverse refuse FUNC and emit no derivative source",
+    "FortAD parser, forward, and reverse refuse FUNC and emit no derivative source",
 ]
 tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal"
 fortad_result = "not-run-invalid-upstream-source"

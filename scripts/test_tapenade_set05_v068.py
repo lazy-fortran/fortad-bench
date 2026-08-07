@@ -34,7 +34,7 @@ class V068ClosureTests(unittest.TestCase):
             "tapenade_generation: parser=0 tangent=0 reverse=0",
             "tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1",
             "tapenade_fresh_legacy_compile: parser=1 tangent=1 reverse=1",
-            "fortad_parser: pass-exact-procedure-extraction status=0",
+            "fortad_parser: expected-refusal",
             "fortad_forward: expected-refusal",
             "fortad_reverse: expected-refusal",
             "oracle_status: pass",
@@ -54,7 +54,7 @@ class V068ClosureTests(unittest.TestCase):
         with (CASE / "v068_manifest.toml").open("rb") as stream:
             manifest = tomllib.load(stream)
         self.assertEqual(manifest["upstream_revision"], "e59864cab441d4175df75383b3ff58c3dcd26df9")
-        self.assertEqual(manifest["fortad_revision"], "e790676b0c58ec758febe81d6216158040894ca3")
+        self.assertEqual(manifest["fortad_revision"], "a41afdec1502e0399a145f7e68728e0cc6c1d915")
         self.assertEqual(manifest["classification"], "unsupported-invalid-upstream-fortran")
         self.assertTrue(any(path.endswith("/program_p.f90") for path in manifest["stored_references"]))
 

@@ -10,9 +10,10 @@ specific procedure. The stored `program_p.f90` preserves the same calls, and
 Strict F2018 and legacy compiler controls both reject the unchanged exact and
 stored sources at the generic call. Fresh pinned Tapenade parser, tangent, and
 reverse products are generated, but all fail both compiler controls at the
-corresponding `FUNC`, `FUNC_D`, or `FUNC_B` generic boundary. FortAD's exact
-parser extraction succeeds; its forward and reverse probes refuse the generic
-`FUNC` call and emit no derivative source.
+corresponding `FUNC`, `FUNC_D`, or `FUNC_B` generic boundary. FortAD refuses
+the exact generic `FUNC` call during conversion-required parser extraction,
+and its forward and reverse probes likewise refuse it and emit no derivative
+source.
 
 No hand, finite-difference, or adjoint oracle is appropriate: changing the
 generic interface or actual kinds would repair the source into a different
@@ -24,7 +25,7 @@ Run from this repository root after building the pinned Tapenade checkout:
 
 ```sh
 TAPENADE_REPO=/path/to/tapenade-at-e59864c \
-FORTAD_REPO=/path/to/fortad-at-e790676 \
+FORTAD_REPO=/path/to/fortad-at-a41afde \
   cases/tapenade-set05/v068_run.sh
 ```
 
