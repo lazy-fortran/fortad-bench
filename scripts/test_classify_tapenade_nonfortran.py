@@ -183,6 +183,20 @@ class CommittedLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh066",
             "nonRegressions/set01/lh088",
             "nonRegressions/set01/lh134",
+            "nonRegressions/set01/lh078",
+            "nonRegressions/set01/lh079",
+            "nonRegressions/set01/lh081",
+            "nonRegressions/set01/lh083",
+            "nonRegressions/set01/lh084",
+            "nonRegressions/set01/lh087",
+            "nonRegressions/set01/lh089",
+            "nonRegressions/set01/lh090",
+            "nonRegressions/set01/lh093",
+            "nonRegressions/set01/lh094",
+            "nonRegressions/set01/lh097",
+            "nonRegressions/set01/lh098",
+            "nonRegressions/set01/lh102",
+            "nonRegressions/set01/lh103",
             "todoF90/REFERENCES/v420",
             "nonRegressions/set12/f03typf01",
             "ADFirstAidKit/testMemSizef.f",
@@ -277,7 +291,7 @@ class CommittedLedgerTests(unittest.TestCase):
         })
         self.assertEqual(
             sum(row["status"] == "untriaged" for row in ledger),
-            1354,
+            1340,
         )
 
 

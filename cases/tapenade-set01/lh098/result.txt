@@ -1,0 +1,44 @@
+case: Tapenade nonRegressions set01 lh098 exact ff
+classification: runnable-exact-source-no-port
+recorded_utc: 2026-08-07T15:36:08Z
+machine: mailuefterl
+os: CachyOS
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+legacy_compiler_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra
+fortad_commit: 49f4b3b2f4110896999916ff5eca276469d4bca8
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: ff(N,t,xbt,x)
+upstream_exact_strict_compile: pass status=0
+upstream_stored_forward_strict_compile: pass status=0
+upstream_exact_legacy_compile: pass status=0
+upstream_stored_forward_legacy_compile: pass status=0
+tapenade_generation: parser=pass tangent=pass reverse=pass
+tapenade_fresh_strict_compile: parser=pass tangent=pass reverse=pass
+tapenade_fresh_legacy_compile: parser=pass tangent=pass reverse=pass
+tapenade_diagnostics: DD31 DF05
+fortad_exact_parser_check: pass output=check.f90
+fortad_exact_jvp: pass output=jvp.f90
+fortad_exact_vjp: pass output=vjp.f90
+fortad_generated_strict_compile: check=expected-refusal status=1 jvp=expected-refusal status=1 vjp=expected-refusal status=1
+fortad_generated_legacy_compile: check=expected-refusal status=1 jvp=expected-refusal status=1 vjp=expected-refusal status=1
+fortad_generated_diagnostics: check=external-cnklog-type jvp=duplicate-k-and-external-cnklog-type vjp=external-cnklog-type
+independent_semantic_oracle:
+  oracle_primal: 3.1670291079377826e+00
+  oracle_jvp: -8.9244992927361499e-01
+  oracle_central_difference_residual: 2.3903590218310455e-10
+  oracle_vjp: analytic gradient (t,x) with output bar -0.73
+  oracle_adjoint_identity: pass
+  oracle_status: pass
+port_result: not-created exact-source-preserved
+upstream_sha256:
+82207bcfcc4c9404e11c5e6195550fea8f4271ad884ad3a73a4b8713d79439f2  nonRegressions/set01/lh098/program.f
+e6182a5c7aa8abd92e54dc1612dccdeb2f0bf7af22195b91876c3c48d6611d6d  nonRegressions/set01/lh098/program_d.f
+cac4c3480cc16e85cab3d9d2d43bab9a22ca823a6c88391bfe70a35f0948b5b6  nonRegressions/set01/lh098/program_d.msg
+case_artifact_sha256:
+52fc977dcd45acc824126b5ca3a97f0a3b69c201292b5a43ee085efa56d10bb1  manifest.toml
+eaa1fbb377acd3fcb410f32e8539576944a6c485580da013cab9a0af4a8d12e6  notes.md
+93fe04f3cbadc390771cea1ab591880c5bbec70d3598ff9fec6080337ba1904e  oracle.py
+51d2b4a02130159dc0d80865ee877ee914082ee64234fadd2d18d0834e5cffe1  run.sh
+9546e72bf3c4756506f2f866c5aa6fdc02f0566651cd08388b95cae0b13703d1  test_contract.py
