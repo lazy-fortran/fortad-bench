@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-c"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_c.sh"
+result = "results/tapenade_set01_tranche_c_validation.txt"
+
+[[case]]
+id = "lh058"
+upstream_source = "nonRegressions/set01/lh058/program.f"
+entry_point = "ff(t,u,n,e)"
+ported_entry_point = "set01_lh058(t,u,n,e)"
+independent = ["t", "u"]
+dependent = "e"
+function = "e=sqrt(sum((t-u)**2))"
+upstream_options = "none"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for primal; DIFFSIZES.inc for stored multi-direction reference"
