@@ -517,7 +517,7 @@ def render_summary(rows: list[dict], *, queue_count: int, compiler: str, checkou
         "",
         "```bash",
         "scripts/fetch_upstreams.py tapenade",
-        "scripts/triage_tapenade_fortran.py --jobs 4",
+        "scripts/triage_tapenade_fortran.py --jobs 1",
         "scripts/triage_tapenade_fortran.py --check",
         "```",
         "",
