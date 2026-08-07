@@ -1,0 +1,45 @@
+case: Tapenade nonRegressions set01 lh016 complex arithmetic
+recorded_utc: 2026-08-07T05:21:58Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: 1aae732d54d2be5b4da43270cdc10a1a325f9fd3
+required_fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_version: Tapenade 3.16 (HEAD) -  7 Aug 2026 05:39 - Java 21.0.12 Linux
+fortad_setup_seconds: 1.153474
+upstream_strict_compile_seconds: 0.037467
+tapenade_forward_reverse_seconds: 0.460074
+fortad_forward_transform_seconds: 0.005614
+fortad_reverse_transform_seconds: 0.008648
+fortad_reverse_status: 1
+generated_compile_and_link_seconds: 0.194834
+fortad_generated_forward_source_bytes: 1050
+fortad_generated_reverse_source_bytes: 0
+tapenade_generated_forward_source_bytes: 739
+tapenade_generated_reverse_source_bytes: 733
+runtime_wall_seconds=0.01
+runtime_peak_rss_kb=3256
+upstream_compiler_oracle: exact primal and stored tangent/adjoint compile with -std=f2018 -pedantic-errors
+tapenade_oracle: fresh tangent and adjoint sources generate and compile
+oracle: hand real-coordinate JVP/VJP, four-step complex directional central differences, and the real inner-product adjoint identity
+exact_source_fortad_diagnostic: fortad: unsupported expression at line 6
+reverse_refusal_diagnostic: fortad: reverse mode: active complex adjoints are not supported for this expression; the bounded real-coordinate projection path only accepts real(z) or dble(z)
+source_sha256:
+72979450e9e357ff1882be7c128303b22c5a4c7fca126633b1d8ded9a349520c  cases/tapenade-set01/lh016.f90
+485408c30a0212b5f756d5f98c9c55cbc67c8a4c3577e7f59a52a0e94edddba3  cases/tapenade-set01/hand_derivatives_lh016.f90
+61048ef3ff55f0b411a19739f57daded7ad93c71eda195d4aee1dcdb06b08f5f  cases/tapenade-set01/tranche-j-lh016-manifest.toml
+a91c82fe569b3f0b5f492cd484dc2c42d1bfa1507ee473f28ee8bf4cbfee726d  cases/tapenade-set01/tranche-j-lh016.md
+ff941ea97f8a5254f6596442198752217d53523674df5ed59da0853476962bbe  harness/bench_tapenade_set01_lh016.f90
+8e29af3078904f9370c4e99d5e01e965daf7f5c31c4c3b00668fcb24aeedcc0b  scripts/bench_tapenade_set01_lh016.sh
+run_output:
+fd_errors:   7.5395E-07   1.7068E-06   4.0601E-06   3.4136E-06
+forward_calls: 1000000
+forward_runtime_seconds:   1.63350240E-02
+ns_per_forward_call:   1.63350240E+01
+runtime_sink_real_imag:   6.93714810E-06   1.01132753E-06
+refusal_oracle_status: pass

@@ -1,0 +1,21 @@
+schema_version = 1
+name = "tapenade-set01-tranche-j-lh016"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_lh016.sh"
+result = "results/tapenade_set01_lh016_refusal_validation.txt"
+
+[[case]]
+id = "lh016"
+upstream_source = "nonRegressions/set01/lh016/program.f"
+entry_point = "ctest(in,out)"
+ported_entry_point = "set01_lh016(input,output)"
+independent = ["input"]
+dependent = ["output"]
+function = "output(1)=(1+2i)*input(1); output(2)=(2+2i)*input(1)"
+upstream_options = "-root ctest"
+modes = ["forward", "reverse"]
+oracle = ["strict-compiler", "Tapenade-generated-compile", "hand-real-coordinate-JVP-VJP", "central-difference-sweep", "adjoint-identity", "FortAD-diagnostic"]
+dependencies = "none"
+classification = "forward-supported-reverse-complex-adjoint-refusal"
+expected_reverse_diagnostic = "fortad: reverse mode: active complex adjoints are not supported for this expression; the bounded real-coordinate projection path only accepts real(z) or dble(z)"
