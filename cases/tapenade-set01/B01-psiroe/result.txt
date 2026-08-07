@@ -1,7 +1,7 @@
 classification: expected-refusal-fortad-unsupported-labeled-do-line-116
 entry_point: psiroe(ctrl,ctrlno)
 upstream_revision: e59864cab441d4175df75383b3ff58c3dcd26df9
-fortad_revision: 150e663dbad239a3a11a679e3dcf16be76496f8d
+fortad_revision: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
 source: /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/B01/program.f
 source_form: fixed
 tapenade_commands:

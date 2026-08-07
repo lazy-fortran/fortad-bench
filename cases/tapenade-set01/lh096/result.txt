@@ -1,8 +1,8 @@
 case: Tapenade nonRegressions/set01/lh096
 classification: expected-boundary-fortad-sub1-compatibility-and-missing-vector-include
 runner_result: pass
-recorded_utc: 2026-08-07T17:35:47Z
-fortad_commit: 150e663dbad239a3a11a679e3dcf16be76496f8d
+recorded_utc: 2026-08-07T17:44:38Z
+fortad_commit: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 exact_and_fresh_fixed_gates: pass; program_dv: strict=1 legacy=1 missing-DIFFSIZES.inc
 fortad_source_first: check=status-1-invalid-free-strict forward=pass-free-strict reverse=status-1-undeclared-sub1
@@ -25,8 +25,8 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  program_p.msg
 7f97cb14a1a1c444167376b9550c003d35d600c9bfb9ae8fc5178486d5635b3b  program_dv.f
 f809dde5a41e4b0f6a153114f7125d1508181f7ca0b72853e31362c638cd243b  program_dv.msg
 case_artifact_sha256:
-07cb77d07387e5e9a4d3921a5222710c8ac8532bd4345f36e092b578bd49e9ed  manifest.toml
+4069ddef4195ce83911894ee260b862b71f18ae093a57cd3b12764a26bef66a8  manifest.toml
 2280ebca3e8d1eec9441d42b6b44d407ae5ff616ea739fae608963f2f951dcdf  notes.md
 73f19dcb4bc82b8743b6ad0cbcc06c57b006fa926288c33af06b4cbf204cbdf4  oracle.py
-0d12113ef668837383a1f02167631c1f5eb84dea806b7c321671f829ff814f6a  run.sh
+6588e3bd6b7221bba66e8df582969ce1a239f0a11f8bd2ab58d9ecc3a83aeab2  run.sh
 2996295482a33761455e29401dc80b32a73258bb469c070a5abc86feaa933dfa  test_contract.py
