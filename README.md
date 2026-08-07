@@ -333,6 +333,10 @@ because it belongs next to the engines rather than next to the compiler.
   diagnostic hashes, and keeps include fragments explicit without compiling
   them as standalone units. `compiled` means compiler acceptance only. It is
   not a FortAD, Tapenade, runtime, or derivative-support result.
+  The bounded [known-failure and large-example shard](docs/corpora/tapenade-known-failures.md)
+  records strict/legacy compiler and Tapenade parser probes for 59 rows. Its
+  `runnable` label is source viability only; those rows remain untriaged until
+  generated-code and independent numerical-oracle gates are added.
 - **[`docs/reading-list.md`](docs/reading-list.md)**: the literature, curated by
   hand and tiered by reading order, with checked DOIs and arXiv links, marking
   which items are freely available and which need institutional access.
