@@ -1,0 +1,83 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v547"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v547/run.sh"
+result = "cases/tapenade-set01/v547/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; legacy-declaration-and-binding-label-boundary"
+source_files = [
+    "todoF90/REFERENCES/v547/Options",
+    "todoF90/REFERENCES/v547/common.mod",
+    "todoF90/REFERENCES/v547/program.f90",
+    "todoF90/REFERENCES/v547/program_p.f90",
+    "todoF90/REFERENCES/v547/program_p.msg",
+    "todoF90/REFERENCES/v547/program_b.f90",
+    "todoF90/REFERENCES/v547/program_b.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v547/Options",
+    "todoF90/REFERENCES/v547/common.mod",
+    "todoF90/REFERENCES/v547/program.f90",
+    "todoF90/REFERENCES/v547/program_p.f90",
+    "todoF90/REFERENCES/v547/program_p.msg",
+    "todoF90/REFERENCES/v547/program_b.f90",
+    "todoF90/REFERENCES/v547/program_b.msg",
+]
+stored_references = [
+    "common.mod",
+    "program_p.f90",
+    "program_p.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+missing_stored_references = ["program_d.f90", "program_d.msg"]
+
+upstream_entry_point = "endval(bb,aind,bind,cind,n)"
+selected_entry_points = ["endval(bb,aind,bind,cind,n)", "xmul", "xadd", "xdot"]
+ported_entry_point = "not-applicable-exact-legacy-declaration-and-parser-boundary"
+independent = ["bb", "COMMON arrays", "aind", "bind", "cind", "n"]
+dependent = ["endval"]
+function = "indexed xmul, xadd, and xdot pipeline returning a0(1)"
+options = [
+    "Options: -head endval(endval)/(bb)",
+    "fresh pinned invocation: -head endval(endval)/(bb) -p/-d/-b -O . -o v547 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation-boundary",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation-boundary",
+    "exact-FortAD-three-mode-refusal-and-independent-indexed-array-oracle",
+]
+oracle = [
+    "strict-gfortran exact primal and stored-reference compilation",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal and no-output boundary",
+    "independent indexed-array primal/JVP/VJP model",
+    "central-difference sweep and JVP/VJP adjoint identity",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-invalid-stored-derivatives-and-fortad-binding-label"
+expected_diagnostics = [
+    "the exact program.f90 compiles strictly, while stored parser/reverse references are rejected for legacy kind declarations and declaration defects",
+    "fresh pinned Tapenade parser, tangent, and reverse files generate but each is rejected by strict compilation for the same legacy/declaration boundary",
+    "FortAD parser, forward, and reverse all refuse at INTEGER(4) binding-label syntax on line 62 before writing output",
+    "the independent oracle validates the indexed overwrite/addition/dot pipeline with repeated indices, finite differences, and an adjoint identity",
+]
+fresh_generated_sources = ["v547_p.f90", "v547_d.f90", "v547_b.f90"]
+fresh_generated_messages = ["v547_p.msg", "v547_d.msg", "v547_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-binding-label-line-62"
+closure = "The exact primal is a legacy free-form regression whose stored and fresh differentiated sources are not strict-conforming. FortAD refuses the exact source before transformation at its binding-label parse boundary. A port would need to standardize declarations and define COMMON state, changing the exact regression, so no bounded port is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v547/Options" = "26ed440d5d26f881d1754bb8314b0c850109b71303265e7ebf2136261ed3130c"
+"todoF90/REFERENCES/v547/common.mod" = "c5d1f6d5d79d3d980b00370737713919a1c6b721a0d10a279b82c05ad1ec1d87"
+"todoF90/REFERENCES/v547/program.f90" = "a1f1313ca0c53057e2f7bc474c9fcd159c1ee2048558ab3f77f2836653593ba6"
+"todoF90/REFERENCES/v547/program_p.f90" = "f886934f30221ff475140de2b26cd7182e4d5ce712bce6b59f6f74532cb3e8aa"
+"todoF90/REFERENCES/v547/program_p.msg" = "8936ad30d8bb96425607e1b23ae721a2f5d498ae2c4de58a8d75a57ca6efbc9a"
+"todoF90/REFERENCES/v547/program_b.f90" = "9f9fcc6b4beda5a3916963532bbf15f394cadc9500beeda4b3464111d85464f4"
+"todoF90/REFERENCES/v547/program_b.msg" = "8936ad30d8bb96425607e1b23ae721a2f5d498ae2c4de58a8d75a57ca6efbc9a"

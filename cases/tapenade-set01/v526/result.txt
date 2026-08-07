@@ -1,0 +1,59 @@
+case: Tapenade todoF90 REFERENCES/v526 module-bundle boundary and SING3 port
+classification: expected-refusal-with-bounded-sing3-port
+recorded_utc: 2026-08-07T13:33:21Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: SING3(DXP,DYP,Epaisseur_Seuil)
+tapenade_options: parser=-p tangent=-d reverse=-b; root=SING3
+upstream_exact_strict_compile: program.f90=1
+exact_diagnostic: undefined-dp-sp; ambiguous-generic; REAL*8; missing-fox_dom.mod
+stored_module_consumer_strict_compile: 0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+fortad_exact_parser: expected-refusal status=1 output=none line=233 diagnostic="allocate"
+fortad_exact_forward: expected-refusal status=1 output=none line=233 diagnostic="allocate"
+fortad_exact_reverse: expected-refusal status=1 output=none line=233 diagnostic="allocate"
+fortad_bounded_forward: transform=0 strict_compile=0
+fortad_bounded_reverse: transform=0 strict_compile=0
+bounded_port_compile: port=0 harness=0 link=0 runtime=0
+oracle_status: pass
+finite_difference_max_error: 1.1721112969098613e-10
+adjoint_identity_residual: 1.1102230246251565e-16
+active_value: 1.5625000000000000e+00
+inactive_branch: dyp unchanged
+harness_status: pass
+bounded_domain: one-element finite real(8) DXP and DYP_INITIAL; DYP output; Epaisseur_Seuil in {0,1}
+upstream_sha256:
+6204c3afb75f5aea007546cb6dee68d69138983afe4d03a00fe653a6beadfe14  todoF90/REFERENCES/v526/fox_dom_types.mod
+b8d7a92024c5e5eb9563dc0083303dc087a7bd215c22735e008678c30ae76272  todoF90/REFERENCES/v526/fox_sax.mod
+f6d403f4b13b260875b3ae5a7a1d68e7073b46ff20d6286deb56e77cf01d99cf  todoF90/REFERENCES/v526/m_precision.mod
+809225e4e83d7d07755971cfb36f7f4a64a74a473e0a7095a8d1b3ec7ee35fa5  todoF90/REFERENCES/v526/m_rezomat_t.mod
+8372ffa4de48fe7e3c7b265be04fe1e93c2274de4d62b60846db30b218879def  todoF90/REFERENCES/v526/m_sing3_i.mod
+6d041a79526f6d94f4538254ecb75b121bac1cfdeee2b5a09d5a389b16ceb8c2  todoF90/REFERENCES/v526/m_singularite_rezo_i.mod
+28b93da167e69585e9127cbdef537927e334ffe9516aa39be5782efe979aa122  todoF90/REFERENCES/v526/m_singularite_t.mod
+775eaf6b6b0454c8a3e7fb852be45c8d4586cc9ac0c373d9d966ae27051bea3f  todoF90/REFERENCES/v526/program.f90
+fresh_tapenade_sha256:
+5c5ff6186c6f3a50d6a3fb556b08e758250435649ced4851b368a1366ddcace5  parser/v526_p.f90
+561b36b29a13b11e6dbbdf0b9c7a201d327cb95187f890636b9f1a2acedbce3d  parser/v526_p.msg
+3c63f6de766484bb92917bcbaa3a50af667f6f2b2c5dab04c2e6d7961b328974  tangent/v526_d.f90
+972dae7333ce447bb9f9a5be13e724c0f8cf30cfe94a71807d1e834a5d07f2cb  tangent/v526_d.msg
+a8e8337c07593753ef17c885625d79f19ec6a4106f7d795f5b3dda507b3841f6  reverse/v526_b.f90
+972dae7333ce447bb9f9a5be13e724c0f8cf30cfe94a71807d1e834a5d07f2cb  reverse/v526_b.msg
+fortad_bounded_sha256:
+fd9c7d3bf906d7ff0927a287add33e691d49fbeece41c8994cd1608baa12ebab  /var/tmp/fortad-bench-v526.BlYxsJ/port-generated/forward.f90
+ec2c7a4e5ddc17d9b372d3b2583604e7798dbe42ad3218d4d1d2c35e731210cc  /var/tmp/fortad-bench-v526.BlYxsJ/port-generated/reverse.f90
+case_artifact_sha256:
+12fc9c57f9839e836fec0c6e42a132ce17204bcd497cd6631e3d4aaf7eed708b  manifest.toml
+f62eb102d300857e59e2a93447428b9bae70f85385ee50f3da8eaff91ef00801  notes.md
+0e4bb9791ec434a882adee5679c636f2834e5a6c0fe7e7f41f20b556d47a280b  port.f90
+7e26eeff6432859d596882f831b0ed27b0edd109ce56e3a368aa4fed51a6ea77  harness.f90
+42f425c5fbd70db8032d5975c2b00efe68cef911802f447a7fcc990fb93b10b6  stored_modules_probe.f90
+6fa8d38f07bbf2fb0c085b428a270a2c0162addb2fc069f423186817cb396bc0  oracle.py
+4f580b05555186451ee58d7955509bf4df67f2ac673b1ebf2155fdbf4bc1b2d7  run.sh
+09823569fa86ce9e38093d1244d2f4a0b59dcc24ce9069032d14a504eda0a587  test_contract.py

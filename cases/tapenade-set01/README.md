@@ -593,6 +593,33 @@ See the manifests, result records, independent oracles, and contract tests
 under `cases/tapenade-set01/v425/`, `v426/`, `v427/`, `v469/`, `v500/`, and
 `v503/`.
 
+## Tranche AE: `todoF90/REFERENCES/v504`, `v505`, `v508`, `v519`, `v526`, and `v547`
+
+This historical-reference tranche closes six pure-Fortran queue rows. `v504`
+and `v526` retain exact FortAD refusal boundaries while bounded ports pass
+strict compilation, generated forward/reverse compilation, runtime checks, and
+independent numerical oracles. `v505` preserves an underdetermined external
+callback boundary; `v508` preserves external `inout` and global-state codegen
+failures; `v519` records that a standalone `PROGRAM` has no callable procedure
+interface; and `v547` preserves legacy declaration and binding-label failures.
+Every case has fresh pinned Tapenade evidence and an independent three-test
+contract.
+
+Run the cases individually with:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v504/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v505/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v508/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v519/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v526/run.sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade cases/tapenade-set01/v547/run.sh
+```
+
+See the manifests, result records, independent oracles, and contract tests
+under `cases/tapenade-set01/v504/`, `v505/`, `v508/`, `v519/`, `v526/`, and
+`v547/`.
+
 ## Tranche Y: `lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`
 
 This tranche closes six more fixed-form rows. `lh071` and `lh075` are

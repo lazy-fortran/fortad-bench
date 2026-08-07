@@ -1,0 +1,104 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v526"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v526/run.sh"
+result = "cases/tapenade-set01/v526/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; invalid-interface-and-allocation-boundary"
+source_files = [
+    "todoF90/REFERENCES/v526/program.f90",
+    "todoF90/REFERENCES/v526/fox_dom_types.mod",
+    "todoF90/REFERENCES/v526/fox_sax.mod",
+    "todoF90/REFERENCES/v526/m_precision.mod",
+    "todoF90/REFERENCES/v526/m_rezomat_t.mod",
+    "todoF90/REFERENCES/v526/m_sing3_i.mod",
+    "todoF90/REFERENCES/v526/m_singularite_rezo_i.mod",
+    "todoF90/REFERENCES/v526/m_singularite_t.mod",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v526/program.f90",
+    "todoF90/REFERENCES/v526/fox_dom_types.mod",
+    "todoF90/REFERENCES/v526/fox_sax.mod",
+    "todoF90/REFERENCES/v526/m_precision.mod",
+    "todoF90/REFERENCES/v526/m_rezomat_t.mod",
+    "todoF90/REFERENCES/v526/m_sing3_i.mod",
+    "todoF90/REFERENCES/v526/m_singularite_rezo_i.mod",
+    "todoF90/REFERENCES/v526/m_singularite_t.mod",
+]
+stored_references = [
+    "fox_dom_types.mod",
+    "fox_sax.mod",
+    "m_precision.mod",
+    "m_rezomat_t.mod",
+    "m_sing3_i.mod",
+    "m_singularite_rezo_i.mod",
+    "m_singularite_t.mod",
+]
+missing_stored_references = [
+    "Options",
+    "program_p.f90",
+    "program_p.msg",
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "SING3(DXP,DYP,Epaisseur_Seuil)"
+selected_entry_points = ["SING3(DXP,DYP,Epaisseur_Seuil)"]
+ported_entry_point = "v526_sing3(dxp,dyp,epaisseur_seuil)"
+independent = ["DXP(1)", "DYP_INITIAL(1)"]
+dependent = ["DYP(1)"]
+function = "when Epaisseur_Seuil == 1, DYP = DXP**2; otherwise DYP is unchanged"
+options = [
+    "fresh pinned invocation: -p/-d/-b -root SING3 -O . -o v526 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-module-consumer-strict-compile-boundary",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-FortAD-three-mode-refusal-plus-bounded-port-runtime",
+]
+oracle = [
+    "strict compiler boundary",
+    "fresh pinned Tapenade generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal at allocation line 233",
+    "independent SING3 hand JVP/VJP",
+    "central-difference sweep on both branch domains",
+    "adjoint identity",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-with-bounded-sing3-port"
+expected_diagnostics = [
+    "strict exact program.f90 fails at undefined dp/sp interface kinds, ambiguous generic interfaces, legacy REAL*8, and missing fox_dom.mod",
+    "a strict consumer imports every stored .mod artifact successfully",
+    "fresh parser/tangent/reverse generation succeeds; parser strict compilation fails on dp/sp and tangent/reverse strict compilation fails at missing fox_dom.mod",
+    "FortAD parser, forward, and reverse refuse exact program.f90 at allocate line 233 and write no output",
+    "the bounded port is one-element finite real(8) arrays with integer Epaisseur_Seuil and independently checked branch semantics",
+]
+fresh_generated_sources = ["v526_p.f90", "v526_d.f90", "v526_b.f90"]
+fresh_generated_messages = ["v526_p.msg", "v526_d.msg", "v526_b.msg"]
+bounded_sources = [
+    "cases/tapenade-set01/v526/port.f90",
+    "cases/tapenade-set01/v526/harness.f90",
+    "cases/tapenade-set01/v526/stored_modules_probe.f90",
+]
+bounded_domain = "DXP(1) and DYP_INITIAL(1) are finite real(8); Epaisseur_Seuil is 1 or 0; DYP is the dependent output"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-allocation-line-233; bounded-port-forward-reverse-runtime-pass"
+closure = "The exact source remains unchanged. Its FoX interface has undefined dp/sp kinds and an ambiguous generic, its module bundle lacks fox_dom.mod, and FortAD stops earlier at allocate line 233. The bounded port keeps only SING3 on an explicit one-element finite real(8) domain; it does not claim support for the exact module-heavy source."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v526/fox_dom_types.mod" = "6204c3afb75f5aea007546cb6dee68d69138983afe4d03a00fe653a6beadfe14"
+"todoF90/REFERENCES/v526/fox_sax.mod" = "b8d7a92024c5e5eb9563dc0083303dc087a7bd215c22735e008678c30ae76272"
+"todoF90/REFERENCES/v526/m_precision.mod" = "f6d403f4b13b260875b3ae5a7a1d68e7073b46ff20d6286deb56e77cf01d99cf"
+"todoF90/REFERENCES/v526/m_rezomat_t.mod" = "809225e4e83d7d07755971cfb36f7f4a64a74a473e0a7095a8d1b3ec7ee35fa5"
+"todoF90/REFERENCES/v526/m_sing3_i.mod" = "8372ffa4de48fe7e3c7b265be04fe1e93c2274de4d62b60846db30b218879def"
+"todoF90/REFERENCES/v526/m_singularite_rezo_i.mod" = "6d041a79526f6d94f4538254ecb75b121bac1cfdeee2b5a09d5a389b16ceb8c2"
+"todoF90/REFERENCES/v526/m_singularite_t.mod" = "28b93da167e69585e9127cbdef537927e334ffe9516aa39be5782efe979aa122"
+"todoF90/REFERENCES/v526/program.f90" = "775eaf6b6b0454c8a3e7fb852be45c8d4586cc9ac0c373d9d966ae27051bea3f"

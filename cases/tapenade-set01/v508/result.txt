@@ -1,0 +1,44 @@
+case: Tapenade todoF90/REFERENCES/v508 external inout/global-state boundary
+classification: expected-refusal-external-inout-global-state-and-codegen
+recorded_utc: 2026-08-07T13:33:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_points: top(r,s); compute(x,y)
+tapenade_options: -head top -head compute; parser=-p tangent=-d reverse=-b
+upstream_exact_strict_compile: primal=0 stored_program_d=0
+upstream_diagnostic: implicit-interface-warnings-for-external-compute-ftest-top
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v508_p.f90 tangent=v508_d.f90 reverse=v508_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=expected-refusal-1
+fresh_reverse_diagnostic: undeclared-COMPUTE_B-interface
+fortad_exact_parser: transform=0 generated=strict-compile-1 diagnostic="result() and blank declarations"
+fortad_exact_forward: transform=0 generated=strict-compile-1 diagnostic="blank dependent arguments"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="assignment to undeclared y"
+oracle_status: pass top=-3.75 finite_difference_max_error=2.813e-10 adjoint_identity_residual=2.220e-16 s_update=2*r global_update=global+top
+port_result: not-applicable-exact-external-inout-global-state-boundary
+closure: no bounded port; changing the external-call shape or global state would define a different candidate
+upstream_sha256:
+f0cad06e0e970a138c313db898caf030a04cf1cc6027c752cdc0a5ad3d5f4627  todoF90/REFERENCES/v508/Options
+5a302638151b5f6a60810637a99ad6e4607e5deb811a375fd2e18ac9d12398a8  todoF90/REFERENCES/v508/m.mod
+279630977ea51413421a76c6e8e012f38396a0048fb0118452d8357aed2ff21a  todoF90/REFERENCES/v508/program.f90
+53618c7c1431ae970dfc730f4a5bc04a7424dd9dce8e46836879a3bf818edd46  todoF90/REFERENCES/v508/program_d.f90
+7fb2836c9f228e6e5b0b34a6eea8b987a8c3799a79c631f96d74fe63eb27b5f3  todoF90/REFERENCES/v508/program_d.msg
+fresh_tapenade_sha256:
+637b1463b18189b917736671aec2b7aebdc7ea70a86391889eff064bfd8d5306  ./forward/v508_d.f90
+a0c992be1cf193394f12756ffd3a68b6e0939621bb2e742f927798057b69c667  ./forward/v508_d.msg
+9ea37cd24ff34f48baadb15343c48abd656af657d8d0538bde6ea7d61b6d821c  ./parser/v508_p.f90
+9d669f2e638f19b2a8e1de10eaefb13c9aaf599146e836a43e021c4fdf3be7f8  ./parser/v508_p.msg
+24cfbd3094e9cfa66ad743b8ffa23ad1fe4a0656b73ad4eac81dd0973bbd14b5  ./reverse/v508_b.f90
+a0c992be1cf193394f12756ffd3a68b6e0939621bb2e742f927798057b69c667  ./reverse/v508_b.msg
+case_artifact_sha256:
+4d2ada4d5858a7ce9aa64592f28623faf43b3174f1dab55b9a36b67e407c50bd  manifest.toml
+47c21efa04a227032d6e796901f17b9e7aaaab2c1f1bb82aeedcf367081e0c91  notes.md
+da2383c438d7f791b7ac7200cc64d1c3c482577856c42eff018cc1d7587218b2  oracle.py
+a4be11723fd974088b5a510db78f91751fd894e0582d453be7343e133d24a240  run.sh
+39ff7287a849896d64be736f800a6feac014974a712de807920da8164f155dee  test_contract.py

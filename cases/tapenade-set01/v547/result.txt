@@ -1,0 +1,51 @@
+case: Tapenade todoF90 REFERENCES/v547 endval declaration and binding-label boundary
+classification: expected-refusal-invalid-stored-derivatives-and-fortad-binding-label
+recorded_utc: 2026-08-07T13:33:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: endval(bb,aind,bind,cind,n)
+selected_entry_points: endval xmul xadd xdot
+tapenade_options: -head endval(endval)/(bb); parser=-p tangent=-d reverse=-b
+upstream_exact_strict_compile: primal=0 stored_parser=1 stored_reverse=1
+stored_reference_strict_diagnostic: legacy REAL*8/INTEGER*4 and declaration defects
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+tapenade_fresh_strict_diagnostic: legacy kind declarations and generated declaration-order/intent defects
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="binding label line 62 column 25"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="binding label line 62 column 25"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="binding label line 62 column 25"
+independent_indexed_array_oracle:
+model: xmul indexed overwrite; xadd indexed overwrite; xdot indexed accumulation
+primal_endval: 2.4000000000000004e+00
+finite_difference_max_error: 2.6892910121034674e-10
+adjoint_identity_residual: 1.1102230246251565e-16
+oracle_status: pass
+port_result: not-claimed
+closure: exact legacy declarations and FortAD binding-label parser boundary retained; no repaired port
+upstream_sha256:
+26ed440d5d26f881d1754bb8314b0c850109b71303265e7ebf2136261ed3130c  todoF90/REFERENCES/v547/Options
+c5d1f6d5d79d3d980b00370737713919a1c6b721a0d10a279b82c05ad1ec1d87  todoF90/REFERENCES/v547/common.mod
+a1f1313ca0c53057e2f7bc474c9fcd159c1ee2048558ab3f77f2836653593ba6  todoF90/REFERENCES/v547/program.f90
+f886934f30221ff475140de2b26cd7182e4d5ce712bce6b59f6f74532cb3e8aa  todoF90/REFERENCES/v547/program_p.f90
+8936ad30d8bb96425607e1b23ae721a2f5d498ae2c4de58a8d75a57ca6efbc9a  todoF90/REFERENCES/v547/program_p.msg
+9f9fcc6b4beda5a3916963532bbf15f394cadc9500beeda4b3464111d85464f4  todoF90/REFERENCES/v547/program_b.f90
+8936ad30d8bb96425607e1b23ae721a2f5d498ae2c4de58a8d75a57ca6efbc9a  todoF90/REFERENCES/v547/program_b.msg
+fresh_tapenade_sha256:
+5500082ae1292a78dbabd832e0feeb07d125fe51d1c38e5009a9eaefb9f7321d  v547_p.f90
+27b62cbda37fbc940751cbbe31d9a277072d2a17b36bc56211503696633adf3a  v547_p.msg
+fe96568df165f7b01470fec12916a9898e3138a437bd0b1d9638b75d440d8db8  v547_d.f90
+27b62cbda37fbc940751cbbe31d9a277072d2a17b36bc56211503696633adf3a  v547_d.msg
+8ceb1e6d59349f6a42d4f0f53d636ee7aaf7bc3fa58ae11884a4bf4249e714b3  v547_b.f90
+27b62cbda37fbc940751cbbe31d9a277072d2a17b36bc56211503696633adf3a  v547_b.msg
+case_artifact_sha256:
+a27c065a86e843389d11cabb412b4257116e2a6142465cd19cfc04c311f92c0d  manifest.toml
+60c682d853cba6a871e970e505bdb76e92dbbc3099c0adb357a7a50bc83cd65f  notes.md
+97d5732e08ac3ebf010d3a022e470c1cea7a3a209bd36b0b47003bea8aa0cc27  oracle.py
+ca64bf7e6a40afc5122f9ee89b0e2eadb6783a64644775621a8321dc1acb6072  run.sh
+97c2ff33a11311cbc6e60affd80026f95e96ce61331ce9b1bee40f74105a78c2  test_contract.py

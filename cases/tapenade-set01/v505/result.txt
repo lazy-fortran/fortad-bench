@@ -1,0 +1,49 @@
+case: Tapenade todoF90 REFERENCES/v505 external-callback interface boundary
+classification: expected-refusal-without-bounded-port
+recorded_utc: 2026-08-07T13:33:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(r,s)
+ported_entry_point: not-claimed-underdetermined-external-callback
+stored_references: program_d.f90 program_d.msg
+missing_stored_references: program_p.f90 program_p.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p/-root top forward=-d/-root top reverse=-b/-root top
+upstream_exact_strict_compile: primal=0 stored_tangent=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+tapenade_fresh_messages: parser=external-ftest-activity tangent=missing-ftest-differential reverse=missing-ftest-differential
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported statement at line 12"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported statement at line 12"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported statement at line 12"
+independent_semantic_oracle:
+oracle_input_shape: r,s are real rank-one arrays of length n=2
+oracle_callback_shape: compute(x,y) accepts two length-two real arrays and returns real
+oracle_call_graph: top -> external ftest(r,s,compute)
+oracle_local_numeric_definition: absent; top is exactly the external callback result
+oracle_numerical_observable: undefined-without-ftest-and-compute-implementations
+oracle_status: pass
+port_result: not-claimed
+closure: exact source delegates its value to absent external ftest and compute implementations; no numerical port is defined
+upstream_sha256:
+e316cb47a3f9767196a0fde8f5e8096f2b1676970e68b3039c06ef5fb85e874d  todoF90/REFERENCES/v505/program.f90
+799aaceb8491ae2588f21665d85c719f37fc7eb2b6ce167bd328c35249ba8b57  todoF90/REFERENCES/v505/program_d.f90
+c9f80ff3c760d91fae378a37507d675d22bcea4cc26a232c985ba804fef1b8f3  todoF90/REFERENCES/v505/program_d.msg
+fresh_tapenade_sha256:
+a1f591f01f650c7cca79df452acdbc7a40cbd1fb6519410811d03a396f15a98f  v505_p.f90
+5dbfc54fa591c9785547e31fe2302a224499cfb877ae48201a7167b81899e1c3  v505_p.msg
+a8187db4c472e7dd20825efcf5b898c0a2e8a6f78e921eb7bb0d45bfdca0deb8  v505_d.f90
+559bf9e9e498aef0cc7b1106320ffd71e4fc0033c77b48f3c026372a93d965ed  v505_d.msg
+a28b242c1d095b6676eb454913c84f1f7dd6ac1a750575e7487d8cbf242d4199  v505_b.f90
+559bf9e9e498aef0cc7b1106320ffd71e4fc0033c77b48f3c026372a93d965ed  v505_b.msg
+case_artifact_sha256:
+ae7366b87a345a53b1f47800242402003aefd57e2b6a1b22aebd1afb5ca5ee46  manifest.toml
+7d6ed91085240daf8d2952ae755ddcb723c2d0209a852b6aa1943ded55b61749  notes.md
+95e61f92e5a8226bafe89c45ad6cf038d98ea670e8559ebdf6522cbf45e5e801  oracle.py
+572a5aa26944ad464ba2537230bcb6395ffe324286158bb2496e5a20b1888137  run.sh
+f1e941dd4e8116e26609524019104fc498453aa8bf959e6f54f39f12b3157102  test_contract.py

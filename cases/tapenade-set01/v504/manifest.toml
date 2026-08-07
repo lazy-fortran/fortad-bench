@@ -1,0 +1,73 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v504"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v504/run.sh"
+result = "cases/tapenade-set01/v504/result.txt"
+
+queue_source = "todoF90/REFERENCES/v504"
+static_classification = "fortran-procedure-candidate; invalid-interface-boundary"
+upstream_sources = [
+    "todoF90/REFERENCES/v504/Options",
+    "todoF90/REFERENCES/v504/m.mod",
+    "todoF90/REFERENCES/v504/m1_i.mod",
+    "todoF90/REFERENCES/v504/program.f90",
+    "todoF90/REFERENCES/v504/program_d.f90",
+    "todoF90/REFERENCES/v504/program_d.msg",
+]
+stored_references = ["program_d.f90", "program_d.msg"]
+missing_stored_references = ["program_b.f90", "program_b.msg"]
+
+upstream_entry_point = "top(r,s)"
+selected_entry_points = ["top(r,s)", "ftest(r,s,compute)", "compute(x,y)"]
+ported_entry_point = "set01_v504(r,s,top)"
+independent = ["r", "s"]
+dependent = ["top"]
+function = "top returns 4*r(1)*r(2) through compute and ftest; s is overwritten by compute and global accumulates the returned scalar"
+options = [
+    "-head top",
+    "-p -root top",
+    "-d -root top",
+    "-b -root top",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-refusal-contract",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-refusal-contract",
+    "exact-FortAD-refusal-bounded-port-generation-compilation-runtime-and-independent-oracle-contract",
+]
+oracle = [
+    "strict compiler boundary for exact source and stored tangent",
+    "fresh pinned Tapenade generation and strict compilation boundary",
+    "FortAD exact parser/forward/reverse refusal at the interface statement",
+    "bounded port FortAD forward/reverse compilation and runtime",
+    "independent finite-difference and JVP/VJP semantic oracle",
+    "upstream source and stored-reference SHA-256 contract",
+]
+classification = "runnable-ported-with-exact-source-refusal"
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 and program_d.f90 because the ftest and compute procedure dummies conflict with names imported from M1_I",
+    "fresh pinned Tapenade emits parser, tangent, and reverse sources but strict compilation refuses them at the same invalid interface family and missing generated module closure",
+    "FortAD parser, forward, and reverse refuse before output at unsupported interface statement line 62",
+    "the bounded port exposes the returned top observable as a standard subroutine output and independently checks top=4*r(1)*r(2), its JVP, its VJP, and zero s derivative",
+]
+fresh_generated_sources = ["v504_p.f90", "v504_d.f90", "v504_b.f90"]
+fresh_generated_messages = ["v504_p.msg", "v504_d.msg", "v504_b.msg"]
+bounded_sources = [
+    "cases/tapenade-set01/v504/port.f90",
+    "cases/tapenade-set01/v504/harness.f90",
+]
+bounded_domain = "finite real r and s with finite intermediate products; the port's returned observable is independent of s and excludes the source global accumulator"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal; bounded-forward-reverse-pass"
+closure = "The exact source and stored tangent retain the invalid procedure-interface collision. The bounded port changes only the procedure-passing surface to a standard subroutine and algebraically exposes the returned observable; it does not claim the exact global side effect or caller-visible s mutation."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v504/Options" = "d3717dd8a2dd5c7542a09e4b1d054b3e08c40d4defffee2303321f0db1fae410"
+"todoF90/REFERENCES/v504/m.mod" = "5a302638151b5f6a60810637a99ad6e4607e5deb811a375fd2e18ac9d12398a8"
+"todoF90/REFERENCES/v504/m1_i.mod" = "a9cec603681ee87fd9732714b9f6e6b181bf54bfef2daa24677bc1b3b753ecdc"
+"todoF90/REFERENCES/v504/program.f90" = "6ba800fafc3ee824a313d681e08532b2f35abfa380c7342a8fa9f163c6d08329"
+"todoF90/REFERENCES/v504/program_d.f90" = "befa75ac8a5c62e0915ff135873be44b110675698a746cc27c1840b444a04b78"
+"todoF90/REFERENCES/v504/program_d.msg" = "a574aa7371a7063112661e90f35b41a54b834e936bf8781832eb8bafe88d469e"

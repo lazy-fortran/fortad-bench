@@ -1,0 +1,64 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v505"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v505/run.sh"
+result = "cases/tapenade-set01/v505/result.txt"
+
+queue_source = "todoF90/REFERENCES/v505"
+static_classification = "function-candidate; external-callback-boundary; interface-parser-boundary"
+upstream_sources = [
+    "todoF90/REFERENCES/v505/program.f90",
+    "todoF90/REFERENCES/v505/program_d.f90",
+    "todoF90/REFERENCES/v505/program_d.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v505/program_d.f90",
+    "todoF90/REFERENCES/v505/program_d.msg",
+]
+missing_stored_references = [
+    "todoF90/REFERENCES/v505/program_p.f90",
+    "todoF90/REFERENCES/v505/program_p.msg",
+    "todoF90/REFERENCES/v505/program_b.f90",
+    "todoF90/REFERENCES/v505/program_b.msg",
+]
+upstream_entry_point = "top(r,s)"
+selected_entry_points = ["top(r,s)"]
+ported_entry_point = "not-claimed-underdetermined-external-callback"
+independent = ["r", "s"]
+dependent = "top"
+options = [
+    "-p -root top -O . -o v505 program.f90",
+    "-d -root top -O . -o v505 program.f90",
+    "-b -root top -O . -o v505 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compile-contract",
+    "fresh-pinned-Tapenade-generation-and-strict-compile-contract",
+    "exact-FortAD-parser-forward-reverse-refusal-and-independent-semantic-oracle",
+]
+oracle = [
+    "strict compiler for exact primal and stored tangent",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal boundary",
+    "independent callback-graph and shape semantic oracle",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-without-bounded-port"
+expected_diagnostics = [
+    "exact program.f90 and stored program_d.f90 compile strictly; both warn only about external ftest/ftest_d implicit interfaces",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs compile strictly; tangent and reverse messages request the missing ftest differential",
+    "FortAD parser, forward, and reverse refuse the interface block at line 12 before producing output",
+    "the independent semantic oracle confirms the rank-two input shape and that top's numerical result depends on absent external ftest and compute implementations",
+]
+fresh_generated_sources = ["v505_p.f90", "v505_d.f90", "v505_b.f90"]
+fresh_generated_messages = ["v505_p.msg", "v505_d.msg", "v505_b.msg"]
+closure = "The exact source is compilable but its observable value is delegated to external ftest and an interface-only compute callback. The stored artifact covers forward mode only, and no implementations or reverse reference are present. FortAD's interface refusal is retained; a numerical port would have to invent callback semantics, so none is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v505/program.f90" = "e316cb47a3f9767196a0fde8f5e8096f2b1676970e68b3039c06ef5fb85e874d"
+"todoF90/REFERENCES/v505/program_d.f90" = "799aaceb8491ae2588f21665d85c719f37fc7eb2b6ce167bd328c35249ba8b57"
+"todoF90/REFERENCES/v505/program_d.msg" = "c9f80ff3c760d91fae378a37507d675d22bcea4cc26a232c985ba804fef1b8f3"

@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v508"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v508/run.sh"
+result = "cases/tapenade-set01/v508/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; external-inout-and-global-state-boundary"
+source_files = [
+    "todoF90/REFERENCES/v508/Options",
+    "todoF90/REFERENCES/v508/m.mod",
+    "todoF90/REFERENCES/v508/program.f90",
+    "todoF90/REFERENCES/v508/program_d.f90",
+    "todoF90/REFERENCES/v508/program_d.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v508/Options",
+    "todoF90/REFERENCES/v508/m.mod",
+    "todoF90/REFERENCES/v508/program.f90",
+    "todoF90/REFERENCES/v508/program_d.f90",
+    "todoF90/REFERENCES/v508/program_d.msg",
+]
+stored_references = ["program_d.f90", "program_d.msg"]
+missing_stored_references = ["program_p.f90", "program_p.msg", "program_b.f90", "program_b.msg"]
+
+upstream_entry_point = "top(r,s)"
+selected_entry_points = ["top(r,s)", "compute(x,y)"]
+ported_entry_point = "not-applicable-exact-external-inout-global-state-boundary"
+independent = ["r", "s"]
+dependent = ["top", "s", "global"]
+function = "compute doubles its inout y, returns y(1)*y(2), and accumulates global; ftest passes the external compute to top"
+options = [
+    "Options: -head top -head compute",
+    "fresh invocation: -p/-d/-b -head top -head compute -O . -o v508 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-parser-forward-reverse-codegen-boundary-and-independent-oracle",
+]
+oracle = [
+    "independent closed-form top map",
+    "central-difference JVP sweep",
+    "hand VJP adjoint identity",
+    "in-place s and global semantic checks",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-external-inout-global-state-and-codegen"
+expected_diagnostics = [
+    "strict gfortran compiles the exact primal and stored tangent with implicit-interface warnings",
+    "fresh pinned Tapenade parser and tangent outputs compile strictly; fresh reverse output fails because COMPUTE_B is undeclared",
+    "FortAD parser and forward outputs are emitted but fail strict compilation on result() and blank declarations",
+    "FortAD reverse refuses with assignment to undeclared y and writes no output",
+]
+fresh_generated_sources = ["v508_p.f90", "v508_d.f90", "v508_b.f90"]
+fresh_generated_messages = ["v508_p.msg", "v508_d.msg", "v508_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-strict-compile-reverse-strict-compile-refusal"
+fortad_result = "parser-forward-generation-strict-compile-refusal-reverse-refusal"
+closure = "The exact external inout call and global side effect are retained as an invalid FortAD code-generation boundary. The independent oracle checks the defined top map and state updates, but no bounded port is claimed because rewriting the external-call shape or global state would change this corpus case."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v508/Options" = "f0cad06e0e970a138c313db898caf030a04cf1cc6027c752cdc0a5ad3d5f4627"
+"todoF90/REFERENCES/v508/m.mod" = "5a302638151b5f6a60810637a99ad6e4607e5deb811a375fd2e18ac9d12398a8"
+"todoF90/REFERENCES/v508/program.f90" = "279630977ea51413421a76c6e8e012f38396a0048fb0118452d8357aed2ff21a"
+"todoF90/REFERENCES/v508/program_d.f90" = "53618c7c1431ae970dfc730f4a5bc04a7424dd9dce8e46836879a3bf818edd46"
+"todoF90/REFERENCES/v508/program_d.msg" = "7fb2836c9f228e6e5b0b34a6eea8b987a8c3799a79c631f96d74fe63eb27b5f3"

@@ -1,0 +1,74 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v519"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v519/run.sh"
+result = "cases/tapenade-set01/v519/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-program; no-procedure-differentiation-boundary"
+source_files = [
+    "todoF90/REFERENCES/v519/program.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v519/Options",
+    "todoF90/REFERENCES/v519/program.f90",
+    "todoF90/REFERENCES/v519/program_p.f90",
+    "todoF90/REFERENCES/v519/program_p.msg",
+]
+stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+]
+missing_stored_references = [
+    "program_d.f90",
+    "program_d.msg",
+    "program_b.f90",
+    "program_b.msg",
+]
+
+upstream_entry_point = "PROGRAM TEST_IT"
+selected_entry_points = ["TEST_IT (program unit; no procedure arguments)"]
+ported_entry_point = "not-applicable-standalone-program"
+independent = []
+dependent = []
+function = "four writes of one fixed character payload, with A120 padding on the final two records"
+options = [
+    "Options: -linelength 132",
+    "fresh invocation: -p/-d/-b -root TEST_IT -O . -o v519 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-parser-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-three-mode-no-procedure-refusal-and-independent-output-oracle",
+]
+oracle = [
+    "strict gfortran exact and stored-reference compilation",
+    "fresh pinned Tapenade generation and strict compilation where a source is emitted",
+    "FortAD exact parser/forward/reverse no-procedure refusal and no-output boundary",
+    "independent four-record Fortran output semantic model",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-standalone-program-no-procedure"
+expected_diagnostics = [
+    "exact program.f90 and stored program_p.f90 compile strictly",
+    "fresh parser v519_p.f90 compiles strictly; tangent and reverse produce only messages stating there is no active input nor output",
+    "FortAD parser, forward, and reverse all refuse with no procedure named TEST_IT and write no output",
+]
+fresh_generated_sources = ["v519_p.f90"]
+fresh_generated_messages = ["v519_p.msg", "v519_d.msg", "v519_b.msg"]
+bounded_sources = []
+bounded_domain = "not-applicable: the source is a standalone program with no procedure interface"
+tapenade_result = "pass-fresh-parser-strict-compile-tangent-reverse-no-active-output"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-procedure"
+closure = "The exact source is a standalone program rather than a procedure. A derivative port would invent an interface and change the candidate, so only the exact compiler, fresh Tapenade, FortAD refusal, and independent output semantics are claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v519/Options" = "fa682789ae0a2771e6be202639e710f1a2c778c65cb28ab3ce443b75918c9814"
+"todoF90/REFERENCES/v519/program.f90" = "9fa9bbb80a890835ce95f88d8ad5deb074f9c09adbe3e62188ea7a6686ec5d7f"
+"todoF90/REFERENCES/v519/program_p.f90" = "59a6692ef0ad4dfe2ce95a9f8946682c07fc89481079ac457ae3f1a87e03172b"
+"todoF90/REFERENCES/v519/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

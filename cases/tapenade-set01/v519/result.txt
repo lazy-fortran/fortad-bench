@@ -1,0 +1,48 @@
+case: Tapenade todoF90 REFERENCES/v519 standalone-program boundary
+classification: expected-refusal-standalone-program-no-procedure
+recorded_utc: 2026-08-07T13:33:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: PROGRAM TEST_IT
+stored_references: program_p.f90 program_p.msg
+missing_stored_references: program_d.f90 program_d.msg program_b.f90 program_b.msg
+tapenade_options: parser=-p/-root TEST_IT forward=-d/-root TEST_IT reverse=-b/-root TEST_IT
+upstream_exact_strict_compile: program.f90=0 program_p.f90=0
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v519_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v519_p.msg tangent=v519_d.msg reverse=v519_b.msg
+tapenade_fresh_strict_compile: parser=0 tangent=not-applicable reverse=not-applicable
+tapenade_tangent_reverse_diagnostic: no active input nor output
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="no procedure named TEST_IT in this source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="no procedure named TEST_IT in this source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="no procedure named TEST_IT in this source"
+independent_semantic_oracle:
+  oracle_payload_length: 117
+  oracle_record_lengths: [117, 117, 120, 120]
+  oracle_records: list-directed,list-directed,A120,A120
+  oracle_procedure_shape: one standalone PROGRAM TEST_IT; no callable procedure
+  oracle_status: pass
+port_result: not-claimed reason=standalone-program-has-no-procedure-interface
+closure: no bounded port; inventing an interface would change the candidate
+upstream_sha256:
+fa682789ae0a2771e6be202639e710f1a2c778c65cb28ab3ce443b75918c9814  todoF90/REFERENCES/v519/Options
+9fa9bbb80a890835ce95f88d8ad5deb074f9c09adbe3e62188ea7a6686ec5d7f  todoF90/REFERENCES/v519/program.f90
+59a6692ef0ad4dfe2ce95a9f8946682c07fc89481079ac457ae3f1a87e03172b  todoF90/REFERENCES/v519/program_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  todoF90/REFERENCES/v519/program_p.msg
+fresh_tapenade_sha256:
+1e6950af308dd1f5517989721eacfb821114e844fea5786be3621f5e4273f1af  v519_p.f90
+470b498801bc79c8e3d6213e5fa50adfc7caa7a8228754a06139558a2c6f9899  v519_p.msg
+a54b41f6123a3d9154706748292f495af8c1c98ae48750cf9047e60ed9bf4828  v519_d.msg
+a54b41f6123a3d9154706748292f495af8c1c98ae48750cf9047e60ed9bf4828  v519_b.msg
+case_artifact_sha256:
+98a941dfa280b4395caf70f98371b597e9319aa881c152b50f723b9fa380c49b  manifest.toml
+f87f61cb54dd0372f7ae0c054b4729dbee203bcc76978b307de179dcdbc9b722  notes.md
+8d565a6c674f9f8916bca0ee264397d98c4ffbcc95733587ca758a0e60667e68  oracle.py
+3720c13cea5d2b7640fc9a4b811bba219d4d027c1e00d78ee9b8718fab8b1958  run.sh
+9fa6e73f6ddbead155b69f9267f242f14d98d03f9ae7b95c99d4739f7071fffd  test_contract.py

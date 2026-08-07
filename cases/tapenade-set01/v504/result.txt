@@ -1,0 +1,56 @@
+case: Tapenade todoF90 REFERENCES/v504 invalid procedure-interface boundary
+classification: runnable-ported-with-exact-source-refusal
+recorded_utc: 2026-08-07T13:33:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(r,s)
+selected_entry_points: top ftest compute
+tapenade_options: Options=-head top parser=-p/-root top forward=-d/-root top reverse=-b/-root top
+upstream_exact_strict_compile: program.f90=1 program_d.f90=1
+upstream_diagnostics: ambiguous procedure dummies named compute imported from M1_I
+stored_references: program_d.f90 program_d.msg; missing program_b.f90 program_b.msg
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+fortad_exact_parser: refusal=1 output=none diagnostic="unsupported statement at line 62"
+fortad_exact_forward: refusal=1 output=none diagnostic="unsupported statement at line 62"
+fortad_exact_reverse: refusal=1 output=none diagnostic="unsupported statement at line 62"
+fortad_bounded_forward: transform=0 strict_compile=0
+fortad_bounded_reverse: transform=0 strict_compile=0
+bounded_port_compile: port=0 harness=0 link=0 runtime=0
+observable: top = 4*r(1)*r(2); s derivative = 0
+finite_difference_max_error: 2.335e-09
+adjoint_identity_residual: 0.000e+00
+oracle_status: pass
+harness_status: pass
+bounded_domain: finite r and s with finite intermediate products; s derivative zero
+upstream_sha256:
+d3717dd8a2dd5c7542a09e4b1d054b3e08c40d4defffee2303321f0db1fae410  todoF90/REFERENCES/v504/Options
+5a302638151b5f6a60810637a99ad6e4607e5deb811a375fd2e18ac9d12398a8  todoF90/REFERENCES/v504/m.mod
+a9cec603681ee87fd9732714b9f6e6b181bf54bfef2daa24677bc1b3b753ecdc  todoF90/REFERENCES/v504/m1_i.mod
+6ba800fafc3ee824a313d681e08532b2f35abfa380c7342a8fa9f163c6d08329  todoF90/REFERENCES/v504/program.f90
+befa75ac8a5c62e0915ff135873be44b110675698a746cc27c1840b444a04b78  todoF90/REFERENCES/v504/program_d.f90
+a574aa7371a7063112661e90f35b41a54b834e936bf8781832eb8bafe88d469e  todoF90/REFERENCES/v504/program_d.msg
+fresh_tapenade_sha256:
+e4e4af86d30bb8b0182a617f7138a27105a9407a01a8a370eb2859d752d18bf5  parser/v504_p.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/v504_p.msg
+6a534ada869074d76bf98335f606cc2d0ac7164f424848725e5e871f6c790bb4  forward/v504_d.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  forward/v504_d.msg
+074586657ea89167752f6be0f0ca53962a37993459cfef0c83c3bf693d1fee97  reverse/v504_b.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  reverse/v504_b.msg
+fortad_bounded_sha256:
+2dd3ad0b680c337d9a4465217b861423576ce2f1749eaae32ac6e19e7b0f5f84  /var/tmp/fortad-bench-v504.FUUQZC/port-generated/forward.f90
+eb93f45e2d3dfd84b3d97784df7adafd84a9de44bd0bc873d8908b499a2fb5b1  /var/tmp/fortad-bench-v504.FUUQZC/port-generated/reverse.f90
+case_artifact_sha256:
+a653b0f1ca6ad0025e5b9fc78f24f6793fe9d83105f8d31b0962711de1655d4c  manifest.toml
+3c4a9e635f4975352695d3760b391ade19499a1244328c0c8e2805aee6f33a39  notes.md
+82071f63caeaa4a0f9d069816dd0c49061fba0d13a51138da3c302d8962fe318  port.f90
+a4ca2f587ce119ba25f4524addbd8df27ef79692c7a87e96e116ddc54fed4b2f  harness.f90
+947eeeb02fa757b5e748417c62d242eadd940427df5eba331bf642677a285747  oracle.py
+7e2269a82eb9d0b9660919f539ea1c2089b2c32b0e2f9ca731677e420c1d7567  run.sh
+57a645b5f5a639948df73605cc77a3fb04dfefae5ca3ad8e584019aaf58bc703  test_contract.py
