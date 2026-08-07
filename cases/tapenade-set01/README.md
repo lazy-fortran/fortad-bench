@@ -1,13 +1,14 @@
 # Tapenade set01 support cases
 
-These are the first three numerical cases promoted from Tapenade's pinned
+These are the numerical cases promoted from Tapenade's pinned
 `nonRegressions/set01` corpus into executable FortAD checks. They were chosen
-because each is a small legal Fortran routine with a scalar output and a closed
-form derivative:
+because each is a small legal Fortran routine with a scalar output and a
+closed-form derivative:
 
 - `lh023`: `c = b*b + a/100`
 - `lh032`: `y = 2*x**2`
 - `lh134`: `f = log(-x)` on `x < 0`
+- `lh049`: `z = 3*(x*y)**2 + x`, followed by the in-place `y = 2*x`
 
 The ports make types, intents, and `real64` explicit. The arithmetic is
 unchanged. The [manifest](manifest.toml) records the exact upstream paths and
@@ -98,3 +99,19 @@ FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
 
 See the [case manifest](tranche-e-manifest.toml) and
 [measurement record](../../results/tapenade_set01_tranche_e_validation.txt).
+
+## Tranche F: in-place polynomial state
+
+The sixth focused runner promotes `lh049`, a dependency-free fixed-form
+regression with a nonlinear result and an in-place output update. The port
+retains the `u=x*y`, `z=3*u**2+x`, and final `y=2*x` sequence. Forward and
+reverse derivatives use the initial `x,y` as independent state and `z` as the
+useful dependent. Final `y` is checked separately:
+
+```sh
+FORTAD_REPO=../fortad TAPENADE_REPO=upstream/tapenade \
+  scripts/bench_tapenade_set01_tranche_f.sh
+```
+
+See the [case notes](tranche-f.md), [manifest](tranche-f-manifest.toml), and
+[measurement record](../../results/tapenade_set01_tranche_f_validation.txt).

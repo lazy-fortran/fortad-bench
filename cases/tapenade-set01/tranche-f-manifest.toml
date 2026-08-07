@@ -1,0 +1,19 @@
+schema_version = 1
+name = "tapenade-set01-tranche-f"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+runner = "scripts/bench_tapenade_set01_tranche_f.sh"
+result = "results/tapenade_set01_tranche_f_validation.txt"
+
+[[case]]
+id = "lh049"
+upstream_source = "nonRegressions/set01/lh049/program.f"
+entry_point = "sub0(x,y,z)"
+ported_entry_point = "set01_lh049(x,y,z)"
+independent = ["x", "y"]
+dependent = ["y", "z"]
+function = "z = 3*(x*y)**2 + x; final y = 2*x"
+upstream_options = "none"
+modes = ["forward", "reverse:z"]
+oracle = ["strict-compiler", "hand", "central-difference-sweep", "adjoint-identity"]
+dependencies = "none for all source files"

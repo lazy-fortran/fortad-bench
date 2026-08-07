@@ -95,8 +95,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-either engine. It leaves 1,422 pure Fortran and 74 mixed-language rows
-untriaged, while preserving the ten set01 evidence rows.
+either engine. It leaves 1,421 pure Fortran and 74 mixed-language rows
+untriaged, while preserving the eleven set01 evidence rows.
 
 Build the next-tranche queue without changing those ledger statuses:
 
@@ -106,9 +106,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,496 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,495 rows
 into 74 mixed-language-risk candidates, 37 historical-failure candidates, 20
-rows with no entry-point hint, 320 program candidates, and 1,045 procedure
+rows with no entry-point hint, 320 program candidates, and 1,044 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 173 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -117,7 +117,7 @@ label claims parsing, compilation, transformation, runtime, or correctness.
 
 The first curated rows are the set01 checks in
 [`cases/tapenade-set01/README.md`](../cases/tapenade-set01/README.md): `lh001`,
-`lh023`, `lh032`, `lh057`, `lh058`, `lh068`, `lh088`, and `lh134`. The exact in-place
+`lh023`, `lh032`, `lh049`, `lh057`, `lh058`, `lh068`, `lh088`, and `lh134`. The exact in-place
 `lh066` reverse shape and the one-trip-loop `bd06` reverse shape are
 independently compiler-checked expected refusals. Both are recorded in the
 tranche results:
@@ -127,6 +127,8 @@ The `lh058` support result is in
 [`tranche-c`](../results/tapenade_set01_tranche_c_validation.txt).
 The `lh068` statement-function result is in
 [`tranche-d`](../results/tapenade_set01_tranche_d_validation.txt).
+The `lh049` in-place polynomial result is in
+[`tranche-f`](../results/tapenade_set01_tranche_f_validation.txt).
 
 ## Closeout rule
 
