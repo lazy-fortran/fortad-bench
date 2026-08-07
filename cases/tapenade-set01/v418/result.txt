@@ -1,0 +1,44 @@
+case: Tapenade todoF90 REFERENCES/v418 MPI interface boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:58:19Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_points: anneau; msg1; msg2; topd
+tapenade_options: -association byaddress; parser=-p tangent=-d reverse=-b; roots=msg1,msg2
+upstream_exact_strict_compile: program=1 program_Rd=0 topd=1
+upstream_diagnostic: program.f90=MPI_SEND-eight-actuals-and-status-rank-mismatch topd.f90=undeclared-real4rdtype
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=0 reverse=0 admpi_support=0
+fortad_exact_parser: msg1_transform=0 msg1_strict_compile=0 msg2_transform=0 msg2_strict_compile=1
+fortad_exact_forward: msg1_status=1 diagnostic="no derivative rule for MPI_ISEND" msg2_status=1 diagnostic="no derivative rule for MPI_RECV"
+fortad_exact_reverse: msg1_status=1 diagnostic="no reverse rule for MPI_ISEND" msg2_status=1 diagnostic="no reverse rule for MPI_RECV"
+independent_oracle: oracle_status: pass world_sizes=2..8 finite_difference_max_error: 5.024e-08 adjoint_identity_residual: 0.000e+00
+port_result: not-applicable-no-standard-conforming-exact-candidate
+closure: no bounded port; repairing MPI argument lists or declaring real4rdtype changes the candidate
+upstream_sha256:
+a8c229f35abc55b10af29badb5744a757f9f355c77eea24886f7d0b677869373  todoF90/REFERENCES/v418/Options
+413be3b500e4480d3e4b2f24109d84815289ada2d2d1fa3a706bed50113e697d  todoF90/REFERENCES/v418/mpif.h
+4a653d03d20cc0a4607e62651320779c908a46efa2fca483e63f7bf91d023825  todoF90/REFERENCES/v418/program.f90
+4685da95b0832349d8b99d1b71e0090cb8750925726f3aa6b4fae4e9f3331945  todoF90/REFERENCES/v418/program_Rd.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  todoF90/REFERENCES/v418/program_Rd.msg
+6d416ce8e3f82e52a3f5ac56e0fcce5f095494e3d17d693c6773a1add5b95140  todoF90/REFERENCES/v418/rund
+faa23783229ffb35961b656bec4c17114700a2959e75084e0b60fb8deba718e0  todoF90/REFERENCES/v418/topd.f90
+fresh_tapenade_sha256:
+9235ba908720ce027133d1498ada24d400184e8836f280267828526dd72fd00b  parser/v418_p.f90
+bd34b131a4dc773f642a1953789b9b2476ee3c98e3650ef932a3a9d52f50d1d2  parser/v418_p.msg
+3ea81b60551c68a2e120c91dd9cde914643ccd0809413d066b9ddd6a42dbd875  tangent/v418_d.f90
+bd34b131a4dc773f642a1953789b9b2476ee3c98e3650ef932a3a9d52f50d1d2  tangent/v418_d.msg
+9839e3cac5a65b25287dcb753ccd956a323d1dcef17b9b10c2f65145d06887f5  reverse/v418_b.f90
+bd34b131a4dc773f642a1953789b9b2476ee3c98e3650ef932a3a9d52f50d1d2  reverse/v418_b.msg
+case_artifact_sha256:
+77270effcaf0a73ec23513137d8211c0354895370c32e3d0f74f6d3798981f58  manifest.toml
+46e07f4f9473a9fcc06bf05f90025dab5972db3d8def3404c3bacea9976722c1  notes.md
+d82c47198d7c78a2830d3d48ffce7ba251cf5d419b0c4d568922c5376c20d381  oracle.py
+8eff004ae73be36a614f76842cafd6669c45f4a5038fa808c05354fec01855be  run.sh
+c38e3cb06df00513c1cef06eaa683fa01a36a1bde95deed7060f300dcac14089  test_contract.py

@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,318 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving 105 set01 evidence rows and nine additional
+  either engine. It leaves 1,312 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving 111 set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,392 rows
-into 74 mixed-language-risk candidates, 18 historical-failure candidates, 20
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,386 rows
+into 74 mixed-language-risk candidates, 12 historical-failure candidates, 20
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -208,6 +208,14 @@ boundaries. The cases cover MPI/allocatable state, invalid calls and missing
 runtime dependencies, mixed-kind interfaces, undefined local state, private
 derived types, and allocatable components. Each has fresh pinned Tapenade
 generation, exact FortAD evidence, and an independent three-test contract.
+
+Tranche AC (`todoF90/REFERENCES/v416`, `v417`, `v418`, `v419`, `v421`, and
+`v422`) adds one bounded declaration-order witness, three expected-refusal
+boundaries, and two invalid-upstream closures. The cases cover declaration
+order, allocatable components, MPI interfaces, assumed-size/context state,
+explicit-shape actuals, and undefined function results. Each has fresh pinned
+Tapenade generation, exact FortAD evidence, and an independent three-test
+contract.
 
 ## Closeout rule
 

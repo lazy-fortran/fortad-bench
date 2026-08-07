@@ -1,0 +1,55 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v419"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v419/run.sh"
+result = "cases/tapenade-set01/v419/result.txt"
+source_form = "free"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-context-association; allocatable-and-assumed-size-boundary"
+source_files = ["todoF90/REFERENCES/v419/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v419/Options",
+    "todoF90/REFERENCES/v419/mma.mod",
+    "todoF90/REFERENCES/v419/mmb.mod",
+    "todoF90/REFERENCES/v419/program.f90",
+    "todoF90/REFERENCES/v419/program_Rd.f90",
+    "todoF90/REFERENCES/v419/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg", "mma.mod", "mmb.mod"]
+compile_support = ["nonRegressions/DIFFSIZES.f90"]
+
+upstream_entry_point = "ROOT(X); program MAIN"
+selected_entry_points = ["ROOT(X)"]
+ported_entry_point = "not-applicable-undefined-state-and-invalid-assumed-size-sum"
+independent = ["X", "cv1", "cv2", "AA", "TT1", "TT2"]
+dependent = ["zz"]
+function = "zz = cv1*cv2*TT1(1)*TT2(2) + SUM(X), with optional SUM(AA) branch"
+options = ["-head root -context -association byaddress", "-p/-d/-b -root ROOT"]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compile-boundary",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compile",
+    "exact-FortAD-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict compiler diagnostics",
+    "fresh pinned Tapenade generation and strict compilation",
+    "FortAD exact parser/forward/reverse refusal",
+    "independent numeric prefix and undefined-read semantic oracle",
+    "upstream source SHA-256 contract",
+]
+classification = "expected-refusal-invalid-upstream-and-unsupported-allocatable-context"
+expected_diagnostics = [
+    "strict gfortran rejects SUM(X) because X is an assumed-size array",
+    "stored program_Rd.f90 rejects malformed percent references and missing ISIZE declarations",
+    "fresh parser rejects the same assumed-size SUM; fresh tangent/reverse also retain context-size and reverse INTEGER*4 boundaries",
+    "FortAD parser, forward, and reverse refuse allocatable declaration/component handling at line 5",
+]
+fresh_generated_sources = ["v419_p.f90", "v419_d.f90", "v419_b.f90"]
+fresh_generated_messages = ["v419_p.msg", "v419_d.msg", "v419_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-at-allocatable-context"
+closure = "The exact source has no standard-conforming numerical map: ROOT applies SUM to an assumed-size dummy, reads allocated-but-unassigned TT1/TT2 elements, and sums X elements 21:30 after assigning only 1:20. Repairing allocation state, bounds, or COMMON context would change the candidate, so no bounded port or derivative claim is made."

@@ -1,0 +1,57 @@
+case: Tapenade todoF90 REFERENCES/v416 declaration-order boundary
+classification: runnable-ported-with-exact-source-refusal
+recorded_utc: 2026-08-07T12:58:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: precechcin(x,y,nm_ha,Tm_ha)
+tapenade_options: association-byaddress parser=-p/-root precechcin forward=-d/-root precechcin reverse=-b/-root precechcin
+upstream_exact_strict_compile: program.f90=1 program_Rd.f90=0
+upstream_exact_diagnostics: program.f90=nm_ha-used-before-typed program_Rd.f90=integer-division-warning
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v416_p.f90 tangent=v416_d.f90 reverse=v416_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: transform=0 strict_compile=1 diagnostic="nm_ha-used-before-typed"
+fortad_exact_forward: transform=0 strict_compile=0
+fortad_exact_reverse: transform=0 strict_compile=0
+fortad_bounded_forward: transform=0 strict_compile=0
+fortad_bounded_reverse: transform=0 strict_compile=0
+bounded_port_compile: port=0 harness=0 link=0 runtime=0
+oracle_status: pass
+finite_difference_max_error: 2.6317792389818351e-10
+adjoint_identity_residual: 5.5511151231257827e-17
+domain_check: nm_ha>=2 and finite nonzero Tm_ha
+harness_status: pass
+bounded_domain: nm_ha>=2 and finite nonzero Tm_ha
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  Options
+27ee4c67f6832470d5f28a392bcaad389100998a750b0ab73dc62639ba1bbb2c  program.f90
+523fda80e0d44e515741ee4805dc12836f8c29744522f3b4c347cc1c02bc904d  program_Rd.f90
+fa2a12ea8020a4d8817cdba38234c4a6f4522e41d0f871affb2006471285210c  program_Rd.msg
+fresh_tapenade_sha256:
+3909489365e5fcfaaa8bae437d83708555a55d049b13f1f56d2628812aad5fc5  parser/v416_p.f90
+931c87ac39157b793ae06c55b99d4565eae53573a0d74cb063377584a2f26d88  parser/v416_p.msg
+70870352e2d4459d1b4b2de5dc7cbfe0ffc14ed380a41e5ed990145893ee79cf  forward/v416_d.f90
+931c87ac39157b793ae06c55b99d4565eae53573a0d74cb063377584a2f26d88  forward/v416_d.msg
+e7654577b4550e4df814232b3fdadf385e12be1e7db05887919c737fedd09445  reverse/v416_b.f90
+931c87ac39157b793ae06c55b99d4565eae53573a0d74cb063377584a2f26d88  reverse/v416_b.msg
+fortad_exact_sha256:
+9b31b34028bece594a1c183fc621ab5fc7fa6cb27d6a7c4c4ff2909ed47e622f  /var/tmp/fortad-bench-v416.gpkUsm/exact/parser.f90
+cfcd2a62d0110260b75aaf40e3c0fb53a9b985b4d57c8622da7e71c87df3ff48  /var/tmp/fortad-bench-v416.gpkUsm/exact/forward.f90
+7c0fddc0ca503e51e11733b29960ff82e0b3cd27723b221283b95bb923bee74a  /var/tmp/fortad-bench-v416.gpkUsm/exact/reverse.f90
+fortad_bounded_sha256:
+c41914561bb540b629fea801cac2a5cfcbd033d5b6dcbdaf9389860dcd794ca9  /var/tmp/fortad-bench-v416.gpkUsm/port-generated/forward.f90
+31de25b134e43f1c4d64037ab1f7dfb94836f4903f147c7bcd35367957b350a2  /var/tmp/fortad-bench-v416.gpkUsm/port-generated/reverse.f90
+case_artifact_sha256:
+81f08693dd71c96b37af7a949991556cc44de894c94930ddff1b49826239d15e  manifest.toml
+7e354edb9c01e1331dc8cb11150b44136b0580c80f840d5a075573ffcab4a152  notes.md
+5caf9ff18fdfcd1dfc56954cd9dd3b75ac668662d7a5d21d5430e9b71998c5e6  port.f90
+0ea3ebd420e03aa269f0f12075cfe2f0d472964726db0449be98627651ec145c  harness.f90
+a76a558526ccb184927a2fc12f5b4e3c4783feb19b6e1e523c39a4774aacfceb  oracle.py
+3586289bdaef4e2ca4cc2060f1911a2b996f7d2277b69499c51d570167b3afcd  run.sh
+100f3c2301f43e2a8356d87d10619b6617f7c0a08f782fe60c399f0445e3f354  test_contract.py

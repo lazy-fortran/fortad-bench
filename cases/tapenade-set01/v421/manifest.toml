@@ -1,0 +1,57 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v421"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v421/run.sh"
+result = "cases/tapenade-set01/v421/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; invalid-explicit-shape-actual"
+source_files = ["todoF90/REFERENCES/v421/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v421/Options",
+    "todoF90/REFERENCES/v421/program.f90",
+    "todoF90/REFERENCES/v421/program_Rd.f90",
+    "todoF90/REFERENCES/v421/program_Rd.msg",
+    "todoF90/REFERENCES/v421/test.mod",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg", "test.mod"]
+missing_stored_references = ["program_Rb.f90", "program_Rb.msg"]
+
+upstream_entry_point = "top(x,y); helper g(z,u)"
+selected_entry_points = ["top(x,y)", "g(z,u)"]
+ported_entry_point = "not-applicable-invalid-array-constructor-shape"
+independent = ["y"]
+dependent = ["x"]
+function = "g computes z = u(1)^2 and writes u(2), but top passes a length-one constructor to a dimension(2) dummy"
+options = ["-association byaddress", "-p/-d/-b -root top -O . -o v421 program.f90"]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-strict-compile-boundary",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-boundary",
+    "exact-FortAD-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict-compiler",
+    "fresh-pinned-Tapenade-generation-and-strict-compile",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-legal-domain-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "invalid-actual-shape-semantic-check",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 and program_Rd.f90 because the length-one array constructor is passed to a dimension(2) dummy",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs are generated but each fails strict compilation at the same shape mismatch",
+    "FortAD check, forward, and reverse refuse the exact source at unsupported expression line 14",
+    "the independent oracle validates g only on its legal two-element domain and rejects top's one-element actual as out of domain",
+]
+fresh_generated_sources = ["v421_p.f90", "v421_d.f90", "v421_b.f90"]
+fresh_generated_messages = ["v421_p.msg", "v421_d.msg", "v421_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-refusal"
+fortad_result = "exact-parser-forward-reverse-refusal-unsupported-array-constructor-expression"
+closure = "The exact top call has an invalid explicit-shape actual and therefore no defined numerical map. Repairing (/y/) to a two-element actual would change the corpus case; no bounded port or derivative runtime claim is made."

@@ -1,0 +1,44 @@
+case: Tapenade todoF90 REFERENCES/v421 invalid explicit-shape actual boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T12:58:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: top(x,y); helper g(z,u)
+upstream_exact_strict_compile: primal=1 stored_program_Rd=1
+exact_primal_diagnostic: actual-argument-contains-too-few-elements
+stored_program_Rd_diagnostic: actual-argument-contains-too-few-elements
+stored_references: program_Rd.f90=present program_Rd.msg=present test.mod=present program_Rb.f90=missing program_Rb.msg=missing
+tapenade_options: -association byaddress; parser=-p tangent=-d reverse=-b; root=top
+tapenade_generation: parser=0 tangent=0 reverse=0
+fresh_sources: parser=v421_p.f90 tangent=v421_d.f90 reverse=v421_b.f90
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported expression at line 14"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported expression at line 14"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported expression at line 14"
+independent_oracle: legal-domain JVP/VJP, central-difference sweep, adjoint identity, and invalid actual-shape check
+oracle_status: pass invalid-top-actual-shape
+legal_domain_finite_difference_max_error: 8.3866780187236145e-10
+legal_domain_adjoint_identity_residual: 0.0000000000000000e+00
+exact_top_actual_length: 1
+required_g_dummy_length: 2
+port_result: not-applicable-invalid-array-constructor-shape
+closure: no bounded port; repairing the one-element constructor would change the exact candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v421/Options
+fb3b6a8826c826b000248992a1f436a577044a22afd058abdd9e597d90ab2def  todoF90/REFERENCES/v421/program.f90
+0e85506e8e4d62c45dcd5028b85408c1c468b2cff702abd9f3bf0b3f1d8a3e09  todoF90/REFERENCES/v421/program_Rd.f90
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  todoF90/REFERENCES/v421/program_Rd.msg
+72447aa10cb2b1405f06d4fc1a4e9e627d208dbfbf55ef0261da0b94971a335c  todoF90/REFERENCES/v421/test.mod
+fresh_tapenade_sha256:
+116a02e043b909c2043bef086f27978fa3944fa840f79ee325221150f8482825  p/v421_p.f90
+d0e7bd614975ce30a4d3eb26e24c94271e94105d817a11c296a91c8baf6717d8  p/v421_p.msg
+60d306093ef1ef27c4791c52be8b2f970b6f5912b74f366c76d3e63cc6748564  d/v421_d.f90
+d0e7bd614975ce30a4d3eb26e24c94271e94105d817a11c296a91c8baf6717d8  d/v421_d.msg
+76e02fea18e791d43fd622206c203e3e577efcb7e24e169e3b784adbd6f13cde  b/v421_b.f90
+e709dce130d362ed6e4ebc121dba1ebbcea36f9204760360aa921d8f7e1313f4  b/v421_b.msg

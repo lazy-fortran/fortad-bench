@@ -1,0 +1,73 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v418"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v418/run.sh"
+result = "cases/tapenade-set01/v418/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-runnable-candidate; historical-MPI-interface-boundary"
+static_entry_point_hints = ["anneau", "msg1", "msg2", "topd"]
+source_files = [
+    "todoF90/REFERENCES/v418/Options",
+    "todoF90/REFERENCES/v418/mpif.h",
+    "todoF90/REFERENCES/v418/program.f90",
+    "todoF90/REFERENCES/v418/program_Rd.f90",
+    "todoF90/REFERENCES/v418/program_Rd.msg",
+    "todoF90/REFERENCES/v418/rund",
+    "todoF90/REFERENCES/v418/topd.f90",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v418/Options",
+    "todoF90/REFERENCES/v418/mpif.h",
+    "todoF90/REFERENCES/v418/program.f90",
+    "todoF90/REFERENCES/v418/program_Rd.f90",
+    "todoF90/REFERENCES/v418/program_Rd.msg",
+    "todoF90/REFERENCES/v418/rund",
+    "todoF90/REFERENCES/v418/topd.f90",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg", "rund", "topd.f90"]
+
+upstream_entry_point = "anneau; msg1(val1,val2,...); msg2(val1,val2,...)"
+selected_entry_points = ["msg1(val1,val2,...)", "msg2(val1,val2,...)"]
+ported_entry_point = "not-applicable-invalid-MPI-interface-and-stored-driver"
+independent = ["rank payload val1 = rang + 1000"]
+dependent = ["received payload val2"]
+options = [
+    "Options: -head \"msg1 msg2\" -association byaddress",
+    "fresh explicit invocation: -association byaddress -p/-d/-b -root msg1 -root msg2",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-mpifort compile of exact primal and stored references",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse behavior for both MPI roots",
+    "independent ring-transfer finite-difference JVP and adjoint identity",
+    "upstream-source SHA-256 contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict mpifort rejects exact program.f90 at MPI_SEND with eight actual arguments and rejects topd.f90 at undeclared real4rdtype",
+    "stored program_Rd.f90 compiles strictly with implicit TLS-MPI interfaces",
+    "fresh pinned Tapenade emits all three modes; parser preserves the MPI_SEND failure while tangent and reverse compile with ADFirstAidKit adMPI",
+    "FortAD parser emits msg1 and msg2; msg2 strict compilation preserves the MPI_SEND failure",
+    "FortAD forward/reverse refuse MPI_ISEND for msg1 and MPI_RECV for msg2 because no derivative rules are registered",
+    "the independent ring model passes numerical transfer, central-difference JVP, and adjoint checks for world sizes two through eight",
+]
+fresh_generated_sources = ["v418_p.f90", "v418_d.f90", "v418_b.f90"]
+fresh_generated_messages = ["v418_p.msg", "v418_d.msg", "v418_b.msg"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-parser-strict-refusal-tangent-reverse-strict-compile"
+fortad_result = "parser-generation-msg1-strict-success-msg2-strict-refusal-forward-reverse-MPI-rule-refusal"
+closure = "The exact MPI_RECV/MPI_SEND calls use the historical extra status argument and therefore fail the explicit mpi interface; topd.f90 additionally lacks a declaration for real4rdtype. Fresh Tapenade tangent/reverse compilation is source evidence only. No bounded port is supplied: repairing MPI calls, declaring the derived MPI datatype, or replacing communication would define a different candidate."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v418/Options" = "a8c229f35abc55b10af29badb5744a757f9f355c77eea24886f7d0b677869373"
+"todoF90/REFERENCES/v418/mpif.h" = "413be3b500e4480d3e4b2f24109d84815289ada2d2d1fa3a706bed50113e697d"
+"todoF90/REFERENCES/v418/program.f90" = "4a653d03d20cc0a4607e62651320779c908a46efa2fca483e63f7bf91d023825"
+"todoF90/REFERENCES/v418/program_Rd.f90" = "4685da95b0832349d8b99d1b71e0090cb8750925726f3aa6b4fae4e9f3331945"
+"todoF90/REFERENCES/v418/program_Rd.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"todoF90/REFERENCES/v418/rund" = "6d416ce8e3f82e52a3f5ac56e0fcce5f095494e3d17d693c6773a1add5b95140"
+"todoF90/REFERENCES/v418/topd.f90" = "faa23783229ffb35961b656bec4c17114700a2959e75084e0b60fb8deba718e0"

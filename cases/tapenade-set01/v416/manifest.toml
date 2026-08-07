@@ -1,0 +1,60 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v416"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v416/run.sh"
+result = "cases/tapenade-set01/v416/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; declaration-order-strict-compile-boundary"
+source_files = ["todoF90/REFERENCES/v416/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/v416/Options",
+    "todoF90/REFERENCES/v416/program.f90",
+    "todoF90/REFERENCES/v416/program_Rd.f90",
+    "todoF90/REFERENCES/v416/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg"]
+missing_stored_references = ["program_Rb.f90", "program_Rb.msg"]
+
+upstream_entry_point = "precechcin(x,y,nm_ha,Tm_ha)"
+selected_entry_points = ["precechcin(x,y,nm_ha,Tm_ha)"]
+ported_entry_point = "set01_v416(x,y,nm_ha,Tm_ha)"
+independent = ["x", "Tm_ha"]
+dependent = ["y"]
+function = "two-pass tridiagonal-like matrix fill followed by y=x*x*MC_ha(1,1)"
+options = ["-association byaddress", "-p -root precechcin", "-d -root precechcin", "-b -root precechcin"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran exact-source and stored-reference boundary",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD exact parser/forward/reverse transform and generated-source compilation",
+    "independent matrix recurrence, finite-difference, and JVP/VJP adjoint oracle",
+    "pinned-source SHA-256 contract",
+]
+classification = "runnable-ported-with-exact-source-refusal"
+expected_diagnostics = [
+    "strict gfortran rejects program.f90 because nm_ha is used before its declaration in the explicit-shape MC_ha declaration",
+    "stored program_Rd.f90 compiles strictly, with only the integer-division warning in MC_ha(1,2)",
+    "fresh pinned Tapenade parser, tangent, and reverse files generate and compile strictly after Tapenade moves INTEGER nm_ha above MC_ha",
+    "FortAD exact parser transforms but its generated parser source has the same declaration-order refusal; exact forward and reverse transform and compile",
+]
+fresh_generated_sources = ["v416_p.f90", "v416_d.f90", "v416_b.f90"]
+fresh_generated_messages = ["v416_p.msg", "v416_d.msg", "v416_b.msg"]
+bounded_sources = [
+    "cases/tapenade-set01/v416/port.f90",
+    "cases/tapenade-set01/v416/harness.f90",
+]
+bounded_domain = "integer nm_ha >= 2 and finite nonzero real Tm_ha; x is any finite real"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "exact-parser-transform-strict-compile-refusal; exact-forward-reverse-pass"
+closure = "The exact source is retained as an expected strict-compiler boundary. The bounded port changes only declaration order, adds standard intents, and states the execution domain nm_ha >= 2 and Tm_ha /= 0; its matrix recurrence, generated FortAD derivatives, and closed-form oracle are checked independently."
+
+[upstream_sha256]
+"Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"program.f90" = "27ee4c67f6832470d5f28a392bcaad389100998a750b0ab73dc62639ba1bbb2c"
+"program_Rd.f90" = "523fda80e0d44e515741ee4805dc12836f8c29744522f3b4c347cc1c02bc904d"
+"program_Rd.msg" = "fa2a12ea8020a4d8817cdba38234c4a6f4522e41d0f871affb2006471285210c"

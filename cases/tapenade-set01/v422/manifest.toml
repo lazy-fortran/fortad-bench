@@ -1,0 +1,84 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v422"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v422/run.sh"
+result = "cases/tapenade-set01/v422/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+source_files = [
+    "todoF90/REFERENCES/v422/Options",
+    "todoF90/REFERENCES/v422/example3.mod",
+    "todoF90/REFERENCES/v422/m1.mod",
+    "todoF90/REFERENCES/v422/program.f90",
+    "todoF90/REFERENCES/v422/program_Rd.f90",
+    "todoF90/REFERENCES/v422/program_Rd.msg",
+]
+upstream_sources = [
+    "todoF90/REFERENCES/v422/Options",
+    "todoF90/REFERENCES/v422/example3.mod",
+    "todoF90/REFERENCES/v422/m1.mod",
+    "todoF90/REFERENCES/v422/program.f90",
+    "todoF90/REFERENCES/v422/program_Rd.f90",
+    "todoF90/REFERENCES/v422/program_Rd.msg",
+]
+stored_references = [
+    "todoF90/REFERENCES/v422/program_Rd.f90",
+    "todoF90/REFERENCES/v422/program_Rd.msg",
+    "todoF90/REFERENCES/v422/example3.mod",
+    "todoF90/REFERENCES/v422/m1.mod",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_Rb.f90",
+    "program_Rb.msg",
+]
+
+upstream_entry_point = "m1.f4(t)"
+selected_entry_points = ["f4(t)"]
+ported_entry_point = "not-applicable-undefined-function-result"
+independent = ["t"]
+dependent = "mutated t; function result f4 is unassigned"
+function = "t <- t**2*u, while the declared f4 result is never assigned"
+options = [
+    "Options: -association byaddress",
+    "-association byaddress -p/-d/-b -root f4 -O . -o v422 program.f90",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-and-stored-reference-strict-compilation",
+    "fresh-pinned-tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "exact-fortad-three-mode-codegen-boundary-and-independent-oracle",
+]
+oracle = [
+    "independent hand model of the defined t mutation",
+    "central-difference JVP check for t**2*u",
+    "hand VJP/adjoint identity for t**2*u",
+    "independent source-level undefined-function-result check",
+    "upstream-source-and-stored-reference SHA-256 contract",
+]
+classification = "expected-refusal-undefined-function-result-and-codegen"
+expected_diagnostics = [
+    "strict gfortran compiles the exact primal and stored tangent but warns that f4's return value is not set",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile, preserving the undefined f4 result",
+    "FortAD parser output contains result() and a blank declaration",
+    "FortAD forward output contains a blank dependent argument",
+    "FortAD reverse output duplicates t_b because the selected dependent is the in-place t",
+]
+fresh_generated_sources = ["v422_p.f90", "v422_d.f90", "v422_b.f90"]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile-with-undefined-result-warning"
+fortad_result = "generation-success-strict-compile-refusal-parser-forward-reverse"
+closure = "The exact procedure has no defined function-result value: f4(t) assigns t but never assigns f4. FortAD therefore emits malformed parser, forward, and reverse interfaces, while fresh Tapenade output remains compilable but semantically undefined. The oracle checks the defined in-place mutation only; repairing the missing f4 assignment or changing the dependent would define a different candidate, so no bounded port is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v422/Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"todoF90/REFERENCES/v422/example3.mod" = "0e01a57d3c61f5589120891073a257e15f20b2ee704a88d3d3b183ad9c53c6d9"
+"todoF90/REFERENCES/v422/m1.mod" = "3ea6bf4f94f81dffe4d5d10748f5713cb8c0e10b51c75c7ad6b2357381f77ddf"
+"todoF90/REFERENCES/v422/program.f90" = "55c3f604758042ef236d21dfd23fbf7a218dcbfbf01a71c8f182900e22a04f5d"
+"todoF90/REFERENCES/v422/program_Rd.f90" = "c884990fe7150d115a62d120b9f6ee845a572c0d5d9ea477f2fb6bfb84f24860"
+"todoF90/REFERENCES/v422/program_Rd.msg" = "5740a43307efe728ae07a398f20ca38ef91bc4e494bf0dbbedb0842108573ca2"

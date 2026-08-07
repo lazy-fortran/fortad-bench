@@ -1,0 +1,53 @@
+schema_version = 1
+name = "tapenade-todoF90-references-v417"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v417/run.sh"
+result = "cases/tapenade-set01/v417/result.txt"
+source_form = "free"
+
+static_classification = "fortran-runnable-primal-and-stored-tangent; allocatable-parser-refusal"
+upstream_sources = [
+    "todoF90/REFERENCES/v417/Options",
+    "todoF90/REFERENCES/v417/program.f90",
+    "todoF90/REFERENCES/v417/program_Rd.f90",
+    "todoF90/REFERENCES/v417/program_Rd.msg",
+]
+stored_references = ["program_Rd.f90", "program_Rd.msg"]
+upstream_entry_point = "calc_force(geom,prop,obj,acc)"
+selected_entry_points = ["calc_force(geom,prop,obj,acc)"]
+ported_entry_point = "not-applicable-exact-allocatable-component-refusal"
+independent = ["geom%vol", "prop%den", "obj%force", "obj%acc"]
+dependent = ["acc", "obj%force", "obj%acc"]
+options = ["-association byaddress", "-p/-d/-b -root calc_force -O . -o v417 program.f90"]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-upstream-strict-compile-and-stored-reference-contract",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-generation-and-strict-compile",
+    "exact-FortAD-parser-forward-reverse-refusal-and-independent-oracle",
+]
+oracle = [
+    "strict-compiler",
+    "fresh-pinned-Tapenade-generation-and-strict-compile",
+    "FortAD-exact-parser-forward-reverse-boundary",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-unsupported-allocatable"
+expected_diagnostics = [
+    "the exact primal and stored program_Rd.f90 compile strictly",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD parser, forward, and reverse refuse at allocatable declaration/component line 17",
+    "the independent arithmetic oracle passes finite-difference and adjoint checks on a nonzero domain",
+]
+fresh_generated_sources = ["v417_p.f90", "v417_d.f90", "v417_b.f90"]
+closure = "The exact source and historical stored tangent are preserved unchanged. FortAD stops at the allocatable derived-type component declaration in the exact source; replacing those components with fixed arrays would change the case, so no bounded port is claimed."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v417/Options" = "61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4"
+"todoF90/REFERENCES/v417/program.f90" = "4bfcdac2a43c0ace05ca64b5036aa6157ebe670774f3f91474a04291719e1d9d"
+"todoF90/REFERENCES/v417/program_Rd.f90" = "035aa3034fe236b8c0bc9ada4e9e46861b03f3bddaba664665f13dc0afab7aa4"
+"todoF90/REFERENCES/v417/program_Rd.msg" = "35a261941e027cc43c4aae5131181be849d9fe0aa4db724a729fce0fb9da51be"

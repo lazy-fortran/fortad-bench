@@ -1,0 +1,44 @@
+case: Tapenade todoF90/REFERENCES/v422 undefined-result boundary
+classification: expected-refusal-undefined-function-result-and-codegen
+recorded_utc: 2026-08-07T12:58:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_points: m1.f4(t)
+tapenade_options: -association byaddress -p/-d/-b -root f4
+upstream_exact_strict_compile: program=0 stored_program_Rd=0
+upstream_diagnostic: f4-function-result-not-set-warning
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_sources: parser=v422_p.f90 tangent=v422_d.f90 reverse=v422_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: transform=0 generated=strict-compile-1 diagnostic="result() and blank declaration"
+fortad_exact_forward: transform=0 generated=strict-compile-1 diagnostic="blank dependent argument"
+fortad_exact_reverse: transform=0 generated=strict-compile-1 diagnostic="duplicate t_b argument"
+oracle: oracle_status: pass mutation=3.90625 finite_difference_max_error=6.143e-10 adjoint_identity_residual=0.000e+00 function_result=undefined
+port_result: not-applicable-undefined-function-result
+closure: no bounded port; assigning f4 or changing the dependent would define a different candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v422/Options
+0e01a57d3c61f5589120891073a257e15f20b2ee704a88d3d3b183ad9c53c6d9  todoF90/REFERENCES/v422/example3.mod
+3ea6bf4f94f81dffe4d5d10748f5713cb8c0e10b51c75c7ad6b2357381f77ddf  todoF90/REFERENCES/v422/m1.mod
+55c3f604758042ef236d21dfd23fbf7a218dcbfbf01a71c8f182900e22a04f5d  todoF90/REFERENCES/v422/program.f90
+c884990fe7150d115a62d120b9f6ee845a572c0d5d9ea477f2fb6bfb84f24860  todoF90/REFERENCES/v422/program_Rd.f90
+5740a43307efe728ae07a398f20ca38ef91bc4e494bf0dbbedb0842108573ca2  todoF90/REFERENCES/v422/program_Rd.msg
+fresh_tapenade_sha256:
+ac4485fd9992e8db58038854a73452485058812d947e6cac8ae0818267473475  ./forward/v422_d.f90
+5cd0833d423e193ac40a4054243fc199519f7a7d919422f471250d4e57bcc5e4  ./forward/v422_d.msg
+c2b286d36b5393a6bd94a09798c1ca46d7739830b7b254ddde077ec1b0c579e3  ./parser/v422_p.f90
+5cd0833d423e193ac40a4054243fc199519f7a7d919422f471250d4e57bcc5e4  ./parser/v422_p.msg
+02a96d6b4e7555103a4d3bb18f6783fede8fa6e909e17f210b7ecf7e08aac34a  ./reverse/v422_b.f90
+5cd0833d423e193ac40a4054243fc199519f7a7d919422f471250d4e57bcc5e4  ./reverse/v422_b.msg
+case_artifact_sha256:
+a39e82beb19d64715a2214e5ccb5a04c899e9a50f3d212cbdadc4de9ea8c610b  cases/tapenade-set01/v422/manifest.toml
+eb304fb8b59c26824efa7530a0dbf9e9b4e8cbf65e1d9e0cc0c75ed7950aa6d0  cases/tapenade-set01/v422/notes.md
+e0102a59d8b8c2be23ccdd48cde882d35c8bd4be8bde7185f4062e2abaee164e  cases/tapenade-set01/v422/oracle.py
+14a1ae8d47f7ecda8b0462fa707268294333d2f7aabfb6b8ceea10ac5f4fc850  cases/tapenade-set01/v422/run.sh
+022f441e8ee7868590f48e083877f12bc3a02a98422da5ac4f3f85bf87479354  cases/tapenade-set01/v422/test_contract.py

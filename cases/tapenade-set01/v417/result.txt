@@ -1,0 +1,45 @@
+case: Tapenade todoF90 REFERENCES/v417 allocatable-component boundary
+classification: expected-refusal-unsupported-allocatable
+recorded_utc: 2026-08-07T12:58:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: calc_force(geom,prop,obj,acc)
+tapenade_options: -association byaddress; parser=-p/-root calc_force forward=-d/-root calc_force reverse=-b/-root calc_force
+upstream_exact_strict_compile: primal=0 stored_program_Rd=0
+stored_program_Rd_message: 1 Command: Took subroutine calc_force as default differentiation root;2 Circular dependence in generated file;3 calc_force: Tool: (Tangent differentiation of expression) Unexpected operator: continue;
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none line=17 diagnostic="allocatable declaration/component"
+fortad_exact_forward: expected-refusal status=1 output=none line=17 diagnostic="allocatable declaration/component"
+fortad_exact_reverse: expected-refusal status=1 output=none line=17 diagnostic="allocatable declaration/component"
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 4.4009018651536280e-10
+adjoint_identity_residual: 0.0000000000000000e+00
+sample_force: -1.1705987012987018e+01
+port_result: not-applicable-exact-allocatable-component-refusal
+closure: no bounded port; replacing allocatable components would change the exact candidate
+upstream_sha256:
+61ef7cab8fe4c5164a4560365c31da4eef823685eafdbe6ceca556203b4306e4  todoF90/REFERENCES/v417/Options
+4bfcdac2a43c0ace05ca64b5036aa6157ebe670774f3f91474a04291719e1d9d  todoF90/REFERENCES/v417/program.f90
+035aa3034fe236b8c0bc9ada4e9e46861b03f3bddaba664665f13dc0afab7aa4  todoF90/REFERENCES/v417/program_Rd.f90
+35a261941e027cc43c4aae5131181be849d9fe0aa4db724a729fce0fb9da51be  todoF90/REFERENCES/v417/program_Rd.msg
+fresh_tapenade_sha256:
+3b499a1afcf789e4ca91e272f5f5d5357dd9fe485951c9c281ed0241c9d9b031  p/v417_p.f90
+b393a3bf11d309faa69dc3148fd18e474f69e4d1029a701f07bdebbbaddb351f  p/v417_p.msg
+43f1bc50f5461cdbf3a7c4745e3d400b7e6b241f2d5155abd81b2ea9d57ddd98  d/v417_d.f90
+b393a3bf11d309faa69dc3148fd18e474f69e4d1029a701f07bdebbbaddb351f  d/v417_d.msg
+e1e52fbf5b9f2ddce1e111153f20997ec0c151b8d33dcd84596f3598ab418aaf  b/v417_b.f90
+b393a3bf11d309faa69dc3148fd18e474f69e4d1029a701f07bdebbbaddb351f  b/v417_b.msg
+case_artifact_sha256:
+0c73a2fae3ebd155f232dfa91cd9cfdad77a4c21887ca463d84864399a62b9b0  manifest.toml
+015f5ef793356fe7ae36ed8530d978c219d5f68391d1d4fa4af7154c2f119065  notes.md
+b23939c2d0db34c8f1fac07d428c0fab15c8fc60fa6a774cdd28e1b80a55354e  oracle.py
+3a03bc433fb2e2960914efccbcfa860f106b0316bf27c6062824b06409c973e3  run.sh
+54181ec18d366973ddc67e81e74398cdb25d40651b5c7467f1c2943badecca96  test_contract.py

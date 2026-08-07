@@ -1,0 +1,42 @@
+case: Tapenade todoF90 REFERENCES/v419 context-association boundary
+classification: expected-refusal-invalid-upstream-and-unsupported-allocatable-context
+recorded_utc: 2026-08-07T12:58:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: ROOT(X); program MAIN
+upstream_exact_strict_compile: primal=1 stored_program_Rd=1
+upstream_exact_diagnostic: primal=assumed-size-SUM; stored=malformed-percent-and-context-size-references
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="allocatable declaration/component"
+independent_oracle: numeric initialized-prefix sums plus undefined-read and assumed-size semantic checks
+known_AA_prefix_sum: 359.773965714368
+known_X_initialized_prefix_sum: 693.000000000000
+standard_invalid_reference: SUM(X) on assumed-size dummy
+undefined_reads: TT1(1), TT2(2), X(21:30)
+oracle_status: pass
+port_result: not-applicable-undefined-state-and-invalid-assumed-size-sum
+closure: no bounded port; repairing allocation state or dummy bounds changes the candidate
+upstream_sha256:
+e57cb6475662816daed57cd98a439715eff43abbcb79a2bb6829890144e2524e  todoF90/REFERENCES/v419/Options
+c441b7e57730d8977693c1b27971aa85a137c9406a1eef4647617f61f30a105f  todoF90/REFERENCES/v419/mma.mod
+07a690a42ce2be400d92c0aa4f8b1cde85c553465fbb22053c2ca6d795243ff3  todoF90/REFERENCES/v419/mmb.mod
+e90e05dc2fa9b779a3cc70ab2d88885d3a3905fa0d6ab30e064e67c66f4f98b0  todoF90/REFERENCES/v419/program.f90
+823c53fef9f76e64f8977b8739591d879a9c1ca8780815fc96bf484568d63fed  todoF90/REFERENCES/v419/program_Rd.f90
+9baf6eb591bdfd696906d23b8639dc4e7da580f88c95d899237499ae30e7b713  todoF90/REFERENCES/v419/program_Rd.msg
+fbe2de3dfcab9a33a9035dd6f28e453aade58881b929df68caca0c49ef117803  nonRegressions/DIFFSIZES.f90
+fresh_tapenade_sha256:
+fa9c165cc1534d33965895e8876450a91258b6bc2d05c8949f3dda62aa203b65  p/v419_p.f90
+a6bfa3370cc9fa76f457e7f0a311e33b997539b2fe44e9f798facd5926afc057  p/v419_p.msg
+151ea47a917a92b57c884a1ffa2c000b65008f5e0cb20488af804db24319aa4e  d/v419_d.f90
+06b7dd6572539f4adb610d907de72d0781b4def3664795765fd6da68cfc2dca1  d/v419_d.msg
+db14aca357bdde7ff3dbc83fe124151ddf36724f0f75946f9b85d587ff16a910  b/v419_b.f90
+06b7dd6572539f4adb610d907de72d0781b4def3664795765fd6da68cfc2dca1  b/v419_b.msg
