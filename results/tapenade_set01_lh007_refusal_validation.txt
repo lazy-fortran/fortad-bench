@@ -1,0 +1,50 @@
+case: Tapenade nonRegressions set01 lh007 exact-source refusal
+recorded_utc: 2026-08-07T08:55:19Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffixed-line-length-none -fno-lto
+compile_flags: -std=f2018 -pedantic-errors -Wall -Wextra -O2 -ffree-line-length-none -fno-lto
+fo: fo 0.3.2
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_compile_seconds: 0.056583
+tapenade_transform_seconds_total: 0.635288
+fortad_exact_refusal_seconds_total: 0.014697
+fortad_port_transform_seconds_total: 0.010570
+upstream_exact_source_compile_statuses: program.f=0 program_p.f=0 program_d.f=0 program_b.f=0
+tapenade_result: fresh parser, tangent, and reverse outputs generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses: lh007_p_p.f=0 lh007_d_d.f=0 lh007_b_b.f=0
+fortad_exact_forward_status: 1
+fortad_exact_reverse_status: 1
+fortad_exact_diagnostic: fortad: unsupported statement at line 6
+fortad_exact_result: expected-refusal; no exact-source support claimed
+fortad_normalized_port_result: JVP/VJP transform and strict compile pass
+independent_oracle: hand JVP/VJP, three-step central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=2916
+oracle_status: pass
+upstream_source_and_reference_sha256:
+e59d9cd71343406653d57be43ad285975f3c71edc282a44ed557e348ebdfbb51  nonRegressions/set01/lh007/program.f
+beba7158e92d4c17c1593cb132cb0829f4c84f8c9a36583cb4b3f3f3e7e55a20  nonRegressions/set01/lh007/program_b.f
+0a65cf7ac551d8b561524418f3bf3db03416f045158fe8756e0092416d38e21f  nonRegressions/set01/lh007/program_d.f
+8ec38af8080d97afbb219b37af2e002e506a3f742cfd50ffd1a64df1aae485ec  nonRegressions/set01/lh007/program_p.f
+304adbe605fa4e987abe3b32982c3600b6331c0538d16f1822fc77c92cc0e0d4  nonRegressions/set01/lh007/program_b.msg
+304adbe605fa4e987abe3b32982c3600b6331c0538d16f1822fc77c92cc0e0d4  nonRegressions/set01/lh007/program_d.msg
+a93727b89734b34cc1a46678de363d003b8ea28035c3cd8847bda394c3d9674f  nonRegressions/set01/lh007/program_p.msg
+case_artifact_sha256:
+a38de04282e1fb61b9a1fc1ced4163b4aa08869237180ce3f3ae38bb8216ef2f  cases/tapenade-set01/lh007.f90
+b41884309082c011b7dfcc82d642cb1c0c5efc49ab1c3a63c778265e82c85cdc  cases/tapenade-set01/hand_derivatives_lh007.f90
+82f6146ec9bca25ba7d4650cd886e65b2f7d02b6cb7546e1b6bb129ae704a313  cases/tapenade-set01/lh007-manifest.toml
+296f53258ba9a57d1ef5ab26c3c6ecebcfa86a7c142384192007a3c78e1bbe99  cases/tapenade-set01/lh007.md
+c29725c397d4ff3c2e961c3b031e5bb73bdcf664209baa70f51905757ff5a9e5  harness/bench_tapenade_set01_lh007.f90
+e4f18a09ddab247f788103b0acd70a8f3fce3d4c56802e7009db671a42f76499  scripts/bench_tapenade_set01_lh007.sh
+run_output:
+oracle_status: pass
+tapenade_diagnostics:
+1 adj3: (TC30) Type mismatch in argument 2 of procedure sub1, expected REAL(0:6), is here REAL
+2 adj3: (DF03) variable u is used before initialized
+3 adj3: (DF03) variable v is used before initialized

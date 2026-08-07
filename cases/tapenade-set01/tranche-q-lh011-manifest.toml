@@ -1,0 +1,27 @@
+schema_version = 1
+name = "tapenade-set01-lh011-exact-source-refusal"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_license = "MIT"
+baseline_bench_commit = "4ee2f9457ff13c4cf345bbf7e0f61190b7c24a6e"
+baseline_fortad_commit = "db0050259520b618e2a0aeba203c85a7613943b5"
+runner = "scripts/bench_tapenade_set01_lh011.sh"
+result = "results/tapenade_set01_lh011_refusal_validation.txt"
+
+[[case]]
+id = "lh011"
+upstream_path = "nonRegressions/set01/lh011/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "s1(a,b)"
+ported_entry_point = "none"
+independent = ["a"]
+dependent = ["a"]
+function = "computed GOTO on an uninitialized local selector, followed by absent alternate-return callees TOTO and TUTU"
+upstream_options = "-p; -d -root s1; -b -root s1"
+modes = ["parser", "forward", "reverse"]
+oracle = ["strict-primal-and-reference-compile", "fresh-Tapenade-generation-and-strict-compile", "bounded-hand-JVP", "bounded-hand-VJP", "central-difference-sweep", "adjoint-identity"]
+dependencies = "TOTO/TUTU and their differentiated variants are absent from the candidate directory; exact executable semantics are not defined"
+classification = "expected-refusal"
+expected_diagnostic = "fortad: unsupported statement at line 6"
+tapenade_result = "parser-forward-generation-and-compile-pass-reverse-strict-refusal"
+fortad_result = "pass-exact-source-refusal-unsupported-computed-goto-line-6"

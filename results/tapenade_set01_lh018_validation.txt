@@ -1,0 +1,44 @@
+suite: Tapenade nonRegressions set01 tranche Q (lh018)
+recorded_utc: 2026-08-07T08:39:42Z
+machine: mailuefterl
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_transform_seconds_total: 0.629670
+fortad_transform_seconds_total: 0.010415
+generated_compile_seconds_total: 0.132573
+upstream_exact_source_compile_statuses:
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+tapenade_oracle: fresh parser, tangent, and reverse files generated; all generated sources compile under strict fixed-form flags
+tapenade_generated_compile_statuses:
+tapenade/forward/lh018_d.f.status 0
+tapenade/parser/lh018_p.f.status 0
+tapenade/reverse/lh018_b.f.status 0
+fortad_transform_compile_statuses:
+hand_derivatives_lh018.status 0
+lh018.status 0
+lh018_forward.status 0
+lh018_reverse.status 0
+upstream-program.status 0
+upstream-program_b.status 0
+upstream-program_d.status 0
+independent_oracle: closed-form JVP/VJP, central-difference sweep, and adjoint identity
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3168
+oracle_status: pass
+source_sha256:
+a9d15446a701174562c83cd6f3b4c8da4274d13734f057e5296c9bdd9ad046f7  cases/tapenade-set01/lh018.f90
+95b40d1eb78086a58e0e91acae1ae91fa20a66783e38009f2ba37988504f9bdc  cases/tapenade-set01/hand_derivatives_lh018.f90
+6bcba1d4b4ed8892dc7f91f5f99ddd21b8816396846b032393f78b3bceac0e7e  cases/tapenade-set01/tranche-q-lh018-manifest.toml
+ffd904417651e84fe65ba5f0ceb1f6fff7b93971a66170c3e953db41e5975765  cases/tapenade-set01/tranche-q-lh018.md
+4735ae0d9763e0768aaca51d2d987bb2a49ba777ee75b62a1d3ae3261377376b  harness/bench_tapenade_set01_lh018.f90
+8acb1edcb9a5d7bd5181e56fdb0fc5d55909b650a1f33cdd90430c3f569008aa  scripts/bench_tapenade_set01_lh018.sh
+run_output:
+oracle_status: pass
+fd_errors:   4.9560E-12   1.6325E-11   2.3947E-10   2.0343E-09
+adjoint_residual:   0.0000000000000000E+00

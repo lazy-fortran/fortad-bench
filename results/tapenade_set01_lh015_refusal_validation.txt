@@ -1,0 +1,72 @@
+case: Tapenade nonRegressions set01 lh015
+recorded_utc: 2026-08-07T08:42:05Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+oracle_compiler_flags: -std=f2018 -pedantic-errors -Wall -Wextra -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_compile_statuses:
+upstream-program 1
+upstream-program_b 0
+upstream-program_d 1
+tapenade_generation_statuses:
+parser 0
+forward 0
+reverse 0
+tapenade_generated_compile_statuses:
+tapenade-parser 1
+tapenade-forward 1
+tapenade-reverse 0
+fortad_transform_statuses:
+forward 1
+reverse 1
+upstream_diagnostics:
+Warning: Fortran 2018 obsolescent feature: Labeled DO statement at (1)
+Warning: Fortran 2018 obsolescent feature: COMMON block at (1)
+Warning: Fortran 2018 obsolescent feature: COMMON block at (1)
+Error: ‘a2’ argument of ‘max’ intrinsic at (1) must be INTEGER(4)
+Warning: Fortran 2018 obsolescent feature: COMMON block at (1)
+Warning: Fortran 2018 obsolescent feature: COMMON block at (1)
+Error: Deleted feature: End expression in DO loop at (1) must be integer
+tapenade_messages:
+1 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+2 s2: (TC07) Loop bound is expected to be integer, and is here REAL
+3 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+4 s2: (DF03) variable i3 is used before initialized
+5 s2: (DF03) variable i3 is used before initialized
+1 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+2 s2: (TC07) Loop bound is expected to be integer, and is here REAL
+3 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+4 s2: (DF03) variable i3 is used before initialized
+5 s2: (DF03) variable i3 is used before initialized
+1 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+2 s2: (TC07) Loop bound is expected to be integer, and is here REAL
+3 s2: (TC16) Type mismatch in assignment: INTEGER receives REAL
+4 s2: (DF03) variable i3 is used before initialized
+5 s2: (DF03) variable i3 is used before initialized
+fortad_diagnostics:
+/mnt/storage/code/lazy-fortran/fortad-bench-lh015/build/tapenade-set01-lh015.F7YomQ/fortad-forward.stderr:fortad: unsupported statement at line 8
+/mnt/storage/code/lazy-fortran/fortad-bench-lh015/build/tapenade-set01-lh015.F7YomQ/fortad-reverse.stderr:fortad: unsupported statement at line 8
+oracle: independent bounded primal, hand JVP/VJP, four-step central-difference sweep, and JVP/VJP adjoint identity
+oracle_output:
+oracle_status: pass
+central_difference_errors:   5.5955E-14   8.4110E-13   8.3933E-13   1.8789E-11
+adjoint_residual:   0.0000E+00
+observation: explicit integer-trip loop body only
+source_sha256:
+e9ff09bcd0e8caa5b5eee09fd6e9d63874df2f243593f09019d1ff4d41f885d8  /mnt/storage/code/lazy-fortran/fortad-bench-lh015/upstream/tapenade/nonRegressions/set01/lh015/program.f
+d11984894b36ab33da4fce0eee4726bdf2e8383a6dbde5eff8e30afb550bfc5f  /mnt/storage/code/lazy-fortran/fortad-bench-lh015/upstream/tapenade/nonRegressions/set01/lh015/program_b.f
+19bbac107fe0ee862a58e84b613938d19cd203d7fda888a2ee6b9bb3c6012f3d  /mnt/storage/code/lazy-fortran/fortad-bench-lh015/upstream/tapenade/nonRegressions/set01/lh015/program_d.f
+artifact_sha256:
+e6058c19aab40dba7e9c1ef4c3a5107d4b29e000ebbfdf12916377df9e1023cd  cases/tapenade-set01/hand_derivative_lh015.f90
+ed68b8ac76bb2bdc832b46f05fc6840c5e95073902b823161f9a0c7599dacda8  cases/tapenade-set01/tranche-lh015-manifest.toml
+693f8027dfeba2852372e4713bdf70839b7a36d0058322c063091a5c8aa5e3c2  cases/tapenade-set01/tranche-lh015.md
+465c0dad7859f0597461d183e4453f484077dc9579cc62c1af07bb89af049f2b  harness/bench_tapenade_set01_lh015.f90
+7f16c04980db60bd6ac173bc4cf31bbcfce8a3d53efe4c4deb03ed95d6d76368  scripts/bench_tapenade_set01_lh015.sh
+status: expected-refusal
+refusal_reason: invalid exact upstream source plus FortAD COMMON boundary; no repaired derivative port or runtime claim

@@ -1,0 +1,17 @@
+schema_version = 1
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+runner = "scripts/bench_tapenade_set01_lh018.sh"
+
+[[case]]
+id = "lh018"
+upstream_path = "nonRegressions/set01/lh018/program.f"
+stored_references = ["program_d.f", "program_b.f"]
+upstream_entry_point = "top(a,b,c,d); f(u,v)"
+ported_entry_point = "set01_lh018(b,c,a_out)"
+independent = ["b", "c"]
+dependent = ["a_out"]
+domain = "c(10) is nonzero; the second f call is a constant factor"
+oracle = ["closed-form-JVP-VJP", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+license = "MIT"

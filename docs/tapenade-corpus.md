@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,383 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving forty set01 evidence rows and nine additional
+  either engine. It leaves 1,378 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving forty-five set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,9 +108,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,457 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,452 rows
 into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
-rows with no entry-point hint, 315 program candidates, and 1,012 procedure
+rows with no entry-point hint, 315 program candidates, and 1,007 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 160 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -166,6 +166,12 @@ The adjacent `lh085` and `lh092` large-expression and nested-call support
 results are in [`tranche-n`](../results/tapenade_set01_lh083_096_validation.txt).
 The bounded Newton-map port for `lh086`, with hand JVP/VJP, central-difference,
 and adjoint checks, is in [`tranche-o`](../results/tapenade_set01_lh086_validation.txt).
+The same-file function-composition port for `lh018`, with a closed-form
+array/scalar JVP/VJP, is in [`tranche-q`](../results/tapenade_set01_lh018_validation.txt).
+The `lh007` exact `COMMON` boundary and bounded oracle are in
+[`lh007`](../results/tapenade_set01_lh007_refusal_validation.txt); invalid-source
+closures for `lh009` and `lh015`, and the computed-GOTO boundary for `lh011`, are
+linked from the set01 case notes.
 The parallel cross-set tranche adds six positive rows: `set01/bd05`,
 `set02/lh150`, `set03/ht09`, `set04/lh110`, `set05/v052`, and `set06/v234`.
 Their manifests, runners, and measurement records are linked from the

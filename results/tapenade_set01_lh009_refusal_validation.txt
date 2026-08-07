@@ -1,0 +1,77 @@
+case: Tapenade nonRegressions set01 lh009 invalid-source refusal
+recorded_utc: 2026-08-07T08:45:43Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none
+compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_source_compile_statuses:
+upstream-program.status 1
+upstream-reverse.status 1
+upstream-tangent.status 1
+upstream_exact_source_diagnostics:
+upstream-program.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of REAL
+upstream-reverse.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of CHARACTER
+Error: Symbol ‘ab’ at (1) already has basic type of REAL
+Error: Symbol ‘b’ at (1) has no IMPLICIT type; did you mean ‘ab’?
+Error: Symbol ‘bb’ at (1) has no IMPLICIT type; did you mean ‘ab’?
+Error: Operands of binary numeric operator ‘*’ at (1) are INTEGER(4)/CHARACTER(1)
+upstream-tangent.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of CHARACTER
+Error: Symbol ‘ad’ at (1) already has basic type of REAL
+Error: Symbol ‘b’ at (1) has no IMPLICIT type
+Error: Symbol ‘bd’ at (1) has no IMPLICIT type; did you mean ‘ad’?
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/REAL(4)
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/REAL(4)
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/CHARACTER(1)
+Error: Operands of binary numeric operator ‘*’ at (1) are INTEGER(4)/CHARACTER(1)
+tapenade_generation_status: parser=pass tangent=pass reverse=pass
+tapenade_generated_strict_compile_statuses:
+generated-forward.status 1
+generated-parser.status 1
+generated-reverse.status 1
+tapenade_generated_strict_diagnostics:
+generated-forward.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of CHARACTER
+Error: Symbol ‘ad’ at (1) already has basic type of REAL
+Error: Symbol ‘b’ at (1) has no IMPLICIT type
+Error: Symbol ‘bd’ at (1) has no IMPLICIT type; did you mean ‘ad’?
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/REAL(4)
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/REAL(4)
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/CHARACTER(1)
+Error: Operands of binary numeric operator ‘*’ at (1) are INTEGER(4)/CHARACTER(1)
+generated-parser.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of CHARACTER
+Error: Symbol ‘b’ at (1) has no IMPLICIT type
+Error: Operands of binary numeric operator ‘*’ at (1) are CHARACTER(1)/CHARACTER(1)
+Error: Operands of binary numeric operator ‘*’ at (1) are INTEGER(4)/CHARACTER(1)
+generated-reverse.stderr:
+Error: Symbol ‘a’ at (1) already has basic type of CHARACTER
+Error: Symbol ‘ab’ at (1) already has basic type of REAL
+Error: Symbol ‘b’ at (1) has no IMPLICIT type; did you mean ‘ab’?
+Error: Symbol ‘bb’ at (1) has no IMPLICIT type; did you mean ‘ab’?
+Error: Operands of binary numeric operator ‘*’ at (1) are INTEGER(4)/CHARACTER(1)
+independent_oracle: bounded standard-conforming primal, hand JVP/VJP, four-step central-difference sweep, and adjoint identity
+port_result: independent-oracle-only-not-counted-as-support
+fortad_result: not-run-invalid-upstream-source
+refusal_reason: exact upstream and fresh Tapenade outputs contain the REAL/CHARACTER conflict for A; repairing it would change the candidate
+bounded_port_compile_and_link_seconds: 0.142847
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3056
+refusal_oracle_status: pass
+source_sha256:
+ebd7cd5d83e8dc8af9b351d7246aa4853542dd76fc956b38ef0a21d5314b3280  cases/tapenade-set01/lh009.f90
+a629e1b160214e78090693e502f1b64c77679cb82ec77bdfb85605223fbd8952  cases/tapenade-set01/hand_derivative_lh009.f90
+932d82996b178b5171dadd9a56b48076c97c563283c58943789e01bf10d9df20  cases/tapenade-set01/lh009-manifest.toml
+79a468fe0c762047b4f7040f4646333146940e0a2db961fef12d766347c83f22  cases/tapenade-set01/lh009.md
+fab4df46265a3d27bb1702431073e1b1462298b9c9075e93ca667eb49fd0e228  harness/bench_tapenade_set01_lh009.f90
+5d58af20445506d55b6690fbfdbcd3d9528ab58ca23d3f313e8beebcbcbc4fda  scripts/bench_tapenade_set01_lh009.sh
+run_output:
+refusal_oracle_status: pass

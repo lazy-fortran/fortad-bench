@@ -651,6 +651,9 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set01/lh085",
             "nonRegressions/set01/lh092",
             "nonRegressions/set01/lh086",
+            "nonRegressions/set01/lh018",
+            "nonRegressions/set01/lh007",
+            "nonRegressions/set01/lh011",
             "nonRegressions/set01/bd05",
             "nonRegressions/set02/lh150",
             "nonRegressions/set03/ht09",
@@ -680,7 +683,11 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         ]
         self.assertEqual(
             [(row["path"], row["fortad_result"]) for row in invalid],
-            [("nonRegressions/set01/lh052", "not-run-invalid-upstream-source")],
+            [
+                ("nonRegressions/set01/lh009", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh015", "not-run-invalid-upstream-source"),
+                ("nonRegressions/set01/lh052", "not-run-invalid-upstream-source"),
+            ],
         )
         self.assertEqual(len(language_exclusions), 508)
         for column in (
@@ -718,9 +725,27 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "unsupported-statement-line-5-common",
                 "unsupported-statement-line-4-character",
                 "pass-exact-source-refusal-unsupported-statement-line-9",
+                "pass-exact-source-refusal-unsupported-computed-goto-line-6",
+                "pass-exact-source-refusal-common-line-6-normalized-port-pass",
             },
         )
         expected_evidence = {
+            "nonRegressions/set01/lh007": {
+                "entry_point": "adj3(z,t); sub1(u,y2,z,v); port set01_lh007(z,t,x5,x8,x10,y,u,v,...)",
+                "tapenade_options": "-p|-d-root-adj3|-b-root-adj3",
+                "modes": "forward|reverse:t_out",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|FortAD-diagnostic",
+                "dependencies": "exact source uses COMMON /cc/ and reads uninitialized local U/V; bounded port makes storage projection and initial values explicit",
+                "tapenade_result": "pass-exact-and-fresh-generated-strict-compile",
+            },
+            "nonRegressions/set01/lh011": {
+                "entry_point": "s1(a,b)",
+                "tapenade_options": "-p|-d-root-s1|-b-root-s1",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|bounded-hand-JVP-VJP|central-difference-sweep|adjoint-identity",
+                "dependencies": "uninitialized computed-GOTO selector; absent alternate-return callees TOTO/TUTU",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile-refusal",
+            },
             "nonRegressions/set01/lh017": {
                 "entry_point": "test(a1,a2,b1,b2); port set01_lh017(a1,a2,branch,b1,b2)",
                 "tapenade_options": "none",
@@ -1055,6 +1080,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "modes": "forward|reverse:y",
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
                 "dependencies": "upstream x is inout; bounded port exposes final iterate y",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set01/lh018": {
+                "entry_point": "top(a,b,c,d); f(u,v); port set01_lh018(b,c,a_out)",
+                "tapenade_options": "none",
+                "modes": "forward|reverse:a_out",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|hand|central-difference-sweep|adjoint-identity",
+                "dependencies": "bounded port makes dead second-function-argument mutation passive",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
             },
             "nonRegressions/set01/bd05": {

@@ -1,0 +1,66 @@
+case: Tapenade nonRegressions set01 lh011 exact-source refusal
+recorded_utc: 2026-08-07T08:44:14Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -pedantic-errors -ffixed-line-length-none -Wall -Wextra
+bench_baseline_commit: 4ee2f9457ff13c4cf345bbf7e0f61190b7c24a6e
+fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+required_fortad_commit: db0050259520b618e2a0aeba203c85a7613943b5
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_program_compile_status: 0
+upstream_program_d_compile_status: 0
+upstream_program_b_compile_status: 1
+upstream_program_diagnostics:
+Warning: Obsolescent feature: Computed GOTO at (1)
+Warning: Obsolescent feature: Alternate-return argument at (1)
+Warning: Obsolescent feature: Alternate-return argument at (1)
+Warning: Unused dummy argument ‘b’ at (1) [-Wunused-dummy-argument]
+Warning: An alternate return at (1) without a * dummy argument
+Warning: ‘i’ is used uninitialized [-Wuninitialized]
+upstream_program_b_diagnostics:
+Error: GNU Extension: Nonstandard type declaration INTEGER*4 at (1)
+Warning: Obsolescent feature: Computed GOTO at (1)
+Warning: Obsolescent feature: Alternate-return argument at (1)
+Error: Symbol ‘branch’ at (1) has no IMPLICIT type
+Error: Symbol ‘branch’ at (1) has no IMPLICIT type
+tapenade_parser_generation: pass
+tapenade_forward_generation: pass
+tapenade_reverse_generation: pass
+tapenade_parser_strict_compile_status: 0
+tapenade_forward_strict_compile_status: 0
+tapenade_reverse_strict_compile_status: 1
+tapenade_reverse_diagnostics:
+Error: GNU Extension: Nonstandard type declaration INTEGER*4 at (1)
+Warning: Obsolescent feature: Computed GOTO at (1)
+Warning: Obsolescent feature: Alternate-return argument at (1)
+Error: Symbol ‘branch’ at (1) has no IMPLICIT type
+Error: Symbol ‘branch’ at (1) has no IMPLICIT type
+fortad_forward_status: 1
+fortad_reverse_status: 1
+fortad_forward_diagnostic: fortad: unsupported statement at line 6
+fortad_reverse_diagnostic: fortad: unsupported statement at line 6
+independent_oracle: bounded hand JVP/VJP, four-step central difference sweep, and adjoint identity for explicit safe selectors
+fortad_result: expected-refusal-no-transformation-or-runtime-claim
+refusal_reason: exact source has an uninitialized computed-GOTO selector and absent alternate-return callees; FortAD line-6 boundary
+source_sha256:
+6fc9a8a2bc5baf340cb65eaa41778c2e4137d383e52b1621569612f74e21b39c  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh011/program.f
+ca60f9d263cb8df08b5433f0e9f7bb8a4c36fa247fad5b84fcfbc8ee184a5fdb  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh011/program_d.f
+3c3b2c4eef8a360afa56c11992d66206df118182c94fd71aee51e829a128fe64  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh011/program_b.f
+artifact_sha256:
+589f677ffd44efb2120e4cc822a98ef6e6aaace7e5c3efdc66aa8415e8b22781  cases/tapenade-set01/hand_derivative_lh011.f90
+9aa0256d81594169612918510590faf457ae7d6415bc362a4e3f8c5e095628d1  cases/tapenade-set01/tranche-q-lh011-manifest.toml
+ba9a5a152c09f065db3ed3b594745f3f421eaeb053b1e1ccc8e7951ca2757cf2  cases/tapenade-set01/tranche-q-lh011.md
+9a1e74021f718b42c8b13152352b7ae2f18dabe89585aed726994302ccef2225  harness/bench_tapenade_set01_lh011.f90
+7cf04bc5613b0c3aab14f0b839aca0ebdfa4392c6cecda647fcc3d4b9499eee6  scripts/bench_tapenade_set01_lh011.sh
+356732cb24c9c0d7da2a49935d099a3ea4f68ac427e497cba3e99d929e035e46  scripts/test_tapenade_set01_lh011.py
+oracle_output:
+oracle_status: pass
+bounded_selectors: 0 1 2 3 10
+hand_jvp:  -1.1178859626472644E+01
+max_fd_error:   4.6471271275549952E-11
+adjoint_residual:   1.7763568394002505E-15
+vjp_checksum:  -3.4911000000000001E+01
+refusal_oracle_status: pass
