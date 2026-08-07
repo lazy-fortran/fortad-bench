@@ -8,14 +8,18 @@ what is missing from them.
 ## Status, 2026-08-07
 
 Coverage stands at 59 downstream operators: 17 in the fortnum suite and 42 in
-the fortfem suite. A separate Enzyme-native suite contributes five more.
+the fortfem suite. A separate Enzyme-native suite contributes five additional
+operators, reported outside that 59-operator cross-engine total.
 Every operator that both Enzyme and fortad can differentiate has numbers
 recorded. Nearly all measurements sit within the 30% band agreed for the port.
 The exceptions are named below.
 
-`cases/fortfem/kernels/` holds 43 kernel sources against the harness's
-`NW = 42`. Reconcile the two: either the extra case is intentionally not
-benchmarked, in which case say so, or a measurement is missing.
+The fortfem catalogue has 44 names. The checkout currently contains 43 primal
+kernel sources (plus their C-bound copies). The harness runs 42 of them.
+`cartesian_to_toroidal` is intentionally omitted because Enzyme has no rule for
+`atan2`, while `toroidal_point_to_cartesian` has no generated source in this
+checkout. Add the missing source or remove that catalogue entry before claiming
+complete catalogue coverage.
 
 ## Outstanding
 
@@ -193,7 +197,9 @@ See [`cases/itpplasma/manifest.toml`](cases/itpplasma/manifest.toml), the
 - fortsym kernels are wrapped with the same batch loop as the other engines
   so what is timed is the kernel rather than three different callers.
 - `scripts/make_fortfem_cases.py` generates the fortfem cases from fortfem's
-  extracted primals. Its `CHOSEN` list currently covers all 44 candidates.
+  extracted primals. Its `CHOSEN` list currently names all 44 catalogue
+candidates. One has no generated source and one is excluded from the
+  cross-engine harness as described above.
 - A single evaluation of most of these kernels is far below timer
   resolution. Everything is batched, which is also how fortfem and fortnum
   actually call them: once per cell or per quadrature point.

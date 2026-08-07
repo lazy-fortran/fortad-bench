@@ -13,9 +13,10 @@ and the committed results.
 
 The committed cross-engine corpus covers **59 downstream operators**: 17 from
 fortnum and 42 from fortfem. A separate Enzyme-native suite contributes five
-more operators. The focused vector-Newton follow-up is recorded separately
-because the acluster lacks a compatible Enzyme toolchain. It is not included
-in a same-machine ratio.
+additional operators, but is reported separately rather than folded into that
+59-operator cross-engine total. The focused vector-Newton follow-up is recorded
+separately because the acluster lacks a compatible Enzyme toolchain. It is not
+included in a same-machine ratio.
 
 ![fortad against Enzyme](results/fortad_vs_enzyme.png)
 
@@ -226,9 +227,9 @@ Planned, in the order fortad's roadmap needs them:
    results are three-way comparisons needing no new infrastructure.
 4. **`adbench`**: GMM, bundle adjustment, hand tracking, LSTM. The standard
    cross-tool suite Enzyme's own papers report, ported with attribution (MIT).
-5. **`solve-heavy`**: a Newton solve and a fixed-point iteration, testing whether
-   implicit differentiation and Christianson's two-phase adjoint beat engines
-   that differentiate the iterations. No margin has been measured.
+5. **`solve-heavy`**: a Newton solve and a fixed-point iteration, testing
+   implicit differentiation and Christianson's two-phase adjoint against
+   engines that differentiate the iterations. No margin has been measured.
 6. **`sparse`**: Jacobians and Hessians with exploitable structure.
 7. **`scaling`**: synthetic sweeps in input, output, and direction count.
 
