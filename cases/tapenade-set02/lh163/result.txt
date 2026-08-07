@@ -1,0 +1,17 @@
+classification: runnable-ported
+suite: Tapenade nonRegressions set02 (lh163)
+upstream_revision: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_revision: a1c9f25f87eaadf700ba47ee3e841a0fb41585a3
+tapenade_modes: parser forward reverse
+fortad_modes: parser forward reverse
+upstream_exact_source: strict fixed-form compile pass
+tapenade_generated_sources: parser forward reverse strict compile pass
+fortad_generated_sources: forward reverse normal compile pass
+independent_oracle: hand JVP/VJP, central-difference sweep, adjoint identity
+oracle_behavioral_cases: 3
+oracle_status: pass
+source_sha256:
+15e2ea86c831f33adef62d73db55d5c0728902fbe90398a5b0198466c269f186  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set02/lh163/program.f
+6a3f22d479f2f9ebcd86ce43ac8c7c41fd63a11f5f5c8e819c7e09824d6ca173  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set02/lh163/hand.f90
+35332cd01c3b2f9ceae3a8f849269bdbdb1ea40b1cae4bc4d0c8faaa421ffda1  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set02/lh163/harness.f90
+29fc55f34b5fd4cbc5ba1b6db50f1953ffc9afc8e14a334e2d8e19ef0a320b32  /mnt/storage/code/lazy-fortran/fortad-bench/cases/tapenade-set02/lh163/manifest.toml

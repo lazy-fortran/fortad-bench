@@ -1,0 +1,17 @@
+schema_version = 1
+name = "tapenade-set02-lh163"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a1c9f25f87eaadf700ba47ee3e841a0fb41585a3"
+source_form = "fixed"
+runner = "cases/tapenade-set02/lh163/run.sh"
+result = "cases/tapenade-set02/lh163/result.txt"
+upstream_source = "nonRegressions/set02/lh163/program.f"
+upstream_entry_point = "test(v p q)>(v p q s)"
+ported_entry_point = "test(v,p,q,s)"
+independent = ["v", "p", "q"]
+dependent = "s"
+modes = ["parser", "forward", "reverse"]
+oracle = ["independent-hand", "central-difference-sweep", "adjoint-identity"]
+classification = "runnable-ported"
+boundary = "Legacy write-after-read outputs v and q are retained as inout; the selected dependent is s."
