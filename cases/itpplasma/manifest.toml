@@ -21,6 +21,26 @@ application_evidence = [
 result = "../../results/itpplasma_polymorphic_select_type_validation.txt"
 
 [[cases]]
+id = "polymorphic-select-type-vjp"
+status = "implemented"
+category = "language/runtime-polymorphism"
+source = "polymorphic_select_type/primal.f90"
+hand_derivative = "polymorphic_select_type/hand_vjp.f90"
+harness = "../../harness/bench_polymorphic_select_type.f90"
+mode = "reverse"
+active_inputs = ["x"]
+passive_inputs = ["dynamic type tag", "model coefficients"]
+features = ["abstract base", "two children", "class dummy", "select type"]
+required_fortad_commit = "da1d876afa29f2357bce45ce3500904270ddda83"
+oracle = "hand VJPs, central finite differences, fixed values, and the JVP/VJP adjoint identity"
+discrete_contract = "The runtime child is fixed during each derivative call; changing its dynamic type is outside the derivative."
+application_evidence = [
+    "KAMEL/KIM/src/general/KIM_base.f90 and KIM_mod.f90",
+    "rabe/src/field/field_base.f90 and src/field/fourier_field.f90",
+]
+result = "../../results/itpplasma_polymorphic_select_type_validation.txt"
+
+[[cases]]
 id = "class-is-default-jvp"
 status = "implemented"
 category = "language/runtime-polymorphism"

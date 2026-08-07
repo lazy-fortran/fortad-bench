@@ -246,7 +246,9 @@ Runtime-polymorphism cases:
 - [`class(*)` callback-context refusal](cases/itpplasma/callback_context_refusal/README.md)
 
 Positive cases run every supported runtime arm against fixed values and hand
-derivatives. Refusal cases first validate the primal arms and central finite
+derivatives. The `TYPE IS` case measures both JVP and VJP paths for two child
+types; its reverse oracle also uses central differences and the adjoint
+identity. Refusal cases first validate the primal arms and central finite
 differences.
 The case pages give formulas and commands. Measurements are in the
 [`TYPE IS` record](results/itpplasma_polymorphic_select_type_validation.txt) and
