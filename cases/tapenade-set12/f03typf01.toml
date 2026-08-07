@@ -1,0 +1,10 @@
+schema_version = 1
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_path = "nonRegressions/set12/f03typf01"
+upstream_entry_point = "foo(t,x,y)"
+ported_case = "cases/itpplasma/abstract_deferred_refusal"
+status = "expected-refusal"
+tapenade_probe = "-p program.f90; generated program_p.f90 fails strict gfortran compile"
+fortad_probe = "evaluate_deferred(model,x); expected unsupported type-bound call"
+oracle = "strict upstream compile; generated-source compile rejection; concrete-child values; central finite differences"
+dependency = "none"
