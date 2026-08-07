@@ -96,8 +96,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,336 pure Fortran and 74 mixed-language rows
-  untriaged, while preserving eighty-seven set01 evidence rows and nine additional
+  either engine. It leaves 1,330 pure Fortran and 74 mixed-language rows
+  untriaged, while preserving ninety-three set01 evidence rows and nine additional
   non-set01 evidence cases.
 
 Build the next-tranche queue without changing those ledger statuses:
@@ -108,8 +108,8 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,410 rows
-into 74 mixed-language-risk candidates, 36 historical-failure candidates, 20
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,404 rows
+into 74 mixed-language-risk candidates, 30 historical-failure candidates, 20
 rows with no entry-point hint, 315 program candidates, and 965 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 133 rows
 with non-local include hints. The queue uses only static filename and line-based
@@ -189,6 +189,12 @@ closures. Tranche Y (`lh071`, `lh072`, `lh073`, `lh075`, `lh076`, and `lh077`)
 adds two invalid-upstream closures and four bounded refusal witnesses. Each has
 fresh pinned Tapenade generation, exact FortAD diagnostics, and a three-test
 case contract; bounded ports are not exact-source support claims.
+
+The historical-reference tranche Z (`todoF90/REFERENCES/bd01`, `bd11`, `v01`,
+`v02`, `v05`, and `v07`) adds four exact-source refusal witnesses with bounded
+module, array-section, or explicit-state ports, plus two invalid-upstream
+closures. Each case records fresh Tapenade generation, exact FortAD diagnostics,
+and a three-test contract; bounded ports remain explicitly scoped.
 
 ## Closeout rule
 

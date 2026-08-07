@@ -1,0 +1,57 @@
+case: Tapenade todoF90 REFERENCES v02
+classification: expected-refusal-with-bounded-forward-port
+recorded_utc: 2026-08-07T11:58:28Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: supplied checkout clean and pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: modu.top(i1,i3,o1,o2,o3)
+bounded_entry_point: top_v02(i2_in,i3,o1,o2,o3); independent: i2_in,i3; dependent: o1
+upstream_exact_strict_compile: primal=0 stored_reverse=0
+tapenade_options: -nooptim spareinit; parser=-p/-root top forward=-d/-root top reverse=-b/-root top
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=1
+tapenade_fresh_reverse_diagnostic: Error: GNU Extension: Nonstandard type declaration INTEGER*4 at (1)
+fortad_exact_parser: transform=0 strict_compile=1 diagnostic="Error: Symbol ‘g’ at (1) has no IMPLICIT type"
+fortad_exact_forward: transform=0 strict_compile=1 diagnostic="Error: Symbol ‘i2’ at (1) has no IMPLICIT type; did you mean ‘o2’?"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="fortad: assignment to undeclared 'g'"
+fortad_bounded_forward: transform=0 compile=0 runtime=pass
+fortad_bounded_reverse: transform=0 compile=0 runtime=pass
+bounded_port_compile: 0 hand_compile: 0 harness_compile: 0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 1.204564e-08
+adjoint_identity_residual: 4.440892e-16
+hand_o1_vjp_i2: 2.46866666666666674e+01
+hand_o1_vjp_i3: -2.46866666666666674e+01
+harness_status: pass
+forward_o1:   8.9757499694824219E+01
+forward_o1d:   3.0241169929504395E+00
+reverse_i2_b:   2.4686666488647461E+01
+reverse_i3_b:  -2.4686666488647461E+01
+upstream_sha256:
+89a9de5628807951567866f47a1e1d81c0b69cc7d41e74b7b6b61e11a6e81180  program.f90
+cb77473bf49108a6c1e265a586f3dd00b6ae319bc06bea675d6b5e281f7e20f8  program_b.f90
+08c891f192be5f037f1e9488202766097172b8f0a099e4a467783001b92a5e7e  program_b.msg
+fresh_tapenade_sha256:
+eb77b90204947cac5a2d4fe17adde8ba676a21c405117e1b014cfce06e62e45f  v02_p.f90
+e13915c1c75a3e41fcc2468bdf8de17985b747d18b59f21cf3c665ff8b67a6a3  v02_p.msg
+a27f0964e05f8c716421ac8aa6ccddf1aee882e785accbf1988a7476422968c8  v02_d.f90
+e13915c1c75a3e41fcc2468bdf8de17985b747d18b59f21cf3c665ff8b67a6a3  v02_d.msg
+1fecbdc8b08620cecfdb71fdd3089ac58bfc2a09f04bf946661004ef55d94630  v02_b.f90
+e13915c1c75a3e41fcc2468bdf8de17985b747d18b59f21cf3c665ff8b67a6a3  v02_b.msg
+case_artifact_sha256:
+c669dac44ace1b1b5111e1047d8afa690ad2a01dba9d3545c09c2856575c0a53  cases/tapenade-set01/v02/manifest.toml
+d8242280fdf6c5a4adf1ea276a9767b5679aa25d709fe303689ff27c0a0500b0  cases/tapenade-set01/v02/notes.md
+4beec63f17626091063e5fa0db069332d92315ac8ebf163bf038e73dbfcc587f  cases/tapenade-set01/v02/port.f90
+b4eed6b02fcd9c678923df33cac7cf25e191cafce96641f4d19a1c19942f5093  cases/tapenade-set01/v02/hand.f90
+ac5d8cc1389ba765776a7aa4d1242d78733640b45456cafab8ec5c8f067ac80a  cases/tapenade-set01/v02/oracle.py
+f26efb5e28cc9808c1ab8274896b60cc60d558055a85855f1dfa77cdc21cbb84  cases/tapenade-set01/v02/harness.f90
+fc02e49b8253ef17be886f91812781b1a77ebdb682664443c3103d27d17a0e52  cases/tapenade-set01/v02/run.sh
+9e04c7ca42863d3a30d6dc5d335ca11a6ee29bc6ac7b454c94b9770b91e6c8e1  cases/tapenade-set01/v02/test_contract.py

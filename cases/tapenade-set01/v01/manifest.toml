@@ -1,0 +1,72 @@
+schema_version = 1
+name = "tapenade-todof90-references-v01"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v01/run.sh"
+result = "cases/tapenade-set01/v01/result.txt"
+queue_category = "parser-or-invalid-risk"
+static_classification = "fortran-procedure-candidate; historical-failure-component"
+
+upstream_sources = [
+    "todoF90/REFERENCES/v01/program.f90",
+    "todoF90/REFERENCES/v01/program_d.f90",
+    "todoF90/REFERENCES/v01/program_d.msg",
+    "todoF90/REFERENCES/v01/flincom.mod",
+]
+stored_references = [
+    "todoF90/REFERENCES/v01/program_d.f90",
+    "todoF90/REFERENCES/v01/program_d.msg",
+]
+missing_stored_references = [
+    "program_p.f90",
+    "program_p.msg",
+    "program_b.f90",
+    "program_b.msg",
+    "program_dv.f90",
+    "program_dv.msg",
+]
+upstream_entry_point = "flinopen_work(filename,iideb,iilen,jjdeb,jjlen,do_test,iim,jjm,llm,lon,lat,lev,ttm,itaus,date0,dt,fid_out)"
+selected_entry_points = ["flinopen_work(...)"]
+ported_entry_point = "not-applicable-exact-module-state-refusal"
+independent = [
+    "filename",
+    "iideb",
+    "iilen",
+    "jjdeb",
+    "jjlen",
+    "do_test",
+    "iim",
+    "jjm",
+    "llm",
+    "lon",
+    "lat",
+    "lev",
+    "ttm",
+    "date0",
+    "dt",
+    "fid_out",
+]
+dependent = ["itaus"]
+function = "module routine with persistent allocatable state and external NetCDF-style callbacks"
+options = ["-p -root flinopen_work", "-d -root flinopen_work", "-b -root flinopen_work"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-gfortran-compile",
+    "fresh-pinned-Tapenade-generation-and-strict-compilation",
+    "FortAD-exact-parser-forward-reverse-diagnostic-and-no-output",
+]
+classification = "expected-refusal"
+dependencies = [
+    "program.f90 calls external NF90_INQUIRE_VARIABLE, NF90_GET_ATT, and NF90_GET_VAR procedures through implicit interfaces",
+    "program_d.f90 additionally calls external NF90_GET_VAR_D and supplies the stored tangent reference",
+    "flincom.mod is a pinned binary module artifact shipped beside the source",
+]
+expected_diagnostics = [
+    "exact and fresh source files compile strictly with implicit-interface warnings for the external callbacks",
+    "FortAD check, forward, and reverse all refuse the module allocatable declaration/component at line 9",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-compile"
+fortad_result = "expected-refusal-exact-parser-forward-reverse-no-output"
+closure = "No bounded port is claimed. Removing or specializing persistent allocatable module state or the external NetCDF callbacks would define a different program and would not establish exact-source support."

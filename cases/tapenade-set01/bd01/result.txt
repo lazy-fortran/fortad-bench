@@ -1,0 +1,43 @@
+case: Tapenade todoF90 REFERENCES bd01
+classification: expected-refusal-with-bounded-module-call-specialization
+recorded_utc: 2026-08-07T11:56:18Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_free_flags: -std=f2018 -ffree-form -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -Wno-error=tabs
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: tata=0 program=0
+upstream_compile_diagnostic_policy: leading-tabs-warning-not-error
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+fortad_exact_parser: titi=0 compile=0 toto=0 compile=0
+fortad_exact_titi_forward: expected-refusal status=1 output=none diagnostic="no derivative rule for the call to TOTO"
+fortad_exact_titi_reverse: expected-refusal status=1 output=none diagnostic="no reverse rule for the call to TOTO"
+fortad_exact_toto_forward: transform=0 compile=0
+fortad_exact_toto_reverse: transform=0 compile=0
+fortad_bounded_forward: transform=0 compile=0
+fortad_bounded_reverse: transform=0 compile=0
+bounded_port_compile: port=0 hand=0 harness=0 link=0 runtime=0
+independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 1.1721112969098613e-10
+adjoint_identity_residual: 0.0000000000000000e+00
+sample_value: -9.3750000000000000e-01
+harness_status: pass
+upstream_sha256:
+b1a5be66a9ca557ce3226431d7a475abc91e51c847f0bd8f156f8ab1811609f2  todoF90/REFERENCES/bd01/Options
+681ccee594822f58c4bf27b56db481a3eb19aeb589ef54b6e9d6bdd69de940b9  todoF90/REFERENCES/bd01/program.f90
+04a1291f7d1311ba7c30bc87359374889745e804e8bbc8edc3726a9081fa817c  todoF90/REFERENCES/bd01/tata.f90
+fresh_tapenade_sha256:
+d150dd422a3af1144d7c3242a639aca98333a7fe4b66fbfc419ed1f795e06dd4  /var/tmp/fortad-bench-bd01.4wHShH/tapenade/p/bd01_p.f90
+f8320b5565816665514e05afaca5e7e8deee3332a11c544e22cb8a10a43b25ae  /var/tmp/fortad-bench-bd01.4wHShH/tapenade/d/bd01_d.f90
+f9cd98b8b16d91a4ea2d467cc6dbe3dfdefece15feacda7760acbf384126eefa  /var/tmp/fortad-bench-bd01.4wHShH/tapenade/b/bd01_b.f90
+fortad_exact_toto_sha256:
+4fd22b40ec0f1f97bb2550e4f025ab1d7194d03f69029d20c97503ebe99d692b  /var/tmp/fortad-bench-bd01.4wHShH/exact/toto_forward.f90
+86b8304296ae3431c0f512e5b1807c044e997df4cbe2279c7effa4badfe71ac9  /var/tmp/fortad-bench-bd01.4wHShH/exact/toto_reverse.f90
+fortad_bounded_sha256:
+d2b9eb02461aadbe7cbb4d60d837442e7acf4f0d9326ff6cbee4823242c04d59  /var/tmp/fortad-bench-bd01.4wHShH/bounded-forward.f90
+9f86a91a278fb333489c2ad05f523c422f5f0171febd149f941837d70ec37e8f  /var/tmp/fortad-bench-bd01.4wHShH/bounded-reverse.f90

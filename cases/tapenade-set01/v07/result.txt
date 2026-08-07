@@ -1,0 +1,44 @@
+case: Tapenade todoF90/REFERENCES/v07 invalid module boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T11:52:26Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade -I/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/todoF90/REFERENCES/v07 -J/var/tmp/fortad-bench-v07.5wmfWr/mod
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_point: none (MODULE TEST has no program/function/subroutine)
+tapenade_options: parser=-p tangent=-d reverse=-b (no root; source has no top procedure)
+upstream_exact_strict_compile: program.f90=1
+upstream_exact_diagnostic: gfortran=undeclared-public-foo-under-IMPLICIT-NONE
+upstream_exact_diagnostic_text: Error: Symbol ‘foo’ at (1) has no IMPLICIT type
+stored_references: none
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_outputs: parser=v07_parser_p.f90 tangent=none reverse=none
+tapenade_fresh_messages: parser=v07_parser_p.msg tangent=v07_tangent_d.msg reverse=v07_reverse_b.msg
+tapenade_fresh_strict_compile: parser=1 tangent=not-applicable-no-source reverse=not-applicable-no-source
+tapenade_fresh_parser_diagnostic: undeclared-public-foo-under-IMPLICIT-NONE
+tapenade_fresh_parser_diagnostic_text: Error: Symbol ‘foo’ at (1) has no IMPLICIT type
+tapenade_fresh_tangent_reverse_diagnostic: no-top-procedure-and-undeclared-foo
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="fortad: no function or subroutine found in source"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="fortad: no procedure named foo in this source"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="fortad: no procedure named foo in this source"
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: reproducible strict compiler diagnostic and pinned source SHA-256; no numerical oracle for invalid source
+port_result: not-applicable-no-standard-conforming-semantics-to-preserve
+closure: no bounded port or exact-source support claim; adding foo or operator bodies would change the candidate
+upstream_sha256:
+e0894c6910a66811ce733a526fead85844e2aad6c0f5d2216bd5811b4589dda7  program.f90
+fresh_tapenade_sha256:
+acb862607f37d3171010992b2cf9ee465bfc0f1dc779732a9f42f6cb6a28dffa  v07_parser_p.f90
+e9c275088f75e62e004880ff080ed4fbc1ad2db728e6b661fe5ab85f39c85ca1  v07_parser_p.msg
+5569f28547ccaa30e7a3b4994e2927b1753f40d6d3afa0dc0dc0627d3d04999a  v07_tangent_d.msg
+5569f28547ccaa30e7a3b4994e2927b1753f40d6d3afa0dc0dc0627d3d04999a  v07_reverse_b.msg
+case_artifact_sha256:
+c68cea25c76e650b193156b85b4feac1532006dceacd5bb52bddafaa282b3858  cases/tapenade-set01/v07/manifest.toml
+e30949ca86069cef7469437c28381f2a492522e94e82f29b91f07d6e17da16bb  cases/tapenade-set01/v07/notes.md
+ef1cb3ce1418d40ca482b4e3baf68307a4eac11b731af7e380b5b90b61c3166d  cases/tapenade-set01/v07/run.sh
+49662a68b5b91e0db64a9e23e4d58492460bdfbad91d3cb47385741f1aa4067d  cases/tapenade-set01/v07/test_contract.py

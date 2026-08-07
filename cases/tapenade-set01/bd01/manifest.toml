@@ -1,0 +1,50 @@
+schema_version = 1
+name = "tapenade-todoF90-references-bd01"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/bd01/run.sh"
+result = "cases/tapenade-set01/bd01/result.txt"
+source_harness = "cases/tapenade-set01/bd01/harness.f90"
+bounded_sources = [
+    "cases/tapenade-set01/bd01/port.f90",
+    "cases/tapenade-set01/bd01/hand.f90",
+    "cases/tapenade-set01/bd01/oracle.py",
+    "cases/tapenade-set01/bd01/harness.f90",
+]
+
+upstream_sources = [
+    "todoF90/REFERENCES/bd01/program.f90",
+    "todoF90/REFERENCES/bd01/tata.f90",
+    "todoF90/REFERENCES/bd01/Options",
+]
+upstream_entry_points = ["titi(a,b,c)", "toto(a,b,c)"]
+selected_entry_points = ["titi(a,b,c)", "toto(a,b,c)"]
+ported_entry_point = "set01_bd01(a,b,c)"
+independent = ["b", "c"]
+dependent = "a"
+options = ["-head \"det\" -vars \"a\" -outvars \"res\" tata.f90", "-p/-d/-b -root titi"]
+modes = ["parser", "exact-forward:titi-refused;toto-supported", "exact-reverse:titi-refused;toto-supported", "bounded-forward", "bounded-reverse"]
+oracle = [
+    "strict-compiler",
+    "fresh-Tapenade-parser-tangent-reverse-compile",
+    "FortAD-parser-and-exact-module-transform",
+    "FortAD-exact-call-boundary-diagnostic",
+    "independent-hand-JVP-VJP",
+    "central-difference-sweep",
+    "adjoint-identity",
+    "compiled-FortAD-harness",
+]
+classification = "expected-refusal-with-bounded-module-call-specialization"
+dependencies = "The exact TITI source uses module TATA/TOTO from a separate file. FortAD parses the caller and transforms TOTO exactly, but its exact TITI derivative stops at the unresolved call; the bounded port inlines only the pinned local TOTO body and keeps the same a=b*c state update."
+expected_diagnostics = [
+    "strict compilation accepts the unmodified program.f90 and tata.f90 when tab diagnostics are warnings",
+    "fresh pinned Tapenade parser, tangent, and reverse outputs generate and compile strictly",
+    "FortAD check parses TITI; exact forward and reverse refuse TITI because no derivative/reverse rule is registered for TOTO",
+    "FortAD exact forward and reverse for module procedure TOTO generate and compile",
+    "bounded forward and reverse outputs compile and pass independent behavioral checks",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "exact-titi-call-refusal-exact-toto-pass-bounded-forward-reverse-transform-compile-runtime"
+closure = "The exact two-file TITI call boundary remains a named FortAD refusal. The bounded port is only an explicit single-file specialization of the visible local TOTO body; it does not claim exact multi-file/module-call support. TOTO itself is separately recorded as exact FortAD support."

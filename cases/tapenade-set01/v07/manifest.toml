@@ -1,0 +1,43 @@
+schema_version = 1
+name = "tapenade-set01-v07-invalid-module"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v07/run.sh"
+result = "cases/tapenade-set01/v07/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-source-candidate; compiler-errors-after-strict-check"
+static_entry_point_hints = []
+source_files = ["todoF90/REFERENCES/v07/program.f90"]
+upstream_sources = ["todoF90/REFERENCES/v07/program.f90"]
+stored_references = []
+
+upstream_entry_point = "none (MODULE TEST contains no program, function, or subroutine)"
+ported_entry_point = "not-applicable (invalid exact source; no bounded port)"
+independent = []
+dependent = []
+options = ["-p", "-d", "-b"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict-compiler-diagnostic-identity",
+    "fresh-pinned-Tapenade-generation-and-strict-compilation-boundary",
+    "FortAD-check-and-transform-diagnostic",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "strict gfortran rejects PUBLIC :: foo because IMPLICIT NONE leaves foo undeclared",
+    "fresh Tapenade parser output preserves the undeclared foo diagnostic",
+    "fresh Tapenade tangent and reverse runs report no top procedure and emit no source",
+    "FortAD check reports no function or subroutine, while exact JVP/VJP report no procedure named foo",
+]
+fresh_generated_sources = ["v07_parser_p.f90"]
+fresh_generated_messages = ["v07_parser_p.msg", "v07_tangent_d.msg", "v07_reverse_b.msg"]
+fresh_missing_sources = ["v07_tangent_d.f90", "v07_reverse_b.f90"]
+closure = "The only source is a module with an undeclared public name and no differentiable procedure. Declaring foo or adding operator/function bodies would repair or extend the corpus rather than preserve its exact semantics, so no bounded port, derivative oracle, or support claim is made."
+
+[upstream_sha256]
+"program.f90" = "e0894c6910a66811ce733a526fead85844e2aad6c0f5d2216bd5811b4589dda7"

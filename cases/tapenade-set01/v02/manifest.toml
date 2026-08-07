@@ -1,0 +1,41 @@
+schema_version = 1
+name = "tapenade-set01-v02-module-global-state"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/v02/run.sh"
+result = "cases/tapenade-set01/v02/result.txt"
+
+upstream_sources = [
+    "todoF90/REFERENCES/v02/program.f90",
+    "todoF90/REFERENCES/v02/program_b.f90",
+    "todoF90/REFERENCES/v02/program_b.msg",
+]
+stored_references = ["program_b.f90", "program_b.msg", "Options"]
+upstream_entry_point = "modu.top(i1,i3,o1,o2,o3)"
+ported_entry_point = "top_v02(i2_in,i3,o1,o2,o3)"
+independent = ["i2_in", "i3"]
+dependent = "o1"
+options = ["-nooptim spareinit", "-p -root top", "-d -root top", "-b -root top"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "strict compiler",
+    "fresh pinned Tapenade parser/tangent/reverse generation and compile",
+    "FortAD exact parser/forward/reverse transform and strict compile",
+    "independent hand JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+    "compiled FortAD forward/reverse harness",
+]
+classification = "expected-refusal-with-bounded-forward-port"
+dependencies = "The exact module carries i2 as hidden mutable module state and has implicit interfaces in the legacy source. The bounded port exposes the incoming state as i2_in, keeps i3 as an inout value because the negative branch overwrites it, and retains the source's i1 overwrite, sub1 branch, output constants, and final hidden-state assignment without claiming the original hidden-state interface."
+expected_diagnostics = [
+    "fresh Tapenade reverse output fails strict F2018 compilation on INTEGER*4",
+    "FortAD check emits a procedure-only file that fails strict compilation because g and i2 are undeclared",
+    "FortAD exact forward emits a derivative that fails strict compilation because i2 is undeclared",
+    "FortAD exact reverse refuses with assignment to undeclared g",
+]
+tapenade_result = "pass-fresh-parser-tangent-generation-reverse-strict-compile-refusal"
+fortad_result = "exact-parser-forward-generated-compile-refusal-reverse-refusal-bounded-forward-reverse-transform-compile-runtime"
+closure = "The exact source and stored reverse reference compile. Fresh pinned Tapenade parser and tangent outputs compile, while fresh reverse generation succeeds but its INTEGER*4 declarations fail the strict F2018 gate. FortAD's exact parser and forward modes return generated files that do not compile, while exact reverse refuses. The bounded explicit-state port is independently checked by hand formulas, finite differences, an adjoint identity, and a compiled FortAD forward/reverse harness; it is not exact-source support."

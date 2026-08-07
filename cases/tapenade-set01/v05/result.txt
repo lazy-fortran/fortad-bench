@@ -1,0 +1,46 @@
+case: Tapenade todoF90 REFERENCES v05 invalid-source boundary
+classification: expected-refusal-invalid-upstream
+recorded_utc: 2026-08-07T11:58:03Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface
+legacy_compiler_flags: -std=legacy -ffree-form -ffree-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_entry_points: RETARD(CK,I_ZONE,SP,TEMPS,IFIM1); COMP_PRECIPITATION(CK,DELTAT)
+upstream_exact_strict_compile: program.f90=1
+upstream_exact_legacy_compile: program.f90=1
+upstream_diagnostic: Return type mismatch of function RETARD at the implicit-interface call; CK(1,1) is passed to scalar CK and RETARD has optional dummies
+tapenade_generation: retard_parser=0 retard_tangent=0 retard_reverse=0 comp_precipitation_parser=0 comp_precipitation_tangent=0 comp_precipitation_reverse=0
+tapenade_fresh_sources: retard=parser:v05_p.f90,tangent:v05_d.f90,reverse:v05_b.f90; comp_precipitation=parser:v05_p.f90,tangent:none,reverse:none
+tapenade_fresh_strict_compile: retard_parser=1 retard_tangent=0 retard_reverse=0 comp_precipitation_parser=1 comp_precipitation_tangent=not-applicable-no-source comp_precipitation_reverse=not-applicable-no-source
+tapenade_diagnostics: parser=explicit-interface-required-for-RETARD; comp_precipitation-tangent-and-reverse=AD06-no-active-input-or-output-plus-DF03-uninitialized-I_ZONE
+fortad_exact_parser: retard=transform-status-0-generated-strict-compile-1; comp_precipitation=refused-status-1 diagnostic="fortad: call to RETARD does not match its argument list"
+fortad_exact_forward: retard=transform-status-0-generated-strict-compile-1; comp_precipitation=refused-status-1 diagnostic="fortad: call to RETARD does not match its argument list"
+fortad_exact_reverse: retard=refused-status-1 diagnostic="fortad: assignment to undeclared RETARD"; comp_precipitation=refused-status-1 diagnostic="fortad: call to RETARD does not match its argument list"
+independent_oracle: reproducible strict-and-legacy compiler diagnostic plus generated-source strict compilation
+port_result: not-applicable-no-standard-conforming-semantics-to-preserve
+closure: no bounded port and no exact-source support claim; repairing the implicit interface or CK(1,1) would change the candidate
+upstream_sha256:
+ad76ea1dc1ded72769adb1363c9f7b4df03ee08734238502cf77d8b934e64802  todoF90/REFERENCES/v05/program.f90
+fresh_tapenade_sha256:
+16208f1f4397b3028f628b3c27da4fcb14249606ed8c7c175168c3b0c9ea6558  /var/tmp/fortad-bench-v05.vylc8j/tapenade/comp_precipitation/parser/v05_p.f90
+e24c36fc0c615b4e2560fee76220171918706d4f28c8f9635f751632febc552a  /var/tmp/fortad-bench-v05.vylc8j/tapenade/comp_precipitation/parser/v05_p.msg
+c7cd3817dc9c28812c27827fdd10d0d2aba4604dde6f6650589fd758c0d1d57d  /var/tmp/fortad-bench-v05.vylc8j/tapenade/comp_precipitation/reverse/v05_b.msg
+c7cd3817dc9c28812c27827fdd10d0d2aba4604dde6f6650589fd758c0d1d57d  /var/tmp/fortad-bench-v05.vylc8j/tapenade/comp_precipitation/tangent/v05_d.msg
+16208f1f4397b3028f628b3c27da4fcb14249606ed8c7c175168c3b0c9ea6558  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/parser/v05_p.f90
+e24c36fc0c615b4e2560fee76220171918706d4f28c8f9635f751632febc552a  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/parser/v05_p.msg
+d0771323f82efaaefb4c3b8271b721a7f7db64f3cc1c268d463ef2ff938c1866  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/reverse/v05_b.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/reverse/v05_b.msg
+83a64696081979b381a25c93fb735eb8821089802ca05ec84dc03922d0753945  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/tangent/v05_d.f90
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /var/tmp/fortad-bench-v05.vylc8j/tapenade/retard/tangent/v05_d.msg
+case_artifact_sha256:
+1a7ff83a772eb8756f2d8ebdc2d0d87f28343aca509783680ec7ea6df82147fc  cases/tapenade-set01/v05/manifest.toml
+98b0dcd1a3079a62cb41c7295946246d8bb51a8e85d15d6f5fd985d54a115725  cases/tapenade-set01/v05/notes.md
+494d8d5204d090bd34b435591e52eb14f265521147e85e80b9f30bffe63c5eff  cases/tapenade-set01/v05/run.sh
+4038345ef2fe3ac1bd5f125de820ace89d5e7b65937dcd1874373bbea81dc6a2  cases/tapenade-set01/v05/test_contract.py

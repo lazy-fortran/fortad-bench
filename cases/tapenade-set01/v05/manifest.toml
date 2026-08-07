@@ -1,0 +1,61 @@
+schema_version = 1
+name = "tapenade-todoF90-v05"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+runner = "cases/tapenade-set01/v05/run.sh"
+result = "cases/tapenade-set01/v05/result.txt"
+source_form = "free"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate"
+source_files = ["todoF90/REFERENCES/v05/program.f90"]
+upstream_sources = ["todoF90/REFERENCES/v05/program.f90"]
+stored_references = []
+
+upstream_entry_point = "RETARD(CK,I_ZONE,SP,TEMPS,IFIM1); COMP_PRECIPITATION(CK,DELTAT)"
+selected_entry_points = [
+    "RETARD(CK,I_ZONE,SP,TEMPS,IFIM1)",
+    "COMP_PRECIPITATION(CK,DELTAT)",
+]
+ported_entry_point = "not-applicable (invalid exact source; no bounded port)"
+independent = ["CK", "DELTAT"]
+dependent = ["RETARD", "RN"]
+options = [
+    "-p -root RETARD",
+    "-d -root RETARD",
+    "-b -root RETARD",
+    "-p -root COMP_PRECIPITATION",
+    "-d -root COMP_PRECIPITATION",
+    "-b -root COMP_PRECIPITATION",
+]
+modes = [
+    "exact-parser:generated-but-invalid-or-refused",
+    "exact-forward:generated-but-invalid-or-refused",
+    "exact-reverse:refused",
+]
+oracle = [
+    "strict-and-legacy-compiler-diagnostics",
+    "fresh-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-parser-forward-reverse-boundary",
+    "source-checksum-contract",
+]
+classification = "expected-refusal-invalid-upstream"
+expected_diagnostics = [
+    "gfortran: Return type mismatch of function RETARD at the implicit-interface call",
+    "fresh Tapenade parser output: explicit interface required for RETARD because of optional arguments",
+    "FortAD COMP_PRECIPITATION probes: call to RETARD does not match its argument list",
+    "FortAD RETARD generated parser/forward output: invalid blank identifiers; reverse: assignment to undeclared RETARD",
+]
+fresh_generated_sources = [
+    "RETARD: v05_p.f90, v05_d.f90, v05_b.f90",
+    "COMP_PRECIPITATION: v05_p.f90",
+]
+fresh_missing_sources = [
+    "COMP_PRECIPITATION: v05_d.f90, v05_b.f90",
+]
+closure = "The exact source passes a rank-2 actual CK(1,1) to the scalar, implicitly interfaced RETARD function with optional dummies, and is rejected by strict and legacy gfortran. Fresh Tapenade preserves the parser boundary and emits no tangent/reverse source for COMP_PRECIPITATION; FortAD either refuses or emits non-compiling derivative/parser text. No repair, specialization, bounded port, or support claim is made."
+
+[upstream_sha256]
+"todoF90/REFERENCES/v05/program.f90" = "ad76ea1dc1ded72769adb1363c9f7b4df03ee08734238502cf77d8b934e64802"

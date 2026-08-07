@@ -1,0 +1,39 @@
+case: Tapenade todoF90/REFERENCES/v01
+classification: expected-refusal
+recorded_utc: 2026-08-07T11:54:31Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+upstream_exact_strict_compile: program.f90=0 program_d.f90=0
+upstream_stored_references: program_d.f90=present program_d.msg=present program_p.f90=missing program_b.f90=missing program_dv.f90=missing
+upstream_diagnostics: exact-and-stored=implicit-interface-warnings-only
+tapenade_options: parser=-p/-root flinopen_work forward=-d/-root flinopen_work reverse=-b/-root flinopen_work
+tapenade_generation: parser=pass forward=pass reverse=pass
+tapenade_fresh_strict_compile: parser=0 forward=0 reverse=0
+fortad_exact_parser: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 9"
+fortad_exact_forward: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 9"
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic="unsupported allocation lifetime construct allocatable declaration/component at line 9"
+bounded_port: not-claimed reason=module-state-and-external-callback-specialization-would-change-the-case
+oracle_status: pass strict-compiler-and-reproducible-FortAD-diagnostic
+upstream_sha256:
+4ffd000d105070a23ed76533c1893dcfdfe2c2df32845ed4f56b85c4139c8bf4  todoF90/REFERENCES/v01/program.f90
+2c504eb87bb3a0ad956a86b4fc45754b06388cdf72dfd80ff591359f3ed3385a  todoF90/REFERENCES/v01/program_d.f90
+a78a013c2599da34ae7b84dc4a5fc2f92dc451246c1e5ea11fdf5f25ea8505b2  todoF90/REFERENCES/v01/program_d.msg
+82189d991ccd0f180edcb52dac75e71b434083949d06f94321e572459930f958  todoF90/REFERENCES/v01/flincom.mod
+fresh_tapenade_sha256:
+681740f6925b1e38389af70fc26e002ccdac41901c940f0272ca4a8be314f0a7  v01_p.f90
+b412e923f188cc234d8a29172fbc7b71c32d38d9a56200d4600d3bca2a7d663f  v01_p.msg
+96b4a893759da12c40c3076b5d50badca03b6a5bf201842f2a0b26f1a9844d36  v01_d.f90
+71c2e1f98fc55c49ea9bc5d0638a6c12d165144ff54d8a7f223ed01d5795a688  v01_d.msg
+35c9b4a58660ace55593a6ffb7fe350382ff7d8e962b65b429145322c8a2d7bd  v01_b.f90
+71c2e1f98fc55c49ea9bc5d0638a6c12d165144ff54d8a7f223ed01d5795a688  v01_b.msg
+case_artifact_sha256:
+c40744f10ef78512058777de8d890f69f922b3a16992c2c276d1ebd3d605c592  manifest.toml
+6d64e28421ce4f02ecbb56b19cdd0d3aaf6551b31ad5bc027df5be9aadd13456  notes.md
+99bb1a771bfc1d50937a6b8bb3a34a61bad7f5611392f9464cf9e821b03ebf8d  run.sh
+39cc0088feb8421f97373225718625a8c36008c337f7779e98626eba5332b92c  test_contract.py

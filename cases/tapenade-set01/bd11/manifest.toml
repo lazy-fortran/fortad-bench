@@ -1,0 +1,62 @@
+schema_version = 1
+name = "tapenade-todoF90-bd11"
+upstream = "tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a"
+source_form = "free"
+runner = "cases/tapenade-set01/bd11/run.sh"
+result = "cases/tapenade-set01/bd11/result.txt"
+
+queue_category = "parser-or-invalid-risk"
+queue_rank = 20
+static_classification = "fortran-procedure-candidate"
+source_files = ["todoF90/REFERENCES/bd11/program.f90"]
+upstream_sources = [
+    "todoF90/REFERENCES/bd11/program.f90",
+    "todoF90/REFERENCES/bd11/Options",
+]
+stored_references = []
+
+upstream_entry_point = "top(i1,i2,i3)"
+ported_entry_point = "top_bd11(i1,i2,i3,objective)"
+independent = ["i1", "i2", "i3"]
+dependent = ["i1", "i2", "i3", "objective"]
+options = [
+    "-p -nolib -ext REFERENCES/lh09/NoInlineABS",
+    "-d -root top -nolib -ext REFERENCES/lh09/NoInlineABS",
+    "-b -root top -nolib -ext REFERENCES/lh09/NoInlineABS",
+]
+modes = [
+    "exact-parser:refused",
+    "exact-forward:refused",
+    "exact-reverse:refused",
+    "bounded-forward",
+    "bounded-reverse-objective",
+]
+oracle = [
+    "strict-upstream-compilation",
+    "fresh-Tapenade-parser-tangent-reverse-generation-and-strict-compilation",
+    "FortAD-exact-check-forward-reverse-diagnostic",
+    "independent-hand-JVP-finite-difference-adjoint-identity",
+    "compiled-FortAD-bounded-forward-reverse-harness",
+    "upstream-source-sha256-contract",
+]
+classification = "expected-refusal-with-bounded-array-section-port"
+dependencies = "The exact source is standard-conforming and has no stored derivative references. FortAD refuses the whole-array sections i2(:) and i1(:,i) because noncontiguous and overlapping storage identity is not tracked. The bounded port scalarizes those two assignments, preserves the ten iterations and in-place outputs, and adds objective=i1(1,1) solely as a scalar reverse observation."
+expected_diagnostics = [
+    "FortAD exact parser/check, forward, and reverse: unsupported array section at line 6: noncontiguous and overlapping storage identity is not tracked",
+    "Tapenade with the checked-in Options file reports the absent REFERENCES/lh09/NoInlineABS library and implicit ABS/SQRT interfaces, but generates all three sources that compile strictly",
+]
+bounded_sources = [
+    "cases/tapenade-set01/bd11/port.f90",
+    "cases/tapenade-set01/bd11/hand.f90",
+    "cases/tapenade-set01/bd11/oracle.py",
+    "cases/tapenade-set01/bd11/harness.f90",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "exact-refusal-bounded-forward-reverse-transform-compile-runtime"
+closure = "The bounded result is not exact-source support. It is restricted to the fixed 10-by-10/10 shape, the positive i3 trace used by the independent numerical oracle, and the explicitly selected first output objective; scalarizing the array sections is a scoped port of the source semantics, not a repair claim."
+
+[upstream_sha256]
+"Options" = "717f7a36497212b8689b141e0fc097ab3ba7df160b0b424ab44895b045636482"
+"program.f90" = "4118ebacae52bc05eeedfb4bc150f538f3f56e4a373a5d35299fd3a344c81e3c"

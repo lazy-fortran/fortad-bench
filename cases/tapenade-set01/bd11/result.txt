@@ -1,0 +1,82 @@
+case: Tapenade todoF90 REFERENCES bd11
+classification: expected-refusal-with-bounded-array-section-port
+recorded_utc: 2026-08-07T12:02:20Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface
+fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+required_fortad_commit: b9e87636b66b481c6dc6887ac7f7e14c86ef5f4a
+fortad_worktree: clean-and-pinned
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_worktree: clean-and-pinned
+upstream_entry_point: top(i1,i2,i3)
+upstream_exact_strict_compile: program.f90=0
+stored_references: none
+tapenade_options: -nolib -ext REFERENCES/lh09/NoInlineABS
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_outputs: parser=bd11_p.f90 tangent=bd11_d.f90 reverse=bd11_b.f90
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+tapenade_generation_diagnostics:
+parser:
+Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux
+@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..
+System: (Reading library REFERENCES/lh09/NoInlineABS) File not found
+(TC33) External procedure abs is not declared
+(TC33) External procedure sqrt is not declared
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/parser/bd11_p.f90
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/parser/bd11_p.msg
+tangent:
+Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux
+@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..
+System: (Reading library REFERENCES/lh09/NoInlineABS) File not found
+(TC33) External procedure abs is not declared
+(TC33) External procedure sqrt is not declared
+Diff-liveness analysis turned off
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/forward/bd11_d.f90
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/forward/bd11_d.msg
+reverse:
+Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux
+@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..
+System: (Reading library REFERENCES/lh09/NoInlineABS) File not found
+(TC33) External procedure abs is not declared
+(TC33) External procedure sqrt is not declared
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/reverse/bd11_b.f90
+@@ Created /var/tmp/fortad-bench-bd11.NRXgxI/tapenade/reverse/bd11_b.msg
+fortad_exact_parser: expected-refusal status=1 diagnostic="fortad: unsupported array section at line 6: noncontiguous and overlapping storage identity is not tracked"
+fortad_exact_forward: expected-refusal status=1 diagnostic="fortad: unsupported array section at line 6: noncontiguous and overlapping storage identity is not tracked"
+fortad_exact_reverse: expected-refusal status=1 diagnostic="fortad: unsupported array section at line 6: noncontiguous and overlapping storage identity is not tracked"
+fortad_bounded_forward: transform=0 compile=0 runtime=pass
+fortad_bounded_reverse_objective: transform=0 compile=0 runtime=pass
+bounded_port_compile: port=0 hand=0 harness=0 link=0
+harness_status: pass
+objective:   2.0706279575824738E-01
+objective_b:   8.0000001192092896E-01
+i3_b_first:   7.0992958545684814E-01
+independent_oracle: hand JVP, central-difference sweep, and adjoint identity
+oracle_status: pass
+finite_difference_max_error: 2.591267e-05
+adjoint_identity_residual: 5.329071e-15
+objective_value: 2.070627924e-01
+objective_i3_gradient_first: 8.874119675e-01
+upstream_sha256:
+717f7a36497212b8689b141e0fc097ab3ba7df160b0b424ab44895b045636482  Options
+4118ebacae52bc05eeedfb4bc150f538f3f56e4a373a5d35299fd3a344c81e3c  program.f90
+fresh_tapenade_sha256:
+c017a87900934d83ff6848f9973a11c9fc504b39a669aa57f5676d59e87db882  bd11_p.f90
+ded2d006e9c227bdda224f8248f9734788c6c7003d9eba441a90c1018b89a115  bd11_p.msg
+130e17e983cbf5a44ccec66c5af0dd37d352860b1d0a51c2a5e6296fd236f6ca  bd11_d.f90
+cc55ad1b704c8bdf89d6b95c5ef6af701c2c10cc1e4693ef6d5172b620515a5e  bd11_d.msg
+dd5347aef686e1d15635d483fbbd416e81c96707ae0fbcbc4600b3a4b3696ef1  bd11_b.f90
+cc55ad1b704c8bdf89d6b95c5ef6af701c2c10cc1e4693ef6d5172b620515a5e  bd11_b.msg
+case_artifact_sha256:
+2de1ebd033d42e15ffe483896c9a2cec517cb438cd7920a4d193d38311ce28d1  cases/tapenade-set01/bd11/manifest.toml
+4e2ab4e24db345ce707634d58c2a61b26e4e92db1d8533e27a3e204935ce96e1  cases/tapenade-set01/bd11/notes.md
+6c4af53c4cea769c9f774baf758dc205c9bb4eef93505d771154897193a4f7d5  cases/tapenade-set01/bd11/port.f90
+ecbf1962649c39025bda4752260905a5e734184fa6013bea6c1401b1492bf0f9  cases/tapenade-set01/bd11/hand.f90
+efc86d74275aaf71d16bb5abaed29629c4e196bf59a6260b9a14a7efeab1356f  cases/tapenade-set01/bd11/oracle.py
+608fd08853985a3a85a810c73174228320f0c6e60028ee3193c65bb34ba050ed  cases/tapenade-set01/bd11/harness.f90
+250f13264ba7c62523f4d6052c17eca4714fbd38c7dcb2b609b0ab1c01cfefe9  cases/tapenade-set01/bd11/run.sh
+916ae8eb41f33d31a812df59938fd47e8fd2fc6cdaada94ef3bd1ce1fafcc34f  cases/tapenade-set01/bd11/test_contract.py
