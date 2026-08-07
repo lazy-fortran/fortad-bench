@@ -1,5 +1,5 @@
 suite: Tapenade nonRegressions set05/v150 set05/v168 set06/v314 set06/v379
-recorded_utc: 2026-08-07T18:08:20Z
+recorded_utc: 2026-08-07T18:09:58Z
 machine: mailuefterl
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
@@ -41,7 +41,7 @@ v314_reverse.status 0
 v379_reverse.status 0
 independent_oracle: hand JVP/VJP, three-point central-difference sweep, and adjoint identity for every case
 runtime_wall_seconds=0.00
-runtime_peak_rss_kb=3000
+runtime_peak_rss_kb=3172
 oracle_status: pass
 source_sha256:
 0cd5703605feb7cef12acdefa6395e7de594adaec429b0e9088de0badfaaf8e7  cases/tapenade-set05/v150.f90
