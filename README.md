@@ -313,7 +313,7 @@ because it belongs next to the engines rather than next to the compiler.
   refusals are independently recorded. Another 508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,489 rows are untriaged. The first [set01 support
+  1,488 rows are untriaged. The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
   paths. The companion

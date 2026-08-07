@@ -1,0 +1,39 @@
+case: Tapenade ADFirstAidKit validityTest.f refusal
+recorded_utc: 2026-08-07T05:01:24Z
+machine: mailuefterl
+os: CachyOS
+kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
+cpu: AMD Ryzen 9 5950X 16-Core Processor
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+required_fortad_commit: 40b8085e6ab66a338211d263b436b7ec9ea918fb
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+fortad_setup_seconds: 1.080379
+upstream_strict_compile_seconds: 0.008782
+upstream_strict_compile_status: 1
+upstream_legacy_compile_and_link_seconds: 0.071670
+tapenade_parser_seconds: 0.199565
+tapenade_forward_seconds: 0.234196
+tapenade_reverse_seconds: 0.255686
+tapenade_generated_compile_seconds: 0.049729
+fortad_forward_seconds: 0.009435
+fortad_forward_status: 1
+tapenade_forward_source_bytes: 1913
+tapenade_reverse_source_bytes: 1905
+runtime_wall_seconds=0.00
+runtime_peak_rss_kb=3140
+upstream_compiler_oracle: exact source compiles and links with -std=legacy; strict F2018 rejects only REAL*8 and REAL*4 extensions
+tapenade_oracle: fresh parser, forward, and reverse outputs exist and compile with -std=legacy
+primal_oracle: eight independent lower, upper, inactive, zero-direction, and real4 interval-state checks
+fortad_refusal_oracle: exact nonzero transform status, exact COMMON-line diagnostic, and no generated source
+fortad_diagnostic: fortad: unsupported statement at line 21
+source_sha256:
+4b58ce5a601f56c533cf72b8456d15b1c62e81e0a519bf69c293b8eea9cc14f0  cases/tapenade-first-aid/manifest.toml
+c62e608593569c6fb2da19d658dedad23b019ee85bc70d41451ef4c05e424df5  cases/tapenade-first-aid/README.md
+c7eed29b4fe946a6b1e91cfe20a5e8aa678bceefb11ec63189a591c3eaef9e8c  harness/bench_tapenade_first_aid_validity.f90
+e0585024eade03bab9661dd6a646f4fabf8c1f93fec904b00a49ba6a812198c9  scripts/bench_tapenade_first_aid_validity.sh
+run_output:
+oracle_status: pass
+state_transitions_checked: 8
+checksum:  -3.0000000000000000E+06
+primal_ns_per_call:   3.6454089999999999E+00

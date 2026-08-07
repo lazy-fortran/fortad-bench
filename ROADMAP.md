@@ -17,8 +17,8 @@ named below.
 This is not yet a claim to beat every AD engine. The committed same-machine
 timing table is FortAD versus Enzyme. The pinned Tapenade corpus has fourteen
 set01 evidence rows (eleven positive cases and three reproducible refusals), plus
-the v420 positive case, the f03typf01 OO refusal, and the `testMemSizef` no-active-
-data refusal. There are 1,489 candidates
+the v420 positive case, the f03typf01 OO refusal, and the two first-aid
+refusals. There are 1,488 candidates
 still untriaged. A broader feature or performance lead needs
 the remaining corpus classifications and the end-to-end itpplasma matrix below.
 
@@ -104,8 +104,8 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,489 remaining candidates into 74 mixed-language-risk, 36
-  historical-failure, 20 no-entry-point, 318 program, and 1,041 procedure
+  partition the 1,488 remaining candidates into 74 mixed-language-risk, 36
+  historical-failure, 20 no-entry-point, 318 program, and 1,040 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 172 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
@@ -161,7 +161,7 @@ explicitly refused, independently checked, and measured when runnable.
   [tranche-H result](results/tapenade_set01_tranche_h_refusal_validation.txt).
 - [x] Record the `f03typf01` abstract OO boundary. Tapenade emits malformed
   deferred-binding output. FortAD refuses the mapped direct deferred call.
-  the independent child-value/finite-difference oracle keeps this a
+  The independent child-value/finite-difference oracle keeps this a
   reproducible expected refusal, not a support claim. See the
   [case](cases/tapenade-set12/f03typf01.md) and
   [validation record](results/tapenade_f03typf01_oo_validation.txt).
@@ -172,10 +172,14 @@ explicitly refused, independently checked, and measured when runnable.
   modes emit no derivative source. See the
   [case](cases/tapenade-first-aid-kit/testMemSizef/README.md) and
   [validation record](results/tapenade_firstaid_memsize_refusal_validation.txt).
+- [x] Record `ADFirstAidKit/validityTest.f`. The exact legacy source and fresh
+  Tapenade tangent/adjoint outputs compile, and an independent executable
+  checks its interval-state transitions. FortAD refuses the exact `COMMON`
+  statement before differentiation; see the [case](cases/tapenade-first-aid/README.md).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,489 untriaged rows after the language
-  boundary, fourteen set01 evidence rows, and three additional evidence cases.
+  reproducible evidence. There are 1,488 untriaged rows after the language
+  boundary, fourteen set01 evidence rows, and four additional evidence cases.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external
