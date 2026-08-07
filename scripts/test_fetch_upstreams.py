@@ -803,6 +803,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set03/ht12",
             "nonRegressions/set03/ht13",
             "nonRegressions/set04/lh128",
+            "nonRegressions/set04/lh148",
             "nonRegressions/set04/lh151",
             "nonRegressions/set04/lh152",
             "nonRegressions/set02/lh150",
@@ -991,6 +992,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-forward-transform-compile-reverse-generated-compile-refusal-duplicate-w_b",
                 "expected-refusal-unsupported-INTRINSIC-declaration-line-30",
                 "pass-forward-reverse-transform-compile-runtime",
+                "pass-forward-reverse-transform-strict-compile-runtime",
                 "expected-refusal-exact-check-forward-reverse-unsupported-common-line-32",
             },
         )
@@ -2450,6 +2452,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|Options-metadata|fresh-Tapenade-parser-tangent-reverse|independent-module-use-oracle|FortAD-no-entry-boundary|upstream-source-SHA-256-contract",
                 "dependencies": "module USE dependency and PRIVATE declarations; no callable procedure",
                 "tapenade_result": "pass-fresh-parser-strict-compile-tangent-reverse-no-root-messages",
+            },
+            "nonRegressions/set04/lh148": {
+                "entry_point": "toto(a,b,c,d); exact source",
+                "tapenade_options": "-p/-root-toto|-d/-root-toto|-b/-root-toto",
+                "modes": "parser|forward|reverse:d",
+                "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|FortAD-forward-reverse-transform-strict-compile|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity|upstream-source-SHA-256-contract",
+                "dependencies": "same-file module1/module2/module3 source; no external dependency",
+                "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
             },
         }
         evidence_columns = tuple(next(iter(expected_evidence.values())))

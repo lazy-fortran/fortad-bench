@@ -1,0 +1,45 @@
+schema_version = 1
+name = "tapenade-set04-lh148-toto"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "7f56c371e22b5c8e6cc953b4f19b94df90f6ab06"
+source_form = "free"
+runner = "cases/tapenade-set04/lh148/run.sh"
+result = "cases/tapenade-set04/lh148/result.txt"
+
+upstream_sources = [
+    "nonRegressions/set04/lh148/Options",
+    "nonRegressions/set04/lh148/program.f90",
+    "nonRegressions/set04/lh148/program_bv.f90",
+    "nonRegressions/set04/lh148/program_bv.msg",
+]
+stored_references = ["program_bv.f90", "program_bv.msg"]
+upstream_entry_point = "toto(a,b,c,d)"
+selected_entry_points = ["toto(a,b,c,d)"]
+ported_entry_point = "toto(a,b,c,d) (exact source)"
+independent = ["a", "b", "c"]
+dependent = "d"
+options = ["-p -root toto", "-d -root toto", "-b -root toto"]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact pinned-source SHA-256 contract",
+    "strict exact-source compilation",
+    "fresh pinned Tapenade parser/tangent/reverse generation and strict compilation",
+    "FortAD forward/reverse transformation and strict compilation",
+    "compiled FortAD harness",
+    "independent closed-form product JVP/VJP",
+    "central-difference sweep",
+    "adjoint identity",
+]
+classification = "runnable-ported"
+dependencies = "module1/module2/module3 are all in the exact source; no external dependency"
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile"
+fortad_result = "pass-forward-reverse-transform-strict-compile-runtime"
+closure = "The selected exact-source entry point is the scalar product d = a*b*c; other procedures in the directory are outside this row."
+
+[upstream_sha256]
+"Options" = "7b4f5eb287e8fa204540de18918e2713a9a369407cd41ca24afeeeae7fdb5d89"
+"program.f90" = "7bc40e8c177160274e187a1c22f8a7e5b040b87c9840ebb728fe3c6bb4ef5872"
+"program_bv.f90" = "bfd7151214439c93835f0d0eefce6928b21114d235a7ced280386c9b381994e2"
+"program_bv.msg" = "dc18ec7b60772241312efc64fb4644faaf76a833dbeeba1ffdd60af74d4ae025"

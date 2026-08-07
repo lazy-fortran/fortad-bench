@@ -17,7 +17,7 @@ named below.
 This is not yet a claim to beat every AD engine. The committed same-machine
 timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 122
 classified set01 rows (32 runnable cases, 74 reproducible refusals, and 16
-invalid-upstream closures), plus 86 classified rows elsewhere. There are 1,298
+invalid-upstream closures), plus 87 classified rows elsewhere. There are 1,297
 queued candidates still
 untriaged. A broader feature
 or performance lead needs
@@ -77,12 +77,12 @@ the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support is
 now wired into the harness for 122 classified set01 cases
 (32 runnable, 74 exact-source refusals, and 16 invalid-upstream closures), plus
-84 classified rows elsewhere. A fresh Tapenade
+87 classified rows elsewhere. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
-The product target is the 1,432-row strict pure-Fortran population. Fifty-four
+The product target is the 1,432-row strict pure-Fortran population. Fifty-five
 rows currently pass as runnable support cases, 126 are measured expected
-refusals, 28 are invalid-upstream closures, and 1,298 remain untriaged: 1,224
+refusals, 28 are invalid-upstream closures, and 1,297 remain untriaged: 1,223
 pure-Fortran rows and 74 mixed C/C++-Fortran rows. The mixed rows stay in
 a separate dependency lane.
 
@@ -112,8 +112,8 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,298 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 303 program, and 921 procedure
+  partition the 1,297 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 303 program, and 920 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 122 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
@@ -249,6 +249,11 @@ explicitly refused, independently checked, and measured when runnable.
   [set04 record](cases/tapenade-set04/tranche-a-lh110.md),
   [set05 record](cases/tapenade-set05/tranche-v052.md), and
   [set06 record](cases/tapenade-set06/tranche-a-v234.md).
+- [x] Promote shard-0 `set04/lh148` entry `module1::toto` with exact pinned
+  source hashes, fresh Tapenade parser/tangent/reverse generation and strict
+  compilation, FortAD forward/reverse strict compilation, and an independent
+  product JVP/VJP finite-difference/adjoint oracle. See the
+  [manifest, runner, and evidence](cases/tapenade-set04/lh148/notes.md).
 - [x] Promote set01 `lh018` with fresh Tapenade parser, tangent, and reverse
   generation, strict generated-source compilation, and an independent
   closed-form array/scalar JVP/VJP oracle with central differences and the
@@ -374,8 +379,8 @@ explicitly refused, independently checked, and measured when runnable.
   and [validation result](results/tapenade_set05_shard3_v125_v137_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,224 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside 122 classified set01 rows and 86 additional
+  reproducible evidence. There are 1,223 untriaged pure-Fortran rows and 74
+  mixed-language rows, alongside 122 classified set01 rows and 87 additional
   classified rows.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
