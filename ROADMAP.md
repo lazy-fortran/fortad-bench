@@ -66,7 +66,7 @@ All three are recorded in `README.md` and none is resolved:
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the honest comparison for the `rk4` reverse result. Corpus support is
-now wired into the harness for five small set01 cases, with two exact-source
+now wired into the harness for six small set01 cases, with two exact-source
 refusals. A fresh Tapenade
 engine run and the rest of the corpus remain open.
 
