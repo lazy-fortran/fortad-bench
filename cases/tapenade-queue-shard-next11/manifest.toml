@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next11"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, free-form procedure rows without unresolved dependency risk were selected from the branch-base queue by the fixed case-insensitive modern-feature score, descending score then queue order, after excluding all existing queue shards. Scores are set03/cm31/top=66, set03/cm32/top=66, set05/v194/head=63, and set06/v351/d1minval=62."
+selection_queue_sha256 = "96e0b103d43b244a9d45fb835643588a1eeaab08d2015e35d98d333275122202"
+selection_batch_sha256 = "99d4c719259c5bd5ffd3b23ee6adfbf59254e85b637d5d0c476513c9492a7c4c"
+current_queue_sha256 = "026d5d74f7b1a660beee4158587a16199e6ae6ec30a57073ecfce34c673fd8ee"
+current_batch_sha256 = "4bc7a1eacde77b615e91084f132d7791bda910fb8b0f46151f35414abcbb0017"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "43fd62f4fca7ca32ad75d74abce25a386715555a"
+independent_arguments = "none supplied: exact source procedures are probed at the command boundary; independent oracles model allocation, forall, and minval primal behavior without derivative-support claims"
+
+[[case]]
+id = "set03-cm31"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm31"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 66
+selection_features = "pointer=3; type(=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm31/program.f90"
+references = ["nonRegressions/set03/cm31/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes because pointer association storage identity is not tracked for nextObject. The independent oracle checks the allocation and deallocation state transition and makes no derivative-support claim."
+oracle_case = "cm31-pointer-allocation"
+
+[[case]]
+id = "set03-cm32"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm32"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 66
+selection_features = "allocatable=1; pointer=2; type(=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm32/program.f90"
+references = ["nonRegressions/set03/cm32/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at module-level allocatable mutable state. The independent oracle checks allocation and deallocation of the derived component and makes no derivative-support claim."
+oracle_case = "cm32-allocatable-component"
+
+[[case]]
+id = "set05-v194"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v194"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 63
+selection_features = "dimension=21"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v194/program.f90"
+references = ["nonRegressions/set05/v194/program_b.f90", "nonRegressions/set05/v194/program_d.f90", "nonRegressions/set05/v194/program_p.f90"]
+entry_point = "head"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and FortAD parser/forward products are emitted. The exact FortAD reverse command refuses because no dependent can be inferred from the multi-output procedure; this is recorded as a command-boundary result, not an upstream invalidity or derivative-support claim. The independent oracle checks the FORALL primal updates."
+oracle_case = "v194-forall-primal"
+
+[[case]]
+id = "set06-v351"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v351"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 62
+selection_features = "pointer=1; type(=2; procedure=2; interface/bind(c)/iso_c_binding=2; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v351/program.f90"
+references = ["nonRegressions/set06/v351/program_p.f90"]
+entry_point = "d1minval"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes because the generic MINVAL call has no derivative output in the elemental-expansion boundary. The independent oracle checks the minimum of the pointed-to data and makes no derivative-support claim."
+oracle_case = "v351-minval"

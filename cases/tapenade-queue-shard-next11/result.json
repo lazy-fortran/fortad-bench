@@ -1,0 +1,1291 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes because pointer association storage identity is not tracked for nextObject. The independent oracle checks the allocation and deallocation state transition and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "ccf67f2fd44a916f8c7a247ec622b1a0d5ae23f1543ebc4020ea60c104ec57cb",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm31/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "40280072754e5cd824d65d54e914fc0a9339de3a252a09c725de1abc995c223b",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm31/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "exact_source_checks": {
+        "nonRegressions/set03/cm31/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:8:18:\n\n    8 |   subroutine top(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:8:21:\n\n    8 |   subroutine top(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:8:18:\n\n    8 |   subroutine top(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:8:21:\n\n    8 |   subroutine top(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        },
+        "nonRegressions/set03/cm31/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        }
+      },
+      "fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "id": "set03-cm31",
+      "independent_oracle": {
+        "case": "cm31-pointer-allocation",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "next_x": false,
+          "object_next": true,
+          "object_x": false
+        },
+        "refusal": {
+          "boundary": "pointer association storage identity",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.003101,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'nextObject' at line 11: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg",
+              "probe_d.msg~"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.239723,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\nDiff-liveness analysis turned off\n(AD06) Differentiation root procedures (top) have no active input nor output\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.002854,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'nextObject' at line 11: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.f90~",
+              "probe_p.msg",
+              "probe_p.msg~"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.18462,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.007064,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'nextObject' at line 11: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg",
+              "probe_b.msg~"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.380114,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\n(AD06) Differentiation root procedures (top) have no active input nor output\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cm31-pointer-allocation",
+      "probe_fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set03/cm31",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set03/cm31/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=3; type(=3",
+      "selection_score": 66,
+      "source": "nonRegressions/set03/cm31/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm31/program.f90": "f8ba8d4ec08288f6df5d915da80082a4147f2b0bffb5c7afee3c023a1bd8e9a0",
+        "nonRegressions/set03/cm31/program_p.f90": "12a25bdc455b3e5a73e058ae41c62fef5af523afbecc999b7274ee0ad37245d6"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-global-mutable-state",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at module-level allocatable mutable state. The independent oracle checks allocation and deallocation of the derived component and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "3b6291fcd8ee2adf821fa5efc5939df9fcebe995b8c06de7ca69d1f43b296f70",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm32/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "4d44f61cc351377441a98a361b6cfdc104ce1eccfa0dd96fa7d643586168ed51",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm32/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "exact_source_checks": {
+        "nonRegressions/set03/cm32/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:8:18:\n\n    8 |   subroutine top(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:11:28:\n\n   11 |     type(toto), pointer :: nextObject\n      |                            1~~~~~~~~~\nWarning: Unused variable \u2018nextobject\u2019 declared at (1) [-Wunused-variable]\nprogram.f90:8:21:\n\n    8 |   subroutine top(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:8:18:\n\n    8 |   subroutine top(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:11:28:\n\n   11 |     type(toto), pointer :: nextObject\n      |                            1~~~~~~~~~\nWarning: Unused variable \u2018nextobject\u2019 declared at (1) [-Wunused-variable]\nprogram.f90:8:21:\n\n    8 |   subroutine top(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        },
+        "nonRegressions/set03/cm32/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:19:28:\n\n   19 |     TYPE(TOTO), POINTER :: nextobject\n      |                            1~~~~~~~~~\nWarning: Unused variable \u2018nextobject\u2019 declared at (1) [-Wunused-variable]\nprogram_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:19:28:\n\n   19 |     TYPE(TOTO), POINTER :: nextobject\n      |                            1~~~~~~~~~\nWarning: Unused variable \u2018nextobject\u2019 declared at (1) [-Wunused-variable]\nprogram_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        }
+      },
+      "fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "id": "set03-cm32",
+      "independent_oracle": {
+        "case": "cm32-allocatable-component",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "allocated": false,
+          "next": null
+        },
+        "refusal": {
+          "boundary": "module-level allocatable mutable state",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002687,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg",
+              "probe_d.msg~"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.223889,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\nDiff-liveness analysis turned off\n(AD06) Differentiation root procedures (top) have no active input nor output\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.002499,
+            "status": "refused",
+            "stderr": "fortad: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.f90~",
+              "probe_p.msg",
+              "probe_p.msg~"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:12:18:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                  1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_p.f90:19:28:\n\n   19 |     TYPE(TOTO), POINTER :: nextobject\n      |                            1~~~~~~~~~\nWarning: Unused variable \u2018nextobject\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_p.f90:12:21:\n\n   12 |   SUBROUTINE TOP(a, r, object)\n      |                     1\nWarning: Unused dummy argument \u2018r\u2019 at (1) [-Wunused-dummy-argument]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.183191,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.00264,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg",
+              "probe_b.msg~"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.234977,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure top understood as m.top\n(AD06) Differentiation root procedures (top) have no active input nor output\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cm32-allocatable-component",
+      "probe_fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set03/cm32",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set03/cm32/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=1; pointer=2; type(=3",
+      "selection_score": 66,
+      "source": "nonRegressions/set03/cm32/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm32/program.f90": "5cee1c3e2761bfa1ed58abb1ebb838de3a20516e7c35cb97323bd833daafe0b5",
+        "nonRegressions/set03/cm32/program_p.f90": "4addaf007f1db87ea4dbc24a2c063b1392c7b81c4471dc1aa89184ee6ea713d8"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "probed-fortad-generated-no-runtime-claim",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass and FortAD parser/forward products are emitted. The exact FortAD reverse command refuses because no dependent can be inferred from the multi-output procedure; this is recorded as a command-boundary result, not an upstream invalidity or derivative-support claim. The independent oracle checks the FORALL primal updates.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "7c156b852e5146b11ad566cac63560f02c84a3ebf49ad1295370b4c39c483742",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v194/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e51bb6b8c18a75e8e8e92bfdf7f4235cf6c5d58b303ea315abb28b81c0277101",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v194/program_b.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "2bdd90652625950a09e4dae783fc1c324ca90a9eebb91776091d04ede22ea782",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v194/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "87e406cbdb20604ac9995ffda90e621bfde66549ecefdeefa6653f27e5ad62ac",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v194/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "head",
+      "exact_source_checks": {
+        "nonRegressions/set05/v194/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:66:19:\n\n   66 |     call test1(a,b)\n      |                   1\nWarning: Procedure \u2018test1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:67:23:\n\n   67 |     call test2(a,b,c,t)\n      |                       1\nWarning: Procedure \u2018test2\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:68:21:\n\n   68 |     call test3(a,b,u)\n      |                     1\nWarning: Procedure \u2018test3\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:69:25:\n\n   69 |     call test4(a,b,c,t,x)\n      |                         1\nWarning: Procedure \u2018test4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:70:21:\n\n   70 |     call test5(a,b,c)\n      |                     1\nWarning: Procedure \u2018test5\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:35:20:\n\n   35 | subroutine test4(a,b,c,t,x)\n      |                    1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:35:22:\n\n   35 | subroutine test4(a,b,c,t,x)\n      |                      1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...struct at (1)\nprogram.f90:27:22:\n\n   27 |     forall(i = 1:100)\n      |                      1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram.f90:29:23:\n\n   29 |        forall(j = 1:50)\n      |                       1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram.f90:42:32:\n\n   42 |     forall(i = 1:100, t(i) > 0)\n      |                                1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram.f90:52:22:\n\n   52 |     forall(i = 1:100)\n      |                      1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram.f90:66:19:\n\n   66 |     call test1(a,b)\n      |                   1\nWarning: Procedure \u2018test1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:67:23:\n\n   67 |     call test2(a,b,c,t)\n      |                       1\nWarning: Procedure \u2018test2\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:68:21:\n\n   68 |     call test3(a,b,u)\n      |                     1\nWarning: Procedure \u2018test3\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:69:25:\n\n   69 |     call test4(a,b,c,t,x)\n      |                         1\nWarning: Procedure \u2018test4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:70:21:\n\n   70 |     call test5(a,b,c)\n      |                     1\nWarning: Procedure \u2018test5\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f90:35:20:\n\n   35 | subroutine test4(a,b,c,t,x)\n      |                    1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram.f90:35:22:\n\n   35 | subroutine test4(a,b,c,t,x)\n      |                      1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        },
+        "nonRegressions/set05/v194/program_b.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_b.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:72:27:\n\n   72 | SUBROUTINE TEST3_B(a, ab, b, bb, t, tb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:72:34:\n\n   72 | SUBROUTINE TEST3_B(a, ab, b, bb, t, tb)\n      |                                  1\nWarning: Unused dummy argument \u2018t\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:20:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                    1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:27:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:30:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                              1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:107:14:\n\n  107 |   INTEGER :: i\n      |              1\nWarning: Unused variable \u2018i\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:97:36:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                                    1\nWarning: Unused dummy argument \u2018x\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:20:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                    1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:27:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:34:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                                  1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_b.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:72:27:\n\n   72 | SUBROUTINE TEST3_B(a, ab, b, bb, t, tb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:72:34:\n\n   72 | SUBROUTINE TEST3_B(a, ab, b, bb, t, tb)\n      |                                  1\nWarning: Unused dummy argument \u2018t\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:20:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                    1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:27:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:97:30:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                              1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:107:14:\n\n  107 |   INTEGER :: i\n      |              1\nWarning: Unused variable \u2018i\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:97:36:\n\n   97 | SUBROUTINE TEST4_B(a, ab, b, c, t, x, xb)\n      |                                    1\nWarning: Unused dummy argument \u2018x\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:20:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                    1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:27:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:114:34:\n\n  114 | SUBROUTINE TEST5_B(a, ab, b, bb, c, cb)\n      |                                  1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        },
+        "nonRegressions/set05/v194/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f90:22:28:\n\n   22 |   CALL TEST1_D(a, ad, b, bd)\n      |                            1\nWarning: Procedure \u2018test1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:23:38:\n\n   23 |   CALL TEST2_D(a, ad, b, bd, c, cd, t)\n      |                                      1\nWarning: Procedure \u2018test2_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:24:35:\n\n   24 |   CALL TEST3_D(a, ad, b, bd, u, ud)\n      |                                   1\nWarning: Procedure \u2018test3_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:25:37:\n\n   25 |   CALL TEST4_D(a, ad, b, c, t, x, xd)\n      |                                     1\nWarning: Procedure \u2018test4_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:26:35:\n\n   26 |   CALL TEST5_D(a, ad, b, bd, c, cd)\n      |                                   1\nWarning: Procedure \u2018test5_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:95:27:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_d.f90:95:30:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                              1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...L construct at (1)\nprogram_d.f90:23:38:\n\n   23 |   CALL TEST2_D(a, ad, b, bd, c, cd, t)\n      |                                      1\nWarning: Procedure \u2018test2_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:82:19:\n\n   82 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_d.f90:85:20:\n\n   85 |     FORALL (j=1:50)\n      |                    1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_d.f90:24:35:\n\n   24 |   CALL TEST3_D(a, ad, b, bd, u, ud)\n      |                                   1\nWarning: Procedure \u2018test3_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:106:31:\n\n  106 |   FORALL (i=1:100,t(i) .GT. 0)\n      |                               1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_d.f90:25:37:\n\n   25 |   CALL TEST4_D(a, ad, b, c, t, x, xd)\n      |                                     1\nWarning: Procedure \u2018test4_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:125:19:\n\n  125 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_d.f90:26:35:\n\n   26 |   CALL TEST5_D(a, ad, b, bd, c, cd)\n      |                                   1\nWarning: Procedure \u2018test5_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:95:27:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_d.f90:95:30:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                              1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        },
+        "nonRegressions/set05/v194/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:13:18:\n\n   13 |   CALL TEST1(a, b)\n      |                  1\nWarning: Procedure \u2018test1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:14:24:\n\n   14 |   CALL TEST2(a, b, c, t)\n      |                        1\nWarning: Procedure \u2018test2\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:15:21:\n\n   15 |   CALL TEST3(a, b, u)\n      |                     1\nWarning: Procedure \u2018test3\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:16:27:\n\n   16 |   CALL TEST4(a, b, c, t, x)\n      |                           1\nWarning: Procedure \u2018test4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:17:21:\n\n   17 |   CALL TEST5(a, b, c)\n      |                     1\nWarning: Procedure \u2018test5\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:57:21:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                     1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:57:24:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                        1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...                            1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_p.f90:14:24:\n\n   14 |   CALL TEST2(a, b, c, t)\n      |                        1\nWarning: Procedure \u2018test2\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:51:19:\n\n   51 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_p.f90:53:37:\n\n   53 |     FORALL (j=1:50)  t(i, j) = j*a(i)\n      |                                     1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_p.f90:15:21:\n\n   15 |   CALL TEST3(a, b, u)\n      |                     1\nWarning: Procedure \u2018test3\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:66:47:\n\n   66 |   FORALL (i=1:100,t(i) .GT. 0)  a(i) = a(i) + x\n      |                                               1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_p.f90:16:27:\n\n   16 |   CALL TEST4(a, b, c, t, x)\n      |                           1\nWarning: Procedure \u2018test4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:76:19:\n\n   76 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\nprogram_p.f90:17:21:\n\n   17 |   CALL TEST5(a, b, c)\n      |                     1\nWarning: Procedure \u2018test5\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:57:21:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                     1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_p.f90:57:24:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                        1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+          }
+        }
+      },
+      "fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "id": "set05-v194",
+      "independent_oracle": {
+        "case": "v194-forall-primal",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "sample": 4.0,
+          "updated_even_indices": 50
+        },
+        "refusal": {
+          "boundary": "no inferred reverse dependent",
+          "status": "observed"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "...DIR/probe_d.f90:13:33:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                 1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_d.f90:13:36:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                    1~~\nError: Symbol \u2018b_d\u2019 at (1) has no IMPLICIT type; did you mean \u2018x_d\u2019?\n$RESULT_DIR/probe_d.f90:13:41:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                         1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_d.f90:13:44:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                            1~~\nError: Symbol \u2018c_d\u2019 at (1) has no IMPLICIT type; did you mean \u2018x_d\u2019?\n$RESULT_DIR/probe_d.f90:13:49:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                                 1\nError: Symbol \u2018t\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_d.f90:13:52:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                                    1~~\nError: Symbol \u2018t_d\u2019 at (1) has no IMPLICIT type; did you mean \u2018x_d\u2019?\n$RESULT_DIR/probe_d.f90:13:57:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                                         1\nError: Symbol \u2018u\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_d.f90:13:60:\n\n   13 |     subroutine head_jvp(a, a_d, b, b_d, c, c_d, t, t_d, u, u_d, x, x_d)\n      |                                                            1~~\nError: Symbol \u2018u_d\u2019 at (1) has no IMPLICIT type; did you mean \u2018x_d\u2019?\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.018152,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...    |                                      1\nWarning: Procedure \u2018test2_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_d.f90:82:19:\n\n   82 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_d.f90:85:20:\n\n   85 |     FORALL (j=1:50)\n      |                    1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_d.f90:24:35:\n\n   24 |   CALL TEST3_D(a, ad, b, bd, u, ud)\n      |                                   1\nWarning: Procedure \u2018test3_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_d.f90:106:31:\n\n  106 |   FORALL (i=1:100,t(i) .GT. 0)\n      |                               1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_d.f90:25:37:\n\n   25 |   CALL TEST4_D(a, ad, b, c, t, x, xd)\n      |                                     1\nWarning: Procedure \u2018test4_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_d.f90:125:19:\n\n  125 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_d.f90:26:35:\n\n   26 |   CALL TEST5_D(a, ad, b, bd, c, cd)\n      |                                   1\nWarning: Procedure \u2018test5_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_d.f90:95:27:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_d.f90:95:30:\n\n   95 | SUBROUTINE TEST4_D(a, ad, b, c, t, x, xd)\n      |                              1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.467784,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "$RESULT_DIR/probe_p.f90:4:20:\n\n    4 |     real, dimension(n) :: a\n      |                    1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n$RESULT_DIR/probe_p.f90:5:20:\n\n    5 |     real, dimension(n) :: b\n      |                    1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n$RESULT_DIR/probe_p.f90:6:20:\n\n    6 |     real, dimension(n) :: c\n      |                    1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n$RESULT_DIR/probe_p.f90:7:20:\n\n    7 |     real, dimension(n) :: t\n      |                    1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n$RESULT_DIR/probe_p.f90:8:20:\n\n    8 |     real, dimension(n,n) :: u\n      |                    1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n$RESULT_DIR/probe_p.f90:16:7:\n\n   16 |     a(i) = 2 * b(i)\n      |       1\nError: Symbol \u2018i\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_p.f90:20:10:\n\n   20 |     u(i, j) = j * a(i)\n      |          1\nError: Symbol \u2018j\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_p.f90:8:22:\n\n    8 |     real, dimension(n,n) :: u\n      |                      1\nError: Variable \u2018n\u2019 cannot appear in the expression at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.007609,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...SULT_DIR/probe_p.f90:14:24:\n\n   14 |   CALL TEST2(a, b, c, t)\n      |                        1\nWarning: Procedure \u2018test2\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_p.f90:51:19:\n\n   51 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_p.f90:53:37:\n\n   53 |     FORALL (j=1:50)  t(i, j) = j*a(i)\n      |                                     1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_p.f90:15:21:\n\n   15 |   CALL TEST3(a, b, u)\n      |                     1\nWarning: Procedure \u2018test3\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_p.f90:66:47:\n\n   66 |   FORALL (i=1:100,t(i) .GT. 0)  a(i) = a(i) + x\n      |                                               1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_p.f90:16:27:\n\n   16 |   CALL TEST4(a, b, c, t, x)\n      |                           1\nWarning: Procedure \u2018test4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_p.f90:76:19:\n\n   76 |   FORALL (i=1:100)\n      |                   1\nWarning: Fortran 2018 obsolescent feature: FORALL construct at (1)\n$RESULT_DIR/probe_p.f90:17:21:\n\n   17 |   CALL TEST5(a, b, c)\n      |                     1\nWarning: Procedure \u2018test5\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_p.f90:57:21:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                     1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_p.f90:57:24:\n\n   57 | SUBROUTINE TEST4(a, b, c, t, x)\n      |                        1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.20848,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.039813,
+            "status": "refused",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "...0:100:29:\n\n  100 |  100 CALL POPCONTROL1B(branch)\n      |                             1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_b.f90:25:35:\n\n   25 |   CALL TEST3_B(a, ab, b, bb, u, ub)\n      |                                   1\nWarning: Procedure \u2018test3_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:69:29:\n\n   69 |  100 CALL POPCONTROL1B(branch)\n      |                             1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_b.f90:67:23:\n\n   67 |   CALL PUSHCONTROL1B(0)\n      |                       1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:69:29:\n\n   69 |  100 CALL POPCONTROL1B(branch)\n      |                             1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_b.f90:26:38:\n\n   26 |   CALL TEST2_B(a, ab, b, bb, c, cb, t)\n      |                                      1\nWarning: Procedure \u2018test2_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:44:29:\n\n   44 |  100 CALL POPCONTROL1B(branch)\n      |                             1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_b.f90:42:23:\n\n   42 |   CALL PUSHCONTROL1B(0)\n      |                       1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:44:29:\n\n   44 |  100 CALL POPCONTROL1B(branch)\n      |                             1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/probe_b.f90:27:28:\n\n   27 |   CALL TEST1_B(a, ab, b, bb)\n      |                            1\nWarning: Procedure \u2018test1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.359169,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\nTool: (DD99) Warning: feature of Fortran 90/95 not supported: forall\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "v194-forall-primal",
+      "probe_fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set05/v194",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set05/v194/program_b.f90",
+        "nonRegressions/set05/v194/program_d.f90",
+        "nonRegressions/set05/v194/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "dimension=21",
+      "selection_score": 63,
+      "source": "nonRegressions/set05/v194/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set05/v194/program.f90": "1d422898f9346df86d5f2c9c3cb4e73cfe895068fb39f990e08fbcab182517fb",
+        "nonRegressions/set05/v194/program_b.f90": "2501c417a9d3d5cb85c8151977328737d0e56cf35a0f1a4f25090bd1c0e122cb",
+        "nonRegressions/set05/v194/program_d.f90": "287e4db03f33b96ebb2a69c962ac008a693ebbdd950db9848ac8568d801fee2a",
+        "nonRegressions/set05/v194/program_p.f90": "742f3765219a6fd03562c973be58043fd9919aac0c53f3f574b440a27d1edab6"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-generic-intrinsic",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes because the generic MINVAL call has no derivative output in the elemental-expansion boundary. The independent oracle checks the minimum of the pointed-to data and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "f2e1620be2f7b3ff3f84cac6b5d76e3d1976a01670519c7e79de72123c6ac436",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v351/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "495501442088ab075b60ee0373b871d0a440e237d575b20d9d45224fb19537ba",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v351/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "d1minval",
+      "exact_source_checks": {
+        "nonRegressions/set06/v351/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:23:15:\n\n   23 |     d2minval = minval(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\nprogram.f90:17:15:\n\n   17 |     d1minval = minval(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:23:15:\n\n   23 |     d2minval = minval(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\nprogram.f90:17:15:\n\n   17 |     d1minval = minval(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n"
+          }
+        },
+        "nonRegressions/set06/v351/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:29:15:\n\n   29 |     d2minval = MINVAL(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\nprogram_p.f90:21:15:\n\n   21 |     d1minval = MINVAL(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:29:15:\n\n   29 |     d2minval = MINVAL(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\nprogram_p.f90:21:15:\n\n   21 |     d1minval = MINVAL(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n"
+          }
+        }
+      },
+      "fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "id": "set06-v351",
+      "independent_oracle": {
+        "case": "v351-minval",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "minval": -2.0
+        },
+        "refusal": {
+          "boundary": "generic MINVAL derivative output",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "d1minval",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.003774,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: elemental-expansion generic call 'minval' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "d1minval",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.f90~",
+              "probe_d.msg",
+              "probe_d.msg~"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "$RESULT_DIR/probe_d.f90:31:21:\n\n   31 |     EXTERNAL MINVAL_D\n      |                     1\nError: Symbol \u2018minval_d\u2019 at (1) has no IMPLICIT type; did you mean \u2018d1minval_d\u2019?\n$RESULT_DIR/probe_d.f90:48:15:\n\n   48 |     d2minval = MINVAL(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_d.f90:40:15:\n\n   40 |     d1minval = MINVAL(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_d.f90:32:17:\n\n   32 |     d1minval_d = MINVAL_D(t%dat, td%dat, d1minval)\n      |                 1\nWarning: Procedure \u2018minval_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_d.f90:32:17:\n\n   32 |     d1minval_d = MINVAL_D(t%dat, td%dat, d1minval)\n      |                 1\nError: Cannot convert UNKNOWN to REAL(4) at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.291088,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure d1minval understood as m.d1minval\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "d1minval",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.005972,
+            "status": "refused",
+            "stderr": "fortad: elemental-expansion generic call 'minval' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "d1minval",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.f90~",
+              "probe_p.msg",
+              "probe_p.msg~"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:29:15:\n\n   29 |     d2minval = MINVAL(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_p.f90:21:15:\n\n   21 |     d1minval = MINVAL(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.300669,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure d1minval understood as m.d1minval\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "d1minval",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.006305,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: elemental-expansion generic call 'minval' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "d1minval",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.f90~",
+              "probe_b.msg",
+              "probe_b.msg~"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_b.f90:49:15:\n\n   49 |     d2minval = MINVAL(t(1)%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_b.f90:41:15:\n\n   41 |     d1minval = MINVAL(t%dat)\n      |               1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_b.f90:33:43:\n\n   33 |     CALL MINVAL_B(t%dat, tb%dat, d1minvalb)\n      |                                           1\nWarning: Procedure \u2018minval_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:29:13:\n\n   29 |     REAL :: d1minval\n      |             1~~~~~~~\nWarning: Unused variable \u2018d1minval\u2019 declared at (1) [-Wunused-variable]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.332923,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure d1minval understood as m.d1minval\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "v351-minval",
+      "probe_fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set06/v351",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set06/v351/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=1; type(=2; procedure=2; interface/bind(c)/iso_c_binding=2; dimension=2",
+      "selection_score": 62,
+      "source": "nonRegressions/set06/v351/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set06/v351/program.f90": "44b2c44831e5d3acbc599fbc1799dd218d3ae6738fd93f037608d714d1a8bd1c",
+        "nonRegressions/set06/v351/program_p.f90": "6907002234e9b70873964e41289b5e9b6b90c438ae94c494aaf6cfd46b522f9f"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "4bc7a1eacde77b615e91084f132d7791bda910fb8b0f46151f35414abcbb0017",
+  "current_queue_sha256": "026d5d74f7b1a660beee4158587a16199e6ae6ec30a57073ecfce34c673fd8ee",
+  "fortad_revision": "43fd62f4fca7ca32ad75d74abce25a386715555a",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "schema_version": 1,
+  "selection_batch_sha256": "99d4c719259c5bd5ffd3b23ee6adfbf59254e85b637d5d0c476513c9492a7c4c",
+  "selection_queue_sha256": "96e0b103d43b244a9d45fb835643588a1eeaab08d2015e35d98d333275122202",
+  "shard_id": "tapenade-fortran-queue-shard-next11",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}
