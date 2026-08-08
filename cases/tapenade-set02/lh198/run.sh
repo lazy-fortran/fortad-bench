@@ -11,7 +11,7 @@ fc=${FC:-gfortran}
 result="$case_dir/result.txt"
 source_rel=nonRegressions/set02/lh198
 source_dir="$tapenade_repo/$source_rel"
-required_fortad_commit=ac045ebd44281ae559d1279fdfe7370a97a74a47
+required_fortad_commit=6a33d314c5b1a8adf8b9ed989741612fe09ab6b0
 required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
 out=$(mktemp -d /var/tmp/fortad-bench-tapenade-set02-lh198.XXXXXX)
 trap 'rm -rf "$out"' EXIT

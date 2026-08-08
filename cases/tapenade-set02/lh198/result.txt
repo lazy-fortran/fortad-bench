@@ -1,12 +1,12 @@
 case: Tapenade nonRegressions/set02/lh198 top(x,y) COMMON numbering
 classification: expected-refusal-fortad-common-block-call-boundary
 runner_result: pass
-recorded_utc: 2026-08-08T00:46:25Z
+recorded_utc: 2026-08-08T00:48:09Z
 machine: mailuefterl
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
 legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
-fortad_commit: ac045ebd44281ae559d1279fdfe7370a97a74a47
+fortad_commit: 6a33d314c5b1a8adf8b9ed989741612fe09ab6b0
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 entry_point: top(x,y)
 tapenade_options: parser=-p tangent=-d reverse=-b -root top; Options=-context -nooptim stripPrimalCode
@@ -43,9 +43,9 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  tangent/lh198_
 e778823c2718f827c68e45212cd6a6dcd26da138bb68e0e2956cc4f9aa0aabcd  reverse/lh198_fresh_b.f
 f5893de92307ca92633bbe78eb2a7a84e63a7c202ca715f58118a4e40ca81e19  reverse/lh198_fresh_b.msg
 case_artifact_sha256:
-5e49894016ddeb13e0295caf98fa75b659ab53784873191ecfd71e6b5b5d58da  manifest.toml
+549fbb086a6a50640431191a119d889912ab4f06a0ecc3d6a6d95c10ef5d5756  manifest.toml
 1156994fbf5a2d206ac7e4e31ca8b72282912d0f9534e5064f422b5a3e02a087  notes.md
 f22dc37950044a98088bbef72793b780af02dfcbb1fdf55a59871d5e9a990b78  oracle.py
-b0bb3f27182fb2e3441fd54e307ad07009e7c1bb11870071050683c554496bb8  run.sh
-3522bd07be31f65d155f64b7f6af36a965c21cebfa00c529fc235df192a9c1cc  test_contract.py
+81034386c0e7f9f80f3dcbc39f09ce4e81fb569f254f848f78efd6b601f54380  run.sh
+1f942682c8a13916ac158a136f07d0f26a0802d311cefe234a6f73507d299cb7  test_contract.py
 closure: valid exact source and fresh Tapenade products; current FortAD check passes but forward/reverse deliberately refuse the AAA call; no repaired source or support claim
