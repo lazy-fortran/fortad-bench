@@ -119,6 +119,8 @@ class CommittedLedgerTests(unittest.TestCase):
             }
         }
         self.assertEqual(evidence_paths, {
+            "nonRegressions/set04/lh109",
+            "nonRegressions/set04/lh121",
             "nonRegressions/set04/lh111",
             "nonRegressions/set07/v479",
             "nonRegressions/set07/v520",
@@ -138,6 +140,8 @@ class CommittedLedgerTests(unittest.TestCase):
             "nonRegressions/set12/f03typf02",
             "nonRegressions/set12/mvo35",
             "nonRegressions/set12/mvo34",
+            "nonRegressions/set12/mvo31",
+            "nonRegressions/set12/mvo32",
             "todoF90/REFERENCES/bd01",
             "todoF90/REFERENCES/bd11",
             "todoF90/REFERENCES/v01",
@@ -374,7 +378,7 @@ class CommittedLedgerTests(unittest.TestCase):
         })
         self.assertEqual(
             sum(row["status"] == "untriaged" for row in ledger),
-            1257,
+            1253,
         )
 
 
