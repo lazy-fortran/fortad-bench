@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next18"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows after next17 in the branch-base queue order: set01/lh099, set01/lh101, set01/lh106, and set01/lh108. The order is not reordered for convenience; dependency and legacy/global-state boundaries remain explicit."
+selection_queue_sha256 = "ed730a91e19e14462cb21ac087bb29e0e15319d472a5c3dbd3799161513c717d"
+selection_batch_sha256 = "437bfaad9f0645d35064b0094d698b1d45c83a60a008ec972b258bce4a421b13"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "fc285f0ed2ff9692c1827f66e3ffb5e4d06b3ee4"
+independent_arguments = "each oracle independently models the defined primal state or explicit FortAD refusal boundary; no derivative result is claimed for DO WHILE, COMMON, undefined-storage, or unresolved dependent-output cases"
+
+[[case]]
+id = "set01-lh099"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh099"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh099/program.f"
+references = ["nonRegressions/set01/lh099/program_b.f", "nonRegressions/set01/lh099/program_d.f", "nonRegressions/set01/lh099/program_dv.f", "nonRegressions/set01/lh099/program_p.f"]
+entry_point = "expandintest"
+classification = "unsupported-fortad-do-while"
+closure = "The exact pinned source and fresh Tapenade parser, forward, and reverse probes run. FortAD refuses all three modes at the DO WHILE statement; the independent bounded-loop oracle checks the defined fixed-index state transition without claiming a derivative for the unsupported loop contract."
+oracle_case = "lh099-do-while"
+
+[[case]]
+id = "set01-lh101"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh101"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh101/program.f"
+references = ["nonRegressions/set01/lh101/program_b.f", "nonRegressions/set01/lh101/program_d.f", "nonRegressions/set01/lh101/program_dv.f", "nonRegressions/set01/lh101/program_p.f"]
+entry_point = "top"
+classification = "unsupported-invalid-upstream-fortran"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run, but independent strict and legacy compilation reject the exact source: a non-SEQUENCE derived type is placed in COMMON and the implicit SSS1 interface has incompatible types. FortAD also refuses all three modes during early argument inference; this is recorded as invalid upstream, not as evidence that FortAD should support the source."
+oracle_case = "lh101-derived-common"
+
+[[case]]
+id = "set01-lh106"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh106"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh106/program.f"
+references = ["nonRegressions/set01/lh106/program_b.f", "nonRegressions/set01/lh106/program_d.f", "nonRegressions/set01/lh106/program_dv.f", "nonRegressions/set01/lh106/program_p.f"]
+entry_point = "top"
+classification = "unsupported-fortad-dependent-inference"
+closure = "The exact pinned source and fresh Tapenade parser, forward, and reverse probes run. FortAD parser and forward products are emitted; reverse refuses because top has multiple mutated/output values and no dependent is specified. The independent oracle checks the deterministic primal trace and its analytic output relation; the refusal is the explicit dependent-selection boundary."
+oracle_case = "lh106-multiple-outputs"
+
+[[case]]
+id = "set01-lh108"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh108"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh108/program.f"
+references = ["nonRegressions/set01/lh108/program_b.f", "nonRegressions/set01/lh108/program_d.f", "nonRegressions/set01/lh108/program_dv.f", "nonRegressions/set01/lh108/program_p.f"]
+entry_point = "adj3"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "The exact pinned source and fresh Tapenade parser, forward, and reverse probes run. FortAD refuses all three modes at the COMMON-backed storage/call boundary; the source also contains undefined local indices and values, so the independent oracle checks only the explicit common-state/refusal boundary and makes no numeric derivative claim."
+oracle_case = "lh108-common-undefined-storage"
