@@ -1,0 +1,1637 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-invalid-generated-interface",
+      "closure": "The exact legacy source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD's parser product loses the original declarations and is not strict-compilable; automatic forward and reverse probing also refuses because the source has no inferable active set or selected dependent. The independent branch/Jacobian oracle checks the defined legacy primal without claiming exact-source derivative support.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "2b95252926997390d42d25f1da4fca43208e3cf864519d24db1ac0f97db280ba",
+          "failure_kind": "compiler-diagnostic",
+          "path": "nonRegressions/set01/lh110/program.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        },
+        {
+          "diagnostic_hash": "9131d98ce583dfdbd192ba005778bbf902a8ee56756ce0df15b5fe98702099e8",
+          "failure_kind": "compiler-diagnostic",
+          "path": "nonRegressions/set01/lh110/program_b.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        },
+        {
+          "diagnostic_hash": "0ebb08980f361bd9faaf6ba4f310cfeeb7c79cfcda46fa1da323eca573f047df",
+          "failure_kind": "compiler-diagnostic",
+          "path": "nonRegressions/set01/lh110/program_d.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-errors",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "foo",
+      "exact_source_checks": {
+        "nonRegressions/set01/lh110/program.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-nv8gale5",
+              "program.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f:3:14:\n\n    3 |        real*8 a,b,c,d\n      |              1\nWarning: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-nv8gale5",
+              "program.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program.f:3:14:\n\n    3 |        real*8 a,b,c,d\n      |              1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh110/program_b.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-hdlbf3zl",
+              "program_b.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_b.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nWarning: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_b.f:12:13:\n\n   12 |       REAL*8 bb, cb\n      |             1\nWarning: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_b.f:8:27:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                           1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:8:34:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                                  1\nWarning: Unused dummy argument \u2018c\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:8:41:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                                         1\nWarning: Unused dummy argument \u2018d\u2019 at (1) [-Wunused-dummy-argument]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-hdlbf3zl",
+              "program_b.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program_b.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_b.f:12:13:\n\n   12 |       REAL*8 bb, cb\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_b.f:8:24:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                        1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\nprogram_b.f:8:27:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                           1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\nprogram_b.f:8:30:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                              1~\nError: Symbol \u2018bb\u2019 at (1) has no IMPLICIT type\nprogram_b.f:8:34:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                                  1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\nprogram_b.f:8:37:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                                     1~\nError: Symbol \u2018cb\u2019 at (1) has no IMPLICIT type\nprogram_b.f:8:41:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, e)\n      |                                         1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh110/program_d.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-h1kr43_d",
+              "program_d.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nWarning: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_d.f:12:13:\n\n   12 |       REAL*8 bd, cd\n      |             1\nWarning: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh110",
+              "-J/var/tmp/fortad-next18-source-h1kr43_d",
+              "program_d.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program_d.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_d.f:12:13:\n\n   12 |       REAL*8 bd, cd\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\nprogram_d.f:8:24:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                        1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\nprogram_d.f:8:27:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                           1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\nprogram_d.f:8:30:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                              1~\nError: Symbol \u2018bd\u2019 at (1) has no IMPLICIT type\nprogram_d.f:8:34:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                                  1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\nprogram_d.f:8:37:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                                     1~\nError: Symbol \u2018cd\u2019 at (1) has no IMPLICIT type\nprogram_d.f:8:41:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, e)\n      |                                         1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n",
+            "stdout": ""
+          }
+        }
+      },
+      "fortad_revision": "4f7b59ec089da6d113ae715ef79d5b57140cbf98",
+      "id": "set01-lh110",
+      "independent_oracle": {
+        "boundary": "legacy REAL*8 plus automatic independent/dependent inference",
+        "jacobian": [
+          [
+            0.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            10.0,
+            0.0
+          ]
+        ],
+        "outputs": {
+          "c": 7.0,
+          "d": 25.0
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "foo",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002372,
+            "status": "refused",
+            "stderr": "fortad: could not infer independent variables for foo; use the explicit NAMES argument or --indep NAMES",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-moj3yg61",
+                  "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:12:13:\n\n   12 |       REAL*8 bd, cd, dd\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:24:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                        1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:27:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                           1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:30:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                              1~\nError: Symbol \u2018bd\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:34:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                                  1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:37:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                                     1~\nError: Symbol \u2018cd\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:41:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                                         1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f:8:44:\n\n    8 |       SUBROUTINE FOO_D(a, b, bd, c, cd, d, dd, e)\n      |                                            1~\nError: Symbol \u2018dd\u2019 at (1) has no IMPLICIT type\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.213882,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.f \n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "foo",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-6d4j4t6i",
+                  "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90:1:16:\n\n    1 | subroutine foo(a, b, c, d, e)\n      |                1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90:1:19:\n\n    1 | subroutine foo(a, b, c, d, e)\n      |                   1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90:1:22:\n\n    1 | subroutine foo(a, b, c, d, e)\n      |                      1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90:1:25:\n\n    1 | subroutine foo(a, b, c, d, e)\n      |                         1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/fortad/probe_p.f90:1:28:\n\n    1 | subroutine foo(a, b, c, d, e)\n      |                            1\nError: Symbol \u2018e\u2019 at (1) has no IMPLICIT type\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.002554,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-n7_59dqh",
+                  "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f:7:13:\n\n    7 |       REAL*8 a, b, c, d\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f:4:22:\n\n    4 |       SUBROUTINE FOO(a, b, c, d, e)\n      |                      1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f:4:25:\n\n    4 |       SUBROUTINE FOO(a, b, c, d, e)\n      |                         1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f:4:28:\n\n    4 |       SUBROUTINE FOO(a, b, c, d, e)\n      |                            1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f:4:31:\n\n    4 |       SUBROUTINE FOO(a, b, c, d, e)\n      |                               1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.17833,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.f \n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "foo",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002803,
+            "status": "refused",
+            "stderr": "fortad: could not infer independent variables for foo; use the explicit NAMES argument or --indep NAMES",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f"
+            ],
+            "generated": [
+              "probe_b.f",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-c7e_58wt",
+                  "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:11:13:\n\n   11 |       REAL*8 a, b, c, d\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:12:13:\n\n   12 |       REAL*8 bb, cb, db\n      |             1\nError: GNU Extension: Nonstandard type declaration REAL*8 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:13:16:\n\n   13 |       INTEGER*4 branch\n      |                1\nError: GNU Extension: Nonstandard type declaration INTEGER*4 at (1)\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:24:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                        1\nError: Symbol \u2018a\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:27:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                           1\nError: Symbol \u2018b\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:30:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                              1~\nError: Symbol \u2018bb\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:34:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                                  1\nError: Symbol \u2018c\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:37:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                                     1~\nError: Symbol \u2018cb\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:41:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                                         1\nError: Symbol \u2018d\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:8:44:\n\n    8 |       SUBROUTINE FOO_B(a, b, bb, c, cb, d, db, e)\n      |                                            1~\nError: Symbol \u2018db\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:22:30:\n\n   22 |       CALL POPCONTROL1B(branch)\n      |                              1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:17:29:\n\n   17 |         CALL PUSHCONTROL1B(0)\n      |                             1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:19:29:\n\n   19 |         CALL PUSHCONTROL1B(1)\n      |                             1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f:22:30:\n\n   22 |       CALL POPCONTROL1B(branch)\n      |                              1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.245101,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.f \n@@ Created /var/tmp/fortad-bench-next19/lh110/nonRegressions__set01__lh110__foo/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "lh110-legacy-inference",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set01/lh110",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set01/lh110/program_b.f",
+        "nonRegressions/set01/lh110/program_d.f"
+      ],
+      "source": "nonRegressions/set01/lh110/program.f",
+      "source_reference_sha256": {
+        "nonRegressions/set01/lh110/program.f": "01d2d29e73e0ce83adcc46fc9523bb5f3ff0effda1c953b1a862f2f8e07244ae",
+        "nonRegressions/set01/lh110/program_b.f": "cbecae38a7488508419dd01391171205496585c4e7ddcb3c32ddd0a0152afb3d",
+        "nonRegressions/set01/lh110/program_d.f": "469db24ef956de822be3b46dae0c431b449731d5ed25fa09567ec3be55accbde"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-dependent-inference",
+      "closure": "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD emits strict-compilable parser and forward products, while automatic reverse refuses because top mutates multiple array values and no dependent was selected. The independent recurrence oracle checks the defined primal/liveness trace; this is an explicit inference boundary, not a refusal of array arithmetic.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "7a0fd35744b4f04970f7ff98ae885236a093689c180e9cd2cc8f331e1e919e73",
+          "failure_kind": "none",
+          "path": "nonRegressions/set01/lh111/program.f",
+          "source_kind": "fixed",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "3c52014f583a79bfff02bf10de918753a7ddef35e3a90edc8991ade68cbd2e59",
+          "failure_kind": "none",
+          "path": "nonRegressions/set01/lh111/program_b.f",
+          "source_kind": "fixed",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "72d7df56e8d7f0a1b4c13edc6b9009cfb9083ac18c1b974fdd1313b40cd5b9b9",
+          "failure_kind": "none",
+          "path": "nonRegressions/set01/lh111/program_d.f",
+          "source_kind": "fixed",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "exact_source_checks": {
+        "nonRegressions/set01/lh111/program.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-x6778a1w",
+              "program.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f:8:26:\n\n    8 |       call make_L1(T,U,L1)\n      |                          1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:9:29:\n\n    9 |       call use1_L1(T,U,L1,L2)\n      |                             1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:10:32:\n\n   10 |       call use2_L1(T,V,L1,L2,L3)\n      |                                1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:11:33:\n\n   11 |       call overw_L1(V,W,L1,L2,L3)\n      |                                 1\nWarning: Procedure \u2018overw_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-x6778a1w",
+              "program.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f:8:26:\n\n    8 |       call make_L1(T,U,L1)\n      |                          1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:9:29:\n\n    9 |       call use1_L1(T,U,L1,L2)\n      |                             1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:10:32:\n\n   10 |       call use2_L1(T,V,L1,L2,L3)\n      |                                1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:11:33:\n\n   11 |       call overw_L1(V,W,L1,L2,L3)\n      |                                 1\nWarning: Procedure \u2018overw_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh111/program_b.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-747oy6gi",
+              "program_b.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_b.f:19:28:\n\n   19 |       CALL MAKE_L1(t, u, l1)\n      |                            1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:20:32:\n\n   20 |       CALL USE1_L1(t, u, l1, l2)\n      |                                1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:21:35:\n\n   21 |       CALL PUSHREAL4ARRAY(l2, 1000)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:22:36:\n\n   22 |       CALL USE2_L1(t, v, l1, l2, l3)\n      |                                    1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:33:62:\n\n   33 |       CALL OVERW_L1_B(v, vb, w, wb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:34:34:\n\n   34 |       CALL POPREAL4ARRAY(l2, 1000)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:84:29:\n\n   84 |         CALL PUSHREAL4(l2(i))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:88:28:\n\n   88 |         CALL POPREAL4(l2(i))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:35:61:\n\n   35 |       CALL USE2_L1_B(t, tb, v, vb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:36:52:\n\n   36 |       CALL USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:37:43:\n\n   37 |       CALL MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                           1\nWarning: Procedure \u2018make_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:44:42:\n\n   44 |       SUBROUTINE MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                          1~\nWarning: Unused dummy argument \u2018l1\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:60:51:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                   1~\nWarning: Unused dummy argument \u2018l2\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:60:35:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                   1\nWarning: Unused dummy argument \u2018u\u2019 at (1) [-Wunused-dummy-argument]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-747oy6gi",
+              "program_b.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_b.f:19:28:\n\n   19 |       CALL MAKE_L1(t, u, l1)\n      |                            1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:20:32:\n\n   20 |       CALL USE1_L1(t, u, l1, l2)\n      |                                1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:21:35:\n\n   21 |       CALL PUSHREAL4ARRAY(l2, 1000)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:22:36:\n\n   22 |       CALL USE2_L1(t, v, l1, l2, l3)\n      |                                    1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:33:62:\n\n   33 |       CALL OVERW_L1_B(v, vb, w, wb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:34:34:\n\n   34 |       CALL POPREAL4ARRAY(l2, 1000)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:84:29:\n\n   84 |         CALL PUSHREAL4(l2(i))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:88:28:\n\n   88 |         CALL POPREAL4(l2(i))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:35:61:\n\n   35 |       CALL USE2_L1_B(t, tb, v, vb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:36:52:\n\n   36 |       CALL USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:37:43:\n\n   37 |       CALL MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                           1\nWarning: Procedure \u2018make_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:44:42:\n\n   44 |       SUBROUTINE MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                          1~\nWarning: Unused dummy argument \u2018l1\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:60:51:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                   1~\nWarning: Unused dummy argument \u2018l2\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f:60:35:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                   1\nWarning: Unused dummy argument \u2018u\u2019 at (1) [-Wunused-dummy-argument]\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh111/program_d.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-e9frgyof",
+              "program_d.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f:22:43:\n\n   22 |       CALL MAKE_L1_D(t, td, u, ud, l1, l1d)\n      |                                           1\nWarning: Procedure \u2018make_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:26:52:\n\n   26 |       CALL USE1_L1_D(t, td, u, ud, l1, l1d, l2, l2d)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:30:61:\n\n   30 |       CALL USE2_L1_D(t, td, v, vd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:31:62:\n\n   31 |       CALL OVERW_L1_D(v, vd, w, wd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh111",
+              "-J/var/tmp/fortad-next18-source-e9frgyof",
+              "program_d.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f:22:43:\n\n   22 |       CALL MAKE_L1_D(t, td, u, ud, l1, l1d)\n      |                                           1\nWarning: Procedure \u2018make_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:26:52:\n\n   26 |       CALL USE1_L1_D(t, td, u, ud, l1, l1d, l2, l2d)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:30:61:\n\n   30 |       CALL USE2_L1_D(t, td, v, vd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f:31:62:\n\n   31 |       CALL OVERW_L1_D(v, vd, w, wd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          }
+        }
+      },
+      "fortad_revision": "4f7b59ec089da6d113ae715ef79d5b57140cbf98",
+      "id": "set01-lh111",
+      "independent_oracle": {
+        "boundary": "multiple mutated arrays require explicit reverse dependent selection",
+        "n": 8,
+        "outputs": {
+          "l1_interior": 50.0,
+          "v2": -15.0
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-n4qs3f7n",
+                  "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/fortad/probe_d.f90"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.013113,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-tew_h_db",
+                  "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f:22:43:\n\n   22 |       CALL MAKE_L1_D(t, td, u, ud, l1, l1d)\n      |                                           1\nWarning: Procedure \u2018make_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f:26:52:\n\n   26 |       CALL USE1_L1_D(t, td, u, ud, l1, l1d, l2, l2d)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f:30:61:\n\n   30 |       CALL USE2_L1_D(t, td, v, vd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f:31:62:\n\n   31 |       CALL OVERW_L1_D(v, vd, w, wd, l1, l1d, l2, l2d, l3, l3d)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.286429,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.f \n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-qhxefgo9",
+                  "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/fortad/probe_p.f90"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.007347,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-iu8pqe7d",
+                  "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f:12:28:\n\n   12 |       CALL MAKE_L1(t, u, l1)\n      |                            1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f:13:32:\n\n   13 |       CALL USE1_L1(t, u, l1, l2)\n      |                                1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f:14:36:\n\n   14 |       CALL USE2_L1(t, v, l1, l2, l3)\n      |                                    1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f:15:37:\n\n   15 |       CALL OVERW_L1(v, w, l1, l2, l3)\n      |                                     1\nWarning: Procedure \u2018overw_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.216521,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.f \n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.011206,
+            "status": "refused",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_b.f",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-2qtjknsu",
+                  "/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "l1)\n      |                            1\nWarning: Procedure \u2018make_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:20:32:\n\n   20 |       CALL USE1_L1(t, u, l1, l2)\n      |                                1\nWarning: Procedure \u2018use1_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:21:35:\n\n   21 |       CALL PUSHREAL4ARRAY(l2, 1000)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:22:36:\n\n   22 |       CALL USE2_L1(t, v, l1, l2, l3)\n      |                                    1\nWarning: Procedure \u2018use2_l1\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:33:62:\n\n   33 |       CALL OVERW_L1_B(v, vb, w, wb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                              1\nWarning: Procedure \u2018overw_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:34:34:\n\n   34 |       CALL POPREAL4ARRAY(l2, 1000)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:84:29:\n\n   84 |         CALL PUSHREAL4(l2(i))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:88:28:\n\n   88 |         CALL POPREAL4(l2(i))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:35:61:\n\n   35 |       CALL USE2_L1_B(t, tb, v, vb, l1, l1b, l2, l2b, l3, l3b)\n      |                                                             1\nWarning: Procedure \u2018use2_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:36:52:\n\n   36 |       CALL USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                    1\nWarning: Procedure \u2018use1_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:37:43:\n\n   37 |       CALL MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                           1\nWarning: Procedure \u2018make_l1_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:44:42:\n\n   44 |       SUBROUTINE MAKE_L1_B(t, tb, u, ub, l1, l1b)\n      |                                          1~\nWarning: Unused dummy argument \u2018l1\u2019 at (1) [-Wunused-dummy-argument]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:60:51:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                                   1~\nWarning: Unused dummy argument \u2018l2\u2019 at (1) [-Wunused-dummy-argument]\n/var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f:60:35:\n\n   60 |       SUBROUTINE USE1_L1_B(t, tb, u, ub, l1, l1b, l2, l2b)\n      |                                   1\nWarning: Unused dummy argument \u2018u\u2019 at (1) [-Wunused-dummy-argument]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.291483,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.f \n@@ Created /var/tmp/fortad-bench-next19/lh111/nonRegressions__set01__lh111__top/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "lh111-array-liveness",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set01/lh111",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set01/lh111/program_b.f",
+        "nonRegressions/set01/lh111/program_d.f"
+      ],
+      "source": "nonRegressions/set01/lh111/program.f",
+      "source_reference_sha256": {
+        "nonRegressions/set01/lh111/program.f": "009e011848de0bd606b123c28fc7acd44b2f77f30b07c302c86b904a91e8159c",
+        "nonRegressions/set01/lh111/program_b.f": "26decc29c9f85e597fdb6b44fc25a814df05fb783e7533efc946d1af7b220854",
+        "nonRegressions/set01/lh111/program_d.f": "c57a7ef65b86b8c0b68f8175fee3eb2a85bc3bd94c6e83b61b08f3d3576c9bba"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-invalid-generated-interface",
+      "closure": "The exact primal source compiles in strict and legacy modes, and fresh pinned Tapenade parser, forward, and reverse probes run. The stored multidirectional reference has an absent DIFFSIZES.inc dependency; FortAD emits products for the primal but their generated declarations/expressions are not strict-compilable. The independent piecewise sub/JVP/VJP oracle checks the exact safe branch without promoting the broken generated interface to support.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "01ca8fef1e6c006ca88d11858130aadd5eb5a298ffbe443797924e0da25c27ad",
+          "failure_kind": "none",
+          "path": "nonRegressions/set01/lh112/program.f",
+          "source_kind": "fixed",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "587271fce447667ff10a4558eda67b3e11ef5a8c3b7e1cca908a2996a123b1aa",
+          "failure_kind": "missing-dependency",
+          "path": "nonRegressions/set01/lh112/program_dv.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-missing-dependency",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "exact_source_checks": {
+        "nonRegressions/set01/lh112/program.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh112",
+              "-J/var/tmp/fortad-next18-source-qzqiykjy",
+              "program.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f:5:10:\n\n    5 |       A = sub(T,A)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:7:10:\n\n    7 |       R = sub(273.15, B)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh112",
+              "-J/var/tmp/fortad-next18-source-qzqiykjy",
+              "program.f"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f:5:10:\n\n    5 |       A = sub(T,A)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:7:10:\n\n    7 |       R = sub(273.15, B)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh112/program_dv.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh112",
+              "-J/var/tmp/fortad-next18-source-sx19z80g",
+              "program_dv.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program_dv.f:10:0:\n\n   10 |       INCLUDE 'DIFFSIZES.inc'\nFatal Error: Cannot open included file \u2018DIFFSIZES.inc\u2019\ncompilation terminated.\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh112",
+              "-J/var/tmp/fortad-next18-source-sx19z80g",
+              "program_dv.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program_dv.f:10:0:\n\n   10 |       INCLUDE 'DIFFSIZES.inc'\nFatal Error: Cannot open included file \u2018DIFFSIZES.inc\u2019\ncompilation terminated.\n",
+            "stdout": ""
+          }
+        }
+      },
+      "fortad_revision": "4f7b59ec089da6d113ae715ef79d5b57140cbf98",
+      "id": "set01-lh112",
+      "independent_oracle": {
+        "boundary": "missing DIFFSIZES.inc reference plus invalid FortAD generated declarations",
+        "jvp": {
+          "A": -0.75,
+          "B": -0.5,
+          "T": 0.00011440600402709135
+        },
+        "primal": {
+          "A": -6.0,
+          "B": 4.0,
+          "T": 0.0009152480322167308
+        },
+        "status": "pass",
+        "vjp_T_seed": {
+          "A": 0.0,
+          "B": -0.00028601501006772837,
+          "T": 0.0
+        }
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-n8_sntbe",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad/probe_d.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad/probe_d.f90:23:11:\n\n   23 |          :: sub_1_\n      |           1\nError: Invalid character in name at (1)\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad/probe_d.f90:25:11:\n\n   25 |          :: sub_2_\n      |           1\nError: Invalid character in name at (1)\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad/probe_d.f90:28:18:\n\n   28 |         A = sub_1_\n      |                  1\nError: Symbol \u2018sub_1_\u2019 at (1) has no IMPLICIT type; did you mean \u2018sub_1_sub\u2019?\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/fortad/probe_d.f90:33:22:\n\n   33 |         T = 1 / sub_2_\n      |                      1\nError: Symbol \u2018sub_2_\u2019 at (1) has no IMPLICIT type; did you mean \u2018sub_2_sub\u2019?\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.004965,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-7vuybn2u",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.f"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.f:17:11:\n\n   17 |       ad = SUB_D(t, td, a, ad, tmpresult)\n      |           1\nWarning: Procedure \u2018sub_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.f:23:11:\n\n   23 |       rd = SUB_D(273.15, 0.0, b, bd, r)\n      |           1\nWarning: Procedure \u2018sub_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.f:14:12:\n\n   14 |       REAL SUB\n      |            1~~\nWarning: Unused variable \u2018sub\u2019 declared at (1) [-Wunused-variable]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.237133,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.f \n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-shpmsm5b",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad/probe_p.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad/probe_p.f90:8:7:\n\n    8 |      :: sub_1_\n      |       1\nError: Invalid character in name at (1)\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad/probe_p.f90:10:7:\n\n   10 |      :: sub_2_\n      |       1\nError: Invalid character in name at (1)\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad/probe_p.f90:13:14:\n\n   13 |     A = sub_1_\n      |              1\nError: Symbol \u2018sub_1_\u2019 at (1) has no IMPLICIT type; did you mean \u2018sub_1_sub\u2019?\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/fortad/probe_p.f90:18:14:\n\n   18 |     R = sub_2_\n      |              1\nError: Symbol \u2018sub_2_\u2019 at (1) has no IMPLICIT type; did you mean \u2018sub_2_sub\u2019?\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.002814,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-jhxkzbfm",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade/probe_p.f"
+                ],
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade/probe_p.f:10:10:\n\n   10 |       a = SUB(t, a)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade/probe_p.f:12:10:\n\n   12 |       r = SUB(273.15, b)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.176991,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade/probe_p.f \n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_b.f90"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-gq3_xpra",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/fortad/probe_b.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/fortad/probe_b.f90:29:21:\n\n   29 |         A_v1 = sub_1_\n      |                     1\nError: Symbol \u2018sub_1_\u2019 at (1) has no IMPLICIT type\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.006008,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f"
+            ],
+            "generated": [
+              "probe_b.f",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-bn87t0r7",
+                  "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:18:16:\n\n   18 |       INTEGER*4 branch\n      |                1\nError: GNU Extension: Nonstandard type declaration INTEGER*4 at (1)\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:31:30:\n\n   31 |       CALL POPCONTROL1B(branch)\n      |                              1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:19:12:\n\n   19 |       tmp = SUB(t, a)\n      |            1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:20:23:\n\n   20 |       CALL PUSHREAL4(a)\n      |                       1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:24:29:\n\n   24 |         CALL PUSHCONTROL1B(0)\n      |                             1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:26:29:\n\n   26 |         CALL PUSHCONTROL1B(1)\n      |                             1\nWarning: Procedure \u2018pushcontrol1b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:28:10:\n\n   28 |       r = SUB(273.15, b)\n      |          1\nWarning: Procedure \u2018sub\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:30:47:\n\n   30 |       CALL SUB_B(273.15, dummydiffb, b, bb, rb)\n      |                                               1\nWarning: Procedure \u2018sub_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:31:30:\n\n   31 |       CALL POPCONTROL1B(branch)\n      |                              1\nError: Symbol \u2018branch\u2019 at (1) has no IMPLICIT type\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:33:22:\n\n   33 |       CALL POPREAL4(a)\n      |                      1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f:36:36:\n\n   36 |       CALL SUB_B(t, tb, a, ab, tmpb)\n      |                                    1\nWarning: Procedure \u2018sub_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.268863,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.f \n@@ Created /var/tmp/fortad-bench-next19/lh112/nonRegressions__set01__lh112__top/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "lh112-piecewise-sub",
+      "probe_status": "pass",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set01/lh112",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set01/lh112/program_dv.f"
+      ],
+      "source": "nonRegressions/set01/lh112/program.f",
+      "source_reference_sha256": {
+        "nonRegressions/set01/lh112/program.f": "963170359fc25d728f6befbcc940e150fd1991ee0eae4820de799708dffc6a0a",
+        "nonRegressions/set01/lh112/program_dv.f": "4fcb2fb18f83f38c2367ef72d7a61aeb2bc6642f12f7f82761666b905258e397"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-invalid-upstream-fortran",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes run, but both exact source files violate the Fortran DO contract by assigning to the active loop variable; the primal also references an implicitly typed undefined ia. The independent source-pattern oracle records those invalid-control and undefined-storage facts and makes no derivative claim. FortAD forward output retains the undefined ia and is not treated as support.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "32eec101f0a5f5c0fae1355f0818575c876af13fc5ad71d103dee9ad41bafc35",
+          "failure_kind": "compiler-diagnostic",
+          "path": "nonRegressions/set01/lh113/program.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        },
+        {
+          "diagnostic_hash": "63c5cfb42b49d377e7bf11dece626d7b4e100f9d5e84768c6b9fea7a44ef5661",
+          "failure_kind": "compiler-diagnostic",
+          "path": "nonRegressions/set01/lh113/program_b.f",
+          "source_kind": "fixed",
+          "status": "syntax-error"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-errors",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "test",
+      "exact_source_checks": {
+        "nonRegressions/set01/lh113/program.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh113",
+              "-J/var/tmp/fortad-next18-source-9zmhvfpu",
+              "program.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program.f:14:18:\n\n   11 |       do ie=1,ne\n      |                2  \n......\n   14 |          ie = ie*2\n      |                  1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\nprogram.f:12:21:\n\n   12 |          call roe(ie)\n      |                     1\nWarning: Procedure \u2018roe\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:17:8:\n\n   17 |       A(0) = 3*A(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram.f:17:17:\n\n   17 |       A(0) = 3*A(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram.f:19:23:\n\n   19 |          call foo(ie,A)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:23:23:\n\n   23 |          call foo(ie,C)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh113",
+              "-J/var/tmp/fortad-next18-source-9zmhvfpu",
+              "program.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "program.f:14:18:\n\n   11 |       do ie=1,ne\n      |                2  \n......\n   14 |          ie = ie*2\n      |                  1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\nprogram.f:12:21:\n\n   12 |          call roe(ie)\n      |                     1\nWarning: Procedure \u2018roe\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:17:8:\n\n   17 |       A(0) = 3*A(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram.f:17:17:\n\n   17 |       A(0) = 3*A(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram.f:19:23:\n\n   19 |          call foo(ie,A)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram.f:23:23:\n\n   23 |          call foo(ie,C)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          }
+        },
+        "nonRegressions/set01/lh113/program_b.f": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=legacy",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh113",
+              "-J/var/tmp/fortad-next18-source-rq1jyofu",
+              "program_b.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "eal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:25:29:\n\n   25 |         CALL PUSHINTEGER4(ie)\n      |                             1\nWarning: Procedure \u2018pushinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:27:29:\n\n   27 |         CALL PUSHREAL4(b(ie))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:29:29:\n\n   29 |         CALL PUSHINTEGER4(ie)\n      |                             1\nWarning: Procedure \u2018pushinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:31:23:\n\n   31 |       CALL PUSHREAL4(a(0))\n      |                       1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:31:26:\n\n   31 |       CALL PUSHREAL4(a(0))\n      |                          1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:32:8:\n\n   32 |       a(0) = 3*a(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:32:17:\n\n   32 |       a(0) = 3*a(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:34:35:\n\n   34 |         CALL PUSHREAL4ARRAY(a, 100)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:35:23:\n\n   35 |         CALL FOO(ie, a)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:36:29:\n\n   36 |         CALL PUSHREAL4(b(ie))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:41:29:\n\n   41 |         CALL FOO_B(ie, c, cb)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:44:28:\n\n   44 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:47:34:\n\n   47 |         CALL POPREAL4ARRAY(a, 100)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:48:29:\n\n   48 |         CALL FOO_B(ie, a, ab)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:50:22:\n\n   50 |       CALL POPREAL4(a(0))\n      |                      1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:50:25:\n\n   50 |       CALL POPREAL4(a(0))\n      |                         1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:51:9:\n\n   51 |       ab(0) = 3*ab(0)\n      |         1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:51:19:\n\n   51 |       ab(0) = 3*ab(0)\n      |                   1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:53:28:\n\n   53 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:54:28:\n\n   54 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:56:28:\n\n   56 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:57:28:\n\n   57 |         CALL POPREAL4(a(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-fsyntax-only",
+              "-std=f2018",
+              "-ffixed-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-I",
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set01/lh113",
+              "-J/var/tmp/fortad-next18-source-rq1jyofu",
+              "program_b.f"
+            ],
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "eal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:25:29:\n\n   25 |         CALL PUSHINTEGER4(ie)\n      |                             1\nWarning: Procedure \u2018pushinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:27:29:\n\n   27 |         CALL PUSHREAL4(b(ie))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:29:29:\n\n   29 |         CALL PUSHINTEGER4(ie)\n      |                             1\nWarning: Procedure \u2018pushinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:31:23:\n\n   31 |       CALL PUSHREAL4(a(0))\n      |                       1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:31:26:\n\n   31 |       CALL PUSHREAL4(a(0))\n      |                          1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:32:8:\n\n   32 |       a(0) = 3*a(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:32:17:\n\n   32 |       a(0) = 3*a(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:34:35:\n\n   34 |         CALL PUSHREAL4ARRAY(a, 100)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:35:23:\n\n   35 |         CALL FOO(ie, a)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:36:29:\n\n   36 |         CALL PUSHREAL4(b(ie))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:41:29:\n\n   41 |         CALL FOO_B(ie, c, cb)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:44:28:\n\n   44 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:47:34:\n\n   47 |         CALL POPREAL4ARRAY(a, 100)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:48:29:\n\n   48 |         CALL FOO_B(ie, a, ab)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:50:22:\n\n   50 |       CALL POPREAL4(a(0))\n      |                      1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:50:25:\n\n   50 |       CALL POPREAL4(a(0))\n      |                         1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:51:9:\n\n   51 |       ab(0) = 3*ab(0)\n      |         1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:51:19:\n\n   51 |       ab(0) = 3*ab(0)\n      |                   1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\nprogram_b.f:53:28:\n\n   53 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:54:28:\n\n   54 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:56:28:\n\n   56 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f:57:28:\n\n   57 |         CALL POPREAL4(a(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+            "stdout": ""
+          }
+        }
+      },
+      "fortad_revision": "4f7b59ec089da6d113ae715ef79d5b57140cbf98",
+      "id": "set01-lh113",
+      "independent_oracle": {
+        "boundary": "invalid upstream Fortran control/storage semantics",
+        "invalid_patterns": [
+          "active DO variable reassigned",
+          "undefined implicitly typed ia index"
+        ],
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "test",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-vp87xq4r",
+                  "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:46:23:\n\n   37 |         do ie = 1, ne\n      |                     2  \n......\n   46 |             ie = fad_s1\n      |                       1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:53:42:\n\n   53 |             B_d(ie) = 4.0 * B_d(ie) * A(ia) + 4.0 * B(ie) * A_d(ia)\n      |                                          1\nError: Symbol \u2018ia\u2019 at (1) has no IMPLICIT type; did you mean \u2018a\u2019?\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:48:12:\n\n   48 |         A_d(0) = 3 * A_d(0)\n      |            1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:48:25:\n\n   48 |         A_d(0) = 3 * A_d(0)\n      |                         1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:49:10:\n\n   49 |         A(0) = 3 * A(0)\n      |          1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/fortad/probe_d.f90:49:21:\n\n   49 |         A(0) = 3 * A(0)\n      |                     1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.007764,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f"
+            ],
+            "generated": [
+              "probe_d.f",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-f50p_imd",
+                  "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:25:17:\n\n   21 |       DO ie=1,ne\n      |                2 \n......\n   25 |         ie = ie*2\n      |                 1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:22:20:\n\n   22 |         CALL ROE(ie)\n      |                    1\nWarning: Procedure \u2018roe\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:29:9:\n\n   29 |       ad(0) = 3*ad(0)\n      |         1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:29:19:\n\n   29 |       ad(0) = 3*ad(0)\n      |                   1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:30:8:\n\n   30 |       a(0) = 3*a(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:30:17:\n\n   30 |       a(0) = 3*a(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:32:29:\n\n   32 |         CALL FOO_D(ie, a, ad)\n      |                             1\nWarning: Procedure \u2018foo_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f:37:29:\n\n   37 |         CALL FOO_D(ie, c, cd)\n      |                             1\nWarning: Procedure \u2018foo_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.258016,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.f \n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "test",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffree-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-t02weido",
+                  "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90:10:23:\n\n    9 |     do ie = 1, ne\n      |                 2      \n   10 |         ie = 2 * ie - 1\n      |                       1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90:12:19:\n\n    9 |     do ie = 1, ne\n      |                 2  \n......\n   12 |         ie = ie * 2\n      |                   1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90:18:34:\n\n   18 |         B(ie) = 4.0 * B(ie) * A(ia)\n      |                                  1\nError: Symbol \u2018ia\u2019 at (1) has no IMPLICIT type; did you mean \u2018a\u2019?\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90:15:6:\n\n   15 |     A(0) = 3 * A(0)\n      |      1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/fortad/probe_p.f90:15:17:\n\n   15 |     A(0) = 3 * A(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.004636,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f"
+            ],
+            "generated": [
+              "probe_p.f",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-lvugt34l",
+                  "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:19:17:\n\n   16 |       DO ie=1,ne\n      |                2 \n......\n   19 |         ie = ie*2\n      |                 1\nError: Variable \u2018ie\u2019 at (1) cannot be redefined inside loop beginning at (2)\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:17:20:\n\n   17 |         CALL ROE(ie)\n      |                    1\nWarning: Procedure \u2018roe\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:22:8:\n\n   22 |       a(0) = 3*a(0)\n      |        1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:22:17:\n\n   22 |       a(0) = 3*a(0)\n      |                 1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:24:23:\n\n   24 |         CALL FOO(ie, a)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f:28:23:\n\n   28 |         CALL FOO(ie, c)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.20503,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.f \n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "test",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.006263,
+            "status": "refused",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f"
+            ],
+            "generated": [
+              "probe_b.f",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f": {
+                "command": [
+                  "gfortran",
+                  "-fsyntax-only",
+                  "-std=f2018",
+                  "-ffixed-line-length-none",
+                  "-pedantic-errors",
+                  "-Wall",
+                  "-Wextra",
+                  "-Wimplicit-interface",
+                  "-J/var/tmp/fortad-next18-generated-ahdq8s09",
+                  "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f"
+                ],
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:34:35:\n\n   34 |         CALL PUSHREAL4ARRAY(a, 100)\n      |                                   1\nWarning: Procedure \u2018pushreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:35:23:\n\n   35 |         CALL FOO(ie, a)\n      |                       1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:36:29:\n\n   36 |         CALL PUSHREAL4(b(ie))\n      |                             1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:41:29:\n\n   41 |         CALL FOO_B(ie, c, cb)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:44:28:\n\n   44 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:47:34:\n\n   47 |         CALL POPREAL4ARRAY(a, 100)\n      |                                  1\nWarning: Procedure \u2018popreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:48:29:\n\n   48 |         CALL FOO_B(ie, a, ab)\n      |                             1\nWarning: Procedure \u2018foo_b\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:50:22:\n\n   50 |       CALL POPREAL4(a(0))\n      |                      1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:50:25:\n\n   50 |       CALL POPREAL4(a(0))\n      |                         1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:51:9:\n\n   51 |       ab(0) = 3*ab(0)\n      |         1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:51:19:\n\n   51 |       ab(0) = 3*ab(0)\n      |                   1\nWarning: Array reference at (1) is out of bounds (0 < 1) in dimension 1\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:53:28:\n\n   53 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:54:28:\n\n   54 |         CALL POPREAL4(b(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:56:28:\n\n   56 |         CALL POPINTEGER4(ie)\n      |                            1\nWarning: Procedure \u2018popinteger4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f:57:28:\n\n   57 |         CALL POPREAL4(a(ie))\n      |                            1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n",
+                "stdout": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.270756,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.f \n@@ Created /var/tmp/fortad-bench-next19/lh113/nonRegressions__set01__lh113__test/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "lh113-invalid-do",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set01/lh113",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set01/lh113/program_b.f"
+      ],
+      "source": "nonRegressions/set01/lh113/program.f",
+      "source_reference_sha256": {
+        "nonRegressions/set01/lh113/program.f": "6ddf067f5bc66a29730e147059aa3ca75fcc2dd2126615a6485218282e9868a0",
+        "nonRegressions/set01/lh113/program_b.f": "ae1f62735e3a9731b90b27f6655f9f1ac98985853bb791b5f2310b4da3de20a9"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "1cb5a32faf1f879958c94939d2bc093a3fda52cde6b9a05e75af1992d51448c5",
+  "current_queue_sha256": "d57bbd4469e5f67759aefd94c757c3493d46df81808e3b999819ebf89500490c",
+  "fortad_revision": "4f7b59ec089da6d113ae715ef79d5b57140cbf98",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "schema_version": 1,
+  "selection_batch_sha256": "67bf7302c93164143c1fb925b6b01fe37675cb39603a67419dab170b6d64706c",
+  "selection_queue_sha256": "bf335861ce9a471fe17bc89c8c4eceab2672360c3f0d23068ec29a126859eaa2",
+  "shard_id": "tapenade-fortran-queue-shard-next19",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}

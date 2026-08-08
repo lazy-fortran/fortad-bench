@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next19"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows after next18 in the branch-base queue order: set01/lh110, set01/lh111, set01/lh112, and set01/lh113. The order is preserved; legacy fixed-form, reverse dependent inference, missing reference include, and invalid DO-variable mutation are classified from evidence rather than silently repaired."
+selection_queue_sha256 = "bf335861ce9a471fe17bc89c8c4eceab2672360c3f0d23068ec29a126859eaa2"
+selection_batch_sha256 = "67bf7302c93164143c1fb925b6b01fe37675cb39603a67419dab170b6d64706c"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "4f7b59ec089da6d113ae715ef79d5b57140cbf98"
+independent_arguments = "each oracle independently models the defined primal state or explicit invalid/refusal boundary; no numeric derivative-support claim is made for invalid DO control, automatic dependent/independent inference, or invalid generated FortAD interfaces"
+
+[[case]]
+id = "set01-lh110"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh110"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh110/program.f"
+references = ["nonRegressions/set01/lh110/program_b.f", "nonRegressions/set01/lh110/program_d.f"]
+entry_point = "foo"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "The exact legacy source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD's parser product loses the original declarations and is not strict-compilable; automatic forward and reverse probing also refuses because the source has no inferable active set or selected dependent. The independent branch/Jacobian oracle checks the defined legacy primal without claiming exact-source derivative support."
+oracle_case = "lh110-legacy-inference"
+
+[[case]]
+id = "set01-lh111"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh111"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh111/program.f"
+references = ["nonRegressions/set01/lh111/program_b.f", "nonRegressions/set01/lh111/program_d.f"]
+entry_point = "top"
+classification = "unsupported-fortad-dependent-inference"
+closure = "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD emits strict-compilable parser and forward products, while automatic reverse refuses because top mutates multiple array values and no dependent was selected. The independent recurrence oracle checks the defined primal/liveness trace; this is an explicit inference boundary, not a refusal of array arithmetic."
+oracle_case = "lh111-array-liveness"
+
+[[case]]
+id = "set01-lh112"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh112"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh112/program.f"
+references = ["nonRegressions/set01/lh112/program_dv.f"]
+entry_point = "top"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "The exact primal source compiles in strict and legacy modes, and fresh pinned Tapenade parser, forward, and reverse probes run. The stored multidirectional reference has an absent DIFFSIZES.inc dependency; FortAD emits products for the primal but their generated declarations/expressions are not strict-compilable. The independent piecewise sub/JVP/VJP oracle checks the exact safe branch without promoting the broken generated interface to support."
+oracle_case = "lh112-piecewise-sub"
+
+[[case]]
+id = "set01-lh113"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh113"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh113/program.f"
+references = ["nonRegressions/set01/lh113/program_b.f"]
+entry_point = "test"
+classification = "unsupported-invalid-upstream-fortran"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run, but both exact source files violate the Fortran DO contract by assigning to the active loop variable; the primal also references an implicitly typed undefined ia. The independent source-pattern oracle records those invalid-control and undefined-storage facts and makes no derivative claim. FortAD forward output retains the undefined ia and is not treated as support."
+oracle_case = "lh113-invalid-do"
