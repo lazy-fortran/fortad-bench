@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 829
-classified rows out of 2,014 (41.3% overall), including 325 of the 1,432
-strict pure-Fortran rows (22.7%). The current queue contains 1,181 candidates:
-1,107 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 841
+classified rows out of 2,014 (41.7% overall), including 333 of the 1,432
+strict pure-Fortran rows (23.3%). The current queue contains 1,173 candidates:
+1,099 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -75,8 +75,8 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 325 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-1,107 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
+classifies 333 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+1,099 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
 adds four more rows in `cases/tapenade-queue-shard-next10/`; next11 adds four
@@ -94,8 +94,8 @@ mutating-call, COMMON-state, and active-I/O boundaries.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 63 runnable cases, 133 measured expected refusals, 34
-invalid-upstream closures, and 95 additional bounded feature or dependency
-classifications; 1,107 pure-Fortran rows remain untriaged. The 74 mixed
+invalid-upstream closures, and 103 additional bounded feature or dependency
+classifications; 1,099 pure-Fortran rows remain untriaged. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised
@@ -127,8 +127,8 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,181 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 263 program, and 844 procedure
+  partition the 1,173 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 263 program, and 836 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 112 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
@@ -400,7 +400,7 @@ explicitly refused, independently checked, and measured when runnable.
   and [validation result](results/tapenade_set05_v054_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,107 untriaged pure-Fortran rows and 74
+  reproducible evidence. There are 1,099 untriaged pure-Fortran rows and 74
   mixed-language rows. The next8 through next16 shards closed thirty-six
   compiler-clean pure-Fortran rows with fresh Tapenade probes and independent
   Python oracles; next15 adds overloaded operators, nested derived-type
@@ -414,7 +414,8 @@ explicitly refused, independently checked, and measured when runnable.
   next20 adds dependent inference, mutating call actuals, COMMON state, and
   active-I/O boundaries.
   next21 adds active-I/O, legacy-GOTO, nested-DO-WHILE, and legacy-labeled-DO
-  boundaries.
+  boundaries; next23 adds four modern-feature rows with module-state,
+  pointer-alias, generated-interface, and reverse-dependent boundaries.
   Continue in
   similarly bounded shards.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
