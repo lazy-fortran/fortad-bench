@@ -28,7 +28,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "add_node",
-      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
       "id": "set11-vmp06",
       "independent_oracle": {
         "derivative": {
@@ -238,7 +238,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "tapenadetestcollection",
-      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
       "id": "set04-lh159",
       "independent_oracle": {
         "derivative": {
@@ -489,7 +489,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "dump_tree",
-      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
       "id": "set11-vmp07",
       "independent_oracle": {
         "derivative": {
@@ -700,7 +700,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "find",
-      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
       "id": "set05-v193",
       "independent_oracle": {
         "derivative": {
@@ -871,9 +871,9 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     }
   ],
-  "current_batch_sha256": "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d",
-  "current_queue_sha256": "57ac76d8e56372ae8891317867a36b8dc3e869c8e68284b5a270523d9adf1d26",
-  "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+  "current_batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
+  "current_queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
+  "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "d2bcae660816b931413960c16f85bbb273379c5083a3cdfdefc79de1b086e486",
