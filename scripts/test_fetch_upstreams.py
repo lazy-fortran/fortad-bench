@@ -859,7 +859,13 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                     "head(x,y)",
                     "not-run-missing-dependency",
                     "not-run-missing-dependency",
-                )
+                ),
+                (
+                    "nonRegressions/set02/lh194",
+                    "head(x,y)",
+                    "not-run-missing-dependency",
+                    "not-run-missing-dependency",
+                ),
             ],
         )
         self.assertEqual({row["path"] for row in evidence}, evidence_paths)

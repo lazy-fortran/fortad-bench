@@ -1,0 +1,120 @@
+case: Tapenade nonRegressions/set02/lh194 head(x,y) AMPI dependency boundary
+classification: blocked-missing-dependency
+runner_result: pass
+recorded_utc: 2026-08-08T01:31:57Z
+machine: mailuefterl
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+source_form: fixed
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+tapenade_origin: https://gitlab.inria.fr/tapenade/tapenade.git
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_tree: 17288bdf7e03cb23b82ddc769d884deed9c9575e
+entry_point: head(x,y); static programs main, main_b, and main_d
+tapenade_options: Options=-I ../ADFirstAidKit/mpich/include|-I ../ADFirstAidKit|-context; transformations not-run
+direct_include_flags: none (case directory only)
+resolved_header_include_flags: -I upstream/tapenade/ADFirstAidKit
+upstream_exact_strict_compile: program=1 program_b=1 program_d=1
+upstream_exact_legacy_compile: program=1 program_b=1 program_d=1
+resolved_header_strict_compile: program=1 program_b=1 program_d=1
+resolved_header_legacy_compile: program=1 program_b=1 program_d=1
+fixed_form_diagnostic_sha256:
+strict_direct_program=12561263863a674988c247e8d3b988f00d0a199c28e248a4d82c9cde01d0d77b
+strict_direct_program_b=170a727b60bf1c4a0c79849bdc86cc9d120f8e76d30a514427aae1ed6ea24713
+strict_direct_program_d=2918f713d4149d4906ae415392f445b83c1084c519b19ba22c98b09c22dca7e1
+strict_resolved_program=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+strict_resolved_program_b=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+strict_resolved_program_d=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+legacy_direct_program=12561263863a674988c247e8d3b988f00d0a199c28e248a4d82c9cde01d0d77b
+legacy_direct_program_b=170a727b60bf1c4a0c79849bdc86cc9d120f8e76d30a514427aae1ed6ea24713
+legacy_direct_program_d=2918f713d4149d4906ae415392f445b83c1084c519b19ba22c98b09c22dca7e1
+legacy_resolved_program=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+legacy_resolved_program_b=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+legacy_resolved_program_d=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+automatic_compiler_triage: candidate_status=compiler-missing-dependency next_action=resolve-dependency-or-record-refusal
+automatic_compiler_flags: -std=f2018 -ffixed-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I. -InonRegressions/set02/lh194 -J<scratch>
+automatic_compiler_diagnostic_sha256: program=bb1cecd200c756daa0eb17ec9ee2e7683321a4d2da69a3c98d84888068a30022 program_b=013bea09f1f484945c429b6f32dfe165ed4789eb8ffc26c5f88df0fbe77edf05 program_d=14ec0d454d3b8b7d28780a1b82fa19de64487f74cc754ffcab5f14b0f4f82612
+strict_direct_diagnostic_program:
+program.f:5:0:
+
+    5 |       include 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+strict_direct_diagnostic_program_b:
+program_b.f:8:0:
+
+    8 |       INCLUDE 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+strict_direct_diagnostic_program_d:
+program_d.f:8:0:
+
+    8 |       INCLUDE 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+strict_resolved_diagnostic_program:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+strict_resolved_diagnostic_program_b:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+strict_resolved_diagnostic_program_d:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+legacy_direct_diagnostic_program:
+program.f:5:0:
+
+    5 |       include 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+legacy_direct_diagnostic_program_b:
+program_b.f:8:0:
+
+    8 |       INCLUDE 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+legacy_direct_diagnostic_program_d:
+program_d.f:8:0:
+
+    8 |       INCLUDE 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+legacy_resolved_diagnostic_program:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+legacy_resolved_diagnostic_program_b:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+legacy_resolved_diagnostic_program_d:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+dependency_inventory: ADFirstAidKit/ampi/ampif.h=present; ADFirstAidKit/mpich/include/mpif.h=absent; ampif.h includes mpif.h
+tapenade_result: not-run-missing-dependency
+fortad_result: not-run-missing-dependency
+independent_oracle: not-applicable-transformation-not-reached
+no_transformation_attempted: true
+not_invalid_upstream: true
+upstream_sha256:
+53b2235d597aeb90725365768cc248a7e141ef3f791f46e23e1fcbc1ae99a19a  nonRegressions/set02/lh194/Options
+28089356eaf34e614ae4626373a39bd824b5232594080f05e422b480caf41aa2  nonRegressions/set02/lh194/program.f
+0bdfee2d20cf5d6a334144c0db6a2efdbdcc3dcfcb42c51c4555f8f01349c855  nonRegressions/set02/lh194/program_b.f
+4f54fbf04d79f4c9a03c5b3fb810302f7157c60462eacdf01d3423c2021cd5ab  nonRegressions/set02/lh194/program_d.f
+67cb1fb06078f02919e4b904d60cd1206c7cdb4565abda8ce088f310b52c0a98  ADFirstAidKit/ampi/ampif.h
+case_artifact_sha256:
+f1a87b25425b09891f6f48091d799184f6a0fb603e06843157359519c427f751  manifest.toml
+3edf2367cc26c9a4d296924ff03cb42e968dd017f1d687cf16eb711e8da544b7  notes.md
+736a26560111428240fbba23bfe4577d424ecb347f6cbefada526d80c9310284  run.sh
+dff2ec43d5d95e1e67f3361bccbef9df55fb73d5e2aef5bf14a9f9f23573f642  test_contract.py
+closure: valid fixed-form candidate blocked by the exact pinned AMPI/MPI include chain; no invalid-upstream, Tapenade, FortAD, repaired-source, or derivative claim

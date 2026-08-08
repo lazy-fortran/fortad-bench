@@ -124,13 +124,16 @@ declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
 label claims parsing, compilation, transformation, runtime, or correctness.
 
-The exact fixed-form `set02/lh193` AMPI candidate is recorded separately as
-`blocked-missing-dependency`: strict compilation reaches the missing
-`ampi/ampif.h`/`mpif.h` chain in the pinned checkout. It is not classified as
-invalid upstream, and neither Tapenade nor FortAD is invoked. See its
-[`case notes`](../cases/tapenade-set02/lh193/notes.md),
-[`manifest`](../cases/tapenade-set02/lh193/manifest.toml), and
-[`result`](../cases/tapenade-set02/lh193/result.txt).
+The exact fixed-form `set02/lh193` and `set02/lh194` AMPI candidates are
+recorded separately as `blocked-missing-dependency`: strict and legacy
+compilation reach the missing `ampi/ampif.h`/`mpif.h` chain in the pinned
+checkout. They are not classified as invalid upstream, and neither Tapenade
+nor FortAD is invoked. See the [`lh193 case notes`](../cases/tapenade-set02/lh193/notes.md),
+[`lh193 manifest`](../cases/tapenade-set02/lh193/manifest.toml),
+[`lh193 result`](../cases/tapenade-set02/lh193/result.txt), and the
+corresponding [`lh194 case notes`](../cases/tapenade-set02/lh194/notes.md),
+[`manifest`](../cases/tapenade-set02/lh194/manifest.toml), and
+[`result`](../cases/tapenade-set02/lh194/result.txt).
 
 Run the compiler-backed evidence pass after fetching the pinned checkout:
 
