@@ -900,6 +900,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 ("nonRegressions/set05/v066", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set05/v068", "not-run-invalid-upstream-source"),
                 ("nonRegressions/set05/v069", "expected-refusal-exact-parser-forward-reverse-no-output"),
+                ("examples/big01/B04", "expected-refusal-exact-parse-invalid-character-line-20599-no-output"),
                 ("todoF90/REFERENCES/v05", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v07", "not-run-invalid-upstream-source"),
                 ("todoF90/REFERENCES/v144", "not-run-invalid-upstream-source"),
