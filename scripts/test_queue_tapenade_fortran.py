@@ -10,10 +10,14 @@ import queue_tapenade_fortran as queue
 
 
 MEASURED_SHARD_CLOSURES = {
+    ("non-regressions", "nonRegressions/set04/lh159"): "unsupported-fortad-allocatable-derived-component",
     ("non-regressions", "nonRegressions/set05/v196"): "unsupported-fortad-no-int-derivative-rule",
     ("non-regressions", "nonRegressions/set05/v202"): "unsupported-fortad-elemental-parse",
+    ("non-regressions", "nonRegressions/set05/v193"): "unsupported-fortad-derived-pointer-replay",
     ("non-regressions", "nonRegressions/set06/v220"): "unsupported-fortad-derived-type-component",
     ("non-regressions", "nonRegressions/set06/v232"): "unsupported-fortad-invalid-generated-interface",
+    ("non-regressions", "nonRegressions/set11/vmp06"): "unsupported-fortad-pointer-ownership",
+    ("non-regressions", "nonRegressions/set11/vmp07"): "unsupported-fortad-active-io",
 }
 
 
@@ -89,7 +93,7 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1277)
+        self.assertEqual(len(rows), 1273)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
@@ -97,7 +101,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
                 "runnable-program-candidate": 292,
-                "runnable-procedure-candidate": 911,
+                "runnable-procedure-candidate": 907,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 119)
@@ -129,7 +133,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1277)
+        self.assertEqual(len(queued), 1273)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent

@@ -100,7 +100,7 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,203 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,199 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger currently has 61 executable evidence rows, 134 explicit
   refusals, and 32 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -115,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,277 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,273 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 292 program candidates, and 911 procedure
+ rows with no entry-point hint, 292 program candidates, and 907 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -174,8 +174,8 @@ supported way to replace the canonical report after sharded triage.
 [`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
 and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
-The latest complete four-shard run accepted 1,996 files, rejected 1,420 with
-syntax or dependency diagnostics, and listed 147 include fragments without
+The latest complete full-queue run accepted 1,975 files, rejected 1,399 with
+syntax or dependency diagnostics, and listed 74 include fragments without
 compiling them as standalone units.
 Fixed/free source forms get strict syntax-only flags and local include roots;
 `.inc`/`.fh` fragments are listed as evidence but not compiled alone. A
