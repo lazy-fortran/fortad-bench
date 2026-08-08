@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next13"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, free-form procedure rows without unresolved dependency risk were selected from the branch-base queue by the fixed case-insensitive modern-feature score, descending score then queue order, after excluding all existing queue shards. Scores are set06/v364/test=56, set04/lh112/top=55, set03/lh051/top=52, and set03/cm25/top=50."
+selection_queue_sha256 = "00e74ddf3f833b281155e137f07b1a19922e1aa5603300ee8077a0d01821f007"
+selection_batch_sha256 = "c765fb66ef32d624104359b2195e8dde728c4e9fd564236bfe7ce673965a1547"
+current_queue_sha256 = "8d96c42ec5220129bea0b70ee34a52cb5001704a30cff8b42ce3f39fb0d13c24"
+current_batch_sha256 = "1fce99272359a5019e3d4e2ddaa81e1882b45422ed0f3e5039f9899ecdabb075"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "5f77c47b1f5027a777e16e2bf1cf9a8958942a83"
+independent_arguments = "none supplied: each oracle is a separate Python model of defined primal/storage behavior and its FortAD refusal boundary"
+
+[[case]]
+id = "set06-v364"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v364"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 56
+selection_features = "pointer=2; associate=1; type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v364/program.f90"
+references = ["nonRegressions/set06/v364/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD refuses all three modes at the linked-list POINTER association because storage identity is not tracked. The independent linked-list oracle checks found and missing targets without claiming derivative support."
+oracle_case = "v364-linked-list"
+
+[[case]]
+id = "set04-lh112"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh112"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 55
+selection_features = "pointer=1; type(=4; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh112/program.f90"
+references = ["nonRegressions/set04/lh112/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD refuses all three modes at the TARGET pointer component because derived-array storage identity is not tracked. The independent oracle checks the defined active-prefix arithmetic and pointer write; the source's uninitialized passive tail is not claimed as runtime evidence."
+oracle_case = "lh112-active-prefix"
+
+[[case]]
+id = "set03-lh051"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh051"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 52
+selection_features = "pointer=3; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh051/program.f90"
+references = ["nonRegressions/set03/lh051/program_b.f90", "nonRegressions/set03/lh051/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD refuses all three modes at the TARGET declaration because pointer alias storage identity is not tracked. The independent oracle checks the pointer-target arithmetic without claiming derivative support."
+oracle_case = "lh051-target-alias"
+
+[[case]]
+id = "set03-cm25"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm25"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 50
+selection_features = "pointer=3; type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm25/program.f90"
+references = ["nonRegressions/set03/cm25/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-derived-component-allocation"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD accepts parser mode but refuses forward and reverse at the allocateX call because derived-component pointer allocation has no derivative rule. The independent oracle checks allocation, product, and deallocation without claiming derivative support."
+oracle_case = "cm25-component-allocation"

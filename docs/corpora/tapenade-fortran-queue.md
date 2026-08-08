@@ -1,6 +1,6 @@
 # Tapenade Fortran queue
 
-This is a deterministic, evidence-neutral queue for the currently untriaged rows (1,217 candidates). It reads only the committed static triage and status ledger. It does not run a compiler, Tapenade, FortAD, or an oracle.
+This is a deterministic, evidence-neutral queue for the currently untriaged rows (1,213 candidates). It reads only the committed static triage and status ledger. It does not run a compiler, Tapenade, FortAD, or an oracle.
 
 Regenerate and check it with:
 
@@ -28,7 +28,7 @@ The first matching rule wins:
 | `reference-only-evidence` | 0 |
 | `no-entry-point-evidence` | 0 |
 | `runnable-program-candidate` | 271 |
-| `runnable-procedure-candidate` | 872 |
+| `runnable-procedure-candidate` | 868 |
 | `needs-static-inspection` | 0 |
 
 ## Language and dependency signals
@@ -37,7 +37,7 @@ The first matching rule wins:
 |---|---:|
 | `c++|fortran` | 2 |
 | `c|fortran` | 72 |
-| `fortran` | 1143 |
+| `fortran` | 1139 |
 
 `119` rows carry the orthogonal `missing-dependency-risk` category because an include target's basename is not present among that candidate's tracked source/include files. This is a dependency risk signal, not proof that the dependency is absent. System headers and shared runtime files may be supplied externally.
 
