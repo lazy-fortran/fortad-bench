@@ -9,7 +9,7 @@ current_queue_sha256 = "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66ba
 current_batch_sha256 = "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed"
 probe = "scripts/probe_tapenade_fortad.py --case SOURCE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
 upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-fortad_revision = "0e9a38ebb8c382530272aa3e51f44255e87c41d7"
+fortad_revision = "9f01f7c"
 independent_arguments = "none supplied: each oracle is a separate Python model of the primal dispatch/storage behavior and its derivative/refusal boundary"
 
 [[case]]
