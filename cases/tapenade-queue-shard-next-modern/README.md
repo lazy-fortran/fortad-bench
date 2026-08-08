@@ -16,7 +16,7 @@ manifest and result, so the ranking is auditable without rerunning a heuristic
 over a moving checkout.
 
 The exact pinned Tapenade checkout is `e59864c`, and probes use FortAD
-`aa60b99`. Tapenade generates the three requested products for the pointer and
+`93727c5`. Tapenade generates the three requested products for the pointer and
 alias/lifetime cases, while FortAD records explicit ownership boundaries. The
 `v180` root is a modern optional-rank/generic interface with no active numeric
 map: FortAD parser/forward return zero, generated standalone procedures expose
