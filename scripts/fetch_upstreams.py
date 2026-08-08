@@ -75,6 +75,8 @@ FORTRAN_INCLUDE_SUFFIXES = {".fh", ".inc"}
 SOURCE_INCLUDE_SUFFIXES = C_INCLUDE_SUFFIXES | FORTRAN_INCLUDE_SUFFIXES
 STATIC_TRIAGE_SCHEMA_VERSION = 1
 
+_IGNORED_GENERATED_PARTS = {"__pycache__", ".pytest_cache"}
+
 FORTRAN_PROGRAM_RE = re.compile(r"^\s*program\s+([a-z][a-z0-9_]*)\b", re.IGNORECASE)
 FORTRAN_SUBROUTINE_RE = re.compile(
     r"^\s*(?:(?:recursive|pure|elemental|impure|module)\s+)*"
@@ -149,7 +151,7 @@ def _checkout_pin_metadata(entry: dict) -> dict[str, str]:
         revision = _git(target, "rev-parse", "HEAD")
         tree = _git(target, "rev-parse", "HEAD^{tree}")
         origin = _git(target, "remote", "get-url", "origin")
-        dirty = bool(_git(target, "status", "--porcelain=v1", "--untracked-files=all"))
+        dirty = bool(_material_git_status(target))
     except CorpusError:
         return {
             "checkout": "invalid",
@@ -268,6 +270,28 @@ def _git(target: Path, *args: str) -> str:
     return rc.stdout.strip()
 
 
+def _material_git_status(target: Path) -> str:
+    """Return checkout changes that are material to a pinned source tree.
+
+    Test probes commonly leave Python bytecode in fetched study checkouts.
+    Those files are generated, never part of the pinned source tree, and do
+    not make a checkout non-reproducible. Every tracked change and every
+    other untracked path remains an audit failure.
+    """
+    status = _git(target, "status", "--porcelain=v1", "--untracked-files=all")
+    material: list[str] = []
+    for line in status.splitlines():
+        if line.startswith("?? "):
+            relative = Path(line[3:])
+            if (
+                any(part in _IGNORED_GENERATED_PARTS for part in relative.parts)
+                or relative.suffix == ".pyc"
+            ):
+                continue
+        material.append(line)
+    return "\n".join(material)
+
+
 def _pinned_checkout_error(entry: dict, target: Path) -> str | None:
     """Return a materialization error for a pinned checkout, if any.
 
@@ -300,7 +324,7 @@ def _pinned_checkout_error(entry: dict, target: Path) -> str | None:
     if unusual_flag:
         return f"checkout has non-default index flags ({unusual_flag})"
     try:
-        dirty = _git(target, "status", "--porcelain=v1", "--untracked-files=all")
+        dirty = _material_git_status(target)
     except CorpusError as error:
         return f"invalid Git checkout ({error})"
     if dirty:
@@ -568,7 +592,7 @@ def audit_corpus(entry: dict) -> dict:
         raise CorpusError(
             f"{entry['name']}: checkout has non-default index flags ({unusual_flag})"
         )
-    dirty = _git(target, "status", "--porcelain=v1", "--untracked-files=all")
+    dirty = _material_git_status(target)
     if dirty:
         first = dirty.splitlines()[0]
         raise CorpusError(f"{entry['name']}: checkout is modified ({first})")
