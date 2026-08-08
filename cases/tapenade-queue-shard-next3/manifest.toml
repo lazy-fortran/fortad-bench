@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next3"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean queue rows were selected from the branch-base queue after exact-root inspection. The selected source roots are ordered by fixed modern-feature score, descending score then queue order: lh109=60, mvo32=54, mvo31=48, and lh121=37. No remaining compiler-clean queue row contains an actual ASSOCIATE construct; the shard therefore covers procedure-pointer callbacks, polymorphic type-bound dispatch, derived-component allocation, and local allocatable/pointer alias lifetime."
+selection_queue_sha256 = "cc440306c192cab146369fa190767473f408cc466ab4008d6415bdad3e2d963f"
+selection_batch_sha256 = "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d"
+current_queue_sha256 = "57ac76d8e56372ae8891317867a36b8dc3e869c8e68284b5a270523d9adf1d26"
+current_batch_sha256 = "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d"
+probe = "scripts/probe_tapenade_fortad.py --case SOURCE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e02b59994496c59a194a36066e029f9771c6023b"
+independent_arguments = "none supplied: each oracle is a separate Python model of the primal dispatch/storage behavior and its derivative/refusal boundary"
+
+[[case]]
+id = "set04-lh109"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh109"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 60
+selection_features = "pointer=2; type(=1; procedure=1; interface=2; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh109/program.f90"
+references = ["nonRegressions/set04/lh109/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-derived-component-allocation"
+closure = "Tapenade exits successfully and emits parser, forward, and reverse products for the exact local derived object whose pointer component is allocated through the generic BARALLOC interface; its reverse product is not strict-compile-clean under the current standard-mode compiler because Tapenade emits INTEGER*4. FortAD refuses all three modes at the elemental-expansion generic call because the derived-component allocation has no derivative output. The independent local-component allocation model passes and makes no derivative-support claim."
+oracle_case = "lh109-local-component"
+
+[[case]]
+id = "set12-mvo32"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo32"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 54
+selection_features = "pointer=2; procedure=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo32/program.f90"
+references = ["nonRegressions/set12/mvo32/program_p.f90"]
+entry_point = "caller"
+classification = "unsupported-fortad-procedure-pointer-callback"
+closure = "Tapenade exits successfully and emits strict-compile-clean parser, forward, and reverse products for the exact procedure-pointer callback. FortAD refuses all three modes at the indirect PP call because conditional target flow is unresolved and no derivative output can be inferred. The independent sign-dispatch callback model passes and makes no derivative-support claim."
+oracle_case = "mvo32-callback"
+
+[[case]]
+id = "set12-mvo31"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo31"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 48
+selection_features = "class(=1; type(=2; procedure=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo31/program.f90"
+references = ["nonRegressions/set12/mvo31/program_p.f90"]
+entry_point = "calc"
+classification = "unsupported-fortad-polymorphic-type-bound-procedure"
+closure = "Tapenade exits successfully and emits strict-compile-clean parser, forward, and reverse products for the exact CLASS(T) type-bound procedure. FortAD accepts parser mode, but its detached parser product is not strict-compile-clean without the defining module; it refuses forward and reverse because an active polymorphic receiver would perturb dynamic type. The independent type-bound primal model passes and makes no derivative-support claim."
+oracle_case = "mvo31-type-bound"
+
+[[case]]
+id = "set04-lh121"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh121"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 37
+selection_features = "allocatable=1; pointer=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh121/program.f90"
+references = ["nonRegressions/set04/lh121/program_d.f90", "nonRegressions/set04/lh121/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade exits successfully and emits parser, forward, and reverse products for the exact local allocatable TARGET arrays and pointer aliases; its reverse product is not strict-compile-clean under the current standard-mode compiler because Tapenade emits INTEGER*4. FortAD refuses all three modes at the TARGET alias declaration because storage identity is not tracked across association and deallocation. The independent allocation/alias-lifetime model passes and makes no derivative-support claim."
+oracle_case = "lh121-alias-lifetime"
