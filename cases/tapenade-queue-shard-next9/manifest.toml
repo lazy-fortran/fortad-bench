@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next9"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, free-form procedure rows without unresolved dependency risk were selected from the branch-base queue by the fixed modern-feature score, descending score then queue order, after excluding all existing queue shards. The exact primary source contains the selected real procedure entry point. Scores are set06/v290/function=82, set03/cm33/allocatefunc=82, set03/lh056/sub1=80, and set03/cm26/top=80."
+selection_queue_sha256 = "f93c62c4aefece25b1fdc1470bef55fcea21c59d57c7ddad365062578cb63136"
+selection_batch_sha256 = "3946e489f47fcc42d887309a737534f8f33b887383104b6f4283f7fc125bcb9f"
+current_queue_sha256 = "d97b5c76ed0b839ac5f659f6675368d00904adf427f310c31c538e8f57d94e1f"
+current_batch_sha256 = "cf664d510b9d6e00abe26ff93df0635246654d343d4d4c6a3d79f48de9efaa8a"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "acd82cd9ee486d0b0596e2c10c731c0fda91ba87"
+independent_arguments = "none supplied: probes use only real source procedures; independent oracle models arithmetic, pointer aliasing, or ownership behavior separately"
+
+[[case]]
+id = "set06-v290"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v290"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 82
+selection_features = "type(=6; interface=2; dimension=8"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v290/program.f90"
+references = ["nonRegressions/set06/v290/program_b.f90", "nonRegressions/set06/v290/program_d.f90"]
+entry_point = "function"
+classification = "unsupported-fortad-nested-internal-procedure"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile at the exact derived-array source boundary. FortAD refuses all three modes because the parser sees nested internal procedures in the unnamed source context. The independent derived-array model verifies the primal vector expression and its hand JVP/VJP identity without a derivative-support claim."
+oracle_case = "v290-derived-array"
+
+[[case]]
+id = "set03-cm33"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm33"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 82
+selection_features = "allocatable=1; pointer=2; type(=5"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm33/program.f90"
+references = ["nonRegressions/set03/cm33/program_p.f90"]
+entry_point = "allocatefunc"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile for the exact allocation/deallocation module. FortAD refuses all three modes at module-level allocatable mutable state. The independent ownership model checks allocation, pointer-link creation, and deallocation state without a derivative-support claim."
+oracle_case = "cm33-allocation-lifetime"
+
+[[case]]
+id = "set03-lh056"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh056"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 80
+selection_features = "pointer=5; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh056/program.f90"
+references = ["nonRegressions/set03/lh056/program_b.f90", "nonRegressions/set03/lh056/program_d.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile for the exact pointer-alias function. FortAD refuses all three modes because pointer association storage identity is not tracked. The independent scalar model verifies the hand JVP, central difference, and adjoint dot product without a derivative-support claim."
+oracle_case = "lh056-pointer-alias"
+
+[[case]]
+id = "set03-cm26"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm26"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 80
+selection_features = "pointer=4; type(=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm26/program.f90"
+references = ["nonRegressions/set03/cm26/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile for the exact derived-pointer source. FortAD refuses all three modes because pointer association storage identity is not tracked. The independent pointer graph model records the valid and unresolved associations without a derivative-support claim."
+oracle_case = "cm26-pointer-graph"
