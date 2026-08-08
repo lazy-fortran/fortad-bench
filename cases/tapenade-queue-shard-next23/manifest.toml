@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next23"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four disjoint pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected from the post-next22 queue by the fixed modern-feature score, descending score then committed queue order: set04/v035=47, set03/cm35=44, set03/cmv01=44, and set06/v307=44."
+selection_queue_sha256 = "638c26a40a6fe12b242e65dd5a79693fed3148cd58e80221a30dc88d4aab29bc"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "501defa1092f8edb20ebd4776be072b707f1b8d19054d272618eeda8ffddaa87"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0865038c17d735c6b40afcce2c32934352ca90e8"
+independent_arguments = "each oracle uses explicit finite local values or a bounded pointer/state model; no derivative-support claim is made for module SAVE state, pointer identity, undefined source bounds, or dependent ambiguity"
+
+[[case]]
+id = "set04-v035"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v035"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 47
+selection_features = "allocatable=1; dimension=11"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v035/program.f90"
+references = ["nonRegressions/set04/v035/program_b.f90", "nonRegressions/set04/v035/program_p.f90"]
+entry_point = "ffun"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes emit products and the exact source/reference files are compiler-clean. FortAD refuses all three modes at the module-level allocatable SAVE state boundary. The independent oracle snapshots the module parameters and checks the defined ffun map and a finite-difference tangent without claiming exact-source derivative support for global mutable state."
+oracle_case = "v035-ffun-snapshot"
+
+[[case]]
+id = "set03-cm35"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm35"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 44
+selection_features = "pointer=2; type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm35/program.f90"
+references = ["nonRegressions/set03/cm35/program_d.f90", "nonRegressions/set03/cm35/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes emit products and the exact source/reference files are compiler-clean. FortAD refuses all three modes because TARGET/pointer storage identity for s1 is not tracked. The independent oracle makes the undefined loop bound explicit, checks the bounded pointer-target trace and result, and makes no exact-source derivative claim."
+oracle_case = "cm35-bounded-pointer-trace"
+
+[[case]]
+id = "set03-cmv01"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cmv01"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 44
+selection_features = "pointer=2; type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cmv01/program.f90"
+references = ["nonRegressions/set03/cmv01/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes emit products and the exact source/reference files are compiler-clean. FortAD parser and forward commands return products whose standalone generated sources fail because the derived-type module context is missing; reverse also refuses the ambiguous Tapenade dependent candidates v2 and r. The independent oracle supplies explicit pointer targets and checks the primal, JVP, and VJP identities without repairing the source."
+oracle_case = "cmv01-pointer-component-product"
+
+[[case]]
+id = "set06-v307"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v307"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 44
+selection_features = "pointer=2; optional=1; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v307/program.f90"
+references = ["nonRegressions/set06/v307/program_p.f90"]
+entry_point = "dnrm2"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run and the exact source/reference files are compiler-clean. FortAD parser, forward, and reverse commands return products, but all emitted FortAD sources fail standalone syntax checks because the selected module kind/context is not preserved; Tapenade's parser product has the same generated-source shape failure. The independent oracle checks the selected-real-kind norm branch, central-difference JVP, and scalar VJP for an explicit finite input without claiming a runnable exact derivative."
+oracle_case = "v307-dnrm2"
