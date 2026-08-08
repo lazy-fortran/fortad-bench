@@ -8,7 +8,7 @@ selection_batch_sha256 = "77b05807577dd6c3ff97bb43eeab6896caf2eb7a17df606d69acf2
 current_queue_sha256 = "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b9330b2e787a"
 current_batch_sha256 = "84ddf7da98a85cd6a8f75774ee682d9592f71facd837fbffef2e77ac817e877d"
 upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-fortad_revision = "159e38d2ad085853a3e6b092c1c1fb0e300319ca"
+fortad_revision = "aa60b99633ed6ee845c121b57037df840f402935"
 probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
 independent_arguments = "none supplied; static procedure names only"
 

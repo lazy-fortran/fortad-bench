@@ -21,7 +21,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "factorial",
-      "fortad_revision": "f83b5697931ff61d814b5a98041faa4523614443",
+      "fortad_revision": "aa60b99633ed6ee845c121b57037df840f402935",
       "id": "set05-v196",
       "independent_oracle": {
         "defined_behavior": "recursive integer factorial values",
@@ -205,7 +205,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "twice_real",
-      "fortad_revision": "f83b5697931ff61d814b5a98041faa4523614443",
+      "fortad_revision": "aa60b99633ed6ee845c121b57037df840f402935",
       "id": "set05-v202",
       "independent_oracle": {
         "central_difference": {
@@ -390,7 +390,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "addvector",
-      "fortad_revision": "f83b5697931ff61d814b5a98041faa4523614443",
+      "fortad_revision": "aa60b99633ed6ee845c121b57037df840f402935",
       "id": "set06-v220",
       "independent_oracle": {
         "defined_behavior": "component-wise vector addition model",
@@ -584,7 +584,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "test",
-      "fortad_revision": "f83b5697931ff61d814b5a98041faa4523614443",
+      "fortad_revision": "aa60b99633ed6ee845c121b57037df840f402935",
       "id": "set06-v232",
       "independent_oracle": {
         "central_difference": {
@@ -768,7 +768,7 @@
   ],
   "current_batch_sha256": "84ddf7da98a85cd6a8f75774ee682d9592f71facd837fbffef2e77ac817e877d",
   "current_queue_sha256": "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b9330b2e787a",
-  "fortad_revision": "f83b5697931ff61d814b5a98041faa4523614443",
+  "fortad_revision": "aa60b99633ed6ee845c121b57037df840f402935",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "96afeeb377f827f149008157c7804ba30b95b9ab053aa1184d339f53209ca821",
