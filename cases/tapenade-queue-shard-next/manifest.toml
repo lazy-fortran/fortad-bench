@@ -9,7 +9,7 @@ current_queue_sha256 = "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b933
 current_batch_sha256 = "84ddf7da98a85cd6a8f75774ee682d9592f71facd837fbffef2e77ac817e877d"
 probe = "scripts/probe_tapenade_fortad.py --queue --pure-fortran --jobs 4"
 upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-fortad_revision = "3e476f4d6aa73fbbad0b805793a4cbc0e11e056f"
+fortad_revision = "bac304d9850d7d93a47f550150b47f3c85ca6e3b"
 independent_arguments = "none supplied: the probe uses only the statically discovered procedure name and does not invent active or dependent arguments"
 
 [[case]]
