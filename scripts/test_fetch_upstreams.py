@@ -196,6 +196,27 @@ expected_candidate_cases = 1
 '''
         )
 
+    def test_generated_python_probe_artifacts_do_not_dirty_a_checkout(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, _, _ = self.make_source(root)
+            pycache = source / "tools" / "__pycache__"
+            pycache.mkdir(parents=True)
+            (pycache / "probe.cpython-314.pyc").write_bytes(b"generated")
+            pytest_cache = source / ".pytest_cache" / "v" / "cache"
+            pytest_cache.mkdir(parents=True)
+            (pytest_cache / "lastfailed").write_text("{}")
+
+            self.assertEqual(fetch_upstreams._material_git_status(source), "")
+
+            (source / "unexpected-source.f90").write_text(
+                "program unexpected\nend program unexpected\n"
+            )
+            self.assertIn(
+                "unexpected-source.f90",
+                fetch_upstreams._material_git_status(source),
+            )
+
     def test_static_triage_is_reproducible_and_uses_tracked_source_evidence(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
