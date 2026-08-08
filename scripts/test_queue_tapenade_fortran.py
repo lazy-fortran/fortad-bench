@@ -74,6 +74,10 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set07/v531"): "unsupported-fortad-generic-intrinsic",
     ("non-regressions", "nonRegressions/set04/lh108"): "unsupported-fortad-global-mutable-state",
     ("non-regressions", "nonRegressions/set04/v048"): "runnable-ported",
+    ("non-regressions", "nonRegressions/set05/v077"): "unsupported-fortad-invalid-generated-interface",
+    ("non-regressions", "nonRegressions/set11/vpf20"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set10/lh230"): "unsupported-fortad-pointer-alias-lifetime",
+    ("non-regressions", "nonRegressions/set10/lh232"): "unsupported-fortad-pointer-alias-lifetime",
 }
 
 
@@ -149,14 +153,14 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1209)
+        self.assertEqual(len(rows), 1205)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
-                "runnable-program-candidate": 271,
+                "runnable-program-candidate": 267,
                 "runnable-procedure-candidate": 864,
             }),
         )
@@ -189,7 +193,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1209)
+        self.assertEqual(len(queued), 1205)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
