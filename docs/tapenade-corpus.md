@@ -243,6 +243,18 @@ adjoint identity; this is not an invalid-upstream closure or a repaired-port
 claim. See the [`case notes`](../cases/tapenade-set02/lh198/notes.md),
 [`manifest`](../cases/tapenade-set02/lh198/manifest.toml), and
 [`result`](../cases/tapenade-set02/lh198/result.txt).
+The next fixed-form candidate, `set02/v067` `ADJ_FCN(T,Y,YP,RESULT,RP)`, is
+closed as a valid-source expected refusal. The exact `program.f` and stored
+`program_p.f` pass strict F2018 and legacy compilation. Fresh exact-source
+Tapenade probes report `unit ADJ_FCN: not found` on the CR-only source and emit
+no derivative products; FortAD's exact parser passes, its forward product is
+only an empty stub, and its reverse probe stops at the case-insensitive
+assignment boundary. The independent source oracle checks `T=Y+pi`, central
+differences, and the adjoint identity. No line-ending rewrite, repaired port,
+or exact derivative support claim is made. See the
+[`case notes`](../cases/tapenade-set02/v067/notes.md),
+[`manifest`](../cases/tapenade-set02/v067/manifest.toml), and
+[`result`](../cases/tapenade-set02/v067/result.txt).
 The recent small pure-Fortran promotions are `set05/v060` and `set05/v061`,
 both selecting `M::func(t,u)`. The next queue-priority row is now promoted as
 `set05/v062` `M::func(t,u)`, with the unchanged upstream source compiled and

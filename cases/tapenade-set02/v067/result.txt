@@ -1,0 +1,27 @@
+case: Tapenade nonRegressions/set02/v067 ADJ_FCN(T,Y,YP,RESULT,RP)
+classification: expected-refusal-valid-source-tapenade-and-fortad-boundary
+recorded_utc: 2026-08-08T01:56:27Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: 928a375d2808ea902cbe4a8a89425c5f536a576d
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: ADJ_FCN(T,Y,YP,RESULT,RP)
+upstream_exact_strict_compile: program.f=0 program_p.f=0
+upstream_exact_legacy_compile: program.f=0 program_p.f=0
+tapenade_exact_generation: parser=0 tangent=0 reverse=0
+tapenade_exact_products: parser=none tangent=none reverse=none
+tapenade_exact_diagnostic: CR-only-program.f reports unit ADJ_FCN not found; tangent/reverse report no root unit
+fortad_exact_parser: pass status=0 strict-free-compile=0
+fortad_exact_forward: expected-refusal status=0 output=empty-stub strict-free-compile=0
+fortad_exact_reverse: expected-refusal status=1 output=none diagnostic=assignment-to-undeclared-t
+independent_oracle: analytical JVP/VJP, central-difference sweep, adjoint identity
+oracle_semantics: T(Y) = Y + pi; analytical JVP=1; analytical VJP=1
+finite_difference_max_error: <1e-10
+adjoint_identity_max_error: <1e-15
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+5e0429ab2047554eb72d3c13c7b00e73cf81e3cdb0b0879c190280cecfc4398b  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set02/v067/program.f
+1154c5bd5d1c03ba59e036a31e3476509aa540b517e1b67e5492fcc494b4691e  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set02/v067/program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  /mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set02/v067/program_p.msg
