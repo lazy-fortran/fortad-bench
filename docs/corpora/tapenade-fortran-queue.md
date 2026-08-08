@@ -1,6 +1,6 @@
 # Tapenade Fortran queue
 
-This is a deterministic, evidence-neutral queue for the currently untriaged rows (1,193 candidates). It reads only the committed static triage and status ledger. It does not run a compiler, Tapenade, FortAD, or an oracle.
+This is a deterministic, evidence-neutral queue for the currently untriaged rows (1,189 candidates). It reads only the committed static triage and status ledger. It does not run a compiler, Tapenade, FortAD, or an oracle.
 
 Regenerate and check it with:
 
@@ -28,7 +28,7 @@ The first matching rule wins:
 | `reference-only-evidence` | 0 |
 | `no-entry-point-evidence` | 0 |
 | `runnable-program-candidate` | 263 |
-| `runnable-procedure-candidate` | 856 |
+| `runnable-procedure-candidate` | 852 |
 | `needs-static-inspection` | 0 |
 
 ## Language and dependency signals
@@ -37,16 +37,16 @@ The first matching rule wins:
 |---|---:|
 | `c++|fortran` | 2 |
 | `c|fortran` | 72 |
-| `fortran` | 1119 |
+| `fortran` | 1115 |
 
-`113` rows carry the orthogonal `missing-dependency-risk` category because an include target's basename is not present among that candidate's tracked source/include files. This is a dependency risk signal, not proof that the dependency is absent. System headers and shared runtime files may be supplied externally.
+`112` rows carry the orthogonal `missing-dependency-risk` category because an include target's basename is not present among that candidate's tracked source/include files. This is a dependency risk signal, not proof that the dependency is absent. System headers and shared runtime files may be supplied externally.
 
 Most frequent unresolved include hints:
 
 - `adStack.h` (52 rows)
 - `stdio.h` (39 rows)
 - `adContext.h` (26 rows)
-- `DIFFSIZES.inc` (18 rows)
+- `DIFFSIZES.inc` (17 rows)
 - `ampi/ampif.h` (15 rows)
 - `math.h` (10 rows)
 - `admpif.h` (10 rows)

@@ -100,9 +100,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,119 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 217 bounded
-  pure-Fortran refusal or feature/dependency classifications, and 33
+  either engine. It leaves 1,115 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 220 bounded
+  pure-Fortran refusal or feature/dependency classifications, and 34
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
@@ -116,7 +116,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,193 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,189 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
  rows with no entry-point hint, 263 program candidates, and 856 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 113 rows
@@ -397,7 +397,10 @@ shard](../cases/tapenade-queue-shard-next17/README.md). The next18 shard adds
 the following four queue-order rows, `set01/lh099`, `lh101`, `lh106`, and
 `lh108`, with explicit DO WHILE, COMMON/derived-storage, reverse
 dependent-selection, and COMMON/undefined-storage boundaries. See the
-[next18 shard](../cases/tapenade-queue-shard-next18/README.md).
+[next18 shard](../cases/tapenade-queue-shard-next18/README.md). The next19 shard
+adds the following queue-order rows `set01/lh110` through `set01/lh113`, with
+independent legacy-inference, array-liveness, piecewise scalar, and invalid-DO
+oracles; see its [manifest and result](../cases/tapenade-queue-shard-next19/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
