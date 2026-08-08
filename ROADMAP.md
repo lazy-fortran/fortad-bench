@@ -5,7 +5,7 @@ refuted. It holds the workloads, the engine adapters, the harness, and the
 committed results. `README.md` reports the current numbers. This file tracks
 what is missing from them.
 
-## Status, 2026-08-07
+## Status, 2026-08-08
 
 Coverage stands at 59 downstream operators: 17 in the fortnum suite and 42 in
 the fortfem suite. A separate Enzyme-native suite contributes five additional
@@ -15,13 +15,12 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger has 122
-classified set01 rows (32 runnable cases, 74 reproducible refusals, and 16
-invalid-upstream closures), plus 87 classified rows elsewhere. There are 1,296
-queued candidates still
-untriaged. A broader feature
-or performance lead needs
-the remaining corpus classifications and the end-to-end itpplasma matrix below.
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 781
+classified rows out of 2,014 (38.8% overall), including 273 of the 1,432
+strict pure-Fortran rows (19.1%). The current queue contains 1,233 candidates:
+1,159 pure Fortran and 74 mixed-language rows. A broader feature or performance
+lead needs the remaining corpus classifications and the end-to-end itpplasma
+matrix below.
 
 The fortfem catalogue has 44 names. The checkout currently contains 43 primal
 kernel sources (plus their C-bound copies). The harness runs 42 of them.
@@ -74,17 +73,21 @@ All three are recorded in `README.md` and none is resolved:
 
 Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
-makes it the comparison baseline for the `rk4` reverse result. Corpus support is
-now wired into the harness for 122 classified set01 cases
-(32 runnable, 74 exact-source refusals, and 16 invalid-upstream closures), plus
-87 classified rows elsewhere. A fresh Tapenade
-engine run and the rest of the corpus remain open.
+makes it the comparison baseline for the `rk4` reverse result. Corpus support
+is wired into the harness for the full pinned checkout. The current ledger
+classifies 273 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+1,159 pure-Fortran rows remain untriaged. The next eight compiler-clean cases
+are recorded in `cases/tapenade-queue-shard-next8/`; the next shard remains
+open.
 
-The product target is the 1,432-row strict pure-Fortran population. Fifty-five
-rows currently pass as runnable support cases, 126 are measured expected
-refusals, 28 are invalid-upstream closures, and 1,296 remain untriaged: 1,222
-pure-Fortran rows and 74 mixed C/C++-Fortran rows. The mixed rows stay in
-a separate dependency lane.
+The product target is the 1,432-row strict pure-Fortran population. Its current
+status breakdown is 61 runnable cases, 133 measured expected refusals, 32
+invalid-upstream closures, and 47 additional bounded feature or dependency
+classifications; 1,159 pure-Fortran rows remain untriaged. The 74 mixed
+C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
+a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
+closure” means the original case cannot be compiled or otherwise exercised
+independently, so it is not evidence of a FortAD limitation.
 
 The complete tracked checkout is now reproducible. The
 [`corpus manifest`](docs/corpora/tapenade.toml) pins commit
@@ -112,9 +115,9 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,296 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 302 program, and 920 procedure
-  candidates. An orthogonal missing-dependency-risk signal covers 122 rows
+  partition the 1,233 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 271 program, and 888 procedure
+  candidates. An orthogonal missing-dependency-risk signal covers 119 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
 - [x] Generate the pure-Fortran candidate handoff with
@@ -385,9 +388,10 @@ explicitly refused, independently checked, and measured when runnable.
   and [validation result](results/tapenade_set05_v054_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,222 untriaged pure-Fortran rows and 74
-  mixed-language rows, alongside 122 classified set01 rows and 87 additional
-  classified rows.
+  reproducible evidence. There are 1,159 untriaged pure-Fortran rows and 74
+  mixed-language rows. The next8 shard closed four compiler-clean pure-Fortran
+  rows with fresh Tapenade probes and independent Python oracles; continue in
+  similarly bounded shards.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
   differentiable path must pass a hand derivative, finite-difference sweep, or
   adjoint identity. Parser fixtures, invalid sources, and missing external
