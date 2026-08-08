@@ -28,7 +28,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "foo",
-      "fortad_revision": "93727c5be04a5b39aae7b992d09078c65ec01fdd",
+      "fortad_revision": "13b7ae1ab7d778c770767726b0583b5f4a5b394f",
       "id": "set06-v344",
       "independent_oracle": {
         "case": "v344-foo",
@@ -228,7 +228,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "foo",
-      "fortad_revision": "93727c5be04a5b39aae7b992d09078c65ec01fdd",
+      "fortad_revision": "13b7ae1ab7d778c770767726b0583b5f4a5b394f",
       "id": "set12-f03typf02",
       "independent_oracle": {
         "case": "f03typf02-foo",
@@ -416,7 +416,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "foo",
-      "fortad_revision": "93727c5be04a5b39aae7b992d09078c65ec01fdd",
+      "fortad_revision": "13b7ae1ab7d778c770767726b0583b5f4a5b394f",
       "id": "set12-mvo35",
       "independent_oracle": {
         "case": "mvo35-foo",
@@ -635,7 +635,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "compute",
-      "fortad_revision": "93727c5be04a5b39aae7b992d09078c65ec01fdd",
+      "fortad_revision": "13b7ae1ab7d778c770767726b0583b5f4a5b394f",
       "id": "set04-lh140",
       "independent_oracle": {
         "case": "lh140-compute",
@@ -824,7 +824,7 @@
   ],
   "current_batch_sha256": "173137e819ab5ea66e5209cd75d8084fc5c3e4822145a7f237f9c1783852d009",
   "current_queue_sha256": "cc1d9bd347f4ecea8dc906fd5bee6d171ad2d6d892be3261e912ca1aa1478f80",
-  "fortad_revision": "93727c5be04a5b39aae7b992d09078c65ec01fdd",
+  "fortad_revision": "13b7ae1ab7d778c770767726b0583b5f4a5b394f",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b9330b2e787a",
