@@ -64,7 +64,7 @@
           "stderr": "...INITREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                          1\nWarning: Procedure \u2018adcontexttgt_initreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:94:27:\n\n   94 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:22:33:\n\n   22 |   CALL TESTALLOCS_D(x, xd, y, yd)\n      |                                 1\nWarning: Procedure \u2018testallocs_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:23:35:\n\n   23 |   CALL ADCONTEXTTGT_STARTCONCLUDE()\n      |                                   1\nWarning: Procedure \u2018adcontexttgt_startconclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:24:62:\n\n   24 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('x'//CHAR(0), x, xd, 4)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:25:62:\n\n   25 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:26:30:\n\n   26 |   CALL ADCONTEXTTGT_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontexttgt_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set11-v540a",
       "independent_oracle": {
         "case": "v540a-allocations",
@@ -315,7 +315,7 @@
           "stderr": ""
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set06-v339",
       "independent_oracle": {
         "case": "v339-linked-pointer",
@@ -553,7 +553,7 @@
           "stderr": "program_d.f90:20:18:\n\n   20 |   TYPE(BLOCK) :: blk\n      |                  1~~\nWarning: Unused variable \u2018blk\u2019 declared at (1) [-Wunused-variable]\nprogram_d.f90:19:25:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                         1~~~\nWarning: Unused parameter \u2018jmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_d.f90:19:33:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                 1~~~\nWarning: Unused parameter \u2018kmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_d.f90:19:41:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                         1~~~\nWarning: Unused parameter \u2018mmax\u2019 declared at (1) [-Wunused-parameter]\n"
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set05-v197",
       "independent_oracle": {
         "case": "v197-block",
@@ -806,7 +806,7 @@
           "stderr": "...INITREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                          1\nWarning: Procedure \u2018adcontexttgt_initreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:94:27:\n\n   94 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:22:33:\n\n   22 |   CALL TESTALLOCS_D(x, xd, y, yd)\n      |                                 1\nWarning: Procedure \u2018testallocs_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:23:35:\n\n   23 |   CALL ADCONTEXTTGT_STARTCONCLUDE()\n      |                                   1\nWarning: Procedure \u2018adcontexttgt_startconclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:24:62:\n\n   24 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('x'//CHAR(0), x, xd, 4)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:25:62:\n\n   25 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:26:30:\n\n   26 |   CALL ADCONTEXTTGT_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontexttgt_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set11-v541a",
       "independent_oracle": {
         "case": "v541a-allocations",
@@ -998,7 +998,7 @@
   ],
   "current_batch_sha256": "04c3ae5625dd01881d255beec77356f21565cf497e464f9a1ca5e0bd6fa6b744",
   "current_queue_sha256": "5046586092bb76946574ffd2d043e785dcc15e2bb181fb549b33c5514d0fd0f7",
-  "fortad_revision": "9f01f7c",
+  "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",

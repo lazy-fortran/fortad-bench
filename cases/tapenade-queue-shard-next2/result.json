@@ -40,7 +40,7 @@
           "stderr": ""
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set11-vpf19",
       "independent_oracle": {
         "case": "vpf19-nested-difference",
@@ -280,7 +280,7 @@
           "stderr": "...  CALL GLOBSUBB(tt)\n      |                   1\nWarning: Procedure \u2018globsubb\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_p.f90:81:6:\n\n   81 |   USE MMA, ONLY : avv1, avv2, aa1, aa2\n      |      1\nWarning: Unused module variable \u2018aa2\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:81:6:\n\n   81 |   USE MMA, ONLY : avv1, avv2, aa1, aa2\n      |      1\nWarning: Unused module variable \u2018aa1\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:81:6:\n\n   81 |   USE MMA, ONLY : avv1, avv2, aa1, aa2\n      |      1\nWarning: Unused module variable \u2018avv2\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:81:6:\n\n   81 |   USE MMA, ONLY : avv1, avv2, aa1, aa2\n      |      1\nWarning: Unused module variable \u2018avv1\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:82:6:\n\n   82 |   USE MMB, ONLY : vv1, vv2, bb1, bb2\n      |      1\nWarning: Unused module variable \u2018bb1\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:82:6:\n\n   82 |   USE MMB, ONLY : vv1, vv2, bb1, bb2\n      |      1\nWarning: Unused module variable \u2018bb2\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:82:6:\n\n   82 |   USE MMB, ONLY : vv1, vv2, bb1, bb2\n      |      1\nWarning: Unused module variable \u2018vv1\u2019 which has been explicitly imported at (1) [-Wunused-variable]\nprogram_p.f90:82:6:\n\n   82 |   USE MMB, ONLY : vv1, vv2, bb1, bb2\n      |      1\nWarning: Unused module variable \u2018vv2\u2019 which has been explicitly imported at (1) [-Wunused-variable]\n"
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set07-v479",
       "independent_oracle": {
         "case": "v479-module-state",
@@ -499,7 +499,7 @@
           "stderr": ""
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set04-lh111",
       "independent_oracle": {
         "case": "lh111-pointer-field",
@@ -720,7 +720,7 @@
           "stderr": "program_d.f90:55:28:\n\n   55 |   SUBROUTINE INIT_OBJ(obj, n)\n      |                            1\nWarning: Unused dummy argument \u2018n\u2019 at (1) [-Wunused-dummy-argument]\n"
         }
       },
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set07-v520",
       "independent_oracle": {
         "case": "v520-force-calculation",
@@ -915,9 +915,9 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     }
   ],
-  "current_batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
-  "current_queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
-  "fortad_revision": "9f01f7c",
+  "current_batch_sha256": "04c3ae5625dd01881d255beec77356f21565cf497e464f9a1ca5e0bd6fa6b744",
+  "current_queue_sha256": "5046586092bb76946574ffd2d043e785dcc15e2bb181fb549b33c5514d0fd0f7",
+  "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "d463d85b2b5a49ecad2f8b22786e6e27dcf2cebce53262b0b7fbd2ebb18d0fe6",

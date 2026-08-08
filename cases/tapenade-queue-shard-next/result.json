@@ -21,7 +21,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "factorial",
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set05-v196",
       "independent_oracle": {
         "defined_behavior": "recursive integer factorial values",
@@ -205,7 +205,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "twice_real",
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set05-v202",
       "independent_oracle": {
         "central_difference": {
@@ -390,7 +390,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "addvector",
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set06-v220",
       "independent_oracle": {
         "defined_behavior": "component-wise vector addition model",
@@ -584,7 +584,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "test",
-      "fortad_revision": "9f01f7c",
+      "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
       "id": "set06-v232",
       "independent_oracle": {
         "central_difference": {
@@ -766,9 +766,9 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     }
   ],
-  "current_batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
-  "current_queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
-  "fortad_revision": "9f01f7c",
+  "current_batch_sha256": "04c3ae5625dd01881d255beec77356f21565cf497e464f9a1ca5e0bd6fa6b744",
+  "current_queue_sha256": "5046586092bb76946574ffd2d043e785dcc15e2bb181fb549b33c5514d0fd0f7",
+  "fortad_revision": "9f01f7cf4b55389b4d5e899204e87823bc9fd8e",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "96afeeb377f827f149008157c7804ba30b95b9ab053aa1184d339f53209ca821",
