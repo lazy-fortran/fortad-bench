@@ -26,6 +26,10 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set06/v344"): "unsupported-fortad-pointer-ownership",
     ("non-regressions", "nonRegressions/set12/f03typf02"): "unsupported-fortad-abstract-polymorphic-context",
     ("non-regressions", "nonRegressions/set12/mvo35"): "unsupported-fortad-polymorphic-procedure-pointer",
+    ("non-regressions", "nonRegressions/set04/v030"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set07/v534"): "unsupported-fortad-pointer-ownership",
+    ("non-regressions", "nonRegressions/set07/v535"): "unsupported-fortad-pointer-ownership",
+    ("non-regressions", "nonRegressions/set12/mvo34"): "unsupported-fortad-polymorphic-procedure-pointer",
 }
 
 
@@ -101,14 +105,14 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1265)
+        self.assertEqual(len(rows), 1261)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
-                "runnable-program-candidate": 288,
+                "runnable-program-candidate": 284,
                 "runnable-procedure-candidate": 903,
             }),
         )
@@ -141,7 +145,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1265)
+        self.assertEqual(len(queued), 1261)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent

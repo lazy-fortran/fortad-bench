@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-modern-followup"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Select pure-Fortran, compiler-clean, free-form queue rows without unresolved include/dependency risk that have a static procedure entry-point hint; score case-insensitive occurrences in the exact primary source with the fixed modern-feature weights documented in README.md, descending score then committed queue order. Scores are v030=210, v534=165, mvo34=165, and v535=159; entry names are static declaration hints only."
+selection_queue_sha256 = "cc1d9bd347f4ecea8dc906fd5bee6d171ad2d6d892be3261e912ca1aa1478f80"
+selection_batch_sha256 = "173137e819ab5ea66e5209cd75d8084fc5c3e4822145a7f237f9c1783852d009"
+current_queue_sha256 = "d463d85b2b5a49ecad2f8b22786e6e27dcf2cebce53262b0b7fbd2ebb18d0fe6"
+current_batch_sha256 = "4a3178cf7ecb4f37714477638c67603abbeb7057372a4202ea1724766f7d01cb"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "13b7ae1ab7d778c770767726b0583b5f4a5b394f"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied: the probe uses only static procedure names and independent primal/refusal models"
+
+[[case]]
+id = "set04-v030"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v030"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 210
+selection_features = "type(=15; procedure=5; interface/bind(c)/iso_c_binding=10"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v030/program.f90"
+references = ["nonRegressions/set04/v030/program_b.f90", "nonRegressions/set04/v030/program_d.f90", "nonRegressions/set04/v030/program_p.f90"]
+entry_point = "interval_addition"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact interval derived-type function. FortAD parses the exact source but refuses forward and reverse because the active derived object must name a real component. The independent interval arithmetic model passes and makes no derivative-support claim."
+oracle_case = "v030-interval-addition"
+
+[[case]]
+id = "set07-v534"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v534"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 165
+selection_features = "pointer=7; interface/bind(c)/iso_c_binding=2; dimension=19"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v534/program.f90"
+references = ["nonRegressions/set07/v534/program_b.f90", "nonRegressions/set07/v534/program_d.f90", "nonRegressions/set07/v534/program_p.f90"]
+entry_point = "testallocs"
+classification = "unsupported-fortad-pointer-ownership"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact pointer-allocation procedure. FortAD refuses all three modes at pointer association storage identity, which is required to track the allocated owners across the calls and deallocation. The independent pointer-allocation model passes and makes no derivative-support claim."
+oracle_case = "v534-testallocs"
+
+[[case]]
+id = "set12-mvo34"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo34"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 165
+selection_features = "abstract=1; class(=5; pointer=1; type(=1; procedure=1; interface/bind(c)/iso_c_binding=7"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo34/program.f90"
+references = ["nonRegressions/set12/mvo34/program_p.f90"]
+entry_point = "type_set_func"
+classification = "unsupported-fortad-polymorphic-procedure-pointer"
+closure = "Tapenade parses the exact abstract-interface and polymorphic procedure-pointer setter; its forward and reverse runs report no active input or output. FortAD refuses all three modes at the procedure-pointer interface boundary. The independent dynamic-dispatch state model passes and makes no derivative-support claim."
+oracle_case = "mvo34-type-set-func"
+
+[[case]]
+id = "set07-v535"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v535"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 159
+selection_features = "pointer=7; interface/bind(c)/iso_c_binding=2; dimension=17"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v535/program.f90"
+references = ["nonRegressions/set07/v535/main.f90", "nonRegressions/set07/v535/program_b.f90", "nonRegressions/set07/v535/program_d.f90"]
+entry_point = "testallocs"
+classification = "unsupported-fortad-pointer-ownership"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact pointer-allocation procedure. FortAD refuses all three modes at pointer association storage identity, which is required to track the allocated owners across the calls and deallocation. The independent pointer-allocation model passes and makes no derivative-support claim."
+oracle_case = "v535-testallocs"
