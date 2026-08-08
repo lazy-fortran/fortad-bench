@@ -1,0 +1,68 @@
+schema_version = 1
+name = "tapenade-set02-lh196"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ac8d04be7303bbd3b6bd9f865074401b5041b9af"
+source_form = "fixed"
+runner = "cases/tapenade-set02/lh196/run.sh"
+result = "cases/tapenade-set02/lh196/result.txt"
+queue_category = "runnable-program-candidate"
+queue_rank = 40
+
+source_files = [
+    "nonRegressions/set02/lh196/program.f",
+    "nonRegressions/set02/lh196/program_b.f",
+    "nonRegressions/set02/lh196/program_d.f",
+]
+upstream_sources = [
+    "nonRegressions/set02/lh196/Options",
+    "nonRegressions/set02/lh196/program.f",
+    "nonRegressions/set02/lh196/program_b.f",
+    "nonRegressions/set02/lh196/program_b.msg",
+    "nonRegressions/set02/lh196/program_d.f",
+    "nonRegressions/set02/lh196/program_d.msg",
+]
+stored_references = ["program_b.f", "program_b.msg", "program_d.f", "program_d.msg"]
+
+upstream_entry_point = "POLYCOST(X,Y,ns), called by MAIN"
+selected_entry_points = ["POLYCOST(X,Y,ns)", "POLYSURF(X,Y,ns)", "POLYPERIM(X,Y,ns)", "INCRSQRT(pp,dxx,dyy)"]
+ported_entry_point = "not-claimed-exact-source-only"
+independent = ["X", "Y"]
+dependent = "POLYCOST"
+options = [
+    "Tapenade parser: -p -head polycost(polycost)/(X Y) -context -debugADJ",
+    "Tapenade tangent: -d -head polycost(polycost)/(X Y) -context -debugADJ",
+    "Tapenade reverse: -b -head polycost(polycost)/(X Y) -context -debugADJ",
+    "FortAD check/forward/reverse: exact POLYCOST request on program.f",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact-source SHA-256 contract",
+    "strict F2018 and legacy fixed-form compiler gates",
+    "fresh pinned Tapenade parser/tangent/reverse generation and both compiler gates",
+    "FortAD exact check/forward/reverse refusal diagnostic",
+    "independent polygon-cost primal/JVP/VJP, central-difference, and adjoint oracle",
+]
+classification = "expected-refusal-fortad-function-inlining-real8-boundary"
+dependencies = [
+    "The exact and stored fixed-form sources use nonstandard REAL*8 declarations; strict F2018 rejects them while the legacy fixed-form gate accepts them.",
+    "POLYCOST calls the external function POLYPERIM, whose INCRSQRT subroutine updates the function result through an argument; FortAD's exact inliner refuses this call chain.",
+    "No repaired free-form or REAL(8) port is part of this case.",
+]
+expected_diagnostics = [
+    "exact program.f, program_b.f, and program_d.f fail strict F2018 at REAL*8 and pass the legacy syntax gate",
+    "fresh pinned Tapenade parser, tangent, and reverse products generate successfully, fail strict F2018 at REAL*8, and pass legacy syntax",
+    "FortAD check, forward, and reverse report inlining POLYPERIM would need a statement form it does not have and emit no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-REAL8-refusal-legacy-compile-pass"
+fortad_result = "expected-refusal-exact-check-forward-reverse-function-inlining-no-output"
+closure = "The exact legacy source is retained only as a measured Tapenade corpus case. Replacing REAL*8 or rewriting the POLYPERIM/INCRSQRT call chain would define a different source, so no repaired port or FortAD support claim is made. The independent Python oracle checks the polygon-cost semantics separately without laundering that model into exact-source support."
+
+[upstream_sha256]
+"nonRegressions/set02/lh196/Options" = "99e51419635d056af75fea89e78d808a11fba696b9dba92a88ab031b5a387b76"
+"nonRegressions/set02/lh196/program.f" = "14396dd61430e1ef9b273b39a6fbaf23d559863858eb97e3bf57cf3a63aa13a5"
+"nonRegressions/set02/lh196/program_b.f" = "537cb9f13ef4c9331eb666b02cf21d24990b7b25484524b58c899d5a99d1401b"
+"nonRegressions/set02/lh196/program_b.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+"nonRegressions/set02/lh196/program_d.f" = "a72f7481408fd802cc73b44a498d180572679564c5409efb7458904ab9b52253"
+"nonRegressions/set02/lh196/program_d.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

@@ -1,0 +1,49 @@
+case: Tapenade nonRegressions/set02/lh196 POLYCOST(X,Y,ns)
+classification: expected-refusal-fortad-function-inlining-real8-boundary
+runner_result: pass
+recorded_utc: 2026-08-08T00:09:14Z
+machine: mailuefterl
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: ac8d04be7303bbd3b6bd9f865074401b5041b9af
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: POLYCOST(X,Y,ns)
+tapenade_options: parser=-p tangent=-d reverse=-b; -head polycost(polycost)/(X Y) -context -debugADJ
+upstream_exact_strict_compile: program=1 program_b=1 program_d=1 diagnostic=REAL8
+upstream_exact_legacy_compile: program=0 program_b=0 program_d=0
+exact_primal_runtime: build=0 run=0 output= cost=   16.829510148652815
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=1 tangent=1 reverse=1 diagnostic=REAL8
+tapenade_fresh_legacy_compile: parser=0 tangent=0 reverse=0
+fortad_exact_behavior: check=expected-refusal status=1 forward=expected-refusal status=1 reverse=expected-refusal status=1 diagnostic="inlining POLYPERIM would need a statement form it does not have" no-output
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: polygon-cost primal, closed-form JVP/VJP, central-difference sweep, and adjoint identity
+oracle_semantics: polygon perimeter-squared over signed area
+oracle_behavioral_cases: 3
+finite_difference_max_error: 2.038408e-09
+adjoint_identity_max_error: 2.220446e-16
+primal_reference_cost: 1.6829510148652815e+01
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+99e51419635d056af75fea89e78d808a11fba696b9dba92a88ab031b5a387b76  nonRegressions/set02/lh196/Options
+14396dd61430e1ef9b273b39a6fbaf23d559863858eb97e3bf57cf3a63aa13a5  nonRegressions/set02/lh196/program.f
+537cb9f13ef4c9331eb666b02cf21d24990b7b25484524b58c899d5a99d1401b  nonRegressions/set02/lh196/program_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set02/lh196/program_b.msg
+a72f7481408fd802cc73b44a498d180572679564c5409efb7458904ab9b52253  nonRegressions/set02/lh196/program_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set02/lh196/program_d.msg
+fresh_tapenade_sha256:
+55f57311b0cd45a73489e5bc73fcab5c4efbbaf3cb0b8bad698b17e8d9320072  parser/lh196_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/lh196_p.msg
+514a6cb7c6e567b58a41bc9c053637857883c0dee59ca1d60ef931d2bc8b2606  tangent/lh196_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  tangent/lh196_d.msg
+c9424b67ad60d0c69832095ab45436fff8b6cd8e6a01b5fc83f713156ab5882c  reverse/lh196_b.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  reverse/lh196_b.msg
+case_artifact_sha256:
+00da08b82a77c585a114117a1a89eaef156641693e898961ccf5400f600f6354  manifest.toml
+b637817636175050e472e47460af21ac6294beff60e2a4e7cbca9d2896732075  notes.md
+d6decdbf55bce4c9888b82f6f7e5714b49290083d6b906ba5a2c3a2f2938747e  oracle.py
+872c05749eedf65d4605f63ac4ac78e8a46f2164ef09002293ddd738b25b4f08  run.sh
+8cb85ac697be6b10de7bf16bd60b3d03760949825d96fce2db92141476a932d9  test_contract.py
+closure: exact-source expected refusal; strict REAL8 boundary and unsupported POLYPERIM inlining; no repaired source or support claim
