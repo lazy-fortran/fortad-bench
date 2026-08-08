@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-modern-next"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Select pure-Fortran, compiler-clean, free-form queue rows without unresolved include/dependency risk that have a static procedure entry-point hint; score case-insensitive occurrences in the exact primary source with the fixed modern-feature weights documented in README.md, descending score then committed queue order. Scores are v344=320, f03typf02=270, mvo35=248, and lh140=194; entry names are static declaration hints only."
+selection_queue_sha256 = "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b9330b2e787a"
+selection_batch_sha256 = "84ddf7da98a85cd6a8f75774ee682d9592f71facd837fbffef2e77ac817e877d"
+current_queue_sha256 = "cc1d9bd347f4ecea8dc906fd5bee6d171ad2d6d892be3261e912ca1aa1478f80"
+current_batch_sha256 = "173137e819ab5ea66e5209cd75d8084fc5c3e4822145a7f237f9c1783852d009"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "93727c5be04a5b39aae7b992d09078c65ec01fdd"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied: the probe uses only statically discovered procedure names and independent source/primal/refusal models"
+
+[[case]]
+id = "set06-v344"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v344"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 320
+selection_features = "pointer=12; associate=4; type(=13"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v344/program.f90"
+references = ["nonRegressions/set06/v344/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-ownership"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact nested pointer-tree procedure. FortAD refuses all three modes at pointer-association storage identity; nested pointer targets and ownership are not represented. The independent tree mutation model passes and makes no derivative-support claim."
+oracle_case = "v344-foo"
+
+[[case]]
+id = "set12-f03typf02"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/f03typf02"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 270
+selection_features = "abstract=5; select type=1; class(=6; type(=2; procedure=5"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/f03typf02/program.f90"
+references = ["nonRegressions/set12/f03typf02/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-abstract-polymorphic-context"
+closure = "Tapenade parses and emits forward and reverse products for the exact abstract/type-extension source. FortAD refuses at the module-use context required by the abstract polymorphic procedure; the independent base/extension dispatch model passes and makes no derivative-support claim."
+oracle_case = "f03typf02-foo"
+
+[[case]]
+id = "set12-mvo35"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo35"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 248
+selection_features = "select type=1; class(=6; pointer=3; derived/type ::=1; type(=2; procedure=2; interface/bind(c)/iso_c_binding=10"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo35/program.f90"
+references = ["nonRegressions/set12/mvo35/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-polymorphic-procedure-pointer"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact select-type procedure-pointer dispatch. FortAD refuses at the procedure-pointer invocation statement; dynamic polymorphic dispatch is not represented. The independent dispatch model passes and makes no derivative-support claim."
+oracle_case = "mvo35-foo"
+
+[[case]]
+id = "set04-lh140"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh140"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 194
+selection_features = "pointer=8; derived/type ::=1; type(=9"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh140/program.f90"
+references = ["nonRegressions/set04/lh140/program_d.f90"]
+entry_point = "compute"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact pointer-linked derived-object computation. FortAD refuses at pointer-association storage identity before transformation. The independent graph/arithmetic model passes and makes no derivative-support claim."
+oracle_case = "lh140-compute"
