@@ -1,0 +1,61 @@
+schema_version = 1
+name = "tapenade-set02-lh193"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_tree = "17288bdf7e03cb23b82ddc769d884deed9c9575e"
+fortad_revision = "6a33d314c5b1a8adf8b9ed989741612fe09ab6b0"
+source_form = "fixed"
+runner = "cases/tapenade-set02/lh193/run.sh"
+result = "cases/tapenade-set02/lh193/result.txt"
+compiler_report = "docs/corpora/tapenade-fortran-compiler.jsonl"
+compiler_batch = "docs/corpora/tapenade-fortran-batch.jsonl"
+queue_category = "runnable-program-candidate"
+queue_rank = 40
+
+source_files = [
+    "nonRegressions/set02/lh193/program.f",
+    "nonRegressions/set02/lh193/program_d.f",
+]
+upstream_sources = [
+    "nonRegressions/set02/lh193/Options",
+    "nonRegressions/set02/lh193/program.f",
+    "nonRegressions/set02/lh193/program_d.f",
+]
+dependency_files = ["ADFirstAidKit/ampi/ampif.h"]
+
+upstream_entry_point = "head(x,y)"
+selected_entry_points = ["head(x,y)", "main", "head_d", "main_d"]
+ported_entry_point = "not-created-missing-dependency"
+independent = []
+dependent = "not-applicable"
+options = [
+    "Options: -I ../ADFirstAidKit/mpich/include -I ../ADFirstAidKit -context",
+    "strict/legacy fixed-form syntax-only compilation; no Tapenade or FortAD invocation",
+]
+modes = ["strict-compiler", "legacy-compiler"]
+oracle = [
+    "exact pinned-source SHA-256 contract",
+    "exact upstream Git origin/revision/tree contract",
+    "strict fixed-form compiler diagnostics and dependency inventory",
+]
+classification = "blocked-missing-dependency"
+dependencies = [
+    "The exact case is fixed-form Fortran and static triage finds main, head, main_d, and head_d.",
+    "Direct strict compilation cannot open ampi/ampif.h. The exact checkout's ADFirstAidKit/ampi/ampif.h is present, but it includes mpif.h and the required ADFirstAidKit/mpich/include/mpif.h is absent.",
+    "This is a valid candidate blocked by an unresolved AMPI/MPI dependency, not an invalid-upstream classification; no source repair or synthetic header is introduced.",
+]
+expected_diagnostics = [
+    "program.f:7:0: Fatal Error: Cannot open included file 'ampi/ampif.h'",
+    "program_d.f:8:0: Fatal Error: Cannot open included file 'ampi/ampif.h'",
+    "ampi/ampif.h:8:0: Fatal Error: Cannot open included file 'mpif.h'",
+]
+tapenade_result = "not-run-missing-dependency"
+fortad_result = "not-run-missing-dependency"
+closure = "The exact pinned fixed-form candidate remains blocked at its AMPI/MPI include chain. Neither engine was invoked, and the row is deliberately not called invalid upstream."
+
+[upstream_sha256]
+"nonRegressions/set02/lh193/Options" = "53b2235d597aeb90725365768cc248a7e141ef3f791f46e23e1fcbc1ae99a19a"
+"nonRegressions/set02/lh193/program.f" = "3c09f325b6cc0f378465189cd40f6e23a7a08a187f333f8015f6461a06d6c60a"
+"nonRegressions/set02/lh193/program_d.f" = "928ee6bcd1595751cfc934a293c44e0cb5d77797d4f8cdb11f71490556b9e8a4"
+"ADFirstAidKit/ampi/ampif.h" = "67cb1fb06078f02919e4b904d60cd1206c7cdb4565abda8ce088f310b52c0a98"

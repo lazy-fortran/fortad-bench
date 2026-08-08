@@ -124,6 +124,14 @@ declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
 label claims parsing, compilation, transformation, runtime, or correctness.
 
+The exact fixed-form `set02/lh193` AMPI candidate is recorded separately as
+`blocked-missing-dependency`: strict compilation reaches the missing
+`ampi/ampif.h`/`mpif.h` chain in the pinned checkout. It is not classified as
+invalid upstream, and neither Tapenade nor FortAD is invoked. See its
+[`case notes`](../cases/tapenade-set02/lh193/notes.md),
+[`manifest`](../cases/tapenade-set02/lh193/manifest.toml), and
+[`result`](../cases/tapenade-set02/lh193/result.txt).
+
 Run the compiler-backed evidence pass after fetching the pinned checkout:
 
 ```bash

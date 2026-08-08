@@ -1,0 +1,58 @@
+case: Tapenade nonRegressions/set02/lh193 head(x,y) AMPI dependency boundary
+classification: blocked-missing-dependency
+runner_result: pass
+recorded_utc: 2026-08-08T01:06:34Z
+machine: mailuefterl
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+source_form: fixed
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+tapenade_origin: https://gitlab.inria.fr/tapenade/tapenade.git
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_tree: 17288bdf7e03cb23b82ddc769d884deed9c9575e
+entry_point: head(x,y); static programs main and main_d
+tapenade_options: Options=-I ../ADFirstAidKit/mpich/include|-I ../ADFirstAidKit|-context; transformations not-run
+direct_include_flags: none (case directory only)
+resolved_header_include_flags: -I upstream/tapenade/ADFirstAidKit
+upstream_exact_strict_compile: program=1 program_d=1
+upstream_exact_legacy_compile: program=1 program_d=1
+resolved_header_strict_compile: program=1 program_d=1
+resolved_header_legacy_compile: program=1 program_d=1
+automatic_compiler_triage: candidate_status=compiler-missing-dependency next_action=resolve-dependency-or-record-refusal
+automatic_compiler_flags: -std=f2018 -ffixed-form -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -cpp -I. -InonRegressions/set02/lh193 -J<scratch>
+automatic_compiler_diagnostic_sha256: program=1b4dfc9f2e4cd76a1af41b318c03524981893037349cd607b3ccee1b515560c1 program_d=6adbdafd8d2546912bd87db905087863292b6869b6bd75d54122f4cb4c375548
+direct_strict_diagnostic_program:
+program.f:7:0:
+
+    7 |       include 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+direct_strict_diagnostic_program_d:
+program_d.f:8:0:
+
+    8 |       INCLUDE 'ampi/ampif.h'
+Fatal Error: Cannot open included file 'ampi/ampif.h'
+compilation terminated.
+nested_strict_diagnostic:
+ampi/ampif.h:8:0:
+
+Fatal Error: Cannot open included file 'mpif.h'
+compilation terminated.
+diagnostic_sha256: direct_program=99fb7cae93e4e7aae3759a2fe210f7ee4dfcbc35bc1403d3b4a315da355d2a5d direct_program_d=2918f713d4149d4906ae415392f445b83c1084c519b19ba22c98b09c22dca7e1 nested=dc341cb0d02671f41e9571e53be0bb6a8ac73e5b721ca7dba90e9959d477070f
+dependency_inventory: ADFirstAidKit/ampi/ampif.h=present; ADFirstAidKit/mpich/include/mpif.h=absent; ampif.h includes mpif.h
+tapenade_result: not-run-missing-dependency
+fortad_result: not-run-missing-dependency
+independent_oracle: not-applicable-transformation-not-reached
+no_transformation_attempted: true
+not_invalid_upstream: true
+upstream_sha256:
+53b2235d597aeb90725365768cc248a7e141ef3f791f46e23e1fcbc1ae99a19a  nonRegressions/set02/lh193/Options
+3c09f325b6cc0f378465189cd40f6e23a7a08a187f333f8015f6461a06d6c60a  nonRegressions/set02/lh193/program.f
+928ee6bcd1595751cfc934a293c44e0cb5d77797d4f8cdb11f71490556b9e8a4  nonRegressions/set02/lh193/program_d.f
+67cb1fb06078f02919e4b904d60cd1206c7cdb4565abda8ce088f310b52c0a98  ADFirstAidKit/ampi/ampif.h
+case_artifact_sha256:
+15462237f413b02481e19506fdbb7cbc4afd2d8a079e2bb28fcec9d706f5587c  manifest.toml
+17797bb8f635bd1f8ef939a3950e15153e03fc8cfe163eebf50595c13ddd105e  notes.md
+2c3f74ba42f0f2e714ec176b7c4e37bb4a14d1b3257815ed6e68003c7372d2f8  run.sh
+b746b7dca72f1dcd965c0723d273561b2dcfab7e8cf2499b9aee57a0f810f01b  test_contract.py
+closure: valid fixed-form candidate blocked by the exact pinned AMPI/MPI include chain; no invalid-upstream, Tapenade, FortAD, repaired-source, or derivative claim
