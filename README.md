@@ -309,12 +309,12 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-one rows now have executable FortAD evidence, 134 explicit
-  refusals, and thirty-two invalid-upstream closures are independently recorded. Another
+  audit. Sixty-one rows now have executable FortAD evidence, 178 deliberate
+  pure-Fortran boundary rows, and thirty-two invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,269 rows are queued: 1,195 pure-Fortran rows and 74 mixed-language rows.
+  1,233 rows are queued: 1,159 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -400,6 +400,11 @@ because it belongs next to the engines rather than next to the compiler.
   alias/lifetime cleanup, and optional-rank generic interfaces. Their exact
   Tapenade/FortAD probes and independent primal/source/refusal models are in
   the [modern-feature shard](cases/tapenade-queue-shard-next-modern/README.md).
+  The next8 shard closes four compiler-clean, no-missing-dependency rows:
+  `set03/cmv07`, `set10/lh234`, `set06/v237`, and `set03/cm30`. Fresh Tapenade
+  probes pass; FortAD records explicit global-state, derived-component,
+  module-pointer, and pointer-lifetime boundaries, with independent primal or
+  refusal oracles. See the [next8 shard manifest and result](cases/tapenade-queue-shard-next8/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
