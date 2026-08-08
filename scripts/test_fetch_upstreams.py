@@ -658,6 +658,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         )
         self.assertTrue(all(row["initial_classification"] for row in rows))
         evidence_paths = {
+            "nonRegressions/set03/lh013",
             "nonRegressions/set01/bd01",
             "nonRegressions/set01/bd02",
             "nonRegressions/set01/bd03",
@@ -1067,6 +1068,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-parser-generated-strict-refusal-forward-generated-strict-pass-reverse-refused-no-dependent",
                 "expected-refusal-parser-forward-reverse-no-dependent-module-pointer-state",
                 "pass-parser-forward-reverse-generated-compile-and-independent-affine-oracle",
+                "pass-parser-forward-reverse-generated-strict-compile",
             },
         )
         expected_evidence = {
@@ -2637,6 +2639,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "exact-source-hashes|strict-exact-compile|fresh-Tapenade-parser-tangent-reverse-generation-strict-compile|FortAD-forward-reverse-transform-strict-compile-runtime|independent-hand-finite-difference-adjoint-oracle",
                 "dependencies": "exact v065 source and stored references compile unchanged; ptab is the active input and cst is passive in the selected value-map closure; generic caller and mppsum_real3 remain outside",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-strict-compile",
+            },
+            "nonRegressions/set03/lh013": {
+                "entry_point": "function",
+                "tapenade_options": "-p/-root-function|-d/-root-function|-b/-root-function",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-and-legacy-compiler|exact-source-sha256|fresh-Tapenade-parser-forward-reverse-generation|FortAD-generated-strict-compile|independent-derived-affine-jvp-vjp-oracle",
+                "dependencies": "local USE data_types; compiler-clean; modern-feature-score=53; exact-source-reference-sha256-in-case-result",
+                "tapenade_result": "pass-fresh-parser-forward-reverse-generation-strict-compile-pass",
             },
             "nonRegressions/set05/v067": {
                 "entry_point": "RUN::s(mb1,mb2,mb3)",

@@ -309,13 +309,13 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-two rows now have executable FortAD evidence, 207 bounded
+  audit. Sixty-three rows now have executable FortAD evidence, 210 bounded
   pure-Fortran refusal or feature/dependency classifications, and thirty-two
   invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,205 rows are queued: 1,131 pure-Fortran rows and 74 mixed-language rows.
+  1,201 rows are queued: 1,127 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -410,7 +410,7 @@ because it belongs next to the engines rather than next to the compiler.
   `set03/cm26`. Fresh Tapenade probes pass; FortAD records nested-procedure,
   module-state, and pointer-storage boundaries with independent arithmetic and
   ownership oracles. See the [next9 shard manifest and result](cases/tapenade-queue-shard-next9/README.md).
-  The next10 through next15 shards add twenty-four more compiler-clean rows with
+  The next10 through next16 shards add twenty-eight more compiler-clean rows with
   fresh three-mode probes, exact source hashes, and independent behavioral
   contracts. The next13 rows are `set06/v364`, `set04/lh112`, `set03/lh051`,
   and `set03/cm25`; the next14 rows are `set04/v004`, `set07/v531`,
@@ -420,6 +420,10 @@ because it belongs next to the engines rather than next to the compiler.
   `set10/lh232`, covering overloaded operators, nested derived-type arithmetic,
   and explicit COMMON/SAVE pointer-storage refusals. See the
   [next15 shard](cases/tapenade-queue-shard-next15/README.md).
+  The next16 shard adds `set03/cm05`, `set03/cm10`, `set03/cm34`, and
+  `set03/lh013`, covering pointer-result aliasing, allocation lifetime,
+  module-level mutable state, and a runnable derived-type affine procedure.
+  See the [next16 shard](cases/tapenade-queue-shard-next16/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

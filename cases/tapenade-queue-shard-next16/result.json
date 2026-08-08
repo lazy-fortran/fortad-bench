@@ -1,0 +1,1223 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at the pointer-association declaration because storage identity is not tracked through the pointer-valued function result and allocate/deallocate alias updates. The independent model checks the defined final aliases and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm05/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm05/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "foo",
+      "exact_source_checks": {
+        "nonRegressions/set03/cm05/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        },
+        "nonRegressions/set03/cm05/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        }
+      },
+      "fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "id": "set03-cm05",
+      "independent_oracle": {
+        "boundary": "pointer result and allocation identity",
+        "final_aliases": {
+          "p1": "allocated:p5",
+          "p2": "allocated:p5",
+          "p3": null,
+          "v3": 1.0,
+          "v4": null
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002739,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'foo' at line 6: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nError: Target expression in pointer assignment at (1) must deliver a pointer result\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.213816,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure foo understood as m.foo\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.002579,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'foo' at line 6: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nError: Target expression in pointer assignment at (1) must deliver a pointer result\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.177825,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure foo understood as m.foo\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002651,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'foo' at line 6: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nWarning: Procedure \u2018foo\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm05/program.f90:26:12:\n\n   26 |       p1 => foo(p2, p3)\n      |            1\nError: Target expression in pointer assignment at (1) must deliver a pointer result\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.236152,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure foo understood as m.foo\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cm05-pointer-result",
+      "probe_fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set03/cm05",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set03/cm05/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=3",
+      "selection_score": 42,
+      "source": "nonRegressions/set03/cm05/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm05/program.f90": "9d2a2a5a7e4d4663f50c411cd4393370b7904b7c815c90cd2d11d425302f1b4e",
+        "nonRegressions/set03/cm05/program_p.f90": "9a669aa610680a4903548abdbd701d6490b72b6e2aa10533025249a61282971b"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at the non-allocatable target allocation/deallocation lifetime boundary; pointer component ownership is not represented. The independent model checks allocation followed by deallocation and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm10/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm10/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "allocatetata",
+      "exact_source_checks": {
+        "nonRegressions/set03/cm10/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        },
+        "nonRegressions/set03/cm10/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        }
+      },
+      "fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "id": "set03-cm10",
+      "independent_oracle": {
+        "allocated_after_call": false,
+        "boundary": "pointer-component allocation lifetime",
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "allocatetata",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.003074,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported allocation lifetime form 'non-allocatable target' at line 16: ownership side effects are not represented",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetata",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.219926,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetata understood as m.allocatetata\nDiff-liveness analysis turned off\n(AD06) Differentiation root procedures (allocatetata) have no active input nor output\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "allocatetata",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.002954,
+            "status": "refused",
+            "stderr": "fortad: unsupported allocation lifetime form 'non-allocatable target' at line 16: ownership side effects are not represented",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetata",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm10/program.f90:32:17:\n\n   32 |       type(toto) :: object1\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm10/program.f90:34:36:\n\n   34 |       call allocateTata(object1)\n      |                                    1\nWarning: Procedure \u2018allocatetata\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm10/program.f90:35:38:\n\n   35 |       call deallocateTata(object1)\n      |                                      1\nWarning: Procedure \u2018deallocatetata\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.18254,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetata understood as m.allocatetata\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "allocatetata",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002903,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported allocation lifetime form 'non-allocatable target' at line 16: ownership side effects are not represented",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetata",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.209432,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetata understood as m.allocatetata\n(AD06) Differentiation root procedures (allocatetata) have no active input nor output\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cm10-allocation-lifetime",
+      "probe_fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set03/cm10",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set03/cm10/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=2; type(=4",
+      "selection_score": 60,
+      "source": "nonRegressions/set03/cm10/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm10/program.f90": "fccc29b3b53f42dda25d001046b15d841d2d5bb3febadf81176be8d89855deb0",
+        "nonRegressions/set03/cm10/program_p.f90": "1b8cf5d64587d6db3dc83394f6609c2d7d618d73166a38d35e5138789932d8b5"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-global-mutable-state",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at module-level allocatable mutable state while lowering the derived pointer/allocatable graph; this is the deliberate global-state policy boundary. The independent model checks the three allocation paths and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm34/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm34/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "allocatetoto",
+      "exact_source_checks": {
+        "nonRegressions/set03/cm34/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        },
+        "nonRegressions/set03/cm34/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        }
+      },
+      "fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "id": "set03-cm34",
+      "independent_oracle": {
+        "allocated_components": {
+          "toto1.next": "allocated(toto2)",
+          "toto1.value": "allocated(1)",
+          "toto2.value": "allocated(1)",
+          "toto3": "allocated(toto3)",
+          "toto3.value": "allocated(1)"
+        },
+        "boundary": "module mutable allocation and pointer ownership",
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "allocatetoto",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002696,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetoto",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.217803,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetoto understood as m.allocatetoto\nDiff-liveness analysis turned off\n(AD06) Differentiation root procedures (allocatetoto) have no active input nor output\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "allocatetoto",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.002775,
+            "status": "refused",
+            "stderr": "fortad: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetoto",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "...type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:21:17:\n\n   21 |       type(toto) :: toto2\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:22:17:\n\n   22 |       type(toto), pointer :: toto3\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:25:22:\n\n   25 |       allocate(toto2%value(1))\n      |                      1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018toto2\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:26:22:\n\n   26 |       allocate(toto1%next)\n      |                      1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018toto1\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:27:16:\n\n   27 |       allocate(toto3)\n      |                1~~~~\nError: Allocate-object at (1) is neither a data pointer nor an allocatable variable\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:28:22:\n\n   28 |       allocate(toto3%value(1))\n      |                      1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018toto3\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cm34/program.f90:24:30:\n\n   24 |       call allocateToto(toto1)\n      |                              1\nWarning: Procedure \u2018allocatetoto\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.183678,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetoto understood as m.allocatetoto\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "allocatetoto",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002635,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: module-level allocatable mutable state is not supported; use local or dummy ownership",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "allocatetoto",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "seconds": 0.207556,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure allocatetoto understood as m.allocatetoto\n(AD06) Differentiation root procedures (allocatetoto) have no active input nor output\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cm34-derived-allocation",
+      "probe_fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set03/cm34",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set03/cm34/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=1; pointer=2; type(=5; dimension=1",
+      "selection_score": 85,
+      "source": "nonRegressions/set03/cm34/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm34/program.f90": "6c8f703888f1f6f7e93ad5a396137b8f62dd7a4fdfe8e93802b30326c2da3982",
+        "nonRegressions/set03/cm34/program_p.f90": "5f4972074b5437372caf7820f9379730c16cc0d5a1a16b8f9dbb7ee23d042bd7"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "runnable-ported",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD parser, forward, and reverse products also compile strictly. The independent hand JVP/VJP oracle checks the componentwise affine derived-type expression.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "7932ceffed803a44c0472a41dbe930a9288713dff702509fafbdf28942db0e0f",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/lh013/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "0c7dc65b82b22194c2b5e2e474039e214331e8e38a64b7023c5d2c6e1f73a8ab",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/lh013/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "76e1c55f1fd7a502313ce6f862ca3a63a4979bb7776daad825f784b06acbda9c",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/lh013/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "function",
+      "exact_source_checks": {
+        "nonRegressions/set03/lh013/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:41:33:\n\n   41 |   call function( grddat, soldat )\n      |                                 1\nWarning: Procedure \u2018function\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:41:33:\n\n   41 |   call function( grddat, soldat )\n      |                                 1\nWarning: Procedure \u2018function\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          }
+        },
+        "nonRegressions/set03/lh013/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f90:50:38:\n\n   50 |   CALL FUNCTION_NODIFF(grddat, soldat)\n      |                                      1\nWarning: Procedure \u2018function_nodiff\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f90:50:38:\n\n   50 |   CALL FUNCTION_NODIFF(grddat, soldat)\n      |                                      1\nWarning: Procedure \u2018function_nodiff\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          }
+        },
+        "nonRegressions/set03/lh013/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:26:31:\n\n   26 |   CALL FUNCTION(grddat, soldat)\n      |                               1\nWarning: Procedure \u2018function\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:26:31:\n\n   26 |   CALL FUNCTION(grddat, soldat)\n      |                               1\nWarning: Procedure \u2018function\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+          }
+        }
+      },
+      "fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "id": "set03-lh013",
+      "independent_oracle": {
+        "adjoint_dot": {
+          "lhs": 9.15,
+          "rhs": 9.15
+        },
+        "boundary": "derived-type componentwise affine JVP/VJP",
+        "jvp": [
+          2.35,
+          -2.2,
+          4.8
+        ],
+        "primal": [
+          7.0,
+          12.5,
+          20.0
+        ],
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "function",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.007278,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "function",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_d.f90:50:38:\n\n   50 |   CALL FUNCTION_NODIFF(grddat, soldat)\n      |                                      1\nWarning: Procedure \u2018function_nodiff\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.223726,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "function",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.004472,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "function",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:26:31:\n\n   26 |   CALL FUNCTION(grddat, soldat)\n      |                               1\nWarning: Procedure \u2018function\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.179774,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "function",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_b.f90:21:20:\n\n   21 |         real(8) :: fad_component_in_1\n      |                    1~~~~~~~~~~~~~~~~~\nWarning: Unused variable \u2018fad_component_in_1\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:22:20:\n\n   22 |         real(8) :: fad_t1\n      |                    1~~~~~\nWarning: Unused variable \u2018fad_t1\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:23:47:\n\n   23 |         real(8), allocatable, dimension(:) :: fad_t2\n      |                                               1~~~~~\nWarning: Unused variable \u2018fad_t2\u2019 declared at (1) [-Wunused-variable]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.009693,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "function",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_b.f90:53:38:\n\n   53 |   CALL FUNCTION_NODIFF(grddat, soldat)\n      |                                      1\nWarning: Procedure \u2018function_nodiff\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.249096,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "lh013-derived-affine",
+      "probe_fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+      "probe_status": "pass",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set03/lh013",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set03/lh013/program_d.f90",
+        "nonRegressions/set03/lh013/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "type(=4; dimension=7",
+      "selection_score": 53,
+      "source": "nonRegressions/set03/lh013/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/lh013/program.f90": "08a680e87960e6b368428a734c824d83cbc75b3e637a3e1fa133bd0f6968e858",
+        "nonRegressions/set03/lh013/program_d.f90": "a86aef23f23d0529d08581dbd4450c45d7a757885938830232b734657f74853b",
+        "nonRegressions/set03/lh013/program_p.f90": "521f45e947729602f6c59d97d622b9532965f873ef5f3b6d29a8f0f8084d0919"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "8fd62c13077730abb9c036d48eae032659dfbc62c677fb5a4145ae9598167a2d",
+  "current_queue_sha256": "3a269dc07fb9f07d016ae5a47d2e0a5401a90d8359f9c4e74aa1310607881d57",
+  "fortad_revision": "86042a0d1efe0630dce3100bf7f218c9069cbfc4",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "schema_version": 1,
+  "selection_batch_sha256": "575665d0e3fe12944f5c1f37bfe127b7274ef7c04268c56a32efec9370ad99b3",
+  "selection_queue_sha256": "52d0f97e18de351f2b18d9576f848f2cf987b27c1e171d1d141de87205053cde",
+  "shard_id": "tapenade-fortran-queue-shard-next16",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}

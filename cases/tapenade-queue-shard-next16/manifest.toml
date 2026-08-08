@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next16"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, free-form, no-dependency candidates were selected in queue order after requiring an explicit source function/subroutine root and exact strict/legacy source checks. This modern-feature slice therefore skips program-only rows whose only possible root is a main program. The selected roots are cm05/foo, cm10/allocateTata, cm34/allocateToto, and lh013/function. Scores are recorded with the fixed queue-shard weights, but do not reorder the queue selection."
+selection_queue_sha256 = "52d0f97e18de351f2b18d9576f848f2cf987b27c1e171d1d141de87205053cde"
+selection_batch_sha256 = "575665d0e3fe12944f5c1f37bfe127b7274ef7c04268c56a32efec9370ad99b3"
+current_queue_sha256 = "3a269dc07fb9f07d016ae5a47d2e0a5401a90d8359f9c4e74aa1310607881d57"
+current_batch_sha256 = "8fd62c13077730abb9c036d48eae032659dfbc62c677fb5a4145ae9598167a2d"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "86042a0d1efe0630dce3100bf7f218c9069cbfc4"
+independent_arguments = "each oracle independently models defined pointer/allocatable/derived primal behavior; lh013 additionally checks the hand JVP/VJP for its componentwise affine expression"
+
+[[case]]
+id = "set03-cm05"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm05"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 42
+selection_features = "pointer=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm05/program.f90"
+references = ["nonRegressions/set03/cm05/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at the pointer-association declaration because storage identity is not tracked through the pointer-valued function result and allocate/deallocate alias updates. The independent model checks the defined final aliases and makes no derivative-support claim."
+oracle_case = "cm05-pointer-result"
+
+[[case]]
+id = "set03-cm10"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm10"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 60
+selection_features = "pointer=2; type(=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm10/program.f90"
+references = ["nonRegressions/set03/cm10/program_p.f90"]
+entry_point = "allocatetata"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at the non-allocatable target allocation/deallocation lifetime boundary; pointer component ownership is not represented. The independent model checks allocation followed by deallocation and makes no derivative-support claim."
+oracle_case = "cm10-allocation-lifetime"
+
+[[case]]
+id = "set03-cm34"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm34"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 85
+selection_features = "allocatable=1; pointer=2; type(=5; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm34/program.f90"
+references = ["nonRegressions/set03/cm34/program_p.f90"]
+entry_point = "allocatetoto"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at module-level allocatable mutable state while lowering the derived pointer/allocatable graph; this is the deliberate global-state policy boundary. The independent model checks the three allocation paths and makes no derivative-support claim."
+oracle_case = "cm34-derived-allocation"
+
+[[case]]
+id = "set03-lh013"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh013"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 53
+selection_features = "type(=4; dimension=7"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh013/program.f90"
+references = ["nonRegressions/set03/lh013/program_d.f90", "nonRegressions/set03/lh013/program_p.f90"]
+entry_point = "function"
+classification = "runnable-ported"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD parser, forward, and reverse products also compile strictly. The independent hand JVP/VJP oracle checks the componentwise affine derived-type expression."
+oracle_case = "lh013-derived-affine"
