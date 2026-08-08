@@ -1,7 +1,7 @@
 case: Tapenade nonRegressions/set02/lh193 head(x,y) AMPI dependency boundary
 classification: blocked-missing-dependency
 runner_result: pass
-recorded_utc: 2026-08-08T01:06:34Z
+recorded_utc: 2026-08-08T01:16:21Z
 machine: mailuefterl
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 source_form: fixed
@@ -51,7 +51,7 @@ upstream_sha256:
 928ee6bcd1595751cfc934a293c44e0cb5d77797d4f8cdb11f71490556b9e8a4  nonRegressions/set02/lh193/program_d.f
 67cb1fb06078f02919e4b904d60cd1206c7cdb4565abda8ce088f310b52c0a98  ADFirstAidKit/ampi/ampif.h
 case_artifact_sha256:
-5c6507ff7f439e4f6eb61e2edd9da0bdd7ba106f1f3a87800318a483c05f2911  manifest.toml
+9f9484c05d36178ed8b50d08fcd013785c95145dc25cd5ed3b4410f57dc36e88  manifest.toml
 17797bb8f635bd1f8ef939a3950e15153e03fc8cfe163eebf50595c13ddd105e  notes.md
 2c3f74ba42f0f2e714ec176b7c4e37bb4a14d1b3257815ed6e68003c7372d2f8  run.sh
 b746b7dca72f1dcd965c0723d273561b2dcfab7e8cf2499b9aee57a0f810f01b  test_contract.py
