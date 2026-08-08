@@ -309,13 +309,13 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 210 bounded
+  audit. Sixty-three rows now have executable FortAD evidence, 214 bounded
   pure-Fortran refusal or feature/dependency classifications, and thirty-two
   invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,201 rows are queued: 1,127 pure-Fortran rows and 74 mixed-language rows.
+  1,197 rows are queued: 1,123 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -424,6 +424,10 @@ because it belongs next to the engines rather than next to the compiler.
   `set03/lh013`, covering pointer-result aliasing, allocation lifetime,
   module-level mutable state, and a runnable derived-type affine procedure.
   See the [next16 shard](cases/tapenade-queue-shard-next16/README.md).
+  The next17 shard adds the next four queue-order set01 rows, with explicit
+  active-I/O, character-substring, legacy-labeled-DO, and invalid-generated-
+  interface boundaries. See the
+  [next17 shard](cases/tapenade-queue-shard-next17/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

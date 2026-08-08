@@ -100,8 +100,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,127 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 210 bounded
+  either engine. It leaves 1,123 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 214 bounded
   pure-Fortran refusal or feature/dependency classifications, and 32
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -116,10 +116,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,201 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,197 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 271 program candidates, and 864 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
+ rows with no entry-point hint, 263 program candidates, and 860 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 117 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -389,8 +389,11 @@ the [next14 shard manifest and result](../cases/tapenade-queue-shard-next14/READ
 The next15 rows are `set05/v077`, `set11/vpf20`, `set10/lh230`, and
 `set10/lh232`; the next16 rows are `set03/cm05`, `set03/cm10`, `set03/cm34`,
 and `set03/lh013`. Next16 records three deliberate pointer/global-state
-refusals and one runnable derived-type affine procedure. See the [next16 shard
-manifest and result](../cases/tapenade-queue-shard-next16/README.md).
+refusals and one runnable derived-type affine procedure. Next17 records the
+next four queue-order set01 rows with active-I/O, character-substring,
+legacy-labeled-DO, and invalid-generated-interface boundaries. See the [next16
+shard](../cases/tapenade-queue-shard-next16/README.md) and [next17
+shard](../cases/tapenade-queue-shard-next17/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
