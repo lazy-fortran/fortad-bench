@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next15"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, dependency-free procedure rows were selected from the current queue by the fixed modern-feature score, descending score then queue order. Scores are set05/v077=101, set11/vpf20=92, set10/lh230=88, and set10/lh232=88."
+selection_queue_sha256 = "0d2d95bd37b96ed4a868b31c27dbecb4aba59c0634fb46b2a98891db5f81d923"
+selection_batch_sha256 = "cdf77eb81579a6a4d47f2ec14a6d294ff970a246249e29dbf415224e870ee736"
+current_queue_sha256 = "52d0f97e18de351f2b18d9576f848f2cf987b27c1e171d1d141de87205053cde"
+current_batch_sha256 = "575665d0e3fe12944f5c1f37bfe127b7274ef7c04268c56a32efec9370ad99b3"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "c4535a477457f29b9098929b270107c73fa930dc"
+independent_arguments = "none supplied: each oracle independently models defined primal behavior and the FortAD refusal or nonnumeric-derivative boundary"
+
+[[case]]
+id = "set05-v077"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v077"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 101
+selection_features = "procedure=7; interface=9"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v077/program.f90"
+references = ["nonRegressions/set05/v077/program_p.f90"]
+entry_point = "add_logicals"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass and compile where products are emitted. FortAD parser output compiles, while the forward and reverse logical seed/adjoint products assign REAL zero literals to LOGICAL derivative variables and fail strict generated-source compilation. The independent logical OR oracle checks the defined primal behavior and makes no numeric derivative claim."
+oracle_case = "v077-logical-operator"
+
+[[case]]
+id = "set11-vpf20"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf20"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 92
+selection_features = "type(=7; procedure=2; interface=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf20/program.f90"
+references = ["nonRegressions/set11/vpf20/program_d.f90", "nonRegressions/set11/vpf20/program_p.f90"]
+entry_point = "some_type2_minus"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products are emitted. The exact source passes strict and legacy checks, while the generated-source context control refuses strict compilation when the standalone product is checked without its source-module context. FortAD parser extraction passes, while forward refuses an active derived object and reverse refuses a derived dependent that do not name concrete REAL components. The independent oracle checks nested derived-type unary arithmetic and makes no derivative-support claim."
+oracle_case = "vpf20-nested-derived"
+
+[[case]]
+id = "set10-lh230"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh230"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 88
+selection_features = "pointer=5; dimension=6"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh230/program.f90"
+references = ["nonRegressions/set10/lh230/program_b.f90", "nonRegressions/set10/lh230/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD explicitly refuses the POINTER association in COMMON/SAVE storage because pointer storage identity is not tracked. The independent oracle checks the pointer-backed writes and call result without claiming derivative support."
+oracle_case = "lh230-common-pointer"
+
+[[case]]
+id = "set10-lh232"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh232"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 88
+selection_features = "pointer=5; dimension=6"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh232/program.f90"
+references = ["nonRegressions/set10/lh232/program_b.f90", "nonRegressions/set10/lh232/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD explicitly refuses the POINTER association in COMMON/SAVE storage because pointer storage identity is not tracked. The independent oracle checks the extra call-tree arithmetic and pointer-backed writes without claiming derivative support."
+oracle_case = "lh232-common-pointer-call-tree"
