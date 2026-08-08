@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next8"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, free-form procedure rows without unresolved dependency risk were selected from the branch-base queue by the fixed modern-feature score, descending score then queue order, after excluding all existing queue shards. The exact primary source contains the selected real procedure entry point. Scores are set03/cmv07=92, set10/lh234=86, set06/v237=84, and set03/cm30=82."
+selection_queue_sha256 = "194f51f8176ad7a5099c772704f2abf41bac29e6ebe7839d6a82e622682b1cce"
+selection_batch_sha256 = "8eebfb12b59df85bed092812d3c817c19d13378e6f298eeef51070284b8066ca"
+current_queue_sha256 = "f93c62c4aefece25b1fdc1470bef55fcea21c59d57c7ddad365062578cb63136"
+current_batch_sha256 = "3946e489f47fcc42d887309a737534f8f33b887383104b6f4283f7fc125bcb9f"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "931dac5f39eb6ea5ab3854d5af49b346bea950af"
+independent_arguments = "none supplied: probes use only real source procedures; independent oracle models allocation, arithmetic, or deliberate-refusal behavior separately"
+
+[[case]]
+id = "set03-cmv07"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cmv07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 92
+selection_features = "allocatable=4; type(=3; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cmv07/program.f90"
+references = ["nonRegressions/set03/cmv07/program_p.f90"]
+entry_point = "intini"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh Tapenade parser, forward, and reverse commands pass for the exact module-level allocatable initialization source. FortAD refuses parser, forward, and reverse at module-level allocatable mutable state; the independent allocation-shape model records the undefined-size boundary without a derivative-support claim."
+oracle_case = "cmv07-module-allocation"
+
+[[case]]
+id = "set10-lh234"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh234"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 86
+selection_features = "pointer=3; associate=1; type(=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh234/program.f90"
+references = ["nonRegressions/set10/lh234/program_d.f90"]
+entry_point = "head"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile for the exact linked-list source. FortAD parser succeeds, forward refuses because active derived object LIST must name a real component, and reverse refuses because no dependent can be inferred. The independent fixed-list quadratic model passes hand JVP, central difference, and adjoint dot checks without a derivative-support claim."
+oracle_case = "lh234-linked-list"
+
+[[case]]
+id = "set06-v237"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v237"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 84
+selection_features = "pointer=5; type(=1; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v237/program.f90"
+references = ["nonRegressions/set06/v237/program_d.f90"]
+entry_point = "bcfarfieldadj"
+classification = "expected-refusal"
+closure = "Fresh Tapenade parser, forward, and reverse commands pass at the exact module-pointer source boundary. FortAD parser and forward products pass, while reverse refuses because no dependent can be inferred. The independent explicit-state scalar model verifies the primal JVP and adjoint identity without a derivative-support claim for the exact module state."
+oracle_case = "v237-explicit-state"
+
+[[case]]
+id = "set03-cm30"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm30"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 82
+selection_features = "pointer=3; type(=5"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm30/program.f90"
+references = ["nonRegressions/set03/cm30/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh Tapenade parser, forward, and reverse products pass and strict-compile for the exact allocation/deallocation source. FortAD refuses parser, forward, and reverse at pointer association storage identity for nextObject; the independent pointer allocation-lifetime model records the surviving next target without a derivative-support claim."
+oracle_case = "cm30-pointer-lifetime"

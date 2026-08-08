@@ -100,9 +100,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,195 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 61 executable evidence rows, 134 explicit
-  refusals, and 32 invalid-upstream closures. The profile, shard-3, and shard-0
+  either engine. It leaves 1,159 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 61 executable evidence rows, 178 deliberate
+  pure-Fortran boundary rows, and 32 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -115,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,269 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,233 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 292 program candidates, and 903 procedure
+ rows with no entry-point hint, 271 program candidates, and 888 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -174,7 +174,7 @@ supported way to replace the canonical report after sharded triage.
 [`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
 and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
-The latest complete full-queue run accepted 1,975 files, rejected 1,399 with
+The latest complete full-queue run accepted 1,874 files, rejected 1,399 with
 syntax or dependency diagnostics, and listed 74 include fragments without
 compiling them as standalone units.
 Fixed/free source forms get strict syntax-only flags and local include roots;
@@ -362,6 +362,14 @@ three-mode probes; FortAD records recursive pointer ownership, pointer-target
 lifetime, and no-active-dependent boundaries. Independent primal/source/
 refusal models pass, with no derivative-support claim. See the [modern-feature
 shard manifest and result](../cases/tapenade-queue-shard-next-modern/README.md).
+
+The next8 modern-feature shard closes four compiler-clean, no-missing-dependency
+rows: `set03/cmv07`, `set10/lh234`, `set06/v237`, and `set03/cm30`. Fresh
+Tapenade parser/forward/reverse probes pass for all four. FortAD records explicit
+boundaries for module-owned mutable state, active derived components, module
+pointers, and pointer storage identity. Independent primal, derivative, and
+refusal oracles pass without claiming derivative support. See the [next8 shard
+manifest and result](../cases/tapenade-queue-shard-next8/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
