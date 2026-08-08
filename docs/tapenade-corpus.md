@@ -100,8 +100,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,155 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 61 executable evidence rows, 180 bounded
+  either engine. It leaves 1,143 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 61 executable evidence rows, 196 bounded
   pure-Fortran refusal or feature/dependency classifications, and 32
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -378,6 +378,12 @@ parser/forward/reverse probes pass for all four. FortAD records nested internal
 procedure, module-owned mutable state, and pointer storage identity boundaries.
 Independent arithmetic, pointer, and ownership oracles pass without claiming
 derivative support. See the [next9 shard manifest and result](../cases/tapenade-queue-shard-next9/README.md).
+
+The next10, next11, and next12 modern-feature shards close twelve more
+compiler-clean, no-missing-dependency rows with fresh Tapenade/FortAD probes,
+exact source hashes, and independent behavioral contracts. The next12 rows are
+`set05/v058`, `set05/v176`, `set03/cmv04`, and `set05/v175`; see the [next12
+shard manifest and result](../cases/tapenade-queue-shard-next12/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
