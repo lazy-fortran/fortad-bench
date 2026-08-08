@@ -1,0 +1,71 @@
+schema_version = 1
+name = "tapenade-set02-lh198"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "630c048b7c4431d94c87ca515ab3b6d88f71b6ad"
+source_form = "fixed"
+runner = "cases/tapenade-set02/lh198/run.sh"
+result = "cases/tapenade-set02/lh198/result.txt"
+queue_category = "runnable-program-candidate"
+queue_rank = 40
+
+source_files = [
+    "nonRegressions/set02/lh198/program.f",
+    "nonRegressions/set02/lh198/program_b.f",
+    "nonRegressions/set02/lh198/program_d.f",
+    "nonRegressions/set02/lh198/program_p.f",
+]
+upstream_sources = [
+    "nonRegressions/set02/lh198/Options",
+    "nonRegressions/set02/lh198/program.f",
+    "nonRegressions/set02/lh198/program_b.f",
+    "nonRegressions/set02/lh198/program_b.msg",
+    "nonRegressions/set02/lh198/program_d.f",
+    "nonRegressions/set02/lh198/program_d.msg",
+    "nonRegressions/set02/lh198/program_p.f",
+    "nonRegressions/set02/lh198/program_p.msg",
+]
+stored_references = ["program_p.f", "program_p.msg", "program_d.f", "program_d.msg", "program_b.f", "program_b.msg"]
+
+upstream_entry_point = "top(x,y)"
+selected_entry_points = ["top(x,y)", "AAA(x,y)", "BBB(x,y)", "CCC(x,y)", "DDD(x,y)"]
+ported_entry_point = "not-claimed-exact-source-only"
+independent = ["x", "y"]
+dependent = "y"
+options = [
+    "Tapenade parser/tangent/reverse: -p/-d/-b -root top; source Options supplies -context -nooptim stripPrimalCode",
+    "FortAD check/forward/reverse: exact top request on program.f with x,y active and y dependent",
+]
+modes = ["parser", "forward", "reverse"]
+oracle = [
+    "exact pinned-source SHA-256 contract",
+    "strict F2018 and legacy fixed-form compiler gates",
+    "fresh pinned Tapenade parser/tangent/reverse generation and both compiler gates",
+    "current FortAD exact check/forward/reverse behavior",
+    "independent COMMON-block dataflow JVP/VJP, central-difference sweep, and adjoint identity",
+]
+classification = "expected-refusal-fortad-common-block-call-boundary"
+dependencies = [
+    "The exact source is pure fixed-form Fortran and is compiler-valid; COMMON /comG/ is intentionally declared with different local names in BBB, CCC, and internal DDD, exercising shared storage.",
+    "The exact primal sets the second /comG/ slot from x in BBB before CCC and DDD use it; no missing upstream source or external dependency is involved.",
+    "FortAD reaches the active call to AAA but has no derivative rule for that call, so forward and reverse stop without output. No repaired port is claimed.",
+]
+expected_diagnostics = [
+    "program.f, program_b.f, program_d.f, and program_p.f pass strict and legacy syntax-only fixed-form compilation; program.f links and runs in both modes.",
+    "fresh pinned Tapenade parser, tangent, and reverse products generate and pass both fixed-form compiler gates.",
+    "FortAD exact check passes and its re-emitted source passes a strict free-form gate; exact forward and reverse refuse at the AAA call with no derivative output.",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-strict-and-legacy-compile-pass"
+fortad_result = "expected-refusal-exact-forward-reverse-no-derivative-rule-AAA-no-output"
+closure = "The unchanged exact source is a valid measured Tapenade corpus case, but current FortAD deliberately refuses its active call graph at AAA. COMMON-block semantics are checked independently; no standards-clean rewrite, repaired port, or FortAD support claim is added."
+
+[upstream_sha256]
+"nonRegressions/set02/lh198/Options" = "10b147b0ccc587d96db6f2f7a25ffb2ce16f99631afb8c520e7efece6a38c3e8"
+"nonRegressions/set02/lh198/program.f" = "788a5d0029b3a772a5e9cd318842b3c9388378556dba5f21237099274b6e46f7"
+"nonRegressions/set02/lh198/program_b.f" = "421eaf05fe939cec46d192f84e48952730521ebde84d32badd5cab7e586e8f85"
+"nonRegressions/set02/lh198/program_b.msg" = "faadbe4cac57b9e56d6d5da9df819ff90bd0aecf757b5607ea57afa4d8d0b8f5"
+"nonRegressions/set02/lh198/program_d.f" = "935bacbe6dd3ed628636fc756264335fbc080a54a9321e4763fa7daa0f1c8505"
+"nonRegressions/set02/lh198/program_d.msg" = "d2ff1e22c6ccd8a9e66db08529bfdba3fd6d47c1fba2f6b520440d7ca146bdb3"
+"nonRegressions/set02/lh198/program_p.f" = "403b09764930c1a3ddaea6f5920b8c8cee6d3a81022bd34412526074dd6e0e17"
+"nonRegressions/set02/lh198/program_p.msg" = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"

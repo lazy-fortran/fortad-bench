@@ -1,0 +1,51 @@
+case: Tapenade nonRegressions/set02/lh198 top(x,y) COMMON numbering
+classification: expected-refusal-fortad-common-block-call-boundary
+runner_result: pass
+recorded_utc: 2026-08-08T00:39:24Z
+machine: mailuefterl
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: 630c048b7c4431d94c87ca515ab3b6d88f71b6ad
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+entry_point: top(x,y)
+tapenade_options: parser=-p tangent=-d reverse=-b -root top; Options=-context -nooptim stripPrimalCode
+upstream_exact_strict_compile: program=0 program_b=0 program_d=0 program_p=0
+upstream_exact_legacy_compile: program=0 program_b=0 program_d=0 program_p=0
+exact_primal_runtime: strict_build=0 strict_run=0 legacy_build=0 legacy_run=0 strict_output=" x=   1.50000000      y=   15.0000000" legacy_output=" x=   1.50000000      y=   15.0000000"
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_strict_compile: parser=0 tangent=0 reverse=0
+tapenade_fresh_legacy_compile: parser=0 tangent=0 reverse=0
+fortad_exact_behavior: check=pass status=0 output_compile=0 forward=expected-refusal status=1 diagnostic="no derivative rule for the call to AAA" reverse=expected-refusal status=1 diagnostic="no reverse rule for the call to AAA" no-output
+fortad_generated_compile: not-applicable-no-output-on-refusal
+independent_oracle: COMMON-block primal, hand JVP/VJP, central-difference sweep, and adjoint identity
+oracle_semantics: top COMMON-block dataflow with /comG/ second slot aliased
+oracle_behavioral_cases: 3
+finite_difference_max_error: 6.204353e-10
+adjoint_identity_max_error: 4.440892e-16
+primal_reference_y: 1.5000000000000000e+01
+oracle_status: pass
+no_repaired_port: true
+upstream_sha256:
+10b147b0ccc587d96db6f2f7a25ffb2ce16f99631afb8c520e7efece6a38c3e8  nonRegressions/set02/lh198/Options
+788a5d0029b3a772a5e9cd318842b3c9388378556dba5f21237099274b6e46f7  nonRegressions/set02/lh198/program.f
+421eaf05fe939cec46d192f84e48952730521ebde84d32badd5cab7e586e8f85  nonRegressions/set02/lh198/program_b.f
+faadbe4cac57b9e56d6d5da9df819ff90bd0aecf757b5607ea57afa4d8d0b8f5  nonRegressions/set02/lh198/program_b.msg
+935bacbe6dd3ed628636fc756264335fbc080a54a9321e4763fa7daa0f1c8505  nonRegressions/set02/lh198/program_d.f
+d2ff1e22c6ccd8a9e66db08529bfdba3fd6d47c1fba2f6b520440d7ca146bdb3  nonRegressions/set02/lh198/program_d.msg
+403b09764930c1a3ddaea6f5920b8c8cee6d3a81022bd34412526074dd6e0e17  nonRegressions/set02/lh198/program_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  nonRegressions/set02/lh198/program_p.msg
+fresh_tapenade_sha256:
+7b780ddc6dbbc511d18e5dc6b86510814acc78731c5d2691f3ddbd262eae0639  parser/lh198_fresh_p.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  parser/lh198_fresh_p.msg
+2fe83d12b2b93d205a6ac1928a797d8b686008213dcfa7a9386259d79be736a9  tangent/lh198_fresh_d.f
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  tangent/lh198_fresh_d.msg
+37be87072d4a2d65eee9f4da46d40dfa21861554f6640bad61b35eb62c2a97c6  reverse/lh198_fresh_b.f
+f5893de92307ca92633bbe78eb2a7a84e63a7c202ca715f58118a4e40ca81e19  reverse/lh198_fresh_b.msg
+case_artifact_sha256:
+b30d9842f407f25e4e3d628968e87653da16d6c4f7e4c59a7e812f501a0a4e7c  manifest.toml
+1156994fbf5a2d206ac7e4e31ca8b72282912d0f9534e5064f422b5a3e02a087  notes.md
+f22dc37950044a98088bbef72793b780af02dfcbb1fdf55a59871d5e9a990b78  oracle.py
+84bea233f76e7fddf360d65db544d0dec98ff70a72226f432d5f4458a244b89e  run.sh
+e95809c55d8b44efe6c33421fb900fad679e6e225e6dd111bf84499e9afe73b7  test_contract.py
+closure: valid exact source and fresh Tapenade products; current FortAD check passes but forward/reverse deliberately refuse the AAA call; no repaired source or support claim
