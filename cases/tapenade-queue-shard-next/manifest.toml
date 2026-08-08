@@ -1,0 +1,69 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "The four fixed rows below are selected from the committed pure-Fortran queue and batch handoff. Each row is compiler-clean with no unresolved include or USE hint; entry names come only from static triage."
+selection_queue_sha256 = "96afeeb377f827f149008157c7804ba30b95b9ab053aa1184d339f53209ca821"
+selection_batch_sha256 = "b07859a8280f995107213abe6eea17f716eafc8fc2f7e5a10969d67c56bd6191"
+current_queue_sha256 = "d2bcae660816b931413960c16f85bbb273379c5083a3cdfdefc79de1b086e486"
+current_batch_sha256 = "77b05807577dd6c3ff97bb43eeab6896caf2eb7a17df606d69acf29a552f7567"
+probe = "scripts/probe_tapenade_fortad.py --queue --pure-fortran --jobs 4"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "19e8cda7ad71990339f9ed254cc40128fcbff364"
+independent_arguments = "none supplied: the probe uses only the statically discovered procedure name and does not invent active or dependent arguments"
+
+[[case]]
+id = "set05-v196"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v196"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v196/program.f90"
+references = []
+entry_point = "factorial"
+classification = "unsupported-fortad-no-int-derivative-rule"
+closure = "The exact source and static entry point are retained. FortAD's parser command returns zero, but its generated parser source is not strict-compile-clean because RECURSIVE is lost; forward and reverse refuse because the active path contains INT. No support claim or repaired source is added."
+oracle_case = "factorial"
+
+[[case]]
+id = "set05-v202"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v202"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v202/program.f90"
+references = ["nonRegressions/set05/v202/program_p.f90"]
+entry_point = "twice_real"
+classification = "unsupported-fortad-elemental-parse"
+closure = "Tapenade generates all three products, but FortAD refuses the exact free-form ELEMENTAL function at parse/interface discovery. The stored derivative-shaped file is hashed as a reference only; no source repair or support claim is made."
+oracle_case = "twice_real"
+
+[[case]]
+id = "set06-v220"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v220"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v220/program.f90"
+references = ["nonRegressions/set06/v220/program_d.f90"]
+entry_point = "addvector"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Tapenade understands the module procedure and emits all three products. FortAD's parser command returns zero but its standalone generated source is not strict-compile-clean; forward and reverse refuse active derived-object handling because the active object is not a real component. No synthetic wrapper or support claim is made."
+oracle_case = "addvector"
+
+[[case]]
+id = "set06-v232"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v232"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v232/program.f90"
+references = ["nonRegressions/set06/v232/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "FortAD returns zero for all three modes, but the generated interfaces contain empty result/dummy names and fail strict syntax validation. This is recorded as an invalid generated-interface boundary, not support."
+oracle_case = "constant-result"
