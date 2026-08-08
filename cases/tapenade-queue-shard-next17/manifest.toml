@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next17"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows in committed queue order after next16: set01/B05, set01/bd07, set01/ht01, and set01/lh043. Existing source/reference artifacts and dependency signals are retained; no repaired port is claimed."
+selection_queue_sha256 = "3a269dc07fb9f07d016ae5a47d2e0a5401a90d8359f9c4e74aa1310607881d57"
+selection_batch_sha256 = "8fd62c13077730abb9c036d48eae032659dfbc62c677fb5a4145ae9598167a2d"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "2d35391974c3c21abacadc24bfb6cbd9540060cc"
+independent_arguments = "each oracle independently models the defined primal or refusal boundary; none claims a derivative result for an active-I/O, character-storage, legacy-control-flow, or invalid-generated-interface case"
+
+[[case]]
+id = "set01-B05"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/B05"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/B05/program.f"
+references = ["nonRegressions/set01/B05/program_b.f", "nonRegressions/set01/B05/program_d.f"]
+entry_point = "flux"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "The exact original source compiles and fresh pinned Tapenade parser, forward, and reverse probes emit products. FortAD parser and forward commands return products whose strict generated sources contain invalid deferred-shape/declaration interfaces; reverse also refuses automatic dependent inference and, with explicit R, reaches the per-iteration FD storage boundary. The independent flux/storage oracle passes without a derivative-support claim."
+oracle_case = "B05-flux-interface-storage"
+
+[[case]]
+id = "set01-bd07"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/bd07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/bd07/program.f"
+references = ["nonRegressions/set01/bd07/program_p.f90", "nonRegressions/set01/bd07/program_d.f90", "nonRegressions/set01/bd07/program_b.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-active-io"
+closure = "The exact original source and all three fresh pinned Tapenade products pass syntax checks. FortAD refuses parser, forward, and reverse at the active READ statements. This is a deliberate active-I/O product boundary, not an invalid upstream claim; the independent array/read-state oracle passes without a numeric derivative claim."
+oracle_case = "bd07-array-read-boundary"
+
+[[case]]
+id = "set01-ht01"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/ht01"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/ht01/program.f"
+references = ["nonRegressions/set01/ht01/program_p.f", "nonRegressions/set01/ht01/program_d.f"]
+entry_point = "adj7"
+classification = "unsupported-fortad-character-section"
+closure = "The exact source and all three fresh pinned Tapenade products pass syntax checks, with Tapenade reporting the unresolved external FOO call. FortAD refuses parser, forward, and reverse at the CHARACTER substring assignment because character storage is outside the current derivative contract. The independent branch/substring oracle passes without a numeric derivative claim."
+oracle_case = "ht01-character-substring"
+
+[[case]]
+id = "set01-lh043"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh043"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh043/program.f"
+references = ["nonRegressions/set01/lh043/AATypes_aad.f03", "nonRegressions/set01/lh043/program_p.f", "nonRegressions/set01/lh043/program_d.f", "nonRegressions/set01/lh043/program_b.f"]
+entry_point = "adj7"
+classification = "unsupported-fortad-legacy-labeled-do"
+closure = "The exact source compiles and fresh pinned Tapenade parser, forward, and reverse probes emit products; the case also carries COMMON and an unresolved EXTERNAL boundary. FortAD refuses all three modes while parsing the labeled reverse DO construct, before a derivative claim can be made. The independent labeled-DO/Common-state oracle passes without a numeric derivative claim."
+oracle_case = "lh043-labeled-do-common"
