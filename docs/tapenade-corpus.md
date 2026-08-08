@@ -100,8 +100,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,099 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 236 bounded
+  either engine. It leaves 1,095 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 240 bounded
   pure-Fortran refusal or feature/dependency classifications, and 34
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -116,9 +116,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,173 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,169 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 263 program candidates, and 836 procedure
+ rows with no entry-point hint, 259 program candidates, and 836 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -404,6 +404,12 @@ oracles; see its [manifest and result](../cases/tapenade-queue-shard-next19/READ
 The next20 shard adds `set01/lh114`, `lh115`, `lh117`, and `lh118` with
 dependent-inference, mutating-call, COMMON-state, and active-I/O boundaries;
 see its [manifest and result](../cases/tapenade-queue-shard-next20/README.md).
+
+The next24 modern-feature shard adds `set07/v398`, `set07/v529`, `set04/lh142`,
+and `set11/vpf21`. It records nested pointer-derived context, two module-state
+refusals, and an overloaded derived-type context boundary. Fresh pinned
+Tapenade products, exact FortAD diagnostics, source hashes, and independent
+behavioral oracles are in its [manifest and result](../cases/tapenade-queue-shard-next24/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
