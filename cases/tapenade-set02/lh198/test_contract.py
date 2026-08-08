@@ -34,7 +34,7 @@ class Lh198ContractTests(unittest.TestCase):
         )
         self.assertEqual(
             manifest["fortad_revision"],
-            "68cf71c7965c4d5d4f05e00167cb3ad33360f8f0",
+            "ac045ebd44281ae559d1279fdfe7370a97a74a47",
         )
         for relative, digest in manifest["upstream_sha256"].items():
             path = UPSTREAM_ROOT / relative
