@@ -9,6 +9,14 @@ from pathlib import Path
 import queue_tapenade_fortran as queue
 
 
+MEASURED_SHARD_CLOSURES = {
+    ("non-regressions", "nonRegressions/set05/v196"): "unsupported-fortad-no-int-derivative-rule",
+    ("non-regressions", "nonRegressions/set05/v202"): "unsupported-fortad-elemental-parse",
+    ("non-regressions", "nonRegressions/set06/v220"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set06/v232"): "unsupported-fortad-invalid-generated-interface",
+}
+
+
 def ledger_row(path: str, *, language: str = "fortran", component: str = "fixture", status: str = "untriaged"):
     return {
         "component": component,
@@ -81,7 +89,7 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1281)
+        self.assertEqual(len(rows), 1277)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
@@ -89,7 +97,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
                 "runnable-program-candidate": 292,
-                "runnable-procedure-candidate": 915,
+                "runnable-procedure-candidate": 911,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 119)
@@ -97,6 +105,31 @@ class CommittedQueueTests(unittest.TestCase):
             sum("missing-dependency-risk" in row["risk_categories"] for row in rows),
             119,
         )
+
+    def test_measured_shard_closes_exactly_four_rows(self):
+        root = Path(__file__).resolve().parent.parent
+        ledger = queue.read_ledger(root / "docs/corpora/tapenade-status.csv")
+        observed = {
+            (row["component"], row["path"]): row["status"]
+            for row in ledger
+            if row["status"].startswith("unsupported-fortad-")
+        }
+        self.assertEqual(observed, MEASURED_SHARD_CLOSURES)
+        queued = {
+            (row["component"], row["path"])
+            for row in (
+                json.loads(line)
+                for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()
+            )
+        }
+        untriaged = {
+            (row["component"], row["path"])
+            for row in ledger
+            if row["status"] == "untriaged"
+        }
+        self.assertEqual(queued, untriaged)
+        self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
+        self.assertEqual(len(queued), 1277)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
