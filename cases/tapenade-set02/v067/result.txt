@@ -1,10 +1,10 @@
 case: Tapenade nonRegressions/set02/v067 ADJ_FCN(T,Y,YP,RESULT,RP)
 classification: expected-refusal-valid-source-tapenade-and-fortad-boundary
-recorded_utc: 2026-08-08T01:56:27Z
+recorded_utc: 2026-08-08T02:01:49Z
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
 legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
-fortad_commit: 928a375d2808ea902cbe4a8a89425c5f536a576d
+fortad_commit: aa9453bf32f64456be95f47edf5f22158ef9d468
 tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
 entry_point: ADJ_FCN(T,Y,YP,RESULT,RP)
 upstream_exact_strict_compile: program.f=0 program_p.f=0
