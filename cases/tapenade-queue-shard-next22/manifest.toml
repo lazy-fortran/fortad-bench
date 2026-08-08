@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next22"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows after next21 in the branch-base queue order: set01/lh123, set01/lh124, set01/lh125, and set01/lh126. The order is preserved; reverse loop control, exact procedure-call mapping, implicit typing, and dependent inference remain explicit boundaries."
+selection_queue_sha256 = "a087f093af4c1208b8806b6856f97a79e7fa145a56c1ad17cfd6a5108c21c518"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "92bf9ad3f4d714eee4f1e93e53413915ecf7c571"
+independent_arguments = "each oracle independently models explicit bounded values and control traces and records the observed FortAD boundary; no derivative-support claim is made for implicit state, undefined source values, or unresolved call mappings"
+
+[[case]]
+id = "set01-lh123"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh123"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh123/program.f"
+references = ["nonRegressions/set01/lh123/program_b.f"]
+entry_point = "iiloop"
+classification = "unsupported-fortad-reverse-loop-control"
+closure = "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD parses and differentiates forward, while reverse refuses because a branch inside an iteration loop requires control-flow reversal. The independent oracle checks an explicit bounded independent-iteration model and its finite-difference tangent without claiming exact-source reverse support."
+oracle_case = "lh123-independent-iterations"
+
+[[case]]
+id = "set01-lh124"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh124"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh124/program.f"
+references = ["nonRegressions/set01/lh124/program_b.f"]
+entry_point = "ttt"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the same-file call to FFF because it cannot prove the exact actual/formal mapping at the call boundary. The independent oracle models a bounded localized-variable call with explicit storage and does not repair the exact legacy interface."
+oracle_case = "lh124-localized-call"
+
+[[case]]
+id = "set01-lh125"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh125"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh125/program.f"
+references = ["nonRegressions/set01/lh125/program_b.f"]
+entry_point = "tetacrit"
+classification = "unsupported-fortad-implicit-typing"
+closure = "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD parses and differentiates forward, while reverse refuses assignment to the implicitly typed undeclared loop variable i. The independent oracle makes the hidden values explicit and checks the bounded branch trace and scalar tangent."
+oracle_case = "lh125-implicit-state"
+
+[[case]]
+id = "set01-lh126"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh126"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh126/program.f"
+references = ["nonRegressions/set01/lh126/program_b.f"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "The exact fixed-form source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD parses and differentiates forward, while reverse refuses because no dependent was selected for the subroutine. The independent oracle supplies initialized loop bounds and table values and checks the resulting product map and its JVP/VJP."
+oracle_case = "lh126-explicit-dependent"
