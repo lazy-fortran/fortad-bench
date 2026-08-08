@@ -349,7 +349,7 @@ dependency rows: `set05/v196` (`factorial`), `set05/v202` (`twice_real`),
 three-mode probes. FortAD records exact parser, forward, and reverse refusal or
 invalid-generated-interface boundaries: none is promoted as derivative
 support. The independent oracle passes only defined primal behavior (including
-central differences for the affine and constant models. It is deliberately
+central differences for the affine and constant models). It is deliberately
 separate from the refusal classification. Exact source/reference hashes,
 compiler-clean handoff, diagnostics, and the four status values are recorded
 in the [shard manifest and result](../cases/tapenade-queue-shard-next/README.md).
