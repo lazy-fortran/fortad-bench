@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next4"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean queue rows were selected from the branch-base queue after exact-root inspection. The selected source roots are ordered by fixed modern-feature score, descending score then queue order: v342=84, mvo33=74, vpf09=67, and v335=32."
+selection_queue_sha256 = "57ac76d8e56372ae8891317867a36b8dc3e869c8e68284b5a270523d9adf1d26"
+selection_batch_sha256 = "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d"
+current_queue_sha256 = "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399"
+current_batch_sha256 = "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed"
+probe = "scripts/probe_tapenade_fortad.py --case SOURCE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "87cb6cc178d2c39355748c3f0ffa513ec130894e"
+independent_arguments = "none supplied: each oracle is a separate Python model of the primal behavior and its derivative/refusal boundary"
+
+[[case]]
+id = "set06-v342"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v342"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 84
+selection_features = "pointer=6"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v342/program.f90"
+references = ["nonRegressions/set06/v342/program_p.f90"]
+entry_point = "p1"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products for the exact module-use and pointer-component source. FortAD refuses at local pointer association because storage identity is not tracked; the independent pointer-storage model passes and makes no derivative-support claim."
+oracle_case = "v342-pointer"
+
+[[case]]
+id = "set12-mvo33"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo33"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 74
+selection_features = "abstract=1; pointer=2; procedure=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo33/program.f90"
+references = ["nonRegressions/set12/mvo33/program_p.f90"]
+entry_point = "type_set_func"
+classification = "unsupported-fortad-procedure-pointer-callback"
+closure = "Tapenade emits parser, forward, and reverse products for the exact abstract-interface procedure-pointer setter. FortAD refuses the procedure-pointer statement; the independent dispatch model passes and makes no derivative-support claim."
+oracle_case = "mvo33-dispatch"
+
+[[case]]
+id = "set11-vpf09"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf09"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 67
+selection_features = "pointer=1; contiguous=5; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf09/program.f90"
+references = ["nonRegressions/set11/vpf09/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products for the exact contiguous pointer and assumed-shape declarations. FortAD refuses the pointer alias declaration because storage identity is not tracked; the independent shape/alias model passes and makes no derivative-support claim."
+oracle_case = "vpf09-layout"
+
+[[case]]
+id = "set06-v335"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v335"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 32
+selection_features = "allocatable=1; pointer=1; optional=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v335/program.f90"
+references = ["nonRegressions/set06/v335/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Tapenade emits parser, forward, and reverse products for the exact allocatable/pointer/optional dummy declarations. FortAD accepts parser mode but refuses forward and reverse without explicit independent variables; the independent declaration-boundary model passes and makes no derivative-support claim."
+oracle_case = "v335-declarations"

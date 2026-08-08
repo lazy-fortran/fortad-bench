@@ -1,0 +1,780 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "batch_sha256": "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact module-use and pointer-component source. FortAD refuses at local pointer association because storage identity is not tracked; the independent pointer-storage model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v342/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v342/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "p1",
+      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "id": "set06-v342",
+      "independent_oracle": {
+        "case": "v342-pointer",
+        "derivative": {
+          "reason": "pointer target identity is not represented",
+          "status": "not-defined"
+        },
+        "primal": {
+          "storage_identity": true,
+          "value": 2
+        },
+        "refusal": {
+          "boundary": "pointer association storage identity",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "p1",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'pp' at line 9: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "p1",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit p1: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg\njob is completed (but doubts on parsing): total time 0.22 s"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "p1",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'pp' at line 9: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "p1",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "Uncaught exception - Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\njava.lang.NullPointerException: Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\n\tat fr.inria.tapenade.representation.CallGraph.collectNextUnits(CallGraph.java:1437)\n\tat fr.inria.tapenade.representation.CallGraph.orderedFiles(CallGraph.java:1134)\n\tat fr.inria.tapenade.toplevel.Tapenade.outputCallGraph(Tapenade.java:2207)\n\tat fr.inria.tapenade.toplevel.Tapenade.analyzeFiles(Tapenade.java:1519)\n\tat fr.inria.tapenade.toplevel.Tapenade.runTapenade(Tapenade.java:1198)\n\tat fr.inria.tapenade.toplevel.Tapenade.<init>(Tapenade.java:240)\n\tat fr.inria.tapenade.toplevel.Tapenade.main(Tapenade.java:387)",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit p1: not found"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "p1",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'pp' at line 9: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "p1",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit p1: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg\njob is completed (but doubts on parsing): total time 0.23 s"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set06/v342",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set06/v342/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=6",
+      "selection_score": 84,
+      "source": "nonRegressions/set06/v342/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set06/v342/program.f90": "ed80fcf125d7ac3646b993b5d40747db563a5dc8f38d68fc6eac1518304e0a32",
+        "nonRegressions/set06/v342/program_p.f90": "8d9e1b60335561c66cb004539536998cc347be84552dcfd7d82f72b76bc099d1"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-procedure-pointer-callback",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact abstract-interface procedure-pointer setter. FortAD refuses the procedure-pointer statement; the independent dispatch model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set12/mvo33/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set12/mvo33/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "type_set_func",
+      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "id": "set12-mvo33",
+      "independent_oracle": {
+        "case": "mvo33-dispatch",
+        "derivative": {
+          "reason": "procedure-pointer target flow is unresolved",
+          "status": "not-defined"
+        },
+        "primal": {
+          "first": 2.0,
+          "second": 3.0
+        },
+        "refusal": {
+          "boundary": "procedure-pointer callback statement",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "type_set_func",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 25",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "type_set_func",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit type_set_func: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg\njob is completed (but doubts on parsing): total time 0.24 s"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "type_set_func",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported statement at line 25",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "type_set_func",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "Uncaught exception - Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\njava.lang.NullPointerException: Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\n\tat fr.inria.tapenade.representation.CallGraph.collectNextUnits(CallGraph.java:1437)\n\tat fr.inria.tapenade.representation.CallGraph.orderedFiles(CallGraph.java:1134)\n\tat fr.inria.tapenade.toplevel.Tapenade.outputCallGraph(Tapenade.java:2207)\n\tat fr.inria.tapenade.toplevel.Tapenade.analyzeFiles(Tapenade.java:1519)\n\tat fr.inria.tapenade.toplevel.Tapenade.runTapenade(Tapenade.java:1198)\n\tat fr.inria.tapenade.toplevel.Tapenade.<init>(Tapenade.java:240)\n\tat fr.inria.tapenade.toplevel.Tapenade.main(Tapenade.java:387)",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit type_set_func: not found"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "type_set_func",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 25",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "type_set_func",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit type_set_func: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg\njob is completed (but doubts on parsing): total time 0.21 s"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set12/mvo33",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set12/mvo33/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "abstract=1; pointer=2; procedure=2; interface=2",
+      "selection_score": 74,
+      "source": "nonRegressions/set12/mvo33/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set12/mvo33/program.f90": "052ce3fbad246ca95144eead207e2f4de4910bf21b30b1ccbc671cf5cc156515",
+        "nonRegressions/set12/mvo33/program_p.f90": "bd81583ffd3d063d701cb47e743881217044a7e3daca717370e0c7262a351033"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact contiguous pointer and assumed-shape declarations. FortAD refuses the pointer alias declaration because storage identity is not tracked; the independent shape/alias model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "184affb75575897d3c846092b7c0390e6382a0e99bbaaefa9ecddc01a5482e38",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/vpf09/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "512ca03eaccf65d0e66623ee698341a6650ba55b741262068aaa3a986c9746fa",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/vpf09/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "foo",
+      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "id": "set11-vpf09",
+      "independent_oracle": {
+        "case": "vpf09-layout",
+        "derivative": {
+          "reason": "contiguous pointer storage identity is not represented",
+          "status": "not-defined"
+        },
+        "primal": {
+          "aliased": true,
+          "contiguous": true,
+          "shape": [
+            2,
+            3
+          ]
+        },
+        "refusal": {
+          "boundary": "contiguous pointer alias declaration",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'column' at line 3: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit foo: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg\njob is completed (but doubts on parsing): total time 0.22 s"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'column' at line 3: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "Uncaught exception - Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\njava.lang.NullPointerException: Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\n\tat fr.inria.tapenade.representation.CallGraph.collectNextUnits(CallGraph.java:1437)\n\tat fr.inria.tapenade.representation.CallGraph.orderedFiles(CallGraph.java:1134)\n\tat fr.inria.tapenade.toplevel.Tapenade.outputCallGraph(Tapenade.java:2207)\n\tat fr.inria.tapenade.toplevel.Tapenade.analyzeFiles(Tapenade.java:1519)\n\tat fr.inria.tapenade.toplevel.Tapenade.runTapenade(Tapenade.java:1198)\n\tat fr.inria.tapenade.toplevel.Tapenade.<init>(Tapenade.java:240)\n\tat fr.inria.tapenade.toplevel.Tapenade.main(Tapenade.java:387)",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit foo: not found"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'column' at line 3: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit foo: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg\njob is completed (but doubts on parsing): total time 0.24 s"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set11/vpf09",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set11/vpf09/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=1; contiguous=5; dimension=1",
+      "selection_score": 67,
+      "source": "nonRegressions/set11/vpf09/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set11/vpf09/program.f90": "e7dffaa1f747ec7fc868f5b960f713e1559803dfdbdfd64c3f72a702f881f34e",
+        "nonRegressions/set11/vpf09/program_p.f90": "607e04587f69ab651c531dff43831a36a19265d429c1d0ee4eabb83fd8342a86"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-no-independent-variable",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact allocatable/pointer/optional dummy declarations. FortAD accepts parser mode but refuses forward and reverse without explicit independent variables; the independent declaration-boundary model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "6474e707c3dc949be873e7bb8d73c74f55b94ff91e906a9ffd1e617a9eb26bda",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v335/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "aeb588e9e6e64e4cba5480b2558160b870c8764e0863e380ff8c7c0f7920edd5",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v335/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "test",
+      "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+      "id": "set06-v335",
+      "independent_oracle": {
+        "case": "v335-declarations",
+        "derivative": {
+          "reason": "independent variables are not inferable from declaration-only source",
+          "status": "not-defined"
+        },
+        "primal": {
+          "declarations": {
+            "allocatable": true,
+            "optional": true,
+            "pointer": true
+          }
+        },
+        "refusal": {
+          "boundary": "missing explicit independent variables",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: could not infer independent variables for test; use the explicit NAMES argument or --indep NAMES",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit test: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg\njob is completed (but doubts on parsing): total time 0.23 s"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "$RESULT_DIR/parser/fortad/probe_p.f90:1:17:\n\n    1 | subroutine test(u, v, w)\n      |                 1\nError: Symbol \u2018u\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/parser/fortad/probe_p.f90:1:20:\n\n    1 | subroutine test(u, v, w)\n      |                    1\nError: Symbol \u2018v\u2019 at (1) has no IMPLICIT type\n$RESULT_DIR/parser/fortad/probe_p.f90:1:23:\n\n    1 | subroutine test(u, v, w)\n      |                       1\nError: Symbol \u2018w\u2019 at (1) has no IMPLICIT type\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "Uncaught exception - Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\njava.lang.NullPointerException: Cannot read field \"declarationsBlock\" because the return value of \"fr.inria.tapenade.representation.Unit.translationUnitSymbolTable()\" is null\n\tat fr.inria.tapenade.representation.CallGraph.collectNextUnits(CallGraph.java:1437)\n\tat fr.inria.tapenade.representation.CallGraph.orderedFiles(CallGraph.java:1134)\n\tat fr.inria.tapenade.toplevel.Tapenade.outputCallGraph(Tapenade.java:2207)\n\tat fr.inria.tapenade.toplevel.Tapenade.analyzeFiles(Tapenade.java:1519)\n\tat fr.inria.tapenade.toplevel.Tapenade.runTapenade(Tapenade.java:1198)\n\tat fr.inria.tapenade.toplevel.Tapenade.<init>(Tapenade.java:240)\n\tat fr.inria.tapenade.toplevel.Tapenade.main(Tapenade.java:387)",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit test: not found"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: could not infer independent variables for test; use the explicit NAMES argument or --indep NAMES",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/.wt/fortad-bench-next4/upstream/tapenade/bin/..\nFile: invalid reference format\nFile: docker: invalid reference format\nFile: \nFile: Run 'docker run --help' for more information\nSystem: Parsing error in program.f90\nCommand: unit test: not found\nCommand: No root unit to differentiate\nFile: The code provided does not contain a top procedure\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg\njob is completed (but doubts on parsing): total time 0.20 s"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set06/v335",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set06/v335/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=1; pointer=1; optional=1",
+      "selection_score": 32,
+      "source": "nonRegressions/set06/v335/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set06/v335/program.f90": "0030de74ef8db6c394d52db791a1d3bb9749322fb29e95874702481c8bcd4a7a",
+        "nonRegressions/set06/v335/program_p.f90": "4456f8c857da860bacc57281a621bb984ce3b6b8835fcbee72984182fab4d122"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
+  "current_queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
+  "fortad_revision": "87cb6cc178d2c39355748c3f0ffa513ec130894e",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "queue_sha256": "57ac76d8e56372ae8891317867a36b8dc3e869c8e68284b5a270523d9adf1d26",
+  "schema_version": 1,
+  "selection_batch_sha256": "f823c1d2afc91bf18ce7f40904a7a0101cb8944ce80efcd2119e4ba371a8d25d",
+  "selection_queue_sha256": "57ac76d8e56372ae8891317867a36b8dc3e869c8e68284b5a270523d9adf1d26",
+  "shard_id": "tapenade-fortran-queue-shard-next4",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}
