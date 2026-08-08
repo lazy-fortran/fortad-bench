@@ -1,0 +1,69 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-followup"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four rank-50 pure-Fortran procedure candidates were filtered to compiler-clean, free-form, dependency-free rows and ordered by an evidence-only modern-feature score, then queue order. Entry names are static source declarations; no active or dependent arguments were invented."
+selection_queue_sha256 = "d2bcae660816b931413960c16f85bbb273379c5083a3cdfdefc79de1b086e486"
+selection_batch_sha256 = "77b05807577dd6c3ff97bb43eeab6896caf2eb7a17df606d69acf29a552f7567"
+current_queue_sha256 = "5731883eaba984d3da598e9170dd76947fc03107b22a2bd7bccb39b0a5c2445f"
+current_batch_sha256 = "d7d2de151da60378d2b7eac47358301b426678701e290d6c70f75dab5fef728a"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f83b5697931ff61d814b5a98041faa4523614443"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied; static procedure names only"
+
+[[case]]
+id = "set11-vmp06"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vmp06"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vmp06/program.f90"
+references = ["nonRegressions/set11/vmp06/program_p.f90"]
+entry_point = "add_node"
+classification = "unsupported-fortad-pointer-ownership"
+closure = "Tapenade parses and emits forward/reverse products for the exact module procedure, while FortAD refuses parser, forward, and reverse at the local pointer allocation because pointer-association storage identity is not tracked. The independent tree model passes; no derivative support claim or repaired source is added."
+oracle_case = "vmp06-add-node"
+
+[[case]]
+id = "set04-lh159"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh159"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh159/program.f90"
+references = ["nonRegressions/set04/lh159/program_b.f90"]
+entry_point = "tapenadetestcollection"
+classification = "unsupported-fortad-allocatable-derived-component"
+closure = "Tapenade emits all three products for the exact collection procedure. FortAD refuses all three modes at its module/derived allocatable-state ownership boundary. The independent component arithmetic and central-difference model passes; no source repair or derivative support claim is made."
+oracle_case = "lh159-collection"
+
+[[case]]
+id = "set11-vmp07"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vmp07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vmp07/program.f90"
+references = ["nonRegressions/set11/vmp07/program_p.f90"]
+entry_point = "dump_tree"
+classification = "unsupported-fortad-active-io"
+closure = "Tapenade emits parser, forward, and reverse products for the exact recursive tree procedure. FortAD refuses at the active unformatted WRITE statement; the independent traversal model passes but has no scalar derivative result. This remains a deliberate I/O boundary."
+oracle_case = "vmp07-dump-tree"
+
+[[case]]
+id = "set05-v193"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v193"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v193/program.f90"
+references = ["nonRegressions/set05/v193/program_p.f90"]
+entry_point = "find"
+classification = "unsupported-fortad-derived-pointer-replay"
+closure = "Tapenade parses the exact source and emits its parser product, while its forward and reverse commands report no active input/output and emit no derivative source. FortAD refuses at the exact source boundary before transformation. The independent finite-tree search model passes; pointer-linked derived-type replay has no derivative support claim."
+oracle_case = "v193-find"
