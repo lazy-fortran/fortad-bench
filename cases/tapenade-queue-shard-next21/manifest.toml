@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next21"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows after next20 in the branch-base queue order: set01/lh119, set01/lh120, set01/lh121, and set01/lh122. The order is preserved; active I/O, legacy GOTO, nested DO WHILE, and hierarchical labeled DO remain explicit boundaries."
+selection_queue_sha256 = "95327dd5294172c6ea5a34c90f7a1f7f0e479ced7b7eb0c44f985e0aad0dc7d6"
+selection_batch_sha256 = "cb553f63a5b3f800cf8c14ef567e1bbfbcbf70ecd96f98530583472f44fde42b"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "bfe204d2905fd3159ca218895b9cc76dfff8b2a3"
+independent_arguments = "each oracle independently models the defined bounded state or loop behavior and records the observed FortAD refusal; no derivative-support claim is made for active I/O, invalid array accesses, or legacy control flow"
+
+[[case]]
+id = "set01-lh119"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh119"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh119/program.f"
+references = ["nonRegressions/set01/lh119/program_b.f"]
+entry_point = "s1"
+classification = "unsupported-fortad-active-io"
+closure = "The exact source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the active READ before transformation; the exact source also calls unresolved external TOTO. The independent bounded array oracle models a deterministic replacement for input and records the I/O boundary without claiming exact-source derivatives."
+oracle_case = "lh119-active-io"
+
+[[case]]
+id = "set01-lh120"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh120"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh120/program.f"
+references = ["nonRegressions/set01/lh120/program_b.f"]
+entry_point = "sub"
+classification = "unsupported-fortad-legacy-goto"
+closure = "The exact source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the fixed-form labeled GOTO control flow at line 10 before transformation. The source also contains unsafe or rank-mismatched array uses and an unresolved FOO call; the independent oracle checks only the bounded scalar recurrence and records those boundaries."
+oracle_case = "lh120-legacy-goto"
+
+[[case]]
+id = "set01-lh121"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh121"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh121/program.f"
+references = ["nonRegressions/set01/lh121/program_b.f"]
+entry_point = "nestedcounters"
+classification = "unsupported-fortad-do-while"
+closure = "The exact source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the nested labeled DO WHILE construct at line 8 because it cannot close the construct safely. The independent sentinel-bounded loop oracle checks the defined nested update and its local Jacobian without claiming exact-source derivative support."
+oracle_case = "lh121-nested-do-while"
+
+[[case]]
+id = "set01-lh122"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh122"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh122/program.f"
+references = ["nonRegressions/set01/lh122/program_b.f"]
+entry_point = "bigfunction"
+classification = "unsupported-fortad-legacy-labeled-do"
+closure = "The exact source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the hierarchical legacy labeled DO at line 4 before transformation. The independent oracle models the bounded L64/L08/L01 composition and its closed-form JVP/VJP without claiming legacy-control-flow support."
+oracle_case = "lh122-labeled-do"
