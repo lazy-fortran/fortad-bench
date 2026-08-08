@@ -1,0 +1,1010 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact allocatable-array procedure closure. FortAD refuses all three modes at the TARGET alias declaration because storage identity is not tracked; the independent allocation and arithmetic model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "2d70a8fcb748da82322293e376e7f2bf672af2bfdf69faf9035c1416d40031a6",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v540a/main.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "0033440a297a6aabc9b681f44a1e6850ecbec9997be4cfede860ea18f67a7607",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v540a/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "d07b0b228d6c12da181ba203a0680c949ddb1925301114265ef27b391c210c30",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v540a/program_b.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "76f3bfb8bfb81965c902872199cd6e7b1ae8051fb7ce2d2c12abc7055e402e01",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v540a/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "testallocs",
+      "exact_source_checks": {
+        "nonRegressions/set11/v540a/main.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "main.f90:13:22:\n\n   13 |   call testallocs(x,y)\n      |                      1\nWarning: Procedure \u2018testallocs\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        },
+        "nonRegressions/set11/v540a/program.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "program.f90:80:16:\n\n   80 |   call suba(x,y)\n      |                1\nWarning: Procedure \u2018suba\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        },
+        "nonRegressions/set11/v540a/program_b.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "...                        1\nWarning: Procedure \u2018adcontextadj_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:25:62:\n\n   25 |   CALL ADCONTEXTADJ_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yb, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontextadj_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:26:30:\n\n   26 |   CALL ADCONTEXTADJ_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontextadj_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:239:22:\n\n  239 | SUBROUTINE SUBB1_BWD(y, yb, z, zb, gpp, gppb)\n      |                      1\nWarning: Unused dummy argument \u2018y\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:296:11:\n\n  296 |   REAL :: subb2\n      |           1~~~~\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:267:33:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                 1~~~\nWarning: Unused dummy argument \u2018gppb\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:267:52:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:267:52:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Return value \u2018subb2\u2019 of function \u2018subb2_fwd\u2019 declared at (1) not set [-Wreturn-type]\n"
+        },
+        "nonRegressions/set11/v540a/program_d.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "...INITREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                          1\nWarning: Procedure \u2018adcontexttgt_initreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:94:27:\n\n   94 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:22:33:\n\n   22 |   CALL TESTALLOCS_D(x, xd, y, yd)\n      |                                 1\nWarning: Procedure \u2018testallocs_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:23:35:\n\n   23 |   CALL ADCONTEXTTGT_STARTCONCLUDE()\n      |                                   1\nWarning: Procedure \u2018adcontexttgt_startconclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:24:62:\n\n   24 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('x'//CHAR(0), x, xd, 4)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:25:62:\n\n   25 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:26:30:\n\n   26 |   CALL ADCONTEXTTGT_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontexttgt_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        }
+      },
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
+      "id": "set11-v540a",
+      "independent_oracle": {
+        "case": "v540a-allocations",
+        "derivative": {
+          "reason": "TARGET alias storage identity is not represented",
+          "status": "not-defined"
+        },
+        "primal": {
+          "allocated_pp": 4,
+          "allocated_z": 7,
+          "value": 7.033333333333333
+        },
+        "refusal": {
+          "boundary": "allocatable TARGET alias declaration",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_d.f90:62:27:\n\n   62 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:31:17:\n\n   31 |   CALL SUBA(x, y)\n      |                 1\nWarning: Procedure \u2018suba\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...$RESULT_DIR/probe_b.f90:164:23:\n\n  164 |     CALL POPREAL4(y(i))\n      |                       1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:102:29:\n\n  102 |   CALL SUBA_BWD(x, xb, y, yb)\n      |                             1\nWarning: Procedure \u2018suba_bwd\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:109:21:\n\n  109 |   CALL POPREAL4(x(3))\n      |                     1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:206:22:\n\n  206 | SUBROUTINE SUBB1_BWD(y, yb, z, zb, gpp, gppb)\n      |                      1\nWarning: Unused dummy argument \u2018y\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:261:11:\n\n  261 |   REAL :: subb2\n      |           1~~~~\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:233:33:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                 1~~~\nWarning: Unused dummy argument \u2018gppb\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:233:52:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:233:52:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Return value \u2018subb2\u2019 of function \u2018subb2_fwd\u2019 declared at (1) not set [-Wreturn-type]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set11/v540a",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set11/v540a/main.f90",
+        "nonRegressions/set11/v540a/program_b.f90",
+        "nonRegressions/set11/v540a/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=6; pointer=1; interface=2; dimension=17",
+      "selection_score": 159,
+      "source": "nonRegressions/set11/v540a/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set11/v540a/main.f90": "ac0d0505f2e5211707f3cbb79b00b6065b08540aab866faca8fdaa53c609be89",
+        "nonRegressions/set11/v540a/program.f90": "3b5a3702eef9a8e4142be13ad9440e03ad0e8b15a47ee22f386965a94c77499b",
+        "nonRegressions/set11/v540a/program_b.f90": "aac5246c34796334019e77d73a5487dcd14d7b85ad54d071d83df871fd00abd9",
+        "nonRegressions/set11/v540a/program_d.f90": "d3cfcb23758b8c1f6d20231ef047e883cd220b70cb24fd43a34627aca01f1f33"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact linked pointer-component source. FortAD refuses all three modes at the local pointer association because storage identity is not tracked; the independent linked-storage model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v339/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "eb20f338a7bcc0c3c7f0b88ad6f814126d2fde81b50f06b85f1893617eafd559",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v339/program_b.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v339/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v339/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "test",
+      "exact_source_checks": {
+        "nonRegressions/set06/v339/program.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": ""
+        },
+        "nonRegressions/set06/v339/program_b.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "program_b.f90:34:27:\n\n   34 |     CALL PUSHREAL4(ptr%val)\n      |                           1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:41:26:\n\n   41 |     CALL POPREAL4(ptr%val)\n      |                          1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:27:23:\n\n   27 |   TYPE(T), POINTER :: next_elem\n      |                       1~~~~~~~~\nWarning: Unused variable \u2018next_elem\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:31:11:\n\n   31 |   REAL :: tmp\n      |           1~~\nWarning: Unused variable \u2018tmp\u2019 declared at (1) [-Wunused-variable]\n"
+        },
+        "nonRegressions/set06/v339/program_d.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": ""
+        },
+        "nonRegressions/set06/v339/program_p.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": ""
+        }
+      },
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
+      "id": "set06-v339",
+      "independent_oracle": {
+        "case": "v339-linked-pointer",
+        "derivative": {
+          "reason": "pointer association storage identity is not represented",
+          "status": "not-defined"
+        },
+        "primal": {
+          "alias_preserved": true,
+          "value": 4.0
+        },
+        "refusal": {
+          "boundary": "pointer association alias declaration",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'next_elem' at line 13: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'next_elem' at line 13: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'next_elem' at line 13: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_b.f90:34:27:\n\n   34 |     CALL PUSHREAL4(ptr%val)\n      |                           1\nWarning: Procedure \u2018pushreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:41:26:\n\n   41 |     CALL POPREAL4(ptr%val)\n      |                          1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:27:23:\n\n   27 |   TYPE(T), POINTER :: next_elem\n      |                       1~~~~~~~~\nWarning: Unused variable \u2018next_elem\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:31:11:\n\n   31 |   REAL :: tmp\n      |           1~~\nWarning: Unused variable \u2018tmp\u2019 declared at (1) [-Wunused-variable]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set06/v339",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set06/v339/program_b.f90",
+        "nonRegressions/set06/v339/program_d.f90",
+        "nonRegressions/set06/v339/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=4; type(=4",
+      "selection_score": 88,
+      "source": "nonRegressions/set06/v339/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set06/v339/program.f90": "032023ce96141555dd61cc7565a624c635088d5c3706dfa6868577c56b6e1b52",
+        "nonRegressions/set06/v339/program_b.f90": "85d93d41f7711cae381259bbf243c7970fdd47e64ece4e67e2f984ea61df7973",
+        "nonRegressions/set06/v339/program_d.f90": "db9e6c2156be91a64086bbe24c0d840d80ea819f5975ebe7447bcb499e6497ee",
+        "nonRegressions/set06/v339/program_p.f90": "be7841d795e49ed13ae5a323383352f14a25b85ceb66717c039e115f6ce92c2d"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-array-section-rank",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact derived-type allocatable-component source. FortAD refuses all three modes at the rank-greater-than-two array section; the independent block accumulation model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v197/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "851532f0fef853e88aa46606541c29155a37cff17c29e964df0c04a011cc5acf",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v197/program_b.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "4deb2b8cbac34d0dbe73db6279facded7e2906de60d8184a3247c7a7cd226701",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v197/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "testblockfun",
+      "exact_source_checks": {
+        "nonRegressions/set05/v197/program.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": ""
+        },
+        "nonRegressions/set05/v197/program_b.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "program_b.f90:35:22:\n\n   35 |     REAL(kind=dp) :: tmp\n      |                      1~~\nWarning: Unused variable \u2018tmp\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:20:18:\n\n   20 |   TYPE(BLOCK) :: blk\n      |                  1~~\nWarning: Unused variable \u2018blk\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:19:25:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                         1~~~\nWarning: Unused parameter \u2018jmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_b.f90:19:33:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                 1~~~\nWarning: Unused parameter \u2018kmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_b.f90:19:41:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                         1~~~\nWarning: Unused parameter \u2018mmax\u2019 declared at (1) [-Wunused-parameter]\n"
+        },
+        "nonRegressions/set05/v197/program_d.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "program_d.f90:20:18:\n\n   20 |   TYPE(BLOCK) :: blk\n      |                  1~~\nWarning: Unused variable \u2018blk\u2019 declared at (1) [-Wunused-variable]\nprogram_d.f90:19:25:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                         1~~~\nWarning: Unused parameter \u2018jmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_d.f90:19:33:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                 1~~~\nWarning: Unused parameter \u2018kmax\u2019 declared at (1) [-Wunused-parameter]\nprogram_d.f90:19:41:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                         1~~~\nWarning: Unused parameter \u2018mmax\u2019 declared at (1) [-Wunused-parameter]\n"
+        }
+      },
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
+      "id": "set05-v197",
+      "independent_oracle": {
+        "case": "v197-block",
+        "derivative": {
+          "reason": "rank-greater-than-two array section is outside the supported boundary",
+          "status": "not-defined"
+        },
+        "primal": {
+          "q_shape": [
+            5,
+            5,
+            5,
+            5
+          ],
+          "sum_squares": 625.0
+        },
+        "refusal": {
+          "boundary": "rank-greater-than-two array section",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "testblockfun",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported array section at line 41: rank greater than two is not supported",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testblockfun",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_d.f90:20:18:\n\n   20 |   TYPE(BLOCK) :: blk\n      |                  1~~\nWarning: Unused variable \u2018blk\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_d.f90:19:25:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                         1~~~\nWarning: Unused parameter \u2018jmax\u2019 declared at (1) [-Wunused-parameter]\n$RESULT_DIR/probe_d.f90:19:33:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                 1~~~\nWarning: Unused parameter \u2018kmax\u2019 declared at (1) [-Wunused-parameter]\n$RESULT_DIR/probe_d.f90:19:41:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                         1~~~\nWarning: Unused parameter \u2018mmax\u2019 declared at (1) [-Wunused-parameter]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure testblockfun understood as test.testblockfun\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "testblockfun",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported array section at line 41: rank greater than two is not supported",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testblockfun",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure testblockfun understood as test.testblockfun\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "testblockfun",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported array section at line 41: rank greater than two is not supported",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testblockfun",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_b.f90:35:22:\n\n   35 |     REAL(kind=dp) :: tmp\n      |                      1~~\nWarning: Unused variable \u2018tmp\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:20:18:\n\n   20 |   TYPE(BLOCK) :: blk\n      |                  1~~\nWarning: Unused variable \u2018blk\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:19:25:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                         1~~~\nWarning: Unused parameter \u2018jmax\u2019 declared at (1) [-Wunused-parameter]\n$RESULT_DIR/probe_b.f90:19:33:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                 1~~~\nWarning: Unused parameter \u2018kmax\u2019 declared at (1) [-Wunused-parameter]\n$RESULT_DIR/probe_b.f90:19:41:\n\n   19 |   INTEGER, PARAMETER :: jmax=5, kmax=5, mmax=5\n      |                                         1~~~\nWarning: Unused parameter \u2018mmax\u2019 declared at (1) [-Wunused-parameter]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure testblockfun understood as test.testblockfun\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set05/v197",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set05/v197/program_b.f90",
+        "nonRegressions/set05/v197/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=1; type(=2",
+      "selection_score": 30,
+      "source": "nonRegressions/set05/v197/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set05/v197/program.f90": "b7ae1d607e00db8f42d73b10cd0292967756cf0ab82681c79122b25bdf5df9ce",
+        "nonRegressions/set05/v197/program_b.f90": "0879f68fc5f7e76116630c4f0ec830ea919878119cbd73322f356d5b7b580825",
+        "nonRegressions/set05/v197/program_d.f90": "1e700d582b5a0122d0cb2d6f1cc74dd99e35060c6d5ff976d2c96a9e354c8cc5"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Tapenade emits parser, forward, and reverse products for the exact allocatable-array procedure closure. FortAD refuses all three modes at the TARGET alias declaration because storage identity is not tracked; the independent allocation and arithmetic model passes and makes no derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "d27c3cd445cd56a78060c412665d46e43cfea947778ec2e4b1dcab402b64ab86",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v541a/main.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "4793b3aa5d8f4e8d19a3e87adfcbe318eab5626f81a32b17b9c3e47d88f1bfaf",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v541a/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "a8c522f87a897b9b1b5acaca251f7c852090fb18d45703b7166b6959f52244f1",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v541a/program_b.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "13a9cbf04b6752046555772e618751d9e23e755e17dd14e51edc80271859b7dc",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/v541a/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "testallocs",
+      "exact_source_checks": {
+        "nonRegressions/set11/v541a/main.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "main.f90:13:22:\n\n   13 |   call testallocs(x,y)\n      |                      1\nWarning: Procedure \u2018testallocs\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        },
+        "nonRegressions/set11/v541a/program.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "program.f90:80:16:\n\n   80 |   call suba(x,y)\n      |                1\nWarning: Procedure \u2018suba\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        },
+        "nonRegressions/set11/v541a/program_b.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "...                        1\nWarning: Procedure \u2018adcontextadj_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:25:62:\n\n   25 |   CALL ADCONTEXTADJ_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yb, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontextadj_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:26:30:\n\n   26 |   CALL ADCONTEXTADJ_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontextadj_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_b.f90:239:22:\n\n  239 | SUBROUTINE SUBB1_BWD(y, yb, z, zb, gpp, gppb)\n      |                      1\nWarning: Unused dummy argument \u2018y\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:296:11:\n\n  296 |   REAL :: subb2\n      |           1~~~~\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:267:33:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                 1~~~\nWarning: Unused dummy argument \u2018gppb\u2019 at (1) [-Wunused-dummy-argument]\nprogram_b.f90:267:52:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\nprogram_b.f90:267:52:\n\n  267 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Return value \u2018subb2\u2019 of function \u2018subb2_fwd\u2019 declared at (1) not set [-Wreturn-type]\n"
+        },
+        "nonRegressions/set11/v541a/program_d.f90": {
+          "returncode": 0,
+          "status": "pass",
+          "stderr": "...INITREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                          1\nWarning: Procedure \u2018adcontexttgt_initreal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:94:27:\n\n   94 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:22:33:\n\n   22 |   CALL TESTALLOCS_D(x, xd, y, yd)\n      |                                 1\nWarning: Procedure \u2018testallocs_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:23:35:\n\n   23 |   CALL ADCONTEXTTGT_STARTCONCLUDE()\n      |                                   1\nWarning: Procedure \u2018adcontexttgt_startconclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:24:62:\n\n   24 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('x'//CHAR(0), x, xd, 4)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:25:62:\n\n   25 |   CALL ADCONTEXTTGT_CONCLUDEREAL4ARRAY('y'//CHAR(0), y, yd, 5)\n      |                                                              1\nWarning: Procedure \u2018adcontexttgt_concludereal4array\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\nprogram_d.f90:26:30:\n\n   26 |   CALL ADCONTEXTTGT_CONCLUDE()\n      |                              1\nWarning: Procedure \u2018adcontexttgt_conclude\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+        }
+      },
+      "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
+      "id": "set11-v541a",
+      "independent_oracle": {
+        "case": "v541a-allocations",
+        "derivative": {
+          "reason": "TARGET alias storage identity is not represented",
+          "status": "not-defined"
+        },
+        "primal": {
+          "allocated_pp": 10,
+          "allocated_z": 7,
+          "value": 16.183333333333334
+        },
+        "refusal": {
+          "boundary": "allocatable TARGET alias declaration",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_d.f90:62:27:\n\n   62 |   CALL SUBA_D(x, xd, y, yd)\n      |                           1\nWarning: Procedure \u2018suba_d\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:31:17:\n\n   31 |   CALL SUBA(x, y)\n      |                 1\nWarning: Procedure \u2018suba\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "testallocs",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'z' at line 56: TARGET alias storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "testallocs",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...$RESULT_DIR/probe_b.f90:164:23:\n\n  164 |     CALL POPREAL4(y(i))\n      |                       1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:102:29:\n\n  102 |   CALL SUBA_BWD(x, xb, y, yb)\n      |                             1\nWarning: Procedure \u2018suba_bwd\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:109:21:\n\n  109 |   CALL POPREAL4(x(3))\n      |                     1\nWarning: Procedure \u2018popreal4\u2019 called with an implicit interface at (1) [-Wimplicit-interface]\n$RESULT_DIR/probe_b.f90:206:22:\n\n  206 | SUBROUTINE SUBB1_BWD(y, yb, z, zb, gpp, gppb)\n      |                      1\nWarning: Unused dummy argument \u2018y\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:261:11:\n\n  261 |   REAL :: subb2\n      |           1~~~~\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:233:33:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                 1~~~\nWarning: Unused dummy argument \u2018gppb\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:233:52:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Unused variable \u2018subb2\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:233:52:\n\n  233 | REAL FUNCTION SUBB2_FWD(z, gpp, gppb) RESULT (subb2)\n      |                                                    1\nWarning: Return value \u2018subb2\u2019 of function \u2018subb2_fwd\u2019 declared at (1) not set [-Wreturn-type]\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set11/v541a",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set11/v541a/main.f90",
+        "nonRegressions/set11/v541a/program_b.f90",
+        "nonRegressions/set11/v541a/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "allocatable=7; interface=2; dimension=17",
+      "selection_score": 159,
+      "source": "nonRegressions/set11/v541a/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set11/v541a/main.f90": "ac0d0505f2e5211707f3cbb79b00b6065b08540aab866faca8fdaa53c609be89",
+        "nonRegressions/set11/v541a/program.f90": "a88a689699ea8667575ab800575c33de34aff7c080d38af5e8b44b1d1bbd3d7d",
+        "nonRegressions/set11/v541a/program_b.f90": "adc09b29f904cb1710576b8a8f66cea50ddb262dea03156c39f3dfe30f1872b3",
+        "nonRegressions/set11/v541a/program_d.f90": "88948b3e898760dc75c33c3548c8a0c2ce26848764f5259315b0500dca6feea3"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "04c3ae5625dd01881d255beec77356f21565cf497e464f9a1ca5e0bd6fa6b744",
+  "current_queue_sha256": "5046586092bb76946574ffd2d043e785dcc15e2bb181fb549b33c5514d0fd0f7",
+  "fortad_revision": "0e9a38ebb8c382530272aa3e51f44255e87c41d7",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
+  "schema_version": 1,
+  "selection_batch_sha256": "a2b631d58cddcc467900d7574319b7ae31c82a53a34100a794b90d12b5a375ed",
+  "selection_queue_sha256": "e32bcf75cace720c123131168d38427b10d882fefd0190a6b51b66bab7f58399",
+  "shard_id": "tapenade-fortran-queue-shard-next5",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}
