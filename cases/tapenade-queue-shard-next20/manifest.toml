@@ -1,0 +1,62 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next20"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly the next four untriaged pure-Fortran rows after next19 in the branch-base queue order: set01/lh114, set01/lh115, set01/lh117, and set01/lh118. The order is preserved; dependent inference, mutating call actuals, COMMON state, and active I/O remain explicit boundaries."
+selection_queue_sha256 = "d57bbd4469e5f67759aefd94c757c3493d46df81808e3b999819ebf89500490c"
+selection_batch_sha256 = "1cb5a32faf1f879958c94939d2bc093a3fda52cde6b9a05e75af1992d51448c5"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a6930141b6967aeca3f7bb5cc8208d71716adc27"
+independent_arguments = "each oracle independently models the defined local state or explicit FortAD refusal boundary; no derivative-support claim is made for uninitialized values, COMMON state, active I/O, or unresolved external procedures"
+
+[[case]]
+id = "set01-lh114"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh114"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh114/program.f"
+references = ["nonRegressions/set01/lh114/program_b.f"]
+entry_point = "bugDeadLoop"
+classification = "unsupported-fortad-dependent-inference"
+closure = "The exact legacy source and fresh pinned Tapenade parser, forward, and reverse probes run. FortAD emits parser and forward products, while automatic reverse refuses because bugDeadLoop has no selected dependent. The independent array-state/Jacobian oracle checks the defined loop and post-loop update without treating automatic dependent inference as derivative support."
+oracle_case = "lh114-dead-loop"
+
+[[case]]
+id = "set01-lh115"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh115"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh115/program.f"
+references = ["nonRegressions/set01/lh115/program_b.f"]
+entry_point = "bugResetAdj"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses at the prospect calls because the legacy callee may write its actual arguments and the exact actuals are array elements rather than plain variables; the source also uses uninitialized c1, c2, and TX(0). The independent prospect oracle checks only the defined scalar call semantics and records the call-boundary refusal."
+oracle_case = "lh115-call-actual"
+
+[[case]]
+id = "set01-lh117"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh117"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh117/program.f"
+references = ["nonRegressions/set01/lh117/program_p.f"]
+entry_point = "defuse"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the COMMON-backed storage boundary before transformation. The exact source additionally reads uninitialized e, f, and u; the independent oracle checks an explicit COMMON-state specialization and records those undefined-storage facts without claiming exact-source derivatives."
+oracle_case = "lh117-common-state"
+
+[[case]]
+id = "set01-lh118"
+component = "non-regressions"
+queue_path = "nonRegressions/set01/lh118"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+source = "nonRegressions/set01/lh118/program.f"
+references = ["nonRegressions/set01/lh118/program_b.f"]
+entry_point = "s1"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run. FortAD refuses the active READ statement before transformation; the exact source also calls unresolved external TOTO and its stored reverse records that missing differential. The independent oracle checks the deterministic in-memory loop algebra and records the I/O/external-call refusal boundary."
+oracle_case = "lh118-active-io"

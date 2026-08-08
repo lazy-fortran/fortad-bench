@@ -26,6 +26,10 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set01/lh111"): "unsupported-fortad-dependent-inference",
     ("non-regressions", "nonRegressions/set01/lh112"): "unsupported-fortad-invalid-generated-interface",
     ("non-regressions", "nonRegressions/set01/lh113"): "unsupported-invalid-upstream-fortran",
+    ("non-regressions", "nonRegressions/set01/lh114"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set01/lh115"): "unsupported-fortad-procedure-call-actual",
+    ("non-regressions", "nonRegressions/set01/lh117"): "unsupported-fortad-global-mutable-state",
+    ("non-regressions", "nonRegressions/set01/lh118"): "unsupported-fortad-active-io",
     ("non-regressions", "nonRegressions/set06/v335"): "unsupported-fortad-no-independent-variable",
     ("non-regressions", "nonRegressions/set06/v342"): "unsupported-fortad-pointer-alias-lifetime",
     ("non-regressions", "nonRegressions/set11/vpf09"): "unsupported-fortad-pointer-alias-lifetime",
@@ -169,7 +173,7 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1189)
+        self.assertEqual(len(rows), 1185)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
@@ -177,7 +181,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
                 "runnable-program-candidate": 263,
-                "runnable-procedure-candidate": 852,
+                "runnable-procedure-candidate": 848,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 112)
@@ -209,7 +213,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1189)
+        self.assertEqual(len(queued), 1185)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
