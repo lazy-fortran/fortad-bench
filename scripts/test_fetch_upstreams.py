@@ -800,6 +800,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set02/v103",
             "nonRegressions/set02/v128",
             "nonRegressions/set02/v130",
+            "nonRegressions/set02/v067",
             "nonRegressions/set03/ht05",
             "nonRegressions/set03/ht06",
             "nonRegressions/set03/ht12",
@@ -1035,6 +1036,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-forward-reverse-transform-compile-runtime",
                 "pass-forward-reverse-transform-strict-compile-runtime",
                 "expected-refusal-exact-check-forward-reverse-unsupported-common-line-32",
+                "expected-refusal-exact-forward-empty-stub-reverse-assignment-boundary",
             },
         )
         expected_evidence = {
@@ -1693,6 +1695,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-compiler|fresh-Tapenade-parser-tangent-reverse-compile|compiled-FortAD-harness|independent-hand-JVP-VJP|central-difference-sweep|adjoint-identity",
                 "dependencies": "local DIFFSIZES.inc only; no mixed-language dependency",
                 "tapenade_result": "pass-fresh-parser-tangent-reverse-generation-generated-compile",
+            },
+            "nonRegressions/set02/v067": {
+                "entry_point": "ADJ_FCN(T,Y,YP,RESULT,RP)",
+                "tapenade_options": "-p/-root ADJ_FCN|-d/-root ADJ_FCN|-b/-root ADJ_FCN",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source-SHA-256|strict-and-legacy-fixed-form-compiler|fresh-Tapenade-exact-source-boundary|FortAD-exact-parser-forward-reverse-boundary|analytical-finite-difference-adjoint-oracle",
+                "dependencies": "valid fixed-form source; CR-only exact program.f reaches a Tapenade no-root boundary and FortAD reaches an empty-forward/reverse assignment boundary; stored program_p.f is reference evidence only",
+                "tapenade_result": "expected-refusal-exact-source-cr-only-line-terminator-no-root",
             },
             "nonRegressions/set03/ht05": {
                 "entry_point": "toto(m,x,y)",

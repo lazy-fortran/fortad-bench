@@ -81,7 +81,7 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1283)
+        self.assertEqual(len(rows), 1282)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
@@ -89,7 +89,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
                 "runnable-program-candidate": 293,
-                "runnable-procedure-candidate": 916,
+                "runnable-procedure-candidate": 915,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 120)
