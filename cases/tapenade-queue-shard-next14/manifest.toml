@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next14"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Four disjoint pure-Fortran, compiler-clean, free-form procedure rows without unresolved dependency risk were selected from the branch-base queue by the fixed case-insensitive modern-feature score, descending score then queue order, after excluding all existing queue shards. The global-SAVE-heavy next score candidate was deliberately left for the policy-refusal queue; next14 prioritizes varied modern/pure features. Scores are set04/v004/test=50, set07/v531/foo=48, set04/lh108/top=47, and set04/v048/twice_real=32."
+selection_queue_sha256 = "8d96c42ec5220129bea0b70ee34a52cb5001704a30cff8b42ce3f39fb0d13c24"
+selection_batch_sha256 = "1fce99272359a5019e3d4e2ddaa81e1882b45422ed0f3e5039f9899ecdabb075"
+current_queue_sha256 = "0d2d95bd37b96ed4a868b31c27dbecb4aba59c0634fb46b2a98891db5f81d923"
+current_batch_sha256 = "cdf77eb81579a6a4d47f2ec14a6d294ff970a246249e29dbf415224e870ee736"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "db4259e040ed9bc9981c6194c7e41ee8bf4f94d9"
+independent_arguments = "none supplied: each refusal oracle is a separate Python model; v048 additionally has an independent affine primal/JVP/VJP oracle"
+
+[[case]]
+id = "set04-v004"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v004"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 50
+selection_features = "type(=4; procedure=1; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v004/program.f90"
+references = ["nonRegressions/set04/v004/program_d.f90", "nonRegressions/set04/v004/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD refuses all three modes at the active module vector u; the independent vector arithmetic oracle checks defined component behavior while preserving the mutable-module-state refusal boundary."
+oracle_case = "v004-derived-vector"
+
+[[case]]
+id = "set07-v531"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v531"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 48
+selection_features = "pointer=2; type(=1; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v531/program.f90"
+references = ["nonRegressions/set07/v531/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD parses, refuses forward at SIZE on a pointer component, and refuses reverse without an inferred dependent; the independent oracle checks array and pointer-component sizes without supplying the unresolved BAR call."
+oracle_case = "v531-pointer-size"
+
+[[case]]
+id = "set04-lh108"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh108"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 47
+selection_features = "allocatable=1; pointer=1; type(=2; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh108/program.f90"
+references = ["nonRegressions/set04/lh108/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD refuses all three modes at module-level allocatable mutable state; the independent oracle checks allocation, pointer aliasing, and the defined active-prefix product without claiming derivative support."
+oracle_case = "lh108-allocatable-state"
+
+[[case]]
+id = "set04-v048"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v048"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 32
+selection_features = "procedure=1; elemental/pure/final=2; interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v048/program.f90"
+references = ["nonRegressions/set04/v048/program_d.f90"]
+entry_point = "twice_real"
+classification = "runnable-ported"
+closure = "Fresh pinned Tapenade parser, forward, and reverse products pass and compile strictly. FortAD emits parser, JVP, and VJP products for the elemental generic interface's real specific; generated FortAD products compile and the independent affine primal/JVP/VJP oracle passes."
+oracle_case = "v048-elemental-generic"

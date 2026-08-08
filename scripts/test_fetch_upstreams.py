@@ -835,6 +835,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set02/lh150",
             "nonRegressions/set03/ht09",
             "nonRegressions/set04/lh110",
+            "nonRegressions/set04/v048",
             "nonRegressions/set05/v052",
             "nonRegressions/set05/v054",
             "nonRegressions/set05/v060",
@@ -1065,6 +1066,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "pass-parser-forward-generated-interface-boundary|refused-reverse-no-dependent",
                 "pass-parser-generated-strict-refusal-forward-generated-strict-pass-reverse-refused-no-dependent",
                 "expected-refusal-parser-forward-reverse-no-dependent-module-pointer-state",
+                "pass-parser-forward-reverse-generated-compile-and-independent-affine-oracle",
             },
         )
         expected_evidence = {
@@ -2459,6 +2461,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "independent-optional-rank-generic-interface-source-and-refusal-oracle-pass|no-derivative-support-claim",
                 "dependencies": "none-reported; compiler-clean; modern-feature-score=149; exact-source-reference-sha256-in-case-result",
                 "tapenade_result": "pass-parser-forward-reverse-no-active-input-or-output-message",
+            },
+            "nonRegressions/set04/v048": {
+                "entry_point": "twice_real",
+                "tapenade_options": "-p/-root-twice_real|-d/-root-twice_real|-b/-root-twice_real",
+                "modes": "parser|forward|reverse",
+                "oracle": "strict-and-legacy-compiler|exact-source-sha256|fresh-Tapenade-parser-forward-reverse-generation|FortAD-generated-JVP-VJP-compile|independent-affine-JVP-VJP-oracle",
+                "dependencies": "none",
+                "tapenade_result": "pass-fresh-pinned-parser-forward-reverse-generation-strict-compile-pass",
             },
             "nonRegressions/set05/v201": {
                 "entry_point": "none (module TEST only)",
