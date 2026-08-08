@@ -842,6 +842,26 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             }
         ]
         untriaged = [row for row in rows if row["status"] == "untriaged"]
+        blocked = [row for row in rows if row["status"] == "blocked-missing-dependency"]
+        self.assertEqual(
+            [
+                (
+                    row["path"],
+                    row["entry_point"],
+                    row["tapenade_result"],
+                    row["fortad_result"],
+                )
+                for row in blocked
+            ],
+            [
+                (
+                    "nonRegressions/set02/lh193",
+                    "head(x,y)",
+                    "not-run-missing-dependency",
+                    "not-run-missing-dependency",
+                )
+            ],
+        )
         self.assertEqual({row["path"] for row in evidence}, evidence_paths)
         self.assertEqual(
             {row["status"] for row in evidence},
