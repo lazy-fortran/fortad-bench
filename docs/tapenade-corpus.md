@@ -100,7 +100,7 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,199 pure-Fortran and 74 mixed-language rows
+  either engine. It leaves 1,195 pure-Fortran and 74 mixed-language rows
   untriaged. The ledger currently has 61 executable evidence rows, 134 explicit
   refusals, and 32 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -115,9 +115,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,273 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,269 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 292 program candidates, and 907 procedure
+ rows with no entry-point hint, 292 program candidates, and 903 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -353,6 +353,15 @@ central differences for the affine and constant models). It is deliberately
 separate from the refusal classification. Exact source/reference hashes,
 compiler-clean handoff, diagnostics, and the four status values are recorded
 in the [shard manifest and result](../cases/tapenade-queue-shard-next/README.md).
+
+The following modern-feature shard closes four more compiler-clean,
+no-missing-dependency rows: `set04/ptr08` and `set04/ptr07` (`remove`),
+`set06/v243` (`collect_garbage_r1`), and `set05/v180` (`fliogstc`). The exact
+sources are ranked by a documented modern-feature score. Tapenade passes the
+three-mode probes; FortAD records recursive pointer ownership, pointer-target
+lifetime, and no-active-dependent boundaries. Independent primal/source/
+refusal models pass, with no derivative-support claim. See the [modern-feature
+shard manifest and result](../cases/tapenade-queue-shard-next-modern/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

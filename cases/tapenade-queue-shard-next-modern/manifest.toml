@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next-modern"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Select pure-Fortran, compiler-clean, free-form procedure candidates without unresolved include/dependency risk from the committed queue; local USE modules are allowed. Score case-insensitive occurrences in the exact primary source with the fixed modern-feature weights documented in README.md, descending score then committed queue order. Scores are ptr08=197, ptr07=195, v243=192, and v180=149; entry names are static declaration hints only."
+selection_queue_sha256 = "5731883eaba984d3da598e9170dd76947fc03107b22a2bd7bccb39b0a5c2445f"
+selection_batch_sha256 = "d7d2de151da60378d2b7eac47358301b426678701e290d6c70f75dab5fef728a"
+current_queue_sha256 = "acfb262c401735f778826d957f432578cd7f30bcc8dcfba00656b9330b2e787a"
+current_batch_sha256 = "84ddf7da98a85cd6a8f75774ee682d9592f71facd837fbffef2e77ac817e877d"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "159e38d2ad085853a3e6b092c1c1fb0e300319ca"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied: the probe uses only the statically discovered procedure name and independent primal/source/refusal models"
+
+[[case]]
+id = "set04-ptr08"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/ptr08"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 197
+selection_features = "pointer=7; associate=4; type(=5; recursive=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/ptr08/program.f90"
+references = ["nonRegressions/set04/ptr08/program_d.f90", "nonRegressions/set04/ptr08/program_p.f90"]
+entry_point = "remove"
+classification = "unsupported-fortad-recursive-pointer-ownership"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact recursive pointer-tree procedure. FortAD refuses parser, forward, and reverse at the first recursive pointer-owned declaration; pointer association, target identity, and deallocation ownership are not represented. The independent tree-removal model passes and makes no derivative-support claim."
+oracle_case = "ptr08-remove"
+
+[[case]]
+id = "set04-ptr07"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/ptr07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 195
+selection_features = "pointer=7; associate=3; type ::=1; type(=5; recursive=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/ptr07/program.f90"
+references = ["nonRegressions/set04/ptr07/program_p.f90"]
+entry_point = "remove"
+classification = "unsupported-fortad-recursive-pointer-ownership"
+closure = "Tapenade parses and emits parser, forward, and reverse products for the exact recursive pointer-tree procedure. FortAD refuses parser, forward, and reverse at the first recursive pointer-owned declaration; pointer association, target identity, and deallocation ownership are not represented. The independent tree-removal model passes and makes no derivative-support claim."
+oracle_case = "ptr07-remove"
+
+[[case]]
+id = "set06-v243"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v243"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 192
+selection_features = "pointer=8; associate=4; type(=1; dimension=8"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v243/program.f90"
+references = ["nonRegressions/set06/v243/program_p.f90"]
+entry_point = "collect_garbage_r1"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade parses the exact module procedure and reports no active numeric input or output for forward/reverse. FortAD refuses all three modes at the non-allocatable pointer-target lifetime side effect. The independent alias/lifetime model passes; the procedure has no defined scalar derivative product."
+oracle_case = "v243-collect-garbage"
+
+[[case]]
+id = "set05-v180"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v180"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 149
+selection_features = "procedure=1; interface=2; optional=14; dimension=25"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v180/program.f90"
+references = ["nonRegressions/set05/v180/program_p.f90"]
+entry_point = "fliogstc"
+classification = "expected-refusal"
+closure = "Tapenade parses the exact optional-rank/generic-interface source and reports no active numeric input or output for forward/reverse. FortAD parser and forward commands return zero, but their generated standalone procedures need the source module context; reverse refuses because no dependent can be inferred. This is a deliberate no-derivative boundary, not a support claim or source repair."
+oracle_case = "v180-fliogstc"

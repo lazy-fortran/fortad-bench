@@ -314,7 +314,7 @@ because it belongs next to the engines rather than next to the compiler.
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,273 rows are queued: 1,199 pure-Fortran rows and 74 mixed-language rows.
+  1,269 rows are queued: 1,195 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -395,6 +395,11 @@ because it belongs next to the engines rather than next to the compiler.
   exact refusal or invalid-generated-interface boundaries. Their independent
   oracle checks defined primal behavior only and makes no derivative-support
   claim. See the [shard manifest and result](cases/tapenade-queue-shard-next/README.md).
+  The current modern-feature shard then closes `set04/ptr08`, `set04/ptr07`,
+  `set06/v243`, and `set05/v180`, covering recursive pointer ownership, pointer
+  alias/lifetime cleanup, and optional-rank generic interfaces. Their exact
+  Tapenade/FortAD probes and independent primal/source/refusal models are in
+  the [modern-feature shard](cases/tapenade-queue-shard-next-modern/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
