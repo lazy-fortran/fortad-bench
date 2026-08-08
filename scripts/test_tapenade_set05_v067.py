@@ -48,7 +48,7 @@ class V067BoundaryTests(unittest.TestCase):
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set05/v067"]["status"], "expected-refusal")
         self.assertEqual(rows["nonRegressions/set05/v067"]["fortad_result"], "expected-refusal-forward-reverse-generic-call-no-output")
-        self.assertEqual(rows["nonRegressions/set05/v068"]["status"], "untriaged")
+        self.assertEqual(rows["nonRegressions/set05/v068"]["status"], "unsupported-invalid-upstream-fortran")
 
     def test_manifest_pins_modern_boundary(self) -> None:
         with (CASE / "v067_manifest.toml").open("rb") as stream:
