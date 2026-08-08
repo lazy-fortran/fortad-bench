@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 789
-classified rows out of 2,014 (39.2% overall), including 281 of the 1,432
-strict pure-Fortran rows (19.6%). The current queue contains 1,225 candidates:
-1,151 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 793
+classified rows out of 2,014 (39.4% overall), including 285 of the 1,432
+strict pure-Fortran rows (19.9%). The current queue contains 1,221 candidates:
+1,147 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -75,16 +75,17 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 281 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-1,151 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
+classifies 285 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+1,147 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
-adds four more rows in `cases/tapenade-queue-shard-next10/`.
+adds four more rows in `cases/tapenade-queue-shard-next10/`; next11 adds four
+more exact-source rows in `cases/tapenade-queue-shard-next11/`.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 61 runnable cases, 133 measured expected refusals, 32
-invalid-upstream closures, and 55 additional bounded feature or dependency
-classifications; 1,151 pure-Fortran rows remain untriaged. The 74 mixed
+invalid-upstream closures, and 59 additional bounded feature or dependency
+classifications; 1,147 pure-Fortran rows remain untriaged. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised
@@ -116,8 +117,8 @@ explicitly refused, independently checked, and measured when runnable.
   mixed-language candidates and all untested Fortran candidates stay untriaged.
 - [x] Build the evidence-neutral next-tranche queue with
   `scripts/queue_tapenade_fortran.py`. Its machine-readable rows and summary
-  partition the 1,225 remaining candidates into 74 mixed-language-risk, 0
-  historical-failure, 0 no-entry-point, 271 program, and 880 procedure
+  partition the 1,221 remaining candidates into 74 mixed-language-risk, 0
+  historical-failure, 0 no-entry-point, 271 program, and 876 procedure
   candidates. An orthogonal missing-dependency-risk signal covers 119 rows
   with non-local include hints. Include targets are dependency-risk signals
   only. This queue does not claim that any source parses or builds.
@@ -389,9 +390,9 @@ explicitly refused, independently checked, and measured when runnable.
   and [validation result](results/tapenade_set05_v054_validation.txt).
 - [ ] Classify every status row: entry point, mode, options, dependencies,
   oracle, Tapenade result, and FortAD result. Replace placeholders only with
-  reproducible evidence. There are 1,151 untriaged pure-Fortran rows and 74
-  mixed-language rows. The next8, next9, and next10 shards closed twelve
-  compiler-clean pure-Fortran rows with fresh Tapenade probes and independent
+  reproducible evidence. There are 1,147 untriaged pure-Fortran rows and 74
+  mixed-language rows. The next8, next9, next10, and next11 shards closed
+  sixteen compiler-clean pure-Fortran rows with fresh Tapenade probes and independent
   Python oracles;
   continue in similarly bounded shards.
 - [ ] Convert every runnable Fortran candidate into a support case. Each valid
