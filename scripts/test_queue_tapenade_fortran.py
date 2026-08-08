@@ -81,14 +81,14 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1286)
+        self.assertEqual(len(rows), 1285)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
-                "runnable-program-candidate": 296,
+                "runnable-program-candidate": 295,
                 "runnable-procedure-candidate": 916,
             }),
         )

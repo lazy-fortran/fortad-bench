@@ -220,6 +220,18 @@ Their manifests, runners, and measurement records are linked from the
 corresponding case directories. The shard-0 `set04/lh148` `module1::toto`
 entry is independently promoted in
 [`cases/tapenade-set04/lh148`](../cases/tapenade-set04/lh148/notes.md).
+The next pure-Fortran queue candidate, `set02/lh198` `top(x,y)`, is recorded
+as an expected FortAD refusal. The unchanged fixed-form primal and stored
+references pass strict F2018 and legacy compiler gates, fresh pinned
+Tapenade parser/tangent/reverse products pass both gates, and the exact
+primal runs with `y=15`. FortAD check/re-emission passes, while exact forward
+and reverse deliberately stop at the active `AAA` call because no derivative
+rule is registered and emit no non-empty derivative source. An independent
+COMMON-block dataflow oracle checks the primal, JVP, central differences, and
+adjoint identity; this is not an invalid-upstream closure or a repaired-port
+claim. See the [`case notes`](../cases/tapenade-set02/lh198/notes.md),
+[`manifest`](../cases/tapenade-set02/lh198/manifest.toml), and
+[`result`](../cases/tapenade-set02/lh198/result.txt).
 The recent small pure-Fortran promotions are `set05/v060` and `set05/v061`,
 both selecting `M::func(t,u)`. The next queue-priority row is now promoted as
 `set05/v062` `M::func(t,u)`, with the unchanged upstream source compiled and
