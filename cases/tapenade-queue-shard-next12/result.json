@@ -1,0 +1,1291 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-generic-intrinsic",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes at the elemental-expansion generic call f because no derivative output is available. The independent oracle checks the three WHERE branches and reciprocal behavior without a derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "13faf2ba224bc50efbbe79eebe99b4693071d7cc9221894a4e50dc261aef1d7e",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v058/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "c3b36e2972fa122b50b13d100d674780219a9e28e5e2339086dd6150244b115d",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v058/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e1062dd4bb65aae48911f0f896690161c8d7cfb6a4882a25a57699aecaefe38a",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v058/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "test",
+      "exact_source_checks": {
+        "nonRegressions/set05/v058/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:28:10:\n\n   28 | w1: where(x /= 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:32:12:\n\n   32 | w2:   where(x /= 0)\n      |            1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:38:12:\n\n   38 | w3:   where(x == 1)\n      |            1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:40:14:\n\n   40 |    elsewhere (x == 2)\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:42:14:\n\n   42 |    elsewhere (x == 3)\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:28:10:\n\n   28 | w1: where(x /= 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:32:12:\n\n   32 | w2:   where(x /= 0)\n      |            1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:38:12:\n\n   38 | w3:   where(x == 1)\n      |            1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:40:14:\n\n   40 |    elsewhere (x == 2)\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram.f90:42:14:\n\n   42 |    elsewhere (x == 3)\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          }
+        },
+        "nonRegressions/set05/v058/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...     1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:58:10:\n\n   58 | w1:WHERE (x .NE. 0) yd = F_D(x, xd, y)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:60:10:\n\n   60 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:67:10:\n\n   67 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:69:13:\n\n   69 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:71:13:\n\n   71 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:81:6:\n\n   81 |   USE TEST_MOD_D\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:81:6:\n\n   81 |   USE TEST_MOD_D\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:85:10:\n\n   85 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:87:10:\n\n   87 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:93:10:\n\n   93 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:95:13:\n\n   95 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:97:13:\n\n   97 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "...     1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:58:10:\n\n   58 | w1:WHERE (x .NE. 0) yd = F_D(x, xd, y)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:60:10:\n\n   60 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:67:10:\n\n   67 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:69:13:\n\n   69 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:71:13:\n\n   71 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:81:6:\n\n   81 |   USE TEST_MOD_D\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:81:6:\n\n   81 |   USE TEST_MOD_D\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_d.f90:85:10:\n\n   85 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:87:10:\n\n   87 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:93:10:\n\n   93 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:95:13:\n\n   95 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_d.f90:97:13:\n\n   97 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          }
+        },
+        "nonRegressions/set05/v058/program_p.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:30:6:\n\n   30 |   USE TEST_MOD\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_p.f90:34:10:\n\n   34 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:36:10:\n\n   36 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:42:10:\n\n   42 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:44:13:\n\n   44 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:46:13:\n\n   46 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_p.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_p.f90:30:6:\n\n   30 |   USE TEST_MOD\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\nprogram_p.f90:34:10:\n\n   34 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:36:10:\n\n   36 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:42:10:\n\n   42 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:44:13:\n\n   44 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\nprogram_p.f90:46:13:\n\n   46 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+          }
+        }
+      },
+      "fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "id": "set05-v058",
+      "independent_oracle": {
+        "case": "v058-where-reciprocal",
+        "derivative": {
+          "reciprocal_jvp": 0.10380622837370243,
+          "status": "model-only"
+        },
+        "primal": {
+          "where_else": [
+            1.0,
+            0.5,
+            0.0,
+            0.25
+          ],
+          "where_multi_branch": [
+            1.0,
+            0.5,
+            0.0,
+            0.0
+          ],
+          "where_nonzero": [
+            1.0,
+            0.5,
+            null,
+            0.25
+          ]
+        },
+        "refusal": {
+          "boundary": "elemental-expansion generic call",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.004596,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: elemental-expansion generic call 'f' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...   58 | w1:WHERE (x .NE. 0) yd = F_D(x, xd, y)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:60:10:\n\n   60 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:67:10:\n\n   67 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:69:13:\n\n   69 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:71:13:\n\n   71 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:81:6:\n\n   81 |   USE TEST_MOD_DIFF\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\n$RESULT_DIR/probe_d.f90:81:6:\n\n   81 |   USE TEST_MOD_DIFF\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\n$RESULT_DIR/probe_d.f90:85:10:\n\n   85 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:87:10:\n\n   87 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:93:10:\n\n   93 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:95:13:\n\n   95 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_d.f90:97:13:\n\n   97 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.254757,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.004807,
+            "status": "refused",
+            "stderr": "fortad: elemental-expansion generic call 'f' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:30:6:\n\n   30 |   USE TEST_MOD\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\n$RESULT_DIR/probe_p.f90:34:10:\n\n   34 | w1:WHERE (x .NE. 0) y = F(x)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_p.f90:36:10:\n\n   36 | w2:WHERE (x .NE. 0)\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_p.f90:42:10:\n\n   42 | w3:WHERE (x .EQ. 1)\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_p.f90:44:13:\n\n   44 |   ELSEWHERE (x .EQ. 2)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_p.f90:46:13:\n\n   46 |   ELSEWHERE (x .EQ. 3)\n      |             1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.20024,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "test",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.004927,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: elemental-expansion generic call 'f' is unsupported: no derivative output",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "test",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...1\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:66:12:\n\n   66 |     mask2 = x .EQ. 2\n      |            1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:68:14:\n\n   68 |       mask3 = x .EQ. 3\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:84:6:\n\n   84 |   USE TEST_MOD_DIFF\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\n$RESULT_DIR/probe_b.f90:84:6:\n\n   84 |   USE TEST_MOD_DIFF\n      |      1\nWarning: Type specified for intrinsic function \u2018size\u2019 at (1) is ignored [-Wsurprising]\n$RESULT_DIR/probe_b.f90:93:9:\n\n   93 |   mask = x .NE. 0\n      |         1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:96:10:\n\n   96 |   mask0 = x .NE. 0\n      |          1\nWarning: Inequality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:103:10:\n\n  103 |   mask1 = x .EQ. 1\n      |          1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:107:12:\n\n  107 |     mask2 = x .EQ. 2\n      |            1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:111:14:\n\n  111 |       mask3 = x .EQ. 3\n      |              1\nWarning: Equality comparison for REAL(4) at (1) [-Wcompare-reals]\n$RESULT_DIR/probe_b.f90:23:13:\n\n   23 |     REAL :: f_vector(SIZE(x))\n      |             1~~~~~~~~~~~~~~~~\nWarning: Unused variable \u2018f_vector\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:50:26:\n\n   50 | SUBROUTINE TEST_B(x, xb, y, yb)\n      |                          1\nWarning: Unused dummy argument \u2018y\u2019 at (1) [-Wunused-dummy-argument]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.28131,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "v058-where-reciprocal",
+      "probe_fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set05/v058",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set05/v058/program_d.f90",
+        "nonRegressions/set05/v058/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "procedure=1; elemental/pure/final=7; interface/bind(c)/iso_c_binding=2",
+      "selection_score": 67,
+      "source": "nonRegressions/set05/v058/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set05/v058/program.f90": "cb85b1e207385e4cf701a077a070bdda63b8ba74792fee133c434a70b173072e",
+        "nonRegressions/set05/v058/program_d.f90": "a7c559ba71c4ced540f13a74d8961f2164f9aca0a4378b53756debba68fee88e",
+        "nonRegressions/set05/v058/program_p.f90": "c7acc67462b2a0b4a257dd83076d0cc0cb70eca8e81b327041f78199e22d3038"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-global-mutable-state",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. The exact source uses COMMON state and generic swap dispatch; FortAD emits the parser product but refuses forward at the unregistered sub1 call and reverse at dependent inference. The independent oracle checks the two-swap composition without claiming the undefined COMMON values or derivative support.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "5cf00c48d4b5f316af1bd3e7cd4e1c23b273b11d1a4941d804079a63535565ff",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v176/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "b9e336442ffa2196930bad1bc9af8fab0d6b79911260c91a3f67e3254685c791",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v176/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "head",
+      "exact_source_checks": {
+        "nonRegressions/set05/v176/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:47:17:\n\n   47 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram.f90:47:17:\n\n   47 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram.f90:66:17:\n\n   66 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram.f90:66:17:\n\n   66 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+          }
+        },
+        "nonRegressions/set05/v176/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f90:122:15:\n\n  122 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:122:15:\n\n  122 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:108:17:\n\n  108 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:108:17:\n\n  108 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:107:15:\n\n  107 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:107:15:\n\n  107 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:161:15:\n\n  161 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:161:15:\n\n  161 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:146:17:\n\n  146 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:146:17:\n\n  146 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:145:15:\n\n  145 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:145:15:\n\n  145 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+          }
+        }
+      },
+      "fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "id": "set05-v176",
+      "independent_oracle": {
+        "case": "v176-generic-swap",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "after_head": [
+            [
+              3.0,
+              7.0
+            ],
+            [
+              1.25,
+              -2.5
+            ]
+          ],
+          "after_sub1": [
+            [
+              7.0,
+              3.0
+            ],
+            [
+              -2.5,
+              1.25
+            ]
+          ]
+        },
+        "refusal": {
+          "boundary": "COMMON/global mutable state",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.01129,
+            "status": "refused",
+            "stderr": "fortad: no derivative rule for the call to 'sub1'; register one with fad_add_call_rule, or keep it out of the active path",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...22 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:122:15:\n\n  122 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:108:17:\n\n  108 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:108:17:\n\n  108 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:107:15:\n\n  107 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:107:15:\n\n  107 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:161:15:\n\n  161 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:161:15:\n\n  161 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:146:17:\n\n  146 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:146:17:\n\n  146 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:145:15:\n\n  145 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:145:15:\n\n  145 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.298626,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure head understood as top.head\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.007842,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:61:15:\n\n   61 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_p.f90:61:15:\n\n   61 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_p.f90:80:15:\n\n   80 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_p.f90:80:15:\n\n   80 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.209877,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure head understood as top.head\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.010825,
+            "status": "refused",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...0:68:23:\n\n   68 |   SUBROUTINE SWAP_D_B(a, ab, b, bb)\n      |                       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:68:30:\n\n   68 |   SUBROUTINE SWAP_D_B(a, ab, b, bb)\n      |                              1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:72:25:\n\n   72 |     DOUBLE PRECISION :: temp\n      |                         1~~~\nWarning: Unused variable \u2018temp\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:27:23:\n\n   27 |   SUBROUTINE SWAP_R_B(a, ab, b, bb)\n      |                       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:27:30:\n\n   27 |   SUBROUTINE SWAP_R_B(a, ab, b, bb)\n      |                              1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:31:13:\n\n   31 |     REAL :: temp\n      |             1~~~\nWarning: Unused variable \u2018temp\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:103:31:\n\n  103 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                               1~\nWarning: Unused variable \u2018z1\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:103:35:\n\n  103 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                                   1~\nWarning: Unused variable \u2018z2\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:138:31:\n\n  138 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                               1~\nWarning: Unused variable \u2018z1\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:138:35:\n\n  138 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                                   1~\nWarning: Unused variable \u2018z2\u2019 declared at (1) [-Wunused-variable]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.316487,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure head understood as top.head\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "v176-generic-swap",
+      "probe_fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set05/v176",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set05/v176/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "procedure=2; interface/bind(c)/iso_c_binding=10",
+      "selection_score": 66,
+      "source": "nonRegressions/set05/v176/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set05/v176/program.f90": "c3a641c8aa783eb11c5a80cb345be99530bcaa8cde9ec76fabd481dcd7ae9265",
+        "nonRegressions/set05/v176/program_d.f90": "c949c726953a9a1f86cbbb0dc1ee1e7a73308efea66765cba73bc2f0f41a5024"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses all three modes because pointer-association storage identity for next is not tracked. The independent oracle checks the pointer-target product r=v2*v3 without a derivative-support claim.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cmv04/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cmv04/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "exact_source_checks": {
+        "nonRegressions/set03/cmv04/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        },
+        "nonRegressions/set03/cmv04/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          }
+        }
+      },
+      "fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "id": "set03-cmv04",
+      "independent_oracle": {
+        "case": "cmv04-pointer-target",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "r": -10.0,
+          "target": "v3"
+        },
+        "refusal": {
+          "boundary": "pointer association storage identity",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.00254,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'next' at line 12: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:12:17:\n\n   12 |       type(toto), pointer :: next\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:16:12:\n\n   16 |       next%value => v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:17:12:\n\n   17 |       next%value = v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:18:16:\n\n   18 |       r = next%value * v2\n      |                1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.254797,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.003033,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'next' at line 12: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:12:17:\n\n   12 |       type(toto), pointer :: next\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:16:12:\n\n   16 |       next%value => v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:17:12:\n\n   17 |       next%value = v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:18:16:\n\n   18 |       r = next%value * v2\n      |                1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.190683,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.002722,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'next' at line 12: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:12:17:\n\n   12 |       type(toto), pointer :: next\n      |                 1\nError: Derived type \u2018toto\u2019 at (1) is being used before it is defined\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:16:12:\n\n   16 |       next%value => v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:17:12:\n\n   17 |       next%value = v3\n      |            1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/nonRegressions/set03/cmv04/program.f90:18:16:\n\n   18 |       r = next%value * v2\n      |                1\nError: Unexpected \u2018%\u2019 for nonderived-type variable \u2018next\u2019 at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.267075,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "cmv04-pointer-target",
+      "probe_fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set03/cmv04",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set03/cmv04/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "pointer=3; type(=2",
+      "selection_score": 58,
+      "source": "nonRegressions/set03/cmv04/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cmv04/program.f90": "469619c291e36f72862af6352689c256eb9e6989706bc22819ab2574337af164",
+        "nonRegressions/set03/cmv04/program_d.f90": "27ccae4b837ea80d195aa404b9a1bff2fae7578663f2cf1554ed413da9c26d7b"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-global-mutable-state",
+      "closure": "Fresh Tapenade parser, forward, and reverse products pass. FortAD refuses parser, forward, and reverse at the COMMON statement. The independent oracle checks the generic swap state transition without claiming the undefined COMMON values or derivative support.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "1f8096890e0504e2fa15859b669517ebc72c584c024b117eb2dd9512f3f6cc6c",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v175/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "c387afef998266f1fd6f598abfb9bdc5aa5c8ca52051b0b3099be8258705939d",
+          "failure_kind": "none",
+          "path": "nonRegressions/set05/v175/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "sub0",
+      "exact_source_checks": {
+        "nonRegressions/set05/v175/program.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program.f90:48:17:\n\n   48 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram.f90:48:17:\n\n   48 |       common /zz/ zn,zd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+          }
+        },
+        "nonRegressions/set05/v175/program_d.f90": {
+          "legacy": {
+            "command": [
+              "gfortran",
+              "-std=legacy",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": ""
+          },
+          "strict": {
+            "command": [
+              "gfortran",
+              "-std=f2018",
+              "-fsyntax-only",
+              "-ffree-form",
+              "-ffree-line-length-none",
+              "-pedantic-errors",
+              "-Wall",
+              "-Wextra",
+              "-Wimplicit-interface",
+              "-J$MODULE_DIR",
+              "program_d.f90"
+            ],
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "program_d.f90:127:15:\n\n  127 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:127:15:\n\n  127 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:110:15:\n\n  110 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:110:15:\n\n  110 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:111:17:\n\n  111 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\nprogram_d.f90:111:17:\n\n  111 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+          }
+        }
+      },
+      "fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "id": "set05-v175",
+      "independent_oracle": {
+        "case": "v175-generic-swap",
+        "derivative": {
+          "status": "not-claimed"
+        },
+        "primal": {
+          "double_pair": [
+            7.0,
+            3.0
+          ],
+          "real_pair": [
+            -5.0,
+            2.0
+          ]
+        },
+        "refusal": {
+          "boundary": "COMMON/global mutable state",
+          "status": "expected"
+        },
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "sub0",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.005111,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 48",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "sub0",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_d.f90:127:15:\n\n  127 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:127:15:\n\n  127 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:110:15:\n\n  110 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:110:15:\n\n  110 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:111:17:\n\n  111 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_d.f90:111:17:\n\n  111 |     COMMON /zz_d/ znd, zdd\n      |                 1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.269654,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure sub0 understood as do.sub0\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "sub0",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "seconds": 0.004954,
+            "status": "refused",
+            "stderr": "fortad: unsupported statement at line 48",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "sub0",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "$RESULT_DIR/probe_p.f90:62:15:\n\n   62 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n$RESULT_DIR/probe_p.f90:62:15:\n\n   62 |     COMMON /zz/ zn, zd\n      |               1\nWarning: Fortran 2018 obsolescent feature: COMMON block at (1)\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.20777,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure sub0 understood as do.sub0\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "sub0",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "seconds": 0.004444,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 48",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "sub0",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": "...eature: COMMON block at (1)\n$RESULT_DIR/probe_b.f90:112:9:\n\n  112 |     xb = xb + zdb\n      |         1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_b.f90:113:9:\n\n  113 |     yb = yb - zdb\n      |         1\nWarning: Possible change of value in conversion from REAL(8) to REAL(4) at (1) [-Wconversion]\n$RESULT_DIR/probe_b.f90:69:23:\n\n   69 |   SUBROUTINE SWAP_D_B(a, ab, b, bb)\n      |                       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:69:30:\n\n   69 |   SUBROUTINE SWAP_D_B(a, ab, b, bb)\n      |                              1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:73:25:\n\n   73 |     DOUBLE PRECISION :: temp\n      |                         1~~~\nWarning: Unused variable \u2018temp\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:28:23:\n\n   28 |   SUBROUTINE SWAP_R_B(a, ab, b, bb)\n      |                       1\nWarning: Unused dummy argument \u2018a\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:28:30:\n\n   28 |   SUBROUTINE SWAP_R_B(a, ab, b, bb)\n      |                              1\nWarning: Unused dummy argument \u2018b\u2019 at (1) [-Wunused-dummy-argument]\n$RESULT_DIR/probe_b.f90:32:13:\n\n   32 |     REAL :: temp\n      |             1~~~\nWarning: Unused variable \u2018temp\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:106:31:\n\n  106 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                               1~\nWarning: Unused variable \u2018z1\u2019 declared at (1) [-Wunused-variable]\n$RESULT_DIR/probe_b.f90:106:35:\n\n  106 |     DOUBLE PRECISION :: u, v, z1, z2, zn, zd\n      |                                   1~\nWarning: Unused variable \u2018z2\u2019 declared at (1) [-Wunused-variable]\n"
+              }
+            },
+            "returncode": 0,
+            "seconds": 0.244805,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nCommand: Procedure sub0 understood as do.sub0\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "oracle_case": "v175-generic-swap",
+      "probe_fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set05/v175",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set05/v175/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order-real-source-entry",
+      "selection_features": "procedure=2; interface/bind(c)/iso_c_binding=8",
+      "selection_score": 56,
+      "source": "nonRegressions/set05/v175/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set05/v175/program.f90": "b62959f46e0684faf494ad5fcd0aa7a40fee29c731de009513d610f65f29f605",
+        "nonRegressions/set05/v175/program_d.f90": "f5e71df9e14e3d7805089594c327458976f56da4fb7f23b5fcc700d6f389d572"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "c765fb66ef32d624104359b2195e8dde728c4e9fd564236bfe7ce673965a1547",
+  "current_queue_sha256": "00e74ddf3f833b281155e137f07b1a19922e1aa5603300ee8077a0d01821f007",
+  "fortad_revision": "6ab65ee534cc91fbb2213dc807461c19e5d41e4c",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "schema_version": 1,
+  "selection_batch_sha256": "4bc7a1eacde77b615e91084f132d7791bda910fb8b0f46151f35414abcbb0017",
+  "selection_queue_sha256": "026d5d74f7b1a660beee4158587a16199e6ae6ec30a57073ecfce34c673fd8ee",
+  "shard_id": "tapenade-fortran-queue-shard-next12",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}
