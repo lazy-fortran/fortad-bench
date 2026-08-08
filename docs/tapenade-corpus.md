@@ -100,8 +100,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,139 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 61 executable evidence rows, 200 bounded
+  either engine. It leaves 1,135 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 62 executable evidence rows, 203 bounded
   pure-Fortran refusal or feature/dependency classifications, and 32
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -116,9 +116,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,229 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,209 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 271 program candidates, and 884 procedure
+ rows with no entry-point hint, 271 program candidates, and 864 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -379,11 +379,13 @@ procedure, module-owned mutable state, and pointer storage identity boundaries.
 Independent arithmetic, pointer, and ownership oracles pass without claiming
 derivative support. See the [next9 shard manifest and result](../cases/tapenade-queue-shard-next9/README.md).
 
-The next10 through next13 modern-feature shards close sixteen more
+The next10 through next14 modern-feature shards close twenty more
 compiler-clean, no-missing-dependency rows with fresh Tapenade/FortAD probes,
 exact source hashes, and independent behavioral contracts. The next13 rows are
 `set06/v364`, `set04/lh112`, `set03/lh051`, and `set03/cm25`; see the [next13
-shard manifest and result](../cases/tapenade-queue-shard-next13/README.md).
+shard manifest and result](../cases/tapenade-queue-shard-next13/README.md). The
+next14 rows are `set04/v004`, `set07/v531`, `set04/lh108`, and `set04/v048`; see
+the [next14 shard manifest and result](../cases/tapenade-queue-shard-next14/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
