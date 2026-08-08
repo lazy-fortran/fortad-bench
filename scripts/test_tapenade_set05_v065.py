@@ -34,7 +34,7 @@ class V065PromotionTests(unittest.TestCase):
         self.assertEqual(row['entry_point'], 'LIB::mppsum_real2(ptab,cst,str)')
         self.assertEqual(row['fortad_result'], 'pass-forward-reverse-transform-strict-compile-runtime')
         self.assertIn('pass-fresh-parser', row['tapenade_result'])
-        self.assertEqual(rows['nonRegressions/set05/v066']['status'], 'untriaged')
+        self.assertEqual(rows['nonRegressions/set05/v066']['status'], 'unsupported-invalid-upstream-fortran')
 
     def test_manifest_pins_source_modes_and_passive_boundary(self):
         manifest = (ROOT / 'cases/tapenade-set05/v065_manifest.toml').read_text()

@@ -46,7 +46,7 @@ class V066ClosureTests(unittest.TestCase):
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set05/v066"]["status"], "unsupported-invalid-upstream-fortran")
         self.assertEqual(rows["nonRegressions/set05/v066"]["fortad_result"], "not-run-invalid-upstream-source")
-        self.assertEqual(rows["nonRegressions/set05/v067"]["status"], "untriaged")
+        self.assertEqual(rows["nonRegressions/set05/v067"]["status"], "expected-refusal")
 
     def test_manifest_pins_the_exact_invalid_source(self) -> None:
         with (CASE / "v066_manifest.toml").open("rb") as stream:
