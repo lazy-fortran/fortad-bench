@@ -100,9 +100,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,213 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 61 executable evidence rows, 127 explicit
-  refusals, and 31 invalid-upstream closures. The profile, shard-3, and shard-0
+  either engine. It leaves 1,207 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 61 executable evidence rows, 130 explicit
+  refusals, and 32 invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -115,10 +115,10 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,287 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,281 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 297 program candidates, and 916 procedure
-candidates. An orthogonal `missing-dependency-risk` category covers 122 rows
+ rows with no entry-point hint, 292 program candidates, and 915 procedure
+candidates. An orthogonal `missing-dependency-risk` category covers 119 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
 dependency risk signal, not as proof that a dependency is missing. No queue
@@ -255,6 +255,17 @@ or exact derivative support claim is made. See the
 [`case notes`](../cases/tapenade-set02/v067/notes.md),
 [`manifest`](../cases/tapenade-set02/v067/manifest.toml), and
 [`result`](../cases/tapenade-set02/v067/result.txt).
+The next large-example candidate, `examples/big01/B04`, is an
+`unsupported-invalid-upstream-fortran` closure. The exact and stored fixed-form
+sources fail strict and legacy compiler gates because of duplicate main
+programs, malformed legacy syntax, and a missing `DIFFSIZES.inc` in the stored
+derivative references. Fresh pinned Tapenade generates parser, tangent, and
+reverse products, but the parser product fails the same source gate and reverse
+is blocked by that missing include. FortAD refuses all exact requests at the
+malformed token on line 20599. No source repair or derivative oracle claim is
+made. See the [`case notes`](../cases/tapenade-big01-B04/notes.md),
+[`manifest`](../cases/tapenade-big01-B04/manifest.toml), and
+[`result`](../cases/tapenade-big01-B04/result.txt).
 The recent small pure-Fortran promotions are `set05/v060` and `set05/v061`,
 both selecting `M::func(t,u)`. The next queue-priority row is now promoted as
 `set05/v062` `M::func(t,u)`, with the unchanged upstream source compiled and

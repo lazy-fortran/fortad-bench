@@ -10,7 +10,7 @@ tapenade="$tapenade_repo/bin/tapenade"
 fc=${FC:-gfortran}
 result="$case_dir/result.txt"
 source_dir="$tapenade_repo/nonRegressions/set02/v067"
-required_fortad_commit=1beddc0af0bca2d878bdd00f3d5352602677af1c
+required_fortad_commit=04602cd09d7ee785991911a3fb4afeaa290a6210
 required_tapenade_commit=e59864cab441d4175df75383b3ff58c3dcd26df9
 
 strict=(-std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors

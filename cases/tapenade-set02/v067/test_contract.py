@@ -27,7 +27,7 @@ class V067ContractTests(unittest.TestCase):
             manifest = tomllib.load(stream)
         self.assertEqual(manifest["classification"], "expected-refusal-valid-source-tapenade-and-fortad-boundary")
         self.assertEqual(manifest["upstream_revision"], "e59864cab441d4175df75383b3ff58c3dcd26df9")
-        self.assertEqual(manifest["fortad_revision"], "1beddc0af0bca2d878bdd00f3d5352602677af1c")
+        self.assertEqual(manifest["fortad_revision"], "04602cd09d7ee785991911a3fb4afeaa290a6210")
         self.assertEqual(manifest["source_form"], "fixed")
         for relative, digest in manifest["upstream_sha256"].items():
             path = UPSTREAM_ROOT / relative

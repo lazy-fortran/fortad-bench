@@ -26,7 +26,7 @@ class B04ContractTests(unittest.TestCase):
         self.assertEqual(manifest["classification"], "unsupported-invalid-upstream-fortran")
         self.assertEqual(manifest["upstream_revision"], "e59864cab441d4175df75383b3ff58c3dcd26df9")
         self.assertEqual(manifest["upstream_tree"], "17288bdf7e03cb23b82ddc769d884deed9c9575e")
-        self.assertEqual(manifest["fortad_revision"], "8bca21d2b8370269bb85902366c89ac59cbc0ece")
+        self.assertEqual(manifest["fortad_revision"], "04602cd09d7ee785991911a3fb4afeaa290a6210")
         self.assertEqual(manifest["source_form"], "fixed")
         self.assertEqual(
             subprocess.check_output(
