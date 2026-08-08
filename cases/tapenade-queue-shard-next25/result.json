@@ -1,0 +1,845 @@
+{
+  "batch_file": "docs/corpora/tapenade-fortran-batch.jsonl",
+  "batch_sha256": "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511",
+  "cases": [
+    {
+      "classification": "unsupported-fortad-pointer-alias-lifetime",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact generic-interface root bar. Tapenade emits its requested products, while FortAD refuses the pointer-valued actual cap because pointer association storage identity is not tracked. The independent oracle checks the generic dispatch and bounded module-array alias trace without claiming a derivative for the undefined/global pointer state.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "cef2ae3f4c99951e3fb5701631bac8e000e0d6e622cdb225642e60c570466795",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v346/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "8678b82482cf776f591b1a046828d420d94b5377cf5f30ec95dd316b6e3e92e5",
+          "failure_kind": "none",
+          "path": "nonRegressions/set06/v346/program_d.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "bar",
+      "fortad_revision": "0a5143adb1251c0724c971ead8104f9535c70d4e",
+      "id": "set06-v346",
+      "independent_oracle": {
+        "bounded_scalar_result": 0.0,
+        "derivative_claim": "none: undefined implicit x and pointer storage identity",
+        "map": "generic foo dispatches scalar and pointer actuals to distinct module procedures",
+        "pointer_alias_preserved": true,
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "bar",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cap' at line 31: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "bar",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n(AD06) Differentiation root procedures (bar) have no active input nor output\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "bar",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported aliasing declaration 'cap' at line 31: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "bar",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "bar",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cap' at line 31: pointer association storage identity is not tracked",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "bar",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.msg"
+            ],
+            "generated_syntax": {},
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n(AD06) Differentiation root procedures (bar) have no active input nor output\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set06/v346",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set06/v346/program_d.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order",
+      "selection_features": "pointer=2; procedure=2; interface=2; dimension=3",
+      "selection_score": 63,
+      "source": "nonRegressions/set06/v346/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set06/v346/program.f90": "a72335d743c6beceb88131422dd8ea6c00c704741451b15838991098d032f145",
+        "nonRegressions/set06/v346/program_d.f90": "64f1f7fb85df2fc7acb8bbfaf984cb0f29cdd1792273db53386724fb18eb6f62"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-procedure-call-actual",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact generic-interface root head. FortAD parses the source but refuses forward and reverse at the active call through i_a because no derivative call rule is registered; Tapenade emits all three products. The independent oracle checks the concrete affine dispatch map y=2*x and its JVP/VJP.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "989310cb3e8ecd13bc48e83a9e06c7c38bae34b33f58fd98bea91503c9487ecb",
+          "failure_kind": "none",
+          "path": "nonRegressions/set07/v397/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "cec2d04311e04dbe82643fcb705f6a297b589f863a8660faa31c0306baf69ad0",
+          "failure_kind": "none",
+          "path": "nonRegressions/set07/v397/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "head",
+      "fortad_revision": "0a5143adb1251c0724c971ead8104f9535c70d4e",
+      "id": "set07-v397",
+      "independent_oracle": {
+        "jvp": -0.8000000000230045,
+        "map": "y=2*x through the concrete i_a interface branch",
+        "status": "pass",
+        "vjp": 2.6
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: no derivative rule for the call to 'i_a'; register one with fad_add_call_rule, or keep it out of the active path",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "head",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: no reverse rule for the call to 'i_a'; register one with fad_add_call_rule",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "head",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set07/v397",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set07/v397/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order",
+      "selection_features": "pointer=1; procedure=2; interface=5",
+      "selection_score": 55,
+      "source": "nonRegressions/set07/v397/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set07/v397/program.f90": "808a1ca3755cf9a191f86b58647483fca47bba344d9c3a6a890494445092981a",
+        "nonRegressions/set07/v397/program_p.f90": "1fb87e6d63317407527dd439acfb503a92b9f62f665ba665979e262a65ac3dad"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-invalid-generated-interface",
+      "closure": "Fresh pinned Tapenade and FortAD parser, forward, and reverse probes generate products for the exact overloaded derived-type root foo. FortAD parser and forward products pass strict syntax, while the reverse generated source loses the derived-type module context and fails standalone syntax. The independent oracle checks the overloaded difference map y=x(1)-x(2), finite-difference JVP, and analytical VJP without claiming exact-source support for the detached reverse product.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "0845c5e4390379be1bb12249fbaf3a7a2b7309e80efd24bc10b492574722e0d1",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/vpf15/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "78c77c24fa3c131ec2ac2557b4fefc81e15527c711a8789797ee8da917ce8e41",
+          "failure_kind": "none",
+          "path": "nonRegressions/set11/vpf15/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "foo",
+      "fortad_revision": "0a5143adb1251c0724c971ead8104f9535c70d4e",
+      "id": "set11-vpf15",
+      "independent_oracle": {
+        "jvp": -0.8000000002450491,
+        "map": "y=x(1)-x(2) through overloaded some_type_difference",
+        "status": "pass",
+        "vjp": {
+          "x1": -1.4,
+          "x2": 1.4
+        }
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "$RESULT_DIR/forward/tapenade/probe_d.f90:71:7:\n\n   71 |   wd = SUB_D(u, ud, v, vd, w)\n      |       1\nError: Function \u2018sub_d\u2019 at (1) has no IMPLICIT type\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n---\t---\t DIFFPROCHEADER toDiffLhs = null\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "foo",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 1,
+                "status": "refused",
+                "stderr": "$RESULT_DIR/reverse/fortad/probe_b.f90:38:15:\n\n   38 |         y = w%f\n      |               1\nError: Symbol \u2018w\u2019 at (1) has no IMPLICIT type\n"
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "foo",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "pass",
+      "queue_category": "runnable-program-candidate",
+      "queue_path": "nonRegressions/set11/vpf15",
+      "queue_rank": 40,
+      "references": [
+        "nonRegressions/set11/vpf15/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order",
+      "selection_features": "type(=3; procedure=1; interface=3",
+      "selection_score": 47,
+      "source": "nonRegressions/set11/vpf15/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set11/vpf15/program.f90": "7a012a7769478f84d7579adedbfa4fb57f30a178e27a0f15e980498fe6845923",
+        "nonRegressions/set11/vpf15/program_p.f90": "ef642abc8b235c345883db6581f27114b9a0a9e071c0519755a5d1e1bd748a0d"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    },
+    {
+      "classification": "unsupported-fortad-procedure-call-actual",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact allocatable-helper root top. Tapenade emits all three products, while FortAD refuses the direct same-file helper calls because allocatable storage is not part of the proven call slice. The independent oracle checks the bounded allocation/deallocation trace, constant output four, and zero finite-difference sensitivity after the helpers overwrite both allocatables.",
+      "compiler_extra_source_files": [],
+      "compiler_files": [
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm23/program.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        },
+        {
+          "diagnostic_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "failure_kind": "none",
+          "path": "nonRegressions/set03/cm23/program_p.f90",
+          "source_kind": "free",
+          "status": "compiled"
+        }
+      ],
+      "compiler_missing_source_files": [],
+      "compiler_status": "compiler-clean",
+      "component": "non-regressions",
+      "dependency_hints": [],
+      "dependency_risk": false,
+      "entry_point": "top",
+      "fortad_revision": "0a5143adb1251c0724c971ead8104f9535c70d4e",
+      "id": "set03-cm23",
+      "independent_oracle": {
+        "jvp": 0.0,
+        "lifecycle": [
+          "allocate(a1)",
+          "allocate(a2)",
+          "multiply",
+          "deallocate(a1)",
+          "deallocate(a2)"
+        ],
+        "map": "constant four after two helper allocations",
+        "status": "pass"
+      },
+      "modes": {
+        "forward": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-d",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/forward/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported direct same-file procedure call at line 21: allocatable storage is not part of this slice",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-d",
+              "-O",
+              "$RESULT_DIR/forward/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_d.f90",
+              "probe_d.msg"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\nDiff-liveness analysis turned off\n@@ Created $RESULT_DIR/forward/tapenade/probe_d.f90 \n@@ Created $RESULT_DIR/forward/tapenade/probe_d.msg"
+          }
+        },
+        "parser": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-p",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/parser/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 1,
+            "status": "refused",
+            "stderr": "fortad: unsupported direct same-file procedure call at line 21: allocatable storage is not part of this slice",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-p",
+              "-O",
+              "$RESULT_DIR/parser/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_p.f90",
+              "probe_p.msg"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n@@ Created $RESULT_DIR/parser/tapenade/probe_p.f90 \n@@ Created $RESULT_DIR/parser/tapenade/probe_p.msg"
+          }
+        },
+        "reverse": {
+          "fortad": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "-b",
+              "-root",
+              "top",
+              "-O",
+              "$RESULT_DIR/reverse/fortad",
+              "-o",
+              "probe",
+              "program.f90"
+            ],
+            "generated": [],
+            "generated_syntax": {},
+            "returncode": 2,
+            "status": "refused",
+            "stderr": "fortad: cannot infer command arguments: unsupported direct same-file procedure call at line 21: allocatable storage is not part of this slice",
+            "stdout": ""
+          },
+          "tapenade": {
+            "command": [
+              "/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/tapenade",
+              "-b",
+              "-O",
+              "$RESULT_DIR/reverse/tapenade",
+              "-o",
+              "probe",
+              "-root",
+              "top",
+              "program.f90"
+            ],
+            "generated": [
+              "probe_b.f90",
+              "probe_b.msg"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
+            "stdout": "Tapenade 3.16 (HEAD) -  7 Aug 2026 11:00 - Java 21.0.12 Linux\n@@ TAPENADE_HOME=/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade/bin/..\n(AD21) This call to allocatex might set pointers that are differentiated (a2). If this is really the case, then this call must not be checkpointed.\n(AD21) This call to allocatex might set pointers that are differentiated (a1). If this is really the case, then this call must not be checkpointed.\n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.f90 \n@@ Created $RESULT_DIR/reverse/tapenade/probe_b.msg"
+          }
+        }
+      },
+      "probe_status": "probed",
+      "queue_category": "runnable-procedure-candidate",
+      "queue_path": "nonRegressions/set03/cm23",
+      "queue_rank": 50,
+      "references": [
+        "nonRegressions/set03/cm23/program_p.f90"
+      ],
+      "selection": "modern-feature-score-then-queue-order",
+      "selection_features": "allocatable=3",
+      "selection_score": 42,
+      "source": "nonRegressions/set03/cm23/program.f90",
+      "source_reference_sha256": {
+        "nonRegressions/set03/cm23/program.f90": "903817d2f9b4864caf88516948f6a55b13c6b667aade141ff3bc3e71ee7d3193",
+        "nonRegressions/set03/cm23/program_p.f90": "8426732ae6999775fdbf5014b4392df42112477e6421d7b6ba52c17895cedac4"
+      },
+      "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+    }
+  ],
+  "current_batch_sha256": "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511",
+  "current_queue_sha256": "9c89fa06a662d83b46ef4c135aed4d4fd1123fbb1d0a47c77da851b36ca2437c",
+  "fortad_revision": "0a5143adb1251c0724c971ead8104f9535c70d4e",
+  "jobs": 4,
+  "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
+  "queue_sha256": "dad2b9e7783080a15ac8ce6eff82db8d2b69845ff330c60b8260bc73a4b466ea",
+  "schema_version": 1,
+  "selection_batch_sha256": "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511",
+  "selection_queue_sha256": "dad2b9e7783080a15ac8ce6eff82db8d2b69845ff330c60b8260bc73a4b466ea",
+  "shard_id": "tapenade-fortran-queue-shard-next25",
+  "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
+}

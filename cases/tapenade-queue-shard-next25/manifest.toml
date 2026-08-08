@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next25"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates after next24, selected by the fixed modern-feature score in descending order and committed queue order for ties, while requiring a real procedure entry point in the exact primary source: set06/v346=63, set07/v397=55, set11/vpf15=47, and set03/cm23=42."
+selection_queue_sha256 = "dad2b9e7783080a15ac8ce6eff82db8d2b69845ff330c60b8260bc73a4b466ea"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "9c89fa06a662d83b46ef4c135aed4d4fd1123fbb1d0a47c77da851b36ca2437c"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "0a5143adb1251c0724c971ead8104f9535c70d4e"
+independent_arguments = "each oracle independently models the exact bounded scalar map or allocation/dispatch trace, checks a finite-difference JVP or analytical VJP where a numeric map is defined, and separately checks the expected ownership or procedure-call refusal boundary without repairing undefined state or pointer identity"
+
+[[case]]
+id = "set06-v346"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v346"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 63
+selection_features = "pointer=2; procedure=2; interface=2; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v346/program.f90"
+references = ["nonRegressions/set06/v346/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact generic-interface root bar. Tapenade emits its requested products, while FortAD refuses the pointer-valued actual cap because pointer association storage identity is not tracked. The independent oracle checks the generic dispatch and bounded module-array alias trace without claiming a derivative for the undefined/global pointer state."
+oracle_case = "v346-generic-pointer-boundary"
+
+[[case]]
+id = "set07-v397"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v397"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 55
+selection_features = "pointer=1; procedure=2; interface=5"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v397/program.f90"
+references = ["nonRegressions/set07/v397/program_p.f90"]
+entry_point = "head"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact generic-interface root head. FortAD parses the source but refuses forward and reverse at the active call through i_a because no derivative call rule is registered; Tapenade emits all three products. The independent oracle checks the concrete affine dispatch map y=2*x and its JVP/VJP."
+oracle_case = "v397-generic-dispatch-map"
+
+[[case]]
+id = "set11-vpf15"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf15"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 47
+selection_features = "type(=3; procedure=1; interface=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf15/program.f90"
+references = ["nonRegressions/set11/vpf15/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade and FortAD parser, forward, and reverse probes generate products for the exact overloaded derived-type root foo. FortAD parser and forward products pass strict syntax, while the reverse generated source loses the derived-type module context and fails standalone syntax. The independent oracle checks the overloaded difference map y=x(1)-x(2), finite-difference JVP, and analytical VJP without claiming exact-source support for the detached reverse product."
+oracle_case = "vpf15-overloaded-derived-difference"
+
+[[case]]
+id = "set03-cm23"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm23"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 42
+selection_features = "allocatable=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm23/program.f90"
+references = ["nonRegressions/set03/cm23/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for the exact allocatable-helper root top. Tapenade emits all three products, while FortAD refuses the direct same-file helper calls because allocatable storage is not part of the proven call slice. The independent oracle checks the bounded allocation/deallocation trace, constant output four, and zero finite-difference sensitivity after the helpers overwrite both allocatables."
+oracle_case = "cm23-allocatable-call-map"
