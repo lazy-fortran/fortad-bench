@@ -1,0 +1,88 @@
+schema_version = 1
+name = "tapenade-big01-B04-invalid-upstream"
+upstream = "tapenade"
+upstream_origin = "https://gitlab.inria.fr/tapenade/tapenade.git"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+upstream_tree = "17288bdf7e03cb23b82ddc769d884deed9c9575e"
+fortad_revision = "e13b43ad934e88e6fdf058646047003e4b385170"
+source_form = "fixed"
+runner = "cases/tapenade-big01-B04/run.sh"
+result = "cases/tapenade-big01-B04/result.txt"
+queue_category = "runnable-program-candidate"
+queue_rank = 40
+
+source_files = ["examples/big01/B04/program.f"]
+upstream_sources = [
+    "examples/big01/B04/Options",
+    "examples/big01/B04/program.f",
+    "examples/big01/B04/program_p.f",
+    "examples/big01/B04/program_p.msg",
+    "examples/big01/B04/program_d.f",
+    "examples/big01/B04/program_d.msg",
+    "examples/big01/B04/program_dv.f",
+    "examples/big01/B04/program_dv.msg",
+]
+stored_references = [
+    "program_p.f",
+    "program_p.msg",
+    "program_d.f",
+    "program_d.msg",
+    "program_dv.f",
+    "program_dv.msg",
+]
+missing_dependencies = ["DIFFSIZES.inc"]
+
+upstream_entry_point = "MOFDER_GEAR(NEQ,T,Y,YDOT)"
+selected_entry_points = ["MOFDER_GEAR(NEQ,T,Y,YDOT)", "MOGAUT"]
+ported_entry_point = "not-applicable-invalid-upstream"
+independent = ["Y"]
+dependent = ["YDOT"]
+function = "fixed-form Mogador program with derivative references and a duplicate-main/malformed-source boundary"
+options = [
+    "source Options: -vars Y -outvars YDOT -debug 30",
+    "parser: -p -root MOFDER_GEAR -O DIR -o b04 program.f",
+    "tangent: -d -root MOFDER_GEAR -O DIR -o b04 program.f",
+    "reverse: -b -root MOFDER_GEAR -O DIR -o b04 program.f",
+    "FortAD: check/forward/reverse --proc MOFDER_GEAR --indep Y --dep YDOT",
+]
+modes = ["parser", "forward", "reverse"]
+contract_tests = [
+    "exact-source-and-stored-reference-SHA-256-contract",
+    "strict-and-legacy-fixed-form-compiler-refusal-contract",
+    "fresh-pinned-Tapenade-parser-tangent-reverse-and-compiler-boundary-contract",
+    "exact-FortAD-parser-forward-reverse-refusal-contract",
+]
+oracle = [
+    "exact source/reference hashes",
+    "strict F2018 and legacy fixed-form compiler gates",
+    "fresh pinned Tapenade generation and compiler boundary",
+    "FortAD exact-source diagnostic",
+]
+classification = "unsupported-invalid-upstream-fortran"
+dependencies = [
+    "The exact source is present and its local include closure is present, but strict and legacy syntax-only compilation reject it: strict F2018 rejects deleted DO/H formats and legacy controls, while both modes report two main programs; legacy also rejects tab diagnostics under pedantic-errors.",
+    "The stored parser reference contains invalid _MAIN_ and two main programs. The stored tangent and multidirectional references include DIFFSIZES.inc, which is absent from the pinned B04 directory; no synthetic include is supplied.",
+    "Fresh pinned Tapenade parser, tangent, and reverse generation succeeds, but this does not make the exact source valid. The fresh parser fails compilation on _MAIN_/two mains, tangent compiles, and reverse is blocked by the same absent DIFFSIZES.inc.",
+    "FortAD refuses all exact-source requests at the malformed token on line 20599 and emits no output. No repaired source or semantics-preserving port is claimed.",
+]
+expected_diagnostics = [
+    "exact program.f strict/legacy: two main PROGRAMs; strict also reports deleted legacy constructs and legacy reports nonconforming tabs",
+    "stored program_p.f strict/legacy: invalid character in name for _MAIN_ and two main PROGRAMs",
+    "stored program_d.f and program_dv.f strict/legacy: cannot open DIFFSIZES.inc",
+    "fresh Tapenade parser/tangent/reverse generation: status 0 with b04_p/d/b products and messages",
+    "fresh parser compile: invalid _MAIN_/two main PROGRAMs; fresh tangent compile: pass; fresh reverse compile: cannot open DIFFSIZES.inc",
+    "FortAD parser/forward/reverse: invalid character in name at line 20599, no output",
+]
+tapenade_result = "pass-fresh-parser-tangent-reverse-generation-invalid-source-and-missing-diffsizes-boundary"
+fortad_result = "expected-refusal-exact-parse-invalid-character-line-20599-no-output"
+closure = "The exact pinned B04 source and stored references remain untouched and are retained only as measured corpus evidence. The compiler, Tapenade, and FortAD results establish an invalid-upstream closure; repairing the duplicate mains, malformed token, legacy constructs, or missing DIFFSIZES.inc would define a different case."
+
+[upstream_sha256]
+"examples/big01/B04/Options" = "e455e0ee539a01c876b88e571bc128bb0bffa686e14c3e636840e72419b204fd"
+"examples/big01/B04/program.f" = "9ad5a700c180a51112ec9f9878e9c723eabda2563257ed1bfaccbfa1953493de"
+"examples/big01/B04/program_p.f" = "8d25a2442b0f6474a3b899109b273afc3431be1476ccf58e36494f5799ae415c"
+"examples/big01/B04/program_p.msg" = "5ce2cb94dd813809dd282cb357f0d380faee870641cbb6c9de88df99ad3a7930"
+"examples/big01/B04/program_d.f" = "9da9e5df555845f50ffae972c59e875a15cb94d065b0d1573fe09903151ffaf1"
+"examples/big01/B04/program_d.msg" = "1b049592792a582f4856d6ba736a7bfaeb2de5bbbf5c74bf98ae0aba023daba0"
+"examples/big01/B04/program_dv.f" = "7b06f2f069ebc5d93b3e233107896fcb2fa65e1db181353240d7cb3fe1d0de84"
+"examples/big01/B04/program_dv.msg" = "a33284f6494238742e0e482a71a1b3a664d70a124a89b15ffca97ef6876c8493"

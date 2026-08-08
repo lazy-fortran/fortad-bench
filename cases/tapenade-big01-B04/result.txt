@@ -1,0 +1,42 @@
+case: Tapenade examples/big01/B04 MOFDER_GEAR(NEQ,T,Y,YDOT)
+classification: unsupported-invalid-upstream-fortran
+recorded_utc: 2026-08-08T02:28:16Z
+compiler: GNU Fortran (GCC) 16.1.1 20260728
+strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only
+fortad_commit: e13b43ad934e88e6fdf058646047003e4b385170
+tapenade_origin: https://gitlab.inria.fr/tapenade/tapenade.git
+tapenade_commit: e59864cab441d4175df75383b3ff58c3dcd26df9
+tapenade_tree: 17288bdf7e03cb23b82ddc769d884deed9c9575e
+entry_point: MOFDER_GEAR(NEQ,T,Y,YDOT)
+stored_references: program_p.f program_p.msg program_d.f program_d.msg program_dv.f program_dv.msg
+missing_dependency: DIFFSIZES.inc absent from exact B04 directory
+upstream_exact_strict_compile: program.f=1 program_p.f=1 program_d.f=1 program_dv.f=1
+upstream_exact_legacy_compile: program.f=1 program_p.f=1 program_d.f=1 program_dv.f=1
+upstream_diagnostics: exact=two-main-programs; stored-parser=invalid-_MAIN_-and-two-main-programs; stored-tangent-vector=missing-DIFFSIZES.inc
+tapenade_generation: parser=0 tangent=0 reverse=0
+tapenade_fresh_compile_strict: parser=1 tangent=0 reverse=1
+tapenade_fresh_compile_legacy: parser=1 tangent=0 reverse=1
+tapenade_fresh_diagnostics: parser=two-main-programs tangent=pass reverse=missing-DIFFSIZES.inc
+fortad_exact_parser: expected-refusal status=1 diagnostic=invalid-character-line-20599 output=none
+fortad_exact_forward: expected-refusal status=1 diagnostic=invalid-character-line-20599 output=none
+fortad_exact_reverse: expected-refusal status=1 diagnostic=invalid-character-line-20599 output=none
+independent_oracle: not-applicable-invalid-upstream-no-support-claim
+no_repaired_source: true
+upstream_sha256:
+e455e0ee539a01c876b88e571bc128bb0bffa686e14c3e636840e72419b204fd  examples/big01/B04/Options
+9ad5a700c180a51112ec9f9878e9c723eabda2563257ed1bfaccbfa1953493de  examples/big01/B04/program.f
+8d25a2442b0f6474a3b899109b273afc3431be1476ccf58e36494f5799ae415c  examples/big01/B04/program_p.f
+5ce2cb94dd813809dd282cb357f0d380faee870641cbb6c9de88df99ad3a7930  examples/big01/B04/program_p.msg
+9da9e5df555845f50ffae972c59e875a15cb94d065b0d1573fe09903151ffaf1  examples/big01/B04/program_d.f
+1b049592792a582f4856d6ba736a7bfaeb2de5bbbf5c74bf98ae0aba023daba0  examples/big01/B04/program_d.msg
+7b06f2f069ebc5d93b3e233107896fcb2fa65e1db181353240d7cb3fe1d0de84  examples/big01/B04/program_dv.f
+a33284f6494238742e0e482a71a1b3a664d70a124a89b15ffca97ef6876c8493  examples/big01/B04/program_dv.msg
+fresh_tapenade_sha256:
+c465cdd1b23d5e59d24876069a1be0800cee3a235a81a513a8dfba96484afe37  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/parser/b04_p.f
+df622d63ad45b830d46e4c3ea9eee1654d8b50a975b6c2620080c558207bebcd  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/parser/b04_p.msg
+37c083da08f32431adbff2447ee7a83fa38f7d0de61d4d420bb9970b07b10c48  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/tangent/b04_d.f
+7f1d02cbd0a1d72b98cf187654bd03a199c940c0fd1c128f51c956d0fa528c06  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/tangent/b04_d.msg
+907c7f439356941e8ab2c09287135281c866c0a8c8a210960055f2cd9b8edb7f  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/reverse/b04_b.f
+8f334cbba80cdc63175e3c0e4fb1f51eedc2b917436b40f0ab49e97a67d30eb6  /var/tmp/fortad-bench-tapenade-big01-B04.dBVu7E/tapenade/reverse/b04_b.msg
+closure: exact source is available but invalid upstream; no support, repair, or derivative oracle claimed
