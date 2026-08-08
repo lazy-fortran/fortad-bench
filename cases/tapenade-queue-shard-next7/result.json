@@ -1437,8 +1437,8 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     }
   ],
-  "current_batch_sha256": "8eebfb12b59df85bed092812d3c817c19d13378e6f298eeef51070284b8066ca",
-  "current_queue_sha256": "194f51f8176ad7a5099c772704f2abf41bac29e6ebe7839d6a82e622682b1cce",
+  "current_batch_sha256": "cf664d510b9d6e00abe26ff93df0635246654d343d4d4c6a3d79f48de9efaa8a",
+  "current_queue_sha256": "d97b5c76ed0b839ac5f659f6675368d00904adf427f310c31c538e8f57d94e1f",
   "fortad_revision": "48dec22bbcd7dcf628411d3419d9832562ca1ae9",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
