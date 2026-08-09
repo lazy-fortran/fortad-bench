@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next43"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure candidates selected after next42 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties. Program-only leaders nonRegressions/set03/cm08=82, nonRegressions/set03/cm06=44, and nonRegressions/set03/cm16=34 are excluded because the three-mode contract requires a callable procedure root; the selected score-16 leaders are nonRegressions/set04/v018, nonRegressions/set04/v043, nonRegressions/set07/v496, and nonRegressions/set10/lh238."
+selection_queue_sha256 = "5bdecc580dbf8a150fd4e57e008168849382473d850696aabc78db41c3fcff18"
+selection_batch_sha256 = "46a488f92c50dbb8c6204b4cb2f63905c8af2a2bd4b7744335d6c6acc3fa793d"
+current_queue_sha256 = "cb781799c8576df6d1d179c362967d5ffcff7934900c9732e022a910fbb6c3b1"
+current_batch_sha256 = "02f6902e196dc678f588e1d8b84b7712539f466c9799ee5d54e84e5b4823f42b"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "84a667ae3eea8750f1373f961d9b7e661a0f1589"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY_POINT --fortad ../fortad/build/fo/app/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models a bounded numeric map while retaining the exact active-I/O, derived-component, local-interface, or derived-declaration boundary; it checks finite-difference JVP/VJP identities, reads no transformed output, and makes no derivative-support claim for a refused source"
+
+[[case]]
+id = "set04-v018"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v018"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v018/program.f90"
+references = ["nonRegressions/set04/v018/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root TEST. FortAD refuses all three modes at the active PRINT statement on source line 18. The independent component-sum oracle checks finite-difference JVP/VJP identities without reading transformed output or claiming exact-source derivative support."
+oracle_case = "v018-derived-sum"
+
+[[case]]
+id = "set04-v043"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v043"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v043/program.f90"
+references = ["nonRegressions/set04/v043/program_d.f90", "nonRegressions/set04/v043/program_p.f90"]
+entry_point = "ff"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root FF. FortAD emits a parser product whose standalone interface is invalid, while forward and reverse refuse at the active derived-object boundary that T must name a real component. The independent two-component sum oracle checks finite-difference JVP/VJP identities without claiming exact-source derivative support."
+oracle_case = "v043-derived-sum"
+
+[[case]]
+id = "set07-v496"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v496"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "interface=2; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v496/program.f90"
+references = ["nonRegressions/set07/v496/program_b.f90", "nonRegressions/set07/v496/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root TOP. FortAD refuses all three modes at the local INTERFACE statement on source line 12 before derivative output. The independent callback-style dot-product oracle checks finite-difference JVP/VJP identities for a bounded model and makes no exact-source derivative-support claim."
+oracle_case = "v496-callback-dot"
+
+[[case]]
+id = "set10-lh238"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh238"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh238/program.f90"
+references = ["nonRegressions/set10/lh238/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root FOO. FortAD refuses all three modes at the derived-type declaration on source line 1. The independent bounded 1.5-times-x vector oracle checks finite-difference JVP/VJP identities without claiming exact-source derivative support."
+oracle_case = "lh238-scaled-vector"

@@ -337,13 +337,14 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 308 bounded
+  audit. Sixty-three rows now have executable FortAD evidence, 311 bounded
   pure-Fortran refusal or feature/dependency classifications, and thirty-four
-  invalid-upstream closures are independently recorded. Another
+  invalid-upstream closures are independently recorded, plus five other bounded
+  evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,101 rows are queued: 1,027 pure-Fortran rows and 74 mixed-language rows.
+  1,093 rows are queued: 1,019 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -557,6 +558,16 @@ because it belongs next to the engines rather than next to the compiler.
   declaration refusal, with fresh exact-source probes and independent
   behavioral/refusal oracles. See the
   [next41 shard manifest and result](cases/tapenade-queue-shard-next41/README.md);
+  none is classified as invalid upstream.
+  The next42 modern-feature shard closes `set03/lh068`, `set04/v002`,
+  `set04/v003`, and `set04/v012`, all at fixed score 16, with derived-type,
+  generated-interface, dependent-inference, and active-I/O boundaries. See the
+  [next42 shard manifest and result](cases/tapenade-queue-shard-next42/README.md);
+  none is classified as invalid upstream.
+  The next43 modern-feature shard closes `set04/v018`, `set04/v043`,
+  `set07/v496`, and `set10/lh238`, all at fixed score 16, with active-I/O,
+  generated-interface, local-interface, and derived-type boundaries. See the
+  [next43 shard manifest and result](cases/tapenade-queue-shard-next43/README.md);
   none is classified as invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
