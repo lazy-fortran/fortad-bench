@@ -53,6 +53,12 @@ without creating measurements. The older
 [`results/enzyme_suite.csv`](results/enzyme_suite.csv) remains a historical
 best-only fixed-size record and is not combined with the sweep.
 
+The current committed run and its exact median table are documented in
+[`docs/enzyme-suite-size-sweep.md`](docs/enzyme-suite-size-sweep.md). Its timing
+CSV has 95 rows and its gap CSV records the unavailable `lstm` derivative and
+the `bruss` `N=1000000` process failure. The result is intentionally not a
+whole-suite victory claim.
+
 ### adaptive_trace_integrand measures the compiler, not the engine
 
 Its tangent is 1.69x Enzyme, the one fortnum measurement outside 30%,
