@@ -112,12 +112,16 @@ invalid-generated-interface boundaries with independent behavior/refusal
 oracles. Next49 closes 48 additional score-selected compiler-clean procedure
 rows: 14 generated-product cases with independent source-map oracles and 34
 phase-specific refusals with independent refusal oracles. The queue and batch
-handoffs now contain 1,025 and 951 rows respectively.
+handoffs now contain 977 and 903 rows respectively. Next50 closes the next 48
+score-selected compiler-clean callable roots, with 14 generated products and
+34 explicit phase-specific FortAD boundaries; intentional global-state and
+legacy boundaries remain evidence classifications rather than product failures.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 64 runnable cases, 134 measured expected refusals, 34
 invalid-upstream closures, 229 additional FortAD feature boundaries, and 20
-other bounded evidence closures; 951 pure-Fortran rows remain untriaged. The 74 mixed
+other bounded evidence closures; 903 pure-Fortran rows remain untriaged in the
+current compiler-clean batch, while 977 rows remain in the full queue. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised
