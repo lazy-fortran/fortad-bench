@@ -338,14 +338,14 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 577 classified pure-Fortran rows (1,085 of 2,014 candidates overall):
+  contains 625 classified pure-Fortran rows (1,133 of 2,014 candidates overall):
   64 runnable cases, 134 measured expected refusals, 34 invalid-upstream
-  closures, 307 additional FortAD feature boundaries, and 38 other bounded
+  closures, 339 additional FortAD feature boundaries, and 54 other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  929 rows are queued: 855 pure-Fortran rows and 74 mixed-language rows.
+  881 rows are queued: 807 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -629,6 +629,14 @@ because it belongs next to the engines rather than next to the compiler.
   Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
   call mapping, dependent inference, and other refusal boundaries are intentional
   evidence boundaries, not product failures.
+  The next52 shard closes the following 48 score-0 compiler-clean,
+  dependency-safe, free-form callable procedure roots in committed queue order;
+  program-only rows without callable procedures were excluded. Tapenade passes
+  parser, forward, and reverse for all 48 exact roots; current FortAD `3a6d299`
+  emits all three products for 16 and records explicit phase-specific refusals
+  for 32. Independent source-map/refusal oracles, exact hashes, full diagnostics,
+  and current FortAD/FortFront pins are in the
+  [next52 shard manifest and result](cases/tapenade-queue-shard-next52/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

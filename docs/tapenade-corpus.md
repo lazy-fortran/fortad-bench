@@ -110,11 +110,11 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 855 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 64 executable evidence rows and 577
-  classified pure-Fortran rows (1,085 candidates overall): 134 measured expected
-  refusals, 34 invalid-upstream closures, 307 additional FortAD feature boundaries, and
-  38 other bounded evidence closures. The profile, shard-3, and shard-0
+  either engine. It leaves 807 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 executable evidence rows and 625
+  classified pure-Fortran rows (1,133 candidates overall): 134 measured expected
+  refusals, 34 invalid-upstream closures, 339 additional FortAD feature boundaries, and
+  54 other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -655,9 +655,18 @@ all three products for 4 and records explicit phase-specific refusals for 44.
 Independent source-map/refusal oracles, exact hashes, full diagnostics, and
 current FortAD/FortFront pins are in the
 [next51 shard manifest and result](../cases/tapenade-queue-shard-next51/README.md).
-Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
-call mapping, dependent inference, and other refusal boundaries are intentional
-evidence boundaries, not product failures.
+  Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
+  call mapping, dependent inference, and other refusal boundaries are intentional
+  evidence boundaries, not product failures.
+
+The next52 modern-feature shard closes the following 48 score-0 compiler-clean,
+dependency-safe, free-form callable procedure roots in committed queue order;
+program-only rows without a callable procedure root were excluded. Tapenade
+passes parser, forward, and reverse for all 48 exact roots; current FortAD
+`3a6d299…` emits all three products for 16 and records explicit phase-specific
+refusals for 32. Independent source-map/refusal oracles, exact hashes, full
+diagnostics, and current FortAD/FortFront pins are in the
+[next52 shard manifest and result](../cases/tapenade-queue-shard-next52/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
