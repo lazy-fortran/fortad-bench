@@ -428,6 +428,20 @@ context boundaries. Fresh pinned Tapenade products, exact FortAD diagnostics,
 source hashes, and independent numerical/refusal oracles are in its [manifest
 and result](../cases/tapenade-queue-shard-next25/README.md).
 
+The next26 wave-six shard adds `set04/lh113`, `set11/ompl07`, `set05/v179`,
+and `set06/v341`; next27 adds `set07/v434`, `set07/v542`, `set04/lh107`, and
+`set05/v152`. The next28 shard then closes the following four compiler-clean,
+dependency-safe procedure rows: `set05/v086`, `set03/cm04`, `set05/v200`, and
+`set07/v483`. Their fixed modern-feature scores are 32, 28, 28, and 28 in
+descending score and queue order. Fresh pinned Tapenade parser/forward/reverse
+products pass for all four. FortAD returns all three products for `v086`, but
+the generated standalone sources fail the strict syntax boundary, so no runtime
+or derivative-support claim is made; it records explicit pointer, derived-type,
+and module-state refusals for the other three. Exact source/reference hashes,
+FortAD diagnostics, and independent bounded behavior/refusal oracles are in the
+[next28 shard manifest and result](../cases/tapenade-queue-shard-next28/README.md);
+none is classified as invalid upstream.
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent
