@@ -1,0 +1,88 @@
+{
+  "affinity": {
+    "effective_process_cpus": "0",
+    "launcher": "taskset",
+    "requested": "0"
+  },
+  "artifacts": {
+    "executable_bytes": 2264136,
+    "generated_source_bytes": 17600,
+    "llvm_ir_bytes": 262046,
+    "object_bytes": 31328
+  },
+  "bench_commit": "f2697917ae03fe7ea488dea6bd10038308f216fb",
+  "created_utc": "2026-08-09T07:12:02.682514+00:00",
+  "enzyme_plugin": "/home/ert/code/enzyme/current/lib/LLVMEnzyme-22.so",
+  "flags": {
+    "clang": "-O3 -fPIC for LLVM IR and derivative object",
+    "flang": "-O3 -fPIC for LLVM IR, -O3 for Fortran objects and driver",
+    "llvm_link": "-S",
+    "opt": "-passes=enzyme, then -O3",
+    "runtime": "no runtime flags beyond the compiler command above",
+    "tapenade": "-b -head <workload>(y)/(z)"
+  },
+  "fortad_commit": "ae67c509875d07bde4a162679a78374a44365a9d",
+  "gap_file": "results/enzyme_suite_sweep_gaps.csv",
+  "gap_schema_version": "enzyme-suite-sweep-gaps-v1",
+  "host": {
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "hostname": "mailuefterl",
+    "kernel": "7.1.5-1-cachyos",
+    "logical_cpus": 32,
+    "system": "Linux-7.1.5-1-cachyos-x86_64-with-glibc2.44"
+  },
+  "measured_workloads": [
+    "lstm",
+    "bruss"
+  ],
+  "missing_tools": [],
+  "output": "results/enzyme_suite_sweep.csv",
+  "peak_rss_kb": 136208,
+  "problem_sizes": [
+    1000000
+  ],
+  "provenance_file": "results/enzyme_suite_sweep.20260809T071154Z-2275079.json",
+  "repetitions": "1",
+  "requested_workloads": [
+    "lstm",
+    "bruss"
+  ],
+  "run_id": "20260809T071154Z-2275079",
+  "schema_version": "enzyme-suite-sweep-v2",
+  "status": "complete",
+  "tapenade_image": "registry.gitlab.inria.fr/tapenade/tapenade@sha256:1426f9f4fca94ccf665c96704886cf0595d806ca88e9fa63101a015dd62a46af",
+  "timing_clock": "system_clock_wall",
+  "toolchain": {
+    "clang": {
+      "available": true,
+      "command": "/usr/bin/clang",
+      "version": "clang version 22.1.8"
+    },
+    "docker": {
+      "available": true,
+      "command": "/usr/bin/docker",
+      "version": "Docker version 29.7.1, build e9452d6e78"
+    },
+    "flang": {
+      "available": true,
+      "command": "/usr/bin/flang",
+      "version": "flang version 22.1.8"
+    },
+    "llvm_link": {
+      "available": true,
+      "command": "/usr/bin/llvm-link",
+      "version": "LLVM (http://llvm.org/):"
+    },
+    "opt": {
+      "available": true,
+      "command": "/usr/bin/opt",
+      "version": "LLVM (http://llvm.org/):"
+    },
+    "time": {
+      "available": true,
+      "command": "/usr/bin/time",
+      "version": "time (GNU Time) 1.10"
+    }
+  },
+  "trials": 1
+}

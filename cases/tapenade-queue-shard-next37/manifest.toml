@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next37"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates selected after next36 by the fixed modern-feature score in descending order and committed queue order for ties: nonRegressions/set05/v182=32, nonRegressions/set07/v499=30, nonRegressions/set10/lh233=24, and nonRegressions/set11/vpf23=24."
+selection_queue_sha256 = "8424c4e8723ba2d3bc78e16052b8160a131410084002d0674e2c2f09f7c62445"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "20b65f453a7dd269e15d2a2d575aaa47e3573a01899c270b7ef3983fb7f2318f"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "6473ea12e134953d0f8d3be047b5b18fafaf9b03"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied: each oracle independently models the exact bounded dispatch, formatted-read, allocatable-state, or allocatable-dummy call behavior; finite-difference JVP/VJP identities are checked only for defined numeric models and no refusal is converted into derivative-support evidence"
+
+[[case]]
+id = "set05-v182"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v182"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 32
+selection_features = "procedure=1; generic=1; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v182/program.f90"
+references = ["nonRegressions/set05/v182/program_p.f90"]
+entry_point = "s"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root s. FortAD emits a parser product that passes the recorded strict syntax check, while forward refuses the active generic FUNC call because no derivative rule is registered and reverse refuses because no dependent is inferable. The independent model checks both generic dispatches, the exact bounded scalar map, a finite-difference JVP, and the VJP adjoint identity without claiming exact-source derivative support."
+oracle_case = "v182-generic-dispatch"
+
+[[case]]
+id = "set07-v499"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v499"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 30
+selection_features = "procedure=1; defined-assignment=1; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v499/program.f90"
+references = ["nonRegressions/set07/v499/program_p.f90"]
+entry_point = "chars_to_integer"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass; forward and reverse emit Tapenade message-only products because the exact root has no active numeric input/output. FortAD refuses parser, forward, and reverse at the formatted READ on source line 13. The independent model parses the defined five-character integer conversion and makes no derivative-support claim."
+oracle_case = "v499-defined-assignment-read"
+
+[[case]]
+id = "set10-lh233"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh233"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 24
+selection_features = "allocatable=1; module-state=1; array-section=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh233/program.f90"
+references = ["nonRegressions/set10/lh233/program_d.f90"]
+entry_point = "l2h1h2error"
+classification = "unsupported-fortad-program-unit-layout"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass and emit products for exact root l2h1h2error. FortAD refuses all three modes while parsing the valid whole source at END PROGRAM redmhd on line 43; this is a FortAD program-unit layout boundary, not an invalid-upstream closure. The independent single-call model checks the allocatable-backed norm value and finite-difference JVP/VJP identity, while recording the module-owned allocation boundary and no exact-source support claim."
+oracle_case = "lh233-allocatable-norm"
+
+[[case]]
+id = "set11-vpf23"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf23"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 24
+selection_features = "allocatable=1; dummy=2; external-call=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf23/program.f90"
+references = ["nonRegressions/set11/vpf23/program_b.f90", "nonRegressions/set11/vpf23/program_p.f90"]
+entry_point = "costlast"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass and emit products for exact root costlast. FortAD refuses all three modes at the external OPERATORS call on source line 19, whose allocatable dummy actuals have no registered derivative rule. The independent model checks the four-element primal map, finite-difference JVP, and VJP adjoint identity without claiming exact-source derivative support."
+oracle_case = "vpf23-allocatable-call"
