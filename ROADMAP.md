@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 925
-classified rows out of 2,014 (45.9% overall), including 417 of the 1,432
-strict pure-Fortran rows (29.1%). The current queue contains 1,089 candidates:
-1,015 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 929
+classified rows out of 2,014 (46.1% overall), including 421 of the 1,432
+strict pure-Fortran rows (29.4%). The current queue contains 1,085 candidates:
+1,011 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -75,8 +75,8 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 417 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-1,015 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
+classifies 421 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+1,011 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
 adds four more rows in `cases/tapenade-queue-shard-next10/`; next11 adds four
@@ -96,12 +96,15 @@ mutating-call, COMMON-state, and active-I/O boundaries. Next42 closes
 Tapenade probes, exact hashes, FortAD boundaries, and independent
 behavioral/refusal oracles. Next44 closes `set06/v315`, `set03/lh087`,
 `set11/html01`, and `set03/bd09`; it records three actionable FortAD
-boundaries and one invalid-upstream pointer-allocation sequence.
+boundaries and one invalid-upstream pointer-allocation sequence. Next45 closes
+`set03/cm01`, `set03/cm02`, `set03/cm03`, and `set06/v338`, a focused
+pointer-alias lane; `v338` also records the approved global-mutable-state
+policy boundary.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 63 runnable cases, 134 measured expected refusals, 35
-invalid-upstream closures, 180 additional FortAD feature boundaries, and five
-other bounded evidence closures; 1,015 pure-Fortran rows remain untriaged. The 74 mixed
+invalid-upstream closures, 184 additional FortAD feature boundaries, and five
+other bounded evidence closures; 1,011 pure-Fortran rows remain untriaged. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised
