@@ -337,15 +337,15 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 625 classified pure-Fortran rows (1,133 of 2,014 candidates overall):
+  audit. Sixty-four rows now have runnable FortAD evidence. The ledger
+  contains 673 classified pure-Fortran rows (1,181 of 2,014 candidates overall):
   64 runnable cases, 134 measured expected refusals, 34 invalid-upstream
-  closures, 339 additional FortAD feature boundaries, and 54 other bounded
+  closures, 381 additional FortAD feature boundaries, and 60 other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  881 rows are queued: 807 pure-Fortran rows and 74 mixed-language rows.
+  833 rows are queued: 759 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -637,6 +637,14 @@ because it belongs next to the engines rather than next to the compiler.
   for 32. Independent source-map/refusal oracles, exact hashes, full diagnostics,
   and current FortAD/FortFront pins are in the
   [next52 shard manifest and result](cases/tapenade-queue-shard-next52/README.md).
+  The next53 shard closes 48 further compiler-clean, dependency-safe callable
+  roots after next52: 17 free-form roots followed by 31 fixed-form roots in
+  committed queue order. Tapenade passes parser, forward, and reverse for all
+  48 exact roots; current FortAD `9244637` emits all three products for 6 and
+  records explicit phase-specific refusals for 42. Independent source-map and
+  refusal oracles, exact hashes, full diagnostics, and current FortFront
+  `960e90be` provenance are in the
+  [next53 shard manifest and result](cases/tapenade-queue-shard-next53/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

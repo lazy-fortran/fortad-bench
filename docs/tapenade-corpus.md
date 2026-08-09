@@ -110,11 +110,11 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 807 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 64 executable evidence rows and 625
-  classified pure-Fortran rows (1,133 candidates overall): 134 measured expected
-  refusals, 34 invalid-upstream closures, 339 additional FortAD feature boundaries, and
-  54 other bounded evidence closures. The profile, shard-3, and shard-0
+  either engine. It leaves 759 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 runnable FortAD evidence rows and 673
+  classified pure-Fortran rows (1,181 candidates overall): 134 measured expected
+  refusals, 34 invalid-upstream closures, 381 additional FortAD feature boundaries, and
+  60 other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -667,6 +667,15 @@ passes parser, forward, and reverse for all 48 exact roots; current FortAD
 refusals for 32. Independent source-map/refusal oracles, exact hashes, full
 diagnostics, and current FortAD/FortFront pins are in the
 [next52 shard manifest and result](../cases/tapenade-queue-shard-next52/README.md).
+
+The next53 shard closes 48 further compiler-clean, dependency-safe callable
+roots after next52: 17 free-form roots followed by 31 fixed-form roots in
+committed queue order. Tapenade passes parser, forward, and reverse for all 48
+exact roots; current FortAD `9244637…` emits all three products for 6 and
+records explicit phase-specific refusals for 42. Independent source-map and
+refusal oracles, exact hashes, full diagnostics, and current FortFront
+`960e90be…` provenance are in the
+[next53 shard manifest and result](../cases/tapenade-queue-shard-next53/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 1,133
-classified rows out of 2,014 (56.3% overall), including 625 of the 1,432
-strict pure-Fortran rows (43.6%). The current queue contains 881 candidates:
-807 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 1,181
+classified rows out of 2,014 (58.6% overall), including 673 of the 1,432
+strict pure-Fortran rows (47.0%). The current queue contains 833 candidates:
+759 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -75,8 +75,8 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 625 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-807 pure-Fortran rows remain untriaged, with 881 rows in the full queue. The
+classifies 673 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+759 pure-Fortran rows remain untriaged, with 833 rows in the full queue. The
 next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
@@ -128,11 +128,19 @@ generates all three products for 16 roots and records 32 explicit phase-specific
 refusals, backed by exact hashes, full diagnostics, current engine pins, and
 independent source-map/refusal oracles.
 
+Next53 closes the following 48 compiler-clean, dependency-safe callable roots
+after next52: 17 free-form roots followed by 31 fixed-form roots in committed
+queue order. Tapenade passes parser, forward, and reverse for all 48 exact
+roots. Current FortAD `9244637` generates all three products for 6 roots and
+records 42 explicit phase-specific refusals, backed by exact hashes, full
+diagnostics, current FortFront `960e90be` provenance, and independent
+source-map/refusal oracles.
+
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 64 runnable cases, 134 measured expected refusals, 34
-invalid-upstream closures, 339 additional FortAD feature boundaries, and 54
-other bounded evidence closures; 807 pure-Fortran rows remain untriaged in the
-current compiler-clean batch, while 881 rows remain in the full queue. The 74 mixed
+invalid-upstream closures, 381 additional FortAD feature boundaries, and 60
+other bounded evidence closures; 759 pure-Fortran rows remain untriaged in the
+current compiler-clean batch, while 833 rows remain in the full queue. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised
