@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next29"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next28 by the fixed modern-feature score in descending order and committed queue order for ties: set10/lh221=30, set07/v526=28, set03/lh097=27, and set05/v178=27."
+selection_queue_sha256 = "68fa6bb47b955cd18f0329963ccda5b63c29525a3ab4b71fb4404346a22737ce"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "7d2d470f0dc71cd5c6bf2fa20717e760ce3d6677129a070f3323745f305882a6"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f3ee376f3442b3204521ad2a6c0e64b4b4a33957"
+independent_arguments = "each oracle independently models initialized bounded behavior and records the exact FortAD refusal boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set10-lh221"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh221"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 30
+selection_features = "dimension=10"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh221/program.f90"
+references = ["nonRegressions/set10/lh221/program_b.f90", "nonRegressions/set10/lh221/program_d.f90"]
+entry_point = "flottab_1d"
+classification = "unsupported-fortad-array-section-rank"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root flottab_1d. FortAD refuses parser, forward, and reverse at the module array section whose base is not declared. The independent oracle checks an initialized bounded WHERE/buoyancy map and makes no exact-source derivative-support claim for module-owned state."
+oracle_case = "lh221-flottab-map"
+
+[[case]]
+id = "set07-v526"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v526"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 28
+selection_features = "pointer=1; type(=1; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v526/program.f90"
+references = ["nonRegressions/set07/v526/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root foo. FortAD refuses all three at the direct same-file call to gee because it cannot prove the exact actual/formal mapping. The independent oracle uses an explicitly associated pointer target and checks the bounded gee map without claiming exact-source derivative support."
+oracle_case = "v526-foo-pointer-call"
+
+[[case]]
+id = "set03-lh097"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh097"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 27
+selection_features = "type(=3; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh097/program.f90"
+references = ["nonRegressions/set03/lh097/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD parser and forward pass; reverse refuses because B%chose%y and B%machin%x are both dependent candidates. The independent oracle checks the initialized derived-component map vv -> 2*vv+2 and its analytical JVP only."
+oracle_case = "lh097-top-derived-map"
+
+[[case]]
+id = "set05-v178"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v178"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 27
+selection_features = "type(=1; interface=2; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v178/program.f90"
+references = ["nonRegressions/set05/v178/program_d.f90", "nonRegressions/set05/v178/program_p.f90"]
+entry_point = "lbc_lnk_2d"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root lbc_lnk_2d. FortAD parser and forward pass; reverse refuses because no dependent can be inferred for the INTENT(INOUT) array update. The independent oracle checks the bounded point map and analytical JVP without claiming exact-source reverse support."
+oracle_case = "v178-lbc-map"
