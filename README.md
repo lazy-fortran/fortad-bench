@@ -337,13 +337,13 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 276 bounded
+  audit. Sixty-three rows now have executable FortAD evidence, 280 bounded
   pure-Fortran refusal or feature/dependency classifications, and thirty-four
   invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,133 rows are queued: 1,059 pure-Fortran rows and 74 mixed-language rows.
+  1,129 rows are queued: 1,055 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -509,6 +509,12 @@ because it belongs next to the engines rather than next to the compiler.
   records same-file call mapping, local-interface, generic-swap, and reverse
   dependent-inference boundaries with fresh exact-source probes and independent
   behavioral/refusal oracles. See the [next33 shard manifest and result](cases/tapenade-queue-shard-next33/README.md);
+  none is classified as invalid upstream.
+  The next34 modern-feature shard closes `examples/big01/v235`, `set04/lh127`,
+  `set04/lh134`, and `set04/lh146`, all at fixed score 17. It records three
+  deliberate module-state refusals and one explicit local allocatable-lifetime
+  reverse refusal, with exact hashes and independent behavior/refusal oracles.
+  See the [next34 shard manifest and result](cases/tapenade-queue-shard-next34/README.md);
   none is classified as invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
