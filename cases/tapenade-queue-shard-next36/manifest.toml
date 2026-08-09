@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next36"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next35 by the fixed modern-feature score in descending order and committed queue order for ties: nonRegressions/set06/v311=32, nonRegressions/set06/v357=32, nonRegressions/set11/vmp09=32, and openmp/examples/tinymgopt=30."
+selection_queue_sha256 = "2e58ba0dd4e06097157c0de3a69443893d70e2b5a0e4942edbd9f1cfa942ecbd"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "8424c4e8723ba2d3bc78e16052b8160a131410084002d0674e2c2f09f7c62445"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "a295c76963ba4b75fed7b5f4bbfe2adc259b1224"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "none supplied: the probe uses the statically selected procedure name; independent models check generic elemental primal/JVP/VJP identities for the three supported roots and the colored-edge primal/refusal boundary for the OpenMP example"
+
+[[case]]
+id = "set06-v311"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v311"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 32
+selection_features = "procedure=1; elemental=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v311/program.f90"
+references = ["nonRegressions/set06/v311/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test. FortAD emits all three products; the parser product fails detached strict syntax checking because the generated function uses the function name as its RESULT variable, while forward and reverse products pass. The independent oracle checks generic integer/real elemental dispatch, the affine real map, finite-difference JVP, and VJP adjoint identity; no exact-source derivative-support claim is made."
+oracle_case = "v311-generic-elemental"
+
+[[case]]
+id = "set06-v357"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v357"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 32
+selection_features = "procedure=1; elemental=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v357/program.f90"
+references = ["nonRegressions/set06/v357/program_b.f90", "nonRegressions/set06/v357/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test. FortAD emits all three products, but detached strict syntax checking rejects parser, forward, and reverse products at the generated generic-specific declaration/context. The independent oracle checks generic integer/real elemental dispatch, the affine real map, finite-difference JVP, and VJP adjoint identity; no exact-source derivative-support claim is made."
+oracle_case = "v357-generic-elemental"
+
+[[case]]
+id = "set11-vmp09"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vmp09"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 32
+selection_features = "procedure=1; elemental=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vmp09/program.f90"
+references = ["nonRegressions/set11/vmp09/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test. FortAD emits all three products; the parser product fails detached strict syntax checking because the generated function uses the function name as its RESULT variable, while forward and reverse products pass. The independent oracle checks generic integer/real elemental dispatch, the affine real map, finite-difference JVP, and VJP adjoint identity; no exact-source derivative-support claim is made."
+oracle_case = "vmp09-generic-elemental"
+
+[[case]]
+id = "openmp-tinymgopt"
+component = "openmp"
+queue_path = "openmp/examples/tinymgopt"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 30
+selection_features = "dimension=10"
+compiler_status = "compiler-clean"
+source = "openmp/examples/tinymgopt/greengaussgradient.f90"
+references = []
+entry_point = "createandrun"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes return success for exact root createandrun, while tangent/reverse probe directories contain only Tapenade message output. FortAD refuses parser, forward, and reverse at the active WRITE of SUM(GRADIENT) on source line 51; the OpenMP directive in gggrad is a later boundary. The independent colored-edge model checks the defined primal sum and records no derivative-support claim."
+oracle_case = "tinymgopt-colored-edge"
