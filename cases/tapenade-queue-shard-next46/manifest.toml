@@ -1,0 +1,75 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next46"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe free-form procedure candidates selected from the branch-base queue after next45. The fixed case-insensitive modern-feature score from the modern-feature queue shards is ordered descending, then committed queue order for ties: nonRegressions/set04/v036=16, nonRegressions/set06/v274=16, nonRegressions/set06/v275=16, and nonRegressions/set03/cm17=14."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f47d42e477f418c0850cdc4c1d891576f11a4790"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "9f3b3f8a9f36dda4831441b248d3c687c897faf26090ac656412278dd948166d"
+current_queue_sha256 = "bd4d7d21ac6f0ea9e0feb1e9101b121092683ffb503dea47522849eb9b035977"
+batch_file = "docs/corpora/tapenade-fortran-compiler.jsonl"
+selection_batch_sha256 = "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b"
+current_batch_sha256 = "b0d837f02376580449dd0b1b7d2d833a14f71101c651b72cf413ba12bcc2dd1e"
+
+[[case]]
+id = "set04-v036"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v036"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Tapenade emits parser, forward, and reverse products for the exact interval function. FortAD refuses all three modes at the module-level mutable x state before derivative generation. The independent fixed-state interval map checks the bounded numeric behavior and derivative identity without claiming support for the exact global-state source."
+source = "nonRegressions/set04/v036/program.f90"
+references = ["nonRegressions/set04/v036/program_b.f90", "nonRegressions/set04/v036/program_d.f90", "nonRegressions/set04/v036/program_p.f90"]
+entry_point = "f"
+oracle_case = "v036-interval-state-model"
+
+[[case]]
+id = "set06-v274"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v274"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Tapenade emits parser, forward, and reverse products for the exact interval function. FortAD refuses all three modes at the module-level mutable x state before reaching the implicit external f_cb call. The source has no local f_cb definition, so the independent oracle checks only the explicitly bounded fixed-state lower-component model and records no exact runtime or derivative claim."
+source = "nonRegressions/set06/v274/program.f90"
+references = ["nonRegressions/set06/v274/program_d.f90"]
+entry_point = "f"
+oracle_case = "v274-interval-external-boundary"
+
+[[case]]
+id = "set06-v275"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v275"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 16
+selection_features = "type(=2"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Tapenade emits parser, forward, and reverse products for the exact interval function and local f_cd call. FortAD refuses all three modes at the module-level mutable x state before derivative generation. The independent fixed-state interval map checks the local quadratic component and derivative identity without claiming support for the exact global-state source."
+source = "nonRegressions/set06/v275/program.f90"
+references = ["nonRegressions/set06/v275/program_d.f90"]
+entry_point = "f"
+oracle_case = "v275-interval-quadratic-state-model"
+
+[[case]]
+id = "set03-cm17"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm17"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products for the exact conditional pointer-association procedure. FortAD refuses all three modes at p1 because pointer-association storage identity is not tracked. The independent oracle checks only the defined v2>4 branch and deliberately does not claim behavior for the unassociated-pointer branches."
+source = "nonRegressions/set03/cm17/program.f90"
+references = ["nonRegressions/set03/cm17/program_p.f90"]
+entry_point = "top"
+oracle_case = "cm17-defined-pointer-branch"
