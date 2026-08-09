@@ -8,8 +8,9 @@ scripts/fetch_upstreams.py --corpus tapenade
 
 The command checks out Tapenade commit
 `e59864cab441d4175df75383b3ff58c3dcd26df9`, verifies its Git tree and all
-10,977 tracked paths, and verifies the committed static triage and status
-ledger against that checkout before writing `docs/generated/tapenade-corpus.md`.
+10,977 tracked paths, hashes every materialized path, verifies the declared
+MIT licence bytes, and verifies the committed static triage and status ledger
+against that checkout before writing `docs/generated/tapenade-corpus.md`.
 Both the checkout and generated inventory are gitignored. If a previous
 gitignored checkout is incomplete or malformed, the pinned fetch rebuilds it
 from a temporary checkout; a locally modified checkout is preserved and fails
@@ -33,6 +34,15 @@ The seed command writes `untriaged` and `not-run` in every workflow field. It
 refuses to overwrite a ledger after any row has been curated.
 The audit rejects result changes on an `untriaged` row. A classified row must
 replace every `untriaged` workflow placeholder before it passes.
+
+The complete tracked-file ledger is emitted at
+`docs/generated/tapenade-tracked-files.csv`. It has one row for every tracked
+path, including Tapenade implementation, build, documentation, and support
+files outside the candidate-case components, with the Git mode, byte length,
+SHA-256, and declared licence-file marker. The normal fetch creates it; the
+offline audit reproduces it byte for byte. This is the full-checkout
+completeness boundary, while the status ledger remains the case-classification
+ledger.
 
 ## Inventory
 

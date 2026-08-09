@@ -523,7 +523,7 @@ def _load_corpus_manifest(entry: dict) -> dict:
         raise CorpusError(f"{relative} revision differs from docs/upstreams.toml")
     if corpus.get("license") != entry["license"]:
         raise CorpusError(f"{relative} license differs from docs/upstreams.toml")
-    for field in ("status_ledger", "static_triage"):
+    for field in ("status_ledger", "static_triage", "tracked_ledger"):
         path = corpus.get(field)
         if path:
             relative_path = Path(path)
@@ -552,6 +552,98 @@ def _candidate_paths(target: Path, component: dict) -> list[str]:
     return sorted(found)
 
 
+TRACKED_LEDGER_COLUMNS = ("path", "mode", "sha256", "size", "license_file")
+
+
+def _tracked_tree_entries(target: Path) -> list[dict[str, str]]:
+    """Return every committed tree entry, including paths outside the corpus."""
+    output = _git(target, "ls-tree", "-r", "-z", "--full-tree", "HEAD")
+    entries = []
+    for record in output.split("\0"):
+        if not record:
+            continue
+        metadata, path = record.split("\t", 1)
+        mode, kind, object_id = metadata.split(" ", 2)
+        entries.append(
+            {"path": path, "mode": mode, "kind": kind, "object": object_id}
+        )
+    return entries
+
+
+def _tracked_file_rows(
+    target: Path,
+    tracked_entries: list[dict[str, str]],
+    license_file: str,
+) -> list[dict[str, str]]:
+    """Hash the materialized bytes for every tracked path in stable tree order."""
+    rows = []
+    for entry in tracked_entries:
+        path = target / entry["path"]
+        if entry["kind"] != "blob":
+            raise CorpusError(
+                f"{target.name}: unsupported tracked tree entry {entry['path']}"
+            )
+        if path.is_symlink():
+            data = os.readlink(path).encode("utf-8", "surrogateescape")
+        elif path.is_file():
+            data = path.read_bytes()
+        else:
+            raise CorpusError(
+                f"{target.name}: tracked path is not materialized: {entry['path']}"
+            )
+        rows.append({
+            "path": entry["path"],
+            "mode": entry["mode"],
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "size": str(len(data)),
+            "license_file": "yes" if entry["path"] == license_file else "",
+        })
+    return rows
+
+
+def render_tracked_ledger(inventory: dict) -> bytes:
+    """Render a complete, byte-hash ledger for the pinned Git tree."""
+    stream = io.StringIO(newline="")
+    writer = csv.DictWriter(
+        stream,
+        fieldnames=TRACKED_LEDGER_COLUMNS,
+        lineterminator="\n",
+    )
+    writer.writeheader()
+    writer.writerows(inventory["tracked_file_rows"])
+    return stream.getvalue().encode("utf-8")
+
+
+def _tracked_ledger_path(inventory: dict) -> Path:
+    relative = inventory.get("tracked_ledger")
+    if not relative:
+        raise CorpusError(f"{inventory['name']}: corpus manifest has no tracked_ledger")
+    return ROOT / relative
+
+
+def write_tracked_ledger(inventory: dict) -> Path:
+    out = _tracked_ledger_path(inventory)
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_bytes(render_tracked_ledger(inventory))
+    return out
+
+
+def audit_tracked_ledger(inventory: dict) -> int:
+    """Require the emitted ledger to cover every tracked path and exact hash."""
+    if not inventory.get("tracked_ledger"):
+        return 0
+    ledger = _tracked_ledger_path(inventory)
+    if not ledger.is_file():
+        raise CorpusError(
+            f"{inventory['name']}: missing tracked-file ledger {ledger.relative_to(ROOT)}"
+        )
+    if ledger.read_bytes() != render_tracked_ledger(inventory):
+        raise CorpusError(
+            f"{inventory['name']}: tracked-file ledger differs from pinned checkout"
+        )
+    return len(inventory["tracked_file_rows"])
+
+
 def audit_corpus(entry: dict) -> dict:
     """Verify a complete, pinned checkout and return its local inventory."""
     corpus = _load_corpus_manifest(entry)
@@ -570,8 +662,8 @@ def audit_corpus(entry: dict) -> dict:
         raise CorpusError(f"{entry['name']}: tree {tree} != {corpus['tree']}")
     if origin != corpus["origin"]:
         raise CorpusError(f"{entry['name']}: remote {origin!r} != {corpus['origin']!r}")
-    tracked_output = _git(target, "ls-tree", "-r", "--name-only", "HEAD")
-    tracked = tracked_output.splitlines() if tracked_output else []
+    tracked_entries = _tracked_tree_entries(target)
+    tracked = [entry["path"] for entry in tracked_entries]
     expected_tracked = corpus["expected_tracked_files"]
     if len(tracked) != expected_tracked:
         raise CorpusError(
@@ -606,6 +698,7 @@ def audit_corpus(entry: dict) -> dict:
             f"{entry['name']}: license digest {license_digest} != "
             f"{corpus['license_sha256']}"
         )
+    tracked_file_rows = _tracked_file_rows(target, tracked_entries, license_file)
 
     components = []
     manifest_paths: set[str] = set()
@@ -664,8 +757,12 @@ def audit_corpus(entry: dict) -> dict:
         "candidate_cases": len(all_candidates),
         "components": components,
         "tracked_paths": tracked,
+        "tracked_file_rows": tracked_file_rows,
+        "license_file": license_file,
+        "license_sha256": license_digest,
         "status_ledger": corpus.get("status_ledger"),
         "static_triage": corpus.get("static_triage"),
+        "tracked_ledger": corpus.get("tracked_ledger"),
         "checkout": target,
     }
 
@@ -680,6 +777,9 @@ def write_corpus_inventory(inventory: dict) -> Path:
         f"Revision: `{inventory['revision']}`",
         f"Tree: `{inventory['tree']}`",
         f"Complete checkout: {inventory['tracked_files']} tracked files.",
+        f"Exact tracked-file ledger: `{inventory.get('tracked_ledger', 'not configured')}`.",
+        f"Declared license: `{inventory['license_file']}` "
+        f"(SHA-256 `{inventory['license_sha256']}`).",
         f"Manifest scope: {inventory['manifest_files']} tracked files.",
         f"Candidate cases: {inventory['candidate_cases']}.",
         "",
@@ -1056,15 +1156,25 @@ def audit_corpus_ledger(inventory: dict) -> int:
     return len(rows)
 
 
-def discard_corpus_inventory(entry: dict) -> None:
+def discard_corpus_inventory(entry: dict, *, discard_tracked_ledger: bool = False) -> None:
     if "corpus_manifest" not in entry:
         return
     out = GENERATED / f"{entry['name']}-corpus.md"
     if out.exists():
         out.unlink()
+    try:
+        corpus = _load_corpus_manifest(entry)
+    except CorpusError:
+        corpus = {}
+    if discard_tracked_ledger:
+        tracked_ledger = corpus.get("tracked_ledger")
+        if tracked_ledger:
+            ledger = ROOT / tracked_ledger
+            if ledger.exists():
+                ledger.unlink()
 
 
-def scan_corpora(entries: list[dict]) -> list[str]:
+def scan_corpora(entries: list[dict], *, write_missing_ledgers: bool = False) -> list[str]:
     failed = []
     for entry in entries:
         if "corpus_manifest" not in entry:
@@ -1072,6 +1182,16 @@ def scan_corpora(entries: list[dict]) -> list[str]:
         discard_corpus_inventory(entry)
         try:
             inventory = audit_corpus(entry)
+            tracked_rows = 0
+            if inventory.get("tracked_ledger"):
+                ledger_path = _tracked_ledger_path(inventory)
+                if ledger_path.is_file():
+                    tracked_rows = audit_tracked_ledger(inventory)
+                elif write_missing_ledgers:
+                    write_tracked_ledger(inventory)
+                    tracked_rows = audit_tracked_ledger(inventory)
+                else:
+                    tracked_rows = audit_tracked_ledger(inventory)
             ledger_rows = audit_corpus_ledger(inventory)
             triage_rows = audit_static_triage(inventory)
         except CorpusError as error:
@@ -1085,6 +1205,8 @@ def scan_corpora(entries: list[dict]) -> list[str]:
         )
         if ledger_rows:
             print(f"  ledger {entry['name']}: {ledger_rows} status rows")
+        if tracked_rows:
+            print(f"  hashes {entry['name']}: {tracked_rows} tracked files")
         if triage_rows:
             print(f"  triage {entry['name']}: {triage_rows} static rows")
         print(f"  wrote  {out.relative_to(ROOT)}")
@@ -1107,8 +1229,9 @@ def scan_licenses(entries: list[dict]) -> None:
         "read from the local checkout. A mismatch must be resolved before code in",
         "fortad is written against that project.",
         "",
-        "| project | pinned ref | local revision | local tree | declared | licence files found |",
-        "|---|---|---|---|---|---|",
+        "| project | pinned ref | local revision | local tree | declared | "
+        "licence files found | licence SHA-256 |",
+        "|---|---|---|---|---|---|---|",
     ]
     mismatches = 0
     for e in entries:
@@ -1116,13 +1239,13 @@ def scan_licenses(entries: list[dict]) -> None:
         if e["ref"] in NON_GIT:
             lines.append(
                 f"| {e['name']} | {e['ref']} | METADATA ONLY | - | "
-                f"{e['license']} | - |"
+                f"{e['license']} | - | - |"
             )
             continue
         if not target.exists():
             lines.append(
                 f"| {e['name']} | {e['ref']} | NOT FETCHED | - | "
-                f"{e['license']} | - |"
+                f"{e['license']} | - | - |"
             )
             continue
         found = sorted(
@@ -1134,10 +1257,14 @@ def scan_licenses(entries: list[dict]) -> None:
             mismatches += 1
         else:
             found_s = ", ".join(found)
+        found_hashes = ", ".join(
+            f"{name}:{hashlib.sha256((target / name).read_bytes()).hexdigest()}"
+            for name in found
+        ) or "-"
         revision, tree = record_provenance(e)
         lines.append(
             f"| {e['name']} | {e['ref']} | {revision} | {tree} | "
-            f"{e['license']} | {found_s} |"
+            f"{e['license']} | {found_s} | {found_hashes} |"
         )
     lines += ["", f"Entries with no licence file: {mismatches}.", ""]
     out.write_text("\n".join(lines))
@@ -1268,12 +1395,12 @@ def main() -> int:
 
     DEST.mkdir(parents=True, exist_ok=True)
     for entry in entries:
-        discard_corpus_inventory(entry)
+        discard_corpus_inventory(entry, discard_tracked_ledger=True)
     print(f"fetching {len(entries)} upstream(s) into {DEST}\n")
     failed = [e["name"] for e in entries if not clone(e, args.depth)]
     scan_licenses(entries)
     fetched = [e for e in entries if e["name"] not in failed]
-    failed += scan_corpora(fetched)
+    failed += scan_corpora(fetched, write_missing_ledgers=True)
     if failed:
         print(f"\nfailed: {', '.join(failed)}")
         return 1

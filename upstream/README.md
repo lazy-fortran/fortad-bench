@@ -16,6 +16,13 @@ scripts/fetch_upstreams.py --write-corpus-triage tapenade # static source hints
 scripts/fetch_upstreams.py --licenses # record commit/tree and rescan licences
 ```
 
+For the Tapenade study, `--corpus tapenade` is the complete fetch contract:
+it materializes the pinned Git tree, verifies every tracked path and the
+declared licence digest, then emits a byte-hash ledger for all tracked files.
+The ledger is generated under `docs/generated/` and is required by
+`--audit-corpora`; a missing, extra, reordered, or changed-hash row fails the
+offline audit.
+
 These are third-party projects under their own licences. They are here to be
 read. They are not vendored, not built into fortad, and not redistributed. See
 [../LEGAL.md](../LEGAL.md) before copying a single line out of any of them.
