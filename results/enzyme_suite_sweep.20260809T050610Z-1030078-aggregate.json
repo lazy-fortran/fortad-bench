@@ -1,0 +1,119 @@
+{
+  "affinity": {
+    "effective_process_cpus": "0",
+    "launcher": "taskset",
+    "requested": "0"
+  },
+  "aggregation": {
+    "gap_points": [
+      {
+        "diagnostic": "signal 11 with one trial and one repetition",
+        "problem_size": 1000000,
+        "status": "runtime-failure",
+        "workload": "lstm"
+      },
+      {
+        "diagnostic": "signal 11 / exit status 139",
+        "problem_size": 1000000,
+        "status": "runtime-failure",
+        "workload": "bruss"
+      }
+    ],
+    "gap_rows": 6,
+    "measured_rows": 115,
+    "source_runs": [
+      "20260809T050610Z-1030078",
+      "20260809T050546Z-1028234"
+    ],
+    "type": "disjoint harness runs"
+  },
+  "artifacts": {
+    "executable_bytes": 2285128,
+    "generated_source_bytes": 45265,
+    "llvm_ir_bytes": 262046,
+    "object_bytes": 53008
+  },
+  "bench_commit": "e3db0e700fbd72901c628da892ac3129c2861166",
+  "created_utc": "2026-08-09T05:08:32.300698+00:00",
+  "enzyme_plugin": "/home/ert/code/enzyme/current/lib/LLVMEnzyme-22.so",
+  "flags": {
+    "clang": "-O3 -fPIC for LLVM IR and derivative object",
+    "flang": "-O3 -fPIC for LLVM IR, -O3 for Fortran objects and driver",
+    "llvm_link": "-S",
+    "opt": "-passes=enzyme, then -O3",
+    "runtime": "no runtime flags beyond the compiler command above",
+    "tapenade": "-b -head <workload>(y)/(z)"
+  },
+  "fortad_commit": "b8c4a78a6763200ed6e84ec96fbac74116b67943",
+  "gap_file": "results/enzyme_suite_sweep_gaps.csv",
+  "gap_schema_version": "enzyme-suite-sweep-gaps-v1",
+  "host": {
+    "cpu_model": "AMD Ryzen 9 5950X 16-Core Processor",
+    "hostname": "mailuefterl",
+    "kernel": "7.1.5-1-cachyos",
+    "logical_cpus": 32,
+    "system": "Linux-7.1.5-1-cachyos-x86_64-with-glibc2.44"
+  },
+  "measured_workloads": [
+    "euler",
+    "rk4",
+    "ba"
+  ],
+  "missing_tools": [],
+  "output": "results/enzyme_suite_sweep.csv",
+  "peak_rss_kb": 296800,
+  "problem_sizes": [
+    100,
+    1000,
+    10000,
+    100000,
+    1000000
+  ],
+  "provenance_file": "results/enzyme_suite_sweep.20260809T050610Z-1030078-aggregate.json",
+  "repetitions": "auto",
+  "requested_workloads": [
+    "euler",
+    "rk4",
+    "lstm",
+    "ba",
+    "bruss"
+  ],
+  "run_id": "20260809T050610Z-1030078-aggregate",
+  "schema_version": "enzyme-suite-sweep-v2",
+  "status": "complete",
+  "tapenade_image": "registry.gitlab.inria.fr/tapenade/tapenade@sha256:1426f9f4fca94ccf665c96704886cf0595d806ca88e9fa63101a015dd62a46af",
+  "timing_clock": "system_clock_wall",
+  "toolchain": {
+    "clang": {
+      "available": true,
+      "command": "/usr/bin/clang",
+      "version": "clang version 22.1.8"
+    },
+    "docker": {
+      "available": true,
+      "command": "/usr/bin/docker",
+      "version": "Docker version 29.7.1, build e9452d6e78"
+    },
+    "flang": {
+      "available": true,
+      "command": "/usr/bin/flang",
+      "version": "flang version 22.1.8"
+    },
+    "llvm_link": {
+      "available": true,
+      "command": "/usr/bin/llvm-link",
+      "version": "LLVM (http://llvm.org/):"
+    },
+    "opt": {
+      "available": true,
+      "command": "/usr/bin/opt",
+      "version": "LLVM (http://llvm.org/):"
+    },
+    "time": {
+      "available": true,
+      "command": "/usr/bin/time",
+      "version": "time (GNU Time) 1.10"
+    }
+  },
+  "trials": 7
+}
