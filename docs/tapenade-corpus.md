@@ -110,8 +110,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,035 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 300 bounded
+  either engine. It leaves 1,031 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 304 bounded
   pure-Fortran refusal or feature/dependency classifications, and 34
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -126,9 +126,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,109 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,105 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 238 program candidates, and 797 procedure
+ rows with no entry-point hint, 238 program candidates, and 793 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -539,6 +539,16 @@ multiple-allocation lifetime refusal. Exact source/reference hashes, automatic
 fetch provenance, FortAD diagnostics, and independent behavioral/refusal
 oracles are in the [next39 shard manifest and result](../cases/tapenade-queue-shard-next39/README.md);
 none is classified as invalid upstream.
+
+The next40 modern-feature shard closes the following four compiler-clean,
+dependency-safe rows at fixed score 17: `set05/v098`, `set05/v099`,
+`set05/v100`, and `set06/v263`. Fresh pinned Tapenade parser/forward/reverse
+probes pass for all four roots. FortAD records three legacy derived-type
+declaration refusals and one reverse dependent-inference refusal. Exact
+source/reference hashes, automatic fetch provenance, FortAD diagnostics, and
+independent behavioral/refusal oracles are in the [next40 shard manifest and
+result](../cases/tapenade-queue-shard-next40/README.md); none is classified as
+invalid upstream.
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

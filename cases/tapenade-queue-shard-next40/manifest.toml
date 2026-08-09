@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next40"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure candidates selected after next39 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties. The score-17 leaders are nonRegressions/set05/v098, nonRegressions/set05/v099, nonRegressions/set05/v100, and nonRegressions/set06/v263; program-only candidates are excluded because the three-mode contract requires a callable procedure root."
+selection_queue_sha256 = "39890acece8f6d80ee10ba621caaaa81512d85341984ee52a9f77d753b63ee23"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "c1275bed25814a2d0705c0307b3a23dd1b54ce7a02f72f949d8a0bd1a8aa635d"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "98201ceb901dab61c24c18f78ee7574cd754d90b"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/app/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models the exact bounded source map and checks finite-difference JVP/VJP identities where defined; unallocated side effects and FortAD refusals are recorded as boundaries, and no transformed output is read or promoted to a derivative-support claim"
+
+[[case]]
+id = "set05-v098"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v098"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "type(=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v098/program.f90"
+references = ["nonRegressions/set05/v098/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root SUB1. FortAD refuses all three modes at the legacy derived-type declaration on source line 1. The independent component-section product model checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "v098-component-section"
+
+[[case]]
+id = "set05-v099"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v099"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "type(=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v099/program.f90"
+references = ["nonRegressions/set05/v099/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root SUB1. FortAD refuses all three modes at the legacy derived-type declaration on source line 1. The independent component-section product model checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "v099-component-section"
+
+[[case]]
+id = "set05-v100"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v100"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "type(=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v100/program.f90"
+references = ["nonRegressions/set05/v100/program_b.f90", "nonRegressions/set05/v100/program_p.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root SUB1. FortAD refuses all three modes at the legacy derived-type declaration on source line 1. The independent strided component-section product model checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "v100-strided-component-section"
+
+[[case]]
+id = "set06-v263"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v263"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v263/program.f90"
+references = ["nonRegressions/set06/v263/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root TEST. FortAD emits parser and forward products; reverse refuses because no dependent can be inferred among A, C, DH, and TMP1. The independent oracle models the assignments before the source's unallocated TMP1 write, checks finite-difference JVP/VJP identities, and makes no exact-source derivative-support claim."
+oracle_case = "v263-allocatable-component-map"
