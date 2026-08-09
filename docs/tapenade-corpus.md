@@ -126,7 +126,7 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,121 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,117 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
  rows with no entry-point hint, 248 program candidates, and 799 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
@@ -509,6 +509,15 @@ FortAD records three generated-interface syntax boundaries for the generic
 elemental roots and an active-I/O refusal at line 51 of the OpenMP example.
 Exact source/reference hashes, FortAD diagnostics, and independent
 behavioral/refusal oracles are in the [next36 shard manifest and result](../cases/tapenade-queue-shard-next36/README.md);
+none is classified as invalid upstream.
+
+The next37 modern-feature shard closes the following four compiler-clean,
+dependency-safe rows at fixed scores 32, 30, 24, and 24: `set05/v182`,
+`set07/v499`, `set10/lh233`, and `set11/vpf23`. Fresh pinned Tapenade
+parser/forward/reverse probes pass for all four roots. FortAD records generic
+call, formatted-I/O, whole-file program-unit, and allocatable-dummy call
+boundaries. Exact source/reference hashes, FortAD diagnostics, and independent
+behavioral/refusal oracles are in the [next37 shard manifest and result](../cases/tapenade-queue-shard-next37/README.md);
 none is classified as invalid upstream.
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,

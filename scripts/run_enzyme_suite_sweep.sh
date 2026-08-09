@@ -263,6 +263,18 @@ if [[ -z "$runnable" ]]; then
     write_global_gaps "no complete three-engine workload intersection"
     exit 1
 fi
+
+# Generated reverse kernels keep large automatic work arrays for the
+# million-element LSTM and Brusselator cases. Normalize the process stack here
+# so the published sweep measures the kernels rather than the launcher's
+# inherited shell limit. Fail explicitly if the hard limit cannot be raised;
+# silently retaining a small stack would recreate a false runtime gap.
+if ! ulimit -s unlimited 2>/dev/null || [[ "$(ulimit -s)" != unlimited ]]; then
+    record_metadata failed
+    write_global_gaps "benchmark requires an unlimited process stack"
+    printf 'cannot run sweep: failed to raise the process stack limit\n' >&2
+    exit 1
+fi
 export FORTAD_SWEEP_WORKLOADS="$runnable"
 scratch_dir=$(mktemp -d)
 trap 'rm -rf "$scratch_dir"' EXIT
