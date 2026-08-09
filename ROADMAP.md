@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 1,037
-classified rows out of 2,014 (51.5% overall), including 529 of the 1,432
-strict pure-Fortran rows (36.9%). The current queue contains 977 candidates:
-903 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 1,085
+classified rows out of 2,014 (53.9% overall), including 577 of the 1,432
+strict pure-Fortran rows (40.3%). The current queue contains 929 candidates:
+855 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -112,16 +112,20 @@ invalid-generated-interface boundaries with independent behavior/refusal
 oracles. Next49 closes 48 additional score-selected compiler-clean procedure
 rows: 14 generated-product cases with independent source-map oracles and 34
 phase-specific refusals with independent refusal oracles. The queue and batch
-handoffs now contain 977 and 903 rows respectively. Next50 closes the next 48
+handoffs now contain 929 and 855 rows respectively. Next50 closes the next 48
 score-selected compiler-clean callable roots, with 14 generated products and
 34 explicit phase-specific FortAD boundaries; intentional global-state and
 legacy boundaries remain evidence classifications rather than product failures.
+Next51 closes the following 48 score-0 roots in committed queue order with
+current FortAD `be82f5d`: 4 generated-product cases and 44 explicit
+phase-specific refusals, backed by exact hashes, full diagnostics, current
+engine pins, and independent source-map/refusal oracles.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
 status breakdown is 64 runnable cases, 134 measured expected refusals, 34
-invalid-upstream closures, 229 additional FortAD feature boundaries, and 20
-other bounded evidence closures; 903 pure-Fortran rows remain untriaged in the
-current compiler-clean batch, while 977 rows remain in the full queue. The 74 mixed
+invalid-upstream closures, 307 additional FortAD feature boundaries, and 38
+other bounded evidence closures; 855 pure-Fortran rows remain untriaged in the
+current compiler-clean batch, while 929 rows remain in the full queue. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised

@@ -338,14 +338,14 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 529 classified pure-Fortran rows (1,037 of 2,014 candidates overall):
+  contains 577 classified pure-Fortran rows (1,085 of 2,014 candidates overall):
   64 runnable cases, 134 measured expected refusals, 34 invalid-upstream
-  closures, 263 additional FortAD feature boundaries, and 34 other bounded
+  closures, 307 additional FortAD feature boundaries, and 38 other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  977 rows are queued: 903 pure-Fortran rows and 74 mixed-language rows.
+  929 rows are queued: 855 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -618,6 +618,17 @@ because it belongs next to the engines rather than next to the compiler.
   source-map/refusal oracles, exact source/reference hashes, full phase
   diagnostics, and current FortAD/FortFront pins are in the
   [next50 shard manifest and result](cases/tapenade-queue-shard-next50/README.md).
+  The next51 modern-feature shard closes the next 48 compiler-clean,
+  dependency-safe callable roots after next50. All remaining eligible roots had
+  score 0, so the cutoff is committed queue order. Tapenade passes parser,
+  forward, and reverse for all 48 exact roots; current FortAD `be82f5d` emits
+  all three products for 4 and records explicit phase-specific refusals for 44.
+  Independent source-map/refusal oracles, exact hashes, full diagnostics, and
+  current FortAD/FortFront pins are in the
+  [next51 shard manifest and result](cases/tapenade-queue-shard-next51/README.md).
+  Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
+  call mapping, dependent inference, and other refusal boundaries are intentional
+  evidence boundaries, not product failures.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

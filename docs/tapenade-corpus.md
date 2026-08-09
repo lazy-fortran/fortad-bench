@@ -110,11 +110,11 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 903 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 64 executable evidence rows and 529
-  classified pure-Fortran rows (1,037 candidates overall): 134 measured expected
-  refusals, 34 invalid-upstream closures, 263 additional FortAD feature boundaries, and
-  34 other bounded evidence closures. The profile, shard-3, and shard-0
+  either engine. It leaves 855 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 executable evidence rows and 577
+  classified pure-Fortran rows (1,085 candidates overall): 134 measured expected
+  refusals, 34 invalid-upstream closures, 307 additional FortAD feature boundaries, and
+  38 other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -646,6 +646,18 @@ passes parser, forward, and reverse for all 48 exact roots. Historical FortAD
 phase-specific refusals for 34. Independent source-map/refusal oracles, exact
 source/reference hashes, full phase diagnostics, and current engine pins are
 in the [next50 shard manifest and result](../cases/tapenade-queue-shard-next50/README.md).
+
+The next51 modern-feature shard closes the next 48 compiler-clean,
+dependency-safe callable roots after next50. All remaining eligible roots had
+score 0, so the cutoff is committed queue order. Tapenade passes parser,
+forward, and reverse for all 48 exact roots; current FortAD `be82f5d…` emits
+all three products for 4 and records explicit phase-specific refusals for 44.
+Independent source-map/refusal oracles, exact hashes, full diagnostics, and
+current FortAD/FortFront pins are in the
+[next51 shard manifest and result](../cases/tapenade-queue-shard-next51/README.md).
+Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
+call mapping, dependent inference, and other refusal boundaries are intentional
+evidence boundaries, not product failures.
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
