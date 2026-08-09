@@ -338,13 +338,13 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 425 classified pure-Fortran rows: 64 runnable cases, 134 measured
-  expected refusals, 35 invalid-upstream closures, 187 additional FortAD
+  contains 429 classified pure-Fortran rows: 64 runnable cases, 134 measured
+  expected refusals, 35 invalid-upstream closures, 191 additional FortAD
   feature boundaries, and five other bounded evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,081 rows are queued: 1,007 pure-Fortran rows and 74 mixed-language rows.
+  1,077 rows are queued: 1,003 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -588,6 +588,12 @@ because it belongs next to the engines rather than next to the compiler.
   boundary. Tapenade passes all three modes for each case, while FortAD
   reproducibly refuses them with independent bounded behavioral oracles. See
   the [next46 shard manifest and result](cases/tapenade-queue-shard-next46/README.md).
+  The next47 modern-feature shard closes `set03/cm27`, `set03/cm28`,
+  `set03/lh052`, and `set05/v118`, four score-14 pointer cases selected in
+  queue order. Tapenade passes all three modes for each case; FortAD records
+  pointer/TARGET storage-identity refusals with independent pointer-state or
+  two-target derivative oracles. See the
+  [next47 shard manifest and result](cases/tapenade-queue-shard-next47/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
