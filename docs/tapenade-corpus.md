@@ -126,9 +126,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,129 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,125 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 256 program candidates, and 799 procedure
+ rows with no entry-point hint, 252 program candidates, and 799 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
