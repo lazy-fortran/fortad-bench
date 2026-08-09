@@ -498,6 +498,12 @@ because it belongs next to the engines rather than next to the compiler.
   hashes and independent behavior/refusal oracles. See the [next31 shard
   manifest and result](cases/tapenade-queue-shard-next31/README.md); none is
   classified as invalid upstream.
+  The next32 modern-feature shard closes `set03/lh094`, `set04/ptr09`,
+  `set06/v222`, and `set07/v436`, all at fixed score 20. It records
+  derived-type, pointer-association, local-interface, and derived-pointer
+  FortAD refusals with exact hashes and independent bounded behavior/refusal
+  oracles. See the [next32 shard manifest and result](cases/tapenade-queue-shard-next32/README.md);
+  none is classified as invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

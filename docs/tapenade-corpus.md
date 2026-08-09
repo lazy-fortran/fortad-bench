@@ -126,9 +126,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,141 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,137 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 256 program candidates, and 811 procedure
+ rows with no entry-point hint, 256 program candidates, and 807 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -470,6 +470,15 @@ dependent-inference, passed-procedure callback/module-state, module-alias
 independent-inference, and local-interface refusals. Exact source/reference
 hashes, FortAD diagnostics, and independent bounded behavior/refusal oracles
 are in the [next31 shard manifest and result](../cases/tapenade-queue-shard-next31/README.md);
+none is classified as invalid upstream.
+
+The next32 modern-feature shard closes the following four compiler-clean,
+dependency-safe procedure rows: `set03/lh094`, `set04/ptr09`, `set06/v222`, and
+`set07/v436`, all with fixed score 20 in committed queue order. Fresh pinned
+Tapenade parser/forward/reverse probes pass for the selected roots. FortAD
+records derived-type, pointer-association, local-interface, and derived-pointer
+refusals. Exact source/reference hashes, FortAD diagnostics, and independent
+bounded behavior/refusal oracles are in the [next32 shard manifest and result](../cases/tapenade-queue-shard-next32/README.md);
 none is classified as invalid upstream.
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
