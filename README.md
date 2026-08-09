@@ -601,6 +601,13 @@ because it belongs next to the engines rather than next to the compiler.
   invalid-generated-interface boundaries. Its probe base is FortAD `692f2e0`
   with FortFront `6c27ca86`; see the
   [next48 shard manifest and result](cases/tapenade-queue-shard-next48/README.md).
+  The next49 modern-feature shard closes 48 compiler-clean, dependency-safe
+  callable procedure roots selected by the fixed score and queue order. Tapenade
+  passes all three modes for every exact root; current FortAD generates all
+  three products for 14 and records explicit phase-specific refusals for 34,
+  with independent source-map or refusal oracles and exact source/reference
+  hashes. Its probe base is FortAD `2636206` with FortFront `6c27ca86`; see the
+  [next49 shard manifest and result](cases/tapenade-queue-shard-next49/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

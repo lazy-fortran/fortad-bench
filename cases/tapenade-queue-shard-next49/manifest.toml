@@ -1,0 +1,782 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next49"
+selection = "Exactly 48 previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form callable procedure roots selected after next48 by the fixed case-insensitive modern-feature score, descending score and committed queue order for ties. Eleven roots come from queue rows also classified as runnable-program-candidate because their exact source contains a program unit; lower-scoring callable and program-only candidates remain queued."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "26362066948d52ebb087aae2b3c668476a40f3c1"
+fortfront_revision = "6c27ca86a52066e46d318633febca52d41c106b6"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "14add8e9042e7c99b2d8c46e6fd3abdbc1062095c6f1881288d20bfcd742fd0b"
+current_queue_sha256 = "a651d65d4374102221e4dc08961ec7030147aba02a558196ea2f3f185a076702"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection_batch_sha256 = "7d2725b9984c5a481f82ce78b6160baaa95c16845063c8a76788f8d32713edd7"
+current_batch_sha256 = "808db4fdb97160dcdba509eaae0d446d453ed7f773f0392a82eb21097ee827a5"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY_POINT --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models the exact source-level numerical map or refusal boundary; no transformed output is read and no refusal is promoted to derivative support"
+
+[[case]]
+id = "set07-v453"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v453"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 14
+selection_features = "interface/bind(c)/iso_c_binding=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v453/program.f90"
+references = ["nonRegressions/set07/v453/program_d.f90"]
+entry_point = "compute"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root compute; FortAD phase diagnostics are preserved in result.json. The independent set07-v453 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-global-mutable-state."
+oracle_case = "set07-v453"
+
+[[case]]
+id = "openmp-example-schedules"
+component = "openmp"
+queue_path = "openmp/examples/example_schedules.f90"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 14
+selection_features = "elemental/pure/final=2"
+compiler_status = "compiler-clean"
+source = "openmp/examples/example_schedules.f90"
+references = []
+entry_point = "foo_counter"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo_counter; FortAD phase diagnostics are preserved in result.json. The independent openmp-example-schedules oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-openmp-directive."
+oracle_case = "openmp-example-schedules"
+
+[[case]]
+id = "set10-lh217"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh217"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 12
+selection_features = "dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh217/program.f90"
+references = ["nonRegressions/set10/lh217/program_b.f90", "nonRegressions/set10/lh217/program_d.f90", "nonRegressions/set10/lh217/program_p.f90"]
+entry_point = "foo"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo; FortAD phase diagnostics are preserved in result.json. The independent set10-lh217 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set10-lh217"
+
+[[case]]
+id = "set04-v032"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v032"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 10
+selection_features = "interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v032/program.f90"
+references = ["nonRegressions/set04/v032/program_b.f90", "nonRegressions/set04/v032/program_d.f90", "nonRegressions/set04/v032/program_p.f90"]
+entry_point = "swap_c"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root swap_c; FortAD phase diagnostics are preserved in result.json. The independent set04-v032 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set04-v032"
+
+[[case]]
+id = "set07-v437"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v437"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 10
+selection_features = "interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v437/program.f90"
+references = ["nonRegressions/set07/v437/program_d.f90"]
+entry_point = "fconj"
+classification = "unsupported-fortad-common-block"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root fconj; FortAD phase diagnostics are preserved in result.json. The independent set07-v437 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-common-block."
+oracle_case = "set07-v437"
+
+[[case]]
+id = "set11-vpf07"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 10
+selection_features = "interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf07/program.f90"
+references = []
+entry_point = "f1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root f1; FortAD phase diagnostics are preserved in result.json. The independent set11-vpf07 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set11-vpf07"
+
+[[case]]
+id = "set11-vpf08"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf08"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 10
+selection_features = "interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf08/program.f90"
+references = ["nonRegressions/set11/vpf08/program_d.f90"]
+entry_point = "f1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root f1; FortAD phase diagnostics are preserved in result.json. The independent set11-vpf08 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set11-vpf08"
+
+[[case]]
+id = "set05-v063"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v063"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v063/program.f90"
+references = ["nonRegressions/set05/v063/program_p.f90"]
+entry_point = "func1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root func1; FortAD phase diagnostics are preserved in result.json. The independent set05-v063 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set05-v063"
+
+[[case]]
+id = "set05-v088"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v088"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v088/program.f90"
+references = ["nonRegressions/set05/v088/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v088 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v088"
+
+[[case]]
+id = "set05-v089"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v089"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v089/program.f90"
+references = ["nonRegressions/set05/v089/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v089 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v089"
+
+[[case]]
+id = "set05-v116"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v116"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v116/program.f90"
+references = ["nonRegressions/set05/v116/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v116 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v116"
+
+[[case]]
+id = "set05-v117"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v117"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v117/program.f90"
+references = ["nonRegressions/set05/v117/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v117 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v117"
+
+[[case]]
+id = "set05-v120"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v120"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v120/program.f90"
+references = ["nonRegressions/set05/v120/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v120 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v120"
+
+[[case]]
+id = "set05-v138"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v138"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v138/program.f90"
+references = ["nonRegressions/set05/v138/program_p.f90"]
+entry_point = "p"
+classification = "unsupported-fortad-array-section-rank"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root p; FortAD phase diagnostics are preserved in result.json. The independent set05-v138 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-array-section-rank."
+oracle_case = "set05-v138"
+
+[[case]]
+id = "set05-v169"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v169"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v169/program.f90"
+references = ["nonRegressions/set05/v169/program_b.f90"]
+entry_point = "test1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test1; FortAD phase diagnostics are preserved in result.json. The independent set05-v169 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set05-v169"
+
+[[case]]
+id = "set05-v170"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v170"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v170/program.f90"
+references = ["nonRegressions/set05/v170/program_b.f90"]
+entry_point = "test1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test1; FortAD phase diagnostics are preserved in result.json. The independent set05-v170 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set05-v170"
+
+[[case]]
+id = "set05-v195"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v195"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v195/program.f90"
+references = ["nonRegressions/set05/v195/program_b.f90"]
+entry_point = "test4"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test4; FortAD phase diagnostics are preserved in result.json. The independent set05-v195 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set05-v195"
+
+[[case]]
+id = "set07-v508"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v508"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 9
+selection_features = "dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v508/program.f90"
+references = ["nonRegressions/set07/v508/program_b.f90"]
+entry_point = "nl_lidrad_mie_orig"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root nl_lidrad_mie_orig; FortAD phase diagnostics are preserved in result.json. The independent set07-v508 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-procedure-call-actual."
+oracle_case = "set07-v508"
+
+[[case]]
+id = "set03-lh050"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh050"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 8
+selection_features = "optional=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh050/program.f90"
+references = ["nonRegressions/set03/lh050/program_b.f90", "nonRegressions/set03/lh050/program_d.f90"]
+entry_point = "dpsidh"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root dpsidh; FortAD phase diagnostics are preserved in result.json. The independent set03-lh050 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-invalid-generated-interface."
+oracle_case = "set03-lh050"
+
+[[case]]
+id = "set04-v039"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v039"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v039/program.f90"
+references = ["nonRegressions/set04/v039/program_b.f90", "nonRegressions/set04/v039/program_d.f90", "nonRegressions/set04/v039/program_p.f90"]
+entry_point = "f"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root f; FortAD phase diagnostics are preserved in result.json. The independent set04-v039 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-active-io."
+oracle_case = "set04-v039"
+
+[[case]]
+id = "set11-vpf18"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf18"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf18/program.f90"
+references = ["nonRegressions/set11/vpf18/program_d.f90", "nonRegressions/set11/vpf18/program_p.f90"]
+entry_point = "foo"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo; FortAD phase diagnostics are preserved in result.json. The independent set11-vpf18 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set11-vpf18"
+
+[[case]]
+id = "set03-lh017"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh017"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh017/program.f90"
+references = ["nonRegressions/set03/lh017/program_d.f90"]
+entry_point = "testeqtype"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root testeqtype; FortAD phase diagnostics are preserved in result.json. The independent set03-lh017 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set03-lh017"
+
+[[case]]
+id = "set03-lh036"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh036"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "optional=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh036/program.f90"
+references = ["nonRegressions/set03/lh036/program_d.f90"]
+entry_point = "retard"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root retard; FortAD phase diagnostics are preserved in result.json. The independent set03-lh036 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-invalid-generated-interface."
+oracle_case = "set03-lh036"
+
+[[case]]
+id = "set03-lh063"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh063"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh063/program.f90"
+references = ["nonRegressions/set03/lh063/program_b.f90", "nonRegressions/set03/lh063/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test; FortAD phase diagnostics are preserved in result.json. The independent set03-lh063 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-derived-type-component."
+oracle_case = "set03-lh063"
+
+[[case]]
+id = "set03-lh095"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh095"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh095/program.f90"
+references = ["nonRegressions/set03/lh095/program_b.f90", "nonRegressions/set03/lh095/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root top; FortAD phase diagnostics are preserved in result.json. The independent set03-lh095 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-derived-type-component."
+oracle_case = "set03-lh095"
+
+[[case]]
+id = "set04-v042"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v042"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v042/program.f90"
+references = ["nonRegressions/set04/v042/program_d.f90"]
+entry_point = "ff"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root ff; FortAD phase diagnostics are preserved in result.json. The independent set04-v042 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-derived-type-component."
+oracle_case = "set04-v042"
+
+[[case]]
+id = "set04-v047"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v047"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v047/program.f90"
+references = ["nonRegressions/set04/v047/program_b.f90", "nonRegressions/set04/v047/program_d.f90", "nonRegressions/set04/v047/program_p.f90"]
+entry_point = "ff"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root ff; FortAD phase diagnostics are preserved in result.json. The independent set04-v047 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-global-mutable-state."
+oracle_case = "set04-v047"
+
+[[case]]
+id = "set06-v227"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v227"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 8
+selection_features = "type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v227/program.f90"
+references = ["nonRegressions/set06/v227/program_d.f90"]
+entry_point = "f"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root f; FortAD phase diagnostics are preserved in result.json. The independent set06-v227 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set06-v227"
+
+[[case]]
+id = "set04-lh118"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh118"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh118/program.f90"
+references = ["nonRegressions/set04/lh118/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root bar; FortAD phase diagnostics are preserved in result.json. The independent set04-lh118 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set04-lh118"
+
+[[case]]
+id = "set06-v365"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v365"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v365/program.f90"
+references = ["nonRegressions/set06/v365/program_d.f90", "nonRegressions/set06/v365/program_p.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root bar; FortAD phase diagnostics are preserved in result.json. The independent set06-v365 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set06-v365"
+
+[[case]]
+id = "set11-jh15"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/jh15"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/jh15/program.f90"
+references = ["nonRegressions/set11/jh15/program_b.f90", "nonRegressions/set11/jh15/program_d.f90"]
+entry_point = "foo_all"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo_all; FortAD phase diagnostics are preserved in result.json. The independent set11-jh15 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-procedure-call-actual."
+oracle_case = "set11-jh15"
+
+[[case]]
+id = "set11-ompl04"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/ompl04"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/ompl04/program.f90"
+references = ["nonRegressions/set11/ompl04/program_b.f90", "nonRegressions/set11/ompl04/program_d.f90"]
+entry_point = "foo1"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo1; FortAD phase diagnostics are preserved in result.json. The independent set11-ompl04 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-openmp-directive."
+oracle_case = "set11-ompl04"
+
+[[case]]
+id = "set05-v055"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v055"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v055/program.f90"
+references = ["nonRegressions/set05/v055/program_b.f90", "nonRegressions/set05/v055/program_d.f90", "nonRegressions/set05/v055/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test; FortAD phase diagnostics are preserved in result.json. The independent set05-v055 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set05-v055"
+
+[[case]]
+id = "set05-v087"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v087"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v087/program.f90"
+references = ["nonRegressions/set05/v087/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v087 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v087"
+
+[[case]]
+id = "set05-v105"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v105"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v105/program.f90"
+references = ["nonRegressions/set05/v105/program_p.f90"]
+entry_point = "outerand"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root outerand; FortAD phase diagnostics are preserved in result.json. The independent set05-v105 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-generic-intrinsic."
+oracle_case = "set05-v105"
+
+[[case]]
+id = "set05-v107"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v107"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v107/program.f90"
+references = ["nonRegressions/set05/v107/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-rank"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v107 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-array-section-rank."
+oracle_case = "set05-v107"
+
+[[case]]
+id = "set05-v109"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v109"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v109/program.f90"
+references = ["nonRegressions/set05/v109/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-rank"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v109 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-array-section-rank."
+oracle_case = "set05-v109"
+
+[[case]]
+id = "set05-v123"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v123"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v123/program.f90"
+references = ["nonRegressions/set05/v123/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v123 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v123"
+
+[[case]]
+id = "set05-v134"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v134"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v134/program.f90"
+references = ["nonRegressions/set05/v134/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-rank"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub1; FortAD phase diagnostics are preserved in result.json. The independent set05-v134 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-array-section-rank."
+oracle_case = "set05-v134"
+
+[[case]]
+id = "set05-v142"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v142"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v142/program.f90"
+references = ["nonRegressions/set05/v142/program_p.f90"]
+entry_point = "test"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test; FortAD phase diagnostics are preserved in result.json. The independent set05-v142 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v142"
+
+[[case]]
+id = "set05-v172"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v172"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v172/program.f90"
+references = ["nonRegressions/set05/v172/program_b.f90", "nonRegressions/set05/v172/program_d.f90", "nonRegressions/set05/v172/program_p.f90"]
+entry_point = "test1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test1; FortAD phase diagnostics are preserved in result.json. The independent set05-v172 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v172"
+
+[[case]]
+id = "set05-v174"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v174"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v174/program.f90"
+references = ["nonRegressions/set05/v174/program_b.f90"]
+entry_point = "test1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root test1; FortAD phase diagnostics are preserved in result.json. The independent set05-v174 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set05-v174"
+
+[[case]]
+id = "set05-v184"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v184"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v184/program.f90"
+references = ["nonRegressions/set05/v184/program_b.f90", "nonRegressions/set05/v184/program_p.f90"]
+entry_point = "eos_insitu_pot"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root eos_insitu_pot; FortAD phase diagnostics are preserved in result.json. The independent set05-v184 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-invalid-generated-interface."
+oracle_case = "set05-v184"
+
+[[case]]
+id = "set06-v308"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v308"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v308/program.f90"
+references = ["nonRegressions/set06/v308/program_d.f90"]
+entry_point = "adj3"
+classification = "unsupported-fortad-common-block"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root adj3; FortAD phase diagnostics are preserved in result.json. The independent set06-v308 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-common-block."
+oracle_case = "set06-v308"
+
+[[case]]
+id = "set06-v310"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v310"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v310/program.f90"
+references = ["nonRegressions/set06/v310/program_b.f90", "nonRegressions/set06/v310/program_d.f90"]
+entry_point = "sumarray"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sumarray; FortAD phase diagnostics are preserved in result.json. The independent set06-v310 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is probed-fortad-generated-no-runtime-claim."
+oracle_case = "set06-v310"
+
+[[case]]
+id = "set07-v543"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v543"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v543/program.f90"
+references = ["nonRegressions/set07/v543/program_b.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root bar; FortAD phase diagnostics are preserved in result.json. The independent set07-v543 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-dependent-inference."
+oracle_case = "set07-v543"
+
+[[case]]
+id = "set11-ompl03"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/ompl03"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 6
+selection_features = "dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/ompl03/program.f90"
+references = ["nonRegressions/set11/ompl03/program_b.f90"]
+entry_point = "conv1dcompact"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root conv1dcompact; FortAD phase diagnostics are preserved in result.json. The independent set11-ompl03 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-openmp-directive."
+oracle_case = "set11-ompl03"
+
+[[case]]
+id = "set06-v305"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v305"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 4
+selection_features = "optional=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v305/program.f90"
+references = ["nonRegressions/set06/v305/program_d.f90"]
+entry_point = "f"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root f; FortAD phase diagnostics are preserved in result.json. The independent set06-v305 oracle records the exact source-level behavior or refusal boundary without reading transformed output; classification is unsupported-fortad-no-independent-variable."
+oracle_case = "set06-v305"

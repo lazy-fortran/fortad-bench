@@ -630,6 +630,14 @@ independent behavior/refusal oracles and exact source/reference hashes. The
 probe base is FortAD `692f2e0` with FortFront `6c27ca86`.
 See the [next48 shard manifest and result](../cases/tapenade-queue-shard-next48/README.md).
 
+The next49 modern-feature shard closes 48 compiler-clean, dependency-safe
+callable procedure roots selected by the fixed score and committed queue order.
+Tapenade passes parser, forward, and reverse generation for every exact root.
+FortAD `2636206…` generates all three products for 14 cases and records
+phase-specific refusals for 34; independent source-map and refusal oracles,
+exact source/reference hashes, and full phase diagnostics are in the
+[next49 shard manifest and result](../cases/tapenade-queue-shard-next49/README.md).
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent
