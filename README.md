@@ -337,14 +337,14 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 311 bounded
-  pure-Fortran refusal or feature/dependency classifications, and thirty-four
+  audit. Sixty-three rows now have executable FortAD evidence, 314 bounded
+  pure-Fortran refusal or feature/dependency classifications, and thirty-five
   invalid-upstream closures are independently recorded, plus five other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,093 rows are queued: 1,019 pure-Fortran rows and 74 mixed-language rows.
+  1,089 rows are queued: 1,015 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -569,6 +569,11 @@ because it belongs next to the engines rather than next to the compiler.
   generated-interface, local-interface, and derived-type boundaries. See the
   [next43 shard manifest and result](cases/tapenade-queue-shard-next43/README.md);
   none is classified as invalid upstream.
+  The next44 modern-feature shard closes `set06/v315`, `set03/lh087`,
+  `set11/html01`, and `set03/bd09`, with MPI call-rule, vector-subscript,
+  BIND(C)/COMMON, and pointer-allocation boundaries. The latter is an
+  invalid-upstream closure because the exact source allocates `cindex` twice;
+  see the [next44 shard manifest and result](cases/tapenade-queue-shard-next44/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
