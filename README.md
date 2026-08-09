@@ -337,13 +337,13 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 280 bounded
+  audit. Sixty-three rows now have executable FortAD evidence, 296 bounded
   pure-Fortran refusal or feature/dependency classifications, and thirty-four
   invalid-upstream closures are independently recorded. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,117 rows are queued: 1,043 pure-Fortran rows and 74 mixed-language rows.
+  1,113 rows are queued: 1,039 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -529,6 +529,13 @@ because it belongs next to the engines rather than next to the compiler.
   allocatable-dummy call boundaries with fresh exact-source probes and
   independent behavioral/refusal oracles. See the [next37 shard manifest and
   result](cases/tapenade-queue-shard-next37/README.md); none is classified as
+  invalid upstream.
+  The next38 modern-feature shard closes `set10/lh215`, `set10/lh216`,
+  `set12/mvo11`, and `set07/v472`, at fixed scores 24, 24, 24, and 22. It
+  records array-reduction, `SPREAD`, local-interface, and generated function-
+  result boundaries with fresh exact-source probes and independent
+  behavioral/refusal oracles. See the [next38 shard manifest and
+  result](cases/tapenade-queue-shard-next38/README.md); none is classified as
   invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is

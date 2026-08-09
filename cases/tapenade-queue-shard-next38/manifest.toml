@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next38"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates selected after next37 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties: nonRegressions/set10/lh215=24, nonRegressions/set10/lh216=24, nonRegressions/set12/mvo11=24, and nonRegressions/set07/v472=22. Program-only score leaders set03/cm08, set03/cm06, and set03/cm16 were excluded because they have no function or subroutine root."
+selection_queue_sha256 = "20b65f453a7dd269e15d2a2d575aaa47e3573a01899c270b7ef3983fb7f2318f"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "e79be84a8c69b35340a7413de737178b5929f3cd6a0739573677707f1b6a779d"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f0cde919d51307a2e654b6ab5ec168e01149f4b2"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models the exact array-reduction, formatted-interface, or module-state behavior; finite-difference JVP/VJP identities are checked only for defined numeric models and no transformed output is read by an oracle"
+
+[[case]]
+id = "set10-lh215"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh215"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 24
+selection_features = "dimension=8"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh215/program.f90"
+references = ["nonRegressions/set10/lh215/program_b.f90", "nonRegressions/set10/lh215/program_d.f90", "nonRegressions/set10/lh215/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass. FortAD parser and forward products pass the recorded strict syntax check, but reverse generation produces invalid scalar SUM and rank-assignment statements. The independent model checks the bounded SUM, MASK, WHERE, and in-place array map with finite-difference JVP/VJP identities; no exact-source derivative support claim is made."
+oracle_case = "lh215-array-reductions"
+
+[[case]]
+id = "set10-lh216"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/lh216"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 24
+selection_features = "dimension=8"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/lh216/program.f90"
+references = ["nonRegressions/set10/lh216/program_b.f90", "nonRegressions/set10/lh216/program_d.f90", "nonRegressions/set10/lh216/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass. FortAD parses the exact source, refuses forward at the active SPREAD intrinsic because no derivative rule is registered, and refuses reverse because no dependent is inferable. The independent model checks the defined masked SUM/SPREAD-free branch and its numerical JVP/VJP identity without claiming exact-source derivative support."
+oracle_case = "lh216-array-reductions"
+
+[[case]]
+id = "set12-mvo11"
+component = "non-regressions"
+queue_path = "nonRegressions/set12/mvo11"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 24
+selection_features = "interface=3; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set12/mvo11/program.f90"
+references = ["nonRegressions/set12/mvo11/program_d.f90"]
+entry_point = "bug"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root BUG. FortAD refuses parser, forward, and reverse at the valid local interface statement on source line 12. The independent model checks the defined constant nine-element map for nonzero DET and its zero JVP/VJP, without relabeling the valid upstream source as invalid."
+oracle_case = "mvo11-interface-map"
+
+[[case]]
+id = "set07-v472"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v472"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 22
+selection_features = "interface=2; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v472/program.f90"
+references = ["nonRegressions/set07/v472/program_b.f90"]
+entry_point = "compute"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root COMPUTE. FortAD returns products for all three modes, but the generated forward interface is not strict Fortran because the function result has no generated formal name; the independent model checks the numeric map and separately records the module global accumulator. This is a generated-product boundary, not an invalid-upstream closure."
+oracle_case = "v472-global-accumulator"
