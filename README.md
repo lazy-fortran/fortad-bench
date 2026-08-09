@@ -516,6 +516,13 @@ because it belongs next to the engines rather than next to the compiler.
   reverse refusal, with exact hashes and independent behavior/refusal oracles.
   See the [next34 shard manifest and result](cases/tapenade-queue-shard-next34/README.md);
   none is classified as invalid upstream.
+  The next36 modern-feature shard closes `set06/v311`, `set06/v357`,
+  `set11/vmp09`, and `openmp/examples/tinymgopt`, at fixed scores 32, 32, 32,
+  and 30. It records three generated-interface strict-syntax boundaries and
+  one active-I/O refusal at line 51, with fresh exact-source probes and
+  independent behavioral/refusal oracles. See the [next36 shard manifest and
+  result](cases/tapenade-queue-shard-next36/README.md); none is classified as
+  invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

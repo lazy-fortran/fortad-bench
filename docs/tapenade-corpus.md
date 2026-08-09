@@ -501,6 +501,16 @@ FortAD diagnostics, and independent behavioral/refusal oracles are in the
 [next34 shard manifest and result](../cases/tapenade-queue-shard-next34/README.md);
 none is classified as invalid upstream.
 
+The next36 modern-feature shard closes the following four compiler-clean,
+dependency-safe procedure rows at fixed scores 32, 32, 32, and 30:
+`set06/v311`, `set06/v357`, `set11/vmp09`, and `openmp/examples/tinymgopt`.
+Fresh pinned Tapenade parser/forward/reverse probes pass for all four roots.
+FortAD records three generated-interface syntax boundaries for the generic
+elemental roots and an active-I/O refusal at line 51 of the OpenMP example.
+Exact source/reference hashes, FortAD diagnostics, and independent
+behavioral/refusal oracles are in the [next36 shard manifest and result](../cases/tapenade-queue-shard-next36/README.md);
+none is classified as invalid upstream.
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent
