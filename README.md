@@ -343,7 +343,7 @@ because it belongs next to the engines rather than next to the compiler.
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,129 rows are queued: 1,055 pure-Fortran rows and 74 mixed-language rows.
+  1,125 rows are queued: 1,051 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
