@@ -2,12 +2,12 @@ schema_version = 1
 shard_id = "tapenade-fortran-queue-shard-next44"
 selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates selected after next43 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties. Program-only candidates are excluded because the three-mode contract requires a callable procedure root. The selected procedure leaders are nonRegressions/set06/v315=22, nonRegressions/set03/lh087=15, nonRegressions/set11/html01=15, and nonRegressions/set03/bd09=14."
 upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
-fortad_revision = "4f385c9393d5848efb94bf4ddb8c683ec0999afe"
+fortad_revision = "665894d376e48dcdd68688f7e11fe8f4893176c5"
 queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
 selection_queue_sha256 = "cb781799c8576df6d1d179c362967d5ffcff7934900c9732e022a910fbb6c3b1"
 batch_file = "docs/corpora/tapenade-fortran-compiler.jsonl"
 selection_batch_sha256 = "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b"
-current_queue_sha256 = "7e4934f88aedf572a701daa49d3cfb6db8c108f0cb6fbf65d3c33f638e5f0ae3"
+current_queue_sha256 = "9f3b3f8a9f36dda4831441b248d3c687c897faf26090ac656412278dd948166d"
 current_batch_sha256 = "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b"
 
 [[case]]
@@ -30,13 +30,14 @@ oracle_case = "v315-mpi-message-model"
 id = "set03-lh087"
 component = "non-regressions"
 queue_path = "nonRegressions/set03/lh087"
+previous_classification = "unsupported-fortad-vector-subscript"
 queue_rank = 50
 queue_category = "runnable-procedure-candidate"
 selection_score = 15
 selection_features = "dimension=5"
 compiler_status = "compiler-clean"
-classification = "unsupported-fortad-vector-subscript"
-closure = "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact cross product at its vector-subscript section storage boundary; the independent vector cross-product oracle remains valid and makes no exact-source derivative-support claim."
+classification = "runnable-ported"
+closure = "FortAD now accepts the exact cross product's literal unique parameter vectors in parser, forward, and reverse modes. Generated products pass strict GNU syntax compilation; the independent vector cross-product oracle remains passing."
 source = "nonRegressions/set03/lh087/program.f90"
 references = ["nonRegressions/set03/lh087/program_b.f90", "nonRegressions/set03/lh087/program_d.f90"]
 entry_point = "cross_prod"

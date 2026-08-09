@@ -571,9 +571,11 @@ because it belongs next to the engines rather than next to the compiler.
   none is classified as invalid upstream.
   The next44 modern-feature shard closes `set06/v315`, `set03/lh087`,
   `set11/html01`, and `set03/bd09`, with MPI call-rule, vector-subscript,
-  BIND(C)/COMMON, and pointer-allocation boundaries. The latter is an
-  invalid-upstream closure because the exact source allocates `cindex` twice;
-  see the [next44 shard manifest and result](cases/tapenade-queue-shard-next44/README.md).
+  BIND(C)/COMMON, and pointer-allocation boundaries. `set03/lh087` now passes
+  FortAD parser, forward, and reverse generation with strict generated-source
+  compilation; the other actionable rows retain their boundaries. The latter
+  is an invalid-upstream closure because the exact source allocates `cindex`
+  twice; see the [next44 shard manifest and result](cases/tapenade-queue-shard-next44/README.md).
   The next45 modern-feature shard closes four pointer-alias cases:
   `set03/cm01`, `set03/cm02`, `set03/cm03`, and `set06/v338`. All four are
   valid upstream cases with reproducible pointer storage-identity refusals;

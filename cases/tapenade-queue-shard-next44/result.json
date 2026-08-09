@@ -59,7 +59,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "msg1",
-      "fortad_revision": "4f385c9393d5848efb94bf4ddb8c683ec0999afe",
+      "fortad_revision": "665894d376e48dcdd68688f7e11fe8f4893176c5",
       "id": "set06-v315",
       "independent_oracle": {
         "derivative": {
@@ -85,7 +85,7 @@
         "forward": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-d",
               "-root",
               "msg1",
@@ -99,7 +99,7 @@
             "generated_syntax": {},
             "returncode": 1,
             "status": "refused",
-            "stderr": "fortad: no derivative rule for the call to 'MPI_ISEND'; register one with fad_add_call_rule, or keep it out of the active path\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f012b827602 in ???\n#1  0x7f012b82848a in ???\n#2  0x56136d6dc368 in MAIN__\n#3  0x56136d6f12de in main",
+            "stderr": "fortad: no derivative rule for the call to 'MPI_ISEND'; register one with fad_add_call_rule, or keep it out of the active path\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f9405e27602 in ???\n#1  0x7f9405e2848a in ???\n#2  0x558beb8f7568 in MAIN__\n#3  0x558beb90c5cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -134,7 +134,7 @@
         "parser": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-p",
               "-root",
               "msg1",
@@ -191,7 +191,7 @@
         "reverse": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-b",
               "-root",
               "msg1",
@@ -205,7 +205,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f2332a27602 in ???\n#1  0x7f2332a2848a in ???\n#2  0x55a5748cb5e0 in MAIN__\n#3  0x55a5748e12de in main",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7fd35d827602 in ???\n#1  0x7fd35d82848a in ???\n#2  0x5604bffa17e0 in MAIN__\n#3  0x5604bffb75cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -256,8 +256,8 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     },
     {
-      "classification": "unsupported-fortad-vector-subscript",
-      "closure": "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact cross product at its vector-subscript section storage boundary; the independent vector cross-product oracle remains valid and makes no exact-source derivative-support claim.",
+      "classification": "runnable-ported",
+      "closure": "FortAD now accepts the exact cross product's literal unique parameter vectors in parser, forward, and reverse modes. Generated products pass strict GNU syntax compilation; the independent vector cross-product oracle remains passing.",
       "compiler_files": [
         {
           "compile_flags": [
@@ -332,7 +332,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "cross_prod",
-      "fortad_revision": "4f385c9393d5848efb94bf4ddb8c683ec0999afe",
+      "fortad_revision": "665894d376e48dcdd68688f7e11fe8f4893176c5",
       "id": "set03-lh087",
       "independent_oracle": {
         "derivative": {
@@ -370,7 +370,7 @@
         "forward": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-d",
               "-root",
               "cross_prod",
@@ -380,11 +380,19 @@
               "probe",
               "program.f90"
             ],
-            "generated": [],
-            "generated_syntax": {},
-            "returncode": 2,
-            "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported vector subscript at line 8: section storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f645cc27602 in ???\n#1  0x7f645cc2848a in ???\n#2  0x562497cf7175 in MAIN__\n#3  0x562497d0d2de in main",
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
             "stdout": ""
           },
           "tapenade": {
@@ -419,7 +427,7 @@
         "parser": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-p",
               "-root",
               "cross_prod",
@@ -429,11 +437,19 @@
               "probe",
               "program.f90"
             ],
-            "generated": [],
-            "generated_syntax": {},
-            "returncode": 1,
-            "status": "refused",
-            "stderr": "fortad: unsupported vector subscript at line 8: section storage identity is not tracked\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f83ec027602 in ???\n#1  0x7f83ec02848a in ???\n#2  0x55ff7d0db368 in MAIN__\n#3  0x55ff7d0f02de in main",
+            "generated": [
+              "probe_p.f90"
+            ],
+            "generated_syntax": {
+              "probe_p.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
             "stdout": ""
           },
           "tapenade": {
@@ -468,7 +484,7 @@
         "reverse": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-b",
               "-root",
               "cross_prod",
@@ -478,11 +494,19 @@
               "probe",
               "program.f90"
             ],
-            "generated": [],
-            "generated_syntax": {},
-            "returncode": 2,
-            "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported vector subscript at line 8: section storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7fde60e27602 in ???\n#1  0x7fde60e2848a in ???\n#2  0x5574bc645175 in MAIN__\n#3  0x5574bc65b2de in main",
+            "generated": [
+              "probe_b.f90"
+            ],
+            "generated_syntax": {
+              "probe_b.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
             "stdout": ""
           },
           "tapenade": {
@@ -515,7 +539,7 @@
           }
         }
       },
-      "probe_status": "probed",
+      "probe_status": "pass",
       "queue_category": "runnable-procedure-candidate",
       "queue_path": "nonRegressions/set03/lh087",
       "queue_rank": 50,
@@ -589,7 +613,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "barf",
-      "fortad_revision": "4f385c9393d5848efb94bf4ddb8c683ec0999afe",
+      "fortad_revision": "665894d376e48dcdd68688f7e11fe8f4893176c5",
       "id": "set11-html01",
       "independent_oracle": {
         "derivative": {
@@ -617,7 +641,7 @@
         "forward": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-d",
               "-root",
               "barf",
@@ -631,7 +655,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f8f35027602 in ???\n#1  0x7f8f3502848a in ???\n#2  0x560b04e3f175 in MAIN__\n#3  0x560b04e552de in main",
+            "stderr": "fortad: cannot infer command arguments: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f78b6027602 in ???\n#1  0x7f78b602848a in ???\n#2  0x563968caf375 in MAIN__\n#3  0x563968cc55cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -666,7 +690,7 @@
         "parser": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-p",
               "-root",
               "barf",
@@ -680,7 +704,7 @@
             "generated_syntax": {},
             "returncode": 1,
             "status": "refused",
-            "stderr": "fortad: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7fbfb0a27602 in ???\n#1  0x7fbfb0a2848a in ???\n#2  0x557ab74ca368 in MAIN__\n#3  0x557ab74df2de in main",
+            "stderr": "fortad: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f85aec27602 in ???\n#1  0x7f85aec2848a in ???\n#2  0x55be6fda7568 in MAIN__\n#3  0x55be6fdbc5cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -715,7 +739,7 @@
         "reverse": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-b",
               "-root",
               "barf",
@@ -729,7 +753,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f2b2f827602 in ???\n#1  0x7f2b2f82848a in ???\n#2  0x5580705f5175 in MAIN__\n#3  0x55807060b2de in main",
+            "stderr": "fortad: cannot infer command arguments: parse failed: ERROR at line 7, column 40: Unexpected token '\n' in expression\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f397e827602 in ???\n#1  0x7f397e82848a in ???\n#2  0x5643fc0dd375 in MAIN__\n#3  0x5643fc0f35cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -834,7 +858,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "head",
-      "fortad_revision": "4f385c9393d5848efb94bf4ddb8c683ec0999afe",
+      "fortad_revision": "665894d376e48dcdd68688f7e11fe8f4893176c5",
       "id": "set03-bd09",
       "independent_oracle": {
         "derivative": {
@@ -861,7 +885,7 @@
         "forward": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-d",
               "-root",
               "head",
@@ -875,7 +899,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f4d04c27602 in ???\n#1  0x7f4d04c2848a in ???\n#2  0x560640a65175 in MAIN__\n#3  0x560640a7b2de in main",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f878a027602 in ???\n#1  0x7f878a02848a in ???\n#2  0x5558399a4375 in MAIN__\n#3  0x5558399ba5cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -903,7 +927,7 @@
         "parser": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-p",
               "-root",
               "head",
@@ -917,7 +941,7 @@
             "generated_syntax": {},
             "returncode": 1,
             "status": "refused",
-            "stderr": "fortad: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7fc1ae627602 in ???\n#1  0x7fc1ae62848a in ???\n#2  0x55cfd863f368 in MAIN__\n#3  0x55cfd86542de in main",
+            "stderr": "fortad: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f7ab6427602 in ???\n#1  0x7f7ab642848a in ???\n#2  0x55a183dee568 in MAIN__\n#3  0x55a183e035cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -952,7 +976,7 @@
         "reverse": {
           "fortad": {
             "command": [
-              "/mnt/storage/code/lazy-fortran/fortad/build/fo/bin/fortad",
+              "/mnt/storage/code/lazy-fortran/fortad/build/fo/app/fortad",
               "-b",
               "-root",
               "head",
@@ -966,7 +990,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f31d7a27602 in ???\n#1  0x7f31d7a2848a in ???\n#2  0x555638800175 in MAIN__\n#3  0x5556388162de in main",
+            "stderr": "fortad: cannot infer command arguments: unsupported aliasing declaration 'cindex' at line 2: pointer association storage identity is not tracked\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f4bce227602 in ???\n#1  0x7f4bce22848a in ???\n#2  0x55d538ab0375 in MAIN__\n#3  0x55d538ac65cc in main",
             "stdout": ""
           },
           "tapenade": {
@@ -1011,8 +1035,8 @@
     }
   ],
   "current_batch_sha256": "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b",
-  "current_queue_sha256": "7e4934f88aedf572a701daa49d3cfb6db8c108f0cb6fbf65d3c33f638e5f0ae3",
-  "fortad_revision": "4f385c9393d5848efb94bf4ddb8c683ec0999afe",
+  "current_queue_sha256": "9f3b3f8a9f36dda4831441b248d3c687c897faf26090ac656412278dd948166d",
+  "fortad_revision": "665894d376e48dcdd68688f7e11fe8f4893176c5",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "cb781799c8576df6d1d179c362967d5ffcff7934900c9732e022a910fbb6c3b1",
