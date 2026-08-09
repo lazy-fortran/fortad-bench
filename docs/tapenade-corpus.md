@@ -110,9 +110,9 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,019 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 311 bounded
-  pure-Fortran refusal or feature/dependency classifications, and 34
+  either engine. It leaves 1,015 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 314 bounded
+  pure-Fortran refusal or feature/dependency classifications, and 35
   invalid-upstream closures, plus five other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
@@ -580,6 +580,17 @@ classified as invalid upstream. Exact source/reference hashes, automatic-fetch
 provenance, generated-source syntax checks, FortAD diagnostics, and independent
 behavioral/refusal oracles are in the [next43 shard manifest and
 result](../cases/tapenade-queue-shard-next43/README.md).
+
+The next44 modern-feature shard closes four compiler-clean procedure leaders:
+`set06/v315` (`msg1`), `set03/lh087` (`cross_prod`), `set11/html01` (`barf`),
+and `set03/bd09` (`head`). Fresh pinned Tapenade parser/forward/reverse
+products pass for all four roots. FortAD records an MPI derivative-rule
+boundary, vector-subscript storage identity boundary, BIND(C)/COMMON parser
+boundary, and pointer storage boundary. `bd09` is classified separately as an
+invalid-upstream closure because it allocates `cindex` twice before
+deallocation. Exact hashes, compiler evidence, diagnostics, and independent
+behavioral/refusal oracles are in the [next44 shard manifest and
+result](../cases/tapenade-queue-shard-next44/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
