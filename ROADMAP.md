@@ -15,8 +15,8 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 941
-classified rows out of 2,014 (46.7% overall), including 433 of the 1,432
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 989
+classified rows out of 2,014 (49.1% overall), including 481 of the 1,432
 strict pure-Fortran rows (33.6%). The current queue contains 1,025 candidates:
 951 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma

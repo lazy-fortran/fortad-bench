@@ -110,11 +110,11 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 999 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 64 executable evidence rows and 433
-  classified pure-Fortran rows (941 candidates overall): 134 measured expected
-  refusals, 35 invalid-upstream closures, 195 additional FortAD feature boundaries, and
-  five other bounded evidence closures. The profile, shard-3, and shard-0
+  either engine. It leaves 951 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 executable evidence rows and 481
+  classified pure-Fortran rows (989 candidates overall): 134 measured expected
+  refusals, 34 invalid-upstream closures, 229 additional FortAD feature boundaries, and
+  20 other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
