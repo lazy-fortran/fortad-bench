@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next28"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next27 by the fixed modern-feature score in descending order and committed queue order for ties: set05/v086=32, set03/cm04=28, set05/v200=28, and set07/v483=28."
+selection_queue_sha256 = "63c8c1a03172426e0f830e7a9c4bd239e79168a1b339c9e2fc49414da5272270"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "68fa6bb47b955cd18f0329963ccda5b63c29525a3ab4b71fb4404346a22737ce"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "076b7d819d600dd2066a98ef73695506a2d43e70"
+independent_arguments = "each oracle independently models bounded numeric or storage behavior from the exact root and records the exact FortAD boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set05-v086"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v086"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 32
+selection_features = "type(=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v086/program.f90"
+references = ["nonRegressions/set05/v086/program_b.f90", "nonRegressions/set05/v086/program_d.f90", "nonRegressions/set05/v086/program_p.f90"]
+entry_point = "surface"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root surface, and FortAD emits all three products. The independent oracle checks the bounded sequential derived-type surface map and makes no runtime or derivative-support claim for the exact source."
+oracle_case = "v086-surface-map"
+
+[[case]]
+id = "set03-cm04"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm04"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 28
+selection_features = "pointer=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm04/program.f90"
+references = ["nonRegressions/set03/cm04/program_d.f90", "nonRegressions/set03/cm04/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root foo. FortAD refuses all three at pointer-association storage identity. The independent oracle checks only the bounded pointer-target trace and records the local-target lifetime boundary without claiming derivative support."
+oracle_case = "cm04-pointer-trace"
+
+[[case]]
+id = "set05-v200"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v200"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 28
+selection_features = "pointer=1; type(=1; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v200/program.f90"
+references = ["nonRegressions/set05/v200/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-derived-type-component"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test. FortAD refuses all three at the legacy derived-type declaration on line 1. The independent oracle distinguishes an unassociated pointer component from an explicitly bounded ABS map and makes no exact-source derivative claim."
+oracle_case = "v200-pointer-component"
+
+[[case]]
+id = "set07-v483"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v483"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 28
+selection_features = "allocatable=1; pointer=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v483/program.f90"
+references = ["nonRegressions/set07/v483/program_b.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three at module-level allocatable mutable state. The independent oracle checks a bounded initialized global-state trace and makes no derivative-support claim for module ownership or pointer lifetime."
+oracle_case = "v483-global-state"
