@@ -560,6 +560,17 @@ independent behavioral/refusal oracles are in the [next41 shard manifest and
 result](../cases/tapenade-queue-shard-next41/README.md); none is classified as
 invalid upstream.
 
+The next42 modern-feature shard closes the following four compiler-clean,
+dependency-safe rows at fixed score 16: `set03/lh068`, `set04/v002`,
+`set04/v003`, and `set04/v012`. Fresh pinned Tapenade parser/forward/reverse
+probes pass for all four roots. FortAD records three derived-type/module
+context boundaries (including two reverse dependent-inference refusals) and
+one active-`PRINT` refusal at source line 15. Exact source/reference hashes,
+automatic fetch provenance, isolated generated-source syntax checks, FortAD
+diagnostics, and independent behavioral/refusal oracles are in the [next42
+shard manifest and result](../cases/tapenade-queue-shard-next42/README.md);
+none is classified as invalid upstream.
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent
