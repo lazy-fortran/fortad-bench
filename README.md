@@ -338,14 +338,14 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 433 classified pure-Fortran rows (941 of 2,014 candidates overall):
-  64 runnable cases, 134 measured expected refusals, 35 invalid-upstream
-  closures, 195 additional FortAD feature boundaries, and five other bounded
+  contains 481 classified pure-Fortran rows (989 of 2,014 candidates overall):
+  64 runnable cases, 134 measured expected refusals, 34 invalid-upstream
+  closures, 229 additional FortAD feature boundaries, and 20 other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,073 rows are queued: 999 pure-Fortran rows and 74 mixed-language rows.
+  1,025 rows are queued: 951 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -606,8 +606,10 @@ because it belongs next to the engines rather than next to the compiler.
   passes all three modes for every exact root; current FortAD generates all
   three products for 14 and records explicit phase-specific refusals for 34,
   with independent source-map or refusal oracles and exact source/reference
-  hashes. Its probe base is FortAD `2636206` with FortFront `6c27ca86`; see the
-  [next49 shard manifest and result](cases/tapenade-queue-shard-next49/README.md).
+  hashes. Its historical probe base is FortAD `2636206` with FortFront
+  `6c27ca86`; current main heads are tracked in the FortAD roadmap, and the
+  evidence is intentionally not rewritten. See the [next49 shard manifest and
+  result](cases/tapenade-queue-shard-next49/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
