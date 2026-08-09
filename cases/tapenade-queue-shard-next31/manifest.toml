@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next31"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next30 by the fixed modern-feature score in descending order and committed queue order for ties: set03/bd17=26, set04/lh126=25, set06/v254=24, and set05/v144=22."
+selection_queue_sha256 = "e16843dddc76712a7a8fb0a25f4975108bfb5ef11a6deeeee49b2cfd9ce92002"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "9680b59e3fac14c5f94b7d5c2dd92275985e769b1e2faf7b3e0e9a8bf2a98113"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f845a07e0b0da8d84876449805518c94e458b6ac"
+independent_arguments = "each oracle independently models a bounded numeric or storage map and records the exact FortAD refusal boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set03-bd17"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/bd17"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 26
+selection_features = "procedure=2; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/bd17/program.f90"
+references = ["nonRegressions/set03/bd17/program_p.f90"]
+entry_point = "test3"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test3. FortAD parser and forward pass; reverse refuses because the integer-only generic specific has no inferred Tapenade dependent. The independent oracle checks bounded generic dispatch by argument rank and makes no derivative-support claim."
+oracle_case = "bd17-generic-dispatch"
+
+[[case]]
+id = "set04-lh126"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh126"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 25
+selection_features = "allocatable=1; procedure=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh126/program.f90"
+references = ["nonRegressions/set04/lh126/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-procedure-pointer-callback"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three modes at the passed-procedure callback whose callee reads active module state. The independent oracle checks the bounded ten-element allocation and sum map and makes no derivative-support claim for the exact callback/global-state closure."
+oracle_case = "lh126-allocatable-sum"
+
+[[case]]
+id = "set06-v254"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v254"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 24
+selection_features = "associate=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v254/program.f90"
+references = ["nonRegressions/set06/v254/program_d.f90", "nonRegressions/set06/v254/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test. FortAD parser passes, while forward and reverse refuse because no independent variable can be inferred through the module alias closure. The independent oracle checks that y and its alias ay share storage and makes no derivative-support claim."
+oracle_case = "v254-module-alias"
+
+[[case]]
+id = "set05-v144"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v144"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 22
+selection_features = "interface=2; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v144/program.f90"
+references = ["nonRegressions/set05/v144/program_b.f90", "nonRegressions/set05/v144/program_d.f90"]
+entry_point = "head"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root head. FortAD refuses all three modes at the exact local interface statement on line 11; this is an unsupported FortAD interface boundary, not proof of invalid upstream. The independent oracle checks the bounded masked SUM/F map and makes no derivative-support claim."
+oracle_case = "v144-masked-sum"

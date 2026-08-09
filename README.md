@@ -485,6 +485,13 @@ because it belongs next to the engines rather than next to the compiler.
   real-entry rule. It records module-state, OpenMP, active-I/O, and
   allocatable-derived-component boundaries with fresh probes and independent
   oracles. See the [next26 wave6 shard](cases/tapenade-queue-shard-next26-wave6/README.md).
+  The next31 modern-feature shard closes `set03/bd17`, `set04/lh126`,
+  `set06/v254`, and `set05/v144` with fixed scores 26, 25, 24, and 22. It
+  records dependent-inference, passed-procedure callback/module-state,
+  module-alias independent-inference, and local-interface refusals with exact
+  hashes and independent behavior/refusal oracles. See the [next31 shard
+  manifest and result](cases/tapenade-queue-shard-next31/README.md); none is
+  classified as invalid upstream.
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
