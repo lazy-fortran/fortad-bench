@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next39"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates selected after next38 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties. Program-only score leaders nonRegressions/set03/cm08=82, nonRegressions/set03/cm06=44, and nonRegressions/set03/cm16=34 were excluded because no callable function or subroutine root exists; the selected rows are nonRegressions/set10/v297=20, nonRegressions/set11/vpf06=20, nonRegressions/set05/v173=18, and nonRegressions/set04/lh150=17."
+selection_queue_sha256 = "e79be84a8c69b35340a7413de737178b5929f3cd6a0739573677707f1b6a779d"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "39890acece8f6d80ee10ba621caaaa81512d85341984ee52a9f77d753b63ee23"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "68b3b6b6b67cd89394fa086c2bd2d36bfd41b306"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models the exact bounded source map and checks finite-difference JVP/VJP identities where defined; no transformed output is read and no refusal is promoted to a derivative-support claim"
+
+[[case]]
+id = "set10-v297"
+component = "non-regressions"
+queue_path = "nonRegressions/set10/v297"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 20
+selection_features = "interface=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set10/v297/program.f90"
+references = ["nonRegressions/set10/v297/program_d.f90"]
+entry_point = "test1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root TEST1. FortAD parser and forward products are emitted, while reverse refuses because the mutually recursive TEST1/TEST2 call graph has no inferable dependent. The independent bounded sign-flip map checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "v297-recursive-sign-flip"
+
+[[case]]
+id = "set11-vpf06"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf06"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 20
+selection_features = "interface=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf06/program.f90"
+references = ["nonRegressions/set11/vpf06/program_p.f90"]
+entry_point = "head"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root HEAD. FortAD parser and forward products are emitted, while reverse refuses because no dependent can be inferred across the overloaded HEAD interfaces. The independent quotient map checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "vpf06-quotient"
+
+[[case]]
+id = "set05-v173"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v173"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 18
+selection_features = "dimension=6"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v173/program.f90"
+references = ["nonRegressions/set05/v173/program_b.f90", "nonRegressions/set05/v173/program_d.f90", "nonRegressions/set05/v173/program_p.f90"]
+entry_point = "test1"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root TEST1. FortAD emits parser and forward products that pass strict syntax, while reverse generation produces an invalid scalar-to-array assignment in probe_b.f90. The independent bounded WHERE/SUM model checks the numerical JVP/VJP identity; no exact-source derivative-support claim is made."
+oracle_case = "v173-where-map"
+
+[[case]]
+id = "set04-lh150"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh150"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh150/program.f90"
+references = ["nonRegressions/set04/lh150/program_b.f90", "nonRegressions/set04/lh150/program_d.f90", "nonRegressions/set04/lh150/program_p.f90"]
+entry_point = "root"
+classification = "unsupported-fortad-allocatable-lifetime"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root ROOT. FortAD refuses parser, forward, and reverse at the valid local declaration allocating multiple allocatable objects on source line 8; ownership and deallocation lifetime are not represented. The independent bounded allocation/fill/deallocation map checks finite-difference JVP/VJP identities and makes no exact-source derivative-support claim."
+oracle_case = "lh150-allocation-map"
