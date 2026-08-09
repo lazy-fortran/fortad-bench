@@ -190,6 +190,54 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set11/vpf20"): "unsupported-fortad-derived-type-component",
     ("non-regressions", "nonRegressions/set10/lh230"): "unsupported-fortad-pointer-alias-lifetime",
     ("non-regressions", "nonRegressions/set10/lh232"): "unsupported-fortad-pointer-alias-lifetime",
+    ("non-regressions", "nonRegressions/set07/v453"): "unsupported-fortad-global-mutable-state",
+    ("openmp", "openmp/examples/example_schedules.f90"): "unsupported-fortad-openmp-directive",
+    ("non-regressions", "nonRegressions/set10/lh217"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set04/v032"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set07/v437"): "unsupported-fortad-common-block",
+    ("non-regressions", "nonRegressions/set11/vpf07"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set11/vpf08"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set05/v063"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set05/v088"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v089"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v116"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v117"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v120"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v138"): "unsupported-fortad-array-section-rank",
+    ("non-regressions", "nonRegressions/set05/v169"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set05/v170"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set05/v195"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set07/v508"): "unsupported-fortad-procedure-call-actual",
+    ("non-regressions", "nonRegressions/set03/lh050"): "unsupported-fortad-invalid-generated-interface",
+    ("non-regressions", "nonRegressions/set04/v039"): "unsupported-fortad-active-io",
+    ("non-regressions", "nonRegressions/set11/vpf18"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set03/lh017"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set03/lh036"): "unsupported-fortad-invalid-generated-interface",
+    ("non-regressions", "nonRegressions/set03/lh063"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set03/lh095"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set04/v042"): "unsupported-fortad-derived-type-component",
+    ("non-regressions", "nonRegressions/set04/v047"): "unsupported-fortad-global-mutable-state",
+    ("non-regressions", "nonRegressions/set06/v227"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set04/lh118"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set06/v365"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set11/jh15"): "unsupported-fortad-procedure-call-actual",
+    ("non-regressions", "nonRegressions/set11/ompl04"): "unsupported-fortad-openmp-directive",
+    ("non-regressions", "nonRegressions/set05/v055"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set05/v087"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v105"): "unsupported-fortad-generic-intrinsic",
+    ("non-regressions", "nonRegressions/set05/v107"): "unsupported-fortad-array-section-rank",
+    ("non-regressions", "nonRegressions/set05/v109"): "unsupported-fortad-array-section-rank",
+    ("non-regressions", "nonRegressions/set05/v123"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v134"): "unsupported-fortad-array-section-rank",
+    ("non-regressions", "nonRegressions/set05/v142"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v172"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v174"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set05/v184"): "unsupported-fortad-invalid-generated-interface",
+    ("non-regressions", "nonRegressions/set06/v308"): "unsupported-fortad-common-block",
+    ("non-regressions", "nonRegressions/set06/v310"): "probed-fortad-generated-no-runtime-claim",
+    ("non-regressions", "nonRegressions/set07/v543"): "unsupported-fortad-dependent-inference",
+    ("non-regressions", "nonRegressions/set11/ompl03"): "unsupported-fortad-openmp-directive",
+    ("non-regressions", "nonRegressions/set06/v305"): "unsupported-fortad-no-independent-variable",
 }
 
 
@@ -265,15 +313,15 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1073)
+        self.assertEqual(len(rows), 1025)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
                 "mixed-language-risk": 74,
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
-                "runnable-program-candidate": 237,
-                "runnable-procedure-candidate": 762,
+                "runnable-program-candidate": 226,
+                "runnable-procedure-candidate": 725,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 112)
@@ -305,7 +353,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1073)
+        self.assertEqual(len(queued), 1025)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
