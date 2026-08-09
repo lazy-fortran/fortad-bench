@@ -1,0 +1,77 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next34"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next33 by the fixed modern-feature score in descending order and committed queue order for ties: examples/big01/v235=17, set04/lh127=17, set04/lh134=17, and set04/lh146=17."
+selection_queue_sha256 = "36a4902377471d9e1a20bb95c3be9c83be107818cf237b1f72180e43509025a1"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "ca03aca4368850bd0e24c5614abd6a00c8684ef64840f4fd4a62a6fea1fd50d7"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "8536c006c5251a1cca9a7a8bdf8ae7245e9e2a0b"
+independent_arguments = "each oracle independently models the bounded allocation/global-state behavior and records the exact observed FortAD refusal boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "big01-v235"
+component = "large-examples"
+queue_path = "examples/big01/v235"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "examples/big01/v235/program.f90"
+references = ["examples/big01/v235/program_d.f90"]
+entry_point = "satur_c"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root satur_c. FortAD refuses all three modes at module-level allocatable mutable state; the independent oracle checks a bounded saturation-state map and records no exact-source derivative claim."
+oracle_case = "v235-saturation-state"
+
+[[case]]
+id = "set04-lh127"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh127"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh127/program.f90"
+references = ["nonRegressions/set04/lh127/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three modes at the module-level allocatable T state; the independent oracle checks the bounded allocate-fill-sum-deallocate map and records no exact-source derivative claim."
+oracle_case = "lh127-module-allocation"
+
+[[case]]
+id = "set04-lh134"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh134"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh134/program.f90"
+references = ["nonRegressions/set04/lh134/program_b.f90"]
+entry_point = "bugalloc"
+dependent = "Y"
+classification = "unsupported-fortad-allocatable-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root bugalloc. The explicit dependent y makes the local allocatable lifetime boundary testable; the independent oracle checks the bounded allocate-fill-deallocate map and records no derivative-support claim for the exact lifetime transformation."
+oracle_case = "lh134-local-allocation"
+
+[[case]]
+id = "set04-lh146"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh146"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 17
+selection_features = "allocatable=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh146/program.f90"
+references = ["nonRegressions/set04/lh146/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three modes at the module-level allocatable T state; the independent oracle checks the bounded allocate-fill-sum-deallocate map and records no exact-source derivative claim."
+oracle_case = "lh146-module-allocation"
