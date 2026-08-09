@@ -12,14 +12,15 @@ exists to probe.
 | row | root | score | features | observed FortAD boundary |
 |---|---|---:|---|---|
 | `set10/lh215` | `foo` | 24 | `dimension=8` | reverse product has scalar `SUM`/rank syntax errors |
-| `set10/lh216` | `foo` | 24 | `dimension=8` | active `SPREAD` has no derivative rule; reverse has no dependent |
+| `set10/lh216` | `foo` | 24 | `dimension=8` | parser/forward `SPREAD` support; reverse has no dependent |
 | `set12/mvo11` | `BUG` | 24 | `interface=3; dimension=3` | local `INTERFACE` at line 12 |
 | `set07/v472` | `compute` | 22 | `interface=2; dimension=4` | generated forward result interface is not strict Fortran |
 
 The exact pinned Tapenade revision is `e59864c`; the probes use FortAD
-`f0cde919`. Tapenade parser, forward, and reverse probes pass for all four
+`f47d42e4`. Tapenade parser, forward, and reverse probes pass for all four
 roots. FortAD emits parser and forward products for `lh215` with a reverse
-strict-syntax failure, refuses the active `SPREAD` path in `lh216`, refuses the
+strict-syntax failure, emits parser and forward products for `lh216` through
+the active `SPREAD` path but refuses its reverse dependent inference, refuses the
 local interface in `mvo11`, and returns non-strict generated interfaces for
 `v472`. The latter source also writes a module global accumulator; the
 independent oracle records that policy-relevant state separately rather than

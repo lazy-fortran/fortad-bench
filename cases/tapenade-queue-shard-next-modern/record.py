@@ -79,12 +79,31 @@ def main() -> int:
         text=True,
         check=True,
     ).stdout
-    if hashlib.sha256(baseline_text.encode()).hexdigest() != manifest["selection_batch_sha256"]:
-        raise SystemExit("branch-base batch does not match selection_batch_sha256")
+    baseline_hash = hashlib.sha256(baseline_text.encode()).hexdigest()
+    valid_batch_hashes = {manifest["selection_batch_sha256"]}
+    current_batch_hash = manifest.get("current_batch_sha256")
+    if current_batch_hash:
+        valid_batch_hashes.add(current_batch_hash)
+    if baseline_hash not in valid_batch_hashes:
+        raise SystemExit("branch-base batch matches neither selection nor current batch hash")
     baseline = {
         (row["component"], row["path"]): row
         for row in (json.loads(line) for line in baseline_text.splitlines() if line.strip())
     }
+    prior_cases = {}
+    baseline_result = manifest.get("baseline_result")
+    if baseline_result:
+        prior_text = subprocess.run(
+            ["git", "show", f"HEAD:{baseline_result}"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+        prior_cases = {
+            (row["component"], row["queue_path"]): row
+            for row in json.loads(prior_text)["cases"]
+        }
     cases = []
     for selected in manifest["case"]:
         raw_row = raw_by_key[(selected["queue_path"], selected["entry_point"])]
@@ -92,7 +111,18 @@ def main() -> int:
             raise SystemExit(f"upstream revision mismatch for {selected['id']}")
         if raw_row["fortad_revision"] != manifest["fortad_revision"]:
             raise SystemExit(f"FortAD revision mismatch for {selected['id']}")
-        batch = baseline[(selected["component"], selected["queue_path"])]
+        key = (selected["component"], selected["queue_path"])
+        batch = baseline.get(key)
+        if batch is None:
+            prior = prior_cases.get(key)
+            if prior is None:
+                raise SystemExit(f"compiler evidence missing for {selected['id']}")
+            batch = {
+                "candidate_status": prior["compiler_status"],
+                "compiler_files": prior["compiler_files"],
+                "compiler_missing_source_files": prior.get("compiler_missing_source_files", []),
+                "compiler_extra_source_files": prior.get("compiler_extra_source_files", []),
+            }
         if batch["candidate_status"] != selected["compiler_status"]:
             raise SystemExit(f"compiler evidence changed for {selected['id']}")
         modes = {

@@ -99,7 +99,7 @@ def _lh215() -> dict[str, object]:
 
 
 def _lh216() -> dict[str, object]:
-    return _array_oracle(_lh216_value, [10.0, 11.0, 12.0, 13.0, 14.0], [0.2, -0.1, 0.3, -0.2, 0.4], "active SPREAD intrinsic has no FortAD derivative rule")
+    return _array_oracle(_lh216_value, [10.0, 11.0, 12.0, 13.0, 14.0], [0.2, -0.1, 0.3, -0.2, 0.4], "reverse dependent inference is unresolved for the multi-output subroutine")
 
 
 def _mvo11() -> dict[str, object]:

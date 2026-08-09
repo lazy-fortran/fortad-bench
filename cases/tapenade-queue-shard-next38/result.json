@@ -42,7 +42,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "foo",
-      "fortad_revision": "f0cde919d51307a2e654b6ab5ec168e01149f4b2",
+      "fortad_revision": "f47d42e477f418c0850cdc4c1d891576f11a4790",
       "id": "set10-lh215",
       "independent_oracle": {
         "derivative": {
@@ -263,8 +263,8 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     },
     {
-      "classification": "unsupported-fortad-generic-intrinsic",
-      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes pass. FortAD parses the exact source, refuses forward at the active SPREAD intrinsic because no derivative rule is registered, and refuses reverse because no dependent is inferable. The independent model checks the defined masked SUM/SPREAD-free branch and its numerical JVP/VJP identity without claiming exact-source derivative support.",
+      "classification": "unsupported-fortad-dependent-inference",
+      "closure": "Fresh pinned Tapenade parser, forward, and reverse probes pass. FortAD now emits parser and forward products with the active SPREAD expressions; reverse still refuses because no dependent can be inferred for the multi-output subroutine. The independent model checks the defined masked SUM/SPREAD branch and its numerical JVP/VJP identity without claiming exact-source reverse support.",
       "compiler_extra_source_files": [],
       "compiler_files": [
         {
@@ -302,7 +302,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "foo",
-      "fortad_revision": "f0cde919d51307a2e654b6ab5ec168e01149f4b2",
+      "fortad_revision": "f47d42e477f418c0850cdc4c1d891576f11a4790",
       "id": "set10-lh216",
       "independent_oracle": {
         "derivative": {
@@ -323,7 +323,7 @@
           "objective": 12295712.0
         },
         "refusal": {
-          "boundary": "active SPREAD intrinsic has no FortAD derivative rule",
+          "boundary": "reverse dependent inference is unresolved for the multi-output subroutine",
           "status": "expected"
         },
         "status": "pass"
@@ -342,11 +342,19 @@
               "probe",
               "program.f90"
             ],
-            "generated": [],
-            "generated_syntax": {},
-            "returncode": 1,
-            "status": "refused",
-            "stderr": "fortad: no derivative rule for 'SPREAD'; register one with fad_add_rule, or keep it out of the active path\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f6d9f827602 in ???\n#1  0x7f6d9f82848a in ???\n#2  0x5630a9c30998 in MAIN__\n#3  0x5630a9c4590e in main",
+            "generated": [
+              "probe_d.f90"
+            ],
+            "generated_syntax": {
+              "probe_d.f90": {
+                "returncode": 0,
+                "status": "pass",
+                "stderr": ""
+              }
+            },
+            "returncode": 0,
+            "status": "pass",
+            "stderr": "",
             "stdout": ""
           },
           "tapenade": {
@@ -363,7 +371,9 @@
             ],
             "generated": [
               "probe_d.f90",
-              "probe_d.msg"
+              "probe_d.f90~",
+              "probe_d.msg",
+              "probe_d.msg~"
             ],
             "generated_syntax": {
               "probe_d.f90": {
@@ -420,7 +430,9 @@
             ],
             "generated": [
               "probe_p.f90",
-              "probe_p.msg"
+              "probe_p.f90~",
+              "probe_p.msg",
+              "probe_p.msg~"
             ],
             "generated_syntax": {
               "probe_p.f90": {
@@ -452,7 +464,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7fdfd5227602 in ???\n#1  0x7fdfd522848a in ???\n#2  0x55fa76ab3c10 in MAIN__\n#3  0x55fa76ac990e in main",
+            "stderr": "fortad: could not infer Tapenade dependent; use --dep NAME\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f45cfc27602 in ???\n#1  0x7f45cfc2848a in ???\n#2  0x561d9587f860 in MAIN__\n#3  0x561d9589564c in main",
             "stdout": ""
           },
           "tapenade": {
@@ -469,7 +481,9 @@
             ],
             "generated": [
               "probe_b.f90",
-              "probe_b.msg"
+              "probe_b.f90~",
+              "probe_b.msg",
+              "probe_b.msg~"
             ],
             "generated_syntax": {
               "probe_b.f90": {
@@ -532,7 +546,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "bug",
-      "fortad_revision": "f0cde919d51307a2e654b6ab5ec168e01149f4b2",
+      "fortad_revision": "f47d42e477f418c0850cdc4c1d891576f11a4790",
       "id": "set12-mvo11",
       "independent_oracle": {
         "derivative": {
@@ -572,7 +586,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 12\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f31ecc27602 in ???\n#1  0x7f31ecc2848a in ???\n#2  0x55bfc0e527a5 in MAIN__\n#3  0x55bfc0e6890e in main",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 12\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7fee6d227602 in ???\n#1  0x7fee6d22848a in ???\n#2  0x564c0af923f5 in MAIN__\n#3  0x564c0afa864c in main",
             "stdout": ""
           },
           "tapenade": {
@@ -621,7 +635,7 @@
             "generated_syntax": {},
             "returncode": 1,
             "status": "refused",
-            "stderr": "fortad: unsupported statement at line 12\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f0a9ae27602 in ???\n#1  0x7f0a9ae2848a in ???\n#2  0x55bca1c32998 in MAIN__\n#3  0x55bca1c4790e in main",
+            "stderr": "fortad: unsupported statement at line 12\nERROR STOP 1\n\nError termination. Backtrace:\n#0  0x7f0c04027602 in ???\n#1  0x7f0c0402848a in ???\n#2  0x55663c8405e8 in MAIN__\n#3  0x55663c85564c in main",
             "stdout": ""
           },
           "tapenade": {
@@ -670,7 +684,7 @@
             "generated_syntax": {},
             "returncode": 2,
             "status": "refused",
-            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 12\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f1cc2227602 in ???\n#1  0x7f1cc222848a in ???\n#2  0x55fc4a19c7a5 in MAIN__\n#3  0x55fc4a1b290e in main",
+            "stderr": "fortad: cannot infer command arguments: unsupported statement at line 12\nERROR STOP 2\n\nError termination. Backtrace:\n#0  0x7f5456227602 in ???\n#1  0x7f545622848a in ???\n#2  0x5611fdfe13f5 in MAIN__\n#3  0x5611fdff764c in main",
             "stdout": ""
           },
           "tapenade": {
@@ -746,7 +760,7 @@
       "dependency_hints": [],
       "dependency_risk": false,
       "entry_point": "compute",
-      "fortad_revision": "f0cde919d51307a2e654b6ab5ec168e01149f4b2",
+      "fortad_revision": "f47d42e477f418c0850cdc4c1d891576f11a4790",
       "id": "set07-v472",
       "independent_oracle": {
         "derivative": {
@@ -965,9 +979,9 @@
       "upstream_revision": "e59864cab441d4175df75383b3ff58c3dcd26df9"
     }
   ],
-  "current_batch_sha256": "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511",
-  "current_queue_sha256": "e79be84a8c69b35340a7413de737178b5929f3cd6a0739573677707f1b6a779d",
-  "fortad_revision": "f0cde919d51307a2e654b6ab5ec168e01149f4b2",
+  "current_batch_sha256": "02f6902e196dc678f588e1d8b84b7712539f466c9799ee5d54e84e5b4823f42b",
+  "current_queue_sha256": "bd4d7d21ac6f0ea9e0feb1e9101b121092683ffb503dea47522849eb9b035977",
+  "fortad_revision": "f47d42e477f418c0850cdc4c1d891576f11a4790",
   "jobs": 4,
   "queue_file": "docs/corpora/tapenade-fortran-queue.jsonl",
   "queue_sha256": "20b65f453a7dd269e15d2a2d575aaa47e3573a01899c270b7ef3983fb7f2318f",
