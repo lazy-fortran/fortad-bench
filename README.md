@@ -338,14 +338,14 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 481 classified pure-Fortran rows (989 of 2,014 candidates overall):
+  contains 529 classified pure-Fortran rows (1,037 of 2,014 candidates overall):
   64 runnable cases, 134 measured expected refusals, 34 invalid-upstream
-  closures, 229 additional FortAD feature boundaries, and 20 other bounded
+  closures, 263 additional FortAD feature boundaries, and 34 other bounded
   evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,025 rows are queued: 951 pure-Fortran rows and 74 mixed-language rows.
+  977 rows are queued: 903 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -613,7 +613,7 @@ because it belongs next to the engines rather than next to the compiler.
   The next50 modern-feature shard closes 48 further compiler-clean,
   dependency-safe callable roots: one score-4 root, 44 score-3 roots, and the
   first three score-0 roots in committed queue order. Tapenade passes all three
-  modes for every root; current FortAD `65280f5` generates all three products
+  modes for every root; historical FortAD `65280f5` generates all three products
   for 14 and records explicit phase-specific refusals for 34. Independent
   source-map/refusal oracles, exact source/reference hashes, full phase
   diagnostics, and current FortAD/FortFront pins are in the
