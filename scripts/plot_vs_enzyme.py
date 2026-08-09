@@ -6,6 +6,7 @@ bar, drawn as fortad's time divided by Enzyme's, so 1.0 is parity and lower
 is faster. The 20% and 30% lines are the targets the port was held to.
 """
 import csv, collections
+from pathlib import Path
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -19,7 +20,8 @@ MODES = [("reverse", "fortad", "enzyme"), ("forward", "fortad-jvp", "enzyme-jvp"
 def load(name):
     d = collections.defaultdict(dict)
     for r in csv.DictReader(open(f"results/{name}.csv")):
-        d[r.get("operator") or r["workload"]][r["engine"]] = float(r["ns_per_input"])
+        rate = r.get("ns_per_input_median") or r.get("ns_per_input")
+        d[r.get("operator") or r["workload"]][r["engine"]] = float(rate)
     return d
 
 fig, axes = plt.subplots(3, 1, figsize=(11, 13))
@@ -72,3 +74,38 @@ ax.legend()
 fig2.tight_layout()
 fig2.savefig("results/fortad_vs_enzyme_absolute.png", dpi=150)
 print("wrote results/fortad_vs_enzyme_absolute.png")
+
+
+def load_size_sweep():
+    path = Path("results/enzyme_suite_sweep.csv")
+    if not path.is_file():
+        return {}
+    data = collections.defaultdict(lambda: collections.defaultdict(dict))
+    for row in csv.DictReader(path.open(encoding="utf-8")):
+        rate = row.get("ns_per_input_median")
+        if not rate:
+            raise ValueError("size sweep must contain median normalized timings")
+        data[row["workload"]][int(row["problem_size"])][row["engine"]] = float(rate)
+    return data
+
+
+sweep = load_size_sweep()
+if sweep:
+    fig3, axes3 = plt.subplots(len(sweep), 1, figsize=(10, 2.6 * len(sweep)), squeeze=False)
+    for ax, workload in zip(axes3[:, 0], sorted(sweep)):
+        sizes = sorted(sweep[workload])
+        for engine, color in (("fortad", "#2b6cb0"), ("enzyme", "#718096"),
+                              ("tapenade", "#dd6b20"), ("fortad-grad", "#805ad5")):
+            values = [sweep[workload][size].get(engine, np.nan) for size in sizes]
+            ax.plot(sizes, values, marker="o", label=engine, color=color)
+        ax.set_xscale("log")
+        ax.set_yscale("log")
+        ax.set_ylabel("median ns/input")
+        ax.set_title(workload)
+        ax.grid(True, which="both", alpha=0.2)
+        ax.legend(fontsize=8, ncol=4)
+    axes3[-1, 0].set_xlabel("problem size N")
+    fig3.suptitle("Enzyme suite size sweep (median wall-clock samples)")
+    fig3.tight_layout()
+    fig3.savefig("results/fortad_vs_enzyme_size_sweep.png", dpi=150)
+    print("wrote results/fortad_vs_enzyme_size_sweep.png")

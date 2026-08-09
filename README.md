@@ -4,10 +4,9 @@ Correctness and performance corpus for
 **[fortad](https://github.com/lazy-fortran/fortad)**, benchmarked against every
 automatic differentiation engine we can build.
 
-fortad's goal is to be **faster than all of them at both build time and runtime,
-in every mode**. This repository is where that claim is either demonstrated or
-refuted. It holds the workloads, the engine adapters, the measurement harness,
-and the committed results.
+fortad aims to be faster than competing engines at build time and runtime. This
+repository records the workloads, engine adapters, measurement harness, and
+the measured scope where that claim is demonstrated or refuted.
 
 ## Downstream port: fortnum and fortfem against Enzyme
 
@@ -24,13 +23,35 @@ included in a same-machine ratio.
 
 | Suite | Operators | Worst ratio | Faster than Enzyme |
 |---|---|---|---|
-| Enzyme's own suite | 5 (reverse) | 0.87x lstm | 5 of 5 |
+| Enzyme's own suite | 5 (reverse, historical fixed size) | 0.87x lstm | 5 of 5 in that record |
 | fortnum | 17 operators | 1.69x adaptive tangent | see caveat below |
 | fortfem | 42 operators | 1.63x curved quadrilateral tangent | see caveat below |
 
 Correctness is checked before timing: the harness compares fortad, Enzyme and
-fortsym on every kernel and stops on the first disagreement. All three agree
-everywhere.
+fortsym on every kernel and stops on the first disagreement. The committed
+records establish agreement only for the kernels and sizes they actually run.
+
+### Enzyme suite size sweep
+
+The reproducible three-engine sweep uses the same built executable for FortAD,
+Enzyme, and Tapenade at `N=100,1000,10000,100000,1000000` where the toolchains
+and memory permit. Each row in
+[`results/enzyme_suite_sweep.csv`](results/enzyme_suite_sweep.csv) reports the
+median, minimum, and maximum of every timed trial. The sidecar JSON named by
+each row records the FortAD and benchmark commits, compiler and tool versions,
+flags, host and CPU, clock, repetitions, affinity, peak RSS, and generated
+source/object sizes.
+
+Run it with:
+
+```text
+scripts/run_enzyme_suite_sweep.sh
+```
+
+Use `--dry-run` to record the requested protocol and unavailable toolchains
+without creating measurements. The older
+[`results/enzyme_suite.csv`](results/enzyme_suite.csv) remains a historical
+best-only fixed-size record and is not combined with the sweep.
 
 ### adaptive_trace_integrand measures the compiler, not the engine
 
@@ -129,7 +150,8 @@ context. The new multi-call fortad oracle is labelled separately from those
 historical cross-engine measurements.
 
 Regenerate with `scripts/build_{enzyme,fortnum,fortfem}_suite.sh`, then
-`python3 scripts/plot_vs_enzyme.py`.
+`python3 scripts/plot_vs_enzyme.py`. When the sweep result exists, the plotting
+script also writes `results/fortad_vs_enzyme_size_sweep.png`.
 
 ## Repository boundary
 
