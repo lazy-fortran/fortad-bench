@@ -15,10 +15,10 @@ recorded. Two measurements exceed the 30% band agreed for the port. Both are
 named below.
 
 This is not yet a claim to beat every AD engine. The committed same-machine
-timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 849
-classified rows out of 2,014 (42.4% overall), including 345 of the 1,432
-strict pure-Fortran rows (24.1%). The current queue contains 1,161 candidates:
-1,087 pure Fortran and 74 mixed-language rows. A broader feature or performance
+timing table is FortAD versus Enzyme. The pinned Tapenade ledger now has 921
+classified rows out of 2,014 (45.7% overall), including 413 of the 1,432
+strict pure-Fortran rows (28.8%). The current queue contains 1,093 candidates:
+1,019 pure Fortran and 74 mixed-language rows. A broader feature or performance
 lead needs the remaining corpus classifications and the end-to-end itpplasma
 matrix below.
 
@@ -75,8 +75,8 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 345 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-1,087 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
+classifies 413 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+1,019 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
 adds four more rows in `cases/tapenade-queue-shard-next10/`; next11 adds four
@@ -90,12 +90,16 @@ adds the next four queue-order set01 rows in `cases/tapenade-queue-shard-next17/
 adds the following four queue-order set01 rows in `cases/tapenade-queue-shard-next18/`; next19
 adds the following four queue-order set01 rows in `cases/tapenade-queue-shard-next19/`; next20
 adds `set01/lh114`, `lh115`, `lh117`, and `lh118` with dependent-inference,
-mutating-call, COMMON-state, and active-I/O boundaries.
+mutating-call, COMMON-state, and active-I/O boundaries. Next42 closes
+`set03/lh068`, `set04/v002`, `set04/v003`, and `set04/v012`; next43 closes
+`set04/v018`, `set04/v043`, `set07/v496`, and `set10/lh238`, with fresh
+Tapenade probes, exact hashes, FortAD boundaries, and independent
+behavioral/refusal oracles.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
-status breakdown is 63 runnable cases, 133 measured expected refusals, 34
-invalid-upstream closures, and 115 additional bounded feature or dependency
-classifications; 1,087 pure-Fortran rows remain untriaged. The 74 mixed
+status breakdown is 63 runnable cases, 134 measured expected refusals, 34
+invalid-upstream closures, 177 additional FortAD feature boundaries, and five
+other bounded evidence closures; 1,019 pure-Fortran rows remain untriaged. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream
 closure” means the original case cannot be compiled or otherwise exercised

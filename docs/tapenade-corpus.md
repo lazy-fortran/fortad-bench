@@ -110,10 +110,10 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,027 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 308 bounded
+  either engine. It leaves 1,019 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 311 bounded
   pure-Fortran refusal or feature/dependency classifications, and 34
-  invalid-upstream closures. The profile, shard-3, and shard-0
+  invalid-upstream closures, plus five other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -570,6 +570,16 @@ automatic fetch provenance, isolated generated-source syntax checks, FortAD
 diagnostics, and independent behavioral/refusal oracles are in the [next42
 shard manifest and result](../cases/tapenade-queue-shard-next42/README.md);
 none is classified as invalid upstream.
+
+The next43 modern-feature shard closes the following four compiler-clean,
+dependency-safe rows at fixed score 16: `set04/v018`, `set04/v043`,
+`set07/v496`, and `set10/lh238`. Fresh pinned Tapenade parser/forward/reverse
+probes pass for all four roots. FortAD records active-I/O, generated-interface,
+local-interface, and derived-type declaration/component boundaries; no row is
+classified as invalid upstream. Exact source/reference hashes, automatic-fetch
+provenance, generated-source syntax checks, FortAD diagnostics, and independent
+behavioral/refusal oracles are in the [next43 shard manifest and
+result](../cases/tapenade-queue-shard-next43/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
