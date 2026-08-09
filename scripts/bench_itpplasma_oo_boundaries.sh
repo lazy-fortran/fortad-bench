@@ -7,7 +7,7 @@ suite_out="$root/build/itpplasma-oo-boundaries"
 mod_dir="$suite_out/mod"
 result="$root/results/itpplasma_oo_boundaries_validation.txt"
 fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
-required_fortad_commit=4b4e60834fc619893f0c1e5df68b7c88247193f5
+required_fortad_commit=d803032cb1f0cec58a7779d1e97d55afaec441b7
 fc=${FC:-gfortran}
 compile_flags=(-std=f2018 -O3 -ffree-line-length-none -fno-lto)
 
