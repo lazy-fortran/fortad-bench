@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next26-wave6"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form candidates after next25, selected by the fixed modern-feature score in descending order and committed queue order for ties, while requiring a real procedure entry point in the exact primary source: set04/lh113=42, set11/ompl07=39, set05/v179=37, and set06/v341=34."
+selection_queue_sha256 = "9c89fa06a662d83b46ef4c135aed4d4fd1123fbb1d0a47c77da851b36ca2437c"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "781c89f9a29a4e8e49ec33d7d5988379aadacb9e40c083e9942700804fff39cf"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f878b967f8e0aac10770d771a01bc55431ee0e73"
+independent_arguments = "each oracle independently models the exact bounded stencil or scalar map where defined, checks a finite-difference JVP where meaningful, and separately records no-claim boundaries for I/O, module allocation, and unallocated derived components"
+
+[[case]]
+id = "set04-lh113"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh113"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 42
+selection_features = "allocatable=1; type(=1; interface=1; dimension=5"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh113/program.f90"
+references = ["nonRegressions/set04/lh113/program_b.f90", "nonRegressions/set04/lh113/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for exact root foo. Tapenade emits all three products; FortAD refuses the module-level allocatable mutable state. The independent oracle checks a bounded scalar map and JVP without claiming exact-source support."
+oracle_case = "lh113-foo-map"
+
+[[case]]
+id = "set11-ompl07"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/ompl07"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 39
+selection_features = "dimension=13"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/ompl07/program.f90"
+references = ["nonRegressions/set11/ompl07/program_b.f90"]
+entry_point = "stencil_nodefault"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for exact root stencil_nodefault. Tapenade emits all three products; FortAD refuses the OpenMP directive at line 5. The independent oracle checks the sequential stencil map and JVP without claiming OpenMP support."
+oracle_case = "ompl07-stencil-map"
+
+[[case]]
+id = "set05-v179"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v179"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 37
+selection_features = "optional=7; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v179/program.f90"
+references = ["nonRegressions/set05/v179/program_p.f90"]
+entry_point = "flio_uga"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for exact root flio_uga. Tapenade parses the root and emits its products/messages; FortAD refuses the WRITE statement at line 22. The independent oracle records that no defined numeric map is claimed."
+oracle_case = "v179-no-numeric-map"
+
+[[case]]
+id = "set06-v341"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v341"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 34
+selection_features = "allocatable=1; type(=1; dimension=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v341/program.f90"
+references = ["nonRegressions/set06/v341/program_b.f90", "nonRegressions/set06/v341/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-allocatable-derived-component"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes run for exact root top. Tapenade emits all three products; FortAD refuses at the source statement boundary before the unallocated allocatable derived components can be treated as supported. The independent oracle checks only the defined first helper call."
+oracle_case = "v341-allocatable-boundary"
