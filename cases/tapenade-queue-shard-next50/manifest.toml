@@ -1,0 +1,782 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next50"
+selection = "Exactly 48 previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form callable procedure roots were selected after next49 by the fixed case-insensitive modern-feature score, descending score and committed queue order for ties. The cutoff is one score-4 root, 44 score-3 roots, and the first three score-0 callable roots; program-category rows are included only where exact source inspection found a callable procedure."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "65280f59f6a4331a676b89b39e722a27f0cbcd85"
+fortfront_revision = "c48c3e8ba8d6073eee99d992928dce3f6a180fb7"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "a651d65d4374102221e4dc08961ec7030147aba02a558196ea2f3f185a076702"
+current_queue_sha256 = "2bd1f1f2afb0f721d9fd7a6904cf1960594d0e14de6cae33adee5568f85644e6"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection_batch_sha256 = "808db4fdb97160dcdba509eaae0d446d453ed7f773f0392a82eb21097ee827a5"
+current_batch_sha256 = "d3477cbb04ed22eef26898867e01b9d6d685519b1def8f833e676662a55c10d6"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY_POINT --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models a bounded exact-source numerical map or refusal boundary; no transformed output is read and no derivative-support claim is made"
+
+[[case]]
+id = "set07-v408"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v408"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 4
+selection_features = "optional=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v408/program.f90"
+references = ["nonRegressions/set07/v408/program_d.f90"]
+entry_point = "p"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set07-v408-p"
+
+[[case]]
+id = "set06-v330"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v330"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v330/program.f90"
+references = ["nonRegressions/set06/v330/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-active-io"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set06-v330-foo"
+
+[[case]]
+id = "set11-ompl06"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/ompl06"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/ompl06/program.f90"
+references = ["nonRegressions/set11/ompl06/program_b.f90", "nonRegressions/set11/ompl06/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set11-ompl06-foo"
+
+[[case]]
+id = "set11-ompl13"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/ompl13"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/ompl13/program.f90"
+references = ["nonRegressions/set11/ompl13/program_b.f90", "nonRegressions/set11/ompl13/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set11-ompl13-foo"
+
+[[case]]
+id = "openmp-benchmark-stacks-f90"
+component = "openmp"
+queue_path = "openmp/examples/benchmark_stacks.f90"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "openmp/examples/benchmark_stacks.f90"
+references = []
+entry_point = "stack_parallel"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "openmp-benchmark-stacks-f90-stack_parallel"
+
+[[case]]
+id = "openmp-example-scopes-f90"
+component = "openmp"
+queue_path = "openmp/examples/example_scopes.f90"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "openmp/examples/example_scopes.f90"
+references = []
+entry_point = "foo_firstlastprivate"
+classification = "unsupported-fortad-openmp-directive"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "openmp-example-scopes-f90-foo_firstlastprivate"
+
+[[case]]
+id = "set03-ht08"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/ht08"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/ht08/program.f90"
+references = ["nonRegressions/set03/ht08/program_b.f90"]
+entry_point = "fofo"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set03-ht08-fofo"
+
+[[case]]
+id = "set03-lh005"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh005"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh005/program.f90"
+references = ["nonRegressions/set03/lh005/program_b.f90"]
+entry_point = "testpushregions"
+classification = "unsupported-fortad-array-section-bounds"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set03-lh005-testpushregions"
+
+[[case]]
+id = "set03-lh040"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh040"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh040/program.f90"
+references = ["nonRegressions/set03/lh040/program_b.f90", "nonRegressions/set03/lh040/program_d.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set03-lh040-sub1"
+
+[[case]]
+id = "set03-lh070"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh070"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh070/program.f90"
+references = ["nonRegressions/set03/lh070/program_b.f90", "nonRegressions/set03/lh070/program_d.f90"]
+entry_point = "rosenbrock"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set03-lh070-rosenbrock"
+
+[[case]]
+id = "set03-lh073"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh073"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh073/program.f90"
+references = ["nonRegressions/set03/lh073/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set03-lh073-sub1"
+
+[[case]]
+id = "set03-lh074"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh074"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh074/program.f90"
+references = ["nonRegressions/set03/lh074/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set03-lh074-sub1"
+
+[[case]]
+id = "set04-lh173"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh173"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh173/program.f90"
+references = ["nonRegressions/set04/lh173/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set04-lh173-foo"
+
+[[case]]
+id = "set04-lh174"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh174"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh174/program.f90"
+references = ["nonRegressions/set04/lh174/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-generic-intrinsic"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set04-lh174-foo"
+
+[[case]]
+id = "set05-v057"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v057"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v057/program.f90"
+references = ["nonRegressions/set05/v057/program_d.f90", "nonRegressions/set05/v057/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v057-test"
+
+[[case]]
+id = "set05-v083"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v083"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v083/program.f90"
+references = ["nonRegressions/set05/v083/program_b.f90", "nonRegressions/set05/v083/program_d.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-array-section-bounds"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v083-test"
+
+[[case]]
+id = "set05-v091"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v091"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v091/program.f90"
+references = ["nonRegressions/set05/v091/program_b.f90", "nonRegressions/set05/v091/program_p.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-noncontiguous"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v091-sub1"
+
+[[case]]
+id = "set05-v092"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v092"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v092/program.f90"
+references = ["nonRegressions/set05/v092/program_p.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-noncontiguous"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v092-sub1"
+
+[[case]]
+id = "set05-v093"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v093"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v093/program.f90"
+references = ["nonRegressions/set05/v093/program_p.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-base"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v093-sub1"
+
+[[case]]
+id = "set05-v094"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v094"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v094/program.f90"
+references = ["nonRegressions/set05/v094/program_p.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-array-section-base"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v094-sub1"
+
+[[case]]
+id = "set05-v096"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v096"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v096/program.f90"
+references = ["nonRegressions/set05/v096/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v096-sub1"
+
+[[case]]
+id = "set05-v102"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v102"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v102/program.f90"
+references = ["nonRegressions/set05/v102/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v102-sub1"
+
+[[case]]
+id = "set05-v103"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v103"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v103/program.f90"
+references = ["nonRegressions/set05/v103/program_p.f90"]
+entry_point = "mppsum_real2"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v103-mppsum_real2"
+
+[[case]]
+id = "set05-v108"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v108"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v108/program.f90"
+references = ["nonRegressions/set05/v108/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v108-sub1"
+
+[[case]]
+id = "set05-v110"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v110"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v110/program.f90"
+references = ["nonRegressions/set05/v110/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v110-sub1"
+
+[[case]]
+id = "set05-v111"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v111"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v111/program.f90"
+references = ["nonRegressions/set05/v111/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v111-sub1"
+
+[[case]]
+id = "set05-v112"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v112"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v112/program.f90"
+references = ["nonRegressions/set05/v112/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v112-sub1"
+
+[[case]]
+id = "set05-v113"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v113"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v113/program.f90"
+references = ["nonRegressions/set05/v113/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v113-sub1"
+
+[[case]]
+id = "set05-v114"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v114"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v114/program.f90"
+references = ["nonRegressions/set05/v114/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v114-sub1"
+
+[[case]]
+id = "set05-v115"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v115"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v115/program.f90"
+references = ["nonRegressions/set05/v115/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v115-sub1"
+
+[[case]]
+id = "set05-v119"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v119"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v119/program.f90"
+references = ["nonRegressions/set05/v119/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v119-sub1"
+
+[[case]]
+id = "set05-v122"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v122"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v122/program.f90"
+references = ["nonRegressions/set05/v122/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v122-sub1"
+
+[[case]]
+id = "set05-v126"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v126"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v126/program.f90"
+references = ["nonRegressions/set05/v126/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v126-sub1"
+
+[[case]]
+id = "set05-v127"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v127"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v127/program.f90"
+references = ["nonRegressions/set05/v127/program_b.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-array-section-noncontiguous"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v127-test"
+
+[[case]]
+id = "set05-v128"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v128"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v128/program.f90"
+references = ["nonRegressions/set05/v128/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v128-sub1"
+
+[[case]]
+id = "set05-v129"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v129"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v129/program.f90"
+references = ["nonRegressions/set05/v129/program_b.f90"]
+entry_point = "sub1"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v129-sub1"
+
+[[case]]
+id = "set05-v130"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v130"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v130/program.f90"
+references = ["nonRegressions/set05/v130/program_b.f90"]
+entry_point = "sub1"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v130-sub1"
+
+[[case]]
+id = "set05-v132"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v132"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v132/program.f90"
+references = ["nonRegressions/set05/v132/program_b.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v132-test"
+
+[[case]]
+id = "set05-v133"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v133"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v133/program.f90"
+references = ["nonRegressions/set05/v133/program_b.f90"]
+entry_point = "test"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set05-v133-test"
+
+[[case]]
+id = "set05-v141"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v141"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v141/program.f90"
+references = ["nonRegressions/set05/v141/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set05-v141-test"
+
+[[case]]
+id = "set06-v226"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v226"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v226/program.f90"
+references = ["nonRegressions/set06/v226/program_b.f90"]
+entry_point = "sol_pcg"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set06-v226-sol_pcg"
+
+[[case]]
+id = "set06-v328"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v328"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v328/program.f90"
+references = ["nonRegressions/set06/v328/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-empty-expression"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set06-v328-foo"
+
+[[case]]
+id = "set07-v435"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v435"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v435/program.f90"
+references = ["nonRegressions/set07/v435/program_p.f90"]
+entry_point = "test"
+classification = "probed-fortad-generated-no-runtime-claim"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD emits all three products. The independent source-map oracle checks bounded source behavior and makes no runtime derivative-support claim."
+oracle_case = "set07-v435-test"
+
+[[case]]
+id = "set07-v462"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v462"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v462/program.f90"
+references = ["nonRegressions/set07/v462/program_b.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-array-rank"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set07-v462-test"
+
+[[case]]
+id = "set11-vpf22"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/vpf22"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 3
+selection_features = "dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/vpf22/program.f90"
+references = ["nonRegressions/set11/vpf22/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-expression"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set11-vpf22-foo"
+
+[[case]]
+id = "set04-lh101"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh101"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 0
+selection_features = ""
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh101/program.f90"
+references = ["nonRegressions/set04/lh101/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-callback-global-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set04-lh101-bar"
+
+[[case]]
+id = "set04-lh130"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh130"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 0
+selection_features = ""
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh130/program.f90"
+references = ["nonRegressions/set04/lh130/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set04-lh130-bar"
+
+[[case]]
+id = "set04-lh133"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh133"
+queue_rank = 40
+queue_category = "runnable-program-candidate"
+selection_score = 0
+selection_features = ""
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh133/program.f90"
+references = ["nonRegressions/set04/lh133/program_d.f90"]
+entry_point = "bar"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for the exact root; FortAD preserves phase-specific refusal diagnostics at the exact source boundary. The independent refusal oracle records the boundary without reading transformed output or claiming derivative support."
+oracle_case = "set04-lh133-bar"

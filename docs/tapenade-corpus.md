@@ -638,6 +638,15 @@ phase-specific refusals for 34; independent source-map and refusal oracles,
 exact source/reference hashes, and full phase diagnostics are in the
 [next49 shard manifest and result](../cases/tapenade-queue-shard-next49/README.md).
 
+The next50 modern-feature shard closes 48 further compiler-clean,
+dependency-safe callable roots after next49: one score-4 root, 44 score-3
+roots, and the first three score-0 roots in committed queue order. Tapenade
+passes parser, forward, and reverse for all 48 exact roots. Current FortAD
+`65280f5…` generates all three products for 14 and records explicit
+phase-specific refusals for 34. Independent source-map/refusal oracles, exact
+source/reference hashes, full phase diagnostics, and current engine pins are
+in the [next50 shard manifest and result](../cases/tapenade-queue-shard-next50/README.md).
+
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
 parser/forward/reverse generation, exact FortAD diagnostics, an independent

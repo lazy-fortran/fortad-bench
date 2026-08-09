@@ -610,6 +610,14 @@ because it belongs next to the engines rather than next to the compiler.
   `6c27ca86`; current main heads are tracked in the FortAD roadmap, and the
   evidence is intentionally not rewritten. See the [next49 shard manifest and
   result](cases/tapenade-queue-shard-next49/README.md).
+  The next50 modern-feature shard closes 48 further compiler-clean,
+  dependency-safe callable roots: one score-4 root, 44 score-3 roots, and the
+  first three score-0 roots in committed queue order. Tapenade passes all three
+  modes for every root; current FortAD `65280f5` generates all three products
+  for 14 and records explicit phase-specific refusals for 34. Independent
+  source-map/refusal oracles, exact source/reference hashes, full phase
+  diagnostics, and current FortAD/FortFront pins are in the
+  [next50 shard manifest and result](cases/tapenade-queue-shard-next50/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
