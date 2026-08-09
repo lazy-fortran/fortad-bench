@@ -110,8 +110,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,055 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 280 bounded
+  either engine. It leaves 1,039 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 296 bounded
   pure-Fortran refusal or feature/dependency classifications, and 34
   invalid-upstream closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -126,9 +126,9 @@ scripts/queue_tapenade_fortran.py --check
 ```
 
 [`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,117 rows
+and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,113 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
- rows with no entry-point hint, 248 program candidates, and 799 procedure
+ rows with no entry-point hint, 241 program candidates, and 798 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
 with non-local include hints. The queue uses only static filename and line-based
 declaration/include/use hints. An unresolved include is reported as a
@@ -518,6 +518,16 @@ parser/forward/reverse probes pass for all four roots. FortAD records generic
 call, formatted-I/O, whole-file program-unit, and allocatable-dummy call
 boundaries. Exact source/reference hashes, FortAD diagnostics, and independent
 behavioral/refusal oracles are in the [next37 shard manifest and result](../cases/tapenade-queue-shard-next37/README.md);
+none is classified as invalid upstream.
+
+The next38 modern-feature shard closes the following four compiler-clean,
+dependency-safe rows at fixed scores 24, 24, 24, and 22: `set10/lh215`,
+`set10/lh216`, `set12/mvo11`, and `set07/v472`. Fresh pinned Tapenade
+parser/forward/reverse probes pass for all four roots. FortAD records an
+array-reduction reverse generated-syntax failure, an active `SPREAD` refusal,
+a local-interface refusal, and generated function-result interface failures.
+Exact source/reference hashes, FortAD diagnostics, and independent
+behavioral/refusal oracles are in the [next38 shard manifest and result](../cases/tapenade-queue-shard-next38/README.md);
 none is classified as invalid upstream.
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
