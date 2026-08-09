@@ -110,8 +110,8 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,015 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 314 bounded
+  either engine. It leaves 1,011 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 63 executable evidence rows, 318 bounded
   pure-Fortran refusal or feature/dependency classifications, and 35
   invalid-upstream closures, plus five other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
@@ -591,6 +591,15 @@ invalid-upstream closure because it allocates `cindex` twice before
 deallocation. Exact hashes, compiler evidence, diagnostics, and independent
 behavioral/refusal oracles are in the [next44 shard manifest and
 result](../cases/tapenade-queue-shard-next44/README.md).
+
+The next45 modern-feature shard closes four compiler-clean pointer-alias
+leaders: `set03/cm01`, `set03/cm02`, `set03/cm03`, and `set06/v338`. Fresh
+pinned Tapenade parser/forward/reverse products pass for all four roots.
+FortAD records pointer storage-identity refusals for all four; `v338` also
+contains module-level mutable pointer state, which remains outside the
+approved policy even after pointer support improves. Exact hashes, compiler
+evidence, diagnostics, and independent behavioral/refusal oracles are in the
+[next45 shard manifest and result](../cases/tapenade-queue-shard-next45/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

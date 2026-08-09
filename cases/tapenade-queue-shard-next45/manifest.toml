@@ -1,0 +1,75 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next45"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure candidates selected after next44 by the fixed case-insensitive modern-feature score in descending order and committed queue order for ties. The selected pointer-alias leaders are nonRegressions/set03/cm01=14, nonRegressions/set03/cm02=14, nonRegressions/set03/cm03=14, and nonRegressions/set06/v338=14."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "4f385c9393d5848efb94bf4ddb8c683ec0999afe"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "7e4934f88aedf572a701daa49d3cfb6db8c108f0cb6fbf65d3c33f638e5f0ae3"
+batch_file = "docs/corpora/tapenade-fortran-compiler.jsonl"
+selection_batch_sha256 = "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b"
+current_queue_sha256 = "9f3b3f8a9f36dda4831441b248d3c687c897faf26090ac656412278dd948166d"
+current_batch_sha256 = "8b0b06bc90fb7af57125a30890a38706a6558dda8207938446b7c8ee0f5b1e4b"
+
+[[case]]
+id = "set03-cm01"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm01"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact pointer association because storage identity for p1/p2 is not tracked; the independent branch-aware scalar model records only the valid v4=1 path."
+source = "nonRegressions/set03/cm01/program.f90"
+references = ["nonRegressions/set03/cm01/program_p.f90"]
+entry_point = "program"
+oracle_case = "cm01-pointer-branch-model"
+
+[[case]]
+id = "set03-cm02"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm02"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact allocate, reassociate, and deallocate pointer sequence because storage identity for a/b is not tracked; the independent model records the payload before the alias cleanup boundary."
+source = "nonRegressions/set03/cm02/program.f90"
+references = ["nonRegressions/set03/cm02/program_p.f90"]
+entry_point = "program"
+oracle_case = "cm02-pointer-reassociation-model"
+
+[[case]]
+id = "set03-cm03"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm03"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact conditional pointer associations because storage identity for p1/p4 is not tracked; the independent constant-path model records the v2=1 branch."
+source = "nonRegressions/set03/cm03/program.f90"
+references = ["nonRegressions/set03/cm03/program_p.f90"]
+entry_point = "program"
+oracle_case = "cm03-pointer-conditional-model"
+
+[[case]]
+id = "set06-v338"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v338"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Tapenade emits parser, forward, and reverse products. FortAD refuses the exact TARGET/module-pointer association at the storage-identity boundary; the source also intentionally exposes module-level mutable pointer state, which remains outside FortAD's approved modern-Fortran policy."
+source = "nonRegressions/set06/v338/program.f90"
+references = ["nonRegressions/set06/v338/program_p.f90"]
+entry_point = "test"
+oracle_case = "v338-module-pointer-power-model"
