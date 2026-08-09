@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next33"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next32 by the fixed modern-feature score in descending order and committed queue order for ties: set11/mvo02=20, set07/v460=19, set04/v031=18, and set05/v148=18."
+selection_queue_sha256 = "12a2579f749a5c28542eed10001813a0e9cac60dda6b83f1dfa1af03a1e3d100"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "36a4902377471d9e1a20bb95c3be9c83be107818cf237b1f72180e43509025a1"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "e347c8a3c05009173e80e03dc50222455206c831"
+independent_arguments = "each oracle independently models the bounded numeric, dispatch, or optional-argument behavior and records the exact FortAD refusal boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set11-mvo02"
+component = "non-regressions"
+queue_path = "nonRegressions/set11/mvo02"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 20
+selection_features = "interface=4"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set11/mvo02/program.f90"
+references = ["nonRegressions/set11/mvo02/program_p.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root foo. FortAD refuses all three modes at the direct same-file call because FortFront cannot prove an exact actual/formal mapping. The independent oracle checks the cubic call map, finite difference, and adjoint identity; no derivative-support claim is made."
+oracle_case = "mvo02-cubic-call"
+
+[[case]]
+id = "set07-v460"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v460"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 19
+selection_features = "interface=2; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v460/program.f90"
+references = ["nonRegressions/set07/v460/program_d.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three modes at the local interface statement on line 12. The independent oracle checks rank-based generic dispatch and the unresolved external ftest boundary; no derivative-support claim is made."
+oracle_case = "v460-generic-interface"
+
+[[case]]
+id = "set04-v031"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/v031"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 18
+selection_features = "procedure=1; interface=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/v031/program.f90"
+references = ["nonRegressions/set04/v031/program_b.f90", "nonRegressions/set04/v031/program_d.f90", "nonRegressions/set04/v031/program_p.f90"]
+entry_point = "head"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root head. FortAD parser succeeds, forward refuses because no derivative rule is registered for generic swap, and reverse refuses without an inferred dependent. The independent permutation oracle checks primal, central-difference, and adjoint identities; no derivative-support claim is made."
+oracle_case = "v031-generic-swap"
+
+[[case]]
+id = "set05-v148"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v148"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 18
+selection_features = "interface=2; optional=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v148/program.f90"
+references = ["nonRegressions/set05/v148/program_b.f90", "nonRegressions/set05/v148/program_d.f90", "nonRegressions/set05/v148/program_p.f90"]
+entry_point = "p"
+classification = "unsupported-fortad-dependent-inference"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root p. FortAD parser and forward products are emitted, while reverse refuses because no dependent can be inferred. The independent oracle checks the defined order-zero optional map and records that the exact test call omits optional actuals used by p; no derivative-support claim is made."
+oracle_case = "v148-optional-map"
