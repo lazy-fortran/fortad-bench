@@ -1,0 +1,76 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next30"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next29 by the fixed modern-feature score in descending order and committed queue order for ties: set04/lh162=25, set06/v228=25, set03/lh043=23, and set03/cm24=22."
+selection_queue_sha256 = "7d2d470f0dc71cd5c6bf2fa20717e760ce3d6677129a070f3323745f305882a6"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "e16843dddc76712a7a8fb0a25f4975108bfb5ef11a6deeeee49b2cfd9ce92002"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "ca6644386ea82f243ed78b1cd6ee27ddf2b7ada3"
+independent_arguments = "each oracle independently models initialized bounded behavior and records the exact FortAD refusal boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set04-lh162"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh162"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 25
+selection_features = "pointer=1; type(=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh162/program.f90"
+references = ["nonRegressions/set04/lh162/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-procedure-call-actual"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD parser, forward, and reverse refuse at the direct same-file call to f2 because the exact actual/formal mapping cannot be proved. The independent oracle checks the bounded i -> 1 behavior and records no derivative-support claim."
+oracle_case = "lh162-top-call"
+
+[[case]]
+id = "set06-v228"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v228"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 25
+selection_features = "allocatable=1; type(=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v228/program.f90"
+references = ["nonRegressions/set06/v228/program_p.f90"]
+entry_point = "comp_maxdt"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root comp_maxdt. FortAD refuses all three modes because the exact source module declares allocatable mutable state. The independent oracle checks the initialized bounded CK update and makes no module-state or derivative-support claim."
+oracle_case = "v228-comp-maxdt"
+
+[[case]]
+id = "set03-lh043"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh043"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 23
+selection_features = "allocatable=1; dimension=3"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/lh043/program.f90"
+references = ["nonRegressions/set03/lh043/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root foo. FortAD refuses all three modes because foo reaches module-level allocatable mutable state. The independent oracle checks the initialized bounded y = x^3 + x^5 map and records no exact-source derivative-support claim."
+oracle_case = "lh043-foo-map"
+
+[[case]]
+id = "set03-cm24"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm24"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 22
+selection_features = "pointer=1; type(=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set03/cm24/program.f90"
+references = ["nonRegressions/set03/cm24/program_p.f90"]
+entry_point = "top"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root top. FortAD refuses all three modes at allocation and deallocation of the non-allocatable pointer target object%x. The independent oracle checks the bounded r = a^2 map and target release separately, with no exact-source derivative-support claim."
+oracle_case = "cm24-top-pointer"
