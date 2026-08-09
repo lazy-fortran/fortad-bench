@@ -1,5 +1,5 @@
 suite: itpplasma advanced OO/interface refusal boundaries
-recorded_utc: 2026-08-06T23:32:51Z
+recorded_utc: 2026-08-09T13:53:57Z
 machine: mailuefterl
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
@@ -7,10 +7,10 @@ cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O3 -ffree-line-length-none -fno-lto
 fo: fo 0.3.2
-fortad_commit: 953e8fd59d265eff5035969c5f33b1ae80abd2be
-required_fortad_commit: 16d1cae67e4bc230ba32541d65c87ec0164ff123
-fortad_setup_seconds_cached_or_incremental: 1.066141
-primal_compile_and_link_seconds: 0.170926
+fortad_commit: ea82f961fe8ff365f5041c5480a9b4fdfc58b226
+required_fortad_commit: ea82f961fe8ff365f5041c5480a9b4fdfc58b226
+fortad_setup_seconds_cached_or_incremental: 1.700538
+primal_compile_and_link_seconds: 0.190207
 oracle: fixed values and central finite differences for each child/callback target; null callback value checked
 discrete_contract: dynamic type, ownership transition, callback target, and callback context are passive choices
 
@@ -18,25 +18,25 @@ case_id: abstract-deferred-binding
 status: expected-refusal
 primal_oracle: pass
 refusal_exit_status: 1
-diagnostic: fortad: unsupported type-bound call 'value': the concrete type is not defined in this source
+diagnostic: fortad: unsupported type-bound call 'value': direct polymorphic dispatch requires one FortFront-proven concrete runtime target; multiple runtime targets are unsupported
 
 case_id: polymorphic-ownership
 status: expected-refusal
 primal_oracle: pass
 refusal_exit_status: 1
-diagnostic: fortad: unsupported allocation lifetime construct 'allocatable declaration/component'
+diagnostic: fortad: unsupported type-bound call 'value': polymorphic component receiver ownership or dynamic type is unsupported
 
 case_id: callback-class-star-context
 status: expected-refusal
 primal_oracle: pass
 refusal_exit_status: 1
-diagnostic: fortad: unsupported allocation lifetime construct 'allocatable declaration/component'
+diagnostic: fortad: module-level allocatable mutable state is not supported; use local or dummy ownership
 
 source_sha256:
 3f20aeb6b08c46a5f9f059cbaf1e0f28169cce516fab79692ef4c4bb4852a0b3  cases/itpplasma/abstract_deferred_refusal/primal.f90
-a283d8842271ab42d6804d32b56ef5c0c7b6b730c30186a2ba9bd3741f95beef  cases/itpplasma/polymorphic_ownership_refusal/primal.f90
+75b92772a0f4561f5b361a1cfab88c0370f56069dfde86473adaa2f806be1510  cases/itpplasma/polymorphic_ownership_refusal/primal.f90
 0c6ceb6150cde2be24d1aa69d6f77aa3c2e8deeab265705accb0fb6c16cf2b2c  cases/itpplasma/callback_context_refusal/primal.f90
 965f6b9ab2025dec1f8f16e0963f41ca7557097cf0a478f102c4f9c693e2113c  harness/check_oo_boundaries.f90
-992fd5d5b47424df39a13d72641fa75398a678efb28f451f5214b1c48476454e  scripts/bench_itpplasma_oo_boundaries.sh
+24577bfba8fb0ebde0851d08d3a949b4e9741246d0bc28454c8a0eb0b9e80ef9  scripts/bench_itpplasma_oo_boundaries.sh
 primal_run_output:
 PASS: abstract deferred, ownership, and callback primal oracles

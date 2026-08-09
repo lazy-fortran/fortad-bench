@@ -13,8 +13,9 @@ the P8.6/B5/B13 boundary. The existing `SELECT TYPE` callback case documents
 the supported explicit-dispatch replacement.
 The validation record
 ([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
-records the allocation-lifetime refusal diagnostic. The harness captures
-stderr during the check and verifies that no derivative file is produced.
+records the deliberate active module-state refusal, which is the earliest
+boundary in this exact source. The harness captures stderr during the check
+and verifies that no derivative file is produced.
 
 Run the primal and refusal check from the fortad-bench repository root with
 `../fortad` pointing to the FortAD checkout:

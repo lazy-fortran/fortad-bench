@@ -7,7 +7,7 @@ suite_out="$root/build/itpplasma-oo-boundaries"
 mod_dir="$suite_out/mod"
 result="$root/results/itpplasma_oo_boundaries_validation.txt"
 fortad_repo=${FORTAD_REPO:-"$root/../fortad"}
-required_fortad_commit=16d1cae67e4bc230ba32541d65c87ec0164ff123
+required_fortad_commit=ea82f961fe8ff365f5041c5480a9b4fdfc58b226
 fc=${FC:-gfortran}
 compile_flags=(-std=f2018 -O3 -ffree-line-length-none -fno-lto)
 
@@ -72,6 +72,10 @@ run_refusal() {
         callback) source="$callback_dir/primal.f90" ;;
     esac
 
+    # A previous accepted run must not make a later refusal look like it
+    # emitted derivative code.  The output path is fixed to this case's
+    # private build directory above.
+    rm -f "$output"
     set +e
     (
         cd "$fortad_repo"
@@ -90,11 +94,11 @@ run_refusal() {
 }
 
 run_refusal abstract evaluate_deferred deferred_ad \
-    "fortad: unsupported type-bound call 'value': the concrete type is not defined in this source"
+    "fortad: unsupported type-bound call 'value': direct polymorphic dispatch requires one FortFront-proven concrete runtime target; multiple runtime targets are unsupported"
 run_refusal ownership evaluate_owned ownership_ad \
-    "fortad: unsupported allocation lifetime construct 'allocatable declaration/component'"
+    "fortad: unsupported type-bound call 'value': polymorphic component receiver ownership or dynamic type is unsupported"
 run_refusal callback evaluate_callback callback_ad \
-    "fortad: unsupported allocation lifetime construct 'allocatable declaration/component'"
+    "fortad: module-level allocatable mutable state is not supported; use local or dummy ownership"
 
 fortad_commit=$(git -C "$fortad_repo" rev-parse HEAD)
 cpu_model=$(lscpu | awk -F: \

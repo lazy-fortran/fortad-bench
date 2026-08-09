@@ -11,17 +11,18 @@ square:  curvature*x*x + slope*x + bias
 ```
 
 The harness checks both models and a central finite difference of the primal.
-FortAD is expected to refuse `model%value(x)`: dispatch through an abstract
-deferred binding is not yet a supported derivative path. A refusal is useful
-evidence here because silently differentiating only the base declaration would
-be wrong. This is the P8.4/B2 boundary, not a claim of derivative support.
+FortAD supports `model%value(x)` when FortFront proves exactly one concrete
+same-file implementation. This fixture deliberately contains both affine and
+square children, so the dynamic target set has multiple possibilities and the
+transform refuses rather than silently choosing one implementation. This is
+the P8.4/B2 multi-target boundary; the one-child acceptance path is covered by
+FortAD's independent abstract/deferred dispatch oracle.
 
 The validation record
 ([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
-records the FortAD commit used for the run and the
-refusal diagnostic `fortad: unsupported type-bound call 'value': the concrete
-type is not defined in this source`. The fixture uses concrete local child
-objects, so allocation lifetime is not an earlier refusal boundary.
+records the FortAD commit used for the run and the precise refusal diagnostic
+for multiple runtime targets. The fixture uses concrete local child objects,
+so allocation lifetime is not an earlier refusal boundary.
 
 Run it from the fortad-bench repository root with `../fortad` pointing to the
 FortAD checkout:

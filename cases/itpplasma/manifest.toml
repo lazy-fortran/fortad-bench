@@ -211,9 +211,9 @@ features = [
     "multi-level override",
     "polymorphic allocatable factory",
 ]
-required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+required_fortad_commit = "ea82f961fe8ff365f5041c5480a9b4fdfc58b226"
 oracle = "fixed primal values and central finite differences for affine and square children"
-expected_diagnostic = "fortad: unsupported type-bound call 'value': the concrete type is not defined in this source"
+expected_diagnostic = "fortad: unsupported type-bound call 'value': direct polymorphic dispatch requires one FortFront-proven concrete runtime target; multiple runtime targets are unsupported"
 discrete_contract = "The selected override is fixed during each derivative call."
 result = "../../results/itpplasma_oo_boundaries_validation.txt"
 
@@ -233,9 +233,9 @@ features = [
     "finalizer",
     "nested type-bound dispatch",
 ]
-required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+required_fortad_commit = "ea82f961fe8ff365f5041c5480a9b4fdfc58b226"
 oracle = "fixed primal values and central finite differences before and after replacement"
-expected_diagnostic = "fortad: empty expression"
+expected_diagnostic = "fortad: unsupported type-bound call 'value': polymorphic component receiver ownership or dynamic type is unsupported"
 discrete_contract = "Dynamic type, ownership transitions, and destruction are passive choices."
 result = "../../results/itpplasma_oo_boundaries_validation.txt"
 
@@ -255,8 +255,8 @@ features = [
     "class(*) context",
     "select type inside callback",
 ]
-required_fortad_commit = "16d1cae67e4bc230ba32541d65c87ec0164ff123"
+required_fortad_commit = "ea82f961fe8ff365f5041c5480a9b4fdfc58b226"
 oracle = "fixed linear and quadratic callback values, central finite differences, and null-path sentinel"
-expected_diagnostic = "fortad: empty expression"
+expected_diagnostic = "fortad: module-level allocatable mutable state is not supported; use local or dummy ownership"
 discrete_contract = "Callback target and opaque context type are fixed during each derivative call."
 result = "../../results/itpplasma_oo_boundaries_validation.txt"
