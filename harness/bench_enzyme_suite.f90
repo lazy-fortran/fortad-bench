@@ -13,7 +13,7 @@ program bench_enzyme_suite
     !! whole gradient at once, where checking entries one at a time would cost
     !! `n` extra runs per workload and still miss cross terms.
     use, intrinsic :: iso_c_binding, only: c_int, c_double
-    use, intrinsic :: iso_fortran_env, only: dp => real64
+    use, intrinsic :: iso_fortran_env, only: dp => real64, int64
     implicit none
 
     interface
@@ -181,131 +181,149 @@ program bench_enzyme_suite
     end interface
 
     integer, parameter :: NW = 5
+    integer, parameter :: MAX_SIZES = 16
     character(len=8), parameter :: NAMES(NW) = &
         [character(len=8) :: "euler", "rk4", "lstm", "ba", "bruss"]
-    integer :: unit, w
+    integer :: unit, w, size_index, n_sizes, n_trials, repetition_override
+    integer :: sizes(MAX_SIZES), status
+    character(len=4096) :: sizes_text
+    character(len=512) :: output_path, run_id, provenance_file
 
-    open (newunit=unit, file="results/enzyme_suite.csv", status="replace", &
-          action="write")
-    write (unit, '(a)') "workload,engine,n,seconds_total,ns_per_input"
+    call get_environment_variable("FORTAD_SWEEP_NS", sizes_text, status=status)
+    if (status /= 0) sizes_text = "100,1000,10000,100000,1000000"
+    call parse_sizes(trim(sizes_text), sizes, n_sizes)
+    n_trials = environment_integer("FORTAD_SWEEP_TRIALS", 7)
+    repetition_override = environment_integer("FORTAD_SWEEP_REPS", 0)
+    if (n_trials <= 0) error stop "FORTAD_SWEEP_TRIALS must be positive"
+    if (repetition_override < 0) error stop "FORTAD_SWEEP_REPS must be non-negative"
+
+    call get_environment_variable("FORTAD_SWEEP_OUTPUT", output_path, status=status)
+    if (status /= 0 .or. len_trim(output_path) == 0) &
+        output_path = "results/enzyme_suite_sweep.csv"
+    call get_environment_variable("FORTAD_SWEEP_RUN_ID", run_id, status=status)
+    if (status /= 0 .or. len_trim(run_id) == 0) run_id = "direct"
+    call get_environment_variable("FORTAD_SWEEP_METADATA", provenance_file, status=status)
+    if (status /= 0) provenance_file = ""
+
+    open (newunit=unit, file=trim(output_path), status="replace", &
+        action="write")
+    write (unit, '(a)') "workload,engine,problem_size,input_count,n,repetitions,trials," // &
+        "seconds_median,seconds_min,seconds_max,ns_per_input_median," // &
+        "ns_per_input_min,ns_per_input_max,timing_clock,run_id,provenance_file"
 
     do w = 1, NW
-        call run_workload(trim(NAMES(w)), unit)
+        do size_index = 1, n_sizes
+            call run_workload(trim(NAMES(w)), sizes(size_index), n_trials, &
+                repetition_override, unit, trim(run_id), &
+                trim(provenance_file))
+        end do
     end do
 
     close (unit)
-    print *, "wrote results/enzyme_suite.csv"
+    print *, "wrote ", trim(output_path)
 
 contains
 
-    subroutine run_workload(name, unit)
-        !! Time both engines on one workload after checking both gradients.
-        character(len=*), intent(in) :: name
-        integer, intent(in) :: unit
-        integer, parameter :: N_ELEM = 20000
-        integer, parameter :: N_TRIALS = 7
+    subroutine run_workload(name, n_elem, n_trials, repetition_override, unit, &
+            run_id, provenance_file)
+        !! Check one size, then retain every interleaved wall-clock sample.
+        character(len=*), intent(in) :: name, run_id, provenance_file
+        integer, intent(in) :: n_elem, n_trials, repetition_override, unit
         integer :: n_in, reps, r, i, trial
         real(dp), allocatable :: z(:), zb(:), zb2(:), zb3(:), zb4(:), dir(:)
-        real(dp) :: y, yb, t0, t1, best_f, best_e, best_t, best_g, best_p
+        real(dp), allocatable :: samples_f(:), samples_e(:), samples_t(:)
+        real(dp), allocatable :: samples_g(:), samples_p(:)
+        integer(int64) :: start_count, end_count, clock_rate
+        real(dp) :: y, yb
 
-        n_in = N_ELEM
-        if (name == "ba") n_in = 3*N_ELEM
+        n_in = n_elem
+        if (name == "ba") n_in = 3*n_elem
 
         allocate (z(n_in), zb(n_in), zb2(n_in), zb3(n_in), zb4(n_in), dir(n_in))
+        allocate (samples_f(n_trials), samples_e(n_trials), samples_t(n_trials))
+        allocate (samples_g(n_trials), samples_p(n_trials))
         do i = 1, n_in
             z(i) = 0.4_dp + 0.3_dp*sin(0.31_dp*i)
             dir(i) = cos(0.77_dp*i)
         end do
-        reps = max(3, 4000000/n_in)
+        if (repetition_override > 0) then
+            reps = repetition_override
+        else
+            reps = max(3, 4000000/n_in)
+        end if
 
         yb = 1.0_dp
-        call call_fortad(name, N_ELEM, z, y, yb, zb)
+        call call_fortad(name, n_elem, z, y, yb, zb)
         zb2 = 0.0_dp
         yb = 1.0_dp
-        call call_enzyme(name, N_ELEM, z, zb2, y, yb)
+        call call_enzyme(name, n_elem, z, zb2, y, yb)
 
-        ! Two independent implementations agreeing to near machine precision is
-        ! a far sharper check than finite differences, which on BA lose four
-        ! digits to cancellation because the objective is order 1e5. So the
-        ! engines are cross-checked tightly and differenced loosely: the first
-        ! catches a wrong derivative, the second catches both being wrong the
-        ! same way.
+        ! Cross-engine agreement is corroboration. The directional finite
+        ! difference below remains the independent behavioral oracle.
         zb3 = 0.0_dp
         yb = 1.0_dp
-        call call_tapenade(name, N_ELEM, z, zb3, y, yb)
-
-        ! Three independent implementations. Any two agreeing to 1e-12 while
-        ! the third does not is a decisive finding about the third.
+        call call_tapenade(name, n_elem, z, zb3, y, yb)
         zb4 = 0.0_dp
         yb = 1.0_dp
-        call call_fortad_grad(name, N_ELEM, z, yb, zb4)
+        call call_fortad_grad(name, n_elem, z, yb, zb4)
 
         call cross_check(name, "enzyme", zb, zb2)
         call cross_check(name, "fortad-grad", zb, zb4)
         call cross_check(name, "tapenade", zb, zb3)
-        call check(name, "fortad", N_ELEM, z, dir, zb)
+        call check(name, "fortad", n_elem, z, dir, zb)
 
-        ! Best of several timing runs, interleaved. A single run of each
-        ! engine was swinging 20% between invocations - enough to invent a
-        ! winner - and interleaving keeps a thermal or frequency drift from
-        ! landing on one engine only.
-        best_f = huge(1.0_dp)
-        best_e = huge(1.0_dp)
-        best_t = huge(1.0_dp)
-        best_g = huge(1.0_dp)
-        ! The undifferentiated kernel, as a reference. Reverse mode cannot cost
-        ! less than this, and the ratio to it says how much of an engine's time
-        ! is the derivative rather than the function.
-        best_p = huge(1.0_dp)
-        do trial = 1, N_TRIALS
-            call cpu_time(t0)
+        ! Interleave the engines and retain all samples. The summary reports
+        ! median, minimum, and maximum rather than selecting a favorable run.
+        do trial = 1, n_trials
+            call system_clock(start_count, clock_rate)
             do r = 1, reps
-                call primal(name, N_ELEM, z, y)
+                call primal(name, n_elem, z, y)
             end do
-            call cpu_time(t1)
-            best_p = min(best_p, t1 - t0)
+            call system_clock(end_count)
+            samples_p(trial) = elapsed_seconds(start_count, end_count, clock_rate)
 
-            call cpu_time(t0)
+            call system_clock(start_count, clock_rate)
             do r = 1, reps
                 yb = 1.0_dp
-                call call_fortad_grad(name, N_ELEM, z, yb, zb4)
+                call call_fortad_grad(name, n_elem, z, yb, zb4)
             end do
-            call cpu_time(t1)
-            best_g = min(best_g, t1 - t0)
+            call system_clock(end_count)
+            samples_g(trial) = elapsed_seconds(start_count, end_count, clock_rate)
 
-            call cpu_time(t0)
+            call system_clock(start_count, clock_rate)
             do r = 1, reps
                 yb = 1.0_dp
-                call call_fortad(name, N_ELEM, z, y, yb, zb)
+                call call_fortad(name, n_elem, z, y, yb, zb)
             end do
-            call cpu_time(t1)
-            best_f = min(best_f, t1 - t0)
+            call system_clock(end_count)
+            samples_f(trial) = elapsed_seconds(start_count, end_count, clock_rate)
 
-            call cpu_time(t0)
+            call system_clock(start_count, clock_rate)
             do r = 1, reps
                 zb2 = 0.0_dp
                 yb = 1.0_dp
-                call call_enzyme(name, N_ELEM, z, zb2, y, yb)
+                call call_enzyme(name, n_elem, z, zb2, y, yb)
             end do
-            call cpu_time(t1)
-            best_e = min(best_e, t1 - t0)
+            call system_clock(end_count)
+            samples_e(trial) = elapsed_seconds(start_count, end_count, clock_rate)
 
-            call cpu_time(t0)
+            call system_clock(start_count, clock_rate)
             do r = 1, reps
                 zb3 = 0.0_dp
                 yb = 1.0_dp
-                call call_tapenade(name, N_ELEM, z, zb3, y, yb)
+                call call_tapenade(name, n_elem, z, zb3, y, yb)
             end do
-            call cpu_time(t1)
-            best_t = min(best_t, t1 - t0)
+            call system_clock(end_count)
+            samples_t(trial) = elapsed_seconds(start_count, end_count, clock_rate)
         end do
-        call row(unit, name, "fortad", n_in, best_f, reps)
-        call row(unit, name, "enzyme", n_in, best_e, reps)
-        call row(unit, name, "tapenade", n_in, best_t, reps)
-        call row(unit, name, "fortad-grad", n_in, best_g, reps)
-        call row(unit, name, "primal", n_in, best_p, reps)
 
-        deallocate (z, zb, zb2, zb3, zb4, dir)
+        call row(unit, name, "fortad", n_elem, n_in, samples_f, reps, run_id, provenance_file)
+        call row(unit, name, "enzyme", n_elem, n_in, samples_e, reps, run_id, provenance_file)
+        call row(unit, name, "tapenade", n_elem, n_in, samples_t, reps, run_id, provenance_file)
+        call row(unit, name, "fortad-grad", n_elem, n_in, samples_g, reps, run_id, provenance_file)
+        call row(unit, name, "primal", n_elem, n_in, samples_p, reps, run_id, provenance_file)
+
+        deallocate (z, zb, zb2, zb3, zb4, dir, samples_f, samples_e, samples_t, samples_g, samples_p)
     end subroutine run_workload
 
     subroutine call_fortad(name, n, z, y, yb, zb)
@@ -464,15 +482,108 @@ contains
         end if
     end subroutine check
 
-    subroutine row(unit, name, engine, n_in, seconds, reps)
-        !! One record. Normalised per input so workloads are comparable.
-        integer, intent(in) :: unit, n_in, reps
-        character(len=*), intent(in) :: name, engine
-        real(dp), intent(in) :: seconds
+    real(dp) function elapsed_seconds(start_count, end_count, clock_rate) result(seconds)
+        integer(int64), intent(in) :: start_count, end_count, clock_rate
 
-        write (unit, '(a,",",a,",",i0,",",es14.6,",",f12.4)') &
-            name, engine, n_in, seconds, &
-            seconds*1.0e9_dp/(real(reps, dp)*real(n_in, dp))
+        if (clock_rate <= 0_int64) error stop "system_clock returned no rate"
+        seconds = real(end_count - start_count, dp)/real(clock_rate, dp)
+        if (seconds < 0.0_dp) error stop "system_clock moved backwards"
+    end function elapsed_seconds
+
+    subroutine row(unit, name, engine, problem_size, input_count, samples, reps, &
+            run_id, provenance_file)
+        !! One summary record. Normalised per input so workloads are comparable.
+        integer, intent(in) :: unit, problem_size, input_count, reps
+        character(len=*), intent(in) :: name, engine, run_id, provenance_file
+        real(dp), intent(in) :: samples(:)
+        real(dp), allocatable :: sorted(:)
+        real(dp) :: median_seconds, min_seconds, max_seconds
+        real(dp) :: median_rate, min_rate, max_rate
+
+        allocate (sorted(size(samples)))
+        sorted = samples
+        call sort_samples(sorted)
+        min_seconds = sorted(1)
+        max_seconds = sorted(size(sorted))
+        if (mod(size(sorted), 2) == 1) then
+            median_seconds = sorted((size(sorted) + 1)/2)
+        else
+            median_seconds = 0.5_dp*(sorted(size(sorted)/2) + &
+                sorted(size(sorted)/2 + 1))
+        end if
+        min_rate = min_seconds*1.0e9_dp/(real(reps, dp)*real(input_count, dp))
+        median_rate = median_seconds*1.0e9_dp/(real(reps, dp)*real(input_count, dp))
+        max_rate = max_seconds*1.0e9_dp/(real(reps, dp)*real(input_count, dp))
+
+        write (unit, '(a,",",a,",",i0,",",i0,",",i0,",",i0,",",i0,",", &
+            es14.6,",",es14.6,",",es14.6,",",es14.6,",",es14.6,",", &
+            es14.6,",",a,",",a,",",a)') name, engine, problem_size, &
+            input_count, input_count, reps, size(samples), median_seconds, &
+            min_seconds, max_seconds, median_rate, min_rate, max_rate, &
+            "system_clock_wall", run_id, provenance_file
+        deallocate (sorted)
     end subroutine row
+
+    subroutine sort_samples(values)
+        real(dp), intent(inout) :: values(:)
+        integer :: i, j
+        real(dp) :: value
+
+        do i = 2, size(values)
+            value = values(i)
+            j = i - 1
+            do while (j >= 1)
+                if (values(j) <= value) exit
+                values(j + 1) = values(j)
+                j = j - 1
+            end do
+            values(j + 1) = value
+        end do
+    end subroutine sort_samples
+
+    integer function environment_integer(name, default_value) result(value)
+        character(len=*), intent(in) :: name
+        integer, intent(in) :: default_value
+        character(len=64) :: text
+        integer :: status, ios
+
+        value = default_value
+        call get_environment_variable(name, text, status=status)
+        if (status == 0 .and. len_trim(text) > 0) then
+            read (text, *, iostat=ios) value
+            if (ios /= 0) error stop "invalid integer environment value"
+        end if
+    end function environment_integer
+
+    subroutine parse_sizes(text, values, count)
+        character(len=*), intent(in) :: text
+        integer, intent(out) :: values(:), count
+        integer :: begin_at, end_at, comma, ios, size_value
+        character(len=64) :: token
+
+        count = 0
+        begin_at = 1
+        do
+            if (begin_at > len_trim(text)) exit
+            comma = index(text(begin_at:), ",")
+            if (comma == 0) then
+                end_at = len_trim(text)
+            else
+                end_at = begin_at + comma - 2
+            end if
+            token = ""
+            if (end_at >= begin_at) token = adjustl(text(begin_at:end_at))
+            read (token, *, iostat=ios) size_value
+            if (ios /= 0) error stop "FORTAD_SWEEP_NS contains an invalid size"
+            if (size_value <= 0) &
+                error stop "FORTAD_SWEEP_NS contains an invalid size"
+            if (count >= size(values)) error stop "too many sweep sizes"
+            count = count + 1
+            values(count) = size_value
+            if (comma == 0) exit
+            begin_at = begin_at + comma
+        end do
+        if (count == 0) error stop "FORTAD_SWEEP_NS is empty"
+    end subroutine parse_sizes
 
 end program bench_enzyme_suite
