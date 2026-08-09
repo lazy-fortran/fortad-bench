@@ -109,7 +109,11 @@ def _check_branch_base(manifest: dict) -> None:
             raise SystemExit(f"neither selection nor post-commit hash matches {relative}")
     for selected in manifest["case"]:
         key = (selected["component"], selected["queue_path"])
-        if rows[key]["status"] != selected["classification"]:
+        allowed_statuses = {selected["classification"]}
+        previous = selected.get("previous_classification")
+        if previous:
+            allowed_statuses.add(previous)
+        if rows[key]["status"] not in allowed_statuses:
             raise SystemExit(f"selected row is neither untriaged nor classified as expected: {key}")
 
 

@@ -102,8 +102,8 @@ pointer-alias lane; `v338` also records the approved global-mutable-state
 policy boundary.
 
 The product target is the 1,432-row strict pure-Fortran population. Its current
-status breakdown is 63 runnable cases, 134 measured expected refusals, 35
-invalid-upstream closures, 184 additional FortAD feature boundaries, and five
+status breakdown is 64 runnable cases, 134 measured expected refusals, 35
+invalid-upstream closures, 183 additional FortAD feature boundaries, and five
 other bounded evidence closures; 1,011 pure-Fortran rows remain untriaged. The 74 mixed
 C/C++-Fortran rows stay in a separate dependency lane. “Expected refusal” means
 a reproducible FortAD boundary with a valid upstream case; “invalid-upstream

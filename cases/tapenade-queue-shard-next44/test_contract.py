@@ -29,7 +29,7 @@ def test_contract() -> None:
         ledger = {(row["component"], row["path"]): row for row in csv.DictReader(stream)}
     expected = {
         "set06-v315": (22, "final=1; dimension=5", "unsupported-fortad-mpi-call-rule", "msg1"),
-        "set03-lh087": (15, "dimension=5", "unsupported-fortad-vector-subscript", "cross_prod"),
+        "set03-lh087": (15, "dimension=5", "runnable-ported", "cross_prod"),
         "set11-html01": (15, "bind(c)=2; iso_c_binding=1", "unsupported-fortad-common-block", "barf"),
         "set03-bd09": (14, "pointer=1", "invalid-upstream-pointer-allocation-sequence", "head"),
     }
@@ -58,14 +58,16 @@ def test_contract() -> None:
             assert case["source_reference_sha256"][source] == sha256(ROOT / "upstream/tapenade" / source)
         for mode in ("parser", "forward", "reverse"):
             assert case["modes"][mode]["tapenade"]["status"] == "pass"
-            assert case["modes"][mode]["fortad"]["status"] == ("pass" if case["id"] == "set06-v315" and mode == "parser" else "refused")
+            assert case["modes"][mode]["fortad"]["status"] == ("pass" if case["id"] == "set03-lh087" or (case["id"] == "set06-v315" and mode == "parser") else "refused")
             if case["modes"][mode]["fortad"]["status"] == "refused":
                 assert case["modes"][mode]["fortad"]["generated"] == []
+            elif case["id"] == "set03-lh087":
+                assert all(value["status"] == "pass" for value in case["modes"][mode]["fortad"]["generated_syntax"].values())
     v315 = next(case for case in result["cases"] if case["id"] == "set06-v315")
     assert "no derivative rule for the call to 'MPI_ISEND'" in v315["modes"]["forward"]["fortad"]["stderr"]
     assert "could not infer Tapenade dependent" in v315["modes"]["reverse"]["fortad"]["stderr"]
     lh087 = next(case for case in result["cases"] if case["id"] == "set03-lh087")
-    assert all("unsupported vector subscript" in lh087["modes"][mode]["fortad"]["stderr"] for mode in ("parser", "forward", "reverse"))
+    assert all(lh087["modes"][mode]["fortad"]["status"] == "pass" for mode in ("parser", "forward", "reverse"))
     html01 = next(case for case in result["cases"] if case["id"] == "set11-html01")
     assert all("parse failed" in html01["modes"][mode]["fortad"]["stderr"] for mode in ("parser", "forward", "reverse"))
     bd09 = next(case for case in result["cases"] if case["id"] == "set03-bd09")

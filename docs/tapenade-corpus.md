@@ -584,13 +584,14 @@ result](../cases/tapenade-queue-shard-next43/README.md).
 The next44 modern-feature shard closes four compiler-clean procedure leaders:
 `set06/v315` (`msg1`), `set03/lh087` (`cross_prod`), `set11/html01` (`barf`),
 and `set03/bd09` (`head`). Fresh pinned Tapenade parser/forward/reverse
-products pass for all four roots. FortAD records an MPI derivative-rule
-boundary, vector-subscript storage identity boundary, BIND(C)/COMMON parser
-boundary, and pointer storage boundary. `bd09` is classified separately as an
-invalid-upstream closure because it allocates `cindex` twice before
-deallocation. Exact hashes, compiler evidence, diagnostics, and independent
-behavioral/refusal oracles are in the [next44 shard manifest and
-result](../cases/tapenade-queue-shard-next44/README.md).
+products pass for all four roots. FortAD now generates and strictly compiles
+all three modes for `lh087` using its bounded literal parameter-vector path.
+The shard retains an MPI derivative-rule boundary, a BIND(C)/COMMON parser
+boundary, and a pointer storage boundary for the other actionable rows.
+`bd09` is classified separately as an invalid-upstream closure because it
+allocates `cindex` twice before deallocation. Exact hashes, compiler evidence,
+diagnostics, and independent behavioral/refusal oracles are in the [next44
+shard manifest and result](../cases/tapenade-queue-shard-next44/README.md).
 
 The next45 modern-feature shard closes four compiler-clean pointer-alias
 leaders: `set03/cm01`, `set03/cm02`, `set03/cm03`, and `set06/v338`. Fresh
