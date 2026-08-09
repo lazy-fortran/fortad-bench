@@ -728,6 +728,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
         self.assertTrue(all(row["initial_classification"] for row in rows))
         evidence_paths = {
             "nonRegressions/set03/lh013",
+            "nonRegressions/set03/lh087",
             "nonRegressions/set01/bd01",
             "nonRegressions/set01/bd02",
             "nonRegressions/set01/bd03",
@@ -1141,6 +1142,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "expected-refusal-parser-forward-reverse-no-dependent-module-pointer-state",
                 "pass-parser-forward-reverse-generated-compile-and-independent-affine-oracle",
                 "pass-parser-forward-reverse-generated-strict-compile",
+                "pass-parser-forward-reverse-generated-source",
                 "pass-parser-forward-reverse-no-defined-numeric-map",
             },
         )
@@ -2728,6 +2730,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "strict-and-legacy-compiler|exact-source-sha256|fresh-Tapenade-parser-forward-reverse-generation|FortAD-generated-strict-compile|independent-derived-affine-jvp-vjp-oracle",
                 "dependencies": "local USE data_types; compiler-clean; modern-feature-score=53; exact-source-reference-sha256-in-case-result",
                 "tapenade_result": "pass-fresh-parser-forward-reverse-generation-strict-compile-pass",
+            },
+            "nonRegressions/set03/lh087": {
+                "entry_point": "cross_prod",
+                "tapenade_options": "-p/-root-cross_prod|-d/-root-cross_prod|-b/-root-cross_prod",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source-sha256|fresh-pinned-Tapenade-parser-forward-reverse-generation|FortAD-bounded-constant-parameter-vector-subscript|strict-generated-source-compile|independent-cross-product-jvp-vjp-oracle",
+                "dependencies": "none; exact source is compiler-clean; literal unique parameter vectors i1/i2 are supported; modern-feature-score=15; exact-source-reference-sha256-in-case-result",
+                "tapenade_result": "pass-fresh-pinned-parser-forward-reverse-generation-and-FortAD-products",
             },
             "nonRegressions/set05/v067": {
                 "entry_point": "RUN::s(mb1,mb2,mb3)",
