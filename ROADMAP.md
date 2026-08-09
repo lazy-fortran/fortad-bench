@@ -75,8 +75,9 @@ Tapenade is the third engine of interest. It is the only other one that does
 the affine-recurrence collapse through its to-be-recorded analysis, which
 makes it the comparison baseline for the `rk4` reverse result. Corpus support
 is wired into the harness for the full pinned checkout. The current ledger
-classifies 481 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
-951 pure-Fortran rows remain untriaged. The next8 compiler-clean cases
+classifies 577 pure-Fortran rows and 508 non-Fortran or invalid-source rows;
+855 pure-Fortran rows remain untriaged, with 929 rows in the full queue. The
+next8 compiler-clean cases
 are recorded in `cases/tapenade-queue-shard-next8/`, and the next9 shard adds
 four more exact-source closures in `cases/tapenade-queue-shard-next9/`; next10
 adds four more rows in `cases/tapenade-queue-shard-next10/`; next11 adds four
@@ -117,7 +118,7 @@ score-selected compiler-clean callable roots, with 14 generated products and
 34 explicit phase-specific FortAD boundaries; intentional global-state and
 legacy boundaries remain evidence classifications rather than product failures.
 Next51 closes the following 48 score-0 roots in committed queue order with
-current FortAD `be82f5d`: 4 generated-product cases and 44 explicit
+historical FortAD `be82f5d`: 4 generated-product cases and 44 explicit
 phase-specific refusals, backed by exact hashes, full diagnostics, current
 engine pins, and independent source-map/refusal oracles.
 

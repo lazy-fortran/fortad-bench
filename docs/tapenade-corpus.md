@@ -650,7 +650,7 @@ in the [next50 shard manifest and result](../cases/tapenade-queue-shard-next50/R
 The next51 modern-feature shard closes the next 48 compiler-clean,
 dependency-safe callable roots after next50. All remaining eligible roots had
 score 0, so the cutoff is committed queue order. Tapenade passes parser,
-forward, and reverse for all 48 exact roots; current FortAD `be82f5d…` emits
+forward, and reverse for all 48 exact roots; historical FortAD `be82f5d…` emits
 all three products for 4 and records explicit phase-specific refusals for 44.
 Independent source-map/refusal oracles, exact hashes, full diagnostics, and
 current FortAD/FortFront pins are in the
