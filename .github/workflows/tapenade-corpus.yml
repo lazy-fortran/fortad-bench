@@ -1,0 +1,30 @@
+name: Tapenade full corpus contract
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/tapenade-corpus.yml"
+      - "docs/corpora/tapenade.toml"
+      - "docs/upstreams.toml"
+      - "scripts/fetch_upstreams.py"
+      - "scripts/test_fetch_upstreams.py"
+  pull_request:
+    paths:
+      - ".github/workflows/tapenade-corpus.yml"
+      - "docs/corpora/tapenade.toml"
+      - "docs/upstreams.toml"
+      - "scripts/fetch_upstreams.py"
+      - "scripts/test_fetch_upstreams.py"
+  workflow_dispatch:
+
+jobs:
+  full-corpus:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out benchmark harness
+        uses: actions/checkout@v4
+      - name: Fetch and verify the full Tapenade corpus
+        run: python3 scripts/fetch_upstreams.py --corpus tapenade
+      - name: Re-run the complete offline audit
+        run: python3 scripts/fetch_upstreams.py --audit-corpora

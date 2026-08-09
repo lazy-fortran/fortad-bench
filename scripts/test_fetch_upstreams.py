@@ -154,12 +154,17 @@ class CorpusFetchTests(unittest.TestCase):
         *,
         with_ledger: bool = False,
         with_triage: bool = False,
+        with_tracked_ledger: bool = False,
     ) -> None:
         manifest = root / "docs" / "corpora" / "fixture.toml"
         manifest.parent.mkdir(parents=True)
         license_digest = hashlib.sha256(b"fixture license\n").hexdigest()
         ledger = 'status_ledger = "docs/corpora/fixture-status.csv"\n' if with_ledger else ""
         triage = 'static_triage = "docs/corpora/fixture-static.jsonl"\n' if with_triage else ""
+        tracked_ledger = (
+            'tracked_ledger = "docs/generated/fixture-tracked-files.csv"\n'
+            if with_tracked_ledger else ""
+        )
         manifest.write_text(
             f'''schema_version = 1
 name = "fixture"
@@ -175,6 +180,7 @@ expected_manifest_files = 3
 expected_candidate_cases = 3
 {ledger}
 {triage}
+{tracked_ledger}
 
 [[component]]
 id = "language-cases"
@@ -541,6 +547,69 @@ expected_candidate_cases = 1
 
             self.assertEqual(inventory["revision"], revision)
             self.assertTrue(missing.is_file())
+
+    def test_command_fetches_verifies_and_emits_complete_tracked_ledger(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source, revision, tree = self.make_source(root)
+            self.write_manifest(
+                root, source, revision, tree, with_tracked_ledger=True
+            )
+            destination = root / "upstream"
+            generated = root / "docs" / "generated"
+            entry = {
+                "name": "fixture",
+                "url": source.as_uri(),
+                "ref": revision,
+                "license": "MIT",
+                "corpus_manifest": "docs/corpora/fixture.toml",
+            }
+            argv = ["fetch_upstreams.py", "--corpus", "fixture"]
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination), \
+                    patch.object(fetch_upstreams, "GENERATED", generated), \
+                    patch.object(fetch_upstreams, "load", return_value=[entry]), \
+                    patch.object(sys, "argv", argv):
+                self.assertEqual(fetch_upstreams.main(), 0)
+
+            ledger = generated / "fixture-tracked-files.csv"
+            with ledger.open(encoding="utf-8", newline="") as stream:
+                rows = list(csv.DictReader(stream))
+            expected_hashes = {
+                path: hashlib.sha256((source / path).read_bytes()).hexdigest()
+                for path in (
+                    "LICENSE.md",
+                    "corpus/set01/case_a/program.f90",
+                    "corpus/set01/case_b/program.c",
+                    "aux/test.jl",
+                )
+            }
+            self.assertEqual([row["path"] for row in rows], sorted(expected_hashes))
+            self.assertEqual(
+                {row["path"]: row["sha256"] for row in rows}, expected_hashes
+            )
+            self.assertEqual(
+                {row["path"] for row in rows if row["license_file"] == "yes"},
+                {"LICENSE.md"},
+            )
+            self.assertIn("Exact tracked-file ledger", (generated / "fixture-corpus.md").read_text())
+
+            ledger_bytes = ledger.read_bytes()
+            ledger.write_bytes(b"\n".join(ledger_bytes.splitlines()[:-1]) + b"\n")
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination), \
+                    patch.object(fetch_upstreams, "GENERATED", generated), \
+                    patch.object(fetch_upstreams, "load", return_value=[entry]), \
+                    patch.object(sys, "argv", ["fetch_upstreams.py", "--audit-corpora"]):
+                self.assertEqual(fetch_upstreams.main(), 1)
+            ledger.write_bytes(ledger_bytes)
+
+            with patch.object(fetch_upstreams, "ROOT", root), \
+                    patch.object(fetch_upstreams, "DEST", destination), \
+                    patch.object(fetch_upstreams, "GENERATED", generated), \
+                    patch.object(fetch_upstreams, "load", return_value=[entry]), \
+                    patch.object(sys, "argv", ["fetch_upstreams.py", "--audit-corpora"]):
+                self.assertEqual(fetch_upstreams.main(), 0)
 
     def test_audit_rejects_modified_and_untracked_materialized_files(self):
         with tempfile.TemporaryDirectory() as directory:
