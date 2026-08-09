@@ -100,8 +100,11 @@ contains
         real(dp), intent(in) :: x
         real(dp) :: y
 
-        if (.not. allocated(holder%node)) error stop "empty holder"
-        y = holder%node%value(x) + real(holder%generation, dp)
+        if (.not. allocated(holder%node)) then
+            y = 0.0_dp
+        else
+            y = holder%node%value(x) + real(holder%generation, dp)
+        end if
     end function evaluate_owned
 
     subroutine finalize_holder(holder)

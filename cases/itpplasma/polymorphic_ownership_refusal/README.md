@@ -14,8 +14,9 @@ or dynamic-type information. This is the P8.5/B3/B4/B6 boundary. The existing
 factory-positive case remains the smaller supported `SELECT TYPE` slice.
 The validation record
 ([`itpplasma_oo_boundaries_validation.txt`](../../../results/itpplasma_oo_boundaries_validation.txt))
-records the allocation-lifetime refusal diagnostic. The harness captures
-stderr during the check and verifies that no derivative file is produced.
+records the precise nested polymorphic-component refusal diagnostic. The
+harness captures stderr during the check and verifies that no derivative file
+is produced.
 
 Run the primal and refusal check from the fortad-bench repository root with
 `../fortad` pointing to the FortAD checkout:
