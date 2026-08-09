@@ -1,0 +1,78 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next27"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure rows selected after next26 by the fixed modern-feature score in descending order and committed queue order for ties: set07/v434=34, set07/v542=34, set04/lh107=33, and set05/v152=32."
+selection_queue_sha256 = "781c89f9a29a4e8e49ec33d7d5988379aadacb9e40c083e9942700804fff39cf"
+selection_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+current_queue_sha256 = "63c8c1a03172426e0f830e7a9c4bd239e79168a1b339c9e2fc49414da5272270"
+current_batch_sha256 = "31310aafaf9fa40c50dcce76cc308397d27aec27a44d33a30018f4c378b2a511"
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f878b967f8e0aac10770d771a01bc55431ee0e73"
+independent_arguments = "each oracle models only defined bounded behavior from the exact source and records the exact FortAD refusal or no-map boundary; no invalid-upstream or derivative-support claim is made"
+
+[[case]]
+id = "set07-v434"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v434"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 34
+selection_features = "pointer=2; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v434/program.f90"
+references = ["nonRegressions/set07/v434/program_p.f90"]
+entry_point = "test1"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test1. FortAD refuses all three at pointer-association storage identity. The independent oracle checks only the bounded initialized P2/S2 WHERE map and makes no claim for the source's undefined pointer state."
+oracle_case = "v434-test1-where"
+
+[[case]]
+id = "set07-v542"
+component = "non-regressions"
+queue_path = "nonRegressions/set07/v542"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 34
+selection_features = "allocatable=2; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set07/v542/program.f90"
+references = ["nonRegressions/set07/v542/program_b.f90"]
+entry_point = "test"
+dependent = "rr"
+classification = "unsupported-fortad-allocatable-lifetime"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test with explicit dependent rr; FortAD parser and forward pass, while reverse refuses at explicit deallocation of x in the bounded retention slice. The independent oracle checks rr squared and its JVP only."
+oracle_case = "v542-test-square"
+
+[[case]]
+id = "set04-lh107"
+component = "non-regressions"
+queue_path = "nonRegressions/set04/lh107"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 33
+selection_features = "allocatable=1; type(=2; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set04/lh107/program.f90"
+references = ["nonRegressions/set04/lh107/program_d.f90"]
+entry_point = "foo"
+classification = "unsupported-fortad-global-mutable-state"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root foo. FortAD refuses all three at module-level allocatable mutable state. The independent oracle checks the bounded foo map without claiming support for module state."
+oracle_case = "lh107-foo-map"
+
+[[case]]
+id = "set05-v152"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v152"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 32
+selection_features = "allocatable=1; pointer=1; optional=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v152/program.f90"
+references = ["nonRegressions/set05/v152/program_p.f90"]
+entry_point = "test"
+dependent = "v"
+classification = "expected-refusal"
+closure = "Fresh pinned Tapenade parser, forward, and reverse probes pass for exact root test with explicit dependent v. The exact source defines no numeric output map: v is unassigned and the pointer/allocatable declarations are only storage context. The independent oracle records that no numeric derivative claim is defined."
+oracle_case = "v152-no-numeric-map"

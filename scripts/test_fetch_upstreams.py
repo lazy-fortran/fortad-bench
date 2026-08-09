@@ -917,6 +917,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
             "nonRegressions/set05/v125",
             "nonRegressions/set05/v137",
             "nonRegressions/set05/v150",
+            "nonRegressions/set05/v152",
             "nonRegressions/set05/v168",
             "nonRegressions/set06/v234",
             "nonRegressions/set06/v314",
@@ -1140,6 +1141,7 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "expected-refusal-parser-forward-reverse-no-dependent-module-pointer-state",
                 "pass-parser-forward-reverse-generated-compile-and-independent-affine-oracle",
                 "pass-parser-forward-reverse-generated-strict-compile",
+                "pass-parser-forward-reverse-no-defined-numeric-map",
             },
         )
         expected_evidence = {
@@ -2534,6 +2536,14 @@ class CommittedTapenadeLedgerTests(unittest.TestCase):
                 "oracle": "independent-optional-rank-generic-interface-source-and-refusal-oracle-pass|no-derivative-support-claim",
                 "dependencies": "none-reported; compiler-clean; modern-feature-score=149; exact-source-reference-sha256-in-case-result",
                 "tapenade_result": "pass-parser-forward-reverse-no-active-input-or-output-message",
+            },
+            "nonRegressions/set05/v152": {
+                "entry_point": "test",
+                "tapenade_options": "-p|-d/-root-test|-b/-root-test",
+                "modes": "parser|forward|reverse",
+                "oracle": "exact-source-sha256|fresh-pinned-Tapenade-parser-forward-reverse-generation|FortAD-explicit-dependent-v-probe|independent-no-numeric-map-oracle",
+                "dependencies": "explicit --dep v; exact source is compiler-clean; output v is unassigned and pointer/allocatable declarations have no defined numeric map; modern-feature-score=32; exact-source-reference-sha256-in-case-result",
+                "tapenade_result": "pass-fresh-pinned-parser-forward-reverse-generation",
             },
             "nonRegressions/set04/v048": {
                 "entry_point": "twice_real",

@@ -82,6 +82,10 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set11/ompl07"): "unsupported-fortad-openmp-directive",
     ("non-regressions", "nonRegressions/set05/v179"): "unsupported-fortad-active-io",
     ("non-regressions", "nonRegressions/set06/v341"): "unsupported-fortad-allocatable-derived-component",
+    ("non-regressions", "nonRegressions/set07/v434"): "unsupported-fortad-pointer-alias-lifetime",
+    ("non-regressions", "nonRegressions/set07/v542"): "unsupported-fortad-allocatable-lifetime",
+    ("non-regressions", "nonRegressions/set04/lh107"): "unsupported-fortad-global-mutable-state",
+    ("non-regressions", "nonRegressions/set05/v152"): "expected-refusal",
     ("non-regressions", "nonRegressions/set11/v540a"): "unsupported-fortad-pointer-alias-lifetime",
     ("non-regressions", "nonRegressions/set11/v541a"): "unsupported-fortad-pointer-alias-lifetime",
     ("non-regressions", "nonRegressions/set11/lh011"): "unsupported-fortad-global-mutable-state",
@@ -197,7 +201,7 @@ class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
         rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
-        self.assertEqual(len(rows), 1161)
+        self.assertEqual(len(rows), 1157)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
             Counter({
@@ -205,7 +209,7 @@ class CommittedQueueTests(unittest.TestCase):
                 "parser-or-invalid-risk": 0,
                 "no-entry-point-evidence": 0,
                 "runnable-program-candidate": 256,
-                "runnable-procedure-candidate": 831,
+                "runnable-procedure-candidate": 827,
             }),
         )
         self.assertEqual(sum(row["dependency_risk"] for row in rows), 112)
@@ -237,7 +241,7 @@ class CommittedQueueTests(unittest.TestCase):
         }
         self.assertEqual(queued, untriaged)
         self.assertTrue(set(MEASURED_SHARD_CLOSURES).isdisjoint(queued))
-        self.assertEqual(len(queued), 1161)
+        self.assertEqual(len(queued), 1157)
 
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
