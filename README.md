@@ -337,14 +337,14 @@ because it belongs next to the engines rather than next to the compiler.
   `scripts/fetch_upstreams.py --corpus tapenade` to fetch, verify, and write the
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
-  audit. Sixty-three rows now have executable FortAD evidence, 318 bounded
-  pure-Fortran refusal or feature/dependency classifications, and thirty-five
-  invalid-upstream closures are independently recorded, plus five other bounded
-  evidence closures. Another
+  audit. Sixty-four rows now have executable FortAD evidence. The ledger
+  contains 425 classified pure-Fortran rows: 64 runnable cases, 134 measured
+  expected refusals, 35 invalid-upstream closures, 187 additional FortAD
+  feature boundaries, and five other bounded evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,085 rows are queued: 1,011 pure-Fortran rows and 74 mixed-language rows.
+  1,081 rows are queued: 1,007 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -533,8 +533,9 @@ because it belongs next to the engines rather than next to the compiler.
   invalid upstream.
   The next38 modern-feature shard closes `set10/lh215`, `set10/lh216`,
   `set12/mvo11`, and `set07/v472`, at fixed scores 24, 24, 24, and 22. It
-  records array-reduction, `SPREAD`, local-interface, and generated function-
-  result boundaries with fresh exact-source probes and independent
+  records array-reduction, `SPREAD` parser/forward support with a reverse
+  dependent-inference boundary, local-interface, and generated function-result
+  boundaries with fresh exact-source probes and independent
   behavioral/refusal oracles. See the [next38 shard manifest and
   result](cases/tapenade-queue-shard-next38/README.md); none is classified as
   invalid upstream.
@@ -581,6 +582,12 @@ because it belongs next to the engines rather than next to the compiler.
   valid upstream cases with reproducible pointer storage-identity refusals;
   `v338` additionally contains module-level mutable state. See the
   [next45 shard manifest and result](cases/tapenade-queue-shard-next45/README.md).
+  The next46 modern-feature shard closes `set04/v036`, `set06/v274`,
+  `set06/v275`, and `set03/cm17`. The interval cases are explicit
+  global-mutable-state policy boundaries; `cm17` is a pointer storage-identity
+  boundary. Tapenade passes all three modes for each case, while FortAD
+  reproducibly refuses them with independent bounded behavioral oracles. See
+  the [next46 shard manifest and result](cases/tapenade-queue-shard-next46/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness

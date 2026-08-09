@@ -29,13 +29,13 @@ def test_contract() -> None:
         ledger = {(row["component"], row["path"]): row for row in csv.DictReader(stream)}
     expected = {
         "set10-lh215": (24, "dimension=8", "unsupported-fortad-invalid-generated-interface", "foo"),
-        "set10-lh216": (24, "dimension=8", "unsupported-fortad-generic-intrinsic", "foo"),
+        "set10-lh216": (24, "dimension=8", "unsupported-fortad-dependent-inference", "foo"),
         "set12-mvo11": (24, "interface=3; dimension=3", "unsupported-fortad-invalid-generated-interface", "bug"),
         "set07-v472": (22, "interface=2; dimension=4", "unsupported-fortad-invalid-generated-interface", "compute"),
     }
     expected_fortad = {
         "set10-lh215": {"parser": "pass", "forward": "pass", "reverse": "pass"},
-        "set10-lh216": {"parser": "pass", "forward": "refused", "reverse": "refused"},
+        "set10-lh216": {"parser": "pass", "forward": "pass", "reverse": "refused"},
         "set12-mvo11": {"parser": "refused", "forward": "refused", "reverse": "refused"},
         "set07-v472": {"parser": "pass", "forward": "pass", "reverse": "pass"},
     }
@@ -81,7 +81,7 @@ def test_contract() -> None:
     assert by_id["set10-lh215"]["modes"]["reverse"]["fortad"]["generated_syntax"]["probe_b.f90"]["status"] == "refused"
     assert "must be an array" in by_id["set10-lh215"]["modes"]["reverse"]["fortad"]["generated_syntax"]["probe_b.f90"]["stderr"]
     assert "Incompatible ranks" in by_id["set10-lh215"]["modes"]["reverse"]["fortad"]["generated_syntax"]["probe_b.f90"]["stderr"]
-    assert "no derivative rule for 'SPREAD'" in by_id["set10-lh216"]["modes"]["forward"]["fortad"]["stderr"]
+    assert by_id["set10-lh216"]["modes"]["forward"]["fortad"]["status"] == "pass"
     assert "could not infer Tapenade dependent" in by_id["set10-lh216"]["modes"]["reverse"]["fortad"]["stderr"]
     assert all("unsupported statement at line 12" in by_id["set12-mvo11"]["modes"][mode]["fortad"]["stderr"] for mode in ("parser", "forward", "reverse"))
     for mode, product in (("parser", "probe_p.f90"), ("forward", "probe_d.f90"), ("reverse", "probe_b.f90")):

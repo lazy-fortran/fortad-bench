@@ -15,7 +15,7 @@ MEASURED_SHARD_CLOSURES = {
     ("non-regressions", "nonRegressions/set05/v173"): "unsupported-fortad-invalid-generated-interface",
     ("non-regressions", "nonRegressions/set04/lh150"): "unsupported-fortad-allocatable-lifetime",
     ("non-regressions", "nonRegressions/set10/lh215"): "unsupported-fortad-invalid-generated-interface",
-    ("non-regressions", "nonRegressions/set10/lh216"): "unsupported-fortad-generic-intrinsic",
+    ("non-regressions", "nonRegressions/set10/lh216"): "unsupported-fortad-dependent-inference",
     ("non-regressions", "nonRegressions/set12/mvo11"): "unsupported-fortad-invalid-generated-interface",
     ("non-regressions", "nonRegressions/set07/v472"): "unsupported-fortad-invalid-generated-interface",
     ("non-regressions", "nonRegressions/set05/v182"): "unsupported-fortad-procedure-call-actual",

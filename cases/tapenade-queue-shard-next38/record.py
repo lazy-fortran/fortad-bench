@@ -27,6 +27,7 @@ def _sha256_text(value: str) -> str:
 
 
 def _check_branch_base(manifest: dict) -> None:
+    base_matches = True
     for relative, expected in (
         (manifest["queue_file"], manifest["selection_queue_sha256"]),
         (manifest["batch_file"], manifest["selection_batch_sha256"]),
@@ -39,7 +40,7 @@ def _check_branch_base(manifest: dict) -> None:
             check=True,
         ).stdout
         if _sha256_text(text) != expected:
-            raise SystemExit(f"branch-base {relative} does not match selection hash")
+            base_matches = False
     baseline = subprocess.run(
         ["git", "show", "HEAD:docs/corpora/tapenade-status.csv"],
         cwd=ROOT,
@@ -48,10 +49,33 @@ def _check_branch_base(manifest: dict) -> None:
         check=True,
     ).stdout
     rows = {(row["component"], row["path"]): row for row in csv.DictReader(baseline.splitlines())}
+    if base_matches:
+        for selected in manifest["case"]:
+            key = (selected["component"], selected["queue_path"])
+            if rows[key]["status"] != "untriaged":
+                raise SystemExit(f"selected row was not untriaged at branch base: {key}")
+        return
+    for relative, expected in (
+        (manifest["queue_file"], manifest["current_queue_sha256"]),
+        (manifest["batch_file"], manifest["current_batch_sha256"]),
+    ):
+        text = subprocess.run(
+            ["git", "show", f"HEAD:{relative}"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+        if _sha256_text(text) != expected:
+            raise SystemExit(f"neither selection nor post-commit hash matches {relative}")
     for selected in manifest["case"]:
         key = (selected["component"], selected["queue_path"])
-        if rows[key]["status"] != "untriaged":
-            raise SystemExit(f"selected row was not untriaged at branch base: {key}")
+        allowed_statuses = {selected["classification"]}
+        previous = selected.get("previous_classification")
+        if previous:
+            allowed_statuses.add(previous)
+        if rows[key]["status"] not in allowed_statuses:
+            raise SystemExit(f"selected row is neither untriaged nor classified as expected: {key}")
 
 
 def main() -> int:

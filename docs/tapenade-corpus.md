@@ -110,10 +110,11 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,011 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 63 executable evidence rows, 318 bounded
-  pure-Fortran refusal or feature/dependency classifications, and 35
-  invalid-upstream closures, plus five other bounded evidence closures. The profile, shard-3, and shard-0
+  either engine. It leaves 1,007 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 executable evidence rows and 425
+  classified pure-Fortran rows: 134 measured expected refusals, 35
+  invalid-upstream closures, 187 additional FortAD feature boundaries, and
+  five other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
   independent derivative checks; the shard-0 case is `set04/lh148`.
@@ -524,8 +525,9 @@ The next38 modern-feature shard closes the following four compiler-clean,
 dependency-safe rows at fixed scores 24, 24, 24, and 22: `set10/lh215`,
 `set10/lh216`, `set12/mvo11`, and `set07/v472`. Fresh pinned Tapenade
 parser/forward/reverse probes pass for all four roots. FortAD records an
-array-reduction reverse generated-syntax failure, an active `SPREAD` refusal,
-a local-interface refusal, and generated function-result interface failures.
+array-reduction reverse generated-syntax failure, parser/forward `SPREAD`
+support with a reverse dependent-inference boundary, a local-interface refusal,
+and generated function-result interface failures.
 Exact source/reference hashes, FortAD diagnostics, and independent
 behavioral/refusal oracles are in the [next38 shard manifest and result](../cases/tapenade-queue-shard-next38/README.md);
 none is classified as invalid upstream.
@@ -601,6 +603,14 @@ contains module-level mutable pointer state, which remains outside the
 approved policy even after pointer support improves. Exact hashes, compiler
 evidence, diagnostics, and independent behavioral/refusal oracles are in the
 [next45 shard manifest and result](../cases/tapenade-queue-shard-next45/README.md).
+
+The next46 modern-feature shard closes four compiler-clean procedure leaders:
+`set04/v036`, `set06/v274`, `set06/v275`, and `set03/cm17`. Tapenade passes
+parser, forward, and reverse generation for all four. FortAD records three
+explicit global-mutable-state policy refusals and one pointer storage-identity
+refusal, each with an independent bounded behavioral oracle. Exact hashes,
+compiler evidence, diagnostics, and refusal boundaries are in the
+[next46 shard manifest and result](../cases/tapenade-queue-shard-next46/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
