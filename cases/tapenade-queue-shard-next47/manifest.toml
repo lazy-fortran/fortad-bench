@@ -1,0 +1,75 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next47"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure candidates selected after next46 by the fixed case-insensitive modern-feature score, descending score and committed queue order for ties. The higher-scoring compiler-clean procedure leaders are nonRegressions/set03/cm27=14, nonRegressions/set03/cm28=14, nonRegressions/set03/lh052=14, and nonRegressions/set05/v118=14. Program-only leaders nonRegressions/set03/cm08=82, nonRegressions/set03/cm06=44, and nonRegressions/set03/cm16=34 remain queued because the three-mode contract requires a callable procedure root."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "f47d42e477f418c0850cdc4c1d891576f11a4790"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "bd4d7d21ac6f0ea9e0feb1e9101b121092683ffb503dea47522849eb9b035977"
+current_queue_sha256 = "9a672c0ed615477e23c02e6b4cbe6ea1b394a991992dd48718c6266c9727375e"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection_batch_sha256 = "02f6902e196dc678f588e1d8b84b7712539f466c9799ee5d54e84e5b4823f42b"
+current_batch_sha256 = "86abbb9bdf7d900c03e7fef5fefbecb3e6c8e24f5a79ff623346de8c1e350152"
+
+[[case]]
+id = "set03-cm27"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm27"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root top, while exact source and reference files are compiler-clean. FortAD refuses all three modes because pointer-association storage identity for p is not tracked. The independent oracle checks the defined positive and nonpositive b branches and their selected pointer targets without claiming a numeric derivative for the exact pointer-state source."
+source = "nonRegressions/set03/cm27/program.f90"
+references = ["nonRegressions/set03/cm27/program_p.f90"]
+entry_point = "top"
+oracle_case = "cm27-pointer-branch"
+
+[[case]]
+id = "set03-cm28"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/cm28"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root top, while exact source and reference files are compiler-clean. FortAD refuses all three modes because pointer-association storage identity for p is not tracked. The independent oracle checks the defined b>0 branch r=b**2 and its JVP/VJP identity, explicitly excluding the unassociated-pointer branch from any source claim."
+source = "nonRegressions/set03/cm28/program.f90"
+references = ["nonRegressions/set03/cm28/program_p.f90"]
+entry_point = "top"
+oracle_case = "cm28-defined-pointer-branch"
+
+[[case]]
+id = "set03-lh052"
+component = "non-regressions"
+queue_path = "nonRegressions/set03/lh052"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root sub, while exact source and reference files are compiler-clean. FortAD refuses all three modes because TARGET alias storage identity for X is not tracked. The independent oracle checks the defined two-target quadratic update and its finite-difference JVP, VJP, and adjoint identity without claiming exact-source derivative support."
+source = "nonRegressions/set03/lh052/program.f90"
+references = ["nonRegressions/set03/lh052/program_b.f90", "nonRegressions/set03/lh052/program_d.f90"]
+entry_point = "sub"
+oracle_case = "lh052-target-update"
+
+[[case]]
+id = "set05-v118"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v118"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+classification = "unsupported-fortad-pointer-alias-lifetime"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root foo, while exact source and reference files are compiler-clean. FortAD refuses all three modes because pointer-association storage identity for p5 is not tracked. The independent oracle checks the p5 and p7 pointer graph for associated and unassociated p6 states and records that the unassigned function result has no numeric derivative contract."
+source = "nonRegressions/set05/v118/program.f90"
+references = ["nonRegressions/set05/v118/program_p.f90"]
+entry_point = "foo"
+oracle_case = "v118-pointer-graph"

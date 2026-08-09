@@ -110,10 +110,10 @@ source as unsupported FortAD input. It separately marks two candidates with no
 recognized source. Entry points, options, modes, and dependencies remain
 `not-inspected`. Tapenade stays `not-run`. The FortAD result records either an
 unsupported source language or no recognized source. The command does not run
-  either engine. It leaves 1,007 pure-Fortran and 74 mixed-language rows
-  untriaged. The ledger currently has 64 executable evidence rows and 425
+  either engine. It leaves 1,003 pure-Fortran and 74 mixed-language rows
+  untriaged. The ledger currently has 64 executable evidence rows and 429
   classified pure-Fortran rows: 134 measured expected refusals, 35
-  invalid-upstream closures, 187 additional FortAD feature boundaries, and
+  invalid-upstream closures, 191 additional FortAD feature boundaries, and
   five other bounded evidence closures. The profile, shard-3, and shard-0
   tranches add exact-source
   Tapenade generation, strict generated compilation, FortAD transforms, and
@@ -611,6 +611,15 @@ explicit global-mutable-state policy refusals and one pointer storage-identity
 refusal, each with an independent bounded behavioral oracle. Exact hashes,
 compiler evidence, diagnostics, and refusal boundaries are in the
 [next46 shard manifest and result](../cases/tapenade-queue-shard-next46/README.md).
+
+The next47 modern-feature shard closes four score-14, compiler-clean,
+dependency-safe procedure leaders in committed queue order: `set03/cm27`,
+`set03/cm28`, `set03/lh052`, and `set05/v118`. Tapenade passes parser, forward,
+and reverse generation for all four. FortAD records three pointer-association
+and one TARGET alias storage-identity refusal, each with an independent bounded
+behavior/refusal oracle. Exact hashes, compiler evidence, diagnostics, and
+refusal boundaries are in the
+[next47 shard manifest and result](../cases/tapenade-queue-shard-next47/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade
