@@ -1,0 +1,78 @@
+schema_version = 1
+shard_id = "tapenade-fortran-queue-shard-next48"
+selection = "Exactly four previously unclassified pure-Fortran, compiler-clean, dependency-safe, free-form procedure candidates selected after next47 by the fixed case-insensitive modern-feature score, descending score and committed queue order for ties: nonRegressions/set05/v153=14, nonRegressions/set05/v155=11, nonRegressions/set06/v246=10, and nonRegressions/set06/v280=10. Program-only candidates and lower-scoring callable candidates remain queued."
+upstream_revision = "e59864cab441d4175df75383b3ff58c3dcd26df9"
+fortad_revision = "692f2e0160bba00ac32a50a79f5bd2e8c3c68029"
+fortfront_revision = "6c27ca86a52066e46d318633febca52d41c106b6"
+queue_file = "docs/corpora/tapenade-fortran-queue.jsonl"
+selection_queue_sha256 = "9a672c0ed615477e23c02e6b4cbe6ea1b394a991992dd48718c6266c9727375e"
+current_queue_sha256 = "14add8e9042e7c99b2d8c46e6fd3abdbc1062095c6f1881288d20bfcd742fd0b"
+batch_file = "docs/corpora/tapenade-fortran-batch.jsonl"
+selection_batch_sha256 = "64557aec7bea700049e7497152ba4569e3577bc817437e6f01111bb900306902"
+current_batch_sha256 = "7d2725b9984c5a481f82ce78b6160baaa95c16845063c8a76788f8d32713edd7"
+probe = "scripts/probe_tapenade_fortad.py --case CASE --entry-point ENTRY_POINT --fortad ../fortad/build/fo/bin/fortad --tapenade upstream/tapenade/bin/tapenade"
+independent_arguments = "each oracle independently models the exact defined behavior or explicit no-map/refusal boundary; no transformed output is read and no refusal is promoted to derivative support"
+
+[[case]]
+id = "set05-v153"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v153"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 14
+selection_features = "pointer=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v153/program.f90"
+references = ["nonRegressions/set05/v153/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products or messages for exact root test. The exact routine has no active assignment or defined numeric result; FortAD's parser product is not standalone-strict because the implicit dummies are undeclared, and its forward/reverse probes refuse automatic independent inference. The independent no-map oracle records the unused dummy/pointer state and makes no derivative-support claim."
+oracle_case = "v153-no-numeric-map"
+
+[[case]]
+id = "set05-v155"
+component = "non-regressions"
+queue_path = "nonRegressions/set05/v155"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 11
+selection_features = "type(=1; dimension=1"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set05/v155/program.f90"
+references = ["nonRegressions/set05/v155/program_p.f90"]
+entry_point = "g"
+classification = "unsupported-fortad-derived-type-constructor"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for exact root g. The exact function has the defined identity map g(t)=t but constructs a local array of derived-type values; FortAD refuses the derived-type constructor statement before derivative generation. The independent identity JVP/VJP oracle checks the source map without reading generated output."
+oracle_case = "v155-derived-constructor-identity"
+
+[[case]]
+id = "set06-v246"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v246"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 10
+selection_features = "optional=1; dimension=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v246/program.f90"
+references = ["nonRegressions/set06/v246/program_p.f90"]
+entry_point = "test"
+classification = "unsupported-fortad-invalid-generated-interface"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c and FortAD emit parser, forward, and reverse products for exact root test. The optional mask and explicit-shape declarations are accepted, but every FortAD generated source fails strict syntax at the empty result/interface and misplaced kind declaration; the exact function also never assigns its result. The independent optional-shape/no-map oracle records both boundaries without claiming derivative support."
+oracle_case = "v246-optional-no-numeric-map"
+
+[[case]]
+id = "set06-v280"
+component = "non-regressions"
+queue_path = "nonRegressions/set06/v280"
+queue_rank = 50
+queue_category = "runnable-procedure-candidate"
+selection_score = 10
+selection_features = "interface/bind(c)/iso_c_binding=2"
+compiler_status = "compiler-clean"
+source = "nonRegressions/set06/v280/program.f90"
+references = ["nonRegressions/set06/v280/program_p.f90"]
+entry_point = "add"
+classification = "unsupported-fortad-no-independent-variable"
+closure = "Fresh automatic-fetch provenance at pinned Tapenade e59864c gives parser, forward, and reverse products for module procedure add. The exact source defines the in-place affine map b := b + a, while FortAD parser succeeds and forward/reverse refuse because no independent variables can be inferred from the implicit interface. The independent affine JVP/VJP oracle checks that map and the refusal boundary separately."
+oracle_case = "v280-inplace-affine"

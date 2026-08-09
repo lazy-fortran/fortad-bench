@@ -338,13 +338,14 @@ because it belongs next to the engines rather than next to the compiler.
   gitignored local inventory. The committed
   [`status ledger`](docs/corpora/tapenade-status.csv) is checked by the same
   audit. Sixty-four rows now have executable FortAD evidence. The ledger
-  contains 429 classified pure-Fortran rows: 64 runnable cases, 134 measured
-  expected refusals, 35 invalid-upstream closures, 191 additional FortAD
-  feature boundaries, and five other bounded evidence closures. Another
+  contains 433 classified pure-Fortran rows (941 of 2,014 candidates overall):
+  64 runnable cases, 134 measured expected refusals, 35 invalid-upstream
+  closures, 195 additional FortAD feature boundaries, and five other bounded
+  evidence closures. Another
   508 rows have no supported
   Fortran input: 506 contain only C, C++, CUDA, or Julia source, and two contain
   no recognized source. Tapenade was not run for those rows. The remaining
-  1,077 rows are queued: 1,003 pure-Fortran rows and 74 mixed-language rows.
+  1,073 rows are queued: 999 pure-Fortran rows and 74 mixed-language rows.
   The first [set01 support
   cases](cases/tapenade-set01/README.md) link
   their manifest, runner, oracles, and measurements, and record exact upstream
@@ -594,6 +595,12 @@ because it belongs next to the engines rather than next to the compiler.
   pointer/TARGET storage-identity refusals with independent pointer-state or
   two-target derivative oracles. See the
   [next47 shard manifest and result](cases/tapenade-queue-shard-next47/README.md).
+  The next48 modern-feature shard closes `set05/v153`, `set05/v155`,
+  `set06/v246`, and `set06/v280` in committed queue order, recording
+  no-independent-variable, derived-type-constructor, and
+  invalid-generated-interface boundaries. Its probe base is FortAD `692f2e0`
+  with FortFront `6c27ca86`; see the
+  [next48 shard manifest and result](cases/tapenade-queue-shard-next48/README.md).
   [`static triage`](docs/corpora/tapenade-static.jsonl) records tracked source
   files plus syntactic entry-point, include, and module dependency hints. It is
   discovery evidence only, not a parse, build, transformation, or correctness
