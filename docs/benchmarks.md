@@ -17,6 +17,11 @@ additional operators, but is reported separately rather than folded into that
 separately because its recorded environment lacks a compatible Enzyme toolchain. It is not
 included in a same-machine ratio.
 
+The [downstream comparison protocol](downstream-comparison.md) adds per-case
+Tapenade coverage, matched reverse-product contracts and retained process
+samples for a fresh run. Its documentation states the checks and measurement
+limits; the historical records below keep their original scope.
+
 ![fortad against Enzyme](../results/fortad_vs_enzyme.png)
 
 ![Absolute cost per input](../results/fortad_vs_enzyme_absolute.png)
