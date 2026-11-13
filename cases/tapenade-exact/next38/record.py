@@ -13,7 +13,7 @@ from pathlib import Path
 
 CASE = Path(__file__).resolve().parent
 ROOT = CASE.parents[2]
-SOURCE = ROOT / "cases" / "next-modern" / "record.py"
+SOURCE = CASE.parent / "next-modern" / "record.py"
 SPEC = importlib.util.spec_from_file_location("next_modern_record", SOURCE)
 if SPEC is None or SPEC.loader is None:
     raise RuntimeError(f"cannot load recorder: {SOURCE}")
