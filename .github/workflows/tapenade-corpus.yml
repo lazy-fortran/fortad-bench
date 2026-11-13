@@ -2,9 +2,11 @@ name: Tapenade full corpus contract
 
 on:
   merge_group:
+  pull_request:
 
 jobs:
   full-corpus:
+    if: github.event_name == 'merge_group'
     runs-on: ubuntu-latest
     steps:
       - name: Check out benchmark harness

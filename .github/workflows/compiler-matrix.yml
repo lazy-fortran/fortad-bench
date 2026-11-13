@@ -2,9 +2,11 @@ name: fortad compiler matrix
 
 on:
   merge_group:
+  pull_request:
 
 jobs:
   compiler-matrix:
+    if: github.event_name == 'merge_group'
     runs-on: [self-hosted, itp-ubuntu24, itp-portable]
     steps:
       - name: Check out benchmark harness
