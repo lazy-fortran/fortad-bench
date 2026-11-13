@@ -1,16 +1,11 @@
 name: fortad compiler matrix
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  merge_group:
 
 jobs:
   compiler-matrix:
-    # The matrix uses the TU Graz toolchain installed on the self-hosted
-    # runner; the generated source is still compiled by each compiler rather
-    # than by a single host compiler.
-    runs-on: [self-hosted, linux, x64]
+    runs-on: [self-hosted, itp-ubuntu24, itp-portable]
     steps:
       - name: Check out benchmark harness
         uses: actions/checkout@v4
@@ -34,8 +29,47 @@ jobs:
           repository: lazy-fortran/fortgen
           path: fortgen
           ref: main
+      - name: Set up Intel Fortran
+        uses: fortran-lang/setup-fortran@0427bcf12035acf4ad25a1eb5439c177b62ea66e
+        with:
+          compiler: intel
+          version: '2026.1'
+      - name: Set up LLVM Flang
+        id: flang
+        uses: fortran-lang/setup-fortran@0427bcf12035acf4ad25a1eb5439c177b62ea66e
+        with:
+          compiler: flang
+          version: '23'
+      - name: Set up NVIDIA Fortran
+        uses: fortran-lang/setup-fortran@0427bcf12035acf4ad25a1eb5439c177b62ea66e
+        with:
+          compiler: nvidia-hpc
+          version: '26.1'
+      - name: Set up LFortran
+        uses: fortran-lang/setup-fortran@0427bcf12035acf4ad25a1eb5439c177b62ea66e
+        with:
+          compiler: lfortran
+          version: '0.69.0'
+      - name: Expose LLVM Flang under the matrix command name
+        env:
+          FLANG_COMPILER: ${{ steps.flang.outputs.fc }}
+        run: |
+          flang_compiler_path=$(command -v "$FLANG_COMPILER")
+          mkdir -p "$RUNNER_TEMP/fortad-compiler-bin"
+          ln -sf "$flang_compiler_path" "$RUNNER_TEMP/fortad-compiler-bin/flang-new"
+          echo "$RUNNER_TEMP/fortad-compiler-bin" >> "$GITHUB_PATH"
+      - name: Set up fpm
+        uses: fortran-lang/setup-fpm@a03b5f81f16417c937a31b745eeb866c5a26a7a0 # v10
+        with:
+          fpm-version: v0.13.0
       - name: Run required compiler matrix
         working-directory: fortad-bench
         env:
           FORTAD_REPO: ${{ github.workspace }}/fortad
+          FC: gfortran
+          FPM_FC: gfortran
+          CC: gcc
+          FPM_CC: gcc
+          CXX: g++
+          FPM_CXX: g++
         run: ./scripts/check_compilers.sh
