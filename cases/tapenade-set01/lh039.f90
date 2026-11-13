@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Port of Tapenade nonRegressions/set01/lh039/program.f at
 ! e59864cab441d4175df75383b3ff58c3dcd26df9.
 ! The port keeps the two subroutine calls and the in-place input writes.

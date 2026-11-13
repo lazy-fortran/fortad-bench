@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 module tapenade_set01_lh037_case
     use, intrinsic :: iso_fortran_env, only: dp => real64
     implicit none

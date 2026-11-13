@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Standards-clean callable port of Tapenade nonRegressions/set06/v379.
 ! SPDX-License-Identifier: MIT
 module tapenade_set06_v379

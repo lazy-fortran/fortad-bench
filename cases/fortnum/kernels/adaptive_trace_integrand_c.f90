@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine adaptive_trace_integrand(n, z, y) bind(C, name="adaptive_trace_integrand")
     !! adaptive_trace_integrand, as Enzyme differentiates it in fortnum, applied over a batch.
     !!

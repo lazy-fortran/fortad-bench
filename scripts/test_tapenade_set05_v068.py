@@ -44,7 +44,7 @@ class V068ClosureTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_closes_only_v068(self) -> None:
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set05/v068"]["status"], "unsupported-invalid-upstream-fortran")
         self.assertEqual(rows["nonRegressions/set05/v068"]["fortad_result"], "not-run-invalid-upstream-source")
@@ -61,8 +61,6 @@ class V068ClosureTests(unittest.TestCase):
     def test_independent_source_oracle_passes(self) -> None:
         oracle = load_oracle()
         upstream = Path(os.environ.get("TAPENADE_REPO", str(ROOT / "upstream/tapenade")))
-        if not upstream.is_dir():
-            upstream = Path("/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade")
         source_dir = upstream / "nonRegressions/set05/v068"
         completed = subprocess.run(
             ["python3", str(CASE / "v068_oracle.py"), str(source_dir)],

@@ -8,7 +8,7 @@ import unittest
 ROOT = Path(__file__).resolve().parent.parent
 CASE = ROOT / "cases" / "tapenade-set01"
 RESULT = ROOT / "results" / "tapenade_set01_lh008_validation.txt"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 
 
 class Lh008EvidenceTests(unittest.TestCase):

@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Port of Tapenade todoF90/REFERENCES/v420/program.f90.
 ! Upstream source is MIT-licensed; this port keeps the original arithmetic.
 module tapenade_v420_case

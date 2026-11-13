@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine laplace_singular_edge_potential(n, z, y) bind(C, name="laplace_singular_edge_potential")
     !! laplace_singular_edge_potential over a batch, its outputs summed.
     !!

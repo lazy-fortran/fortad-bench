@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming port of nonRegressions/set01/lh041/program.f.
 ! The COMMON state and fixed-form labels are made explicit so that the
 ! numerical probe isolates the nested-loop derivative from those exact-source

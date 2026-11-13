@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! SPDX-License-Identifier: MIT
 ! Bounded port of Tapenade nonRegressions/set04/lh110.
 !

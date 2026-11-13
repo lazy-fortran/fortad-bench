@@ -2,7 +2,8 @@
 #
 # This manifest describes paths in the unmodified upstream checkout. The fetch
 # helper verifies the revision, tree, file counts, and candidate-case count. No
-# Tapenade source is committed to fortad-bench.
+# Complete upstream checkouts are not distributed; documented source ports
+# are listed in PROVENANCE.md.
 
 schema_version = 1
 name = "tapenade"
@@ -16,8 +17,8 @@ license_sha256 = "6e9ae5114a26dbb9c87fab1df1c8743f8e6ecb61c164e6b2eae3d5f45a840e
 expected_tracked_files = 10977
 expected_manifest_files = 10513
 expected_candidate_cases = 2014
-status_ledger = "docs/corpora/tapenade-status.csv"
-static_triage = "docs/corpora/tapenade-static.jsonl"
+status_ledger = "cases/tapenade-exact/inventory/tapenade-status.csv"
+static_triage = "cases/tapenade-exact/inventory/tapenade-static.jsonl"
 tracked_ledger = "docs/generated/tapenade-tracked-files.csv"
 
 # These six roots are Tapenade's checked-in regression and example corpus.

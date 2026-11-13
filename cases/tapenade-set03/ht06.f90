@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 subroutine titi(n, x, y)
 real :: x, y, z
 integer, dimension(:) :: n

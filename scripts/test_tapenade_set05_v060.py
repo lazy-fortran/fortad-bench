@@ -16,7 +16,7 @@ class V060PromotionTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_closes_only_the_selected_row(self):
-        with (ROOT / 'docs/corpora/tapenade-status.csv').open(newline='') as stream:
+        with (ROOT / 'cases/tapenade-exact/inventory/tapenade-status.csv').open(newline='') as stream:
             rows = {row['path']: row for row in csv.DictReader(stream)}
         row = rows['nonRegressions/set05/v060']
         self.assertEqual(row['status'], 'runnable-ported')

@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine cgl_pressure_tensor(n, z, y)
     !! cgl_pressure_tensor over a batch, its outputs summed.
     !!

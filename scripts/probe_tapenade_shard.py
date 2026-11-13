@@ -21,8 +21,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 UPSTREAM = ROOT / "upstream" / "tapenade"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
-REPORT = ROOT / "docs" / "corpora" / "tapenade-known-failures.md"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
+REPORT = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-known-failures.md"
 REVISION = "e59864cab441d4175df75383b3ff58c3dcd26df9"
 FIXED_SUFFIXES = {".f", ".for", ".ftn"}
 MISSING_RE = re.compile(

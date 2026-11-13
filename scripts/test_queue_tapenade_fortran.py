@@ -312,7 +312,7 @@ class QueueClassificationTests(unittest.TestCase):
 class CommittedQueueTests(unittest.TestCase):
     def test_checked_in_queue_has_expected_partition(self):
         root = Path(__file__).resolve().parent.parent
-        rows = [json.loads(line) for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()]
+        rows = [json.loads(line) for line in (root / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl").read_text().splitlines()]
         self.assertEqual(len(rows), 833)
         self.assertEqual(
             Counter(row["queue_category"] for row in rows),
@@ -332,7 +332,7 @@ class CommittedQueueTests(unittest.TestCase):
 
     def test_measured_shard_closes_exactly_four_rows(self):
         root = Path(__file__).resolve().parent.parent
-        ledger = queue.read_ledger(root / "docs/corpora/tapenade-status.csv")
+        ledger = queue.read_ledger(root / "cases/tapenade-exact/inventory/tapenade-status.csv")
         observed = {
             (row["component"], row["path"]): row["status"]
             for row in ledger
@@ -343,7 +343,7 @@ class CommittedQueueTests(unittest.TestCase):
             (row["component"], row["path"])
             for row in (
                 json.loads(line)
-                for line in (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text().splitlines()
+                for line in (root / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl").read_text().splitlines()
             )
         }
         untriaged = {
@@ -358,10 +358,10 @@ class CommittedQueueTests(unittest.TestCase):
     def test_queue_is_reproducible_from_committed_inputs(self):
         root = Path(__file__).resolve().parent.parent
         expected = queue.render_queue(queue.build_queue(
-            queue.read_ledger(root / "docs/corpora/tapenade-status.csv"),
-            queue.read_triage(root / "docs/corpora/tapenade-static.jsonl"),
+            queue.read_ledger(root / "cases/tapenade-exact/inventory/tapenade-status.csv"),
+            queue.read_triage(root / "cases/tapenade-exact/inventory/tapenade-static.jsonl"),
         ))
-        actual = (root / "docs/corpora/tapenade-fortran-queue.jsonl").read_text()
+        actual = (root / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl").read_text()
         self.assertEqual(actual, expected)
 
 

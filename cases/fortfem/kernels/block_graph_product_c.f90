@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine block_graph_product(n, z, y) bind(C, name="block_graph_product")
     !! block_graph_product over a batch, its outputs summed.
     !!

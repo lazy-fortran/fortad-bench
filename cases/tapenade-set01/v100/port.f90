@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 subroutine head_v100_port(x_in, x_out, y)
   implicit none
   double precision, dimension(1) :: x_in

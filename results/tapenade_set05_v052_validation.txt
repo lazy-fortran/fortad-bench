@@ -31,6 +31,7 @@ independent_oracle: hand JVP/VJP, central-difference sweep, and adjoint identity
 runtime_wall_seconds=0.00
 runtime_peak_rss_kb=2812
 oracle_status: pass
+source_attribution_note: the redistributed v052.f90 adds only the INRIA copyright and licence-reference header after this run; hashes below identify the measured source bytes
 source_sha256:
 b5143080ebc1545e8f8be03742f072340f0fcc057cb674bf298dca57d97f4dbb  cases/tapenade-set05/v052.f90
 50449f7d0214bf9d5fa91ff5793d78e09bb40f12a1bf44536b05dc351430e79e  cases/tapenade-set05/hand_derivative_v052.f90

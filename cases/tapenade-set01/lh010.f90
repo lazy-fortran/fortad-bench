@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! SPDX-License-Identifier: MIT
 ! Adapted from Tapenade nonRegressions/set01/lh010/program.f at e59864c.
 module tapenade_set01_lh010_case

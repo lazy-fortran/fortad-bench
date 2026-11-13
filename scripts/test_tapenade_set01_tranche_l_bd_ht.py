@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RESULT = ROOT / "results" / "tapenade_set01_tranche_l_bd_ht_validation.txt"
 MANIFEST = ROOT / "cases" / "tapenade-set01" / "tranche-l-bd-ht-manifest.toml"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 
 
 class TrancheLBdHtEvidence(unittest.TestCase):

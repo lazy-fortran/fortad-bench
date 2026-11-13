@@ -21,7 +21,7 @@ class TrancheLEvidenceTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_records_one_support_and_two_boundaries(self):
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set01/lh017"]["status"], "runnable-ported")
         self.assertEqual(rows["nonRegressions/set01/lh022"]["status"], "expected-refusal")

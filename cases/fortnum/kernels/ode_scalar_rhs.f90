@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine ode_scalar_rhs(n, z, y)
     !! ode_scalar_rhs, as Enzyme differentiates it in fortnum, applied over a batch.
     !!

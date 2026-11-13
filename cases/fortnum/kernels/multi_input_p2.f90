@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine multi_input_p2(n, z, y)
     !! Sum of sines plus half the square of the sum, 2 inputs.
     !!

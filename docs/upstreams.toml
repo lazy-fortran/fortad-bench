@@ -1,7 +1,8 @@
 # fortad upstream inspection baseline
 #
 # Every entry is a third-party project fortad studies. Nothing listed here is
-# vendored, copied, or redistributed. `scripts/fetch_upstreams.py` clones each
+# vendored as an engine. Documented workload ports are listed in PROVENANCE.md.
+# `scripts/fetch_upstreams.py` clones each
 # entry into the gitignored `upstream/` tree for local reading only.
 #
 # Fields
@@ -556,7 +557,7 @@ adapt = "none"
 name = "differentiable-fortran"
 url = "https://github.com/lazy-fortran/differentiable-fortran.git"
 ref = "f3649a267026d1f621f3a85329a78856d8d1000a"
-license = "MIT"
+license = "Apache-2.0"
 category = "corpus"
 level = "cross-toolchain comparison harness"
 inspect = ["solutions/", "docs/contract.md", "studies/enzyme-readme/"]
@@ -564,4 +565,4 @@ why = """Our own existing harness: one fixed 1D heat-equation step implemented
 across Flang+Enzyme, LFortran+Enzyme, analytical Fortran, JAX, PyTorch and
 several interop paths, with a fixed benchmark protocol. fortad plugs in as one
 more `solutions/` entry and inherits the protocol instead of inventing one."""
-adapt = "harness reuse - same project, same MIT licence"
+adapt = "Enzyme-inspired workload source and adapted per-kernel forms; Apache-2.0 notices in LICENSES; see PROVENANCE.md"

@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULT = ROOT / "results/tapenade_set05_set06_tranche_b_validation.txt"
-LEDGER = ROOT / "docs/corpora/tapenade-status.csv"
+LEDGER = ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv"
 
 
 class Set05Set06TrancheBEvidenceTests(unittest.TestCase):

@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine fixed_quadrature_integrand(n, z, y)
     !! fixed_quadrature_integrand, as Enzyme differentiates it in fortnum, applied over a batch.
     !!

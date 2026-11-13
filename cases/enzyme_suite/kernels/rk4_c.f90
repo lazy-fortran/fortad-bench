@@ -1,3 +1,7 @@
+! Copyright 2026 lazy-fortran contributors
+! SPDX-License-Identifier: Apache-2.0
+! Adapted from differentiable-fortran; see PROVENANCE.md and
+! LICENSES/Differentiable-Fortran-Apache-2.0.txt.
 subroutine rk4(n, z, y) bind(C, name="rk4")
     use, intrinsic :: iso_c_binding, only: c_int, c_double
     implicit none

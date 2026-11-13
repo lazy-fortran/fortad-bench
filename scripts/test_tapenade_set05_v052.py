@@ -31,7 +31,7 @@ class V052EvidenceTests(unittest.TestCase):
         self.assertIn('id = "v052"', manifest)
         self.assertIn('independent = ["x"]', manifest)
 
-    def test_report_hashes_owned_sources(self):
+    def test_report_hashes_measured_sources(self):
         report = (ROOT / "results/tapenade_set05_v052_validation.txt").read_text()
         hashes = {}
         for line in report.split("source_sha256:\n", 1)[1].split(
@@ -48,7 +48,15 @@ class V052EvidenceTests(unittest.TestCase):
             "harness/bench_tapenade_set05_v052.f90",
             "scripts/bench_tapenade_set05_v052.sh",
         ):
-            digest = hashlib.sha256((ROOT / relative).read_bytes()).hexdigest()
+            source = (ROOT / relative).read_bytes()
+            if relative == "cases/tapenade-set05/v052.f90":
+                notice = (
+                    "! Copyright (©) 1999-2021 INRIA\n"
+                    "! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.\n"
+                ).encode()
+                self.assertTrue(source.startswith(notice))
+                source = source[len(notice):]
+            digest = hashlib.sha256(source).hexdigest()
             self.assertEqual(hashes[relative], digest)
 
 

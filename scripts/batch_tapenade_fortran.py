@@ -16,11 +16,11 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_QUEUE = ROOT / "docs/corpora/tapenade-fortran-queue.jsonl"
-DEFAULT_COMPILER = ROOT / "docs/corpora/tapenade-fortran-compiler.jsonl"
-DEFAULT_STATIC = ROOT / "docs/corpora/tapenade-static.jsonl"
-DEFAULT_OUTPUT = ROOT / "docs/corpora/tapenade-fortran-batch.jsonl"
-DEFAULT_SUMMARY = ROOT / "docs/corpora/tapenade-fortran-batch.md"
+DEFAULT_QUEUE = ROOT / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl"
+DEFAULT_COMPILER = ROOT / "cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl"
+DEFAULT_STATIC = ROOT / "cases/tapenade-exact/inventory/tapenade-static.jsonl"
+DEFAULT_OUTPUT = ROOT / "cases/tapenade-exact/inventory/tapenade-fortran-batch.jsonl"
+DEFAULT_SUMMARY = ROOT / "cases/tapenade-exact/inventory/tapenade-fortran-batch.md"
 SCHEMA_VERSION = 1
 FORTRAN_SUFFIXES = frozenset(
     {".f", ".for", ".ftn", ".f77", ".f90", ".f95", ".f03", ".f08", ".f18", ".f2k", ".inc", ".fh"}

@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine vector_root_residual_two(n, z, y)
     !! vector_root_residual_two, as Enzyme differentiates it in fortnum, applied over a batch.
     !!
