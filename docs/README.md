@@ -33,3 +33,10 @@ Run `python3 -m unittest discover -s scripts -p 'test_*.py'` for the script test
 Exact-source contracts also use the pinned Tapenade checkout fetched by
 `scripts/fetch_upstreams.py --corpus tapenade`. Full benchmark runs may require
 additional compilers or external tools; their absence is a verification limit.
+
+The [compiler matrix](../scripts/check_compilers.sh) compiles scalar forward,
+scalar reverse and vector forward derivatives with each required compiler,
+including object-code generation for LFortran modules. Its separate LLVM Flang
+vectorization probe uses `-ffast-math -fno-protect-parens`, permitting reassociation and changes to
+rounding in reductions. Compilation and vectorization results are separate
+from numerical derivative validation.

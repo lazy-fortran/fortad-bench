@@ -27,11 +27,11 @@ mkdir -p "$out" results
 
 source=cases/compiler_matrix/primal_plain.f90
 "$fortad_bin" --mode reverse --indep a,b --module k_adjoint \
-    -o "$out/adjoint.f90" "$source" || exit 1
+    --output "$out/adjoint.f90" "$source" || exit 1
 "$fortad_bin" --indep a,b --module k_tangent \
-    -o "$out/tangent.f90" "$source" || exit 1
-"$fortad_bin" --indep a,b -d n_dir --module k_tangent_v \
-    -o "$out/tangent_v.f90" "$source" || exit 1
+    --output "$out/tangent.f90" "$source" || exit 1
+"$fortad_bin" --indep a,b --directions n_dir --module k_tangent_v \
+    --output "$out/tangent_v.f90" "$source" || exit 1
 
 echo "compiler,file,result" > results/compiler_matrix.csv
 failures=0
@@ -43,8 +43,13 @@ for fc in gfortran flang-new ifx nvfortran lfortran; do
         failures=$((failures + 1))
         continue
     fi
+    compile_flags=(-c)
+    # LFortran otherwise defers module bodies instead of emitting object code.
+    if [ "$fc" = lfortran ]; then
+        compile_flags=(--separate-compilation -c)
+    fi
     for f in adjoint tangent tangent_v; do
-        if ( cd "$out" && "$fc" -c "$f.f90" -o "$f.$fc.o" ) >"$out/$f.$fc.log" 2>&1; then
+        if ( cd "$out" && "$fc" "${compile_flags[@]}" "$f.f90" -o "$f.$fc.o" ) >"$out/$f.$fc.log" 2>&1; then
             echo "$fc,$f,ok" >> results/compiler_matrix.csv
             printf '  %-10s %-10s ok\n' "$fc" "$f"
         else
@@ -69,7 +74,8 @@ else
     vector_failures=$((vector_failures + 1))
 fi
 
-if ( cd "$out" && flang-new -O3 -ffast-math \
+# Flang protects source parentheses even under fast-math.
+if ( cd "$out" && flang-new -O3 -ffast-math -fno-protect-parens \
     -Rpass=loop-vectorize -Rpass-missed=loop-vectorize -c adjoint.f90 \
     -o adjoint.flang.vec.o ) 2>"$out/adjoint.flang.vec.log" \
     && grep -q "vectorized loop" "$out/adjoint.flang.vec.log"; then
