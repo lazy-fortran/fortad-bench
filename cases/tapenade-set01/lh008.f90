@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Port of Tapenade nonRegressions/set01/lh008/program.f at e59864c.
 ! objective gives reverse mode one scalar dependent while retaining the
 ! original local-state updates and final y=0 write.

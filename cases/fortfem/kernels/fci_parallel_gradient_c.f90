@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine fci_parallel_gradient(n, z, y) bind(C, name="fci_parallel_gradient")
     !! fci_parallel_gradient over a batch, its outputs summed.
     !!

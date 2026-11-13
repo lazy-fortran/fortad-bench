@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming port of the returned top observable.
 !
 ! The exact corpus has an invalid procedure dummy named COMPUTE that is also

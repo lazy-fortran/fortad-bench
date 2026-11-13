@@ -74,7 +74,7 @@ class B04ContractTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_and_queue_close_only_b04(self) -> None:
-        with (BENCH / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (BENCH / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         row = rows["examples/big01/B04"]
         self.assertEqual(row["status"], "unsupported-invalid-upstream-fortran")
@@ -87,7 +87,7 @@ class B04ContractTests(unittest.TestCase):
             row["fortad_result"],
             "expected-refusal-exact-parse-invalid-character-line-20599-no-output",
         )
-        queue = (BENCH / "docs/corpora/tapenade-fortran-queue.jsonl").read_text()
+        queue = (BENCH / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl").read_text()
         self.assertNotIn('"path":"examples/big01/B04"', queue)
 
 

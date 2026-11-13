@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Standards-clean port of the active computation in Tapenade set06/v314.
 ! The upstream eor table is inert in the differentiated routine.
 ! SPDX-License-Identifier: MIT

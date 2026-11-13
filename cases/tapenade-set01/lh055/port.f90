@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 subroutine set01_lh055(a, b)
   use iso_fortran_env, only: real64
   implicit none

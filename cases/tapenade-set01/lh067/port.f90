@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded normal-read-path port of nonRegressions/set01/lh067/program.f.
 ! The original READ has no computational effect on the successful path.  This
 ! witness retains its integer ncmax conversion and deliberately excludes the

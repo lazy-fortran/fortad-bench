@@ -12,8 +12,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_TRIAGE = ROOT / "docs" / "corpora" / "tapenade-static.jsonl"
-DEFAULT_LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+DEFAULT_TRIAGE = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-static.jsonl"
+DEFAULT_LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 KNOWN_TARGET_LANGUAGES = frozenset({"c", "c++", "cuda", "julia"})
 TARGET_LANGUAGES = KNOWN_TARGET_LANGUAGES | {"unknown"}
 LEDGER_COLUMNS = (

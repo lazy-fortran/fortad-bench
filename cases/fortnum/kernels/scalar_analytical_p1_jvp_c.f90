@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine scalar_analytical_p1_jvp(n, z, y) bind(C, name="scalar_analytical_p1_jvp")
     !! scalar_analytical_p1_jvp, as Enzyme differentiates it in fortnum, applied over a batch.
     !!

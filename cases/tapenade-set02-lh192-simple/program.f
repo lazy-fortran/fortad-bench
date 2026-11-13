@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 C Check the possibilities of better adjoint using CHECKPOINT-START/END
       SUBROUTINE test(x,y,pkz)
 

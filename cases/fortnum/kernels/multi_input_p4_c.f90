@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine multi_input_p4(n, z, y) bind(C, name="multi_input_p4")
     !! Sum of sines plus half the square of the sum, 4 inputs.
     !!

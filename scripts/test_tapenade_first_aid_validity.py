@@ -24,7 +24,7 @@ class FirstAidValidityEvidenceTests(unittest.TestCase):
         self.assertIn("tapenade_oracle: fresh parser, forward, and reverse", report)
 
     def test_ledger_row_is_an_expected_refusal(self):
-        ledger = ROOT / "docs/corpora/tapenade-status.csv"
+        ledger = ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv"
         with ledger.open(encoding="utf-8", newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         row = rows["ADFirstAidKit/validityTest.f"]

@@ -21,7 +21,7 @@ class Lh086EvidenceTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_row_closes_lh086(self):
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(
             encoding="utf-8", newline=""
         ) as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}

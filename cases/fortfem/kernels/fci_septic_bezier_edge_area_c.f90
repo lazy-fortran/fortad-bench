@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine fci_septic_bezier_edge_area(n, z, y) bind(C, name="fci_septic_bezier_edge_area")
     !! fci_septic_bezier_edge_area over a batch, its outputs summed.
     !!

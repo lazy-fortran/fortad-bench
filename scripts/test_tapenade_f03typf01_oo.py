@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 REPORT = ROOT / "results" / "tapenade_f03typf01_oo_validation.txt"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 RUNNER = ROOT / "scripts" / "bench_tapenade_f03typf01_oo.sh"
 
 

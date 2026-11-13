@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine cartesian_to_toroidal(n, z, y) bind(C, name="cartesian_to_toroidal")
     !! cartesian_to_toroidal over a batch, its outputs summed.
     !!

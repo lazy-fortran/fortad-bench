@@ -8,8 +8,8 @@ fortad_revision = "2f61545"
 source_form = "fixed"
 runner = "cases/tapenade-set02/lh194/run.sh"
 result = "cases/tapenade-set02/lh194/result.txt"
-compiler_report = "docs/corpora/tapenade-fortran-compiler.jsonl"
-compiler_batch = "docs/corpora/tapenade-fortran-batch.jsonl"
+compiler_report = "cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl"
+compiler_batch = "cases/tapenade-exact/inventory/tapenade-fortran-batch.jsonl"
 queue_category = "runnable-program-candidate"
 queue_rank = 40
 

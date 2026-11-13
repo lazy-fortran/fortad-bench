@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine fci_curved_quadrilateral_cell_area(n, z, y)
     !! fci_curved_quadrilateral_cell_area over a batch, its outputs summed.
     !!

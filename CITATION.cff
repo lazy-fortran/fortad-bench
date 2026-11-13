@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "Please cite the version used for your work."
+type: software
+title: "fortad-bench: correctness and performance workloads for automatic differentiation"
+authors:
+  - family-names: Albert
+    given-names: Christopher
+repository-code: "https://github.com/lazy-fortran/fortad-bench"
+url: "https://github.com/lazy-fortran/fortad-bench"
+license: MIT
+abstract: >-
+  Fortran derivative workloads, independent correctness oracles, corpus contracts
+  and recorded comparisons of automatic differentiation tools. Ported workloads
+  retain their original licences and notices.

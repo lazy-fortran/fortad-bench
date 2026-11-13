@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 MANIFEST = ROOT / "cases/tapenade-set03/tranche-q-manifest.toml"
 RESULT = ROOT / "results/tapenade_set03_tranche_q_validation.txt"
-LEDGER = ROOT / "docs/corpora/tapenade-status.csv"
+LEDGER = ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv"
 
 
 class Set03TrancheQTests(unittest.TestCase):
@@ -72,7 +72,11 @@ class Set03TrancheQTests(unittest.TestCase):
             upstream = ROOT / f"upstream/tapenade/nonRegressions/set03/{case}/program.f90"
             self.assertEqual(
                 hashlib.sha256(local.read_bytes()).digest(),
-                hashlib.sha256(upstream.read_bytes()).digest(),
+                hashlib.sha256(
+                    "! Copyright (©) 1999-2021 INRIA\n".encode()
+                    + b"! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.\n"
+                    + upstream.read_bytes()
+                ).digest(),
                 case,
             )
 

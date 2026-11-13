@@ -1,3 +1,7 @@
+! Copyright 2026 lazy-fortran contributors
+! SPDX-License-Identifier: Apache-2.0
+! Adapted from differentiable-fortran; see PROVENANCE.md and
+! LICENSES/Differentiable-Fortran-Apache-2.0.txt.
 subroutine rk4(n, z, y)
     integer, intent(in) :: n
     real(8), intent(in) :: z(n)

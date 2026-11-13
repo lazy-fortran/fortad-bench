@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming port of Tapenade nonRegressions/set01/lh029/program.f.
 module tapenade_set01_lh029_case
     use, intrinsic :: iso_fortran_env, only: dp => real64

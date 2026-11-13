@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded, standard-conforming oracle port of
 ! Tapenade nonRegressions/set01/lh007/program.f.
 !

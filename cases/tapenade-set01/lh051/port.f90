@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming port of nonRegressions/set01/lh051/program.f.
 ! The original fixed-form labeled DO is expressed structurally here; n and o
 ! remain integer controls and are held fixed for differentiation.

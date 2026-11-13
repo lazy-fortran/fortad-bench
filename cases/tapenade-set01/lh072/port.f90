@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming specialization of the fixed-form lh072 case.
 !
 ! The upstream callback is defined locally as EXTF, but FortAD cannot inline

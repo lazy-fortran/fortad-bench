@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Standards-clean port of the active map in Tapenade nonRegressions/set05/v168.
 ! The overwritten intermediate x is represented by local temporaries.
 ! SPDX-License-Identifier: MIT

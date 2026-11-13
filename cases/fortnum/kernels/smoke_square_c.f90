@@ -1,3 +1,6 @@
+! Copyright (c) 2025 lazy-fortran
+! SPDX-License-Identifier: MIT
+! Adapted from fortnum; see PROVENANCE.md and LICENSES/Fortnum-MIT.txt.
 subroutine smoke_square(n, z, y) bind(C, name="smoke_square")
     !! smoke_square, as Enzyme differentiates it in fortnum, applied over a batch.
     !!

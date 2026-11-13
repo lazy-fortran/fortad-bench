@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! SPDX-License-Identifier: MIT
 !
 ! Bounded standard-conforming port of Tapenade

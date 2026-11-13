@@ -29,9 +29,9 @@ from typing import Callable
 
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_CHECKOUT = ROOT / "upstream" / "tapenade"
-DEFAULT_QUEUE = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.jsonl"
-DEFAULT_REPORT = ROOT / "docs" / "corpora" / "tapenade-fortran-compiler.jsonl"
-DEFAULT_SUMMARY = ROOT / "docs" / "corpora" / "tapenade-fortran-compiler.md"
+DEFAULT_QUEUE = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-queue.jsonl"
+DEFAULT_REPORT = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-compiler.jsonl"
+DEFAULT_SUMMARY = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-compiler.md"
 SCHEMA_VERSION = 1
 EVIDENCE_SCOPE = (
     "individual gfortran syntax-only compile; no transformation, runtime, "
