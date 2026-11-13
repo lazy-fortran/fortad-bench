@@ -1,22 +1,7 @@
 name: Tapenade full corpus contract
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/tapenade-corpus.yml"
-      - "docs/corpora/tapenade.toml"
-      - "docs/upstreams.toml"
-      - "scripts/fetch_upstreams.py"
-      - "scripts/test_fetch_upstreams.py"
-  pull_request:
-    paths:
-      - ".github/workflows/tapenade-corpus.yml"
-      - "docs/corpora/tapenade.toml"
-      - "docs/upstreams.toml"
-      - "scripts/fetch_upstreams.py"
-      - "scripts/test_fetch_upstreams.py"
-  workflow_dispatch:
+  merge_group:
 
 jobs:
   full-corpus:
