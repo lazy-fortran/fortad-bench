@@ -20,7 +20,7 @@ class Lh033047EvidenceTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_closes_one_support_and_two_source_boundaries(self):
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set01/lh033"]["status"], "expected-refusal")
         self.assertEqual(rows["nonRegressions/set01/lh033"]["tapenade_result"],

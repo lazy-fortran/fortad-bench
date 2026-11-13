@@ -51,7 +51,7 @@ class V069ClosureTests(unittest.TestCase):
         self.assertIn("nonRegressions/set05/v069/program_d.f90", manifest["stored_references"])
 
     def test_ledger_closes_only_v069(self) -> None:
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set05/v069"]["status"], "unsupported-invalid-upstream-fortran")
         self.assertEqual(

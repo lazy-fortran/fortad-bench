@@ -22,7 +22,7 @@ scripts/fetch_upstreams.py --audit-corpora
 ```
 
 The offline audit also checks
-[`corpora/tapenade-status.csv`](corpora/tapenade-status.csv). The CSV has one
+[`../cases/tapenade-exact/inventory/tapenade-status.csv`](../cases/tapenade-exact/inventory/tapenade-status.csv). The CSV has one
 row for each candidate in the pinned Git tree. Recreate the initial scaffold
 from an audited checkout with:
 
@@ -71,7 +71,7 @@ case.
 
 ## Static triage
 
-[`corpora/tapenade-static.jsonl`](corpora/tapenade-static.jsonl) records source
+[`../cases/tapenade-exact/inventory/tapenade-static.jsonl`](../cases/tapenade-exact/inventory/tapenade-static.jsonl) records source
 metadata for every candidate. Regenerate it from the audited checkout with:
 
 ```bash
@@ -126,8 +126,8 @@ scripts/queue_tapenade_fortran.py
 scripts/queue_tapenade_fortran.py --check
 ```
 
-[`corpora/tapenade-fortran-queue.jsonl`](corpora/tapenade-fortran-queue.jsonl)
-and its [summary](corpora/tapenade-fortran-queue.md) partition the 1,101 rows
+[`../cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl`](../cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl)
+and its [summary](../cases/tapenade-exact/inventory/tapenade-fortran-queue.md) partition the 1,101 rows
 into 74 mixed-language-risk candidates, 0 historical-failure candidates, 0
  rows with no entry-point hint, 238 program candidates, and 789 procedure
 candidates. An orthogonal `missing-dependency-risk` category covers 112 rows
@@ -173,8 +173,8 @@ scripts/triage_tapenade_fortran.py \
   --merge-input results/triage/shard-1.jsonl \
   --merge-input results/triage/shard-2.jsonl \
   --merge-input results/triage/shard-3.jsonl \
-  --output docs/corpora/tapenade-fortran-compiler.jsonl \
-  --summary docs/corpora/tapenade-fortran-compiler.md
+  --output cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl \
+  --summary cases/tapenade-exact/inventory/tapenade-fortran-compiler.md
 ```
 
 Merge refuses partial or duplicate coverage, queue/source-set drift, mixed
@@ -183,8 +183,8 @@ result remains evidence-neutral input for the batch handoff; it never changes
 the curated status ledger or adds a derivative claim. A merge is the only
 supported way to replace the canonical report after sharded triage.
 
-[`corpora/tapenade-fortran-compiler.jsonl`](corpora/tapenade-fortran-compiler.jsonl)
-and its [summary](corpora/tapenade-fortran-compiler.md) contain one stable row
+[`../cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl`](../cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl)
+and its [summary](../cases/tapenade-exact/inventory/tapenade-fortran-compiler.md) contain one stable row
 per queued candidate and one status/hash record per tracked Fortran source.
 The latest complete full-queue run accepted 1,874 files, rejected 1,399 with
 syntax or dependency diagnostics, and listed 74 include fragments without
@@ -198,7 +198,7 @@ report from shards. The generated report is intentionally separate from the
 ledger, so compiler-only coverage can be refreshed without reclassifying any
 candidate.
 
-The [bounded known-failure and large-example report](corpora/tapenade-known-failures.md)
+The [bounded known-failure and large-example report](../cases/tapenade-exact/inventory/tapenade-known-failures.md)
 adds compiler and Tapenade parser evidence for 59 additional rows. It is still
 source-viability evidence. Every row remains `untriaged` until generated-code
 and independent numerical-oracle gates exist.
@@ -364,7 +364,7 @@ support. The independent oracle passes only defined primal behavior (including
 central differences for the affine and constant models). It is deliberately
 separate from the refusal classification. Exact source/reference hashes,
 compiler-clean handoff, diagnostics, and the four status values are recorded
-in the [shard manifest and result](../cases/tapenade-queue-shard-next/README.md).
+in the [shard manifest and result](../cases/tapenade-exact/next/README.md).
 
 The following modern-feature shard closes four more compiler-clean,
 no-missing-dependency rows: `set04/ptr08` and `set04/ptr07` (`remove`),
@@ -373,7 +373,7 @@ sources are ranked by a documented modern-feature score. Tapenade passes the
 three-mode probes; FortAD records recursive pointer ownership, pointer-target
 lifetime, and no-active-dependent boundaries. Independent primal/source/
 refusal models pass, with no derivative-support claim. See the [modern-feature
-shard manifest and result](../cases/tapenade-queue-shard-next-modern/README.md).
+shard manifest and result](../cases/tapenade-exact/next-modern/README.md).
 
 The next8 modern-feature shard closes four compiler-clean, no-missing-dependency
 rows: `set03/cmv07`, `set10/lh234`, `set06/v237`, and `set03/cm30`. Fresh
@@ -381,53 +381,53 @@ Tapenade parser/forward/reverse probes pass for all four. FortAD records explici
 boundaries for module-owned mutable state, active derived components, module
 pointers, and pointer storage identity. Independent primal, derivative, and
 refusal oracles pass without claiming derivative support. See the [next8 shard
-manifest and result](../cases/tapenade-queue-shard-next8/README.md).
+manifest and result](../cases/tapenade-exact/next8/README.md).
 
 The next9 modern-feature shard closes four compiler-clean, no-missing-dependency
 rows: `set06/v290`, `set03/cm33`, `set03/lh056`, and `set03/cm26`. Fresh Tapenade
 parser/forward/reverse probes pass for all four. FortAD records nested internal
 procedure, module-owned mutable state, and pointer storage identity boundaries.
 Independent arithmetic, pointer, and ownership oracles pass without claiming
-derivative support. See the [next9 shard manifest and result](../cases/tapenade-queue-shard-next9/README.md).
+derivative support. See the [next9 shard manifest and result](../cases/tapenade-exact/next9/README.md).
 
 The next10 through next16 modern-feature shards close twenty-eight more
 compiler-clean, no-missing-dependency rows with fresh Tapenade/FortAD probes,
 exact source hashes, and independent behavioral contracts. The next13 rows are
 `set06/v364`, `set04/lh112`, `set03/lh051`, and `set03/cm25`; see the [next13
-shard manifest and result](../cases/tapenade-queue-shard-next13/README.md). The
+shard manifest and result](../cases/tapenade-exact/next13/README.md). The
 next14 rows are `set04/v004`, `set07/v531`, `set04/lh108`, and `set04/v048`; see
-the [next14 shard manifest and result](../cases/tapenade-queue-shard-next14/README.md).
+the [next14 shard manifest and result](../cases/tapenade-exact/next14/README.md).
 The next15 rows are `set05/v077`, `set11/vpf20`, `set10/lh230`, and
 `set10/lh232`; the next16 rows are `set03/cm05`, `set03/cm10`, `set03/cm34`,
 and `set03/lh013`. Next16 records three deliberate pointer/global-state
 refusals and one runnable derived-type affine procedure. Next17 records the
 next four queue-order set01 rows with active-I/O, character-substring,
 legacy-labeled-DO, and invalid-generated-interface boundaries. See the [next16
-shard](../cases/tapenade-queue-shard-next16/README.md) and [next17
-shard](../cases/tapenade-queue-shard-next17/README.md). The next18 shard adds
+shard](../cases/tapenade-exact/next16/README.md) and [next17
+shard](../cases/tapenade-exact/next17/README.md). The next18 shard adds
 the following four queue-order rows, `set01/lh099`, `lh101`, `lh106`, and
 `lh108`, with explicit DO WHILE, COMMON/derived-storage, reverse
 dependent-selection, and COMMON/undefined-storage boundaries. See the
-[next18 shard](../cases/tapenade-queue-shard-next18/README.md). The next19 shard
+[next18 shard](../cases/tapenade-exact/next18/README.md). The next19 shard
 adds the following queue-order rows `set01/lh110` through `set01/lh113`, with
 independent legacy-inference, array-liveness, piecewise scalar, and invalid-DO
-oracles; see its [manifest and result](../cases/tapenade-queue-shard-next19/README.md).
+oracles; see its [manifest and result](../cases/tapenade-exact/next19/README.md).
 The next20 shard adds `set01/lh114`, `lh115`, `lh117`, and `lh118` with
 dependent-inference, mutating-call, COMMON-state, and active-I/O boundaries;
-see its [manifest and result](../cases/tapenade-queue-shard-next20/README.md).
+see its [manifest and result](../cases/tapenade-exact/next20/README.md).
 
 The next24 modern-feature shard adds `set07/v398`, `set07/v529`, `set04/lh142`,
 and `set11/vpf21`. It records nested pointer-derived context, two module-state
 refusals, and an overloaded derived-type context boundary. Fresh pinned
 Tapenade products, exact FortAD diagnostics, source hashes, and independent
-behavioral oracles are in its [manifest and result](../cases/tapenade-queue-shard-next24/README.md).
+behavioral oracles are in its [manifest and result](../cases/tapenade-exact/next24/README.md).
 
 The next25 modern-feature shard adds `set06/v346`, `set07/v397`, `set11/vpf15`,
 and `set03/cm23` by the same fixed score and real-entry rule. It records
 pointer-alias, generic-call, allocatable-call, and generated derived-type
 context boundaries. Fresh pinned Tapenade products, exact FortAD diagnostics,
 source hashes, and independent numerical/refusal oracles are in its [manifest
-and result](../cases/tapenade-queue-shard-next25/README.md).
+and result](../cases/tapenade-exact/next25/README.md).
 
 The next26 wave-six shard adds `set04/lh113`, `set11/ompl07`, `set05/v179`,
 and `set06/v341`; next27 adds `set07/v434`, `set07/v542`, `set04/lh107`, and
@@ -440,7 +440,7 @@ the generated standalone sources fail the strict syntax boundary, so no runtime
 or derivative-support claim is made; it records explicit pointer, derived-type,
 and module-state refusals for the other three. Exact source/reference hashes,
 FortAD diagnostics, and independent bounded behavior/refusal oracles are in the
-[next28 shard manifest and result](../cases/tapenade-queue-shard-next28/README.md);
+[next28 shard manifest and result](../cases/tapenade-exact/next28/README.md);
 none is classified as invalid upstream.
 
 The next29 modern-feature shard closes the next four compiler-clean,
@@ -450,7 +450,7 @@ parser/forward/reverse probes pass for all four. FortAD records an unsupported
 module array-section boundary, a same-file procedure-call actual boundary, and
 two reverse dependent-inference refusals. Exact source/reference hashes,
 FortAD diagnostics, and independent bounded behavior/refusal oracles are in the
-[next29 shard manifest and result](../cases/tapenade-queue-shard-next29/README.md);
+[next29 shard manifest and result](../cases/tapenade-exact/next29/README.md);
 none is classified as invalid upstream.
 
 The next30 modern-feature shard closes the following four compiler-clean,
@@ -460,7 +460,7 @@ parser/forward/reverse probes pass for the selected roots. FortAD records a
 same-file call-actual boundary, two module-level allocatable-state refusals,
 and a non-allocatable pointer-target lifetime refusal. Exact source/reference
 hashes, FortAD diagnostics, and independent bounded behavior/refusal oracles
-are in the [next30 shard manifest and result](../cases/tapenade-queue-shard-next30/README.md);
+are in the [next30 shard manifest and result](../cases/tapenade-exact/next30/README.md);
 none is classified as invalid upstream.
 
 The next31 modern-feature shard closes the following four compiler-clean,
@@ -470,7 +470,7 @@ parser/forward/reverse probes pass for the selected roots. FortAD records
 dependent-inference, passed-procedure callback/module-state, module-alias
 independent-inference, and local-interface refusals. Exact source/reference
 hashes, FortAD diagnostics, and independent bounded behavior/refusal oracles
-are in the [next31 shard manifest and result](../cases/tapenade-queue-shard-next31/README.md);
+are in the [next31 shard manifest and result](../cases/tapenade-exact/next31/README.md);
 none is classified as invalid upstream.
 
 The next32 modern-feature shard closes the following four compiler-clean,
@@ -479,7 +479,7 @@ dependency-safe procedure rows: `set03/lh094`, `set04/ptr09`, `set06/v222`, and
 Tapenade parser/forward/reverse probes pass for the selected roots. FortAD
 records derived-type, pointer-association, local-interface, and derived-pointer
 refusals. Exact source/reference hashes, FortAD diagnostics, and independent
-bounded behavior/refusal oracles are in the [next32 shard manifest and result](../cases/tapenade-queue-shard-next32/README.md);
+bounded behavior/refusal oracles are in the [next32 shard manifest and result](../cases/tapenade-exact/next32/README.md);
 none is classified as invalid upstream.
 
 The next33 modern-feature shard closes the following four compiler-clean,
@@ -489,7 +489,7 @@ parser/forward/reverse probes pass for the selected roots. FortAD records
 same-file call mapping, local-interface, generic-swap, and reverse
 dependent-inference boundaries. Exact source/reference hashes, FortAD
 diagnostics, and independent behavioral/refusal oracles are in the [next33
-shard manifest and result](../cases/tapenade-queue-shard-next33/README.md);
+shard manifest and result](../cases/tapenade-exact/next33/README.md);
 none is classified as invalid upstream.
 
 The next34 modern-feature shard closes the following four compiler-clean,
@@ -499,7 +499,7 @@ parser/forward/reverse probes pass for the selected roots. FortAD records three
 module-level mutable-state refusals and, with explicit dependent `Y`, one local
 allocatable deallocation-lifetime refusal. Exact source/reference hashes,
 FortAD diagnostics, and independent behavioral/refusal oracles are in the
-[next34 shard manifest and result](../cases/tapenade-queue-shard-next34/README.md);
+[next34 shard manifest and result](../cases/tapenade-exact/next34/README.md);
 none is classified as invalid upstream.
 
 The next36 modern-feature shard closes the following four compiler-clean,
@@ -509,7 +509,7 @@ Fresh pinned Tapenade parser/forward/reverse probes pass for all four roots.
 FortAD records three generated-interface syntax boundaries for the generic
 elemental roots and an active-I/O refusal at line 51 of the OpenMP example.
 Exact source/reference hashes, FortAD diagnostics, and independent
-behavioral/refusal oracles are in the [next36 shard manifest and result](../cases/tapenade-queue-shard-next36/README.md);
+behavioral/refusal oracles are in the [next36 shard manifest and result](../cases/tapenade-exact/next36/README.md);
 none is classified as invalid upstream.
 
 The next37 modern-feature shard closes the following four compiler-clean,
@@ -518,7 +518,7 @@ dependency-safe rows at fixed scores 32, 30, 24, and 24: `set05/v182`,
 parser/forward/reverse probes pass for all four roots. FortAD records generic
 call, formatted-I/O, whole-file program-unit, and allocatable-dummy call
 boundaries. Exact source/reference hashes, FortAD diagnostics, and independent
-behavioral/refusal oracles are in the [next37 shard manifest and result](../cases/tapenade-queue-shard-next37/README.md);
+behavioral/refusal oracles are in the [next37 shard manifest and result](../cases/tapenade-exact/next37/README.md);
 none is classified as invalid upstream.
 
 The next38 modern-feature shard closes the following four compiler-clean,
@@ -529,7 +529,7 @@ array-reduction reverse generated-syntax failure, parser/forward `SPREAD`
 support with a reverse dependent-inference boundary, a local-interface refusal,
 and generated function-result interface failures.
 Exact source/reference hashes, FortAD diagnostics, and independent
-behavioral/refusal oracles are in the [next38 shard manifest and result](../cases/tapenade-queue-shard-next38/README.md);
+behavioral/refusal oracles are in the [next38 shard manifest and result](../cases/tapenade-exact/next38/README.md);
 none is classified as invalid upstream.
 
 The next39 modern-feature shard closes the following four compiler-clean,
@@ -539,7 +539,7 @@ parser/forward/reverse probes pass for all four roots. FortAD records two
 reverse dependent-inference refusals, a reverse generated rank error, and a
 multiple-allocation lifetime refusal. Exact source/reference hashes, automatic
 fetch provenance, FortAD diagnostics, and independent behavioral/refusal
-oracles are in the [next39 shard manifest and result](../cases/tapenade-queue-shard-next39/README.md);
+oracles are in the [next39 shard manifest and result](../cases/tapenade-exact/next39/README.md);
 none is classified as invalid upstream.
 
 The next40 modern-feature shard closes the following four compiler-clean,
@@ -549,7 +549,7 @@ probes pass for all four roots. FortAD records three legacy derived-type
 declaration refusals and one reverse dependent-inference refusal. Exact
 source/reference hashes, automatic fetch provenance, FortAD diagnostics, and
 independent behavioral/refusal oracles are in the [next40 shard manifest and
-result](../cases/tapenade-queue-shard-next40/README.md); none is classified as
+result](../cases/tapenade-exact/next40/README.md); none is classified as
 invalid upstream.
 
 The next41 modern-feature shard closes the following four compiler-clean,
@@ -559,7 +559,7 @@ probes pass for all four roots. FortAD records three module-level allocatable
 mutable-state refusals and one local derived-type declaration refusal. Exact
 source/reference hashes, automatic fetch provenance, FortAD diagnostics, and
 independent behavioral/refusal oracles are in the [next41 shard manifest and
-result](../cases/tapenade-queue-shard-next41/README.md); none is classified as
+result](../cases/tapenade-exact/next41/README.md); none is classified as
 invalid upstream.
 
 The next42 modern-feature shard closes the following four compiler-clean,
@@ -570,7 +570,7 @@ context boundaries (including two reverse dependent-inference refusals) and
 one active-`PRINT` refusal at source line 15. Exact source/reference hashes,
 automatic fetch provenance, isolated generated-source syntax checks, FortAD
 diagnostics, and independent behavioral/refusal oracles are in the [next42
-shard manifest and result](../cases/tapenade-queue-shard-next42/README.md);
+shard manifest and result](../cases/tapenade-exact/next42/README.md);
 none is classified as invalid upstream.
 
 The next43 modern-feature shard closes the following four compiler-clean,
@@ -581,7 +581,7 @@ local-interface, and derived-type declaration/component boundaries; no row is
 classified as invalid upstream. Exact source/reference hashes, automatic-fetch
 provenance, generated-source syntax checks, FortAD diagnostics, and independent
 behavioral/refusal oracles are in the [next43 shard manifest and
-result](../cases/tapenade-queue-shard-next43/README.md).
+result](../cases/tapenade-exact/next43/README.md).
 
 The next44 modern-feature shard closes four compiler-clean procedure leaders:
 `set06/v315` (`msg1`), `set03/lh087` (`cross_prod`), `set11/html01` (`barf`),
@@ -593,7 +593,7 @@ boundary, and a pointer storage boundary for the other actionable rows.
 `bd09` is classified separately as an invalid-upstream closure because it
 allocates `cindex` twice before deallocation. Exact hashes, compiler evidence,
 diagnostics, and independent behavioral/refusal oracles are in the [next44
-shard manifest and result](../cases/tapenade-queue-shard-next44/README.md).
+shard manifest and result](../cases/tapenade-exact/next44/README.md).
 
 The next45 modern-feature shard closes four compiler-clean pointer-alias
 leaders: `set03/cm01`, `set03/cm02`, `set03/cm03`, and `set06/v338`. Fresh
@@ -602,7 +602,7 @@ FortAD records pointer storage-identity refusals for all four; `v338` also
 contains module-level mutable pointer state, which remains outside the
 approved policy even after pointer support improves. Exact hashes, compiler
 evidence, diagnostics, and independent behavioral/refusal oracles are in the
-[next45 shard manifest and result](../cases/tapenade-queue-shard-next45/README.md).
+[next45 shard manifest and result](../cases/tapenade-exact/next45/README.md).
 
 The next46 modern-feature shard closes four compiler-clean procedure leaders:
 `set04/v036`, `set06/v274`, `set06/v275`, and `set03/cm17`. Tapenade passes
@@ -610,7 +610,7 @@ parser, forward, and reverse generation for all four. FortAD records three
 explicit global-mutable-state policy refusals and one pointer storage-identity
 refusal, each with an independent bounded behavioral oracle. Exact hashes,
 compiler evidence, diagnostics, and refusal boundaries are in the
-[next46 shard manifest and result](../cases/tapenade-queue-shard-next46/README.md).
+[next46 shard manifest and result](../cases/tapenade-exact/next46/README.md).
 
 The next47 modern-feature shard closes four score-14, compiler-clean,
 dependency-safe procedure leaders in committed queue order: `set03/cm27`,
@@ -619,7 +619,7 @@ and reverse generation for all four. FortAD records three pointer-association
 and one TARGET alias storage-identity refusal, each with an independent bounded
 behavior/refusal oracle. Exact hashes, compiler evidence, diagnostics, and
 refusal boundaries are in the
-[next47 shard manifest and result](../cases/tapenade-queue-shard-next47/README.md).
+[next47 shard manifest and result](../cases/tapenade-exact/next47/README.md).
 
 The next48 modern-feature shard closes the next four compiler-clean,
 dependency-safe procedure leaders in committed queue order: `set05/v153`,
@@ -628,7 +628,7 @@ and reverse generation for all four. FortAD records no-independent-variable,
 derived-type-constructor, and invalid-generated-interface boundaries, with
 independent behavior/refusal oracles and exact source/reference hashes. The
 probe base is FortAD `692f2e0` with FortFront `6c27ca86`.
-See the [next48 shard manifest and result](../cases/tapenade-queue-shard-next48/README.md).
+See the [next48 shard manifest and result](../cases/tapenade-exact/next48/README.md).
 
 The next49 modern-feature shard closes 48 compiler-clean, dependency-safe
 callable procedure roots selected by the fixed score and committed queue order.
@@ -636,7 +636,7 @@ Tapenade passes parser, forward, and reverse generation for every exact root.
 FortAD `2636206…` generates all three products for 14 cases and records
 phase-specific refusals for 34; independent source-map and refusal oracles,
 exact source/reference hashes, and full phase diagnostics are in the
-[next49 shard manifest and result](../cases/tapenade-queue-shard-next49/README.md).
+[next49 shard manifest and result](../cases/tapenade-exact/next49/README.md).
 
 The next50 modern-feature shard closes 48 further compiler-clean,
 dependency-safe callable roots after next49: one score-4 root, 44 score-3
@@ -645,7 +645,7 @@ passes parser, forward, and reverse for all 48 exact roots. Historical FortAD
 `65280f5…` generates all three products for 14 and records explicit
 phase-specific refusals for 34. Independent source-map/refusal oracles, exact
 source/reference hashes, full phase diagnostics, and current engine pins are
-in the [next50 shard manifest and result](../cases/tapenade-queue-shard-next50/README.md).
+in the [next50 shard manifest and result](../cases/tapenade-exact/next50/README.md).
 
 The next51 modern-feature shard closes the next 48 compiler-clean,
 dependency-safe callable roots after next50. All remaining eligible roots had
@@ -654,7 +654,7 @@ forward, and reverse for all 48 exact roots; historical FortAD `be82f5d…` emit
 all three products for 4 and records explicit phase-specific refusals for 44.
 Independent source-map/refusal oracles, exact hashes, full diagnostics, and
 current FortAD/FortFront pins are in the
-[next51 shard manifest and result](../cases/tapenade-queue-shard-next51/README.md).
+[next51 shard manifest and result](../cases/tapenade-exact/next51/README.md).
   Global mutable state, COMMON/module legacy, I/O, ENTRY/DATA/directive legacy,
   call mapping, dependent inference, and other refusal boundaries are intentional
   evidence boundaries, not product failures.
@@ -666,7 +666,7 @@ passes parser, forward, and reverse for all 48 exact roots; current FortAD
 `3a6d299…` emits all three products for 16 and records explicit phase-specific
 refusals for 32. Independent source-map/refusal oracles, exact hashes, full
 diagnostics, and current FortAD/FortFront pins are in the
-[next52 shard manifest and result](../cases/tapenade-queue-shard-next52/README.md).
+[next52 shard manifest and result](../cases/tapenade-exact/next52/README.md).
 
 The next53 shard closes 48 further compiler-clean, dependency-safe callable
 roots after next52: 17 free-form roots followed by 31 fixed-form roots in
@@ -675,7 +675,7 @@ exact roots; current FortAD `9244637…` emits all three products for 6 and
 records explicit phase-specific refusals for 42. Independent source-map and
 refusal oracles, exact hashes, full diagnostics, and current FortFront
 `960e90be…` provenance are in the
-[next53 shard manifest and result](../cases/tapenade-queue-shard-next53/README.md).
+[next53 shard manifest and result](../cases/tapenade-exact/next53/README.md).
 
 The current six-case set01 closeout covers `lh093`, `lh094`, `lh097`, `lh098`,
 `lh102`, and `lh103`. Each has a pinned manifest, fresh Tapenade

@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULT = ROOT / "results" / "tapenade_set01_lh007_015_refusal_validation.txt"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 MANIFEST = ROOT / "cases" / "tapenade-set01" / \
     "tranche-l-lh007-015-manifest.toml"
 HARNESS = ROOT / "harness" / "bench_tapenade_set01_lh007_015.f90"

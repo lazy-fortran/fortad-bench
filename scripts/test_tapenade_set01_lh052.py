@@ -21,7 +21,7 @@ class Lh052RefusalTests(unittest.TestCase):
         self.assertIn("refusal_oracle_status: pass", report)
 
     def test_ledger_marks_only_lh052_as_refused(self):
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = list(csv.DictReader(stream))
         row = next(item for item in rows if item["path"] == "nonRegressions/set01/lh052")
         nearby = next(item for item in rows if item["path"] == "nonRegressions/set01/lh057")

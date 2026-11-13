@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine helmholtz_single_layer_smooth_integrand(n, z, y) bind(C, name="helmholtz_single_layer_smooth_integrand")
     !! helmholtz_single_layer_smooth_integrand over a batch, its outputs summed.
     !!

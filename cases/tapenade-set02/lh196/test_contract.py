@@ -71,7 +71,7 @@ class Lh196ContractTests(unittest.TestCase):
             "oracle_status: pass",
         ):
             self.assertIn(marker, report)
-        with (BENCH / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (BENCH / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         row = rows["nonRegressions/set02/lh196"]
         self.assertEqual(row["status"], "expected-refusal")

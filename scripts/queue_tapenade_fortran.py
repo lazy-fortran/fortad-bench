@@ -17,10 +17,10 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_TRIAGE = ROOT / "docs" / "corpora" / "tapenade-static.jsonl"
-DEFAULT_LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
-DEFAULT_QUEUE = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.jsonl"
-DEFAULT_SUMMARY = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.md"
+DEFAULT_TRIAGE = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-static.jsonl"
+DEFAULT_LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
+DEFAULT_QUEUE = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-queue.jsonl"
+DEFAULT_SUMMARY = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-queue.md"
 SCHEMA_VERSION = 1
 LEDGER_COLUMNS = (
     "component",

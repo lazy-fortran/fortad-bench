@@ -92,7 +92,7 @@ class Lh194ContractTests(unittest.TestCase):
     def test_automatic_compiler_inventory_records_all_fixed_sources(self) -> None:
         compiler_rows = [
             json.loads(line)
-            for line in (BENCH / "docs/corpora/tapenade-fortran-compiler.jsonl")
+            for line in (BENCH / "cases/tapenade-exact/inventory/tapenade-fortran-compiler.jsonl")
             .read_text(encoding="utf-8")
             .splitlines()
             if line
@@ -111,7 +111,7 @@ class Lh194ContractTests(unittest.TestCase):
             self.assertEqual(files[path]["diagnostic_hash"], digest)
         batch_rows = [
             json.loads(line)
-            for line in (BENCH / "docs/corpora/tapenade-fortran-batch.jsonl")
+            for line in (BENCH / "cases/tapenade-exact/inventory/tapenade-fortran-batch.jsonl")
             .read_text(encoding="utf-8")
             .splitlines()
             if line
@@ -121,14 +121,14 @@ class Lh194ContractTests(unittest.TestCase):
         self.assertEqual(batch["next_action"], "resolve-dependency-or-record-refusal")
 
     def test_ledger_and_queue_close_only_lh194(self) -> None:
-        with (BENCH / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (BENCH / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         row = rows["nonRegressions/set02/lh194"]
         self.assertEqual(row["status"], "blocked-missing-dependency")
         self.assertEqual(row["entry_point"], "head(x,y)")
         self.assertEqual(row["tapenade_result"], "not-run-missing-dependency")
         self.assertEqual(row["fortad_result"], "not-run-missing-dependency")
-        queue = (BENCH / "docs/corpora/tapenade-fortran-queue.jsonl").read_text()
+        queue = (BENCH / "cases/tapenade-exact/inventory/tapenade-fortran-queue.jsonl").read_text()
         self.assertNotIn("nonRegressions/set02/lh194", queue)
 
 

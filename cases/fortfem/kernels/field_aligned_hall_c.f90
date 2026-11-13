@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine field_aligned_hall(n, z, y) bind(C, name="field_aligned_hall")
     !! field_aligned_hall over a batch, its outputs summed.
     !!

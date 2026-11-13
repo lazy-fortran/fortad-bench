@@ -1,3 +1,4 @@
+! MIT license text: LICENSES/Tapenade-MIT.txt.
 ! Copyright (c) 1999-2021 INRIA
 ! SPDX-License-Identifier: MIT
 !

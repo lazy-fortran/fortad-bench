@@ -97,8 +97,8 @@ class MaterializationTests(unittest.TestCase):
 class CommittedLedgerTests(unittest.TestCase):
     def test_committed_ledger_matches_static_materialization(self):
         root = Path(__file__).resolve().parent.parent
-        ledger_path = root / "docs" / "corpora" / "tapenade-status.csv"
-        triage_path = root / "docs" / "corpora" / "tapenade-static.jsonl"
+        ledger_path = root / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
+        triage_path = root / "cases" / "tapenade-exact" / "inventory" / "tapenade-static.jsonl"
         ledger = classifier.read_ledger(ledger_path)
         triage = classifier.read_triage(triage_path)
 

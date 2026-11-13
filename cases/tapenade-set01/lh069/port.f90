@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded scalar specialization of nonRegressions/set01/lh069/program.f.
 ! The upstream source has an uninitialized local N.  This port exposes N as
 ! an integer control and is used only with n=10, 4*a4>a8, and 4*a4<=b8.

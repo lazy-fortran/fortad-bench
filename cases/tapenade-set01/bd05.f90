@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded, standard-conforming port of Tapenade nonRegressions/set01/bd05/program.f.
 ! The upstream case mutates A and C in place and leaves I implicit.  This
 ! bounded port declares I, retains HEAD's call to LEAF and both product loops,

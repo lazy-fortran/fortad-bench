@@ -5,7 +5,7 @@ author = "krystophny"
 license = "MIT"
 
 [dependencies]
-fortplot = { path = "../fortplot" }
+fortplot = { git = "https://github.com/lazy-fortran/fortplot.git", rev = "f73aa692017c57ecffd43c6aeeace68e4e4a0133" }
 
 [build]
 auto-examples = false

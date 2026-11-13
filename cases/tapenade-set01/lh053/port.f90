@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Bounded standard-conforming port of set01/lh053/program.f.
 !
 ! The upstream routine obtains NC and RCAL from COMMON/EQUIVALENCE and calls

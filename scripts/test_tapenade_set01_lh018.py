@@ -18,7 +18,7 @@ class Lh018EvidenceTests(unittest.TestCase):
         self.assertIn("tapenade_oracle: fresh parser, tangent, and reverse", report)
 
     def test_ledger_row_is_runnable_after_promotion(self):
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(
             encoding="utf-8", newline=""
         ) as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}

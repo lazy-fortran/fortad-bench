@@ -1,3 +1,6 @@
+! Copyright (c) 2024 Institute for Theoretical Physics, University of Innsbruck
+! SPDX-License-Identifier: MIT
+! Adapted from fortfem; see PROVENANCE.md and LICENSES/Fortfem-MIT.txt.
 subroutine surface_integral_contribution(n, z, y) bind(C, name="surface_integral_contribution")
     !! surface_integral_contribution over a batch, its outputs summed.
     !!

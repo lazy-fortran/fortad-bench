@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Structured bounded port of nonRegressions/set01/lh059/program.f.
 ! The mutable index and the GOTO-5 path are retained explicitly; n and the
 ! initial i are controls, while t and u remain the differentiated arrays.

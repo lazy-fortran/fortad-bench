@@ -8,12 +8,14 @@ governing document. This file records the benchmark-specific rules.
 
 **This is not legal advice.** It records the project's engineering policy.
 
-## 1. Nothing third-party is redistributed
+## 1. Harness and external engines
 
-fortad-bench is MIT licensed and contains only its own work. Competing engines,
-their sources, and their build trees are fetched locally into gitignored
-directories by `scripts/`, and never committed, released, or shipped in a
-container image.
+The original fortad-bench harness is MIT licensed. Competing engine source
+and build trees are fetched into ignored directories by `scripts/` and are
+not distributed with it. Ported workload sources are the exception: they
+retain their upstream licences and notices as listed in [PROVENANCE.md](PROVENANCE.md)
+and `LICENSES/`. Tapenade ports use MIT; sources reused from
+differentiable-fortran use Apache-2.0.
 
 Benchmark *results* (timings, memory, generated-code size, engine version) are
 measurements we made. They are facts about our machine and they are committed.
@@ -23,8 +25,9 @@ Engine *code* is not.
 
 CoDiPack (GPL-3), Clad (LGPL), ColPack (LGPL), CasADi (LGPL), SU2 (LGPL) and
 similar are built as **separate programs or separate builds** and invoked as
-subprocesses. No fortad or fortad-bench binary links them. There is therefore no
-combined work and no licence obligation propagating into this repository.
+subprocesses. The harness invokes these builds through their command-line interfaces.
+Engine binaries and source trees are excluded from the distributed harness;
+any separate distribution must retain the terms of the engine concerned.
 
 An adapter under `engines/` may contain the build recipe and the command line for
 such an engine. It may not contain the engine's code, and it may not contain code
@@ -53,11 +56,11 @@ only with its copyright notice and a `PROVENANCE.md` row.
 Publishing a benchmark that misrepresents another project is a reputational and
 occasionally a legal problem. Every engine is configured to its documented best
 practice, its version is recorded, and where we are unsure we have configured it
-well, the result says so. See README rule 4.
+well, the result says so. See [the comparison rules](docs/benchmarks.md#rules-for-a-number-to-count).
 
 ## 5. Contributor checklist
 
-1. `git status --porcelain` shows no third-party source.
+1. No third-party source is added except a documented workload port with its licence and notice.
 2. No engine source tree is inside a committed path.
 3. Any ported workload has its `PROVENANCE.md` row and upstream notice.
 4. Any published comparison names the engine version and the flags used.

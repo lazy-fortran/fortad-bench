@@ -7,7 +7,7 @@ import unittest
 
 ROOT = Path(__file__).resolve().parent.parent
 RESULT = ROOT / "results" / "tapenade_set01_tranche_k_refusal_validation.txt"
-LEDGER = ROOT / "docs" / "corpora" / "tapenade-status.csv"
+LEDGER = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-status.csv"
 MANIFEST = ROOT / "cases" / "tapenade-set01" / "tranche-k-manifest.toml"
 HARNESS = ROOT / "harness" / "bench_tapenade_set01_tranche_k.f90"
 

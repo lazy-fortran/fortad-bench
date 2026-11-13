@@ -36,8 +36,8 @@ from typing import Any, Iterable
 
 ROOT = Path(__file__).resolve().parent.parent
 UPSTREAM = ROOT / "upstream" / "tapenade"
-QUEUE = ROOT / "docs" / "corpora" / "tapenade-fortran-queue.jsonl"
-STATIC = ROOT / "docs" / "corpora" / "tapenade-static.jsonl"
+QUEUE = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-fortran-queue.jsonl"
+STATIC = ROOT / "cases" / "tapenade-exact" / "inventory" / "tapenade-static.jsonl"
 TAPENADE_REVISION = "e59864cab441d4175df75383b3ff58c3dcd26df9"
 FIXED_SUFFIXES = {".f", ".for", ".ftn", ".f77"}
 FORTRAN_SUFFIXES = FIXED_SUFFIXES | {".f90", ".f95", ".f03", ".f08", ".f18", ".f2k"}

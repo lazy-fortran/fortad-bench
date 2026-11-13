@@ -22,7 +22,7 @@ class Lh010EvidenceTests(unittest.TestCase):
         self.assertIn("fortad_reverse_source_bytes:", report)
 
     def test_ledger_row_is_runnable(self):
-        ledger = ROOT / "docs/corpora/tapenade-status.csv"
+        ledger = ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv"
         with ledger.open(encoding="utf-8", newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         row = rows["nonRegressions/set01/lh010"]

@@ -1,0 +1,5 @@
+Differentiable Fortran
+Copyright 2026 lazy-fortran contributors
+
+Portions reused from studies/enzyme-readme/source/kernels.f90.
+See PROVENANCE.md for the source revision and changes.

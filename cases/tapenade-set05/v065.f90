@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Standards-clean value-map extraction of one exact Tapenade
 ! nonRegressions/set05/v065 mppsum_real2 loop.
 ! The unchanged upstream source and stored references are compiled and hashed

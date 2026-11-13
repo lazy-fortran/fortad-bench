@@ -1,3 +1,5 @@
+! Copyright (©) 1999-2021 INRIA
+! Tapenade source/port; MIT license in LICENSES/Tapenade-MIT.txt.
 ! Standards-clean extraction of the exact Tapenade M::func(t,u) closure.
 ! The unchanged upstream source is compiled and hashed by v062_run.sh.
 ! SPDX-License-Identifier: MIT

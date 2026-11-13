@@ -44,7 +44,7 @@ class V067BoundaryTests(unittest.TestCase):
             self.assertIn(marker, report)
 
     def test_ledger_closes_only_v067(self) -> None:
-        with (ROOT / "docs/corpora/tapenade-status.csv").open(newline="") as stream:
+        with (ROOT / "cases/tapenade-exact/inventory/tapenade-status.csv").open(newline="") as stream:
             rows = {row["path"]: row for row in csv.DictReader(stream)}
         self.assertEqual(rows["nonRegressions/set05/v067"]["status"], "expected-refusal")
         self.assertEqual(rows["nonRegressions/set05/v067"]["fortad_result"], "expected-refusal-forward-reverse-generic-call-no-output")
@@ -61,8 +61,6 @@ class V067BoundaryTests(unittest.TestCase):
     def test_independent_source_oracle_passes(self) -> None:
         oracle = load_oracle()
         upstream = Path(os.environ.get("TAPENADE_REPO", str(ROOT / "upstream/tapenade")))
-        if not upstream.is_dir():
-            upstream = Path("/mnt/storage/code/lazy-fortran/fortad-bench/upstream/tapenade")
         source_dir = upstream / "nonRegressions/set05/v067"
         completed = subprocess.run(
             ["python3", str(CASE / "v067_oracle.py"), str(source_dir)],
