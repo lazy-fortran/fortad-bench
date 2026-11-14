@@ -1,5 +1,7 @@
 # fortad-bench
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24223535.svg)](https://doi.org/10.5281/zenodo.24223535)
+
 Correctness and performance workloads for
 [fortad](https://github.com/lazy-fortran/fortad), with comparisons against
 Enzyme, Tapenade and other automatic differentiation tools. Each result records
@@ -68,3 +70,11 @@ configuration before reusing its numbers.
 The original harness uses MIT. Tapenade source ports retain INRIA's MIT notices;
 reused differentiable-fortran sources retain Apache-2.0. Full texts and notices
 are in [LICENSES](LICENSES), with source mappings in [PROVENANCE.md](PROVENANCE.md).
+
+## Citation
+
+Cite fortad-bench through its Zenodo record,
+[doi:10.5281/zenodo.24223535](https://doi.org/10.5281/zenodo.24223535), which
+always resolves to the latest release; release 0.1.0 is
+[doi:10.5281/zenodo.24223536](https://doi.org/10.5281/zenodo.24223536).
+`CITATION.cff` holds the full citation metadata.
