@@ -12,3 +12,5 @@ abstract: >-
   Fortran derivative workloads, independent correctness oracles, corpus contracts
   and recorded comparisons of automatic differentiation tools. Ported workloads
   retain their original licences and notices.
+version: "0.1.0"
+date-released: "2026-11-14"
