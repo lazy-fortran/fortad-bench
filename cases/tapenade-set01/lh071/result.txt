@@ -1,7 +1,7 @@
 case: Tapenade nonRegressions set01/set03 lh071
 classification: expected-refusal-invalid-upstream
 recorded_utc: 2026-08-07T11:31:27Z
-machine: mailuefterl
+machine: workstation
 os: CachyOS
 kernel: Linux 7.1.5-1-cachyos #1 SMP PREEMPT_DYNAMIC Mon, 27 Jul 2026 14:05:40 +0000 x86_64 GNU/Linux
 cpu: AMD Ryzen 9 5950X 16-Core Processor

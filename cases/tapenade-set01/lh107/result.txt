@@ -2,7 +2,7 @@ case: Tapenade nonRegressions/set01/lh107
 classification: runnable-upstream-fortad-multi-argument-max
 runner_result: pass
 recorded_utc: 2026-08-07T16:00:04Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 fortad_commit: d4f53760f16d4312e621f02d45aba200a197f178

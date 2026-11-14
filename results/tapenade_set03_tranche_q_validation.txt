@@ -1,6 +1,6 @@
 suite: Tapenade nonRegressions set03 tranche Q (ht05, ht06, ht12, ht13)
 recorded_utc: 2026-08-07T18:07:54Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -O2 -ffree-line-length-none -fno-lto

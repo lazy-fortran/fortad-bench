@@ -1,6 +1,6 @@
 case: tapenade nonRegressions/set01/lh083
 recorded_utc: 2026-08-07T15:12:39Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 compiler_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface

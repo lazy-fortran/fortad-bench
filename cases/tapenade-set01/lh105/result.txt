@@ -2,7 +2,7 @@ case: Tapenade nonRegressions/set01/lh105
 classification: expected-refusal-fortad-reverse-inout-adjoint-collision
 runner_result: pass
 recorded_utc: 2026-08-07T16:09:05Z
-machine: mailuefterl
+machine: workstation
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -fsyntax-only -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
 legacy_fixed_flags: -std=legacy -ffixed-form -ffixed-line-length-none -fsyntax-only -Wall -Wextra -Wimplicit-interface -fno-lto

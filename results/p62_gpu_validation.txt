@@ -52,4 +52,4 @@ regression gate:
 decision:
   Replace the parked P6.2 decision gate with the validated NVHPC/Tesla-T4
   production path.  The GCC NVPTX result remains a separately validated
-  fallback on faepop31.
+  fallback on cluster-node.

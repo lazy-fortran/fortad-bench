@@ -2,7 +2,7 @@ case: Tapenade nonRegressions set07 v523
 classification: expected-refusal-empty-source-no-entry-point
 runner_result: pass
 recorded_utc: 2026-08-07T14:39:27Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface

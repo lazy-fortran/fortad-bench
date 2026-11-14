@@ -1,7 +1,7 @@
 case: Tapenade nonRegressions set04 lh148 module1::toto
 classification: runnable-ported
 recorded_utc: 2026-08-07T19:59:27Z
-machine: mailuefterl
+machine: workstation
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_free_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto
 fortad_commit: 881df36463f349b9c1116fee605c2b6ed77e01bb

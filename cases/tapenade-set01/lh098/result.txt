@@ -1,7 +1,7 @@
 case: Tapenade nonRegressions set01 lh098 exact ff
 classification: runnable-exact-source-no-port
 recorded_utc: 2026-08-07T15:36:08Z
-machine: mailuefterl
+machine: workstation
 os: CachyOS
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728

@@ -2,7 +2,7 @@ case: Tapenade nonRegressions/set02/lh193 head(x,y) AMPI dependency boundary
 classification: blocked-missing-dependency
 runner_result: pass
 recorded_utc: 2026-08-08T01:43:39Z
-machine: mailuefterl
+machine: workstation
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 source_form: fixed
 strict_fixed_flags: -std=f2018 -ffixed-form -ffixed-line-length-none -pedantic-errors -Wall -Wextra -Wimplicit-interface -fno-lto -fsyntax-only

@@ -1,7 +1,7 @@
 case: Tapenade todoF90 REFERENCES v101 allocated local array
 classification: expected-refusal-with-bounded-forward-port
 recorded_utc: 2026-08-07T12:15:54Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 strict_compiler_flags: -std=f2018 -ffree-form -ffree-line-length-none -pedantic-errors -O2 -fno-lto -Wall -Wextra -Wimplicit-interface

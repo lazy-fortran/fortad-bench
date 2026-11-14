@@ -2,7 +2,7 @@ case: Tapenade nonRegressions set01 lh093
 classification: expected-refusal-fortad-unsupported-I-O-line-8
 runner_result: pass
 recorded_utc: 2026-08-07T15:36:08Z
-machine: mailuefterl
+machine: workstation
 cpu: AMD Ryzen 9 5950X 16-Core Processor
 compiler: GNU Fortran (GCC) 16.1.1 20260728
 fortad_commit: 49f4b3b2f4110896999916ff5eca276469d4bca8
